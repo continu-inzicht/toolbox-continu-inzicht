@@ -60,7 +60,7 @@ The sections below outline the steps in each case.
 1. make sure types are correct by running ``mypy``.
 1. make sure the existing tests still work by running `pytest`;
 1. make sure the existing documentation can still by generated without
-    warnings by running `quarto render`. [quarto](https://quarto.org/docs/computations/python.html) is required to generate docs, it can is part of the `pixi` environment created.
+    warnings by running `pixi run quarto-render`. [quarto](https://quarto.org/docs/computations/python.html) is required to generate docs, it can is part of the `pixi` environment created.
 1. add your own tests (if necessary);
 1. update or expand the documentation; Please add [Numpy Style Python
     docstrings](https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes).
