@@ -1,5 +1,4 @@
-
-# Continu inzicht toolbox
+# Continu inzicht toolbox <img align="right" src="/docs/assets/logo.png" height="32" alt='logo'></img>
 
 Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen.
 
