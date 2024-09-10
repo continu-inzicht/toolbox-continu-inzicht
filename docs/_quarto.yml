@@ -19,7 +19,7 @@ format:
     toc: true
 
 quartodoc:
-  style: pkgdown
+  style: numpy
   dir: reference
   title: API Reference
   package: continu_inzicht_toolbox
