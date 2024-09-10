@@ -2,6 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://continu-inzicht.github.io/toolbox/index.html</loc>
-    <lastmod>2024-09-10T08:52:20.360Z</lastmod>
+    <lastmod>2024-09-10T12:28:18.125Z</lastmod>
+  </url>
+  <url>
+    <loc>https://continu-inzicht.github.io/toolbox/reference/continu_inzicht_toolbox.html</loc>
+    <lastmod>2024-09-10T12:28:18.125Z</lastmod>
+  </url>
+  <url>
+    <loc>https://continu-inzicht.github.io/toolbox/reference/index.html</loc>
+    <lastmod>2024-09-10T12:28:18.125Z</lastmod>
   </url>
 </urlset>
