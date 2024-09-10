@@ -5,7 +5,7 @@ project:
 website:
   title: "Continu inzicht toolbox"
   navbar:
-    logo: docs\assets\logo.png
+    logo: https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png
     left:
       - reference/index.qmd
     right:
