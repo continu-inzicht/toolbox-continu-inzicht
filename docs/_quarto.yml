@@ -5,6 +5,7 @@ project:
 website:
   title: "Continu inzicht toolbox"
   navbar:
+    logo: docs\assets\logo.png
     left:
       - reference/index.qmd
     right:

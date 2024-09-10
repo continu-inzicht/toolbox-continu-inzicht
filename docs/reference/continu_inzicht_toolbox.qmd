@@ -20,7 +20,26 @@ Placeholder class to show how pydantic would work
 
 | Name | Description |
 | --- | --- |
+| [count_placeholders_length](#continu_inzicht_toolbox.continu_inzicht_toolbox.PlaceHolder.count_placeholders_length) | Counts the length of the placeholders of the class |
 | [print_placeholders](#continu_inzicht_toolbox.continu_inzicht_toolbox.PlaceHolder.print_placeholders) | Prints the placeholders of the class |
+
+##### count_placeholders_length { #continu_inzicht_toolbox.continu_inzicht_toolbox.PlaceHolder.count_placeholders_length }
+
+`continu_inzicht_toolbox.PlaceHolder.count_placeholders_length()`
+
+Counts the length of the placeholders of the class
+
+###### Parameters
+
+| Name   | Type   | Description   | Default    |
+|--------|--------|---------------|------------|
+| `None` |        |               | _required_ |
+
+###### Returns
+
+| Type   | Description                           |
+|--------|---------------------------------------|
+| int    | Number of charaters placeholders are. |
 
 ##### print_placeholders { #continu_inzicht_toolbox.continu_inzicht_toolbox.PlaceHolder.print_placeholders }
 
@@ -28,10 +47,11 @@ Placeholder class to show how pydantic would work
 
 Prints the placeholders of the class
 
-###### Parramters
+###### Parameters
 
-
-N: Number of times to print
+| Name   | Type   | Description                        | Default    |
+|--------|--------|------------------------------------|------------|
+| `n`    | int    | Number of times to print statement | _required_ |
 
 ###### Returns
 
