@@ -1,5 +1,5 @@
 [project]
-name = "Continu Inzicht Toolbox"
+name = "continu-inzicht-toolbox"
 version = "0.0.1"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen."
 channels = ["conda-forge"]
@@ -13,7 +13,12 @@ license-file = "LICENSE"
 install = "pre-commit install"
 
 # Docs
-quartodoc-build = { cmd = "quartodoc build && rm objects.json", cwd = "docs" }
+quartodoc-build = { cmd = "quartodoc build && rm objects.json", cwd = "docs" ,inputs = [
+    "docs/_quarto.yml",
+    "src/continu_inzicht_toolbox",
+    ],outputs = [
+    "docs/reference/"
+    ]}
 quarto-preview = { cmd = "export QUARTO_PYTHON=python && quarto preview docs", depends_on = [
     "quartodoc-build",
 ] }
@@ -63,9 +68,9 @@ tomli-w = "*"
 types-requests = "*"
 xugrid = "*"
 
+[feature.common.pypi-dependencies]
+continu_inzicht_toolbox = { path = "src/continu_inzicht_toolbox", editable = true }
+
+
 [environments]
 default = { features = ["common"] }
-
-[dependencies]
-pixi-pycharm = ">=0.0.6,<0.0.7"
-pydantic = ">=2.9.1,<3"

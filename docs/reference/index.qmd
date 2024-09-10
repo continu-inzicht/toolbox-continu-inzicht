@@ -1,0 +1,7 @@
+# API Reference {.doc .doc-index}
+
+## Continu Inzicht
+
+| | |
+| --- | --- |
+| [continu_inzicht_toolbox](continu_inzicht_toolbox.qmd#continu_inzicht_toolbox.continu_inzicht_toolbox) |  |

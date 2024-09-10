@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class PlaceHolder(BaseModel):
-    """ "
+    """
     Placeholder class to show how pydantic would work
 
     """
@@ -11,7 +11,7 @@ class PlaceHolder(BaseModel):
     holder: str
 
     def print_placeholders(self, n: int):
-        """ "
+        """
         Prints the placeholders of the class
 
         Parramters
