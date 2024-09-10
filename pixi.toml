@@ -1,0 +1,67 @@
+[project]
+name = "Continu Inzicht Toolbox"
+version = "0.0.1"
+description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen."
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64", "osx-64"]
+readme = "README.md"
+license = "GPL-3.0"
+license-file = "LICENSE"
+
+[tasks]
+# Installation
+install = "pre-commit install"
+
+# Docs
+quartodoc-build = { cmd = "quartodoc build && rm objects.json", cwd = "docs" }
+quarto-preview = { cmd = "export QUARTO_PYTHON=python && quarto preview docs", depends_on = [
+    "quartodoc-build",
+] }
+quarto-check = { cmd = "quarto check all", depends_on = ["quartodoc-build"] }
+quarto-render = { cmd = "export QUARTO_PYTHON=python && quarto render docs --to html --execute", depends_on = [
+    "quartodoc-build",
+] }
+docs = { depends_on = ["build-julia-docs", "quarto-preview"] }
+
+# Lint
+pre-commit = "pre-commit run --all-files"
+lint = { depends_on = ["pre-commit"] }
+# Test
+
+
+[feature.common.dependencies]
+bokeh = ">=3.0"
+contextily = "*"
+fiona = "*"
+geocube = "*"
+geopandas = "*"
+ipykernel = "*"
+jupyterlab = "*"
+matplotlib = "*"
+mypy = "*"
+openpyxl = "*"
+pandas = "*"
+pandas-stubs = "*"
+pandera = "*"
+pip = "*"
+pre-commit = "*"
+pyarrow = "*"
+pydantic = ">=2"
+pyogrio = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-xdist = "*"
+python = ">=3.9"
+quarto = "*"
+quartodoc = "*"
+rasterstats = "*"
+requests = "*"
+ruff = "*"
+shapely = ">=2"
+tomli = "*"
+tomli-w = "*"
+types-requests = "*"
+xugrid = "*"
+
+[environments]
+default = { features = ["common"] }
