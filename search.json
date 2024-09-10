@@ -11,14 +11,14 @@
     "href": "reference/continu_inzicht_toolbox.html",
     "title": "continu_inzicht_toolbox",
     "section": "",
-    "text": "continu_inzicht_toolbox\n\n\n\n\n\nName\nDescription\n\n\n\n\nPlaceHolder\nPlaceholder class to show how pydantic would work\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder()\nPlaceholder class to show how pydantic would work\n\n\n\n\n\nName\nDescription\n\n\n\n\nprint_placeholders\nPrints the placeholders of the class\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder.print_placeholders(n)\nPrints the placeholders of the class\n\n\nN: Number of times to print\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone"
+    "text": "continu_inzicht_toolbox\n\n\n\n\n\nName\nDescription\n\n\n\n\nPlaceHolder\nPlaceholder class to show how pydantic would work\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder()\nPlaceholder class to show how pydantic would work\n\n\n\n\n\nName\nDescription\n\n\n\n\ncount_placeholders_length\nCounts the length of the placeholders of the class\n\n\nprint_placeholders\nPrints the placeholders of the class\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder.count_placeholders_length()\nCounts the length of the placeholders of the class\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nNone\n\n\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nint\nNumber of charaters placeholders are.\n\n\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder.print_placeholders(n)\nPrints the placeholders of the class\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nn\nint\nNumber of times to print statement\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone"
   },
   {
     "objectID": "reference/continu_inzicht_toolbox.html#classes",
     "href": "reference/continu_inzicht_toolbox.html#classes",
     "title": "continu_inzicht_toolbox",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\nPlaceHolder\nPlaceholder class to show how pydantic would work\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder()\nPlaceholder class to show how pydantic would work\n\n\n\n\n\nName\nDescription\n\n\n\n\nprint_placeholders\nPrints the placeholders of the class\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder.print_placeholders(n)\nPrints the placeholders of the class\n\n\nN: Number of times to print\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone"
+    "text": "Name\nDescription\n\n\n\n\nPlaceHolder\nPlaceholder class to show how pydantic would work\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder()\nPlaceholder class to show how pydantic would work\n\n\n\n\n\nName\nDescription\n\n\n\n\ncount_placeholders_length\nCounts the length of the placeholders of the class\n\n\nprint_placeholders\nPrints the placeholders of the class\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder.count_placeholders_length()\nCounts the length of the placeholders of the class\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nNone\n\n\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nint\nNumber of charaters placeholders are.\n\n\n\n\n\n\n\ncontinu_inzicht_toolbox.PlaceHolder.print_placeholders(n)\nPrints the placeholders of the class\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nn\nint\nNumber of times to print statement\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone"
   },
   {
     "objectID": "reference/index.html",
