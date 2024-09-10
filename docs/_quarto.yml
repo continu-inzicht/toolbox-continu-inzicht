@@ -22,14 +22,20 @@ quartodoc:
   style: pkgdown
   dir: reference
   title: API Reference
-  package: null
-  options:
-    include_inherited: true
-    include_empty: true
-    include_attributes: true
-    include_classes: true
-    include_functions: true
-  sections:
-    - title: Continu inzicht toolbox
-      package: continu-inzicht-toolbox
-      desc: Toolbox voor continu inzicht
+  package: continu_inzicht_toolbox
+  sections: 
+    - title: Continu Inzicht
+      contents: 
+       - continu_inzicht_toolbox
+  # options:
+  #   include_inherited: true
+  #   include_empty: true
+  #   include_attributes: true
+  #   include_classes: true
+  #   include_functions: true
+  # # sections:
+  #   - title: Continu inzicht toolbox
+  #     desc: Toolbox voor continu inzicht
+  #     package: continu_inzicht_toolbox
+  #     content: 
+  #      - PlaceHolder

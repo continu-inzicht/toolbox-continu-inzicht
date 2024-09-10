@@ -1,0 +1,40 @@
+# continu_inzicht_toolbox { #continu_inzicht_toolbox.continu_inzicht_toolbox }
+
+`continu_inzicht_toolbox`
+
+
+
+## Classes
+
+| Name | Description |
+| --- | --- |
+| [PlaceHolder](#continu_inzicht_toolbox.continu_inzicht_toolbox.PlaceHolder) | Placeholder class to show how pydantic would work |
+
+### PlaceHolder { #continu_inzicht_toolbox.continu_inzicht_toolbox.PlaceHolder }
+
+`continu_inzicht_toolbox.PlaceHolder()`
+
+Placeholder class to show how pydantic would work
+
+#### Methods
+
+| Name | Description |
+| --- | --- |
+| [print_placeholders](#continu_inzicht_toolbox.continu_inzicht_toolbox.PlaceHolder.print_placeholders) | Prints the placeholders of the class |
+
+##### print_placeholders { #continu_inzicht_toolbox.continu_inzicht_toolbox.PlaceHolder.print_placeholders }
+
+`continu_inzicht_toolbox.PlaceHolder.print_placeholders(n)`
+
+Prints the placeholders of the class
+
+###### Parramters
+
+
+N: Number of times to print
+
+###### Returns
+
+| Type   | Description   |
+|--------|---------------|
+| None   |               |
