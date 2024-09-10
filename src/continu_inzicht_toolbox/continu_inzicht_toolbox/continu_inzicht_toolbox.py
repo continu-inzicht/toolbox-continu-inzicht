@@ -14,7 +14,7 @@ class PlaceHolder(BaseModel):
         """
         Prints the placeholders of the class
 
-        Parramters
+        Parameters
         ----------
 
         N: Number of times to print
