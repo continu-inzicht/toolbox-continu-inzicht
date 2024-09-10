@@ -1,0 +1,34 @@
+project:
+  type: website
+
+website:
+  title: "Continu inzicht toolbox"
+  navbar:
+    left:
+      - reference/index.qmd
+    right:
+      - icon: github
+        href: https://github.com/continu-inzicht/toolbox
+        aria-label: GitHub
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+quartodoc:
+  style: pkgdown
+  dir: reference
+  title: API Reference
+  package: null
+  options:
+    include_inherited: true
+    include_empty: true
+    include_attributes: true
+    include_classes: true
+    include_functions: true
+  sections:
+    - title: Continu inzicht toolbox
+      package: continu-inzicht-toolbox
+      desc: Toolbox voor continu inzicht
