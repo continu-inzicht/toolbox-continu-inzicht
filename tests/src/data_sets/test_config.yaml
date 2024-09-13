@@ -3,25 +3,25 @@ waardes_keer_twee:
   # hoe je input wilt 
   input: 
       type: csv
-      path: "test_input.csv"
+      path: 'C:\Data\Python\toolbox-continu-inzicht\tests\src\data_sets\test_csv_in.csv'
   # hoe je output wilt
   output: 
       type: csv
-      path: "test_input.csv"
+      path: 'C:\Data\Python\toolbox-continu-inzicht\tests\src\data_sets'
 
 waardes_delen_twee:
   input:
-      type: database
-      url: "https://...."
+      type: postgresql_database
+      path: "postgresql_database.file"
   output: 
-      type: database
-      path: "test_input.csv"
+      type: postgresql_database
+      path: "postgresql_database.file"
 
 
 waardes_delen_drie:
   input:
-      type: database
-      url: "https://...."
+      type: postgresql_database
+      path: "postgresql_database.file"
   output: 
-      type: database
-      path: "test_input.csv"
+      type: postgresql_database
+      path: "postgresql_database.file"

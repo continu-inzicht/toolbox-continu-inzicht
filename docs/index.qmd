@@ -10,3 +10,4 @@ De methode ‘continu inzicht’ is precies daarop gericht: ervoor zorgen dat de
 Met slimme monitoring en rekenmodellen wordt de actuele situatie geanalyseerd. 
 De beheerder ziet hoe groot het risico is en waar de zwakke plekken zitten, zodat hij of zij gericht maatregelen kan nemen. 
 Doormiddel van deze python toolbox worden de systemen 'continu inzicht' aangeboden.
+Op deze wiki zal de komende tijd meer verschijnen over het project. 

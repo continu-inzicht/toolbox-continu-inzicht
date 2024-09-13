@@ -24,11 +24,12 @@ quartodoc:
   dir: reference
   title: API Reference
   package: continu_inzicht_toolbox
-  sections: 
-    - title: Continu Inzicht
-      contents: 
-       - continu_inzicht_toolbox
-  # options:
+  # sections: 
+  #   - title: Continu Inzicht
+  #     contents: 
+  #      - continu_inzicht_toolbox
+  #      - base
+  # # options:
   #   include_inherited: true
   #   include_empty: true
   #   include_attributes: true
