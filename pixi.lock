@@ -441,7 +441,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-libxi-1.7.10-h4bc722e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-libxrender-0.9.11-hd590300_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-libxtst-1.2.5-h4bc722e_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-libxxf86vm-1.1.5-h4bc722e_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-libxxf86vm-1.1.5-hb9d3cd8_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-recordproto-1.14.2-h7f98852_1002.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-renderproto-0.11.1-h7f98852_1002.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xorg-xextproto-7.3.0-h0b41bf4_1003.conda
@@ -456,7 +456,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zlib-1.3.1-h4ab18f5_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zstandard-0.23.0-py312hef9b889_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zstd-1.5.6-ha6fb4c9_0.conda
-      - pypi: src
+      - pypi: src/continu_inzicht_toolbox
       osx-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/affine-2.4.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-types-0.7.0-pyhd8ed1ab_0.conda
@@ -854,7 +854,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zlib-1.3.1-h87427d6_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstandard-0.23.0-py312h7122b0e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.6-h915ae27_0.conda
-      - pypi: src
+      - pypi: src/continu_inzicht_toolbox
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/affine-2.4.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-types-0.7.0-pyhd8ed1ab_0.conda
@@ -1254,7 +1254,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zlib-1.3.1-h2466b09_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstandard-0.23.0-py312h7606c53_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.6-h0ea2cb4_0.conda
-      - pypi: src
+      - pypi: src/continu_inzicht_toolbox
 packages:
 - kind: conda
   name: _libgcc_mutex
@@ -3594,8 +3594,8 @@ packages:
 - kind: pypi
   name: continu-inzicht-toolbox
   version: 0.0.1
-  path: src
-  sha256: a5a1c6d876dc056d5288c771c919959a1a4d933dcac9c5cd991b22e5ec3af1ad
+  path: src/continu_inzicht_toolbox
+  sha256: 6af434121c69013072b5459ad20526998fd70133d4b21ec2d22accb9e20dd6e8
   requires_dist:
   - geopandas
   - numpy
@@ -4435,6 +4435,7 @@ packages:
   - python_abi 3.12.* *_cp312
   - shapely
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/fiona?source=hash-mapping
   size: 1175161
@@ -4463,6 +4464,7 @@ packages:
   - python_abi 3.12.* *_cp312
   - shapely
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/fiona?source=hash-mapping
   size: 1024770
@@ -4492,6 +4494,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/fiona?source=hash-mapping
   size: 975399
@@ -4945,6 +4948,7 @@ packages:
   - python >=3.12,<3.13.0a0
   - python_abi 3.12.* *_cp312
   license: MIT
+  license_family: MIT
   purls:
   - pkg:pypi/gdal?source=hash-mapping
   size: 1697617
@@ -4969,6 +4973,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls:
   - pkg:pypi/gdal?source=hash-mapping
   size: 1637570
@@ -4992,6 +4997,7 @@ packages:
   - python >=3.12,<3.13.0a0
   - python_abi 3.12.* *_cp312
   license: MIT
+  license_family: MIT
   purls:
   - pkg:pypi/gdal?source=hash-mapping
   size: 1679539
@@ -5771,6 +5777,7 @@ packages:
   - importlib_resources >=6.4.5,<6.4.6.0a0
   - python >=3.8
   license: Apache-2.0
+  license_family: APACHE
   purls: []
   size: 9595
   timestamp: 1725921472017
@@ -5805,6 +5812,7 @@ packages:
   constrains:
   - importlib-resources >=6.4.5,<6.4.6.0a0
   license: Apache-2.0
+  license_family: APACHE
   purls:
   - pkg:pypi/importlib-resources?source=compressed-mapping
   size: 32725
@@ -8133,6 +8141,7 @@ packages:
   - libgdal-tiledb 3.9.2.*
   - libgdal-xls 3.9.2.*
   license: MIT
+  license_family: MIT
   purls: []
   size: 423328
   timestamp: 1726098743251
@@ -8160,6 +8169,7 @@ packages:
   - libgdal-tiledb 3.9.2.*
   - libgdal-xls 3.9.2.*
   license: MIT
+  license_family: MIT
   purls: []
   size: 422986
   timestamp: 1726095491845
@@ -8187,6 +8197,7 @@ packages:
   - libgdal-tiledb 3.9.2.*
   - libgdal-xls 3.9.2.*
   license: MIT
+  license_family: MIT
   purls: []
   size: 422566
   timestamp: 1726093634489
@@ -8232,6 +8243,7 @@ packages:
   constrains:
   - libgdal 3.9.2.*
   license: MIT
+  license_family: MIT
   purls: []
   size: 8978330
   timestamp: 1726092675670
@@ -8276,6 +8288,7 @@ packages:
   constrains:
   - libgdal 3.9.2.*
   license: MIT
+  license_family: MIT
   purls: []
   size: 8050659
   timestamp: 1726093888991
@@ -8323,6 +8336,7 @@ packages:
   constrains:
   - libgdal 3.9.2.*
   license: MIT
+  license_family: MIT
   purls: []
   size: 10460443
   timestamp: 1726092341723
@@ -8343,6 +8357,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 496865
   timestamp: 1726096554431
@@ -8362,6 +8377,7 @@ packages:
   - libgdal-core >=3.9
   - libkml >=1.3.0,<1.4.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 469488
   timestamp: 1726094128863
@@ -8382,6 +8398,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - libstdcxx >=13
   license: MIT
+  license_family: MIT
   purls: []
   size: 477927
   timestamp: 1726093088453
@@ -8401,6 +8418,7 @@ packages:
   - libgdal-core >=3.9
   - libkml >=1.3.0,<1.4.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 663497
   timestamp: 1726094251462
@@ -8421,6 +8439,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - libstdcxx >=13
   license: MIT
+  license_family: MIT
   purls: []
   size: 723537
   timestamp: 1726093136248
@@ -8441,6 +8460,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 678203
   timestamp: 1726096748590
@@ -8462,6 +8482,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 562233
   timestamp: 1726096927503
@@ -8482,6 +8503,7 @@ packages:
   - libgdal-core >=3.9
   - libkml >=1.3.0,<1.4.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 591694
   timestamp: 1726094364531
@@ -8503,6 +8525,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - libstdcxx >=13
   license: MIT
+  license_family: MIT
   purls: []
   size: 578505
   timestamp: 1726093181011
@@ -8523,6 +8546,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - libstdcxx >=13
   license: MIT
+  license_family: MIT
   purls: []
   size: 643055
   timestamp: 1726093235520
@@ -8543,6 +8567,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 613268
   timestamp: 1726097135142
@@ -8562,6 +8587,7 @@ packages:
   - libgdal-core >=3.9
   - libkml >=1.3.0,<1.4.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 601423
   timestamp: 1726094496440
@@ -8582,6 +8608,7 @@ packages:
   - libstdcxx >=13
   - openjpeg >=2.5.2,<3.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 469108
   timestamp: 1726093273314
@@ -8601,6 +8628,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - openjpeg >=2.5.2,<3.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 464295
   timestamp: 1726094606697
@@ -8621,6 +8649,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 497665
   timestamp: 1726097310878
@@ -8643,6 +8672,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - libstdcxx >=13
   license: MIT
+  license_family: MIT
   purls: []
   size: 480381
   timestamp: 1726093574319
@@ -8665,6 +8695,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 518345
   timestamp: 1726098538348
@@ -8686,6 +8717,7 @@ packages:
   - libgdal-hdf5 3.9.2.*
   - libkml >=1.3.0,<1.4.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 475299
   timestamp: 1726095352836
@@ -8710,6 +8742,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 666378
   timestamp: 1726098736520
@@ -8733,6 +8766,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - libnetcdf >=4.9.2,<4.9.3.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 692336
   timestamp: 1726095485705
@@ -8757,6 +8791,7 @@ packages:
   - libnetcdf >=4.9.2,<4.9.3.0a0
   - libstdcxx >=13
   license: MIT
+  license_family: MIT
   purls: []
   size: 737551
   timestamp: 1726093631219
@@ -8777,6 +8812,7 @@ packages:
   - libstdcxx >=13
   - poppler
   license: MIT
+  license_family: MIT
   purls: []
   size: 667813
   timestamp: 1726093333981
@@ -8796,6 +8832,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - poppler
   license: MIT
+  license_family: MIT
   purls: []
   size: 610106
   timestamp: 1726094743209
@@ -8816,6 +8853,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 626553
   timestamp: 1726097532609
@@ -8837,6 +8875,7 @@ packages:
   - libstdcxx >=13
   - postgresql
   license: MIT
+  license_family: MIT
   purls: []
   size: 526700
   timestamp: 1726093379300
@@ -8857,6 +8896,7 @@ packages:
   - libpq >=16.4,<17.0a0
   - postgresql
   license: MIT
+  license_family: MIT
   purls: []
   size: 507951
   timestamp: 1726094861491
@@ -8878,6 +8918,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 532039
   timestamp: 1726097733407
@@ -8899,6 +8940,7 @@ packages:
   - libstdcxx >=13
   - postgresql
   license: MIT
+  license_family: MIT
   purls: []
   size: 480156
   timestamp: 1726093423575
@@ -8919,6 +8961,7 @@ packages:
   - libpq >=16.4,<17.0a0
   - postgresql
   license: MIT
+  license_family: MIT
   purls: []
   size: 470037
   timestamp: 1726094979700
@@ -8940,6 +8983,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 504874
   timestamp: 1726097929736
@@ -8960,6 +9004,7 @@ packages:
   - libstdcxx >=13
   - tiledb >=2.26.0,<2.27.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 681765
   timestamp: 1726093490312
@@ -8979,6 +9024,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - tiledb >=2.26.0,<2.27.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 630738
   timestamp: 1726095119594
@@ -8999,6 +9045,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 628075
   timestamp: 1726098183036
@@ -9019,6 +9066,7 @@ packages:
   - libkml >=1.3.0,<1.4.0a0
   - libstdcxx >=13
   license: MIT
+  license_family: MIT
   purls: []
   size: 434313
   timestamp: 1726093528376
@@ -9038,6 +9086,7 @@ packages:
   - libgdal-core >=3.9
   - libkml >=1.3.0,<1.4.0a0
   license: MIT
+  license_family: MIT
   purls: []
   size: 431816
   timestamp: 1726095230562
@@ -9058,6 +9107,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: MIT
+  license_family: MIT
   purls: []
   size: 466183
   timestamp: 1726098349141
@@ -12982,6 +13032,7 @@ packages:
   - python >=3.9
   - types-pytz >=2022.1.1
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/pandas-stubs?source=hash-mapping
   size: 98489
@@ -14425,6 +14476,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: LGPL-3.0-only
+  license_family: LGPL
   purls:
   - pkg:pypi/pyside6?source=hash-mapping
   - pkg:pypi/shiboken6?source=hash-mapping
@@ -14451,6 +14503,7 @@ packages:
   - qt6-main 6.7.2.*
   - qt6-main >=6.7.2,<6.8.0a0
   license: LGPL-3.0-only
+  license_family: LGPL
   purls:
   - pkg:pypi/pyside6?source=hash-mapping
   - pkg:pypi/shiboken6?source=hash-mapping
@@ -14515,6 +14568,7 @@ packages:
   constrains:
   - pytest-faulthandler >=2
   license: MIT
+  license_family: MIT
   purls:
   - pkg:pypi/pytest?source=hash-mapping
   size: 258293
@@ -14775,6 +14829,7 @@ packages:
   depends:
   - python >=3.7
   license: MIT
+  license_family: MIT
   purls:
   - pkg:pypi/pytz?source=hash-mapping
   size: 186995
@@ -15118,6 +15173,7 @@ packages:
   - pandoc 3.2
   - typst 0.11.0
   license: GPL-2.0-or-later
+  license_family: GPL
   purls: []
   size: 15860524
   timestamp: 1725910705704
@@ -15137,6 +15193,7 @@ packages:
   - pandoc 3.2
   - typst 0.11.0
   license: GPL-2.0-or-later
+  license_family: GPL
   purls: []
   size: 15729834
   timestamp: 1725910469278
@@ -15156,6 +15213,7 @@ packages:
   - pandoc 3.2
   - typst 0.11.0
   license: GPL-2.0-or-later
+  license_family: GPL
   purls: []
   size: 16059182
   timestamp: 1725910489963
@@ -15215,6 +15273,7 @@ packages:
   - setuptools >=0.9.8
   - snuggs >=1.4.1
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/rasterio?source=hash-mapping
   size: 7251568
@@ -15247,6 +15306,7 @@ packages:
   - setuptools >=0.9.8
   - snuggs >=1.4.1
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/rasterio?source=hash-mapping
   size: 7430252
@@ -15279,6 +15339,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/rasterio?source=hash-mapping
   size: 7448190
@@ -15672,6 +15733,7 @@ packages:
   - scipy
   - threadpoolctl >=3.1.0
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/scikit-learn?source=hash-mapping
   size: 10393222
@@ -15696,6 +15758,7 @@ packages:
   - vc >=14.2,<15
   - vc14_runtime >=14.29.30139
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/scikit-learn?source=hash-mapping
   size: 9215977
@@ -15720,6 +15783,7 @@ packages:
   - scipy
   - threadpoolctl >=3.1.0
   license: BSD-3-Clause
+  license_family: BSD
   purls:
   - pkg:pypi/scikit-learn?source=hash-mapping
   size: 9479906
@@ -17506,6 +17570,7 @@ packages:
   - cartopy >=0.22
   - toolz >=0.12
   license: Apache-2.0
+  license_family: APACHE
   purls:
   - pkg:pypi/xarray?source=compressed-mapping
   size: 802366
@@ -17977,23 +18042,23 @@ packages:
 - kind: conda
   name: xorg-libxxf86vm
   version: 1.1.5
-  build: h4bc722e_1
-  build_number: 1
+  build: hb9d3cd8_2
+  build_number: 2
   subdir: linux-64
-  url: https://conda.anaconda.org/conda-forge/linux-64/xorg-libxxf86vm-1.1.5-h4bc722e_1.conda
-  sha256: 109d6b1931d1482faa0bf6de83c7e6d9ca36bbf9d36a00a05df4f63b82fce5c3
-  md5: 0c90ad87101001080484b91bd9d2cdef
+  url: https://conda.anaconda.org/conda-forge/linux-64/xorg-libxxf86vm-1.1.5-hb9d3cd8_2.conda
+  sha256: 449e39b31711325738434f5e6db0c51c9e84d96e4005ec0acd9d1f500c05e8e7
+  md5: 1bc52d70c5dc46b1792e039b4fa120a0
   depends:
   - __glibc >=2.17,<3.0.a0
-  - libgcc-ng >=12
+  - libgcc >=13
   - xorg-libx11 >=1.8.9,<2.0a0
   - xorg-libxext >=1.3.4,<2.0a0
   - xorg-xextproto >=7.3.0,<8.0a0
   license: MIT
   license_family: MIT
   purls: []
-  size: 18443
-  timestamp: 1722110433983
+  size: 18332
+  timestamp: 1726233001299
 - kind: conda
   name: xorg-recordproto
   version: 1.14.2

@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "continu_inzicht_toolbox"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen"
-readme = "../README.md"
+readme = "README.md"
 authors = [
     { name = "David Haasnoot", email = "d.haasnoots@hkv.nl" },
     { name = "Guy Dupuits", email = "dupuits@hkv.nl" },
@@ -21,7 +21,7 @@ dependencies = ["geopandas", "numpy", "pandas", "shapely"]
 dynamic = ["version"]
 
 [tool.hatch.version]
-path = "continu_inzicht_toolbox/__init__.py"
+path = "__init__.py"
 
 
 [project.urls]
