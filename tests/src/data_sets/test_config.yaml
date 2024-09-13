@@ -1,0 +1,27 @@
+# functie naam
+waardes_keer_twee: 
+  # hoe je input wilt 
+  input: 
+      type: csv
+      path: "test_input.csv"
+  # hoe je output wilt
+  output: 
+      type: csv
+      path: "test_input.csv"
+
+waardes_delen_twee:
+  input:
+      type: database
+      url: "https://...."
+  output: 
+      type: database
+      path: "test_input.csv"
+
+
+waardes_delen_drie:
+  input:
+      type: database
+      url: "https://...."
+  output: 
+      type: database
+      path: "test_input.csv"

@@ -69,8 +69,11 @@ types-requests = "*"
 xugrid = "*"
 
 [feature.common.pypi-dependencies]
-continu_inzicht_toolbox = { path = "src/continu_inzicht_toolbox", editable = true }
+continu_inzicht_toolbox = { path = "src", editable = true }
 
 
 [environments]
 default = { features = ["common"] }
+
+[dependencies]
+yaml = ">=0.2.5,<0.3"
