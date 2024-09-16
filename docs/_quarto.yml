@@ -27,8 +27,9 @@ quartodoc:
   sections: 
     - title: Continu Inzicht
       contents: 
-       - continu_inzicht_toolbox
-  # options:
+       - base
+       - modules.voorbeeld_module
+  # # options:
   #   include_inherited: true
   #   include_empty: true
   #   include_attributes: true

@@ -4,4 +4,5 @@
 
 | | |
 | --- | --- |
-| [continu_inzicht_toolbox](continu_inzicht_toolbox.qmd#continu_inzicht_toolbox.continu_inzicht_toolbox) |  |
+| [base](base.qmd#continu_inzicht_toolbox.base) |  |
+| [modules.voorbeeld_module](modules.voorbeeld_module.qmd#continu_inzicht_toolbox.modules.voorbeeld_module) |  |

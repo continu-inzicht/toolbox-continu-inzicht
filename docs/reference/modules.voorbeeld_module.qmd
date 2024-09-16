@@ -1,0 +1,62 @@
+# modules.voorbeeld_module { #continu_inzicht_toolbox.modules.voorbeeld_module }
+
+`modules.voorbeeld_module`
+
+
+
+## Classes
+
+| Name | Description |
+| --- | --- |
+| [WaardesDelenTwee](#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee) | Voorbeeld class die laat zien hoe de arcitectuur werkt |
+| [WaardesKeerTwee](#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee) | Voorbeeld class die laat zien hoe de arcitectuur werkt |
+
+### WaardesDelenTwee { #continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee }
+
+`modules.voorbeeld_module.WaardesDelenTwee()`
+
+Voorbeeld class die laat zien hoe de arcitectuur werkt
+
+#### Methods
+
+| Name | Description |
+| --- | --- |
+| [delen_door_twee](#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.delen_door_twee) | Vermenigvuldigd de meetstation waardes met 2 als voorbeeld |
+| [run](#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.run) | Runt de funcies en stuur de df terug |
+
+##### delen_door_twee { #continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.delen_door_twee }
+
+`modules.voorbeeld_module.WaardesDelenTwee.delen_door_twee(df)`
+
+Vermenigvuldigd de meetstation waardes met 2 als voorbeeld
+
+##### run { #continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.run }
+
+`modules.voorbeeld_module.WaardesDelenTwee.run()`
+
+Runt de funcies en stuur de df terug
+
+### WaardesKeerTwee { #continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee }
+
+`modules.voorbeeld_module.WaardesKeerTwee()`
+
+Voorbeeld class die laat zien hoe de arcitectuur werkt
+
+#### Methods
+
+| Name | Description |
+| --- | --- |
+| [keer_twee](#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.keer_twee) | Deelt de meetstation waardes door 2 als voorbeeld |
+| [run](#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.run) | Runt de funcies en stuur de df terug |
+
+##### keer_twee { #continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.keer_twee }
+
+`modules.voorbeeld_module.WaardesKeerTwee.keer_twee(df)`
+
+Deelt de meetstation waardes door 2 als voorbeeld
+
+##### run { #continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.run }
+
+`modules.voorbeeld_module.WaardesKeerTwee.run()`
+
+Runt de funcies en stuur de df terug
