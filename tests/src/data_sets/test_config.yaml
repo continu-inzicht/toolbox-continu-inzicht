@@ -1,10 +1,7 @@
-# Classe naam
 WaardesKeerTwee: 
-  # hoe je input wilt 
   input: 
       type: csv
       path: 'C:\Data\Python\toolbox-continu-inzicht\tests\src\data_sets\test_csv_in.csv'
-  # hoe je output wilt
   output: 
       type: csv
       path: 'C:\Data\Python\toolbox-continu-inzicht\tests\src\data_sets\test_csv_out.csv'
@@ -13,7 +10,6 @@ WaardesDelenTwee:
   input:
       type: postgresql_database
       path: 'C:\Data\Python\toolbox-continu-inzicht\tests\src\data_sets\.passwords.yaml'
-      # alternatively specify other options here
       schema: citoolbox_schema
       table: data
   output: 

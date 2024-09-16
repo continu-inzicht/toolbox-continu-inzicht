@@ -7,11 +7,17 @@ website:
   navbar:
     logo: https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png
     left:
-      - reference/index.qmd
+      - text: "Overview"
+        file: index.qmd
+      - text: "Architectuur overzicht"
+        file: notebooks/testing.ipynb
+      - text: "API"
+        file: reference/index.qmd
     right:
       - icon: github
         href: https://github.com/continu-inzicht/toolbox
         aria-label: GitHub
+     
 
 format:
   html:
