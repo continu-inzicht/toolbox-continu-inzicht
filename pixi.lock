@@ -323,6 +323,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/prometheus_client-0.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/prompt-toolkit-3.0.47-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/psutil-6.0.0-py312h66e93f0_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/psycopg2-2.9.9-py312h08590aa_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pthread-stubs-0.4-h36c2ea0_1001.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/ptyprocess-0.7.0-pyhd3deb0d_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/pure_eval-0.2.3-pyhd8ed1ab_0.conda
@@ -749,6 +750,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/prometheus_client-0.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/prompt-toolkit-3.0.47-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/psutil-6.0.0-py312hb553811_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/psycopg2-2.9.9-py312hca9e88b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/pthread-stubs-0.4-hc929b4f_1001.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/ptyprocess-0.7.0-pyhd3deb0d_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/pure_eval-0.2.3-pyhd8ed1ab_0.conda
@@ -1145,6 +1147,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/prometheus_client-0.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/prompt-toolkit-3.0.47-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/psutil-6.0.0-py312h4389bb4_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/psycopg2-2.9.9-py312hf50bb3c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/pthread-stubs-0.4-hcd874cb_1001.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/pthreads-win32-2.9.1-hfa6e2cd_3.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/pure_eval-0.2.3-pyhd8ed1ab_0.conda
@@ -13948,6 +13951,66 @@ packages:
   - pkg:pypi/psutil?source=hash-mapping
   size: 499530
   timestamp: 1725737996873
+- kind: conda
+  name: psycopg2
+  version: 2.9.9
+  build: py312h08590aa_0
+  subdir: linux-64
+  url: https://conda.anaconda.org/conda-forge/linux-64/psycopg2-2.9.9-py312h08590aa_0.conda
+  sha256: f2c21db09e411331a9d741b46ecbc6f4ee3571f173c6014ceac0cbbc17eb5e5b
+  md5: 04c845846381625e95c88d013edfda21
+  depends:
+  - libgcc-ng >=12
+  - libpq >=16.1,<17.0a0
+  - python >=3.12,<3.13.0a0
+  - python_abi 3.12.* *_cp312
+  license: LGPL-3.0-or-later
+  license_family: LGPL
+  purls:
+  - pkg:pypi/psycopg2?source=hash-mapping
+  size: 188527
+  timestamp: 1701737750002
+- kind: conda
+  name: psycopg2
+  version: 2.9.9
+  build: py312hca9e88b_0
+  subdir: osx-64
+  url: https://conda.anaconda.org/conda-forge/osx-64/psycopg2-2.9.9-py312hca9e88b_0.conda
+  sha256: fa8f76f1ea8fa9e488dc743fb9474f6cd804692aa82f708d1f82112fcd12bb4a
+  md5: 15afd0d9970b58b13536772fd9e856a7
+  depends:
+  - libpq >=16.1,<17.0a0
+  - openssl >=3.2.0,<4.0a0
+  - python >=3.12,<3.13.0a0
+  - python_abi 3.12.* *_cp312
+  license: LGPL-3.0-or-later
+  license_family: LGPL
+  purls:
+  - pkg:pypi/psycopg2?source=hash-mapping
+  size: 164542
+  timestamp: 1701738146431
+- kind: conda
+  name: psycopg2
+  version: 2.9.9
+  build: py312hf50bb3c_0
+  subdir: win-64
+  url: https://conda.anaconda.org/conda-forge/win-64/psycopg2-2.9.9-py312hf50bb3c_0.conda
+  sha256: 4d4e231d32accb8be46b64cd0d3efa20d50599cdf3557031ce357f475e8c01b0
+  md5: 0af80526a48a63e6fa3cfb628b6a28df
+  depends:
+  - libpq >=16.1,<17.0a0
+  - openssl >=3.2.0,<4.0a0
+  - python >=3.12,<3.13.0a0
+  - python_abi 3.12.* *_cp312
+  - ucrt >=10.0.20348.0
+  - vc >=14.2,<15
+  - vc14_runtime >=14.29.30139
+  license: LGPL-3.0-or-later
+  license_family: LGPL
+  purls:
+  - pkg:pypi/psycopg2?source=hash-mapping
+  size: 170828
+  timestamp: 1701738274625
 - kind: conda
   name: pthread-stubs
   version: '0.4'

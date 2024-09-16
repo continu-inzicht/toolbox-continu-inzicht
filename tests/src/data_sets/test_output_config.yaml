@@ -1,13 +1,13 @@
-# Classe naam
+# functie naam
 WaardesKeerTwee: 
   # hoe je input wilt 
   input: 
       type: csv
-      path: 'C:\Data\Python\toolbox-continu-inzicht\tests\src\data_sets\test_csv_in.csv'
+      path: 'C:\Data\Python\toolbox-continu-inzicht\tests\src\data_sets\test_csv_out.csv'
   # hoe je output wilt
   output: 
       type: csv
-      path: 'C:\Data\Python\toolbox-continu-inzicht\tests\src\data_sets\test_csv_out.csv'
+      path: 'C:\Data\Python\toolbox-continu-inzicht\tests\src\data_sets\test_csv_out2.csv'
 
 WaardesDelenTwee:
   input:
