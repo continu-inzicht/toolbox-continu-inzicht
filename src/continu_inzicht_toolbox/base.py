@@ -72,9 +72,9 @@ class DataAdapter(PydanticBaseModel):
         functie_input_config = getattr(self.config, functie)["input"]
         # leid het data type af
         data_type = functie_input_config["type"]
-        bestand_pad = Path(
-            functie_input_config["path"]
-        )  # TO fix path to be relative unless specified
+
+        # TODO fix path to be relative unless specified
+        bestand_pad = Path(__file__).parent.parent.parent / functie_input_config["path"]
 
         # alle andere opties uit de config willen we voorrang geven op de standaard waardes uit de functies
         # in de functie is een standaard waarde gespecificeerd, de gebruiker kan deze in de config overschrijven
@@ -170,9 +170,11 @@ class DataAdapter(PydanticBaseModel):
         functie_output_config = getattr(self.config, functie)["output"]
         # leid het data type af
         data_type = functie_output_config["type"]
-        bestand_pad = Path(
-            functie_output_config["path"]
-        )  # TO fix path to be relative unless specified
+
+        # TODO fix path to be relative unless specified
+        bestand_pad = (
+            Path(__file__).parent.parent.parent / functie_output_config["path"]
+        )
 
         # alle andere opties uit de config willen we voorrang geven op de standaard waardes uit de functies
         # in de functie is een standaard waarde gespecificeerd, de gebruiker kan deze in de config overschrijven
