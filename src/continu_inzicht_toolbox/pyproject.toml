@@ -23,7 +23,10 @@ dependencies = ["geopandas", "numpy", "pandas", "shapely"]
 dynamic = ["version"]
 
 [tool.hatch.version]
-path = "continu_inzicht_toolbox/__init__.py"
+path = "__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["*"]
 
 
 [project.urls]
