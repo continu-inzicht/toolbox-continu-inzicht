@@ -8,4 +8,4 @@ if __name__ == "__main__":
     c = Config(config_path=test_data_sets_path / "test_config.yaml")
     c.lees_config()
     d = DataAdapter(config=c)
-    print(d.input("waardes_keer_twee"))
+    print(d.input("WaardesKeerTwee", **{"csv": {}}))
