@@ -18,6 +18,9 @@ website:
         href: https://github.com/continu-inzicht/toolbox
         aria-label: GitHub
      
+execute:
+  cache: true # should take the locally cached version now
+  # freeze: true
 
 format:
   html:

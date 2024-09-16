@@ -79,3 +79,6 @@ continu_inzicht_toolbox = { path = "src", editable = true }
 
 [environments]
 default = { features = ["common"] }
+
+[dependencies]
+jupyter-cache = ">=1.0.0,<2"
