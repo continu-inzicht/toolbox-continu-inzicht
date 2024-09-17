@@ -1,0 +1,8 @@
+
+WaardesDelenTwee: 
+  input:
+      type: postgresql_database
+      path: 'tests\src\data_sets\.passwords.yaml'
+  output: 
+      type: csv
+      path: 'tests\src\data_sets\test_csv_out_mix.csv'
