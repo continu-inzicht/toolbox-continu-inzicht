@@ -9,6 +9,7 @@ class WaardesDelenTwee:
     """
     Voorbeeld class die laat zien hoe de arcitectuur werkt
 
+
     """
 
     data_adapter: DataAdapter

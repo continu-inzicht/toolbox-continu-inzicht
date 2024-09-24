@@ -1,0 +1,160 @@
+# base.data_adapter { #continu_inzicht_toolbox.base.data_adapter }
+
+`base.data_adapter`
+
+
+
+## Classes
+
+| Name | Description |
+| --- | --- |
+| [DataAdapter](#continu_inzicht_toolbox.base.data_adapter.DataAdapter) | Basis DataAdapter |
+
+### DataAdapter { #continu_inzicht_toolbox.base.data_adapter.DataAdapter }
+
+`base.data_adapter.DataAdapter()`
+
+Basis DataAdapter
+
+#### Attributes
+
+| Name | Description |
+| --- | --- |
+| [config](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.config) |  |
+| [input_types](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_types) |  |
+| [output_types](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_types) |  |
+
+#### Methods
+
+| Name | Description |
+| --- | --- |
+| [initialize_input_types](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_input_types) |  |
+| [initialize_output_types](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_output_types) |  |
+| [input](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input) | Gegeven het config, stuurt de juiste input waarde aan |
+| [input_csv](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_csv) | Laat een csv bestand in gegeven een pad |
+| [input_postgresql](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_postgresql) | Schrijft data naar een postgresql database gegeven het pad naar een credential bestand. |
+| [output](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output) | Gegeven het config, stuurt de juiste input waarde aan |
+| [output_csv](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_csv) | schrijft een csv bestand in gegeven een pad |
+| [output_postgresql](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_postgresql) | Schrijft data naar een postgresql database gegeven het pad naar een credential bestand. |
+
+##### initialize_input_types { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_input_types }
+
+`base.data_adapter.DataAdapter.initialize_input_types()`
+
+
+
+##### initialize_output_types { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_output_types }
+
+`base.data_adapter.DataAdapter.initialize_output_types()`
+
+
+
+##### input { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.input }
+
+`base.data_adapter.DataAdapter.input(functie)`
+
+Gegeven het config, stuurt de juiste input waarde aan
+
+###### Parameters:
+
+functie: str
+         naam van de functie die bij het bestands type hoort
+
+opties: dict
+          extra informatie die ook naar de functie moet om het bestand te lezen
+
+##### input_csv { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_csv }
+
+`base.data_adapter.DataAdapter.input_csv(input_config)`
+
+Laat een csv bestand in gegeven een pad
+
+###### Returns:
+
+pd.Dataframe
+
+##### input_postgresql { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_postgresql }
+
+`base.data_adapter.DataAdapter.input_postgresql(input_config)`
+
+Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.
+
+###### Parametes:
+
+input_config: dict
+             in
+
+###### Notes:
+
+In de `.env` environment bestand moet staan:
+user: str
+password: str
+host: str
+port: str
+database: str
+schema: str
+
+###### Returns:
+
+pd.Dataframe
+
+##### output { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.output }
+
+`base.data_adapter.DataAdapter.output(functie, df)`
+
+Gegeven het config, stuurt de juiste input waarde aan
+
+###### Parameters:
+
+functie: str
+         naam van de functie die bij het bestands type hoort
+df: pd.Dataframe
+    pandas dataframe om weg te schrijvne
+
+opties: dict
+        extra informatie die ook naar de functie moet om het bestand te schrijven
+
+##### output_csv { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_csv }
+
+`base.data_adapter.DataAdapter.output_csv(output_config, df)`
+
+schrijft een csv bestand in gegeven een pad
+
+###### Notes:
+
+Gebruikt hiervoor de pandas.DataFrame.to_csv
+Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.
+
+###### Returns:
+
+None
+
+##### output_postgresql { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_postgresql }
+
+`base.data_adapter.DataAdapter.output_postgresql(output_config, df)`
+
+Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.
+
+###### Parametes:
+
+df: pd.Dataframe
+    dataframe met data om weg te schrijven
+opties: dict
+        dictionary met extra opties waar onder:
+            schema: str
+                    naam van het schema in de postgresql database
+            table: str
+                naam van de tabel in de postgresql database
+
+###### Notes:
+
+In het credential bestand moet staan:
+user: str
+password: str
+host: str
+port: str
+database: str
+
+###### Returns:
+
+None

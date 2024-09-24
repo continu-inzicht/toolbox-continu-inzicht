@@ -1,0 +1,46 @@
+# base.config { #continu_inzicht_toolbox.base.config }
+
+`base.config`
+
+
+
+## Classes
+
+| Name | Description |
+| --- | --- |
+| [Config](#continu_inzicht_toolbox.base.config.Config) | Basis functie om de configuratie in te laden. |
+
+### Config { #continu_inzicht_toolbox.base.config.Config }
+
+`base.config.Config()`
+
+Basis functie om de configuratie in te laden.
+
+#### Parameters
+
+| Name          | Type   | Description                                                                                      | Default    |
+|---------------|--------|--------------------------------------------------------------------------------------------------|------------|
+| `config_path` |        | Pad naar een  `.yaml` bestand waarin per functie staat beschreven wat de in/ouput bestanden zijn | _required_ |
+
+#### Attributes
+
+| Name | Description |
+| --- | --- |
+| [WaardesDelenTwee](#continu_inzicht_toolbox.base.config.Config.WaardesDelenTwee) |  |
+| [WaardesKeerTwee](#continu_inzicht_toolbox.base.config.Config.WaardesKeerTwee) |  |
+| [config_path](#continu_inzicht_toolbox.base.config.Config.config_path) |  |
+| [dump](#continu_inzicht_toolbox.base.config.Config.dump) |  |
+| [global_variables](#continu_inzicht_toolbox.base.config.Config.global_variables) |  |
+| [toegelaten_functies](#continu_inzicht_toolbox.base.config.Config.toegelaten_functies) |  |
+
+#### Methods
+
+| Name | Description |
+| --- | --- |
+| [lees_config](#continu_inzicht_toolbox.base.config.Config.lees_config) | Laad het gegeven pad in, zet de configuraties klaar in de Config class |
+
+##### lees_config { #continu_inzicht_toolbox.base.config.Config.lees_config }
+
+`base.config.Config.lees_config()`
+
+Laad het gegeven pad in, zet de configuraties klaar in de Config class

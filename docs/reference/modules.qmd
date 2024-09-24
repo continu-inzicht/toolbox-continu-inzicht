@@ -1,5 +1,0 @@
-# modules { #continu_inzicht_toolbox.modules }
-
-`modules`
-
-example class
