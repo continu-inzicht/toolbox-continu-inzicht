@@ -5,3 +5,10 @@
 .idea
 .env
 .env.template
+
+__pycache__/*
+src/continu_inzicht_toolbox/__pycache__/
+*/__pycache__/*
+src/continu_inzicht_toolbox/base/__pycache__/
+src/continu_inzicht_toolbox/proof_of_concept/__pycache__/
+src/continu_inzicht_toolbox/waterstanden/__pycache__/
