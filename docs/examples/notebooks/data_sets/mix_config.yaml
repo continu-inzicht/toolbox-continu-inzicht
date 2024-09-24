@@ -1,5 +1,5 @@
 global_variables:
-    rootdir: 'docs\examples\notebooks'
+    rootdir: 'data_sets'
 
 WaardesDelenTwee: 
     input:
@@ -8,4 +8,4 @@ WaardesDelenTwee:
 
     output: 
         type: csv
-        path: 'data_sets\test_csv_out_mix.csv'
+        path: 'test_csv_out_mix.csv'

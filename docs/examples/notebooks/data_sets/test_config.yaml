@@ -1,13 +1,13 @@
 global_variables:
-    rootdir: '\docs\examples\notebooks'
+    rootdir: 'data_sets'
 
 WaardesKeerTwee: 
     input: 
         type: csv
-        path: 'data_sets\test_csv_in.csv'
+        path: 'test_csv_in.csv'
     output: 
         type: csv
-        path: 'data_sets\test_csv_out.csv'
+        path: 'test_csv_out.csv'
 
 WaardesDelenTwee:
     input:
