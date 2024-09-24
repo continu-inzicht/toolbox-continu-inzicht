@@ -112,9 +112,12 @@ class DataAdapter(PydanticBaseModel):
         # TODO: doen we dit zo?
         table = input_config["table"]
 
+        keys = ["user", "password", "host", "port", "database", "shema"]
+        assert all(key in input_config for key in keys)
+
         # maak verbinding object
         engine = sqlalchemy.create_engine(
-            f"postgresql://{input_config['user']}:{input_config['password']}@{input_config['host']}:{input_config['port']}/{input_config['database']}"
+            f"postgresql://{input_config['user']}:{input_config['password']}@{input_config['host']}:{int(input_config['port'])}/{input_config['database']}"
         )
 
         query = f"SELECT objectid, objecttype, parameterid, datetime, value FROM {input_config['schema']}.{table};"
@@ -229,8 +232,12 @@ class DataAdapter(PydanticBaseModel):
         table = output_config["table"]
         schema = output_config["schema"]
 
+        # check all required variables are availible from the .env file
+        keys = ["user", "password", "host", "port", "database", "shema"]
+        assert all(key in output_config for key in keys)
+
         engine = sqlalchemy.create_engine(
-            f"postgresql://{output_config['user']}:{output_config['password']}@{output_config['host']}:{output_config['port']}/{output_config['database']}"
+            f"postgresql://{output_config['user']}:{output_config['password']}@{output_config['host']}:{int(output_config['port'])}/{output_config['database']}"
         )
 
         df.to_sql(
