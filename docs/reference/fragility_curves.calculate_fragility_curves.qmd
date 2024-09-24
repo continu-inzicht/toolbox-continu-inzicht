@@ -1,0 +1,4 @@
+# fragility_curves.calculate_fragility_curves { #continu_inzicht_toolbox.fragility_curves.calculate_fragility_curves }
+
+`fragility_curves.calculate_fragility_curves`
+
