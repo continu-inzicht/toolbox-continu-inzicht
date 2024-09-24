@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>modules.voorbeeld_module – Continu inzicht toolbox</title>
+<title>base.data_adapter – Continu inzicht toolbox</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -97,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../reference/index.html"> 
-<span class="menu-text">API</span></a>
+<span class="menu-text">Reference</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -122,12 +122,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#continu_inzicht_toolbox.modules.voorbeeld_module" id="toc-continu_inzicht_toolbox.modules.voorbeeld_module" class="nav-link active" data-scroll-target="#continu_inzicht_toolbox.modules.voorbeeld_module">modules.voorbeeld_module</a>
+  <li><a href="#continu_inzicht_toolbox.base.data_adapter" id="toc-continu_inzicht_toolbox.base.data_adapter" class="nav-link active" data-scroll-target="#continu_inzicht_toolbox.base.data_adapter">base.data_adapter</a>
   <ul class="collapse">
   <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
   <ul class="collapse">
-  <li><a href="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee" id="toc-continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee" class="nav-link" data-scroll-target="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee">WaardesDelenTwee</a></li>
-  <li><a href="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee" id="toc-continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee" class="nav-link" data-scroll-target="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee">WaardesKeerTwee</a></li>
+  <li><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter" id="toc-continu_inzicht_toolbox.base.data_adapter.DataAdapter" class="nav-link" data-scroll-target="#continu_inzicht_toolbox.base.data_adapter.DataAdapter">DataAdapter</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -139,9 +138,9 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="continu_inzicht_toolbox.modules.voorbeeld_module" class="level1">
-<h1>modules.voorbeeld_module</h1>
-<p><code>modules.voorbeeld_module</code></p>
+<section id="continu_inzicht_toolbox.base.data_adapter" class="level1">
+<h1>base.data_adapter</h1>
+<p><code>base.data_adapter</code></p>
 <section id="classes" class="level2">
 <h2 class="anchored" data-anchor-id="classes">Classes</h2>
 <table class="caption-top table">
@@ -153,19 +152,40 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee">WaardesDelenTwee</a></td>
-<td>Voorbeeld class die laat zien hoe de arcitectuur werkt</td>
-</tr>
-<tr class="even">
-<td><a href="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee">WaardesKeerTwee</a></td>
-<td>Voorbeeld class die laat zien hoe de arcitectuur werkt</td>
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter">DataAdapter</a></td>
+<td>Basis DataAdapter</td>
 </tr>
 </tbody>
 </table>
-<section id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee" class="level3">
-<h3 class="anchored" data-anchor-id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee">WaardesDelenTwee</h3>
-<p><code>modules.voorbeeld_module.WaardesDelenTwee()</code></p>
-<p>Voorbeeld class die laat zien hoe de arcitectuur werkt</p>
+<section id="continu_inzicht_toolbox.base.data_adapter.DataAdapter" class="level3">
+<h3 class="anchored" data-anchor-id="continu_inzicht_toolbox.base.data_adapter.DataAdapter">DataAdapter</h3>
+<p><code>base.data_adapter.DataAdapter()</code></p>
+<p>Basis DataAdapter</p>
+<section id="attributes" class="level4">
+<h4 class="anchored" data-anchor-id="attributes">Attributes</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.config">config</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_types">input_types</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_types">output_types</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="methods" class="level4">
 <h4 class="anchored" data-anchor-id="methods">Methods</h4>
 <table class="caption-top table">
@@ -177,62 +197,124 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.delen_door_twee">delen_door_twee</a></td>
-<td>Vermenigvuldigd de meetstation waardes met 2 als voorbeeld</td>
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_input_types">initialize_input_types</a></td>
+<td></td>
 </tr>
 <tr class="even">
-<td><a href="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.run">run</a></td>
-<td>Runt de funcies en stuur de df terug</td>
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_output_types">initialize_output_types</a></td>
+<td></td>
 </tr>
-</tbody>
-</table>
-<section id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.delen_door_twee" class="level5">
-<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.delen_door_twee">delen_door_twee</h5>
-<p><code>modules.voorbeeld_module.WaardesDelenTwee.delen_door_twee(dataframe)</code></p>
-<p>Vermenigvuldigd de meetstation waardes met 2 als voorbeeld</p>
-</section>
-<section id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.run" class="level5">
-<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesDelenTwee.run">run</h5>
-<p><code>modules.voorbeeld_module.WaardesDelenTwee.run()</code></p>
-<p>Runt de funcies en stuur de df terug</p>
-</section>
-</section>
-</section>
-<section id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee" class="level3">
-<h3 class="anchored" data-anchor-id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee">WaardesKeerTwee</h3>
-<p><code>modules.voorbeeld_module.WaardesKeerTwee()</code></p>
-<p>Voorbeeld class die laat zien hoe de arcitectuur werkt</p>
-<section id="methods-1" class="level4">
-<h4 class="anchored" data-anchor-id="methods-1">Methods</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
 <tr class="odd">
-<td><a href="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.keer_twee">keer_twee</a></td>
-<td>Deelt de meetstation waardes door 2 als voorbeeld</td>
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input">input</a></td>
+<td>Gegeven het config, stuurt de juiste input waarde aan</td>
 </tr>
 <tr class="even">
-<td><a href="#continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.run">run</a></td>
-<td>Runt de funcies en stuur de df terug</td>
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_csv">input_csv</a></td>
+<td>Laat een csv bestand in gegeven een pad</td>
+</tr>
+<tr class="odd">
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_postgresql">input_postgresql</a></td>
+<td>Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.</td>
+</tr>
+<tr class="even">
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output">output</a></td>
+<td>Gegeven het config, stuurt de juiste input waarde aan</td>
+</tr>
+<tr class="odd">
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_csv">output_csv</a></td>
+<td>schrijft een csv bestand in gegeven een pad</td>
+</tr>
+<tr class="even">
+<td><a href="#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_postgresql">output_postgresql</a></td>
+<td>Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.</td>
 </tr>
 </tbody>
 </table>
-<section id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.keer_twee" class="level5">
-<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.keer_twee">keer_twee</h5>
-<p><code>modules.voorbeeld_module.WaardesKeerTwee.keer_twee(dataframe)</code></p>
-<p>Deelt de meetstation waardes door 2 als voorbeeld</p>
+<section id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_input_types" class="level5">
+<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_input_types">initialize_input_types</h5>
+<p><code>base.data_adapter.DataAdapter.initialize_input_types()</code></p>
 </section>
-<section id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.run" class="level5">
-<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.modules.voorbeeld_module.WaardesKeerTwee.run">run</h5>
-<p><code>modules.voorbeeld_module.WaardesKeerTwee.run()</code></p>
-<p>Runt de funcies en stuur de df terug</p>
+<section id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_output_types" class="level5">
+<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_output_types">initialize_output_types</h5>
+<p><code>base.data_adapter.DataAdapter.initialize_output_types()</code></p>
+</section>
+<section id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.input" class="level5">
+<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.input">input</h5>
+<p><code>base.data_adapter.DataAdapter.input(functie)</code></p>
+<p>Gegeven het config, stuurt de juiste input waarde aan</p>
+<section id="parameters" class="level6">
+<h6 class="anchored" data-anchor-id="parameters">Parameters:</h6>
+<p>functie: str naam van de functie die bij het bestands type hoort</p>
+<p>opties: dict extra informatie die ook naar de functie moet om het bestand te lezen</p>
+</section>
+</section>
+<section id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_csv" class="level5">
+<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_csv">input_csv</h5>
+<p><code>base.data_adapter.DataAdapter.input_csv(input_config)</code></p>
+<p>Laat een csv bestand in gegeven een pad</p>
+<section id="returns" class="level6">
+<h6 class="anchored" data-anchor-id="returns">Returns:</h6>
+<p>pd.Dataframe</p>
+</section>
+</section>
+<section id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_postgresql" class="level5">
+<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_postgresql">input_postgresql</h5>
+<p><code>base.data_adapter.DataAdapter.input_postgresql(input_config)</code></p>
+<p>Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.</p>
+<section id="parametes" class="level6">
+<h6 class="anchored" data-anchor-id="parametes">Parametes:</h6>
+<p>input_config: dict in</p>
+</section>
+<section id="notes" class="level6">
+<h6 class="anchored" data-anchor-id="notes">Notes:</h6>
+<p>In de <code>.env</code> environment bestand moet staan: user: str password: str host: str port: str database: str schema: str</p>
+</section>
+<section id="returns-1" class="level6">
+<h6 class="anchored" data-anchor-id="returns-1">Returns:</h6>
+<p>pd.Dataframe</p>
+</section>
+</section>
+<section id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.output" class="level5">
+<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.output">output</h5>
+<p><code>base.data_adapter.DataAdapter.output(functie, df)</code></p>
+<p>Gegeven het config, stuurt de juiste input waarde aan</p>
+<section id="parameters-1" class="level6">
+<h6 class="anchored" data-anchor-id="parameters-1">Parameters:</h6>
+<p>functie: str naam van de functie die bij het bestands type hoort df: pd.Dataframe pandas dataframe om weg te schrijvne</p>
+<p>opties: dict extra informatie die ook naar de functie moet om het bestand te schrijven</p>
+</section>
+</section>
+<section id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_csv" class="level5">
+<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_csv">output_csv</h5>
+<p><code>base.data_adapter.DataAdapter.output_csv(output_config, df)</code></p>
+<p>schrijft een csv bestand in gegeven een pad</p>
+<section id="notes-1" class="level6">
+<h6 class="anchored" data-anchor-id="notes-1">Notes:</h6>
+<p>Gebruikt hiervoor de pandas.DataFrame.to_csv Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.</p>
+</section>
+<section id="returns-2" class="level6">
+<h6 class="anchored" data-anchor-id="returns-2">Returns:</h6>
+<p>None</p>
+</section>
+</section>
+<section id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_postgresql" class="level5">
+<h5 class="anchored" data-anchor-id="continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_postgresql">output_postgresql</h5>
+<p><code>base.data_adapter.DataAdapter.output_postgresql(output_config, df)</code></p>
+<p>Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.</p>
+<section id="parametes-1" class="level6">
+<h6 class="anchored" data-anchor-id="parametes-1">Parametes:</h6>
+<p>df: pd.Dataframe dataframe met data om weg te schrijven opties: dict dictionary met extra opties waar onder: schema: str naam van het schema in de postgresql database table: str naam van de tabel in de postgresql database</p>
+</section>
+<section id="notes-2" class="level6">
+<h6 class="anchored" data-anchor-id="notes-2">Notes:</h6>
+<p>In het credential bestand moet staan: user: str password: str host: str port: str database: str</p>
+</section>
+<section id="returns-3" class="level6">
+<h6 class="anchored" data-anchor-id="returns-3">Returns:</h6>
+<p>None</p>
 
 
+</section>
 </section>
 </section>
 </section>
