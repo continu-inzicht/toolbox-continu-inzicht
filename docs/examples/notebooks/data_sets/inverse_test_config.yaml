@@ -1,14 +1,17 @@
+
 global_variables:
-    rootdir: 'C:\Data\Python\toolbox-continu-inzicht\tests\examples\notebooks'
-WaardesKeerTwee: 
+    rootdir: 'docs\examples\notebooks'
+
+# functie naam
+WaardesDelenTwee:
     input: 
         type: csv
-        path: 'data_sets\test_csv_in.csv'
+        path: '\data_sets\test_csv_out.csv'
     output: 
         type: csv
-        path: 'data_sets\test_csv_out.csv'
+        path: 'data_sets\test_csv_out2.csv'
 
-WaardesDelenTwee:
+WaardesKeerTwee:
     input:
         type: postgresql_database
         table: data

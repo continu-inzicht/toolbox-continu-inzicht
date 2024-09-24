@@ -42,10 +42,15 @@ class DataAdapter(PydanticBaseModel):
 
         # path relative to rootdir specified in config
         if "path" in functie_input_config:
-            functie_input_config["path"] = (
-                Path(self.config.global_variables["rootdir"])
-                / functie_input_config["path"]
-            )
+            # if user provides a complete path:
+            if Path(self.config.global_variables["rootdir"]).is_absolute():
+                functie_input_config["path"] = (
+                    Path(self.config.global_variables["rootdir"])
+                    / functie_input_config["path"]
+                )
+            # else we assume its relative to the toolbox_continu_inzicht for testing
+            else:
+                Path(__file__).parent.parent.parent / functie_input_config["path"]
 
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         if load_dotenv():
@@ -142,11 +147,15 @@ class DataAdapter(PydanticBaseModel):
 
         # path relative to rootdir specified in config
         if "path" in functie_output_config:
-            functie_output_config["path"] = (
-                Path(self.config.global_variables["rootdir"])
-                / functie_output_config["path"]
-            )
-
+            # if user provides a complete path:
+            if Path(self.config.global_variables["rootdir"]).is_absolute():
+                functie_output_config["path"] = (
+                    Path(self.config.global_variables["rootdir"])
+                    / functie_output_config["path"]
+                )
+            # else we assume its relative to the toolbox_continu_inzicht for testing
+            else:
+                Path(__file__).parent.parent.parent / functie_output_config["path"]
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         if load_dotenv():
             environmental_variables = dict(dotenv_values())

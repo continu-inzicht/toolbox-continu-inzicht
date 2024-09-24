@@ -1,5 +1,5 @@
 global_variables:
-    rootdir: 'C:\Data\Python\toolbox-continu-inzicht\tests\examples\notebooks'
+    rootdir: 'docs\examples\notebooks'
 
 WaardesDelenTwee: 
     input:
