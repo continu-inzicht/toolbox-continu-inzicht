@@ -112,7 +112,7 @@ class DataAdapter(PydanticBaseModel):
         # TODO: doen we dit zo?
         table = input_config["table"]
 
-        keys = ["user", "password", "host", "port", "database", "shema"]
+        keys = ["user", "password", "host", "port", "database", "schema"]
         assert all(key in input_config for key in keys)
 
         # maak verbinding object
@@ -233,7 +233,7 @@ class DataAdapter(PydanticBaseModel):
         schema = output_config["schema"]
 
         # check all required variables are availible from the .env file
-        keys = ["user", "password", "host", "port", "database", "shema"]
+        keys = ["user", "password", "host", "port", "database", "schema"]
         assert all(key in output_config for key in keys)
 
         engine = sqlalchemy.create_engine(
