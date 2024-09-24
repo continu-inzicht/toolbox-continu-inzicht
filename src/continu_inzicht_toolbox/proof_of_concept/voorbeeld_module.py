@@ -1,5 +1,5 @@
 from pydantic.dataclasses import dataclass
-from continu_inzicht_toolbox.base import DataAdapter
+from continu_inzicht_toolbox.base.data_adapter import DataAdapter
 import pandas as pd
 from typing import Optional
 
