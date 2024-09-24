@@ -3,6 +3,5 @@
 
 .ipynb_checkpoints
 .idea
-.passwords.yaml
 .env
 .env.template
