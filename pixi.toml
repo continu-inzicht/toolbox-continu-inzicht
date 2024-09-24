@@ -82,3 +82,4 @@ default = { features = ["common"] }
 
 [dependencies]
 jupyter-cache = ">=1.0.0,<2"
+python-dotenv = ">=1.0.1,<2"
