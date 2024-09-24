@@ -1,0 +1,20 @@
+
+global_variables:
+    rootdir: 'data_sets'
+
+# functie naam
+WaardesDelenTwee:
+    input: 
+        type: csv
+        path: 'test_csv_out.csv'
+    output: 
+        type: csv
+        path: 'test_csv_out2.csv'
+
+WaardesKeerTwee:
+    input:
+        type: postgresql_database
+        table: data
+    output: 
+        type: postgresql_database
+        table: data
