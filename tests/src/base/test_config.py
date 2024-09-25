@@ -35,3 +35,16 @@ def test_Config_postgresql():
     keys = ["input", "output"]
     assert all(key in c.WaardesDelenTwee for key in keys)
     assert c.WaardesDelenTwee["input"]["type"] == "postgresql_database"
+
+
+def test_Config_netCDF():
+    """Tests loading of netcdf configuration"""
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    print(test_data_sets_path)
+    c = Config(config_path=test_data_sets_path / "test_netcdf_config.yaml")
+    c.lees_config()
+
+    assert "rootdir" in c.global_variables
+    keys = ["input", "output"]
+    assert all(key in c.WaardesKeerTwee for key in keys)
+    assert c.WaardesKeerTwee["input"]["type"] == "netcdf"
