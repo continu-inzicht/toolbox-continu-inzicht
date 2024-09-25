@@ -6,7 +6,7 @@ Voor documentatie zie: [https://continu-inzicht.github.io/toolbox-continu-inzich
 
 ## Bijdragen
 
-Maakt gebruik van [pixi](https://pixi.sh/latest/) om de conda environment te beheren. Zie het kopje [bijdragen](https://continu-inzicht.github.io/toolbox-continu-inzicht/examples/notebooks/proof_of_concept.html) op de wiki voor meer uitleg.
+Maakt gebruik van [pixi](https://pixi.sh/latest/) om de conda environment te beheren. Zie het kopje [bijdragen](https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html) op de wiki voor meer uitleg.
 
 ### Install pixi default environment
 
