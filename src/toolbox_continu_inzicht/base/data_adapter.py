@@ -176,14 +176,13 @@ class DataAdapter(PydanticBaseModel):
             environmental_variables = dict(dotenv_values())
         else:
             raise UserWarning("Ensure a `.env` file is present in the root directory")
-        
+
         functie_output_config.update(environmental_variables)
 
         # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
         bijbehorende_functie = self.output_types[data_type]
         df = bijbehorende_functie(functie_output_config, df)
         return df
-
 
     @staticmethod
     def input_netcdf(input_config):
@@ -206,7 +205,6 @@ class DataAdapter(PydanticBaseModel):
         df = xr.Dataset.to_dataframe(ds)
         return df
 
-
     @staticmethod
     def output_csv(output_config, df):
         """schrijft een csv bestand in gegeven een pad
@@ -225,7 +223,6 @@ class DataAdapter(PydanticBaseModel):
         # TODO: opties voor csv mogen alleen zijn wat er mee gegeven mag wroden aan .to_csv
         path = output_config["path"]
         df.to_csv(path)
-
 
     @staticmethod
     def output_postgresql(output_config, df):
@@ -280,7 +277,6 @@ class DataAdapter(PydanticBaseModel):
         # verbinding opruimen
         engine.dispose()
 
-
     @staticmethod
     def output_netcdf(output_config, df):
         """schrijft een netCDF bestand in gegeven een pad
@@ -298,12 +294,12 @@ class DataAdapter(PydanticBaseModel):
         # Data checks worden gedaan in de functies zelf, hier alleen geladen
 
         # TODO: opties voor csv mogen alleen zijn wat er mee gegeven mag worden aan .to_netcdf
-        path = output_config["path"]        
-        
-        # TODO: netcdf kent geen int64 dus converteren naar float 
+        path = output_config["path"]
+
+        # TODO: netcdf kent geen int64 dus converteren naar float
         for column in df.columns:
-            if df[column].dtype == 'int64':
-                df[column] = df[column].astype('float64')
-                                        
+            if df[column].dtype == "int64":
+                df[column] = df[column].astype("float64")
+
         ds = xr.Dataset.from_dataframe(df)
         ds.to_netcdf(path, mode="w", engine="scipy")
