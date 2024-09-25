@@ -8,11 +8,11 @@
 
 __pycache__/*
 __pycache__/** */
-src/continu_inzicht_toolbox/__pycache__/
 */__pycache__/*
-src/continu_inzicht_toolbox/base/__pycache__/
-src/continu_inzicht_toolbox/proof_of_concept/__pycache__/
-src/continu_inzicht_toolbox/waterstanden/__pycache__/
-src/continu_inzicht_toolbox/fragility_curves/__pycache__/
+src/toolbox_continu_inzicht/__pycache__/
+src/toolbox_continu_inzicht/base/__pycache__/
+src/toolbox_continu_inzicht/fragility_curves/__pycache__/
+src/toolbox_continu_inzicht/proof_of_concept/__pycache__/
+src/toolbox_continu_inzicht/waterstanden/__pycache__/
 tests/src/__pycache__/
 tests/src/base/__pycache__/

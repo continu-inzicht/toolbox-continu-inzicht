@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "continu_inzicht_toolbox"
+name = "toolbox_continu_inzicht"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen"
 readme = "README.md"
 authors = [
@@ -31,4 +31,4 @@ packages = ["continu_inzicht_toolbox"]
 
 [project.urls]
 Documentation = "https://continu-inzicht.github.io/toolbox/"
-Source = "https://github.com/continu-inzicht/toolbox"
+Source = "https://github.com/continu-inzicht/toolbox_continu_inzicht"

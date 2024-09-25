@@ -3,7 +3,7 @@ from pydantic import BaseModel as PydanticBaseModel
 import pandas as pd
 import sqlalchemy
 from dotenv import load_dotenv, dotenv_values
-from continu_inzicht_toolbox.base.config import Config
+from toolbox_continu_inzicht.base.config import Config
 
 
 class DataAdapter(PydanticBaseModel):

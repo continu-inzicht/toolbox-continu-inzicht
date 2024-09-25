@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Continu inzicht toolbox"
+  title: "Toolbox continu inzicht"
   navbar:
     logo: https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png
     left:
@@ -47,7 +47,7 @@ quartodoc:
   style: pkgdown
   dir: reference
   title: API Reference
-  package: continu_inzicht_toolbox
+  package: toolbox_continu_inzicht
   dynamic: True
   rewrite_all_pages: True
   options:
@@ -59,7 +59,7 @@ quartodoc:
   sections:  
     - title: Continu inzicht toolbox
       desc: Toolbox voor continu inzicht
-      package: continu_inzicht_toolbox
+      package: toolbox_continu_inzicht
       contents: 
        - base.config
        - base.data_adapter
