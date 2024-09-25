@@ -6,7 +6,7 @@ Toolbox voor continu inzicht
 
 | | |
 | --- | --- |
-| [base.config](base.config.qmd#continu_inzicht_toolbox.base.config) |  |
-| [base.data_adapter](base.data_adapter.qmd#continu_inzicht_toolbox.base.data_adapter) |  |
-| [proof_of_concept.voorbeeld_module](proof_of_concept.voorbeeld_module.qmd#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module) |  |
-| [fragility_curves.calculate_fragility_curves](fragility_curves.calculate_fragility_curves.qmd#continu_inzicht_toolbox.fragility_curves.calculate_fragility_curves) |  |
+| [base.config](base.config.qmd#toolbox_continu_inzicht.base.config) |  |
+| [base.data_adapter](base.data_adapter.qmd#toolbox_continu_inzicht.base.data_adapter) |  |
+| [proof_of_concept.voorbeeld_module](proof_of_concept.voorbeeld_module.qmd#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module) |  |
+| [fragility_curves.calculate_fragility_curves](fragility_curves.calculate_fragility_curves.qmd#toolbox_continu_inzicht.fragility_curves.calculate_fragility_curves) |  |

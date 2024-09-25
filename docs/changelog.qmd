@@ -1,0 +1,14 @@
+# Changelog
+
+Alle benoemenswaardige veranderingen worden hier bijgehouden. 
+Dit project gebruikt [Semantic Versioning](http://semver.org/).
+Het format is beschreven op [https://keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
+
+## [Ongeplubliceerd]
+
+### Toegevoegd
+
+- Werkende Quarto documentatie [#7](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/7)
+- Proof of concept met csv en database [#9](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/9) 
+- Voeg notebook toe om te laten zien hoe het werkt [#12](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/12)
+- Maak map structuur overzichtelijker [#19](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/19)

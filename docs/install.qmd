@@ -1,0 +1,23 @@
+# Instalatie instructies
+
+De toolbox continu inzicht kan op verschillende manieren worden gebruikt:
+1. Als vervanging van de huidige Continu Inzicht back-end
+1. Als los staande modules
+1. Als ontwikkelaar
+
+## Vervanging
+
+Om de toolbox als vervanging van de huidige Continu Inzicht back-end zal in de toekomst meer informatie beschikbaar gesteld worden.
+De oude backend kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen kunnen dan worden mee genomen. 
+
+## Los staande modules
+
+Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi. 
+
+```python
+pip install toolbox_continu_inzicht
+```
+
+## Als ontwikkelaar
+
+Zie het document [CONTRIBUTING.md](https://github.com/continu-inzicht/toolbox-continu-inzicht) voor meer informatie. 

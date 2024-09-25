@@ -1,4 +1,4 @@
-# proof_of_concept.voorbeeld_module { #continu_inzicht_toolbox.proof_of_concept.voorbeeld_module }
+# proof_of_concept.voorbeeld_module { #toolbox_continu_inzicht.proof_of_concept.voorbeeld_module }
 
 `proof_of_concept.voorbeeld_module`
 
@@ -8,10 +8,10 @@
 
 | Name | Description |
 | --- | --- |
-| [WaardesDelenTwee](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesDelenTwee) | Voorbeeld class die laat zien hoe de arcitectuur werkt |
-| [WaardesKeerTwee](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesKeerTwee) | Voorbeeld class die laat zien hoe de arcitectuur werkt |
+| [WaardesDelenTwee](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee) | Voorbeeld class die laat zien hoe de arcitectuur werkt |
+| [WaardesKeerTwee](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee) | Voorbeeld class die laat zien hoe de arcitectuur werkt |
 
-### WaardesDelenTwee { #continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesDelenTwee }
+### WaardesDelenTwee { #toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee }
 
 `proof_of_concept.voorbeeld_module.WaardesDelenTwee()`
 
@@ -21,30 +21,30 @@ Voorbeeld class die laat zien hoe de arcitectuur werkt
 
 | Name | Description |
 | --- | --- |
-| [data_adapter](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesDelenTwee.data_adapter) |  |
-| [df_in](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesDelenTwee.df_in) |  |
-| [df_out](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesDelenTwee.df_out) |  |
+| [data_adapter](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.data_adapter) |  |
+| [df_in](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.df_in) |  |
+| [df_out](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.df_out) |  |
 
 #### Methods
 
 | Name | Description |
 | --- | --- |
-| [delen_door_twee](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesDelenTwee.delen_door_twee) | Vermenigvuldigd de meetstation waardes met 2 als voorbeeld |
-| [run](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesDelenTwee.run) | Runt de funcies en stuur de df terug |
+| [delen_door_twee](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.delen_door_twee) | Vermenigvuldigd de meetstation waardes met 2 als voorbeeld |
+| [run](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.run) | Runt de funcies en stuur de df terug |
 
-##### delen_door_twee { #continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesDelenTwee.delen_door_twee }
+##### delen_door_twee { #toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.delen_door_twee }
 
 `proof_of_concept.voorbeeld_module.WaardesDelenTwee.delen_door_twee(dataframe)`
 
 Vermenigvuldigd de meetstation waardes met 2 als voorbeeld
 
-##### run { #continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesDelenTwee.run }
+##### run { #toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.run }
 
 `proof_of_concept.voorbeeld_module.WaardesDelenTwee.run()`
 
 Runt de funcies en stuur de df terug
 
-### WaardesKeerTwee { #continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesKeerTwee }
+### WaardesKeerTwee { #toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee }
 
 `proof_of_concept.voorbeeld_module.WaardesKeerTwee()`
 
@@ -54,24 +54,24 @@ Voorbeeld class die laat zien hoe de arcitectuur werkt
 
 | Name | Description |
 | --- | --- |
-| [data_adapter](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesKeerTwee.data_adapter) |  |
-| [df_in](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesKeerTwee.df_in) |  |
-| [df_out](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesKeerTwee.df_out) |  |
+| [data_adapter](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.data_adapter) |  |
+| [df_in](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.df_in) |  |
+| [df_out](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.df_out) |  |
 
 #### Methods
 
 | Name | Description |
 | --- | --- |
-| [keer_twee](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesKeerTwee.keer_twee) | Deelt de meetstation waardes door 2 als voorbeeld |
-| [run](#continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesKeerTwee.run) | Runt de funcies en stuur de df terug |
+| [keer_twee](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.keer_twee) | Deelt de meetstation waardes door 2 als voorbeeld |
+| [run](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.run) | Runt de funcies en stuur de df terug |
 
-##### keer_twee { #continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesKeerTwee.keer_twee }
+##### keer_twee { #toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.keer_twee }
 
 `proof_of_concept.voorbeeld_module.WaardesKeerTwee.keer_twee(dataframe)`
 
 Deelt de meetstation waardes door 2 als voorbeeld
 
-##### run { #continu_inzicht_toolbox.proof_of_concept.voorbeeld_module.WaardesKeerTwee.run }
+##### run { #toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.run }
 
 `proof_of_concept.voorbeeld_module.WaardesKeerTwee.run()`
 

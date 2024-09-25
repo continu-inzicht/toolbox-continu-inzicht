@@ -1,4 +1,4 @@
-# base.data_adapter { #continu_inzicht_toolbox.base.data_adapter }
+# base.data_adapter { #toolbox_continu_inzicht.base.data_adapter }
 
 `base.data_adapter`
 
@@ -8,9 +8,9 @@
 
 | Name | Description |
 | --- | --- |
-| [DataAdapter](#continu_inzicht_toolbox.base.data_adapter.DataAdapter) | Basis DataAdapter |
+| [DataAdapter](#toolbox_continu_inzicht.base.data_adapter.DataAdapter) | Basis DataAdapter |
 
-### DataAdapter { #continu_inzicht_toolbox.base.data_adapter.DataAdapter }
+### DataAdapter { #toolbox_continu_inzicht.base.data_adapter.DataAdapter }
 
 `base.data_adapter.DataAdapter()`
 
@@ -20,36 +20,36 @@ Basis DataAdapter
 
 | Name | Description |
 | --- | --- |
-| [config](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.config) |  |
-| [input_types](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_types) |  |
-| [output_types](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_types) |  |
+| [config](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.config) |  |
+| [input_types](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_types) |  |
+| [output_types](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_types) |  |
 
 #### Methods
 
 | Name | Description |
 | --- | --- |
-| [initialize_input_types](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_input_types) |  |
-| [initialize_output_types](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_output_types) |  |
-| [input](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input) | Gegeven het config, stuurt de juiste input waarde aan |
-| [input_csv](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_csv) | Laat een csv bestand in gegeven een pad |
-| [input_postgresql](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_postgresql) | Schrijft data naar een postgresql database gegeven het pad naar een credential bestand. |
-| [output](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output) | Gegeven het config, stuurt de juiste input waarde aan |
-| [output_csv](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_csv) | schrijft een csv bestand in gegeven een pad |
-| [output_postgresql](#continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_postgresql) | Schrijft data naar een postgresql database gegeven het pad naar een credential bestand. |
+| [initialize_input_types](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_input_types) |  |
+| [initialize_output_types](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_output_types) |  |
+| [input](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input) | Gegeven het config, stuurt de juiste input waarde aan |
+| [input_csv](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_csv) | Laat een csv bestand in gegeven een pad |
+| [input_postgresql](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_postgresql) | Schrijft data naar een postgresql database gegeven het pad naar een credential bestand. |
+| [output](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output) | Gegeven het config, stuurt de juiste input waarde aan |
+| [output_csv](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_csv) | schrijft een csv bestand in gegeven een pad |
+| [output_postgresql](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_postgresql) | Schrijft data naar een postgresql database gegeven het pad naar een credential bestand. |
 
-##### initialize_input_types { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_input_types }
+##### initialize_input_types { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_input_types }
 
 `base.data_adapter.DataAdapter.initialize_input_types()`
 
 
 
-##### initialize_output_types { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.initialize_output_types }
+##### initialize_output_types { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_output_types }
 
 `base.data_adapter.DataAdapter.initialize_output_types()`
 
 
 
-##### input { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.input }
+##### input { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.input }
 
 `base.data_adapter.DataAdapter.input(functie)`
 
@@ -63,7 +63,7 @@ functie: str
 opties: dict
           extra informatie die ook naar de functie moet om het bestand te lezen
 
-##### input_csv { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_csv }
+##### input_csv { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_csv }
 
 `base.data_adapter.DataAdapter.input_csv(input_config)`
 
@@ -73,7 +73,7 @@ Laat een csv bestand in gegeven een pad
 
 pd.Dataframe
 
-##### input_postgresql { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.input_postgresql }
+##### input_postgresql { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_postgresql }
 
 `base.data_adapter.DataAdapter.input_postgresql(input_config)`
 
@@ -98,7 +98,7 @@ schema: str
 
 pd.Dataframe
 
-##### output { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.output }
+##### output { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.output }
 
 `base.data_adapter.DataAdapter.output(functie, df)`
 
@@ -114,7 +114,7 @@ df: pd.Dataframe
 opties: dict
         extra informatie die ook naar de functie moet om het bestand te schrijven
 
-##### output_csv { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_csv }
+##### output_csv { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_csv }
 
 `base.data_adapter.DataAdapter.output_csv(output_config, df)`
 
@@ -129,7 +129,7 @@ Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestan
 
 None
 
-##### output_postgresql { #continu_inzicht_toolbox.base.data_adapter.DataAdapter.output_postgresql }
+##### output_postgresql { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_postgresql }
 
 `base.data_adapter.DataAdapter.output_postgresql(output_config, df)`
 

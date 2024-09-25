@@ -1,5 +1,6 @@
 from pathlib import Path
-from continu_inzicht_toolbox.base import Config, DataAdapter
+from continu_inzicht_toolbox.base.config import Config
+from continu_inzicht_toolbox.base.data_adapter import DataAdapter
 
 # Voor nu  geen automatische tests .
 

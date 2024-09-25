@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "continu_inzicht_toolbox"
+name = "toolbox_continu_inzicht"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen"
 readme = "README.md"
 authors = [
@@ -23,12 +23,12 @@ dependencies = ["geopandas", "numpy", "pandas", "shapely"]
 dynamic = ["version"]
 
 [tool.hatch.version]
-path = "continu_inzicht_toolbox/__init__.py"
+path = "toolbox_continu_inzicht/__init__.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["continu_inzicht_toolbox"]
+packages = ["toolbox_continu_inzicht"]
 
 
 [project.urls]
-Documentation = "https://continu-inzicht.github.io/toolbox/"
-Source = "https://github.com/continu-inzicht/toolbox"
+Documentation = "https://continu-inzicht.github.io/toolbox_continu_inzicht/"
+Source = "https://github.com/continu-inzicht/toolbox_continu_inzicht"

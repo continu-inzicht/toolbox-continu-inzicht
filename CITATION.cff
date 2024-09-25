@@ -1,0 +1,38 @@
+# YAML 1.2
+---
+authors:
+  -
+    affiliation: "HKV lijn in water"
+    family-names: Haasnoot
+    given-names: David
+    orcid: "https://orcid.org/0009-0002-4838-8350"
+  - 
+    affiliation: "HKV lijn in water"
+    family-names: Aerts
+    given-names: Jerom
+    orcid: "https://orcid.org/0000-0003-0157-4818"
+  -
+    affiliation: "HKV lijn in water"
+    family-names: Dupuits
+    given-names: Guy
+    orcid: "https://orcid.org/0000-0002-2472-7699"
+  - 
+    affiliation: "HKV lijn in water"
+    family-names: Waterman
+    given-names: Rolf
+  - 
+    affiliation: "HKV lijn in water"
+    family-names: Thonus
+    given-names: Bart
+  - 
+    ffiliation: "HKV lijn in water"
+    family-names: Marit
+    given-names: Zethof
+
+cff-version: "0.0.1"
+keywords:
+  - Waterveiligheid
+license: "GPL-3.0-or-later"
+message: "If you use this software, please cite it using these metadata."
+repository-code: "https://github.com/continu-inzicht/toolbox-continu-inzicht"
+title: Toolbox Continu Inzicht
