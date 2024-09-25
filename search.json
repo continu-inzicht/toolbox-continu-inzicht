@@ -1,5 +1,71 @@
 [
   {
+    "objectID": "install.html",
+    "href": "install.html",
+    "title": "Instalatie instructies",
+    "section": "",
+    "text": "De toolbox continu inzicht kan op verschillende manieren worden gebruikt: 1. Als vervanging van de huidige Continu Inzicht back-end 1. Als los staande modules 1. Als ontwikkelaar\n\n\nOm de toolbox als vervanging van de huidige Continu Inzicht back-end zal in de toekomst meer informatie beschikbaar gesteld worden. De oude backend kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen kunnen dan worden mee genomen.\n\n\n\nOm de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.\npip install toolbox_continu_inzicht\n\n\n\nZie het document CONTRIBUTING.md voor meer informatie.",
+    "crumbs": [
+      "Achtergrond",
+      "Instalatie instructies"
+    ]
+  },
+  {
+    "objectID": "install.html#vervanging",
+    "href": "install.html#vervanging",
+    "title": "Instalatie instructies",
+    "section": "",
+    "text": "Om de toolbox als vervanging van de huidige Continu Inzicht back-end zal in de toekomst meer informatie beschikbaar gesteld worden. De oude backend kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen kunnen dan worden mee genomen.",
+    "crumbs": [
+      "Achtergrond",
+      "Instalatie instructies"
+    ]
+  },
+  {
+    "objectID": "install.html#los-staande-modules",
+    "href": "install.html#los-staande-modules",
+    "title": "Instalatie instructies",
+    "section": "",
+    "text": "Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.\npip install toolbox_continu_inzicht",
+    "crumbs": [
+      "Achtergrond",
+      "Instalatie instructies"
+    ]
+  },
+  {
+    "objectID": "install.html#als-ontwikkelaar",
+    "href": "install.html#als-ontwikkelaar",
+    "title": "Instalatie instructies",
+    "section": "",
+    "text": "Zie het document CONTRIBUTING.md voor meer informatie.",
+    "crumbs": [
+      "Achtergrond",
+      "Instalatie instructies"
+    ]
+  },
+  {
+    "objectID": "examples/notebooks/proof_of_concept.html",
+    "href": "examples/notebooks/proof_of_concept.html",
+    "title": "Architectuur voorbeeld",
+    "section": "",
+    "text": "Om de architectuur weer te geven wordt een simple voorbeeld gegeven door een reeks keer twee en gedeelddoor te doen.\nDe opbouw van de code is hier onder weergegeven:\nEen voorbeeld senario is het inladen van CSV en wegschrijven naar csv:\nAan de voorkant ziet dat er zo uit:",
+    "crumbs": [
+      "Voorbeelden",
+      "Architectuur voorbeeld"
+    ]
+  },
+  {
+    "objectID": "examples/notebooks/proof_of_concept.html#voorbeeld-met-csv",
+    "href": "examples/notebooks/proof_of_concept.html#voorbeeld-met-csv",
+    "title": "Architectuur voorbeeld",
+    "section": "Voorbeeld met CSV",
+    "text": "Voorbeeld met CSV\nLees de configuratie in:\nDit leest een configuratie bestand test_config.yaml in:\nglobal_variables:\n    rootdir: 'docs\\examples\\notebooks'\n\nWaardesKeerTwee: \n  input: \n      type: csv\n      path: 'data_sets\\test_csv_in.csv'\n  output: \n      type: csv\n      path: 'data_sets\\test_csv_out.csv'\n\n...\n\ntest_data_sets_path = Path.cwd() / \"data_sets\"\nc = Config(config_path=test_data_sets_path / \"test_config.yaml\")\nc.lees_config()\n\nZet de data adapter klaar en geef deze de configuratie mee\n\nfrom toolbox_continu_inzicht import DataAdapter\n\ndata = DataAdapter(config=c)\n\nRun de module met CSV\n\nfrom toolbox_continu_inzicht import voorbeeld_module\n\nkeer_twee = voorbeeld_module.WaardesKeerTwee(data_adapter=data)\n\n\nkeer_twee.run()\n\n\nkeer_twee.df_in\n\n\n\n\n\n\n\n\nobjectid\nobjecttype\nparameterid\ndatetime\nvalue\n\n\n\n\n0\n1\nmeasuringstation\n1\n1726227377000\n4.8\n\n\n1\n2\nmeasuringstation\n1\n1726227377000\n5.0\n\n\n2\n3\nmeasuringstation\n1\n1726227377000\n5.2\n\n\n3\n4\nmeasuringstation\n1\n1726227377000\n5.4\n\n\n4\n5\nmeasuringstation\n1\n1726227377000\n5.6\n\n\n\n\n\n\n\n\nkeer_twee.df_out\n\n\n\n\n\n\n\n\nobjectid\nobjecttype\nparameterid\ndatetime\nvalue\n\n\n\n\n0\n1\nmeasuringstation\n1\n1726227377000\n9.6\n\n\n1\n2\nmeasuringstation\n1\n1726227377000\n10.0\n\n\n2\n3\nmeasuringstation\n1\n1726227377000\n10.4\n\n\n3\n4\nmeasuringstation\n1\n1726227377000\n10.8\n\n\n4\n5\nmeasuringstation\n1\n1726227377000\n11.2\n\n\n\n\n\n\n\nde values waardes uit de vorige table zijn vermenigvuldigd met twee",
+    "crumbs": [
+      "Voorbeelden",
+      "Architectuur voorbeeld"
+    ]
+  },
+  {
     "objectID": "reference/base.data_adapter.html",
     "href": "reference/base.data_adapter.html",
     "title": "base.data_adapter",
@@ -14,25 +80,33 @@
     "text": "Name\nDescription\n\n\n\n\nDataAdapter\nBasis DataAdapter\n\n\n\n\n\nbase.data_adapter.DataAdapter()\nBasis DataAdapter\n\n\n\n\n\nName\nDescription\n\n\n\n\nconfig\n\n\n\ninput_types\n\n\n\noutput_types\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ninitialize_input_types\n\n\n\ninitialize_output_types\n\n\n\ninput\nGegeven het config, stuurt de juiste input waarde aan\n\n\ninput_csv\nLaat een csv bestand in gegeven een pad\n\n\ninput_postgresql\nSchrijft data naar een postgresql database gegeven het pad naar een credential bestand.\n\n\noutput\nGegeven het config, stuurt de juiste input waarde aan\n\n\noutput_csv\nschrijft een csv bestand in gegeven een pad\n\n\noutput_postgresql\nSchrijft data naar een postgresql database gegeven het pad naar een credential bestand.\n\n\n\n\n\nbase.data_adapter.DataAdapter.initialize_input_types()\n\n\n\nbase.data_adapter.DataAdapter.initialize_output_types()\n\n\n\nbase.data_adapter.DataAdapter.input(functie)\nGegeven het config, stuurt de juiste input waarde aan\n\n\nfunctie: str naam van de functie die bij het bestands type hoort\nopties: dict extra informatie die ook naar de functie moet om het bestand te lezen\n\n\n\n\nbase.data_adapter.DataAdapter.input_csv(input_config)\nLaat een csv bestand in gegeven een pad\n\n\npd.Dataframe\n\n\n\n\nbase.data_adapter.DataAdapter.input_postgresql(input_config)\nSchrijft data naar een postgresql database gegeven het pad naar een credential bestand.\n\n\ninput_config: dict in\n\n\n\nIn de .env environment bestand moet staan: user: str password: str host: str port: str database: str schema: str\n\n\n\npd.Dataframe\n\n\n\n\nbase.data_adapter.DataAdapter.output(functie, df)\nGegeven het config, stuurt de juiste input waarde aan\n\n\nfunctie: str naam van de functie die bij het bestands type hoort df: pd.Dataframe pandas dataframe om weg te schrijvne\nopties: dict extra informatie die ook naar de functie moet om het bestand te schrijven\n\n\n\n\nbase.data_adapter.DataAdapter.output_csv(output_config, df)\nschrijft een csv bestand in gegeven een pad\n\n\nGebruikt hiervoor de pandas.DataFrame.to_csv Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.\n\n\n\nNone\n\n\n\n\nbase.data_adapter.DataAdapter.output_postgresql(output_config, df)\nSchrijft data naar een postgresql database gegeven het pad naar een credential bestand.\n\n\ndf: pd.Dataframe dataframe met data om weg te schrijven opties: dict dictionary met extra opties waar onder: schema: str naam van het schema in de postgresql database table: str naam van de tabel in de postgresql database\n\n\n\nIn het credential bestand moet staan: user: str password: str host: str port: str database: str\n\n\n\nNone"
   },
   {
-    "objectID": "reference/base.config.html",
-    "href": "reference/base.config.html",
-    "title": "base.config",
+    "objectID": "reference/README.html",
+    "href": "reference/README.html",
+    "title": "LET OP: Een deel van deze paginas wordt automatisch gegenereed",
     "section": "",
-    "text": "base.config\n\n\n\n\n\nName\nDescription\n\n\n\n\nConfig\nBasis functie om de configuratie in te laden.\n\n\n\n\n\nbase.config.Config()\nBasis functie om de configuratie in te laden.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nconfig_path\n\nPad naar een .yaml bestand waarin per functie staat beschreven wat de in/ouput bestanden zijn\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nWaardesDelenTwee\n\n\n\nWaardesKeerTwee\n\n\n\nconfig_path\n\n\n\ndump\n\n\n\nglobal_variables\n\n\n\ntoegelaten_functies\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nlees_config\nLaad het gegeven pad in, zet de configuraties klaar in de Config class\n\n\n\n\n\nbase.config.Config.lees_config()\nLaad het gegeven pad in, zet de configuraties klaar in de Config class"
+    "text": "LET OP: Een deel van deze paginas wordt automatisch gegenereed\nPas dus de bron aan, niet deze bestanden."
   },
   {
-    "objectID": "reference/base.config.html#classes",
-    "href": "reference/base.config.html#classes",
-    "title": "base.config",
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "API Reference",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\nConfig\nBasis functie om de configuratie in te laden.\n\n\n\n\n\nbase.config.Config()\nBasis functie om de configuratie in te laden.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nconfig_path\n\nPad naar een .yaml bestand waarin per functie staat beschreven wat de in/ouput bestanden zijn\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nWaardesDelenTwee\n\n\n\nWaardesKeerTwee\n\n\n\nconfig_path\n\n\n\ndump\n\n\n\nglobal_variables\n\n\n\ntoegelaten_functies\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nlees_config\nLaad het gegeven pad in, zet de configuraties klaar in de Config class\n\n\n\n\n\nbase.config.Config.lees_config()\nLaad het gegeven pad in, zet de configuraties klaar in de Config class"
+    "text": "Toolbox voor continu inzicht\n\n\n\nbase.config\n\n\n\nbase.data_adapter\n\n\n\nproof_of_concept.voorbeeld_module\n\n\n\nfragility_curves.calculate_fragility_curves",
+    "crumbs": [
+      "Python documentatie",
+      "API Reference"
+    ]
   },
   {
-    "objectID": "reference/fragility_curves.calculate_fragility_curves.html",
-    "href": "reference/fragility_curves.calculate_fragility_curves.html",
-    "title": "fragility_curves.calculate_fragility_curves",
+    "objectID": "reference/index.html#continu-inzicht-toolbox",
+    "href": "reference/index.html#continu-inzicht-toolbox",
+    "title": "API Reference",
     "section": "",
-    "text": "fragility_curves.calculate_fragility_curves\nfragility_curves.calculate_fragility_curves"
+    "text": "Toolbox voor continu inzicht\n\n\n\nbase.config\n\n\n\nbase.data_adapter\n\n\n\nproof_of_concept.voorbeeld_module\n\n\n\nfragility_curves.calculate_fragility_curves",
+    "crumbs": [
+      "Python documentatie",
+      "API Reference"
+    ]
   },
   {
     "objectID": "reference/proof_of_concept.voorbeeld_module.html",
@@ -49,18 +123,25 @@
     "text": "Name\nDescription\n\n\n\n\nWaardesDelenTwee\nVoorbeeld class die laat zien hoe de arcitectuur werkt\n\n\nWaardesKeerTwee\nVoorbeeld class die laat zien hoe de arcitectuur werkt\n\n\n\n\n\nproof_of_concept.voorbeeld_module.WaardesDelenTwee()\nVoorbeeld class die laat zien hoe de arcitectuur werkt\n\n\n\n\n\nName\nDescription\n\n\n\n\ndata_adapter\n\n\n\ndf_in\n\n\n\ndf_out\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ndelen_door_twee\nVermenigvuldigd de meetstation waardes met 2 als voorbeeld\n\n\nrun\nRunt de funcies en stuur de df terug\n\n\n\n\n\nproof_of_concept.voorbeeld_module.WaardesDelenTwee.delen_door_twee(dataframe)\nVermenigvuldigd de meetstation waardes met 2 als voorbeeld\n\n\n\nproof_of_concept.voorbeeld_module.WaardesDelenTwee.run()\nRunt de funcies en stuur de df terug\n\n\n\n\n\nproof_of_concept.voorbeeld_module.WaardesKeerTwee()\nVoorbeeld class die laat zien hoe de arcitectuur werkt\n\n\n\n\n\nName\nDescription\n\n\n\n\ndata_adapter\n\n\n\ndf_in\n\n\n\ndf_out\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nkeer_twee\nDeelt de meetstation waardes door 2 als voorbeeld\n\n\nrun\nRunt de funcies en stuur de df terug\n\n\n\n\n\nproof_of_concept.voorbeeld_module.WaardesKeerTwee.keer_twee(dataframe)\nDeelt de meetstation waardes door 2 als voorbeeld\n\n\n\nproof_of_concept.voorbeeld_module.WaardesKeerTwee.run()\nRunt de funcies en stuur de df terug"
   },
   {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "API Reference",
+    "objectID": "reference/fragility_curves.calculate_fragility_curves.html",
+    "href": "reference/fragility_curves.calculate_fragility_curves.html",
+    "title": "fragility_curves.calculate_fragility_curves",
     "section": "",
-    "text": "Toolbox voor continu inzicht\n\n\n\nbase.config\n\n\n\nbase.data_adapter\n\n\n\nproof_of_concept.voorbeeld_module\n\n\n\nfragility_curves.calculate_fragility_curves"
+    "text": "fragility_curves.calculate_fragility_curves\nfragility_curves.calculate_fragility_curves"
   },
   {
-    "objectID": "reference/index.html#continu-inzicht-toolbox",
-    "href": "reference/index.html#continu-inzicht-toolbox",
-    "title": "API Reference",
+    "objectID": "reference/base.config.html",
+    "href": "reference/base.config.html",
+    "title": "base.config",
     "section": "",
-    "text": "Toolbox voor continu inzicht\n\n\n\nbase.config\n\n\n\nbase.data_adapter\n\n\n\nproof_of_concept.voorbeeld_module\n\n\n\nfragility_curves.calculate_fragility_curves"
+    "text": "base.config\n\n\n\n\n\nName\nDescription\n\n\n\n\nConfig\nBasis functie om de configuratie in te laden.\n\n\n\n\n\nbase.config.Config()\nBasis functie om de configuratie in te laden.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nconfig_path\n\nPad naar een .yaml bestand waarin per functie staat beschreven wat de in/ouput bestanden zijn\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nWaardesDelenTwee\n\n\n\nWaardesKeerTwee\n\n\n\nconfig_path\n\n\n\ndump\n\n\n\nglobal_variables\n\n\n\ntoegelaten_functies\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nlees_config\nLaad het gegeven pad in, zet de configuraties klaar in de Config class\n\n\n\n\n\nbase.config.Config.lees_config()\nLaad het gegeven pad in, zet de configuraties klaar in de Config class"
+  },
+  {
+    "objectID": "reference/base.config.html#classes",
+    "href": "reference/base.config.html#classes",
+    "title": "base.config",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nConfig\nBasis functie om de configuratie in te laden.\n\n\n\n\n\nbase.config.Config()\nBasis functie om de configuratie in te laden.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nconfig_path\n\nPad naar een .yaml bestand waarin per functie staat beschreven wat de in/ouput bestanden zijn\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nWaardesDelenTwee\n\n\n\nWaardesKeerTwee\n\n\n\nconfig_path\n\n\n\ndump\n\n\n\nglobal_variables\n\n\n\ntoegelaten_functies\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nlees_config\nLaad het gegeven pad in, zet de configuraties klaar in de Config class\n\n\n\n\n\nbase.config.Config.lees_config()\nLaad het gegeven pad in, zet de configuraties klaar in de Config class"
   },
   {
     "objectID": "reference/voorbeeld_module.html",
@@ -74,6 +155,32 @@
     "href": "index.html",
     "title": "Continu inzicht toolbox",
     "section": "",
-    "text": "Waterkeringbeheerders zijn gewend om hun waterkeringen te laten voldoen aan vastgestelde normen: daar baseren ze het ontwerp en hun beheer en onderhoud op. In een situatie met extreme droogte of extreem hoge waterstanden is er meer nodig. Dan is het belangrijk continu inzicht te hebben in de actuele risico’s voor het gebied in de eerstvolgende dagen. De methode ‘continu inzicht’ is precies daarop gericht: ervoor zorgen dat de beheerder 24/7 in control is. Met slimme monitoring en rekenmodellen wordt de actuele situatie geanalyseerd. De beheerder ziet hoe groot het risico is en waar de zwakke plekken zitten, zodat hij of zij gericht maatregelen kan nemen. Doormiddel van deze python toolbox worden de systemen ‘continu inzicht’ aangeboden. Op deze wiki zal de komende tijd meer verschijnen over het project."
+    "text": "Waterkeringbeheerders zijn gewend om hun waterkeringen te laten voldoen aan vastgestelde normen: daar baseren ze het ontwerp en hun beheer en onderhoud op. In een situatie met extreme droogte of extreem hoge waterstanden is er meer nodig. Dan is het belangrijk continu inzicht te hebben in de actuele risico’s voor het gebied in de eerstvolgende dagen. De methode ‘continu inzicht’ is precies daarop gericht: ervoor zorgen dat de beheerder 24/7 in control is. Met slimme monitoring en rekenmodellen wordt de actuele situatie geanalyseerd. De beheerder ziet hoe groot het risico is en waar de zwakke plekken zitten, zodat hij of zij gericht maatregelen kan nemen. Het ‘Continu inzicht’ is door HKV lijn in water ontwikkeld voor waterschappen. Doormiddel van deze python toolbox worden de systemen achter ‘continu inzicht’ her ontwikkeld in python en open source aangeboden.",
+    "crumbs": [
+      "Achtergrond",
+      "Continu inzicht toolbox"
+    ]
+  },
+  {
+    "objectID": "changelog.html",
+    "href": "changelog.html",
+    "title": "Changelog",
+    "section": "",
+    "text": "Alle benoemenswaardige veranderingen worden hier bijgehouden. Dit project gebruikt Semantic Versioning. Het format is beschreven op https://keepachangelog.com.\n\n\n\n\n\nWerkende Quarto documentatie #7\nProof of concept met csv en database #9\nVoeg notebook toe om te laten zien hoe het werkt #12\nMaak map structuur overzichtelijker #19",
+    "crumbs": [
+      "Achtergrond",
+      "Changelog"
+    ]
+  },
+  {
+    "objectID": "changelog.html#ongeplubliceerd",
+    "href": "changelog.html#ongeplubliceerd",
+    "title": "Changelog",
+    "section": "",
+    "text": "Werkende Quarto documentatie #7\nProof of concept met csv en database #9\nVoeg notebook toe om te laten zien hoe het werkt #12\nMaak map structuur overzichtelijker #19",
+    "crumbs": [
+      "Achtergrond",
+      "Changelog"
+    ]
   }
 ]
