@@ -1,4 +1,4 @@
-name: Render and Publish Docs
+name: Run Pytest
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
         with:
           manifest-path: continu_inzicht/pixi.toml
           pixi-version: "latest"
-
+        
       - name: Copy github secrets to environment variables files
         working-directory: continu_inzicht
         run: | 
@@ -42,19 +42,14 @@ jobs:
             echo schema=${{ secrets.SCHEMA }} >> .env
             cat .env
 
-      - name: Check Quarto installation and all engines
+      - name: Run Pytests
         working-directory: continu_inzicht
-        run: pixi run quarto-check
+        run: pixi run pytest --cov
 
-      - name: Render Quarto Project
-        working-directory: continu_inzicht
-        run: pixi run quarto-render
-
-      - name: Publish Quarto Project
-        if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: continu_inzicht/docs/docs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # later maybe upload to a coverage site, e.g.: 
+      #   run: pytest --cov --cov-report=xml
+      #   shell: bash -l {0}
+      # - name: Upload coverage reports to Codecov
+      #   uses: codecov/codecov-action@v4
+      #   with:
+      #     use_oidc: true

@@ -1,0 +1,12 @@
+
+global_variables:
+    rootdir: 'data_sets'
+
+# functie naam
+WaardesDelenTwee:
+    input:
+        type: postgresql_database
+        table: data
+    output: 
+        type: postgresql_database
+        table: data

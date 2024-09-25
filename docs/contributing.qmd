@@ -43,8 +43,9 @@ The sections below outline the steps in each case.
 
 1. (**Belangrijk**) communiceer aan de rest van de ontwikkelaars _voor je begint_ dat je een aanpassing wil maken. Dit laat je weten door een issue aan te maken. 
 1. (**Belangrijk**) Bereik consensus over je idee.
-1. Indien nodig, maak een \'fork\' (kopie) in je eigen account. In deze fork
-    maak je een eigen branch van de laatste  commit in main. Probeer om
+1. De hoofd ontwikkelaars hebben rechten om nieuwe branches aan te maken. 
+   Als je deze rechten niet hebt, maak een \'fork\' (kopie) in je eigen account. 
+   In deze fork maak je een eigen branch van de laatste  commit in main. Probeer om
     veranderingen die in de tussentijd worden doorgevoerd op main al mee
     te nemen. Dit doe je door te pullen van de \'upstream\'
     repository, (zie instructies
@@ -72,11 +73,11 @@ Maak een pull request en dan kijken we hoe we kunnen helpen.
 Dit is een stukje voor de hoofdontwikkelaars van toolbox continu inzicht.
 
 1. Checkout `HEAD` van de `main` branch met `git checkout main` en `git pull`.
-1. Beslis welke nieuwe versie (major, minor or patch) gebruikt gaat worden. We gebruiken `semantic versioning <https://semver.org>`_.
+1. Beslis welke nieuwe versie (major, minor or patch) gebruikt gaat worden. We gebruiken [semantic versioning](https://semver.org).
 1. Omdat je niet direct naar de main branch kan schrijven (protected), maak een nieuwe branch aan met ``git checkout -b release-<version>``.
 1. Indien dependencies zijn aangepast, maak een nieuw [pixi lock](https://pixi.sh/latest/features/lockfile/) bestand.
-1. Pas de versie aan in ``src/toolbox_continu_inzicht/__init__.py``, de `pyptoject.toml` leest deze uit.
-1. Pas de ``Docs/changelog.qmd`` aan met de veranderingen. Vergeet de link naar de pull request niet. 
+1. Pas de versie aan in `src/toolbox_continu_inzicht/__init__.py`, de `pyptoject.toml` leest deze uit.
+1. Pas de `docs/changelog.qmd` aan met de veranderingen. Vergeet de link naar de pull request niet. 
 1. Zorg dat de format van je code correct is met `pixi run ruff check`.
 1. Zorg dat alle bestaande testen werken met `pixi run pytest`;
 1. Commit & push je aanpassingen naar GitHub.
