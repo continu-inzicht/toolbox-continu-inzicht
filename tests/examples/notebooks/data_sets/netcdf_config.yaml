@@ -1,0 +1,17 @@
+global_variables:
+    rootdir: 'C:\Data\Python\toolbox-continu-inzicht\tests\examples\notebooks'
+WaardesKeerTwee: 
+    input: 
+        type: netcdf
+        path: 'data_sets\test_netcdf_in.nc'
+    output: 
+        type: csv
+        path: 'data_sets\test_csv_out.csv'
+
+WaardesDelenTwee: 
+    input: 
+        type: csv
+        path: 'data_sets\test_csv_in.csv'
+    output: 
+        type: netcdf
+        path: 'data_sets\test_netcdf_out.nc'

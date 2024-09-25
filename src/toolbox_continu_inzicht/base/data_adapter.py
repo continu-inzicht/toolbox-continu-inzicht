@@ -2,6 +2,8 @@ from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
 import pandas as pd
 import sqlalchemy
+import xarray as xr
+
 from dotenv import load_dotenv, dotenv_values
 from toolbox_continu_inzicht.base.config import Config
 
@@ -16,10 +18,12 @@ class DataAdapter(PydanticBaseModel):
     def initialize_input_types(self):
         self.input_types["csv"] = self.input_csv
         self.input_types["postgresql_database"] = self.input_postgresql
+        self.input_types["netcdf"] = self.input_netcdf
 
     def initialize_output_types(self):
         self.output_types["csv"] = self.output_csv
         self.output_types["postgresql_database"] = self.output_postgresql
+        self.output_types["netcdf"] = self.output_netcdf
 
     def input(self, functie):
         """Gegeven het config, stuurt de juiste input waarde aan
@@ -139,7 +143,7 @@ class DataAdapter(PydanticBaseModel):
         functie: str
                  naam van de functie die bij het bestands type hoort
         df: pd.Dataframe
-            pandas dataframe om weg te schrijvne
+            pandas dataframe om weg te schrijven
 
         opties: dict
                 extra informatie die ook naar de functie moet om het bestand te schrijven
@@ -172,12 +176,36 @@ class DataAdapter(PydanticBaseModel):
             environmental_variables = dict(dotenv_values())
         else:
             raise UserWarning("Ensure a `.env` file is present in the root directory")
+        
         functie_output_config.update(environmental_variables)
 
         # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
         bijbehorende_functie = self.output_types[data_type]
         df = bijbehorende_functie(functie_output_config, df)
         return df
+
+
+    @staticmethod
+    def input_netcdf(input_config):
+        """Laat een netcdf bestand in gegeven een pad
+
+        Notes:
+        --------
+        Lees het netCDF bestand met xarray in en converteer de dataset naar
+        een pandas dataframe.
+
+        Returns:
+        --------
+        pd.Dataframe
+        """
+        # Data checks worden gedaan in de functies zelf, hier alleen geladen
+        path = input_config["path"]
+        ds = xr.open_dataset(path)
+
+        # netcdf dataset to pandas dataframe
+        df = xr.Dataset.to_dataframe(ds)
+        return df
+
 
     @staticmethod
     def output_csv(output_config, df):
@@ -197,6 +225,7 @@ class DataAdapter(PydanticBaseModel):
         # TODO: opties voor csv mogen alleen zijn wat er mee gegeven mag wroden aan .to_csv
         path = output_config["path"]
         df.to_csv(path)
+
 
     @staticmethod
     def output_postgresql(output_config, df):
@@ -250,3 +279,31 @@ class DataAdapter(PydanticBaseModel):
 
         # verbinding opruimen
         engine.dispose()
+
+
+    @staticmethod
+    def output_netcdf(output_config, df):
+        """schrijft een netCDF bestand in gegeven een pad
+
+        Notes:
+        ------
+        Gebruikt hiervoor eerst de xarray.from_dataframe om een xarray dataset te maken
+        vervolgens xarray to_netcdf om het bestand te genereren.
+        Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.
+
+        Returns:
+        --------
+        None
+        """
+        # Data checks worden gedaan in de functies zelf, hier alleen geladen
+
+        # TODO: opties voor csv mogen alleen zijn wat er mee gegeven mag worden aan .to_netcdf
+        path = output_config["path"]        
+        
+        # TODO: netcdf kent geen int64 dus converteren naar float 
+        for column in df.columns:
+            if df[column].dtype == 'int64':
+                df[column] = df[column].astype('float64')
+                                        
+        ds = xr.Dataset.from_dataframe(df)
+        ds.to_netcdf(path, mode="w", engine="scipy")
