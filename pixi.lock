@@ -3597,18 +3597,6 @@ packages:
   - pkg:pypi/contextily?source=hash-mapping
   size: 20674
   timestamp: 1725373775230
-- kind: pypi
-  name: continu-inzicht-toolbox
-  version: 0.0.1
-  path: src
-  sha256: 5f80f724b8040089e095bb01dacbc1ebee664a4b2778de9ef0de0616bc725892
-  requires_dist:
-  - geopandas
-  - numpy
-  - pandas
-  - shapely
-  requires_python: '>=3.10'
-  editable: true
 - kind: conda
   name: contourpy
   version: 1.3.0
@@ -16906,6 +16894,18 @@ packages:
   - pkg:pypi/tomli-w?source=hash-mapping
   size: 10052
   timestamp: 1638551820635
+- kind: pypi
+  name: toolbox-continu-inzicht
+  version: 0.0.1
+  path: src
+  sha256: 44b415656277fe689e9bc59ba065a3b51b43ffe43de4effd1136dd57a1abf246
+  requires_dist:
+  - geopandas
+  - numpy
+  - pandas
+  - shapely
+  requires_python: '>=3.10'
+  editable: true
 - kind: conda
   name: toolz
   version: 0.12.1
