@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>install – Toolbox continu inzicht</title>
+<title>contributing – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -126,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Achtergrond</span></a>
   </li>  
   <li class="nav-item">
@@ -140,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./contributing.html"> 
+    <a class="nav-link active" href="./contributing.html" aria-current="page"> 
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
@@ -159,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./install.html">Instalatie instructies</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./contributing.html">Richtlijnen voor bijdragen aan toolbox continu inzicht</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -173,20 +139,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Continu inzicht toolbox</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./install.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Instalatie instructies</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./changelog.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Changelog</span></a>
+  <a href="./contributing.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Richtlijnen voor bijdragen aan toolbox continu inzicht</span></a>
   </div>
 </li>
     </ul>
@@ -199,11 +153,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#instalatie-instructies" id="toc-instalatie-instructies" class="nav-link active" data-scroll-target="#instalatie-instructies">Instalatie instructies</a>
+  <li><a href="#richtlijnen-voor-bijdragen-aan-toolbox-continu-inzicht" id="toc-richtlijnen-voor-bijdragen-aan-toolbox-continu-inzicht" class="nav-link active" data-scroll-target="#richtlijnen-voor-bijdragen-aan-toolbox-continu-inzicht">Richtlijnen voor bijdragen aan toolbox continu inzicht</a>
   <ul class="collapse">
-  <li><a href="#vervanging" id="toc-vervanging" class="nav-link" data-scroll-target="#vervanging">Vervanging</a></li>
-  <li><a href="#los-staande-modules" id="toc-los-staande-modules" class="nav-link" data-scroll-target="#los-staande-modules">Los staande modules</a></li>
-  <li><a href="#als-ontwikkelaar" id="toc-als-ontwikkelaar" class="nav-link" data-scroll-target="#als-ontwikkelaar">Als ontwikkelaar</a></li>
+  <li><a href="#je-hebt-een-vraag" id="toc-je-hebt-een-vraag" class="nav-link" data-scroll-target="#je-hebt-een-vraag">Je hebt een vraag</a></li>
+  <li><a href="#je-denkt-een-probleem-bug-te-hebben-gevonden" id="toc-je-denkt-een-probleem-bug-te-hebben-gevonden" class="nav-link" data-scroll-target="#je-denkt-een-probleem-bug-te-hebben-gevonden">Je denkt een probleem (bug) te hebben gevonden</a></li>
+  <li><a href="#je-wilt-een-aanpassing-maken" id="toc-je-wilt-een-aanpassing-maken" class="nav-link" data-scroll-target="#je-wilt-een-aanpassing-maken">Je wilt een aanpassing maken</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -214,21 +168,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="instalatie-instructies" class="level1">
-<h1>Instalatie instructies</h1>
-<p>De toolbox continu inzicht kan op verschillende manieren worden gebruikt: 1. Als vervanging van de huidige Continu Inzicht back-end 1. Als los staande modules 1. Als ontwikkelaar</p>
-<section id="vervanging" class="level2">
-<h2 class="anchored" data-anchor-id="vervanging">Vervanging</h2>
-<p>Om de toolbox als vervanging van de huidige Continu Inzicht back-end zal in de toekomst meer informatie beschikbaar gesteld worden. De oude backend kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen kunnen dan worden mee genomen.</p>
+<section id="richtlijnen-voor-bijdragen-aan-toolbox-continu-inzicht" class="level1">
+<h1>Richtlijnen voor bijdragen aan toolbox continu inzicht</h1>
+<p>Het ontwikkelen van de toolbox continu inzicht bestaat uit twee delen. Eerst ontwikkeld HKV de basis functionaliteit. Deze ontwikkeling is voor iedereen te volgen op GitHub, maar toevoegingen worden nog niet geaccepteerd. Daarna blijft het project open source beschikbaar en kan het verder worden ontwikkeld. De term ‘ontwikkelaars’ duidt in de eerste ontwikkelfase op het team van HKV, later op andere die een bijdrage willen leveren. Een bijdragen kan uit een lopen van een vraag tot een grote wijziging via een <a href="https://help.github.com/articles/about-pull-requests/">pull request</a>.</p>
+<p>Een bijdrage kan een van de volgend dingen zijn:</p>
+<ol type="1">
+<li>Je hebt een vraag</li>
+<li>Je denkt een probleem (bug) te hebben gevonden (of onverwachte functionaliteit)</li>
+<li>Je wilt een aanpassing maken (Bug fixen, nieuwe functionaliteit, update aan de documentatie)</li>
+<li>Je wilt een nieuwe versie publiceren</li>
+</ol>
+<p>The sections below outline the steps in each case.</p>
+<section id="je-hebt-een-vraag" class="level2">
+<h2 class="anchored" data-anchor-id="je-hebt-een-vraag">Je hebt een vraag</h2>
+<ol type="1">
+<li>Gebruik de zoekfunctie <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/issues">hier</a> om te kijken of iemand anders dezelfde vraag heeft;</li>
+<li>Als je niks vergelijkbaars kan vinden, maak een nieuwe issue aan.</li>
+<li>Voeg de "Question”&nbsp;label toe; voeg andere labels toe waar nodig.</li>
+</ol>
 </section>
-<section id="los-staande-modules" class="level2">
-<h2 class="anchored" data-anchor-id="los-staande-modules">Los staande modules</h2>
-<p>Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install toolbox_continu_inzicht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="je-denkt-een-probleem-bug-te-hebben-gevonden" class="level2">
+<h2 class="anchored" data-anchor-id="je-denkt-een-probleem-bug-te-hebben-gevonden">Je denkt een probleem (bug) te hebben gevonden</h2>
+<ol type="1">
+<li><p>Gebruik de zoekfunctie <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/issues">hier</a> om te kijken of iemand anders dezelfde vraag/probleem heeft;</p></li>
+<li><p>Als je niks vergelijkbaars kan vinden, maak een nieuwe issue aan. Zorg dat je genoeg informatie mee geeft zodat andere ontwikkelaars je probleem begrijpen en genoeg context hebben om je te helpen. Afhankelijk van je probleem, kan je de <a href="https://help.github.com/articles/autolinked-references-and-urls/#commit-shas">SHA hashcode</a> van de commit die problemen veroorzaakt toevoegen. Denk daarnaast ook aan versie en besturingssysteem informatie.</p></li>
+<li><p>Voeg labels toe aan die relevant zijn voor je probleem.</p></li>
+</ol>
 </section>
-<section id="als-ontwikkelaar" class="level2">
-<h2 class="anchored" data-anchor-id="als-ontwikkelaar">Als ontwikkelaar</h2>
-<p>Zie het document <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht">CONTRIBUTING.md</a> voor meer informatie.</p>
+<section id="je-wilt-een-aanpassing-maken" class="level2">
+<h2 class="anchored" data-anchor-id="je-wilt-een-aanpassing-maken">Je wilt een aanpassing maken</h2>
+<ol type="1">
+<li>(<strong>Belangrijk</strong>) communiceer aan de rest van de ontwikkelaars <em>voor je begint</em> dat je een aanpassing wil maken. Dit laat je weten door een issue aan te maken.</li>
+<li>(<strong>Belangrijk</strong>) Bereik consensus over je idee.</li>
+<li>De hoofd ontwikkelaars hebben rechten om nieuwe branches aan te maken. Als je deze rechten niet hebt, maak een 'fork' (kopie) in je eigen account. In deze fork maak je een eigen branch van de laatste commit in main. Probeer om veranderingen die in de tussentijd worden doorgevoerd op main al mee te nemen. Dit doe je door te pullen van de 'upstream' repository, (zie instructies <a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/">hier</a> en <a href="https://help.github.com/articles/syncing-a-fork/">hier</a>);</li>
+<li>Voor <a href="https://code.visualstudio.com">Visual Studio Code</a> staat er een voorbeeld configuratie.</li>
+<li>Installeer de benodigde python packages in een pixi omgeving met <code>pixi install</code>, volg de uitleg van de <a href="https://pixi.sh/latest/">pixi</a>. Pixi zorgt er voor dat iedereen dezelfde versies van python packages heeft.</li>
+<li>Zorg dat de format van je code correct is met <code>pixi run ruff check</code>.</li>
+<li>Zorg dat alle bestaande testen werken met <code>pixi run pytest</code>;</li>
+<li>Zorg dat alle documentatie automatisch genereert met <code>pixi run quarto-render</code>. <a href="https://quarto.org/docs/computations/python.html">Quarto</a> is al onderdeel van de zojuist aangemaakte pixi omgeving.</li>
+<li>Voeg bij nieuwe functionaliteit altijd nieuwe tests.</li>
+<li>Update en voeg documentatie toe. Gebruik <a href="https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes">Numpy Style Python docstrings</a>. Zorg dat je code leesbaar en begrijpelijk is voor andere.</li>
+<li><a href="http://rogerdudler.github.io/git-guide/">push</a> je branch. naar (jou fork van) de toolbox continu inzicht repo op GitHub;</li>
+<li>Maak een pull request aan, bijvoorbeeld volgens <a href="https://help.github.com/articles/creating-a-pull-request/">deze instructies</a>. Pull requests worden ontvangen altijd een review.</li>
+</ol>
+<p>Als je het idee heb dat je iets nuttig heb toegevoegd, maar je weet niet hoe je test schrijft of runt, of hoe je documentatie aanmaakt: geen probleem. Maak een pull request en dan kijken we hoe we kunnen helpen. ## Je wilt een nieuwe versie publiceren</p>
+<p>Dit is een stukje voor de hoofdontwikkelaars van toolbox continu inzicht.</p>
+<ol type="1">
+<li><p>Checkout <code>HEAD</code> van de <code>main</code> branch met <code>git checkout main</code> en <code>git pull</code>.</p></li>
+<li><p>Beslis welke nieuwe versie (major, minor or patch) gebruikt gaat worden. We gebruiken <a href="https://semver.org">semantic versioning</a>.</p></li>
+<li><p>Omdat je niet direct naar de main branch kan schrijven (protected), maak een nieuwe branch aan met <code>git checkout -b release-&lt;version&gt;</code>.</p></li>
+<li><p>Indien dependencies zijn aangepast, maak een nieuw <a href="https://pixi.sh/latest/features/lockfile/">pixi lock</a> bestand.</p></li>
+<li><p>Pas de versie aan in <code>src/toolbox_continu_inzicht/__init__.py</code>, de <code>pyptoject.toml</code> leest deze uit.</p></li>
+<li><p>Pas de <code>docs/changelog.qmd</code> aan met de veranderingen. Vergeet de link naar de pull request niet.</p></li>
+<li><p>Zorg dat de format van je code correct is met <code>pixi run ruff check</code>.</p></li>
+<li><p>Zorg dat alle bestaande testen werken met <code>pixi run pytest</code>;</p></li>
+<li><p>Commit &amp; push je aanpassingen naar GitHub.</p></li>
+<li><p>Maak een pull request aan, laat iemand het reviewen, wacht voor all actie, deze worden groen, en merge de pull request.</p></li>
+<li><p>Wacht tot de GitHub-acties op de main branch klaar zijn en er een groen vinkje bij staat.</p></li>
+<li><p>Maak een nieuwe 'release' aan op GitHub</p>
+<ul>
+<li>Gebruik de versie als titel en pas een versie tag toe.</li>
+<li>Als beschrijving gebruik de intro van de <code>README.md</code> en veranderingen uit de <code>changelog.qmd</code>.</li>
+</ul></li>
+<li><p>Check</p>
+<ol type="1">
+<li>Is de <a href="https://continu-inzicht.github.io/toolbox-continu-inzicht/">wiki</a> bijgewerkt?</li>
+<li>Heeft de Github actie alles naar <a href="https://pypi.org/project/continu_inzicht_toolbox">PyPI</a> gestuurd?</li>
+<li>Werkt de nieuwe versie met: <code>pip3 install toolbox_continu_inzicht==&lt;new version&gt;</code>?</li>
+</ol></li>
+<li><p>Vier je nieuwe versie!</p></li>
+</ol>
 
 
 </section>

@@ -105,6 +105,10 @@ ul.task-list li input[type="checkbox"] {
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../contributing.html"> 
+<span class="menu-text">Bijdragen</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
@@ -217,16 +221,24 @@ ul.task-list li input[type="checkbox"] {
 <td>Laat een csv bestand in gegeven een pad</td>
 </tr>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_netcdf">input_netcdf</a></td>
+<td>Laat een netcdf bestand in gegeven een pad</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_postgresql">input_postgresql</a></td>
 <td>Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output">output</a></td>
 <td>Gegeven het config, stuurt de juiste input waarde aan</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_csv">output_csv</a></td>
 <td>schrijft een csv bestand in gegeven een pad</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_netcdf">output_netcdf</a></td>
+<td>schrijft een netCDF bestand in gegeven een pad</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_postgresql">output_postgresql</a></td>
@@ -261,6 +273,19 @@ ul.task-list li input[type="checkbox"] {
 <p>pd.Dataframe</p>
 </section>
 </section>
+<section id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_netcdf" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_netcdf">input_netcdf</h5>
+<p><code>base.data_adapter.DataAdapter.input_netcdf(input_config)</code></p>
+<p>Laat een netcdf bestand in gegeven een pad</p>
+<section id="notes" class="level6">
+<h6 class="anchored" data-anchor-id="notes">Notes:</h6>
+<p>Lees het netCDF bestand met xarray in en converteer de dataset naar een pandas dataframe.</p>
+</section>
+<section id="returns-1" class="level6">
+<h6 class="anchored" data-anchor-id="returns-1">Returns:</h6>
+<p>pd.Dataframe</p>
+</section>
+</section>
 <section id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_postgresql" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_postgresql">input_postgresql</h5>
 <p><code>base.data_adapter.DataAdapter.input_postgresql(input_config)</code></p>
@@ -269,12 +294,12 @@ ul.task-list li input[type="checkbox"] {
 <h6 class="anchored" data-anchor-id="parametes">Parametes:</h6>
 <p>input_config: dict in</p>
 </section>
-<section id="notes" class="level6">
-<h6 class="anchored" data-anchor-id="notes">Notes:</h6>
+<section id="notes-1" class="level6">
+<h6 class="anchored" data-anchor-id="notes-1">Notes:</h6>
 <p>In de <code>.env</code> environment bestand moet staan: user: str password: str host: str port: str database: str schema: str</p>
 </section>
-<section id="returns-1" class="level6">
-<h6 class="anchored" data-anchor-id="returns-1">Returns:</h6>
+<section id="returns-2" class="level6">
+<h6 class="anchored" data-anchor-id="returns-2">Returns:</h6>
 <p>pd.Dataframe</p>
 </section>
 </section>
@@ -284,7 +309,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Gegeven het config, stuurt de juiste input waarde aan</p>
 <section id="parameters-1" class="level6">
 <h6 class="anchored" data-anchor-id="parameters-1">Parameters:</h6>
-<p>functie: str naam van de functie die bij het bestands type hoort df: pd.Dataframe pandas dataframe om weg te schrijvne</p>
+<p>functie: str naam van de functie die bij het bestands type hoort df: pd.Dataframe pandas dataframe om weg te schrijven</p>
 <p>opties: dict extra informatie die ook naar de functie moet om het bestand te schrijven</p>
 </section>
 </section>
@@ -292,12 +317,25 @@ ul.task-list li input[type="checkbox"] {
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_csv">output_csv</h5>
 <p><code>base.data_adapter.DataAdapter.output_csv(output_config, df)</code></p>
 <p>schrijft een csv bestand in gegeven een pad</p>
-<section id="notes-1" class="level6">
-<h6 class="anchored" data-anchor-id="notes-1">Notes:</h6>
+<section id="notes-2" class="level6">
+<h6 class="anchored" data-anchor-id="notes-2">Notes:</h6>
 <p>Gebruikt hiervoor de pandas.DataFrame.to_csv Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.</p>
 </section>
-<section id="returns-2" class="level6">
-<h6 class="anchored" data-anchor-id="returns-2">Returns:</h6>
+<section id="returns-3" class="level6">
+<h6 class="anchored" data-anchor-id="returns-3">Returns:</h6>
+<p>None</p>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_netcdf" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_netcdf">output_netcdf</h5>
+<p><code>base.data_adapter.DataAdapter.output_netcdf(output_config, df)</code></p>
+<p>schrijft een netCDF bestand in gegeven een pad</p>
+<section id="notes-3" class="level6">
+<h6 class="anchored" data-anchor-id="notes-3">Notes:</h6>
+<p>Gebruikt hiervoor eerst de xarray.from_dataframe om een xarray dataset te maken vervolgens xarray to_netcdf om het bestand te genereren. Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.</p>
+</section>
+<section id="returns-4" class="level6">
+<h6 class="anchored" data-anchor-id="returns-4">Returns:</h6>
 <p>None</p>
 </section>
 </section>
@@ -309,12 +347,12 @@ ul.task-list li input[type="checkbox"] {
 <h6 class="anchored" data-anchor-id="parametes-1">Parametes:</h6>
 <p>df: pd.Dataframe dataframe met data om weg te schrijven opties: dict dictionary met extra opties waar onder: schema: str naam van het schema in de postgresql database table: str naam van de tabel in de postgresql database</p>
 </section>
-<section id="notes-2" class="level6">
-<h6 class="anchored" data-anchor-id="notes-2">Notes:</h6>
+<section id="notes-4" class="level6">
+<h6 class="anchored" data-anchor-id="notes-4">Notes:</h6>
 <p>In het credential bestand moet staan: user: str password: str host: str port: str database: str</p>
 </section>
-<section id="returns-3" class="level6">
-<h6 class="anchored" data-anchor-id="returns-3">Returns:</h6>
+<section id="returns-5" class="level6">
+<h6 class="anchored" data-anchor-id="returns-5">Returns:</h6>
 <p>None</p>
 
 
