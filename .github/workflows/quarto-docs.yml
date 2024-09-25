@@ -1,10 +1,10 @@
+name: Render and Publish Docs
+
 on:
   push:
     branches: [main]
   pull_request:
   merge_group:
-
-name: Render and Publish Docs
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

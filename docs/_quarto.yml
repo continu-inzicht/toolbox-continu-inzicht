@@ -14,6 +14,8 @@ website:
       - text: "Voorbeelden"
         file: examples/notebooks/proof_of_concept.ipynb
     right:
+      - text: "Bijdragen"
+        file: contributing.qmd
       - icon: github
         href: https://github.com/continu-inzicht/toolbox
         aria-label: GitHub
@@ -32,6 +34,10 @@ website:
       - title: "Voorbeelden"
         contents:
           - examples/notebooks/proof_of_concept.ipynb
+        
+      - title: "Bijdagen"
+        contents:
+          - contributing.qmd
 
 
 format:
