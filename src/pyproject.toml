@@ -30,5 +30,5 @@ packages = ["toolbox_continu_inzicht"]
 
 
 [project.urls]
-Documentation = "https://continu-inzicht.github.io/toolbox/"
+Documentation = "https://continu-inzicht.github.io/toolbox_continu_inzicht/"
 Source = "https://github.com/continu-inzicht/toolbox_continu_inzicht"

@@ -1,11 +1,17 @@
 # pixi environments
 .pixi
 
+# . files
 .ipynb_checkpoints
 .idea
 .env
 .env.template
 
+# wheels
+src/dist/*
+
+
+# cache:
 __pycache__/*
 __pycache__/** */
 */__pycache__/*

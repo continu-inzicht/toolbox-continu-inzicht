@@ -1,7 +1,7 @@
 # Changelog
 
 Alle benoemenswaardige veranderingen worden hier bijgehouden. 
-Dit projecr gebruikt [Semantic Versioning](http://semver.org/).
+Dit project gebruikt [Semantic Versioning](http://semver.org/).
 Het format is beschreven op [https://keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
 ## [Ongeplubliceerd]

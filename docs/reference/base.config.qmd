@@ -1,4 +1,4 @@
-# base.config { #continu_inzicht_toolbox.base.config }
+# base.config { #toolbox_continu_inzicht.base.config }
 
 `base.config`
 
@@ -8,9 +8,9 @@
 
 | Name | Description |
 | --- | --- |
-| [Config](#continu_inzicht_toolbox.base.config.Config) | Basis functie om de configuratie in te laden. |
+| [Config](#toolbox_continu_inzicht.base.config.Config) | Basis functie om de configuratie in te laden. |
 
-### Config { #continu_inzicht_toolbox.base.config.Config }
+### Config { #toolbox_continu_inzicht.base.config.Config }
 
 `base.config.Config()`
 
@@ -26,20 +26,20 @@ Basis functie om de configuratie in te laden.
 
 | Name | Description |
 | --- | --- |
-| [WaardesDelenTwee](#continu_inzicht_toolbox.base.config.Config.WaardesDelenTwee) |  |
-| [WaardesKeerTwee](#continu_inzicht_toolbox.base.config.Config.WaardesKeerTwee) |  |
-| [config_path](#continu_inzicht_toolbox.base.config.Config.config_path) |  |
-| [dump](#continu_inzicht_toolbox.base.config.Config.dump) |  |
-| [global_variables](#continu_inzicht_toolbox.base.config.Config.global_variables) |  |
-| [toegelaten_functies](#continu_inzicht_toolbox.base.config.Config.toegelaten_functies) |  |
+| [WaardesDelenTwee](#toolbox_continu_inzicht.base.config.Config.WaardesDelenTwee) |  |
+| [WaardesKeerTwee](#toolbox_continu_inzicht.base.config.Config.WaardesKeerTwee) |  |
+| [config_path](#toolbox_continu_inzicht.base.config.Config.config_path) |  |
+| [dump](#toolbox_continu_inzicht.base.config.Config.dump) |  |
+| [global_variables](#toolbox_continu_inzicht.base.config.Config.global_variables) |  |
+| [toegelaten_functies](#toolbox_continu_inzicht.base.config.Config.toegelaten_functies) |  |
 
 #### Methods
 
 | Name | Description |
 | --- | --- |
-| [lees_config](#continu_inzicht_toolbox.base.config.Config.lees_config) | Laad het gegeven pad in, zet de configuraties klaar in de Config class |
+| [lees_config](#toolbox_continu_inzicht.base.config.Config.lees_config) | Laad het gegeven pad in, zet de configuraties klaar in de Config class |
 
-##### lees_config { #continu_inzicht_toolbox.base.config.Config.lees_config }
+##### lees_config { #toolbox_continu_inzicht.base.config.Config.lees_config }
 
 `base.config.Config.lees_config()`
 
