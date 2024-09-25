@@ -43,8 +43,9 @@ The sections below outline the steps in each case.
 
 1. (**Belangrijk**) communiceer aan de rest van de ontwikkelaars _voor je begint_ dat je een aanpassing wil maken. Dit laat je weten door een issue aan te maken. 
 1. (**Belangrijk**) Bereik consensus over je idee.
-1. Indien nodig, maak een \'fork\' (kopie) in je eigen account. In deze fork
-    maak je een eigen branch van de laatste  commit in main. Probeer om
+1. De hoofd ontwikkelaars hebben rechten om nieuwe branches aan te maken. 
+   Als je deze rechten niet hebt, maak een \'fork\' (kopie) in je eigen account. 
+   In deze fork maak je een eigen branch van de laatste  commit in main. Probeer om
     veranderingen die in de tussentijd worden doorgevoerd op main al mee
     te nemen. Dit doe je door te pullen van de \'upstream\'
     repository, (zie instructies
