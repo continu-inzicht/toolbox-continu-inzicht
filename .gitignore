@@ -5,7 +5,7 @@
 .ipynb_checkpoints
 .idea
 .env
-.env.template
+.coverage
 
 # wheels
 src/dist/*
