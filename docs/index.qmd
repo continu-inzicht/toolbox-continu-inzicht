@@ -9,5 +9,6 @@ Dan is het belangrijk continu inzicht te hebben in de actuele risico’s voor he
 De methode ‘continu inzicht’ is precies daarop gericht: ervoor zorgen dat de beheerder 24/7 in control is. 
 Met slimme monitoring en rekenmodellen wordt de actuele situatie geanalyseerd. 
 De beheerder ziet hoe groot het risico is en waar de zwakke plekken zitten, zodat hij of zij gericht maatregelen kan nemen. 
-Doormiddel van deze python toolbox worden de systemen 'continu inzicht' aangeboden.
-Op deze wiki zal de komende tijd meer verschijnen over het project. 
+Het 'Continu inzicht' is door HKV lijn in water ontwikkeld voor waterschappen. 
+Doormiddel van deze python toolbox worden de systemen achter 'continu inzicht' her ontwikkeld in python en open source aangeboden.
+

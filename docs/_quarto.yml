@@ -7,29 +7,31 @@ website:
   navbar:
     logo: https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png
     left:
-      - text: "Overview"
+      - text: "Achtergrond"
         file: index.qmd
-      - text: "Reference"
+      - text: "Python documentatie"
         file: reference/index.qmd
+      - text: "Voorbeelden"
+        file: examples/notebooks/proof_of_concept.ipynb
     right:
       - icon: github
         href: https://github.com/continu-inzicht/toolbox
         aria-label: GitHub
 
-sidebar:
-    - title: "Overview"
-      contents:
-        - index.qmd
-        - install.qmd
+  sidebar:
+      - title: "Achtergrond"
+        contents:
+          - index.qmd
+          - install.qmd
+          - changelog.qmd
 
-    # - title: "How-to guides"
-      # contents:
-    #     - guide/examples.ipynb
-
-    - title: "Reference"
-      contents:
-        - reference/index.qmd
-        - reference/base.qmd
+      - title: "Python documentatie"
+        contents:
+          - reference/index.qmd
+      
+      - title: "Voorbeelden"
+        contents:
+          - examples/notebooks/proof_of_concept.ipynb
 
 
 format:
