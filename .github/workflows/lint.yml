@@ -31,8 +31,8 @@ jobs:
           pixi-version: "latest"
   
       - name: Ruff Lint
-        run: ruff check --output-format=github .
+        run: pixi run ruff check --output-format=github .
       - name: Check format
-        run: ruff format --check
+        run: pixi run ruff format --check
 
 
