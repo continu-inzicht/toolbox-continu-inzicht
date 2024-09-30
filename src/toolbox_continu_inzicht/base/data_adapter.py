@@ -25,13 +25,16 @@ class DataAdapter(PydanticBaseModel):
         self.output_types["postgresql_database"] = self.output_postgresql
         self.output_types["netcdf"] = self.output_netcdf
 
-    def input(self, functie):
+    def input(self, functie: str, input: str):
         """Gegeven het config, stuurt de juiste input waarde aan
 
         Parameters:
         -----------
         functie: str
                  naam van de functie die bij het bestands type hoort
+
+        input: str
+               naame van de data adapter die gebruikt wordt.
 
         opties: dict
                   extra informatie die ook naar de functie moet om het bestand te lezen
@@ -40,7 +43,7 @@ class DataAdapter(PydanticBaseModel):
         # TODO: kan dit eleganters?
         self.initialize_input_types()  # maak een dictionary van type: functie
         # haal de input configuratie op van de functie
-        functie_input_config = getattr(self.config, functie)["input"]
+        functie_input_config = self.config.data_adapters[input]
         # leid het data type af
         data_type = functie_input_config["type"]
 
@@ -87,7 +90,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def input_postgresql(input_config):
+    def input_postgresql(input_config: dict):
         """Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.
 
         Parametes:
@@ -135,13 +138,14 @@ class DataAdapter(PydanticBaseModel):
 
         return df
 
-    def output(self, functie, df):
+    def output(self, functie: str, output: str, df: pd.DataFrame):
         """Gegeven het config, stuurt de juiste input waarde aan
 
         Parameters:
         -----------
         functie: str
                  naam van de functie die bij het bestands type hoort
+        output: name of the data adapter to use
         df: pd.Dataframe
             pandas dataframe om weg te schrijven
 
@@ -149,10 +153,12 @@ class DataAdapter(PydanticBaseModel):
                 extra informatie die ook naar de functie moet om het bestand te schrijven
 
         """
+
         # TODO: kan dit eleganters?
         self.initialize_output_types()  # maak een dictionary van type: functie
         # haal de input configuratie op van de functie
-        functie_output_config = getattr(self.config, functie)["output"]
+        functie_output_config = self.config.data_adapters[output]
+
         # leid het data type af
         data_type = functie_output_config["type"]
 
