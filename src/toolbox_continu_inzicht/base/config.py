@@ -14,19 +14,8 @@ class Config(PydanticBaseModel):
     """
 
     config_path: Path
-
-    # elke functie heeft een dictionary met daar in de configuratie
-    toegelaten_functies: set = {
-        "WaardesKeerTwee",
-        "WaardesDelenTwee",
-        "global_variables",
-    }
-    WaardesKeerTwee: dict = {}
-    WaardesDelenTwee: dict = {}
     global_variables: dict = {}
-
-    #
-    dump: dict = {}
+    data_adapters: dict = {}
 
     def lees_config(self):
         """Laad het gegeven pad in, zet de configuraties klaar in de Config class"""
@@ -34,9 +23,16 @@ class Config(PydanticBaseModel):
         with self.config_path.open() as fin:
             data = yaml.safe_load(fin)
 
-        for functie, configuratie in data.items():
-            if functie in self.toegelaten_functies:
-                setattr(self, functie, configuratie)
-            else:  # als de functie niet is geconfigureerd: vang dat hier af
-                self.dump.update({functie: configuratie})
-                # TODO: self.logger(f"{functie} niet gevonden, kijk of deze functie bestaat")
+        for header, configuration in data.items():
+            match header:
+                case "DataAdapter":
+                    self.data_adapters = configuration
+                case "GlobalVariables":
+                    self.global_variables = configuration
+
+        # add any applicable global variables to the
+        # not that fast but config shouldn't get too big
+        for val in self.global_variables:
+            for name, adapter in self.data_adapters.items():
+                if adapter["type"] == val:
+                    self.data_adapters[name].update(self.global_variables[val])

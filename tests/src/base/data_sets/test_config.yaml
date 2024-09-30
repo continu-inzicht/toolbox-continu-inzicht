@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: 'data_sets'
+    rootdir: 'tests/src/base/data_sets'
     postgresql_database:
         database: 'citoolbox'
         schema: 'citoolbox_schema'

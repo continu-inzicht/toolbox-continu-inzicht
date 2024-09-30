@@ -1,6 +1,6 @@
 ,objectid,objecttype,parameterid,datetime,value
-0,1,measuringstation,1,1726227377000,9.6
-1,2,measuringstation,1,1726227377000,10.0
-2,3,measuringstation,1,1726227377000,10.4
-3,4,measuringstation,1,1726227377000,10.8
-4,5,measuringstation,1,1726227377000,11.2
+0,1,measuringstation,1,1726227377000,2.4
+1,2,measuringstation,1,1726227377000,2.5
+2,3,measuringstation,1,1726227377000,2.6
+3,4,measuringstation,1,1726227377000,2.7
+4,5,measuringstation,1,1726227377000,2.8

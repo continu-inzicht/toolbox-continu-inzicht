@@ -2,36 +2,19 @@ from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
 
 
-def test_Config_csv():
+def test_Config():
     """Tests loading of csv configuration"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     print(test_data_sets_path)
-    c = Config(config_path=test_data_sets_path / "test_config_csv.yaml")
+    c = Config(config_path=test_data_sets_path / "test_config.yaml")
     c.lees_config()
 
     assert "rootdir" in c.global_variables
-    keys = ["input", "output"]
-    assert all(key in c.WaardesKeerTwee for key in keys)
-    assert c.WaardesKeerTwee["input"]["type"] == "csv"
+    keys = ["MyCSV_in", "MyCSV_out", "MyPostgresql", "MyNetCDF_in", "MyNetCDF_out"]
+    assert all([key in c.data_adapters for key in keys])
+    assert c.data_adapters["MyCSV_in"]["type"] == "csv"
+    assert c.data_adapters["MyPostgresql"]["type"] == "postgresql_database"
+    assert c.data_adapters["MyNetCDF_in"]["type"] == "netcdf"
 
-
-def test_Config_dump():
-    test_data_sets_path = Path(__file__).parent / "data_sets"
-    print(test_data_sets_path)
-    c = Config(config_path=test_data_sets_path / "test_config_dump.yaml")
-    c.lees_config()
-
-    assert "FunctieDieErNietIs" in c.dump
-
-
-def test_Config_postgresql():
-    """Tests loading of postgresql configuration"""
-    test_data_sets_path = Path(__file__).parent / "data_sets"
-    print(test_data_sets_path)
-    c = Config(config_path=test_data_sets_path / "test_config_postgresql.yaml")
-    c.lees_config()
-
-    assert "rootdir" in c.global_variables
-    keys = ["input", "output"]
-    assert all(key in c.WaardesDelenTwee for key in keys)
-    assert c.WaardesDelenTwee["input"]["type"] == "postgresql_database"
+    keys = ["schema", "database"]
+    assert all([key in c.data_adapters["MyPostgresql"] for key in keys])

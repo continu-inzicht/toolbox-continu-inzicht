@@ -24,6 +24,8 @@ Voorbeeld class die laat zien hoe de arcitectuur werkt
 | [data_adapter](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.data_adapter) |  |
 | [df_in](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.df_in) |  |
 | [df_out](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.df_out) |  |
+| [input](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.input) |  |
+| [output](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.output) |  |
 
 #### Methods
 
@@ -40,7 +42,7 @@ Vermenigvuldigd de meetstation waardes met 2 als voorbeeld
 
 ##### run { #toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesDelenTwee.run }
 
-`proof_of_concept.voorbeeld_module.WaardesDelenTwee.run()`
+`proof_of_concept.voorbeeld_module.WaardesDelenTwee.run(input=None, output=None)`
 
 Runt de funcies en stuur de df terug
 
@@ -57,6 +59,8 @@ Voorbeeld class die laat zien hoe de arcitectuur werkt
 | [data_adapter](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.data_adapter) |  |
 | [df_in](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.df_in) |  |
 | [df_out](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.df_out) |  |
+| [input](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.input) |  |
+| [output](#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.output) |  |
 
 #### Methods
 
@@ -73,6 +77,6 @@ Deelt de meetstation waardes door 2 als voorbeeld
 
 ##### run { #toolbox_continu_inzicht.proof_of_concept.voorbeeld_module.WaardesKeerTwee.run }
 
-`proof_of_concept.voorbeeld_module.WaardesKeerTwee.run()`
+`proof_of_concept.voorbeeld_module.WaardesKeerTwee.run(input=None, output=None)`
 
 Runt de funcies en stuur de df terug
