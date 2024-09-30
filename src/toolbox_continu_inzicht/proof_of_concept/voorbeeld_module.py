@@ -13,12 +13,18 @@ class WaardesDelenTwee:
     """
 
     data_adapter: DataAdapter
+    input: str
+    output: str
     # pydantic heeft problemen met pd, dus optioneel
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    def run(self, input: str, output: str):
+    def run(self, input=None, output=None):
         """Runt de funcies en stuur de df terug"""
+        if input is None:
+            input = self.input
+        if output is None:
+            output = self.output
 
         self.df_in = self.data_adapter.input("WaardesDelenTwee", input)
 
@@ -58,12 +64,19 @@ class WaardesKeerTwee:
     """
 
     data_adapter: DataAdapter
+    input: str
+    output: str
     # pydantic heeft problemen met pd, dus optioneel
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    def run(self, input: str, output: str):
+    def run(self, input=None, output=None):
         """Runt de funcies en stuur de df terug"""
+        if input is None:
+            input = self.input
+        if output is None:
+            output = self.output
+
         self.df_in = self.data_adapter.input("WaardesKeerTwee", input)
 
         if self.df_in is not None:
