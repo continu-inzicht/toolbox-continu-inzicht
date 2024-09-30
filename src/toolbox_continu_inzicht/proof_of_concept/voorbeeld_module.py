@@ -26,7 +26,7 @@ class WaardesDelenTwee:
         if output is None:
             output = self.output
 
-        self.df_in = self.data_adapter.input("WaardesDelenTwee", input)
+        self.df_in = self.data_adapter.input(input)
 
         if self.df_in is not None:
             # check of de data klopt
@@ -34,7 +34,7 @@ class WaardesDelenTwee:
             list_bool_cols = [col in self.df_in.columns for col in cols]
             if all(list_bool_cols):
                 self.df_out = self.delen_door_twee(self.df_in)
-                self.data_adapter.output("WaardesDelenTwee", output, self.df_out)
+                self.data_adapter.output(output, self.df_out)
 
             else:
                 raise UserWarning(
@@ -77,7 +77,7 @@ class WaardesKeerTwee:
         if output is None:
             output = self.output
 
-        self.df_in = self.data_adapter.input("WaardesKeerTwee", input)
+        self.df_in = self.data_adapter.input(input)
 
         if self.df_in is not None:
             # check of de data klopt
@@ -85,7 +85,7 @@ class WaardesKeerTwee:
             list_bool_cols = [col in self.df_in.columns for col in cols]
             if all(list_bool_cols):
                 self.df_out = self.keer_twee(self.df_in)
-                self.data_adapter.output("WaardesKeerTwee", output, self.df_out)
+                self.data_adapter.output(output, self.df_out)
 
             else:
                 raise UserWarning(

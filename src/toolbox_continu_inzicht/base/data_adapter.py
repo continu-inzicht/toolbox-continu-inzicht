@@ -25,22 +25,18 @@ class DataAdapter(PydanticBaseModel):
         self.output_types["postgresql_database"] = self.output_postgresql
         self.output_types["netcdf"] = self.output_netcdf
 
-    def input(self, functie: str, input: str):
+    def input(self, input: str):
         """Gegeven het config, stuurt de juiste input waarde aan
 
         Parameters:
         -----------
-        functie: str
-                 naam van de functie die bij het bestands type hoort
-
         input: str
-               naame van de data adapter die gebruikt wordt.
+               Naam van de data adapter die gebruikt wordt.
 
         opties: dict
                   extra informatie die ook naar de functie moet om het bestand te lezen
 
         """
-        # TODO: kan dit eleganters?
         self.initialize_input_types()  # maak een dictionary van type: functie
         # haal de input configuratie op van de functie
         functie_input_config = self.config.data_adapters[input]
@@ -138,13 +134,11 @@ class DataAdapter(PydanticBaseModel):
 
         return df
 
-    def output(self, functie: str, output: str, df: pd.DataFrame):
+    def output(self, output: str, df: pd.DataFrame):
         """Gegeven het config, stuurt de juiste input waarde aan
 
         Parameters:
         -----------
-        functie: str
-                 naam van de functie die bij het bestands type hoort
         output: name of the data adapter to use
         df: pd.Dataframe
             pandas dataframe om weg te schrijven
