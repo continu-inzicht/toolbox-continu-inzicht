@@ -32,9 +32,11 @@ Basis DataAdapter
 | [initialize_output_types](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_output_types) |  |
 | [input](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input) | Gegeven het config, stuurt de juiste input waarde aan |
 | [input_csv](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_csv) | Laat een csv bestand in gegeven een pad |
+| [input_netcdf](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_netcdf) | Laat een netcdf bestand in gegeven een pad |
 | [input_postgresql](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_postgresql) | Schrijft data naar een postgresql database gegeven het pad naar een credential bestand. |
 | [output](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output) | Gegeven het config, stuurt de juiste input waarde aan |
 | [output_csv](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_csv) | schrijft een csv bestand in gegeven een pad |
+| [output_netcdf](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_netcdf) | schrijft een netCDF bestand in gegeven een pad |
 | [output_postgresql](#toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_postgresql) | Schrijft data naar een postgresql database gegeven het pad naar een credential bestand. |
 
 ##### initialize_input_types { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_input_types }
@@ -51,14 +53,14 @@ Basis DataAdapter
 
 ##### input { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.input }
 
-`base.data_adapter.DataAdapter.input(functie)`
+`base.data_adapter.DataAdapter.input(input)`
 
 Gegeven het config, stuurt de juiste input waarde aan
 
 ###### Parameters:
 
-functie: str
-         naam van de functie die bij het bestands type hoort
+input: str
+       Naam van de data adapter die gebruikt wordt.
 
 opties: dict
           extra informatie die ook naar de functie moet om het bestand te lezen
@@ -68,6 +70,21 @@ opties: dict
 `base.data_adapter.DataAdapter.input_csv(input_config)`
 
 Laat een csv bestand in gegeven een pad
+
+###### Returns:
+
+pd.Dataframe
+
+##### input_netcdf { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.input_netcdf }
+
+`base.data_adapter.DataAdapter.input_netcdf(input_config)`
+
+Laat een netcdf bestand in gegeven een pad
+
+###### Notes:
+
+Lees het netCDF bestand met xarray in en converteer de dataset naar
+een pandas dataframe.
 
 ###### Returns:
 
@@ -100,16 +117,15 @@ pd.Dataframe
 
 ##### output { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.output }
 
-`base.data_adapter.DataAdapter.output(functie, df)`
+`base.data_adapter.DataAdapter.output(output, df)`
 
 Gegeven het config, stuurt de juiste input waarde aan
 
 ###### Parameters:
 
-functie: str
-         naam van de functie die bij het bestands type hoort
+output: name of the data adapter to use
 df: pd.Dataframe
-    pandas dataframe om weg te schrijvne
+    pandas dataframe om weg te schrijven
 
 opties: dict
         extra informatie die ook naar de functie moet om het bestand te schrijven
@@ -123,6 +139,22 @@ schrijft een csv bestand in gegeven een pad
 ###### Notes:
 
 Gebruikt hiervoor de pandas.DataFrame.to_csv
+Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.
+
+###### Returns:
+
+None
+
+##### output_netcdf { #toolbox_continu_inzicht.base.data_adapter.DataAdapter.output_netcdf }
+
+`base.data_adapter.DataAdapter.output_netcdf(output_config, df)`
+
+schrijft een netCDF bestand in gegeven een pad
+
+###### Notes:
+
+Gebruikt hiervoor eerst de xarray.from_dataframe om een xarray dataset te maken
+vervolgens xarray to_netcdf om het bestand te genereren.
 Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.
 
 ###### Returns:

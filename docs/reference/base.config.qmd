@@ -26,12 +26,9 @@ Basis functie om de configuratie in te laden.
 
 | Name | Description |
 | --- | --- |
-| [WaardesDelenTwee](#toolbox_continu_inzicht.base.config.Config.WaardesDelenTwee) |  |
-| [WaardesKeerTwee](#toolbox_continu_inzicht.base.config.Config.WaardesKeerTwee) |  |
 | [config_path](#toolbox_continu_inzicht.base.config.Config.config_path) |  |
-| [dump](#toolbox_continu_inzicht.base.config.Config.dump) |  |
+| [data_adapters](#toolbox_continu_inzicht.base.config.Config.data_adapters) |  |
 | [global_variables](#toolbox_continu_inzicht.base.config.Config.global_variables) |  |
-| [toegelaten_functies](#toolbox_continu_inzicht.base.config.Config.toegelaten_functies) |  |
 
 #### Methods
 

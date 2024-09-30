@@ -1,0 +1,16 @@
+---
+title: "Modules"
+---
+
+De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het uitlezen van waterstanden uit FEWS. 
+De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke [Github](https://github.com/continu-inzicht/toolbox-continu-inzicht). De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.
+
+De ontwikkeling van de volgende modules is voorzien:
+1. Basis architectuur Toolbox Continu Inzicht
+1. Belastingen inlezen en classificeren
+1. Bepalen fragility curves
+1. Bijstellen fragility curves (beheerdersoordeel in voorbereiding)
+1. Conditionele kansen en status waterkering per sectie
+1. Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans
+1. Inspectieresultaten inlezen en weergeven 
+1. Resultaten ontsluiten via Digitale Delta API

@@ -24,6 +24,9 @@ website:
       - title: "Achtergrond"
         contents:
           - index.qmd
+          - modules.qmd
+          - tests.qmd
+          - contact.qmd
           - install.qmd
           - changelog.qmd
 
