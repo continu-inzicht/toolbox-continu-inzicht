@@ -178,8 +178,19 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-architectuur" id="toc-sec-architectuur" class="nav-link active" data-scroll-target="#sec-architectuur">Basis architectuur Toolbox Continu Inzicht</a>
+  <ul class="collapse">
+  <li><a href="#configuratie" id="toc-configuratie" class="nav-link" data-scroll-target="#configuratie">Configuratie</a></li>
+  <li><a href="#data-adapter" id="toc-data-adapter" class="nav-link" data-scroll-target="#data-adapter">Data adapter</a></li>
+  </ul></li>
+  <li><a href="#sec-belastingen" id="toc-sec-belastingen" class="nav-link" data-scroll-target="#sec-belastingen">Belastingen inlezen en classificeren</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -204,9 +215,68 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het uitlezen van waterstanden uit FEWS. De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht">Github</a>. De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.</p>
-<p>De ontwikkeling van de volgende modules is voorzien: 1. Basis architectuur Toolbox Continu Inzicht 1. Belastingen inlezen en classificeren 1. Bepalen fragility curves 1. Bijstellen fragility curves (beheerdersoordeel in voorbereiding) 1. Conditionele kansen en status waterkering per sectie 1. Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans 1. Inspectieresultaten inlezen en weergeven 1. Resultaten ontsluiten via Digitale Delta API</p>
+<p>De ontwikkeling van de volgende modules is voorzien:</p>
+<ol type="1">
+<li><a href="#sec-architectuur">Basis architectuur Toolbox Continu Inzicht</a></li>
+<li><a href="#sec-belastingen">Belastingen inlezen en classificeren</a></li>
+<li>Bepalen fragility curves</li>
+<li>Bijstellen fragility curves (beheerdersoordeel in voorbereiding)</li>
+<li>Conditionele kansen en status waterkering per sectie</li>
+<li>Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans</li>
+<li>Inspectieresultaten inlezen en weergeven</li>
+<li>Resultaten ontsluiten via Digitale Delta API</li>
+</ol>
+<section id="sec-architectuur" class="level2">
+<h2 class="anchored" data-anchor-id="sec-architectuur">Basis architectuur Toolbox Continu Inzicht</h2>
+<p>De architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn.</p>
+<section id="configuratie" class="level3">
+<h3 class="anchored" data-anchor-id="configuratie">Configuratie</h3>
+<p>Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen.</p>
+</section>
+<section id="data-adapter" class="level3">
+<h3 class="anchored" data-anchor-id="data-adapter">Data adapter</h3>
+<p>De data adapter wordt gebruikt om verschillende data types in en uit te lezen. Op het moment zijn dit de volgende data formaten:</p>
+<ol type="1">
+<li>CSV</li>
+<li>NetCDF</li>
+<li>PostgreSQL</li>
+</ol>
+</section>
+</section>
+<section id="sec-belastingen" class="level2">
+<h2 class="anchored" data-anchor-id="sec-belastingen">Belastingen inlezen en classificeren</h2>
+<p>Dit maakt deel uit van sprint 2, deze tekst zal na uitvoering van de sprint worden aangevuld.</p>
+<!-- ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
+
+Tekst na uitvoering aan te vulen 
 
 
+## Bijstellen fragility curves {#sec-Bijstellen-fragility-curves}
+
+Tekst na uitvoering aan te vulen 
+
+
+## Conditionele kansen en status waterkering per sectie  {#sec-Conditionele-kansen}
+
+Tekst na uitvoering aan te vulen 
+
+
+## Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans {#sec-Zorgplicht}
+
+Tekst na uitvoering aan te vulen 
+
+
+## Inspectieresultaten inlezen en weergeven {#sec-Resltaten-inlezen}
+
+Tekst na uitvoering aan te vulen 
+
+
+## Resultaten ontsluiten via Digitale Delta API {#sec-Resltaten-ontsluiten}
+
+Tekst na uitvoering aan te vulen -->
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

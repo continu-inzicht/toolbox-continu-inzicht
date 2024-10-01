@@ -59,7 +59,29 @@
     "href": "modules.html",
     "title": "Modules",
     "section": "",
-    "text": "De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het uitlezen van waterstanden uit FEWS. De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke Github. De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.\nDe ontwikkeling van de volgende modules is voorzien: 1. Basis architectuur Toolbox Continu Inzicht 1. Belastingen inlezen en classificeren 1. Bepalen fragility curves 1. Bijstellen fragility curves (beheerdersoordeel in voorbereiding) 1. Conditionele kansen en status waterkering per sectie 1. Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans 1. Inspectieresultaten inlezen en weergeven 1. Resultaten ontsluiten via Digitale Delta API",
+    "text": "De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het uitlezen van waterstanden uit FEWS. De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke Github. De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.\nDe ontwikkeling van de volgende modules is voorzien:",
+    "crumbs": [
+      "Achtergrond",
+      "Modules"
+    ]
+  },
+  {
+    "objectID": "modules.html#sec-architectuur",
+    "href": "modules.html#sec-architectuur",
+    "title": "Modules",
+    "section": "Basis architectuur Toolbox Continu Inzicht",
+    "text": "Basis architectuur Toolbox Continu Inzicht\nDe architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn.\n\nConfiguratie\nPer systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen.\n\n\nData adapter\nDe data adapter wordt gebruikt om verschillende data types in en uit te lezen. Op het moment zijn dit de volgende data formaten:\n\nCSV\nNetCDF\nPostgreSQL",
+    "crumbs": [
+      "Achtergrond",
+      "Modules"
+    ]
+  },
+  {
+    "objectID": "modules.html#sec-belastingen",
+    "href": "modules.html#sec-belastingen",
+    "title": "Modules",
+    "section": "Belastingen inlezen en classificeren",
+    "text": "Belastingen inlezen en classificeren\nDit maakt deel uit van sprint 2, deze tekst zal na uitvoering van de sprint worden aangevuld.",
     "crumbs": [
       "Achtergrond",
       "Modules"
