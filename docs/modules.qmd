@@ -6,11 +6,62 @@ De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is 
 De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke [Github](https://github.com/continu-inzicht/toolbox-continu-inzicht). De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.
 
 De ontwikkeling van de volgende modules is voorzien:
-1. Basis architectuur Toolbox Continu Inzicht
-1. Belastingen inlezen en classificeren
+
+1. [Basis architectuur Toolbox Continu Inzicht](#sec-architectuur)
+1. [Belastingen inlezen en classificeren](#sec-belastingen)
 1. Bepalen fragility curves
 1. Bijstellen fragility curves (beheerdersoordeel in voorbereiding)
 1. Conditionele kansen en status waterkering per sectie
 1. Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans
 1. Inspectieresultaten inlezen en weergeven 
 1. Resultaten ontsluiten via Digitale Delta API
+
+## Basis architectuur Toolbox Continu Inzicht {#sec-architectuur}
+
+De architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn. 
+
+### Configuratie
+Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen.
+
+### Data adapter
+De data adapter wordt gebruikt om verschillende data types in en uit te lezen. 
+Op het moment zijn dit de volgende data formaten:
+
+1. CSV
+1. NetCDF
+1. PostgreSQL
+
+## Belastingen inlezen en classificeren {#sec-belastingen}
+
+Dit maakt deel uit van sprint 2, deze tekst zal na uitvoering van de sprint worden aangevuld.
+
+
+<!-- ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
+
+Tekst na uitvoering aan te vulen 
+
+
+## Bijstellen fragility curves {#sec-Bijstellen-fragility-curves}
+
+Tekst na uitvoering aan te vulen 
+
+
+## Conditionele kansen en status waterkering per sectie  {#sec-Conditionele-kansen}
+
+Tekst na uitvoering aan te vulen 
+
+
+## Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans {#sec-Zorgplicht}
+
+Tekst na uitvoering aan te vulen 
+
+
+## Inspectieresultaten inlezen en weergeven {#sec-Resltaten-inlezen}
+
+Tekst na uitvoering aan te vulen 
+
+
+## Resultaten ontsluiten via Digitale Delta API {#sec-Resltaten-ontsluiten}
+
+Tekst na uitvoering aan te vulen -->
+
