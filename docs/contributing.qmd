@@ -1,10 +1,10 @@
 # Richtlijnen voor bijdragen aan toolbox continu inzicht
 
 Het ontwikkelen van de toolbox continu inzicht bestaat uit twee delen.
-Eerst ontwikkeld HKV de basis functionaliteit. Deze ontwikkeling is voor iedereen te volgen op GitHub, maar toevoegingen worden nog niet geaccepteerd.
+Eerst ontwikkeld HKV de basisfunctionaliteit. Deze ontwikkeling is voor iedereen te volgen op GitHub, maar toevoegingen worden nog niet geaccepteerd.
 Daarna blijft het project open source beschikbaar en kan het verder worden ontwikkeld.
-De term 'ontwikkelaars' duidt in de eerste ontwikkelfase op het team van HKV, later op andere die een bijdrage willen leveren.
-Een bijdragen kan uit een lopen van een vraag tot een grote wijziging via een [pull
+De term 'ontwikkelaars' duidt in de eerste ontwikkelfase op het team van HKV, later op anderen die een bijdrage willen leveren.
+Een bijdragen kan uiteenlopen van een vraag tot een grote wijziging via een [pull
 request](https://help.github.com/articles/about-pull-requests/).
 
 Een bijdrage kan een van de volgend dingen zijn:
@@ -14,7 +14,7 @@ Een bijdrage kan een van de volgend dingen zijn:
 1. Je wilt een aanpassing maken (Bug fixen, nieuwe functionaliteit, update aan de documentatie)
 1. Je wilt een nieuwe versie publiceren
 
-The sections below outline the steps in each case.
+De onderstaande secties behandelen de stappen per geval.
 
 ## Je hebt een vraag
 
@@ -30,20 +30,20 @@ The sections below outline the steps in each case.
     [hier](https://github.com/continu-inzicht/toolbox-continu-inzicht/issues) om te kijken
     of iemand anders dezelfde vraag/probleem heeft;
 1. Als je niks vergelijkbaars kan vinden, maak een nieuwe issue aan.
-   Zorg dat je genoeg informatie mee geeft zodat andere ontwikkelaars je
+   Zorg dat je genoeg informatie meegeeft zodat andere ontwikkelaars je
    probleem begrijpen en genoeg context hebben om je te helpen.
    Afhankelijk van je probleem, kan je de [SHA
    hashcode](https://help.github.com/articles/autolinked-references-and-urls/#commit-shas) 
    van de commit die problemen veroorzaakt toevoegen. Denk daarnaast ook aan
-   versie en besturingssysteem  informatie.
+   versie- en besturingssysteeminformatie.
 
-1. Voeg labels toe aan die relevant zijn voor je probleem.
+1. Voeg labels toe die relevant zijn voor je probleem.
 
 ## Je wilt een aanpassing maken
 
-1. (**Belangrijk**) communiceer aan de rest van de ontwikkelaars _voor je begint_ dat je een aanpassing wil maken. Dit laat je weten door een issue aan te maken. 
+1. (**Belangrijk**) Communiceer aan de rest van de ontwikkelaars _voor je begint_ dat je een aanpassing wilt maken. Dit laat je weten door een issue aan te maken. 
 1. (**Belangrijk**) Bereik consensus over je idee.
-1. De hoofd ontwikkelaars hebben rechten om nieuwe branches aan te maken. 
+1. De hoofdontwikkelaars hebben rechten om nieuwe branches aan te maken. 
    Als je deze rechten niet hebt, maak een \'fork\' (kopie) in je eigen account. 
    In deze fork maak je een eigen branch van de laatste  commit in main. Probeer om
     veranderingen die in de tussentijd worden doorgevoerd op main al mee
@@ -68,6 +68,7 @@ Als je het idee heb dat je iets nuttig heb toegevoegd,
 maar je weet niet hoe je test schrijft of runt,
 of hoe je documentatie aanmaakt: geen probleem.
 Maak een pull request en dan kijken we hoe we kunnen helpen.
+
 ## Je wilt een nieuwe versie publiceren
 
 Dit is een stukje voor de hoofdontwikkelaars van toolbox continu inzicht.
