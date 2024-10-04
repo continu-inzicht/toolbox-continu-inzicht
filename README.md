@@ -14,7 +14,7 @@ Zie het kopje [bijdragen](https://continu-inzicht.github.io/toolbox-continu-inzi
 
 We maken gebruik van [pixi](https://pixi.sh/latest/) om de conda environment te beheren.
 
-Om pixi te instaleren run je:
+Om Pixi te installeren run je:
 
 ##### windows
 
@@ -27,13 +27,18 @@ iwr -useb https://pixi.sh/install.ps1 | iex
 ```bash
 curl -fsSL https://pixi.sh/install.sh | bash
 ```
+Hiermee installeer je het programma pixi.
 
-#### Install pixi default environment
+
+#### Instaleer python omgeving met pixi
+
+Met Pixi kun je vervolgens de juiste python bestanden installeren:
 
 ```bash
  cd ..../toolbox-continu-inzicht
  pixi install
 ```
+Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand op de juiste packages te laden en zet deze in de `.pixi` map. 
 
 #### Jupyter lab
 
@@ -41,4 +46,4 @@ curl -fsSL https://pixi.sh/install.sh | bash
  pixi run jupyter lab
 ```
 
-of selecteer de environment `...\.pixi\envs\default\python.exe` in een notebook editor (VSCode).
+Of selecteer `...\.pixi\envs\default\python.exe` in een notebook editor (bijv. Visual Studio Code).
