@@ -10,8 +10,12 @@
 # wheels
 src/dist/*
 
+# testing
+hidden_dataset
+hidden_test.py
 
 # cache:
+__pycache__
 __pycache__/*
 __pycache__/** */
 */__pycache__/*
