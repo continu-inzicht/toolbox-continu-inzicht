@@ -7,16 +7,16 @@ GlobalVariables:
 DataAdapter:
     MyCSV_in: 
         type: csv
-        path: 'test_csv_in.csv'
+        file: 'test_csv_in.csv'
     MyCSV_out: 
         type: csv
-        path: 'test_csv_out.csv'
+        file: 'test_csv_out.csv'
     MyPostgresql: 
         type: postgresql_database
         table: data
     MyNetCDF_in:
         type: netcdf
-        path: 'test_netcdf_in.nc'
+        file: 'test_netcdf_in.nc'
     MyNetCDF_out:
         type: netcdf
-        path: 'test_netcdf_out.nc'
+        file: 'test_netcdf_out.nc'

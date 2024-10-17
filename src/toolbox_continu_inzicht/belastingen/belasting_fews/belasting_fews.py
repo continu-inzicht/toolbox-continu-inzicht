@@ -20,7 +20,7 @@ class BelastingFews:
     data_adapter: DataAdapter
     input: str
     output: str
-    
+
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
@@ -37,7 +37,7 @@ class BelastingFews:
             input = self.input
         if output is None:
             output = self.output
-        
+
         self.df_in = self.data_adapter.input(input)
 
         dt_now = datetime.now(timezone.utc)
@@ -64,11 +64,10 @@ class BelastingFews:
             self.df_out = self.create_dataframe(
                 options=options, t_now=t_now, json_data=json_data, locations=self.df_in
             )
-            
-            self.data_adapter.output(output=output, df=self.df_out)            
+
+            self.data_adapter.output(output=output, df=self.df_out)
 
         return self.df_out
-
 
     def create_url(self, options: dict) -> str:
         """
@@ -159,7 +158,6 @@ class BelastingFews:
                                 parameterid = h10v
 
                             if parameterid > 0:
-
                                 if event["value"]:
                                     value = float(event["value"])
                                 else:

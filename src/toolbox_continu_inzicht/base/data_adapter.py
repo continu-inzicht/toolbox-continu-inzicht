@@ -2,6 +2,8 @@ from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
 import pandas as pd
 import sqlalchemy
+import inspect
+import warnings
 import xarray as xr
 
 from dotenv import load_dotenv, dotenv_values
@@ -43,19 +45,33 @@ class DataAdapter(PydanticBaseModel):
         # leid het data type af
         data_type = functie_input_config["type"]
 
-        # path relative to rootdir specified in config
-        if "path" in functie_input_config:
-            # if user provides a complete path:
+        check_rootdir(self.config.global_variables)
+
+        # pad relatief tot rootdir mee gegeven in config
+        if "file" in functie_input_config:
+            # als de gebruiker een compleet pad mee geeft:
             if Path(self.config.global_variables["rootdir"]).is_absolute():
                 functie_input_config["path"] = (
                     Path(self.config.global_variables["rootdir"])
-                    / functie_input_config["path"]
+                    / functie_input_config["file"]
                 )
-            # else we assume its relative to the toolbox_continu_inzicht for testing
+            # als rootdir geen absoluut pad is, nemen we relatief aan
             else:
                 functie_input_config["path"] = (
                     Path.cwd()
                     / self.config.global_variables["rootdir"]
+                    / functie_input_config["file"]
+                )
+
+        # als een pad wordt mee gegeven
+        elif "path" in functie_input_config:
+            # eerst checken of het absoluut is
+            if Path(functie_input_config["path"]).is_absolute():
+                functie_input_config["path"] = Path(functie_input_config["path"])
+            # anders alsnog toevoegen
+            else:
+                functie_input_config["path"] = (
+                    Path(self.config.global_variables["rootdir"])
                     / functie_input_config["path"]
                 )
 
@@ -63,7 +79,10 @@ class DataAdapter(PydanticBaseModel):
         if load_dotenv():
             environmental_variables = dict(dotenv_values())
         else:
-            raise UserWarning("Ensure a `.env` file is present in the root directory")
+            warnings.warn(
+                "A `.env` file is not present in the root directory, continuing without",
+                UserWarning,
+            )
 
         functie_input_config.update(environmental_variables)
 
@@ -80,9 +99,11 @@ class DataAdapter(PydanticBaseModel):
         --------
         pd.Dataframe
         """
-        # Data checks worden gedaan in de functies zelf, hier alleen geladen
         path = input_config["path"]
-        df = pd.read_csv(path)
+
+        kwargs = get_kwargs(pd.read_csv, input_config)
+
+        df = pd.read_csv(path, **kwargs)
         return df
 
     @staticmethod
@@ -156,26 +177,43 @@ class DataAdapter(PydanticBaseModel):
         # leid het data type af
         data_type = functie_output_config["type"]
 
-        # path relative to rootdir specified in config
-        if "path" in functie_output_config:
-            # if user provides a complete path:
+        # check of de rootdir bestaat
+        check_rootdir(self.config.global_variables)
+
+        if "file" in functie_output_config:
+            # als de gebruiker een compleet pad mee geeft:
             if Path(self.config.global_variables["rootdir"]).is_absolute():
                 functie_output_config["path"] = (
                     Path(self.config.global_variables["rootdir"])
-                    / functie_output_config["path"]
+                    / functie_output_config["file"]
                 )
-            # else we assume its relative to the toolbox_continu_inzicht for testing
+            # als rootdir geen absoluut pad is, nemen we relatief aan
             else:
                 functie_output_config["path"] = (
                     Path.cwd()
                     / self.config.global_variables["rootdir"]
+                    / functie_output_config["file"]
+                )
+
+        # als een pad wordt mee gegeven
+        elif "path" in functie_output_config:
+            # eerst checken of het absoluut is
+            if Path(functie_output_config["path"]).is_absolute():
+                functie_output_config["path"] = Path(functie_output_config["path"])
+            # anders alsnog toevoegen
+            else:
+                functie_output_config["path"] = (
+                    Path(self.config.global_variables["rootdir"])
                     / functie_output_config["path"]
                 )
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         if load_dotenv():
             environmental_variables = dict(dotenv_values())
         else:
-            raise UserWarning("Ensure a `.env` file is present in the root directory")
+            warnings.warn(
+                "A `.env` file is not present in the root directory, continuing without",
+                UserWarning,
+            )
 
         functie_output_config.update(environmental_variables)
 
@@ -199,7 +237,8 @@ class DataAdapter(PydanticBaseModel):
         """
         # Data checks worden gedaan in de functies zelf, hier alleen geladen
         path = input_config["path"]
-        ds = xr.open_dataset(path)
+        kwargs = get_kwargs(xr.open_dataset, input_config)
+        ds = xr.open_dataset(path, **kwargs)
 
         # netcdf dataset to pandas dataframe
         df = xr.Dataset.to_dataframe(ds)
@@ -222,7 +261,8 @@ class DataAdapter(PydanticBaseModel):
 
         # TODO: opties voor csv mogen alleen zijn wat er mee gegeven mag wroden aan .to_csv
         path = output_config["path"]
-        df.to_csv(path)
+        kwargs = get_kwargs(pd.DataFrame.to_csv, output_config)
+        df.to_csv(path, **kwargs)
 
     @staticmethod
     def output_postgresql(output_config, df):
@@ -292,14 +332,42 @@ class DataAdapter(PydanticBaseModel):
         None
         """
         # Data checks worden gedaan in de functies zelf, hier alleen geladen
-
-        # TODO: opties voor csv mogen alleen zijn wat er mee gegeven mag worden aan .to_netcdf
-        path = output_config["path"]
-
         # TODO: netcdf kent geen int64 dus converteren naar float
         for column in df.columns:
             if df[column].dtype == "int64":
                 df[column] = df[column].astype("float64")
 
         ds = xr.Dataset.from_dataframe(df)
-        ds.to_netcdf(path, mode="w", engine="scipy")
+        kwargs = get_kwargs(xr.Dataset.to_netcdf, output_config)
+        if "mode" not in kwargs:
+            kwargs["mode"] = "w"
+        if "engine" not in kwargs:
+            kwargs["engine"] = "scipy"
+
+        # path is al een kwarg
+        ds.to_netcdf(**kwargs)
+
+
+def get_kwargs(function, input_config):
+    """
+    Gegeven een input/output functie, stuurt de relevanten kwargs uit de input config naar de functie.
+    """
+    # We kijken welke argumenten we aan de functie kunnen geven
+    possible_parameters_function = set(inspect.signature(function).parameters.keys())
+    # Vervolgens nemen we alleen de namen van de parameters over die ook opgegeven zijn
+    wanted_keys = list(possible_parameters_function.intersection(input_config.keys()))
+    # en geven we een kwargs dictionary door aan de inlees functie
+    return {key: input_config[key] for key in wanted_keys}
+
+
+def check_rootdir(global_variables):
+    """
+    Checkt of de rootdir bestaat
+    """
+    if "rootdir" in global_variables:
+        condition1 = not Path(global_variables["rootdir"]).exists()
+        condition2 = not (Path.cwd() / global_variables["rootdir"]).exists()
+        if condition1 or condition2:
+            raise UserWarning(
+                f"De rootdir map '{global_variables["rootdir"]}' bestaat niet"
+            )

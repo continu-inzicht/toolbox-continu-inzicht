@@ -9,7 +9,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 # FUNCTIONS
 from toolbox_continu_inzicht.proof_of_concept import voorbeeld_module
 from toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews import (
-    BelastingFews
+    BelastingFews,
 )
 from toolbox_continu_inzicht.fragility_curves import calculate_fragility_curves
 
