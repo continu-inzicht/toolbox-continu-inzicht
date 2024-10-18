@@ -1,6 +1,7 @@
 import pytest
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
+
 @pytest.mark.asyncio
 async def test_fetch_data():
     """

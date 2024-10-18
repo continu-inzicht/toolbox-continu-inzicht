@@ -61,6 +61,10 @@ class WaardesKeerTwee:
     """
     Voorbeeld class die laat zien hoe de arcitectuur werkt
 
+    Args:
+        data_adapter: DataAdapter
+                     Leest
+
     """
 
     data_adapter: DataAdapter

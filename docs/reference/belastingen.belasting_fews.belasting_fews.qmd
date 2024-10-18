@@ -1,0 +1,85 @@
+# belastingen.belasting_fews.belasting_fews { #toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews }
+
+`belastingen.belasting_fews.belasting_fews`
+
+
+
+## Classes
+
+| Name | Description |
+| --- | --- |
+| [BelastingFews](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews) | Met deze functie wordt er bij de opgegeven FEWS omgeving via |
+
+### BelastingFews { #toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews }
+
+`belastingen.belasting_fews.belasting_fews.BelastingFews()`
+
+Met deze functie wordt er bij de opgegeven FEWS omgeving via
+REST gegevens opgehaald.
+
+#### Attributes
+
+| Name | Description |
+| --- | --- |
+| [data_adapter](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.data_adapter) |  |
+| [df_in](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.df_in) |  |
+| [df_out](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.df_out) |  |
+| [input](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.input) |  |
+| [output](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.output) |  |
+
+#### Methods
+
+| Name | Description |
+| --- | --- |
+| [create_dataframe](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_dataframe) | Create dataframe with values |
+| [create_params](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_params) | Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data. |
+| [create_url](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_url) | Maak een rest url voor FEWS |
+| [run](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.run) | De runner van de Belasting Fews. |
+
+##### create_dataframe { #toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_dataframe }
+
+`belastingen.belasting_fews.belasting_fews.BelastingFews.create_dataframe(options, t_now, json_data, locations)`
+
+Create dataframe with values
+
+Args:
+    json_data (str): JSON data
+
+Returns:
+    Dataframe: Pandas dataframe geschikt voor uitvoer
+
+##### create_params { #toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_params }
+
+`belastingen.belasting_fews.belasting_fews.BelastingFews.create_params(t_now, options, locations)`
+
+Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.
+
+Args:
+    t_now (datetime): T0 in UTC
+    options (_type_): options uit de invoer yaml
+
+Returns:
+    dict: lijst met parameters
+
+##### create_url { #toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_url }
+
+`belastingen.belasting_fews.belasting_fews.BelastingFews.create_url(options)`
+
+Maak een rest url voor FEWS
+
+Args:
+    options (_type_): Options uit de invoer yaml
+
+Returns:
+    str: URL
+
+##### run { #toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.run }
+
+`belastingen.belasting_fews.belasting_fews.BelastingFews.run(input=None, output=None)`
+
+De runner van de Belasting Fews.
+
+Args:
+
+Returns:
+    Dataframe: Pandas dataframe met opgehaalde gegevens uit FEWS.

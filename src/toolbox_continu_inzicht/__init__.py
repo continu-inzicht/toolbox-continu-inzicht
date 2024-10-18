@@ -8,15 +8,15 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 # FUNCTIONS
 from toolbox_continu_inzicht.proof_of_concept import voorbeeld_module
-from toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews import (
-    BelastingFews
-)
+from toolbox_continu_inzicht.belastingen import belasting_rws_webservice
+from toolbox_continu_inzicht.belastingen import belasting_fews
 from toolbox_continu_inzicht.fragility_curves import calculate_fragility_curves
 
 # UTILS
 from toolbox_continu_inzicht.utils.datetime_functions import (
     epoch_from_datetime,
     datetime_from_string,
+    datetime_from_epoch,
 )
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
@@ -27,9 +27,11 @@ __all__ = [
     "Config",
     "DataAdapter",
     "voorbeeld_module",
-    "BelastingFews",
+    "belasting_fews",
+    "belasting_rws_webservice",
     "calculate_fragility_curves",
     "epoch_from_datetime",
     "datetime_from_string",
+    "datetime_from_epoch",
     "fetch_data",
 ]
