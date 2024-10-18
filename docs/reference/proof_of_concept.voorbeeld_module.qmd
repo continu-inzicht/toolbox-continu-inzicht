@@ -52,6 +52,10 @@ Runt de funcies en stuur de df terug
 
 Voorbeeld class die laat zien hoe de arcitectuur werkt
 
+Args:
+    data_adapter: DataAdapter
+                 Leest
+
 #### Attributes
 
 | Name | Description |

@@ -1,0 +1,17 @@
+GlobalVariables:
+    rootdir: "tests/src/belastingen/data_sets" 
+    moments: [-24,0,24,48]  
+
+    csv:
+        delimiter: ","
+
+    BelastingWaterwebservicesRWS:
+        MISSING_VALUE: 999999999.0
+
+DataAdapter: 
+    BelastingLocaties: 
+        type: csv
+        path: "test_belastingen_rws_8420.csv"
+    Waterstanden: 
+        type: csv
+        path: "test_waterstanden.csv"

@@ -1,1 +1,1 @@
-"""Belastingen van de RWS webservices"""
+"""belastingen van de RWS water webservice"""
