@@ -1,0 +1,20 @@
+GlobalVariables:
+    rootdir: "data_sets" 
+    moments: [-24,0,24,48]  
+
+    csv:
+        delimiter: ","
+
+    BelastingMatroos:
+        # source: "bma2_waterlevel"
+        source: "dcsm6_kf"
+        parameters: ["waterlevel"]
+
+DataAdapter: 
+    BelastingLocaties: 
+        type: csv
+        path: "belastingen_matroos.csv"
+    Waterstanden: 
+        type: csv
+        path: "waterstanden.csv"
+        delimiter: ";"
