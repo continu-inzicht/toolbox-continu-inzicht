@@ -1,0 +1,23 @@
+GlobalVariables:
+    rootdir: "tests/src/belastingen/data_sets"   
+
+    csv:
+        delimiter: ","
+
+    BelastingFews:
+        host: "https://**********"
+        port: 8443
+        region: "fewspiservice"
+        version: "1.25"
+        filter: "HKV_WV_1"
+        parameters: ["WNSHDB1"]  
+        MISSING_VALUE: -9999.0
+        moments: [-24,0,24,48]
+
+DataAdapter: 
+    locaties: 
+        type: csv
+        path: "locations.csv"
+    waterstanden: 
+        type: csv
+        path: "waterstanden.csv"
