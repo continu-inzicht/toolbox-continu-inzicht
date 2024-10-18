@@ -1,0 +1,77 @@
+# belastingen.belasting_rws_webservice { #toolbox_continu_inzicht.belastingen.belasting_rws_webservice }
+
+`belastingen.belasting_rws_webservice`
+
+
+
+## Classes
+
+| Name | Description |
+| --- | --- |
+| [BelastingWaterwebservicesRWS](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS) | Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/ |
+
+### BelastingWaterwebservicesRWS { #toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS }
+
+`belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS()`
+
+Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/
+
+#### Attributes
+
+| Name | Description |
+| --- | --- |
+| [data_adapter](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.data_adapter) |  |
+| [df_in](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.df_in) |  |
+| [df_out](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.df_out) |  |
+| [input](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.input) |  |
+| [output](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.output) |  |
+| [url_catalog](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.url_catalog) | str(object='') -> str |
+| [url_check_observations](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.url_check_observations) | str(object='') -> str |
+| [url_retrieve_observations](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.url_retrieve_observations) | str(object='') -> str |
+
+#### Methods
+
+| Name | Description |
+| --- | --- |
+| [create_dataframe](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.create_dataframe) | Maakt een dataframe met waardes van de rws water webservices |
+| [create_json_list](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.create_json_list) | Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data. |
+| [get_data](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.get_data) | takes a list of json objects and runs the posts all in one go. |
+| [run](#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.run) | De runner van de Belasting WaterwebservicesRWS. |
+
+##### create_dataframe { #toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.create_dataframe }
+
+`belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.create_dataframe(options, t_now, lst_data)`
+
+Maakt een dataframe met waardes van de rws water webservices
+
+Args:
+    json_data (str): JSON data
+
+Returns:
+    Dataframe: Pandas dataframe geschikt voor uitvoer
+
+##### create_json_list { #toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.create_json_list }
+
+`belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.create_json_list(grootheid, t_now, options, locations)`
+
+Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.
+
+Args:
+    t_now: T0 in UTC
+    options: options uit de invoer yaml
+    locations: dataframe with locations wanted
+
+Returns:
+    dict: lijst met parameters
+
+##### get_data { #toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.get_data }
+
+`belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.get_data(lst_json)`
+
+takes a list of json objects and runs the posts all in one go.
+
+##### run { #toolbox_continu_inzicht.belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.run }
+
+`belastingen.belasting_rws_webservice.BelastingWaterwebservicesRWS.run(input=None, output=None)`
+
+De runner van de Belasting WaterwebservicesRWS.

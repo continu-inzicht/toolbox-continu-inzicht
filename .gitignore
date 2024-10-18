@@ -11,18 +11,7 @@
 src/dist/*
 
 # testing
-hidden_dataset
-hidden_test.py
+hidden_*
 
 # cache:
 __pycache__
-__pycache__/*
-__pycache__/** */
-*/__pycache__/*
-src/toolbox_continu_inzicht/__pycache__/
-src/toolbox_continu_inzicht/base/__pycache__/
-src/toolbox_continu_inzicht/fragility_curves/__pycache__/
-src/toolbox_continu_inzicht/proof_of_concept/__pycache__/
-src/toolbox_continu_inzicht/waterstanden/__pycache__/
-tests/src/__pycache__/
-tests/src/base/__pycache__/
