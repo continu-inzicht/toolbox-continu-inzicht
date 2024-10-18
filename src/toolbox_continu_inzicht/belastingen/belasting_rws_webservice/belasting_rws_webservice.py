@@ -37,9 +37,8 @@ class BelastingWaterwebservicesRWS:
             output = self.output
 
         # haal opties en dataframe van de config
-        options = self.data_adapter.config.global_variables[
-            "BelastingWaterwebservicesRWS"
-        ]
+        global_variables = self.data_adapter.config.global_variables
+        options = global_variables["BelastingWaterwebservicesRWS"]
 
         self.df_in = self.data_adapter.input(input)
 
@@ -49,25 +48,9 @@ class BelastingWaterwebservicesRWS:
                 f"Input data missing 'measuringstationid' in columns {self.df_in.columns}"
             )
 
+        df_available_locations = await self.get_available_locations()
         # uit de dataframe haal je een lijst met meetlocatie ids
         wanted_measuringstationid = list(self.df_in["measuringstationid"].values)
-
-        # haal voor all locaties de informatie op: catalogus met data
-        body_catalog: dict = {
-            "CatalogusFilter": {"Compartimenten": True, "Grootheden": True}
-        }
-        _, catalog_data = await fetch_data_post(
-            self.url_catalog, body_catalog, mime_type="json"
-        )
-
-        if catalog_data is not None:
-            df_available_locations = pd.DataFrame(catalog_data["LocatieLijst"])
-            df_available_locations = df_available_locations.set_index(
-                "Locatie_MessageID"
-            )
-        else:
-            raise ConnectionError("Catalog not found")
-
         # met de meet locatie id's halen selecteren we de informatie uit de catalogus
         wanted_locations = df_available_locations.loc[wanted_measuringstationid]
 
@@ -85,13 +68,13 @@ class BelastingWaterwebservicesRWS:
         # maak een lijst met jsons met de info die we opvragen aan de API
         verwachting = "WATHTEVERWACHT"
         lst_json_verwachting = self.create_json_list(
-            verwachting, t_now, options, wanted_locations
+            verwachting, t_now, global_variables, wanted_locations
         )
 
         # herhaal dit ook met waarmeningen, niet alleen verwachtingen
         waarnmeningen = "WATHTE"
         lst_json_waarnmeningen = self.create_json_list(
-            waarnmeningen, t_now, options, wanted_locations
+            waarnmeningen, t_now, global_variables, wanted_locations
         )
 
         lst_json = lst_json_verwachting + lst_json_waarnmeningen
@@ -216,9 +199,30 @@ class BelastingWaterwebservicesRWS:
                 lst_json.append(json)
         return lst_json
 
+    async def get_available_locations(self) -> pd.DataFrame:
+        """Haal locaties die bekend zijn bij de RWS webservice."""
+
+        # haal voor all locaties de informatie op: catalogus met data
+        body_catalog: dict = {
+            "CatalogusFilter": {"Compartimenten": True, "Grootheden": True}
+        }
+        _, catalog_data = await fetch_data_post(
+            self.url_catalog, body_catalog, mime_type="json"
+        )
+
+        if catalog_data is not None:
+            df_available_locations = pd.DataFrame(catalog_data["LocatieLijst"])
+            df_available_locations = df_available_locations.set_index(
+                "Locatie_MessageID"
+            )
+        else:
+            raise ConnectionError("Catalog not found")
+
+        return df_available_locations
+
     async def get_data(self, lst_json: list):
         """
-        takes a list of json objects and runs the posts all in one go.
+        Haal de data a-synchroon op van de api gegevne een lijst met Json objecten
         """
         tasks = [
             asyncio.create_task(fetch_data_post(self.url_retrieve_observations, json))

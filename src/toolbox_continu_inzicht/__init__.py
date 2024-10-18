@@ -8,10 +8,8 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 # FUNCTIONS
 from toolbox_continu_inzicht.proof_of_concept import voorbeeld_module
-from toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews import (
-    BelastingFews,
-)
 from toolbox_continu_inzicht.belastingen import belasting_rws_webservice
+from toolbox_continu_inzicht.belastingen import belasting_fews
 from toolbox_continu_inzicht.fragility_curves import calculate_fragility_curves
 
 # UTILS
@@ -30,7 +28,6 @@ __all__ = [
     "DataAdapter",
     "voorbeeld_module",
     "belasting_fews",
-    "BelastingFews",
     "belasting_rws_webservice",
     "calculate_fragility_curves",
     "epoch_from_datetime",
