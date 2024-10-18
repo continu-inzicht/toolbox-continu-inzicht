@@ -63,7 +63,7 @@ class WaardesKeerTwee:
 
     Args:
         data_adapter: DataAdapter
-                     Leest 
+                     Leest
 
     """
 
