@@ -7,7 +7,7 @@ GlobalVariables:
 
     BelastingMatroos:
         # source: "bma2_waterlevel"
-        source: "dcsm6_kf"
+        source: "observed"
         parameters: ["waterlevel"]
 
 DataAdapter: 
