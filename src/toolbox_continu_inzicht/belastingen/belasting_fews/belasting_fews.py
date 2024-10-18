@@ -101,7 +101,6 @@ class BelastingFews:
         """
         params = {}
         moments = options["moments"]
-        locations = self.df_in["name"].tolist()
 
         if len(moments) > 0:
             n_moments = len(moments) - 1
@@ -118,7 +117,7 @@ class BelastingFews:
             params["documentFormat"] = "PI_JSON"
             params["forecastCount"] = 1
             params["parameterIds"] = options["parameters"]
-            params["locationIds"] = locations
+            params["locationIds"] = locations["name"].tolist()
             params["startTime"] = starttime.strftime("%Y-%m-%dT%H:%M:%SZ")
             params["endTime"] = endtime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
