@@ -118,7 +118,7 @@ class BelastingWaterwebservicesRWS:
             if "WaarnemingenLijst" in serie_in:
                 serie = serie_in["WaarnemingenLijst"][0]
                 measuringstationid = serie["Locatie"]["Locatie_MessageID"]
-
+                measurement_or_observation = serie["AquoMetadata"]["Grootheid"]["Code"]
                 # process per lijst en stop het in een record
                 for event in serie["MetingenLijst"]:
                     datestr = event["Tijdstip"]
@@ -141,6 +141,7 @@ class BelastingWaterwebservicesRWS:
                             "datetime": epoch_from_datetime(utc_dt=utc_dt),
                             "value": value,
                             "calculating": True,
+                            "measurementcode": measurement_or_observation,
                         }
                         records.append(record)
 
