@@ -125,7 +125,7 @@ class BelastingFews:
     def create_dataframe(
         self, options: dict, t_now: datetime, json_data: str, locations: pd.DataFrame
     ) -> pd.DataFrame:
-        """Create dataframe with values
+        """Maak een pandas dataframe 
 
         Args:
             json_data (str): JSON data
@@ -160,7 +160,7 @@ class BelastingFews:
                                 if event["value"]:
                                     value = float(event["value"])
                                 else:
-                                    value = self.settings["MISSING_VALUE"]
+                                    value = options["MISSING_VALUE"]
 
                                 record = {
                                     "objectid": measuringstationid,
