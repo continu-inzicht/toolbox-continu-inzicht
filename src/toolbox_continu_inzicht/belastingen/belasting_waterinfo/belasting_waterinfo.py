@@ -1,4 +1,3 @@
-from datetime import datetime, timedelta, timezone
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
@@ -56,11 +55,6 @@ class BelastingWaterinfo:
 
             if status is None and json_data is not None:
                 
-                t_now = datetime_from_string(
-                    json_data["t0"], "%Y-%m-%dT%H:%M:%SZ"
-                )
-
-                print(t_now)
                 dataframe = self.create_dataframe(
                     options=options, measuringstation=measuringstation, json_data=json_data
                 )
@@ -75,7 +69,7 @@ class BelastingWaterinfo:
 
 
     def create_dataframe(self, options: dict, measuringstation, json_data: str) -> pd.DataFrame:
-        """Maak een pandas dataframe 
+        """Maak een pandas dataframe van de opgehaalde data uit Waterinfo
 
         Args:
             options (dict):

@@ -1,0 +1,21 @@
+GlobalVariables:
+    rootdir: "tests/src/belastingen/data_sets"
+
+    csv:
+        delimiter: ","
+
+    BelastingWaterinfo:
+        datatype: "waterhoogte"
+        observedhours: 48
+        predictionhours: 48
+        momentsupdate: True
+        MISSING_VALUE: -9999.0
+        moments: [-24,0,24,48]
+
+DataAdapter: 
+    locaties: 
+        type: csv
+        path: "locations_waterinfo.csv"
+    waterstanden: 
+        type: csv
+        path: "waterstanden.csv"
