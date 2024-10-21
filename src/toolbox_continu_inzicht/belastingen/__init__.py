@@ -9,5 +9,8 @@ from toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews import (
 from toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo import (
     BelastingWaterinfo,
 )
+from toolbox_continu_inzicht.belastingen.belasting_matroos.belasting_matroos import (
+    BelastingMatroos,
+)
 
-__all__ = ["BelastingWaterwebservicesRWS", "BelastingFews","BelastingWaterinfo"]
+__all__ = ["BelastingWaterwebservicesRWS", "BelastingFews", "BelastingMatroos", "BelastingWaterinfo"]

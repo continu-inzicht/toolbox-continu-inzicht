@@ -15,7 +15,11 @@ def test_BelastingWaterwebservicesRWS():
     RWS_webservice = BelastingWaterwebservicesRWS(
         data_adapter=data, input="BelastingLocaties", output="Waterstanden"
     )
-    loop = asyncio.get_event_loop()
+    global loop
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
     loop.run_until_complete(RWS_webservice.run())
 
     assert len(RWS_webservice.df_out) > 300

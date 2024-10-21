@@ -29,8 +29,8 @@ path = "toolbox_continu_inzicht/__init__.py"
 packages = ["toolbox_continu_inzicht"]
 
 [tool.pytest.ini_options]
-asyncio_mode="auto"
-asyncio_default_fixture_loop_scope="function"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 
 [project.urls]
 Documentation = "https://continu-inzicht.github.io/toolbox_continu_inzicht/"

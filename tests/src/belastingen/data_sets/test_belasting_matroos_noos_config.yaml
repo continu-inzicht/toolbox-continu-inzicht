@@ -1,0 +1,19 @@
+GlobalVariables:
+    rootdir: "tests/src/belastingen/data_sets" 
+    moments: [-24,0,24,48]  
+
+    csv:
+        delimiter: ","
+
+    BelastingMatroos:
+        website: "noos" # only test noos as vital and matroos require passwords
+        source: "bma2_95"
+        parameters: ["waterlevel"]
+
+DataAdapter: 
+    BelastingLocaties: 
+        type: csv
+        path: "test_belastingen_matroos.csv"
+    Waterstanden: 
+        type: csv
+        path: "waterstanden.csv"
