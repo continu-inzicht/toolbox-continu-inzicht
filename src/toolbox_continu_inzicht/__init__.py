@@ -10,6 +10,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.proof_of_concept import voorbeeld_module
 from toolbox_continu_inzicht.belastingen import belasting_rws_webservice
 from toolbox_continu_inzicht.belastingen import belasting_fews
+from toolbox_continu_inzicht.belastingen import belasting_matroos
 from toolbox_continu_inzicht.fragility_curves import calculate_fragility_curves
 
 # UTILS
@@ -29,6 +30,7 @@ __all__ = [
     "voorbeeld_module",
     "belasting_fews",
     "belasting_rws_webservice",
+    "belasting_matroos",
     "calculate_fragility_curves",
     "epoch_from_datetime",
     "datetime_from_string",

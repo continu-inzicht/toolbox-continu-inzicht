@@ -1,0 +1,20 @@
+GlobalVariables:
+    rootdir: "data_sets" 
+    moments: [-24,0,24,48]  
+
+    csv:
+        delimiter: ","
+
+    BelastingMatroos:
+        website: "vitaal"
+        source: "dcsm6_kf"
+        parameters: ["waterlevel"]
+        MISSING_VALUE: 999
+
+DataAdapter: 
+    BelastingLocaties: 
+        type: csv
+        path: "belastingen_matroos.csv"
+    Waterstanden: 
+        type: csv
+        path: "waterstanden.csv"
