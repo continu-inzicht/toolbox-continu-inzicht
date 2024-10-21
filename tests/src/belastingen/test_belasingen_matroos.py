@@ -15,5 +15,11 @@ def test_BelastingMatroos():
     matroos = BelastingMatroos(
         data_adapter=data, input="BelastingLocaties", output="Waterstanden"
     )
-    loop = asyncio.get_event_loop()
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+
     loop.run_until_complete(matroos.run())
+
+    assert len(matroos.df_out) > 100

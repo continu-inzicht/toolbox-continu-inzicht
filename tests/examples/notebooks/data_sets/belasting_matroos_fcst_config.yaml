@@ -6,7 +6,7 @@ GlobalVariables:
         delimiter: ","
 
     BelastingMatroos:
-        source: "observed"
+        source: "dcsm6_kf"
         parameters: ["waterlevel"]
         MISSING_VALUE: 999
 

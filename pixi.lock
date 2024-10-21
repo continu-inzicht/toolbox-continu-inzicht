@@ -17069,7 +17069,7 @@ packages:
   name: toolbox-continu-inzicht
   version: 0.0.2
   path: src
-  sha256: 66684d0b07df26dca72fc2ceb963886e21ba90f1cdfe05b73ccfbb43740e942e
+  sha256: c83eddd58ae9aa020cfce86f51f7b0634eb4a58dbdf0148f2b65fad3e4c13049
   requires_dist:
   - geopandas
   - numpy
