@@ -84,7 +84,10 @@ class DataAdapter(PydanticBaseModel):
                 UserWarning,
             )
 
+        # in eerste instantie alleen beschikbaar voor de data adapters
         functie_input_config.update(environmental_variables)
+        # maar je wilt er  vanuit de functies ook bij kunnen
+        self.config.global_variables.update(environmental_variables)
 
         # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
         bijbehorende_functie = self.input_types[data_type]

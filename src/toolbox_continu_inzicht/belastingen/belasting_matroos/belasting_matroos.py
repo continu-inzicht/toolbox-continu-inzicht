@@ -24,8 +24,9 @@ class BelastingMatroos:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    url_retrieve_series: str = "https://noos.matroos.rws.nl/direct/get_series.php?"
-    url_retrieve_netcdf: str = "https://noos.matroos.rws.nl/direct/get_netcdf.php?"
+    url_retrieve_series_noos: str = "noos.matroos.rws.nl/direct/get_series.php?"
+    url_retrieve_series_matroos: str = "matroos.rws.nl/direct/get_series.php?"
+    url_retrieve_series_vitaal: str = "vitaal.rws.nl/direct/get_series.php?"
 
     async def run(self, input=None, output=None) -> None:
         """
@@ -135,6 +136,49 @@ class BelastingMatroos:
             options: dict
                 opties die door gebruiker zijn opgegeven, in dit geval is source het belangrijkst
         """
+        if "website" not in options:
+            raise UserWarning(
+                "Specify a `website` to consult in config: Noos, Matroos or Vitaal. In case of the later two, also provide a password and username"
+            )
+        else:
+            match options["website"]:
+                case "noos":
+                    base_url = "https://" + self.url_retrieve_series_noos
+                case "matroos":
+                    if (
+                        "matroos_user" not in global_variables
+                        and "matroos_password" not in global_variables
+                    ):
+                        raise UserWarning(
+                            "Matroos.rws.nl is a password protected service, \
+                                          either opt for `website: 'noos'` or provide `matroos_user` and `matroos_password` in the `.env` file"
+                        )
+                    base_url = (
+                        "https://"
+                        + global_variables["matroos_user"]
+                        + ":"
+                        + global_variables["matroos_password"]
+                        + "@"
+                        + self.url_retrieve_series_matroos
+                    )
+                case "vitaal":
+                    if (
+                        "vitaal_user" not in global_variables
+                        and "vitaal_password" not in global_variables
+                    ):
+                        raise UserWarning(
+                            "Vitaal.matroos.rws.nl is a password protected service, \
+                                          either opt for `website: 'noos'` or provide `vitaal_user` and `vitaal_password` in the `.env` file"
+                        )
+                    base_url = (
+                        "https://"
+                        + global_variables["vitaal_user"]
+                        + ":"
+                        + global_variables["vitaal_password"]
+                        + "@"
+                        + self.url_retrieve_series_matroos
+                    )
+
         moments = global_variables["moments"]
         tstart = (t_now + timedelta(hours=int(moments[0]))).strftime("%Y%m%d%H%M")
         tend = (t_now + timedelta(hours=int(moments[-1]))).strftime("%Y%m%d%H%M")
@@ -142,7 +186,7 @@ class BelastingMatroos:
         # Multiple locations can be specified by separating them with a semicolon ';'.
         location_names_str = ";".join(location_names)
         url = (
-            self.url_retrieve_series
+            base_url
             + f"loc={location_names_str}&"
             + f"source={source}&"
             + f"unit={parameter}&"

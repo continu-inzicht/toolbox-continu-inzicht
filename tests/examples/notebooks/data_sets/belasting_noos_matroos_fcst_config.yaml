@@ -1,20 +1,20 @@
 GlobalVariables:
-    rootdir: "tests/src/belastingen/data_sets" 
+    rootdir: "data_sets" 
     moments: [-24,0,24,48]  
 
     csv:
         delimiter: ","
 
     BelastingMatroos:
-        # source: "bma2_waterlevel"
-        source: "bma2_95"
+        website: "noos"
+        source: "dcsm6_kf"
         parameters: ["waterlevel"]
+        MISSING_VALUE: 999
 
 DataAdapter: 
     BelastingLocaties: 
         type: csv
-        path: "test_belastingen_matroos.csv"
+        path: "belastingen_matroos.csv"
     Waterstanden: 
         type: csv
         path: "waterstanden.csv"
-        delimiter: ";"
