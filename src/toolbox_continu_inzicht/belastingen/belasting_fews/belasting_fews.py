@@ -57,7 +57,7 @@ class BelastingFews:
             t_now=t_now, options=options, locations=self.df_in
         )
         status, json_data = await fetch_data(
-            url=url, params=parameters, mime_type="json"
+            url=url, params=parameters, mime_type="json", path_certificate=None
         )
 
         if status is None and json_data is not None:

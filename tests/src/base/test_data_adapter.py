@@ -36,8 +36,7 @@ def test_DataAdapter_csv_delen():
 
 
 def test_DataAdapter_netCDF_keer():
-    test_data_sets_path = Path(__file__).parent / "data_sets"
-    print(test_data_sets_path)
+    test_data_sets_path = Path(__file__).parent / "data_sets"    
     c = Config(config_path=test_data_sets_path / "test_config.yaml")
     c.lees_config()
 

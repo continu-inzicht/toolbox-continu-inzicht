@@ -1,0 +1,56 @@
+# belastingen.belasting_waterinfo.belasting_waterinfo { #toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo }
+
+`belastingen.belasting_waterinfo.belasting_waterinfo`
+
+
+
+## Classes
+
+| Name | Description |
+| --- | --- |
+| [BelastingWaterinfo](#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo) | Belasting gegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte |
+
+### BelastingWaterinfo { #toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo }
+
+`belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo()`
+
+Belasting gegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte
+
+#### Attributes
+
+| Name | Description |
+| --- | --- |
+| [data_adapter](#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.data_adapter) |  |
+| [df_in](#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.df_in) |  |
+| [df_out](#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.df_out) |  |
+| [input](#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.input) |  |
+| [output](#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.output) |  |
+| [url](#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.url) | str(object='') -> str |
+
+#### Methods
+
+| Name | Description |
+| --- | --- |
+| [create_dataframe](#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.create_dataframe) | Maak een pandas dataframe van de opgehaalde data uit Waterinfo |
+| [run](#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.run) | De runner van de Belasting Waterinfo. |
+
+##### create_dataframe { #toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.create_dataframe }
+
+`belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.create_dataframe(options, measuringstation, json_data)`
+
+Maak een pandas dataframe van de opgehaalde data uit Waterinfo
+
+Args:
+    options (dict):
+    t_now (datetime):
+    json_data (str): JSON data
+    locations (Dataframe): 
+
+Returns:
+    Dataframe: Pandas dataframe geschikt voor uitvoer
+
+##### run { #toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.run }
+
+`belastingen.belasting_waterinfo.belasting_waterinfo.BelastingWaterinfo.run(input=None, output=None)`
+
+De runner van de Belasting Waterinfo.

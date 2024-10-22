@@ -1,8 +1,9 @@
 import httpx
+import os
 
 
 async def fetch_data(
-    url: str, params: dict, mime_type: str = "text", timeout: float = 60.0
+    url: str, params: dict, mime_type: str = "text", timeout: float = 60.0, path_certificate:str = None
 ):
     """
     Haal data op van gegeven url.
@@ -12,6 +13,7 @@ async def fetch_data(
         params (dict): lijst met url parameters.
         mime_type (str, optional): mime type. Standaard waarde is is "text".
         timeout (float, optional): tijd voordat de verbinding verbroken wordt (in seconden). Standaard waarde is 10.0 seconden.
+        path_certificate (str, optional): locatie naar een pem-bestand
 
     Returns:
         status: status code van de http request
@@ -19,8 +21,11 @@ async def fetch_data(
     """
     data = None
     result = None
+    
+    if path_certificate is None:
+        path_certificate=False
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(verify=path_certificate) as client:
         try:
             headers = {}
             if mime_type == "json":

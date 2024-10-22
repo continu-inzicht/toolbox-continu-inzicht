@@ -10,5 +10,6 @@ Toolbox voor continu inzicht
 | [base.data_adapter](base.data_adapter.qmd#toolbox_continu_inzicht.base.data_adapter) |  |
 | [proof_of_concept.voorbeeld_module](proof_of_concept.voorbeeld_module.qmd#toolbox_continu_inzicht.proof_of_concept.voorbeeld_module) |  |
 | [fragility_curves.calculate_fragility_curves](fragility_curves.calculate_fragility_curves.qmd#toolbox_continu_inzicht.fragility_curves.calculate_fragility_curves) |  |
-| [belastingen.belasting_rws_webservice](belastingen.belasting_rws_webservice.qmd#toolbox_continu_inzicht.belastingen.belasting_rws_webservice) |  |
+| [belastingen.belasting_rws_webservice.belasting_rws_webservice](belastingen.belasting_rws_webservice.belasting_rws_webservice.qmd#toolbox_continu_inzicht.belastingen.belasting_rws_webservice.belasting_rws_webservice) |  |
 | [belastingen.belasting_fews.belasting_fews](belastingen.belasting_fews.belasting_fews.qmd#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews) |  |
+| [belastingen.belasting_waterinfo.belasting_waterinfo](belastingen.belasting_waterinfo.belasting_waterinfo.qmd#toolbox_continu_inzicht.belastingen.belasting_waterinfo.belasting_waterinfo) |  |

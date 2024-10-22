@@ -74,8 +74,9 @@ quartodoc:
        - base.data_adapter
        - proof_of_concept.voorbeeld_module
        - fragility_curves.calculate_fragility_curves
-       - belastingen.belasting_rws_webservice
+       - belastingen.belasting_rws_webservice.belasting_rws_webservice
        - belastingen.belasting_fews.belasting_fews
+       - belastingen.belasting_waterinfo.belasting_waterinfo
 
       #  - base
     

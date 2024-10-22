@@ -31,7 +31,7 @@ REST gegevens opgehaald.
 
 | Name | Description |
 | --- | --- |
-| [create_dataframe](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_dataframe) | Create dataframe with values |
+| [create_dataframe](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_dataframe) | Maak een pandas dataframe  |
 | [create_params](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_params) | Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data. |
 | [create_url](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.create_url) | Maak een rest url voor FEWS |
 | [run](#toolbox_continu_inzicht.belastingen.belasting_fews.belasting_fews.BelastingFews.run) | De runner van de Belasting Fews. |
@@ -40,7 +40,7 @@ REST gegevens opgehaald.
 
 `belastingen.belasting_fews.belasting_fews.BelastingFews.create_dataframe(options, t_now, json_data, locations)`
 
-Create dataframe with values
+Maak een pandas dataframe 
 
 Args:
     json_data (str): JSON data
