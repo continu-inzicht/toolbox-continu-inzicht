@@ -125,7 +125,7 @@ class LoadsFews:
     def create_dataframe(
         self, options: dict, t_now: datetime, json_data: str, locations: pd.DataFrame
     ) -> pd.DataFrame:
-        """Maak een pandas dataframe 
+        """Maak een pandas dataframe
 
         Args:
             json_data (str): JSON data

@@ -3,7 +3,11 @@ import os
 
 
 async def fetch_data(
-    url: str, params: dict, mime_type: str = "text", timeout: float = 60.0, path_certificate:str = None
+    url: str,
+    params: dict,
+    mime_type: str = "text",
+    timeout: float = 60.0,
+    path_certificate: str = None,
 ):
     """
     Haal data op van gegeven url.
@@ -21,9 +25,9 @@ async def fetch_data(
     """
     data = None
     result = None
-    
+
     if path_certificate is None:
-        path_certificate=False
+        path_certificate = False
 
     async with httpx.AsyncClient(verify=path_certificate) as client:
         try:
