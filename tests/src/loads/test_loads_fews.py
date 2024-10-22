@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.loads import BelastingFews
+from toolbox_continu_inzicht.belastingen import BelastingFews
 
 
 @pytest.mark.skip(reason="Eerst een Fews rest service definieren")

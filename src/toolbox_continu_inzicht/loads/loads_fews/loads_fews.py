@@ -11,7 +11,7 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class BelastingFews:
+class LoadsFews:
     """
     Met deze functie wordt er bij de opgegeven FEWS omgeving via
     REST gegevens opgehaald.

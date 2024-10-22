@@ -9,7 +9,7 @@ from toolbox_continu_inzicht.utils.datetime_functions import (
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class BelastingWaterinfo:
+class LoadsWaterinfo:
     """
     Belasting gegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte
     """

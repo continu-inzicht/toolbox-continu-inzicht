@@ -5,7 +5,7 @@ import pytest
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.loads import BelastingWaterinfo
+from toolbox_continu_inzicht.belastingen import BelastingWaterinfo
 
 @pytest.mark.asyncio()
 async def test_run():

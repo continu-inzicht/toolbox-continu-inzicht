@@ -12,7 +12,7 @@ from toolbox_continu_inzicht.utils.datetime_functions import epoch_from_datetime
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class BelastingMatroos:
+class LoadsMatroos:
     """
     Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://noos.matroos.rws.nl/
     """

@@ -12,7 +12,7 @@ from toolbox_continu_inzicht.utils.datetime_functions import (
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class BelastingWaterwebservicesRWS:
+class LoadsWaterwebservicesRWS:
     """
     Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/
     """
