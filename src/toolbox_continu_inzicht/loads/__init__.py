@@ -1,7 +1,10 @@
 """Belasting module for toolbox continu inzicht"""
 
 from toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice import (
-    LoadsWaterwebservicesRWS,
+    LoadsWaterwebservicesRWS, get_rws_webservices_locations
+)
+from toolbox_continu_inzicht.loads.loads_rws_webservice.get_rws_webservices_locations import (
+     get_rws_webservices_locations
 )
 from toolbox_continu_inzicht.loads.loads_fews.loads_fews import (
     LoadsFews,
@@ -13,4 +16,11 @@ from toolbox_continu_inzicht.loads.loads_waterinfo.loads_waterinfo import (
     LoadsWaterinfo,
 )
 
-__all__ = ["LoadsWaterwebservicesRWS", "LoadsFews", "LoadsMatroos", "LoadsWaterinfo"]
+
+__all__ = [
+  "LoadsWaterwebservicesRWS", 
+  "LoadsFews", 
+  "LoadsMatroos", 
+  "LoadsWaterinfo",
+  "get_rws_webservices_locations"
+  ]
