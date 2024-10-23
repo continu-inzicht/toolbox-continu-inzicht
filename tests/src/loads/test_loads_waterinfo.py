@@ -10,14 +10,9 @@ from toolbox_continu_inzicht.loads import LoadsWaterinfo
 
 @pytest.mark.asyncio()
 async def test_run():
-<<<<<<< HEAD
   
     test_data_sets_path = Path(__file__).parent / "data_sets"  
     config = Config(config_path=test_data_sets_path / "loads_waterinfo_config.yaml")
-=======
-    test_data_sets_path = Path(__file__).parent / "data_sets"
-    config = Config(config_path=test_data_sets_path / "belasting_waterinfo_config.yaml")
->>>>>>> 091f048af6a6c5627b4f3dac2fae70d404433697
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
@@ -30,18 +25,8 @@ async def test_run():
     if os.path.exists(output_file):
         os.remove(output_file)
 
-<<<<<<< HEAD
     waterinfo = LoadsWaterinfo(data_adapter=data_adapter,input="locaties", output="waterstanden")
     await waterinfo.run()  
-=======
-    waterinfo = BelastingWaterinfo(
-        data_adapter=data_adapter, input="locaties", output="waterstanden"
-    )
-    await waterinfo.run()
-
-    print(output_file)
-    assert os.path.exists(output_file)
->>>>>>> 091f048af6a6c5627b4f3dac2fae70d404433697
 
 
 def test_create_dataframe():
@@ -49,7 +34,6 @@ def test_create_dataframe():
     config = Config(config_path=test_data_sets_path / "belasting_fews_config.yaml")
     config.lees_config()
 
-<<<<<<< HEAD
     test_data_sets_path = Path(__file__).parent / "data_sets"  
     config = Config(config_path=test_data_sets_path / "loads_fews_config.yaml")
     config.lees_config()
@@ -71,22 +55,6 @@ def test_create_dataframe():
         ]
     }
     
-=======
-    data_adapter = DataAdapter(config=config)
-    waterinfo = BelastingWaterinfo(
-        data_adapter=data_adapter, input="locaties", output="waterstanden"
-    )
-
-    options = {
-        "datatype": "waterhoogte",
-        "observedhours": 48,
-        "predictionhours": 48,
-        "momentsupdate": True,
-        "MISSING_VALUE": -9999.0,
-        "moments": [-24, 0, 24, 48],
-    }
-
->>>>>>> 091f048af6a6c5627b4f3dac2fae70d404433697
     measuringstations = pd.DataFrame.from_dict(
         {"id": 1, "name": "Rottedamse hoek", "code": "Rotterdamse-hoek(FL02)-1"},
         orient="index",
