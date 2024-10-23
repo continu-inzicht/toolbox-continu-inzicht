@@ -78,10 +78,6 @@ class DataAdapter(PydanticBaseModel):
                     Path(self.config.global_variables["rootdir"])
                     / functie_input_config["path"]
                 )
-                if not functie_input_config["abs_path"].is_absolute():
-                    raise UserWarning(
-                        f"Check if root dir ({self.config.global_variables['rootdir']}) and path ({functie_input_config['file']}) exist"
-                    )
 
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
@@ -222,10 +218,6 @@ class DataAdapter(PydanticBaseModel):
                     Path(self.config.global_variables["rootdir"])
                     / functie_output_config["path"]
                 )
-                if not functie_output_config["abs_path"].is_absolute():
-                    raise UserWarning(
-                        f"Check if root dir ({self.config.global_variables['rootdir']}) and path ({functie_output_config['file']}) exist"
-                    )
 
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
