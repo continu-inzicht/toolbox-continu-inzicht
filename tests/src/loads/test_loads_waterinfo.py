@@ -5,12 +5,12 @@ import pytest
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.belastingen import BelastingWaterinfo
+from toolbox_continu_inzicht.loads import LoadsWaterinfo
 
 @pytest.mark.asyncio()
 async def test_run():
   test_data_sets_path = Path(__file__).parent / "data_sets"  
-  config = Config(config_path=test_data_sets_path / "belasting_waterinfo_config.yaml")
+  config = Config(config_path=test_data_sets_path / "loads_waterinfo_config.yaml")
   config.lees_config()
 
   data_adapter = DataAdapter(config=config)
@@ -21,7 +21,7 @@ async def test_run():
   if os.path.exists(output_file):
     os.remove(output_file)
 
-  waterinfo = BelastingWaterinfo(data_adapter=data_adapter,input="locaties", output="waterstanden")
+  waterinfo = LoadsWaterinfo(data_adapter=data_adapter,input="locaties", output="waterstanden")
   await waterinfo.run()  
 
   print(output_file)
@@ -31,11 +31,11 @@ async def test_run():
 def test_create_dataframe():
 
   test_data_sets_path = Path(__file__).parent / "data_sets"  
-  config = Config(config_path=test_data_sets_path / "belasting_fews_config.yaml")
+  config = Config(config_path=test_data_sets_path / "loads_fews_config.yaml")
   config.lees_config()
 
   data_adapter = DataAdapter(config=config)
-  waterinfo = BelastingWaterinfo(data_adapter=data_adapter,input="locaties", output="waterstanden")
+  waterinfo = LoadsWaterinfo(data_adapter=data_adapter,input="locaties", output="waterstanden")
 
   options={
     "datatype": "waterhoogte",

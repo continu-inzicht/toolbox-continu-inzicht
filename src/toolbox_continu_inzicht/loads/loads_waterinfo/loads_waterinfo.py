@@ -34,7 +34,7 @@ class LoadsWaterinfo:
 
         # Haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
-        options = global_variables["BelastingWaterinfo"]
+        options = global_variables["LoadsWaterinfo"]
 
         # Dit zijn de meetlocaties vanuit invoer
         self.df_in = self.data_adapter.input(input)    

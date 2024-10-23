@@ -26,7 +26,7 @@ class LoadsFews:
 
     async def run(self, input=None, output=None) -> pd.DataFrame:
         """
-        De runner van de Belasting Fews.
+        De runner van de Loads Fews.
 
         Args:
 
@@ -50,7 +50,7 @@ class LoadsFews:
             0,
         ).replace(tzinfo=timezone.utc)
 
-        options = self.data_adapter.config.global_variables["BelastingFews"]
+        options = self.data_adapter.config.global_variables["LoadsFews"]
 
         url = self.create_url(options=options)
         parameters = self.create_params(

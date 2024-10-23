@@ -1,5 +1,4 @@
 import httpx
-import os
 
 
 async def fetch_data(
