@@ -4,6 +4,9 @@ from pydantic.dataclasses import dataclass
 import pandas as pd
 from typing import Optional
 
+from toolbox_continu_inzicht.loads.loads_rws_webservice.get_rws_webservices_locations import (
+    get_rws_webservices_locations,
+)
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 from toolbox_continu_inzicht.utils.datetime_functions import (
@@ -24,7 +27,6 @@ class LoadsWaterwebservicesRWS:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    url_catalog: str = "https://waterwebservices.rijkswaterstaat.nl/METADATASERVICES_DBO/OphalenCatalogus"
     url_retrieve_observations: str = "https://waterwebservices.rijkswaterstaat.nl/ONLINEWAARNEMINGENSERVICES_DBO/OphalenWaarnemingen"
 
     async def run(self, input=None, output=None) -> None:
@@ -38,7 +40,7 @@ class LoadsWaterwebservicesRWS:
 
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
-        options = global_variables["BelastingWaterwebservicesRWS"]
+        options = global_variables["LoadsWaterwebservicesRWS"]
 
         self.df_in = self.data_adapter.input(input)
 
@@ -48,7 +50,7 @@ class LoadsWaterwebservicesRWS:
                 f"Input data missing 'measuringstationid' in columns {self.df_in.columns}"
             )
 
-        df_available_locations = await self.get_available_locations()
+        df_available_locations = await get_rws_webservices_locations()
         # uit de dataframe haal je een lijst met meetlocatie ids
         wanted_measuringstationid = list(self.df_in["measuringstationid"].values)
         # met de meet locatie id's halen selecteren we de informatie uit de catalogus
@@ -199,27 +201,6 @@ class LoadsWaterwebservicesRWS:
                 }
                 lst_json.append(json)
         return lst_json
-
-    async def get_available_locations(self) -> pd.DataFrame:
-        """Haal locaties die bekend zijn bij de RWS webservice."""
-
-        # haal voor all locaties de informatie op: catalogus met data
-        body_catalog: dict = {
-            "CatalogusFilter": {"Compartimenten": True, "Grootheden": True}
-        }
-        _, catalog_data = await fetch_data_post(
-            self.url_catalog, body_catalog, mime_type="json"
-        )
-
-        if catalog_data is not None:
-            df_available_locations = pd.DataFrame(catalog_data["LocatieLijst"])
-            df_available_locations = df_available_locations.set_index(
-                "Locatie_MessageID"
-            )
-        else:
-            raise ConnectionError("Catalog not found")
-
-        return df_available_locations
 
     async def get_data(self, lst_json: list):
         """

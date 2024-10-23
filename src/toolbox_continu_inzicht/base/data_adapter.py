@@ -51,26 +51,30 @@ class DataAdapter(PydanticBaseModel):
         if "file" in functie_input_config:
             # als de gebruiker een compleet pad mee geeft:
             if Path(self.config.global_variables["rootdir"]).is_absolute():
-                functie_input_config["path"] = (
+                functie_input_config["abs_path"] = (
                     Path(self.config.global_variables["rootdir"])
                     / functie_input_config["file"]
                 )
             # als rootdir geen absoluut pad is, nemen we relatief aan
             else:
-                functie_input_config["path"] = (
+                functie_input_config["abs_path"] = (
                     Path.cwd()
                     / self.config.global_variables["rootdir"]
                     / functie_input_config["file"]
                 )
 
+            if not functie_input_config["abs_path"].is_absolute():
+                raise UserWarning(
+                    f"Check if root dir ({self.config.global_variables['rootdir']}) and file ({functie_input_config['file']}) exist"
+                )
         # als een pad wordt mee gegeven
         elif "path" in functie_input_config:
             # eerst checken of het absoluut is
             if Path(functie_input_config["path"]).is_absolute():
-                functie_input_config["path"] = Path(functie_input_config["path"])
+                functie_input_config["abs_path"] = Path(functie_input_config["path"])
             # anders alsnog toevoegen
             else:
-                functie_input_config["path"] = (
+                functie_input_config["abs_path"] = (
                     Path(self.config.global_variables["rootdir"])
                     / functie_input_config["path"]
                 )
@@ -103,7 +107,7 @@ class DataAdapter(PydanticBaseModel):
         --------
         pd.Dataframe
         """
-        path = input_config["path"]
+        path = input_config["abs_path"]
 
         kwargs = get_kwargs(pd.read_csv, input_config)
 
@@ -187,29 +191,34 @@ class DataAdapter(PydanticBaseModel):
         if "file" in functie_output_config:
             # als de gebruiker een compleet pad mee geeft:
             if Path(self.config.global_variables["rootdir"]).is_absolute():
-                functie_output_config["path"] = (
+                functie_output_config["abs_path"] = (
                     Path(self.config.global_variables["rootdir"])
                     / functie_output_config["file"]
                 )
             # als rootdir geen absoluut pad is, nemen we relatief aan
             else:
-                functie_output_config["path"] = (
+                functie_output_config["abs_path"] = (
                     Path.cwd()
                     / self.config.global_variables["rootdir"]
                     / functie_output_config["file"]
                 )
 
+            if not functie_output_config["abs_path"].is_absolute():
+                raise UserWarning(
+                    f"Check if root dir ({self.config.global_variables['rootdir']}) and file ({functie_output_config['file']}) exist"
+                )
         # als een pad wordt mee gegeven
         elif "path" in functie_output_config:
             # eerst checken of het absoluut is
             if Path(functie_output_config["path"]).is_absolute():
-                functie_output_config["path"] = Path(functie_output_config["path"])
+                functie_output_config["abs_path"] = Path(functie_output_config["path"])
             # anders alsnog toevoegen
             else:
-                functie_output_config["path"] = (
+                functie_output_config["abs_path"] = (
                     Path(self.config.global_variables["rootdir"])
                     / functie_output_config["path"]
                 )
+
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
         if load_dotenv():
@@ -241,9 +250,9 @@ class DataAdapter(PydanticBaseModel):
         pd.Dataframe
         """
         # Data checks worden gedaan in de functies zelf, hier alleen geladen
-        path = input_config["path"]
+        abs_path = input_config["abs_path"]
         kwargs = get_kwargs(xr.open_dataset, input_config)
-        ds = xr.open_dataset(path, **kwargs)
+        ds = xr.open_dataset(abs_path, **kwargs)
 
         # netcdf dataset to pandas dataframe
         df = xr.Dataset.to_dataframe(ds)
@@ -265,7 +274,7 @@ class DataAdapter(PydanticBaseModel):
         # Data checks worden gedaan in de functies zelf, hier alleen geladen
 
         # TODO: opties voor csv mogen alleen zijn wat er mee gegeven mag wroden aan .to_csv
-        path = output_config["path"]
+        path = output_config["abs_path"]
         kwargs = get_kwargs(pd.DataFrame.to_csv, output_config)
         df.to_csv(path, **kwargs)
 
@@ -349,6 +358,7 @@ class DataAdapter(PydanticBaseModel):
         if "engine" not in kwargs:
             kwargs["engine"] = "scipy"
 
+        kwargs["path"] = output_config["abs_path"]
         # path is al een kwarg
         ds.to_netcdf(**kwargs)
 
