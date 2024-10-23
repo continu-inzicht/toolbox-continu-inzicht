@@ -15,7 +15,7 @@ GlobalVariables:
 DataAdapter: 
     locaties: 
         type: csv
-        path: "locations_waterinfo.csv"
+        path: "test_locations_waterinfo.csv"
     waterstanden: 
         type: csv
-        path: "waterstanden_waterinfo.csv"
+        path: "hidden_waterstanden_waterinfo.csv"

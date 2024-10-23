@@ -13,7 +13,7 @@ from toolbox_continu_inzicht.loads import LoadsFews
 @pytest.mark.asyncio
 async def test_run():
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    config = Config(config_path=test_data_sets_path / "loads_fews_config.yaml")
+    config = Config(config_path=test_data_sets_path / "test_loads_fews_config.yaml")
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
@@ -37,7 +37,7 @@ async def test_run():
 
 def test_create_url():
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    config = Config(config_path=test_data_sets_path / "loads_fews_config.yaml")
+    config = Config(config_path=test_data_sets_path / "test_loads_fews_config.yaml")
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
@@ -53,7 +53,7 @@ def test_create_url():
 
 def test_create_params():
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    config = Config(config_path=test_data_sets_path / "loads_fews_config.yaml")
+    config = Config(config_path=test_data_sets_path / "test_loads_fews_config.yaml")
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
@@ -97,7 +97,7 @@ def test_create_params():
 
 def test_create_dataframe():
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    config = Config(config_path=test_data_sets_path / "loads_fews_config.yaml")
+    config = Config(config_path=test_data_sets_path / "test_loads_fews_config.yaml")
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)

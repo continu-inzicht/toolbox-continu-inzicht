@@ -5,7 +5,7 @@ GlobalVariables:
         delimiter: ","
 
     LoadsFews:
-        host: "https://data.hkvfewsscheldestromen.nl"
+        host: "https://*************"
         port: 8443
         region: "fewspiservice"
         version: "1.25"
@@ -17,7 +17,7 @@ GlobalVariables:
 DataAdapter: 
     locaties: 
         type: csv
-        path: "locations_fews.csv"
+        path: "test_locations_fews.csv"
     waterstanden: 
         type: csv
-        path: "waterstanden_fews.csv"
+        path: "hidden_waterstanden_fews.csv"

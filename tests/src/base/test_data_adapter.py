@@ -12,11 +12,11 @@ def test_DataAdapter_csv_keer():
 
     data = DataAdapter(config=c)
 
-    keer_twee = example_module.ValuesDivideTwo(
+    keer_twee = example_module.ValuesTimesTwo(
         data_adapter=data, input="MyCSV_in", output="MyCSV_out"
     )
     keer_twee.run()
-
+    
     assert all((keer_twee.df_in["value"] * 2 == keer_twee.df_out["value"]).values)
 
 

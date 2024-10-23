@@ -142,7 +142,7 @@ def test_LoadsMatroos_create_url_noos():
         0,
     ).replace(tzinfo=timezone.utc)
 
-    options = {"website": "vitaal", "source": "observed", "parameters": ["waterlevel"]}
+    options = {"website": "noos", "source": "observed", "parameters": ["waterlevel"]}
     global_variables = {"moments": [-24, 0, 24, 48]}
     url = matroos.generate_url(
         t_now=t_now,
