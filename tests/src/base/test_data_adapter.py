@@ -1,7 +1,7 @@
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht import voorbeeld_module
+from toolbox_continu_inzicht import example_module
 import pytest
 
 
@@ -12,7 +12,7 @@ def test_DataAdapter_csv_keer():
 
     data = DataAdapter(config=c)
 
-    keer_twee = voorbeeld_module.WaardesKeerTwee(
+    keer_twee = example_module.ValuesDivideTwo(
         data_adapter=data, input="MyCSV_in", output="MyCSV_out"
     )
     keer_twee.run()
@@ -27,7 +27,7 @@ def test_DataAdapter_csv_delen():
 
     data = DataAdapter(config=c)
 
-    keer_twee = voorbeeld_module.WaardesDelenTwee(
+    keer_twee = example_module.ValuesDivideTwo(
         data_adapter=data, input="MyCSV_in", output="MyCSV_out"
     )
     keer_twee.run()
@@ -36,13 +36,13 @@ def test_DataAdapter_csv_delen():
 
 
 def test_DataAdapter_netCDF_keer():
-    test_data_sets_path = Path(__file__).parent / "data_sets"    
+    test_data_sets_path = Path(__file__).parent / "data_sets"
     c = Config(config_path=test_data_sets_path / "test_config.yaml")
     c.lees_config()
 
     data = DataAdapter(config=c)
 
-    keer_twee = voorbeeld_module.WaardesKeerTwee(
+    keer_twee = example_module.ValuesTimesTwo(
         data_adapter=data, input="MyNetCDF_in", output="MyNetCDF_out"
     )
     keer_twee.run()
@@ -58,7 +58,7 @@ def test_DataAdapter_netCDF_delen():
 
     data = DataAdapter(config=c)
 
-    delen_twee = voorbeeld_module.WaardesDelenTwee(
+    delen_twee = example_module.ValuesDivideTwo(
         data_adapter=data, input="MyNetCDF_in", output="MyNetCDF_out"
     )
     delen_twee.run()
@@ -73,7 +73,7 @@ def test_DataAdapter_invalid_folder():
     c.lees_config()
 
     data = DataAdapter(config=c)
-    delen_twee = voorbeeld_module.WaardesDelenTwee(
+    delen_twee = example_module.ValuesDivideTwo(
         data_adapter=data, input="MyCSV_in", output="MyCSV_out"
     )
     with pytest.raises(UserWarning):

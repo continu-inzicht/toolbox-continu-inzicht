@@ -5,7 +5,7 @@ from typing import Optional
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class WaardesDelenTwee:
+class ValuesDivideTwo:
     """
     Voorbeeld class die laat zien hoe de arcitectuur werkt
 
@@ -57,7 +57,7 @@ class WaardesDelenTwee:
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class WaardesKeerTwee:
+class ValuesTimesTwo:
     """
     Voorbeeld class die laat zien hoe de arcitectuur werkt
 

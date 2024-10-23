@@ -39,7 +39,7 @@ class LoadsMatroos:
 
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
-        options = global_variables["BelastingMatroos"]
+        options = global_variables["LoadsMatroos"]
 
         self.df_in = self.data_adapter.input(input)
 
@@ -176,7 +176,7 @@ class LoadsMatroos:
                         + ":"
                         + global_variables["vitaal_password"]
                         + "@"
-                        + self.url_retrieve_series_matroos
+                        + self.url_retrieve_series_vitaal
                     )
 
         moments = global_variables["moments"]

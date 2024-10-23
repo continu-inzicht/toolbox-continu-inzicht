@@ -1,7 +1,7 @@
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.belastingen import BelastingWaterwebservicesRWS
+from toolbox_continu_inzicht.loads import LoadsWaterwebservicesRWS
 import asyncio
 
 
@@ -12,7 +12,7 @@ def test_BelastingWaterwebservicesRWS():
     c.lees_config()
     data = DataAdapter(config=c)
 
-    RWS_webservice = BelastingWaterwebservicesRWS(
+    RWS_webservice = LoadsWaterwebservicesRWS(
         data_adapter=data, input="BelastingLocaties", output="Waterstanden"
     )
     global loop

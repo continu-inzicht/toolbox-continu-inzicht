@@ -8,6 +8,7 @@ from toolbox_continu_inzicht.utils.datetime_functions import (
 )
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
+
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsWaterinfo:
     """
@@ -22,7 +23,7 @@ class LoadsWaterinfo:
     df_out: Optional[pd.DataFrame] | None = None
 
     url: str = "https://waterinfo.rws.nl/api/chart/get"
-    
+
     async def run(self, input=None, output=None) -> None:
         """
         De runner van de Belasting Waterinfo.
@@ -37,7 +38,7 @@ class LoadsWaterinfo:
         options = global_variables["LoadsWaterinfo"]
 
         # Dit zijn de meetlocaties vanuit invoer
-        self.df_in = self.data_adapter.input(input)    
+        self.df_in = self.data_adapter.input(input)
         self.df_out = pd.DataFrame()
 
         # Loop over alle meetstations
@@ -54,9 +55,10 @@ class LoadsWaterinfo:
             )
 
             if status is None and json_data is not None:
-                
                 dataframe = self.create_dataframe(
-                    options=options, measuringstation=measuringstation, json_data=json_data
+                    options=options,
+                    measuringstation=measuringstation,
+                    json_data=json_data,
                 )
 
                 if not self.df_out.empty:
@@ -67,15 +69,16 @@ class LoadsWaterinfo:
         self.data_adapter.output(output=output, df=self.df_out)
         return self.df_out
 
-
-    def create_dataframe(self, options: dict, measuringstation, json_data: str) -> pd.DataFrame:
+    def create_dataframe(
+        self, options: dict, measuringstation, json_data: str
+    ) -> pd.DataFrame:
         """Maak een pandas dataframe van de opgehaalde data uit Waterinfo
 
         Args:
             options (dict):
             t_now (datetime):
             json_data (str): JSON data
-            locations (Dataframe): 
+            locations (Dataframe):
 
         Returns:
             Dataframe: Pandas dataframe geschikt voor uitvoer
@@ -90,7 +93,6 @@ class LoadsWaterinfo:
             records = []
 
             for serie in json_data["series"]:
-
                 parameterid = h10
                 parameter_name = serie["meta"]["parameterName"]
 
@@ -98,17 +100,19 @@ class LoadsWaterinfo:
                     parameterid = h10v
                 if "astronomisch" in parameter_name.lower():
                     parameterid = h10a
-                
+
                 if parameterid > 0:
                     conversion_to_meter = 1.0
                     if serie["unit"].lower() == "cm":
                         conversion_to_meter = 0.01
 
                     for data in serie["data"]:
-                        utc_dt = datetime_from_string(data["dateTime"], "%Y-%m-%dT%H:%M:%SZ")
+                        utc_dt = datetime_from_string(
+                            data["dateTime"], "%Y-%m-%dT%H:%M:%SZ"
+                        )
 
                         if data["value"]:
-                            value = float(data["value"])* conversion_to_meter
+                            value = float(data["value"]) * conversion_to_meter
                         else:
                             value = options["MISSING_VALUE"]
 
@@ -125,5 +129,4 @@ class LoadsWaterinfo:
 
             dataframe = pd.DataFrame.from_records(records)
 
-        return dataframe      
-
+        return dataframe

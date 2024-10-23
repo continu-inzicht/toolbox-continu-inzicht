@@ -73,7 +73,7 @@ class DataAdapter(PydanticBaseModel):
                 functie_input_config["path"] = (
                     Path(self.config.global_variables["rootdir"])
                     / functie_input_config["path"]
-                )  
+                )
 
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
@@ -81,8 +81,8 @@ class DataAdapter(PydanticBaseModel):
             environmental_variables = dict(dotenv_values())
         else:
             warnings.warn(
-               "A `.env` file is not present in the root directory, continuing without",
-               UserWarning,
+                "A `.env` file is not present in the root directory, continuing without",
+                UserWarning,
             )
 
         # in eerste instantie alleen beschikbaar voor de data adapters
@@ -214,7 +214,7 @@ class DataAdapter(PydanticBaseModel):
         environmental_variables = {}
         if load_dotenv():
             environmental_variables = dict(dotenv_values())
-        else:            
+        else:
             warnings.warn(
                 "A `.env` file is not present in the root directory, continuing without",
                 UserWarning,
