@@ -42,9 +42,8 @@ async def get_waterinfo_locations(parameter_id: str = "waterhoogte") -> pd.DataF
                 }
 
                 records.append(record)
-
-            dataFrame = pd.DataFrame.from_records(records)
-            dataFrame = dataFrame.set_index("id")
+            dataframe = pd.DataFrame.from_records(records)
+            dataframe = dataframe.set_index("id")
         else:
             raise ConnectionError("No features found")
     else:

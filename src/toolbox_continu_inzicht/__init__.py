@@ -18,6 +18,7 @@ from toolbox_continu_inzicht.loads import (
     get_waterinfo_thresholds,
 )
 
+
 from toolbox_continu_inzicht.fragility_curves import calculate_fragility_curves
 
 # UTILS
@@ -40,7 +41,9 @@ __all__ = [
     "loads_matroos",
     "loads_waterinfo",
     "get_rws_webservices_locations",
+    "get_fews_locations",
     "get_waterinfo_locations",
+    "get_fews_thresholds",
     "get_waterinfo_thresholds",
     "calculate_fragility_curves",
     "epoch_from_datetime",

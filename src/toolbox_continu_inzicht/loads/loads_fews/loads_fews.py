@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
-from typing import Optional
+from typing import Optional, List
 from toolbox_continu_inzicht.utils.datetime_functions import (
     epoch_from_datetime,
     datetime_from_string,
@@ -51,10 +51,11 @@ class LoadsFews:
         ).replace(tzinfo=timezone.utc)
 
         options = self.data_adapter.config.global_variables["LoadsFews"]
+        moments = self.data_adapter.config.global_variables["moments"]
 
         url = self.create_url(options=options)
         parameters = self.create_params(
-            t_now=t_now, options=options, locations=self.df_in
+            t_now=t_now, options=options, moments=moments, locations=self.df_in
         )
         status, json_data = await fetch_data(
             url=url, params=parameters, mime_type="json", path_certificate=None
@@ -86,7 +87,7 @@ class LoadsFews:
         return f"{host}:{port}/FewsWebServices/rest/{region}/v1/timeseries"
 
     def create_params(
-        self, t_now: datetime, options: dict, locations: pd.DataFrame
+        self, t_now: datetime, options: dict, moments: List, locations: pd.DataFrame
     ) -> dict:
         """
         Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.
@@ -99,7 +100,6 @@ class LoadsFews:
             dict: lijst met parameters
         """
         params = {}
-        moments = options["moments"]
 
         if len(moments) > 0:
             n_moments = len(moments) - 1

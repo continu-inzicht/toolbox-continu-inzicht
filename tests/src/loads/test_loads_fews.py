@@ -61,11 +61,11 @@ def test_create_params():
         "region": "fewspiservice",
         "version": "1.25",
         "filter": "HKV_WV_1",
-        "parameters": ["WNSHDB1"],
-        "moments": [-24, 0, 24, 48],
+        "parameters": ["WNSHDB1"]        
     }
 
     locations = pd.DataFrame(data={"name": ["location_a", "location_b"]})
+    moments=[-24, 0, 24, 48]
 
     t_now = datetime(
         2024,
@@ -75,11 +75,11 @@ def test_create_params():
         0,
         0,
     ).replace(tzinfo=timezone.utc)
-    params = fews.create_params(t_now=t_now, options=options, locations=locations)
+    params = fews.create_params(t_now=t_now, options=options, moments=moments, locations=locations)
 
-    n_moments = len(options["moments"]) - 1
-    starttime = t_now + timedelta(hours=int(options["moments"][0]))
-    endtime = t_now + timedelta(hours=int(options["moments"][n_moments]))
+    n_moments = len(moments) - 1
+    starttime = t_now + timedelta(hours=int(moments[0]))
+    endtime = t_now + timedelta(hours=int(moments[n_moments]))
 
     assert params["filterId"] == options["filter"]
     assert params["documentVersion"] == options["version"]

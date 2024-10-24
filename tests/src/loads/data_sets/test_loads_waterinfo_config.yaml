@@ -1,6 +1,7 @@
 GlobalVariables:
     rootdir: "tests/src/loads/data_sets"
-
+    moments: [-24,0,24,48]
+    
     csv:
         delimiter: ","
 
@@ -9,8 +10,7 @@ GlobalVariables:
         observedhours: 48
         predictionhours: 48
         momentsupdate: True
-        MISSING_VALUE: -9999.0
-        moments: [-24,0,24,48]
+        MISSING_VALUE: -9999.0        
 
 DataAdapter: 
     locaties: 

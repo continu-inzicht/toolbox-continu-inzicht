@@ -1,5 +1,6 @@
 GlobalVariables:
     rootdir: "tests/src/loads/data_sets"   
+    moments: [-24,0,24,48]
 
     csv:
         delimiter: ","
@@ -11,8 +12,7 @@ GlobalVariables:
         version: "1.25"
         filter: "HKV_WV_1"
         parameters: ["WNSHDB1"]  
-        MISSING_VALUE: -9999.0
-        moments: [-24,0,24,48]
+        MISSING_VALUE: -9999.0        
 
 DataAdapter: 
     locaties: 
