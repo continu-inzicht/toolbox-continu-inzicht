@@ -40,6 +40,7 @@ __all__ = [
     "LoadsWaterinfo",
     "get_rws_webservices_locations",
     "get_fews_locations",
+    "get_fews_thresholds",
     "get_matroos_locations",
     "get_waterinfo_locations",
     "get_waterinfo_thresholds",
