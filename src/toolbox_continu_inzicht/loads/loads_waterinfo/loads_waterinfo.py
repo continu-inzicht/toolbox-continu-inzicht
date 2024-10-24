@@ -117,6 +117,7 @@ class LoadsWaterinfo:
                             value = options["MISSING_VALUE"]
 
                         record = {
+                            "code": measuringstation.code,
                             "objectid": measuringstation.id,
                             "objecttype": "measuringstation",
                             "parameterid": parameterid,
