@@ -4,11 +4,13 @@ from pydantic.dataclasses import dataclass
 import pandas as pd
 from typing import Optional
 
-import requests
-
-
+from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
+    get_matroos_locations,
+    get_matroos_sources,
+)
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.utils.datetime_functions import epoch_from_datetime
+from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -26,7 +28,7 @@ class LoadsMatroos:
 
     url_retrieve_series_noos: str = "noos.matroos.rws.nl/direct/get_series.php?"
     url_retrieve_series_matroos: str = "matroos.rws.nl/direct/get_series.php?"
-    url_retrieve_series_vitaal: str = "vitaal.rws.nl/direct/get_series.php?"
+    url_retrieve_series_vitaal: str = "vitaal.matroos.rws.nl/direct/get_series.php?"
 
     async def run(self, input=None, output=None) -> None:
         """
@@ -44,11 +46,40 @@ class LoadsMatroos:
         self.df_in = self.data_adapter.input(input)
 
         # doe een data type check
-        if "measuringstationid" not in self.df_in.columns:
+        if "meetlocatie_naam" not in self.df_in.columns:
             raise UserWarning(
-                f"Input data missing 'measuringstationid' in columns {self.df_in.columns}"
+                f"Input data missing 'meetlocatie_naam' in columns {self.df_in.columns}"
             )
-        wanted_measuringstationid = list(self.df_in["measuringstationid"].values)
+        else:
+            df_sources = await get_matroos_sources()
+            if options["source"] not in list(df_sources["source_label"]):
+                raise UserWarning(
+                    "Source supplied is not valid, if needed refer to get_matroos_sources()"
+                )
+
+            # haal de locaties op die bij de bron horen
+            gdf_locations = await get_matroos_locations(source=options["source"])
+            available_location_names = list(gdf_locations["meetlocatie_naam"])
+            # maak een set van de namen en formateer ze zonder spaties en hoofdletters
+            available_location_names = set(
+                self.format_location_names(available_location_names)
+            )
+
+            # herhaal formateren voor de gegeven locatie namen
+            supplied_location_names = self.format_location_names(
+                list(self.df_in["meetlocatie_naam"].values)
+            )
+            # die je wilt ophalen is het overlap tussen de twee
+            wanted_location_names = available_location_names.intersection(
+                supplied_location_names
+            )
+
+            # geef een warning als we locatie namen mee geven die niet bestaan
+            if len(wanted_location_names) < len(supplied_location_names):
+                locations_not_found = set(supplied_location_names).difference(
+                    wanted_location_names
+                )
+                warnings.warn(f"location {locations_not_found}")
 
         # zet tijd goed
         dt_now = datetime.now(timezone.utc)
@@ -64,12 +95,25 @@ class LoadsMatroos:
         # maak een url aan
         for parameter in options["parameters"]:
             request_forecast_url = self.generate_url(
-                t_now, options, global_variables, parameter, wanted_measuringstationid
+                t_now, options, global_variables, parameter, wanted_location_names
             )
-            res = await self.get_series(request_forecast_url)
-            json_data = res.json()
-            if "results" in json_data:
-                self.df_out = self.create_dataframe(options, t_now, json_data)
+            status, json_data = await fetch_data(
+                url=request_forecast_url, params={}, mime_type="json"
+            )
+            if status is None and json_data is not None:
+                if "results" in json_data:
+                    self.df_out = self.create_dataframe(options, t_now, json_data)
+                else:
+                    raise ConnectionError(
+                        f"No results in data, only: {json_data.keys()}"
+                    )
+            else:
+                raise ConnectionError(f"Connection failed:{status}")
+
+    @staticmethod
+    def format_location_names(location_names: list[str]) -> list[str]:
+        """takes a list with locations names and removes spaces and make lower case"""
+        return [location.lower().replace(" ", "") for location in location_names]
 
     @staticmethod
     def create_dataframe(
@@ -197,13 +241,3 @@ class LoadsMatroos:
             + "zip=0&"
         )
         return url
-
-    async def get_series(self, url):
-        """
-        Haal een netcdf bestand op gegeven de url en slaat die op in de tijdelijke map
-        """
-        res = requests.get(url)
-        if res.status_code == 404:
-            warnings.warn(res.text)
-
-        return res

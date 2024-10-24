@@ -83,7 +83,7 @@ def test_LoadsMatroos_create_url_vitaal():
         parameter="waterlevel",
         location_names=["hoekvanholland"],
     )
-    expected_output = "https://test_vitaal_user:test_vitaal_password@vitaal.rws.nl/direct/get_series.php?loc=hoekvanholland&source=observed&unit=waterlevel&tstart=202410211600&tend=202410241600&format=dd_2.0.0&timezone=GMT&zip=0&"
+    expected_output = "https://test_vitaal_user:test_vitaal_password@vitaal.matroos.rws.nl/direct/get_series.php?loc=hoekvanholland&source=observed&unit=waterlevel&tstart=202410211600&tend=202410241600&format=dd_2.0.0&timezone=GMT&zip=0&"
     assert url == expected_output
 
 

@@ -10,9 +10,10 @@ from toolbox_continu_inzicht.loads import LoadsWaterinfo
 
 @pytest.mark.asyncio()
 async def test_run():
-  
-    test_data_sets_path = Path(__file__).parent / "data_sets"  
-    config = Config(config_path=test_data_sets_path / "test_loads_waterinfo_config.yaml")
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(
+        config_path=test_data_sets_path / "test_loads_waterinfo_config.yaml"
+    )
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
@@ -25,33 +26,31 @@ async def test_run():
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    waterinfo = LoadsWaterinfo(data_adapter=data_adapter,input="locaties", output="waterstanden")
-    await waterinfo.run()  
+    waterinfo = LoadsWaterinfo(
+        data_adapter=data_adapter, input="locaties", output="waterstanden"
+    )
+    await waterinfo.run()
 
 
 def test_create_dataframe():
-
-    test_data_sets_path = Path(__file__).parent / "data_sets"  
+    test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_sets_path / "test_loads_fews_config.yaml")
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
-    waterinfo = LoadsWaterinfo(data_adapter=data_adapter,input="locaties", output="waterstanden")
+    waterinfo = LoadsWaterinfo(
+        data_adapter=data_adapter, input="locaties", output="waterstanden"
+    )
 
-    options={
+    options = {
         "datatype": "waterhoogte",
         "observedhours": 48,
         "predictionhours": 48,
         "momentsupdate": True,
         "MISSING_VALUE": -9999.0,
-        "moments": [
-        -24,
-        0,
-        24,
-        48
-        ]
+        "moments": [-24, 0, 24, 48],
     }
-    
+
     measuringstations = pd.DataFrame.from_dict(
         {"id": 1, "name": "Rottedamse hoek", "code": "Rotterdamse-hoek(FL02)-1"},
         orient="index",

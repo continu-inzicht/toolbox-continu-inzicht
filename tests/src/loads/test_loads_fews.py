@@ -26,9 +26,7 @@ async def test_run():
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    fews = LoadsFews(
-        data_adapter=data_adapter, input="locaties", output="waterstanden"
-    )
+    fews = LoadsFews(data_adapter=data_adapter, input="locaties", output="waterstanden")
     await fews.run()
 
     print(output_file)
@@ -41,9 +39,7 @@ def test_create_url():
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
-    fews = LoadsFews(
-        data_adapter=data_adapter, input="locaties", output="waterstanden"
-    )
+    fews = LoadsFews(data_adapter=data_adapter, input="locaties", output="waterstanden")
 
     options = {"host": "https://**********", "port": 8443, "region": "region"}
 
@@ -57,9 +53,7 @@ def test_create_params():
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
-    fews = LoadsFews(
-        data_adapter=data_adapter, input="locaties", output="waterstanden"
-    )
+    fews = LoadsFews(data_adapter=data_adapter, input="locaties", output="waterstanden")
 
     options = {
         "host": "https://**********",
@@ -67,11 +61,11 @@ def test_create_params():
         "region": "fewspiservice",
         "version": "1.25",
         "filter": "HKV_WV_1",
-        "parameters": ["WNSHDB1"]        
+        "parameters": ["WNSHDB1"],
     }
 
     locations = pd.DataFrame(data={"name": ["location_a", "location_b"]})
-    moments=[-24, 0, 24, 48]
+    moments = [-24, 0, 24, 48]
 
     t_now = datetime(
         2024,
@@ -81,7 +75,9 @@ def test_create_params():
         0,
         0,
     ).replace(tzinfo=timezone.utc)
-    params = fews.create_params(t_now=t_now, options=options, moments=moments, locations=locations)
+    params = fews.create_params(
+        t_now=t_now, options=options, moments=moments, locations=locations
+    )
 
     n_moments = len(moments) - 1
     starttime = t_now + timedelta(hours=int(moments[0]))
@@ -101,9 +97,7 @@ def test_create_dataframe():
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
-    fews = LoadsFews(
-        data_adapter=data_adapter, input="locaties", output="waterstanden"
-    )
+    fews = LoadsFews(data_adapter=data_adapter, input="locaties", output="waterstanden")
 
     options = {"parameters": ["WNSHDB1"]}
 

@@ -67,6 +67,14 @@ class LoadsWaterwebservicesRWS:
             0,
         ).replace(tzinfo=timezone.utc)
 
+        # TODO DIT GAAT VERANDEREN
+        # https://rijkswaterstaatdata.nl/projecten/beta-waterwebservices/#:~:text=00.000%2B01%3A00%22%7D%7D-,Voorbeelden,-Een%20aantal%20specifieke
+        # Verwachte waterstand over een uur
+        # Elke 6 uur worden er waterstanden voorspeld op basis van het weer.
+        # De speciale grootheden ‘WATHTEVERWACHT’ en 'QVERWACHT' komen niet meer voor.
+        # In plaats daarvan wordt de grootheid gebruikt (resp. WATHTE en Q) waarbij onderscheid
+        # gemaakt wordt in de waardebepalingsmethode en het procestype.
+
         # maak een lijst met jsons met de info die we opvragen aan de API
         verwachting = "WATHTEVERWACHT"
         lst_json_verwachting = self.create_json_list(
