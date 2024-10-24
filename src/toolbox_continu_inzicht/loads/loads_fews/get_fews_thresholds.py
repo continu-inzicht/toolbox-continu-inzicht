@@ -14,7 +14,8 @@ async def get_fews_thresholds(host: str, port: int, region: str, filter_id: str,
 
     Returns:
         Dataframe: Pandas dataframe met thresholds
-    """    
+    """  
+      
     # Genereer de url, geen data dus alleen header en thresholds aan.
     parameters = {
         "filterId": filter_id,
