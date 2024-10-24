@@ -5,8 +5,8 @@ GlobalVariables:
     csv:
         delimiter: ","
 
-    BelastingMatroos:
-        website: "vitaal"
+    LoadsMatroos:
+        website: "noos"
         source: "dcsm6_kf"
         parameters: ["waterlevel"]
         MISSING_VALUE: 999

@@ -12,7 +12,11 @@ from toolbox_continu_inzicht.loads import loads_rws_webservice
 from toolbox_continu_inzicht.loads import loads_fews
 from toolbox_continu_inzicht.loads import loads_matroos
 from toolbox_continu_inzicht.loads import loads_waterinfo
-from toolbox_continu_inzicht.loads import get_rws_webservices_locations, get_waterinfo_locations, get_waterinfo_thresholds
+from toolbox_continu_inzicht.loads import (
+    get_rws_webservices_locations,
+    get_waterinfo_locations,
+    get_waterinfo_thresholds,
+)
 
 from toolbox_continu_inzicht.fragility_curves import calculate_fragility_curves
 

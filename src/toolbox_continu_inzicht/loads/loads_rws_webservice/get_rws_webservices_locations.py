@@ -2,7 +2,7 @@ import pandas as pd
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
 
-async def get_rws_webservices_locations() -> pd.DataFrame:
+async def get_rws_webservices_locations():
     """Haal locaties die bekend zijn bij de RWS webservice."""
 
     url_catalog: str = "https://waterwebservices.rijkswaterstaat.nl/METADATASERVICES_DBO/OphalenCatalogus"
@@ -11,9 +11,11 @@ async def get_rws_webservices_locations() -> pd.DataFrame:
         "CatalogusFilter": {"Compartimenten": True, "Grootheden": True}
     }
 
-    _, catalog_data = await fetch_data_post(url_catalog, body_catalog, mime_type="json")
+    status, catalog_data = await fetch_data_post(
+        url_catalog, body_catalog, mime_type="json"
+    )
 
-    if catalog_data is not None:
+    if status is None and catalog_data is not None:
         df_available_locations = pd.DataFrame(catalog_data["LocatieLijst"])
         df_available_locations = df_available_locations.set_index("Locatie_MessageID")
     else:
