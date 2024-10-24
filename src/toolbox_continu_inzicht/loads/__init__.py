@@ -10,10 +10,10 @@ from toolbox_continu_inzicht.loads.loads_fews.loads_fews import (
     LoadsFews,
 )
 from toolbox_continu_inzicht.loads.loads_fews.get_fews_locations import (
-     get_fews_locations
+    get_fews_locations,
 )
 from toolbox_continu_inzicht.loads.loads_fews.get_fews_thresholds import (
-     get_fews_thresholds
+    get_fews_thresholds,
 )
 from toolbox_continu_inzicht.loads.loads_matroos.loads_matroos import (
     LoadsMatroos,
