@@ -597,12 +597,13 @@ def test_LoadsMatroos_data_frame():
     )
     assert len(df_out) == 349
     columns_names = [
-        "objectid",
-        "objecttype",
-        "parameterid",
+        "object_id",
+        "object_type",
+        "meetlocatie_naam",
+        "parameter_naam",
         "datetime",
-        "value",
-        "calculating",
-        "measurementcode",
+        "waarde",
+        "type_waarde",
+        "bron_naam",
     ]
     assert all([col in list(df_out.columns) for col in columns_names])

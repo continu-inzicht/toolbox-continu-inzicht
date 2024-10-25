@@ -9,7 +9,6 @@ from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
     get_matroos_sources,
 )
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.utils.datetime_functions import epoch_from_datetime
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
 
@@ -52,7 +51,12 @@ class LoadsMatroos:
             )
         else:
             df_sources = await get_matroos_sources()
-            if options["source"] not in list(df_sources["source_label"]):
+            # maak een lijst met alle parameter namen, noos herhekend ook een heleboel aliases
+            list_aliases = []
+            for alias in list(df_sources["source_alias"]):
+                list_aliases.extend(alias.split(";"))
+
+            if options["source"] not in list_aliases:
                 raise UserWarning(
                     "Source supplied is not valid, if needed refer to get_matroos_sources()"
                 )
@@ -127,43 +131,41 @@ class LoadsMatroos:
         Returns:
             Dataframe: Pandas dataframe geschikt voor uitvoer
         """
-        h10 = 1
-        h10v = 2
-
         dataframe = pd.DataFrame()
         records = []
         # loop over de lijst met data heen
         for serie in json_data["results"]:
             # hier zit ook coordinaten in
-            measuringstationid = (
-                serie["location"]["properties"]["locationName"].lower().replace(" ", "")
-            )
-            measurement_or_observation = serie["source"]["name"]
+            object_id = serie["location"]["properties"]["locationId"]
+            meetlocatie_naam = serie["location"]["properties"]["locationName"]
+            parameter_naam = serie["observationType"]["quantityName"]
+            bron_naam = serie["source"]["name"]
             # process per lijst en stop het in een record
             for event in serie["events"]:
                 datestr = event["timeStamp"]
                 utc_dt = datetime.fromisoformat(datestr)
 
-                parameterid = h10
                 if utc_dt > t_now:
-                    parameterid = h10v
+                    type_waarde = "verwachting"
+                else:
+                    type_waarde = "meting"
 
-                if parameterid > 0:
-                    if event["value"]:
-                        value = float(event["value"])
-                    else:
-                        value = options["MISSING_VALUE"]
+                if event["value"]:
+                    value = float(event["value"])
+                else:
+                    value = options["MISSING_VALUE"]
 
-                    record = {
-                        "objectid": measuringstationid,
-                        "objecttype": "measuringstation",
-                        "parameterid": parameterid,
-                        "datetime": epoch_from_datetime(utc_dt=utc_dt),
-                        "value": value,
-                        "calculating": True,
-                        "measurementcode": measurement_or_observation,
-                    }
-                    records.append(record)
+                record = {
+                    "object_id": object_id,
+                    "object_type": "meetlocatie",
+                    "meetlocatie_naam": meetlocatie_naam,
+                    "parameter_naam": parameter_naam,
+                    "datetime": utc_dt,
+                    "waarde": value,
+                    "type_waarde": type_waarde,
+                    "bron_naam": bron_naam,
+                }
+                records.append(record)
 
             # voeg de records samen
             dataframe = pd.DataFrame.from_records(records)
