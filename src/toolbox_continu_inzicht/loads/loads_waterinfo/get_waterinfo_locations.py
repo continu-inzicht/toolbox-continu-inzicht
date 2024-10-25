@@ -1,7 +1,8 @@
 import pandas as pd
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
-async def get_waterinfo_locations(parameter_id: str = "waterhoogte")-> pd.DataFrame:
+
+async def get_waterinfo_locations(parameter_id: str = "waterhoogte") -> pd.DataFrame:
     """Haal voor Waterinfo de locaties op voor de opgegegeven parameter
 
     Args:
@@ -10,13 +11,11 @@ async def get_waterinfo_locations(parameter_id: str = "waterhoogte")-> pd.DataFr
     Returns:
         Dataframe: Pandas dataframe met locaties
     """
-    
+
     # url voor ophalen van waterinfo geojson
     url: str = "https://waterinfo.rws.nl/api/point/latestmeasurement"
-    
-    params: dict = {
-        "parameterId": parameter_id
-    }
+
+    params: dict = {"parameterId": parameter_id}
 
     # Ophalen json data van de Waterinfo api
     dataframe: pd.DataFrame = pd.DataFrame()
@@ -26,11 +25,11 @@ async def get_waterinfo_locations(parameter_id: str = "waterhoogte")-> pd.DataFr
             df_locations = pd.DataFrame(json_data["features"])
 
             records = []
-            for index, row in df_locations.iterrows(): 
+            for index, row in df_locations.iterrows():
                 geometry = row["geometry"]
                 properties = row["properties"]
                 name = properties["name"]
-                location_code =  properties["locationCode"]
+                location_code = properties["locationCode"]
                 x = geometry["coordinates"][0]
                 y = geometry["coordinates"][1]
 
@@ -39,11 +38,11 @@ async def get_waterinfo_locations(parameter_id: str = "waterhoogte")-> pd.DataFr
                     "name": name,
                     "location_code": location_code,
                     "x": x,
-                    "y": y
+                    "y": y,
                 }
 
                 records.append(record)
-            
+
             dataframe = pd.DataFrame.from_records(records)
             dataframe = dataframe.set_index("id")
         else:
@@ -52,4 +51,3 @@ async def get_waterinfo_locations(parameter_id: str = "waterhoogte")-> pd.DataFr
         raise ConnectionError("Connection failed")
 
     return dataframe
-     
