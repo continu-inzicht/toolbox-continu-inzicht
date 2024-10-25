@@ -47,12 +47,24 @@ class SectionsLoads:
 
         # invoer 1: lijst met dijkvakken
         self.df_in = self.data_adapter.input(input)
+        if not {"id", "name"}.issubset(self.df_in.columns):
+            raise UserWarning("Invoer dijkvakken voldoet niet aan het juiste formaat.")
 
         # invoer 2: belastingen van alle meetlocaties
         self.df_in2 = self.data_adapter.input(input2)
+        if not {"objectid", "parameterid", "datetime", "value"}.issubset(
+            self.df_in2.columns
+        ):
+            raise UserWarning("Invoer belastingen voldoet niet aan het juiste formaat.")
 
         # invoer 3: koppeling van de maatgevende meetlocaties per dijkvak
         self.df_in3 = self.data_adapter.input(input3)
+        if not {"id", "idup", "iddown", "fractionup", "fractiondown"}.issubset(
+            self.df_in3.columns
+        ):
+            raise UserWarning(
+                "Invoer maatgevende meetlocaties per dijkvak voldoet niet aan het juiste formaat."
+            )
 
         # uitvoer: belasting per dijkvak
         self.df_out = pd.DataFrame()
