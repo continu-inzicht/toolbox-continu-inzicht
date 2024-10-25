@@ -31,6 +31,7 @@ from toolbox_continu_inzicht.loads.loads_waterinfo.get_waterinfo_locations impor
 from toolbox_continu_inzicht.loads.loads_waterinfo.get_waterinfo_thresholds import (
     get_waterinfo_thresholds,
 )
+from toolbox_continu_inzicht.loads.loads_classify.loads_classify import LoadsClassify
 
 
 __all__ = [
@@ -44,4 +45,5 @@ __all__ = [
     "get_matroos_locations",
     "get_waterinfo_locations",
     "get_waterinfo_thresholds",
+    "LoadsClassify",
 ]

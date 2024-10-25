@@ -42,6 +42,7 @@ async def get_waterinfo_locations(parameter_id: str = "waterhoogte") -> pd.DataF
                 }
 
                 records.append(record)
+
             dataframe = pd.DataFrame.from_records(records)
             dataframe = dataframe.set_index("id")
         else:
