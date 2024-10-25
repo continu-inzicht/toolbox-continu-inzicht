@@ -206,45 +206,45 @@
   {
     "objectID": "install.html",
     "href": "install.html",
-    "title": "Instalatie instructies",
+    "title": "Installatie-instructies",
     "section": "",
-    "text": "De toolbox continu inzicht kan op verschillende manieren worden gebruikt: 1. Als vervanging van de huidige Continu Inzicht back-end 1. Als los staande modules 1. Als ontwikkelaar\n\n\nOm de toolbox als vervanging van de huidige Continu Inzicht back-end zal in de toekomst meer informatie beschikbaar gesteld worden. De oude backend kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen kunnen dan worden mee genomen.\n\n\n\nOm de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.\npip install toolbox_continu_inzicht\n\n\n\nZie het document CONTRIBUTING.md voor meer informatie.",
+    "text": "De toolbox continu inzicht kan op verschillende manieren worden gebruikt: 1. Als vervanging van de huidige Continu Inzicht back-end 1. Als losstaande modules 1. Als ontwikkelaar\n\n\nOm de toolbox als vervanging van de huidige Continu Inzicht back-end te gebruiken, zal in de toekomst meer informatie beschikbaar gesteld worden. De oude back-end kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen kunnen dan worden meegenomen.\n\n\n\nOm de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.\npip install toolbox_continu_inzicht\n\n\n\nZie het document CONTRIBUTING.md voor meer informatie.",
     "crumbs": [
       "Achtergrond",
-      "Instalatie instructies"
+      "Installatie-instructies"
     ]
   },
   {
     "objectID": "install.html#vervanging",
     "href": "install.html#vervanging",
-    "title": "Instalatie instructies",
+    "title": "Installatie-instructies",
     "section": "",
-    "text": "Om de toolbox als vervanging van de huidige Continu Inzicht back-end zal in de toekomst meer informatie beschikbaar gesteld worden. De oude backend kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen kunnen dan worden mee genomen.",
+    "text": "Om de toolbox als vervanging van de huidige Continu Inzicht back-end te gebruiken, zal in de toekomst meer informatie beschikbaar gesteld worden. De oude back-end kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen kunnen dan worden meegenomen.",
     "crumbs": [
       "Achtergrond",
-      "Instalatie instructies"
+      "Installatie-instructies"
     ]
   },
   {
-    "objectID": "install.html#los-staande-modules",
-    "href": "install.html#los-staande-modules",
-    "title": "Instalatie instructies",
+    "objectID": "install.html#losstaande-modules",
+    "href": "install.html#losstaande-modules",
+    "title": "Installatie-instructies",
     "section": "",
     "text": "Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.\npip install toolbox_continu_inzicht",
     "crumbs": [
       "Achtergrond",
-      "Instalatie instructies"
+      "Installatie-instructies"
     ]
   },
   {
     "objectID": "install.html#als-ontwikkelaar",
     "href": "install.html#als-ontwikkelaar",
-    "title": "Instalatie instructies",
+    "title": "Installatie-instructies",
     "section": "",
     "text": "Zie het document CONTRIBUTING.md voor meer informatie.",
     "crumbs": [
       "Achtergrond",
-      "Instalatie instructies"
+      "Installatie-instructies"
     ]
   },
   {
