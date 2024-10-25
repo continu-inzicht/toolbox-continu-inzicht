@@ -41,6 +41,8 @@ class LoadsWaterwebservicesRWS:
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
         options = global_variables["LoadsWaterwebservicesRWS"]
+        if "MISSING_VALUE" not in options:
+            options["MISSING_VALUE"] = 999999999.0
 
         self.df_in = self.data_adapter.input(input)
 

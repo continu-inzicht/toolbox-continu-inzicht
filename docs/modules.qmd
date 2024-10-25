@@ -23,7 +23,7 @@ De architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn.
 
 Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen. Door middel van een `yaml` configuratie bestand wordt de juist informatie meegegeven aan de modules en de data adapter.
 
-Het kopje `GlobalVariables` is verplicht met minimaal een `rootdir`. De `DataAdapter`  ook, met minimaal een data adapter. 
+Het kopje `GlobalVariables` is verplicht met minimaal een `rootdir`: dit is een map waarin de data bestanden staan en weggeschreven worden. De `DataAdapter` is ook verplicht, met minimaal één data adapter. De naam van de adapter kan vrij gekozen worden, hier van kunnen zo veel als gewenst worden aangemaakt
 ```yaml
 GlobalVariables:
     rootdir: 'C:/data/toobox/'
@@ -34,6 +34,39 @@ DataAdapter:
         file: 'eerste_voorbeeld.csv'
 ```
 
+
+Onder `GlobalVariables` kan per data type variabele worden meegegeven die voor alle adapters van dit type gelden. Voor `csv` kan dit bijvoorbeeld het scheidingsteken zijn. Alle data adapters met het type `csv` krijgen nu de extra variabele mee. 
+```yaml
+GlobalVariables:
+    rootdir: 'C:/data/toobox/'
+    csv:
+    	delimiter: ';'
+
+DataAdapter:
+    EenTypeDataAdapter: 
+        type: csv
+        file: 'eerste_voorbeeld.csv'
+    CSV_output: 
+        type: csv
+        file: 'voorbeeld_output.csv'
+```
+
+
+Naast de data adapters worden modules ook geconfigureerd in de `GlobalVariables`. Zo worden de opties voor de module `LoadsMatroos` ook mee gegeven in de `GlobalVariables`. 
+```yaml
+GlobalVariables:
+    rootdir: 'C:/data/toobox/'
+    
+    LoadsMatroos:
+        website: 'noos'
+        source: 'dcsm6_kf'
+        parameters: ['waterlevel']
+        MISSING_VALUE: 999
+
+DataAdapter:
+	...
+```
+
 ### Data adapter
 
 De data adapter wordt gebruikt om verschillende data types in en uit te lezen. Op het moment zijn dit de volgende data formaten:
@@ -42,17 +75,42 @@ De data adapter wordt gebruikt om verschillende data types in en uit te lezen. O
 2.  NetCDF
 3.  PostgreSQL
 
-Deze wordt geconfigureerd in de een `.yaml` configuratie bestand, een voorbeeld van een csv bestand wordt hieronder weergegeven. 
+Deze wordt geconfigureerd in de een `.yaml` configuratie bestand, een voorbeeld van een csv-bestand wordt hieronder weergegeven. Hierbij zijn `type` en `file` of `path` verplicht. In het voorbeeld hier onder wordt een relatief pad mee gegeven als `rootdir`, dit wordt ook ondersteund. 
 
 ```yaml
+GlobalVariables:
+    rootdir: 'data_sets'
+
 DataAdapter:
     MyCSV_in: 
         type: csv
         file: 'test_csv_in.csv'
-    MyCSV_in_delim: 
+    MyCSV_out: 
         type: csv
-        file: 'test_csv_in_delim.csv'
+        file: 'test_csv_out.csv'
 ...
+```
+
+Indien een bestand buiten de root directory valt kan in plaats van `file `ook een absoluut `path` worden mee gegeven. 
+```yaml 
+DataAdapter:
+    MyCSV_anders: 
+        type: csv
+        path: 'C:/data/Ander/pad_naar_csv.csv'
+...
+```
+
+Naast de verplichte opties, worden alle overige opties doorgegeven aan de output functie. De `csv`module maakt gebruik van de [pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) module voor het lees werk, all opties die deze module ondersteund kunnen worden doorgegeven. Voor `NetCDF` is dit [xarray.open_dataset](https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html). Echter is voor `PostgreSQL` dit niet het geval, hier zijn alleen een drie standaard opties beschikbaar: `database`, `schema` en `table`. 
+
+### Wachtwoorden
+
+Voor bepaalde diensten, zo als toegang tot een database, zijn wachtwoorden nodig. Deze kunnen in de 'environmental variables' worden mee gegeven, in de vorm van een `.env` bestand. 
+```yaml
+host='xxx.xx.xx.xx'
+database='xxxxxxx'
+port='xxxx'
+password='xxxx'
+user='xx'
 ```
 
 ## Belastingen inlezen en classificeren {#sec-belastingen}
@@ -61,7 +119,7 @@ Om continu inzicht te leveren in de veiligheid van waterkeringen is het van bela
 
 ### Belastingen inlezen
 
-De Bronnen die op dit momement worden ondersteund in de toolbox continu inzicht zijn:
+De Bronnen die op dit moment worden ondersteund in de toolbox continu inzicht zijn:
 
 1. Delft FEWS
 2. Matroos
@@ -71,7 +129,6 @@ De Bronnen die op dit momement worden ondersteund in de toolbox continu inzicht 
 #### Delft FEWS
 Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen) implementatie voor het beheren van verschillende interne en externe informatie bronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot FEWS is complexer dan andere bronnen, hierom zijn meer parameters nodig in het configuratiebestand.  De functie `get_fews_locations()` kan worden gebruikt om de beschikbare locaties te tonen. 
 
-##### Voorbeeld configuratie
 ```Yaml
 
 GlobalVariables:
@@ -96,15 +153,13 @@ DataAdapter:
 #### Matroos
 Matroos of `Multifunctional Access Tool foR Operational Oceandata Services` is een systeem van Rijkswaterstaat (RWS). Recente waterstand metingen en verwachtingen kunnen hieruit worden opgehaald.  Matroos is beschikbaar in verschillende smaken, waarvan drie relevant. De verschillen worden in de tabel hieronder toegelicht, zie [iplo.nl](https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf) voor meer informatie. In de toolbox wordt nu alleen de series API gebruikt dus volstaat NOOS. 
 
-| URL                                                     | Type           | Inhoud                                        | Doelgroep                                                             |
-|---------------------------------------------------------|----------------|-----------------------------------------------|-----------------------------------------------------------------------|
-| [vitaal.matroos.rws.nl](https://vitaal.matroos.rws.nl/) | extern, vitaal | 21 dagen                                      | Kustwacht, Waterschappen                                              |
-| [matroos.rws.nl](https://matroos.rws.nl/)               | extern         | Volledige historie                            | Waterschappen, universiteiten, ing. buro's, andere externe gebruikers |
-| [noos.matroos.rws.nl](https://noos.matroos.rws.nl/)     | extern, open   | Beperkte set, series:volledig, maps: 14 dagen | NOOS internationaal, Open Data                                        |
+| URL                                                     | Type           | Inhoud                                        | Doelgroep                             |
+|---------------------------------------------------------|----------------|-----------------------------------------------|---------------------------------------|
+| [vitaal.matroos.rws.nl](https://vitaal.matroos.rws.nl/) | extern, vitaal | 21 dagen                                      | Kustwacht, Waterschappen              |
+| [matroos.rws.nl](https://matroos.rws.nl/)               | extern         | Volledige historie                            | Waterschappen, universiteiten, extene |
+| [noos.matroos.rws.nl](https://noos.matroos.rws.nl/)     | extern, open   | Beperkte set; series:volledig; maps: 14 dagen | NOOS internationaal, Open Data        |
 
 In Matroos zijn verschillende bronnen beschikbaar, met `get_matroos_sources()` kan een lijst van deze worden gegeneerd. De beschikbare locaties kunnen worden weergegeven met `get_matroos_locations()`, met mogelijkheid om te filteren op een bron en parameter. 
-
-##### Voorbeeld configuratie
 
 ```Yaml
 
@@ -135,18 +190,29 @@ matroos_password: "..."
 
 #### RWS WaterWebservices
 
-Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen rondom rivieren beschikbaar via de [WaterWebservices](https://rijkswaterstaatdata.nl/waterdata/) API. Deze is publiekelijk toegankelijk en vereist weinig configuratie. De `MISSING_VALUE` kan in de configuratie worden aangepast, maar staat standaard ingesteld op '999999999.0'.
+Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen rondom rivieren beschikbaar via de [WaterWebservices](https://rijkswaterstaatdata.nl/waterdata/) API. Deze is openbaar en vereist weinig configuratie. De `MISSING_VALUE` kan in de configuratie worden aangepast, maar staat al standaard ingesteld.
 
 ```yaml
     LoadsWaterwebservicesRWS:
         MISSING_VALUE: 999999999.0
 ```
 
-Beschikbare locaties kunnen worden weergegeven met `get_matroos_locations()`. 
+Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_locations()`. 
 
 #### RWS waterinfo
+Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Deze is openbaar, wel moet het data type worden opgegeven en de uren voor en na het moment van opvragen.
 
+```yaml
+ GlobalVariables:
+    rootdir: "data_sets"
 
+    LoadsWaterinfo:
+        datatype: "waterhoogte"
+        observedhours: 48
+        predictionhours: 48
+        MISSING_VALUE: -9999.0
+
+```
 
 ### Classificeren van beslastingen
 
