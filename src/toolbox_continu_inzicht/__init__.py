@@ -31,6 +31,8 @@ from toolbox_continu_inzicht.utils.datetime_functions import (
 )
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
+from toolbox_continu_inzicht.sections import sections_loads
+
 
 __all__ = [
     "config",
@@ -48,6 +50,7 @@ __all__ = [
     "get_waterinfo_locations",
     "get_fews_thresholds",
     "get_waterinfo_thresholds",
+    "sections_loads",
     "calculate_fragility_curves",
     "epoch_from_datetime",
     "datetime_from_string",
