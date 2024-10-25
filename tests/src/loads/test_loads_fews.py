@@ -27,10 +27,12 @@ async def test_run():
         os.remove(output_file)
 
     fews = LoadsFews(data_adapter=data_adapter, input="locaties", output="waterstanden")
-    await fews.run()
+    df_output = await fews.run()
 
-    print(output_file)
     assert os.path.exists(output_file)
+
+    assert df_output is not None
+    assert len(df_output) > 0
 
 
 def test_create_url():

@@ -29,7 +29,12 @@ async def test_run():
     waterinfo = LoadsWaterinfo(
         data_adapter=data_adapter, input="locaties", output="waterstanden"
     )
-    await waterinfo.run()
+    df_output = await waterinfo.run()
+
+    assert os.path.exists(output_file)
+
+    assert df_output is not None
+    assert len(df_output) > 0
 
 
 def test_create_dataframe():
