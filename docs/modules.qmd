@@ -2,40 +2,155 @@
 title: "Modules"
 ---
 
-De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het uitlezen van waterstanden uit FEWS. 
-De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke [Github](https://github.com/continu-inzicht/toolbox-continu-inzicht). De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.
+De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het uitlezen van waterstanden uit FEWS. De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke [Github](https://github.com/continu-inzicht/toolbox-continu-inzicht). De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.
 
 De ontwikkeling van de volgende modules is voorzien:
 
-1. [Basis architectuur Toolbox Continu Inzicht](#sec-architectuur)
-1. [Belastingen inlezen en classificeren](#sec-belastingen)
-1. Bepalen fragility curves
-1. Bijstellen fragility curves (beheerdersoordeel in voorbereiding)
-1. Conditionele kansen en status waterkering per sectie
-1. Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans
-1. Inspectieresultaten inlezen en weergeven 
-1. Resultaten ontsluiten via Digitale Delta API
+1.  [Basis architectuur Toolbox Continu Inzicht](#sec-architectuur)
+2.  [Belastingen inlezen en classificeren](#sec-belastingen)
+3.  Bepalen fragility curves
+4.  Bijstellen fragility curves (beheerdersoordeel in voorbereiding)
+5.  Conditionele kansen en status waterkering per sectie
+6.  Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans
+7.  Inspectieresultaten inlezen en weergeven
+8.  Resultaten ontsluiten via Digitale Delta API
 
 ## Basis architectuur Toolbox Continu Inzicht {#sec-architectuur}
 
-De architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn. 
+De architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn.
 
 ### Configuratie
-Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen.
+
+Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen. Door middel van een `yaml` configuratie bestand wordt de juist informatie meegegeven aan de modules en de data adapter.
+
+Het kopje `GlobalVariables` is verplicht met minimaal een `rootdir`. De `DataAdapter`  ook, met minimaal een data adapter. 
+```yaml
+GlobalVariables:
+    rootdir: 'C:/data/toobox/'
+
+DataAdapter:
+    EenTypeDataAdapter: 
+        type: csv
+        file: 'eerste_voorbeeld.csv'
+```
 
 ### Data adapter
-De data adapter wordt gebruikt om verschillende data types in en uit te lezen. 
-Op het moment zijn dit de volgende data formaten:
 
-1. CSV
-1. NetCDF
-1. PostgreSQL
+De data adapter wordt gebruikt om verschillende data types in en uit te lezen. Op het moment zijn dit de volgende data formaten:
+
+1.  CSV
+2.  NetCDF
+3.  PostgreSQL
+
+Deze wordt geconfigureerd in de een `.yaml` configuratie bestand, een voorbeeld van een csv bestand wordt hieronder weergegeven. 
+
+```yaml
+DataAdapter:
+    MyCSV_in: 
+        type: csv
+        file: 'test_csv_in.csv'
+    MyCSV_in_delim: 
+        type: csv
+        file: 'test_csv_in_delim.csv'
+...
+```
 
 ## Belastingen inlezen en classificeren {#sec-belastingen}
 
-Dit maakt deel uit van sprint 2, deze tekst zal na uitvoering van de sprint worden aangevuld.
+Om continu inzicht te leveren in de veiligheid van waterkeringen is het van belang de belastingen op de keringen in kaart te brengen. Deze worden ingelezen uit verschillende bronnen en vervolgens geclassificeerd. 
+
+### Belastingen inlezen
+
+De Bronnen die op dit momement worden ondersteund in de toolbox continu inzicht zijn:
+
+1. Delft FEWS
+2. Matroos
+3. RWS water web services
+4. RWS waterinfo
+
+#### Delft FEWS
+Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen) implementatie voor het beheren van verschillende interne en externe informatie bronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot FEWS is complexer dan andere bronnen, hierom zijn meer parameters nodig in het configuratiebestand.  De functie `get_fews_locations()` kan worden gebruikt om de beschikbare locaties te tonen. 
+
+##### Voorbeeld configuratie
+```Yaml
+
+GlobalVariables:
+    rootdir: "data_sets"  
+    moments: [-24,0,24,48]
+	...
+
+    LoadsFews:
+        host: "https:**********"
+        port: ****
+        region: "fewspiservice"
+        version: "1.25"
+        filter: "HKV_WV_1"
+        parameters: ["WNSHDB1"]  
+        MISSING_VALUE: -9999.0    
+
+DataAdapter:
+	...
+
+```
+
+#### Matroos
+Matroos of `Multifunctional Access Tool foR Operational Oceandata Services` is een systeem van Rijkswaterstaat (RWS). Recente waterstand metingen en verwachtingen kunnen hieruit worden opgehaald.  Matroos is beschikbaar in verschillende smaken, waarvan drie relevant. De verschillen worden in de tabel hieronder toegelicht, zie [iplo.nl](https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf) voor meer informatie. In de toolbox wordt nu alleen de series API gebruikt dus volstaat NOOS. 
+
+| URL                                                     | Type           | Inhoud                                        | Doelgroep                                                             |
+|---------------------------------------------------------|----------------|-----------------------------------------------|-----------------------------------------------------------------------|
+| [vitaal.matroos.rws.nl](https://vitaal.matroos.rws.nl/) | extern, vitaal | 21 dagen                                      | Kustwacht, Waterschappen                                              |
+| [matroos.rws.nl](https://matroos.rws.nl/)               | extern         | Volledige historie                            | Waterschappen, universiteiten, ing. buro's, andere externe gebruikers |
+| [noos.matroos.rws.nl](https://noos.matroos.rws.nl/)     | extern, open   | Beperkte set, series:volledig, maps: 14 dagen | NOOS internationaal, Open Data                                        |
+
+In Matroos zijn verschillende bronnen beschikbaar, met `get_matroos_sources()` kan een lijst van deze worden gegeneerd. De beschikbare locaties kunnen worden weergegeven met `get_matroos_locations()`, met mogelijkheid om te filteren op een bron en parameter. 
+
+##### Voorbeeld configuratie
+
+```Yaml
+
+GlobalVariables:
+    rootdir: "data_sets" 
+    moments: [-24,0,24,48]
+    ...
+
+    LoadsMatroos:
+        website: "noos" # noos, vitaal of matroos
+        source: "observed"
+        parameters: ["waterlevel"]
+        MISSING_VALUE: 999
+
+DataAdapter:
+	...
+```
+
+Voor het gebruik van vitaal en matroos is een gebruikersnaam en wachtwoord nodig. Deze moeten in de environmental variables worden meegegeven (`.env` bestand). 
+
+```yaml
+vitaal_user: "..."
+vitaal_password: "..."
+# of 
+matroos_user: "..."
+matroos_password: "..."
+```
+
+#### RWS WaterWebservices
+
+Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen rondom rivieren beschikbaar via de [WaterWebservices](https://rijkswaterstaatdata.nl/waterdata/) API. Deze is publiekelijk toegankelijk en vereist weinig configuratie. De `MISSING_VALUE` kan in de configuratie worden aangepast, maar staat standaard ingesteld op '999999999.0'.
+
+```yaml
+    LoadsWaterwebservicesRWS:
+        MISSING_VALUE: 999999999.0
+```
+
+Beschikbare locaties kunnen worden weergegeven met `get_matroos_locations()`. 
+
+#### RWS waterinfo
 
 
+
+### Classificeren van beslastingen
+
+```{=html}
 <!-- ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
 
 Tekst na uitvoering aan te vulen 
@@ -64,4 +179,4 @@ Tekst na uitvoering aan te vulen
 ## Resultaten ontsluiten via Digitale Delta API {#sec-Resltaten-ontsluiten}
 
 Tekst na uitvoering aan te vulen -->
-
+```
