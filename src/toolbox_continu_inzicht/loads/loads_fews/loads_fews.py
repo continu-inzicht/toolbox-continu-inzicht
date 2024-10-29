@@ -4,7 +4,6 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
 from typing import Optional, List
 from toolbox_continu_inzicht.utils.datetime_functions import (
-    epoch_from_datetime,
     datetime_from_string,
 )
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
@@ -22,6 +21,12 @@ class LoadsFews:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
+    # Kolommen schema van de invoer data
+    input_schema = {
+        "id": "int64", 
+        "name": "object"
+    }
+
     async def run(self, input: str, output: str) -> pd.DataFrame:
         """
         De runner van de Loads Fews.
@@ -32,7 +37,7 @@ class LoadsFews:
             Dataframe: Pandas dataframe met opgehaalde gegevens uit FEWS.
         """
 
-        self.df_in = self.data_adapter.input(input)
+        self.df_in = self.data_adapter.input(input, self.input_schema)
 
         dt_now = datetime.now(timezone.utc)
         t_now = datetime(
@@ -126,45 +131,63 @@ class LoadsFews:
 
         Returns:
             Dataframe: Pandas dataframe geschikt voor uitvoer
+            definition:
+                - Meetlocatie id (measurement_location_id)
+                - Meetlocatie code (measurement_location_code)
+                - Meetlocatie omschrijving/naam (measurement_location_description)
+                - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id)
+                - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code)
+                - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description)
+                - Eenheid (unit)
+                - Datum en tijd (date_time)
+                - Waarde (value)
+                - Type waarde: meting of verwachting (value_type)                
         """
-        h10 = 1
-        h10v = 2
 
         dataframe = pd.DataFrame()
         if "timeSeries" in json_data:
             records = []
-            for serie in json_data["timeSeries"]:
-                parameter = serie["header"]["parameterId"]
-                locationcode = serie["header"]["locationId"]
-                measuringstation = locations[locations["name"] == locationcode]
+            for serie in json_data["timeSeries"]:                
+                parameter_id = 4724
+                parameter_code = serie["header"]["parameterId"]
+                parameter_description=serie["header"]["parameterId"]
+                measurement_location_code = serie["header"]["locationId"]
+                measurement_location_description = serie["header"]["stationName"]
+                unit = serie["header"]["units"]
+
+                measuringstation = locations[locations["name"] == measurement_location_code]
 
                 if len(measuringstation) > 0:
-                    measuringstationid = int(measuringstation["id"].iloc[0])
+                    measurement_location_id = int(measuringstation["id"].iloc[0])
 
-                    if parameter in options["parameters"]:
+                    if parameter_code in options["parameters"]:
                         for event in serie["events"]:
                             datestr = f"{event['date']}T{event['time']}Z"
-                            utc_dt = datetime_from_string(datestr, "%Y-%m-%dT%H:%M:%SZ")
+                            utc_dt = datetime_from_string(datestr, "%Y-%m-%dT%H:%M:%SZ")                            
+                            value_type = "meting"
 
-                            parameterid = h10
                             if utc_dt > t_now:
-                                parameterid = h10v
+                                value_type = "verwachting"
 
-                            if parameterid > 0:
-                                if event["value"]:
-                                    value = float(event["value"])
-                                else:
-                                    value = options["MISSING_VALUE"]
+                            if event["value"]:
+                                value = float(event["value"])
+                            else:
+                                value = options["MISSING_VALUE"]
 
-                                record = {
-                                    "objectid": measuringstationid,
-                                    "objecttype": "measuringstation",
-                                    "parameterid": parameterid,
-                                    "datetime": epoch_from_datetime(utc_dt=utc_dt),
-                                    "value": value,
-                                    "calculating": True,
-                                }
-                                records.append(record)
+                            record = {
+                                "measurement_location_id": measurement_location_id,
+                                "measurement_location_code": measurement_location_code,
+                                "measurement_location_description": measurement_location_description,
+                                "parameter_id": parameter_id,
+                                "parameter_code": parameter_code,
+                                "parameter_description": parameter_description,
+                                "unit": unit,
+                                "date_time": utc_dt,
+                                "value": value,
+                                "value_type": value_type
+                            }
+
+                            records.append(record)
 
             dataframe = pd.DataFrame.from_records(records)
 

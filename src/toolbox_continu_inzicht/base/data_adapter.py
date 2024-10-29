@@ -39,7 +39,26 @@ class DataAdapter(PydanticBaseModel):
         assert "postgresql_database" in self.config.available_types
         assert "netcdf" in self.config.available_types
 
-    def input(self, input: str):
+    @staticmethod
+    def validate_dataframe(df: pd.DataFrame, schema: dict):
+        
+        expected_columns = list(schema.keys())
+
+        actual_columns = df.columns.tolist()
+        actual_dtypes = df.dtypes.to_dict()
+        
+        columns_match = set(expected_columns).issubset(set(actual_columns))        
+        dtypes_match = all(schema[key] == actual_dtypes[key] for key in schema if key in actual_dtypes)
+        
+        if columns_match and dtypes_match:
+            return 0, "DataFrame is geldig."
+        else:
+            if not columns_match:
+                return 1, f"Kolommen komen niet overeen. \nVerwachte kolommen: {schema}.\nHuidige kolommen: {actual_dtypes}."
+            if not dtypes_match:
+                return 2, f"Datatypes komen niet overeen.\nVerwachte kolommen: {schema}.\nHuidige kolommen: {actual_dtypes}."
+
+    def input(self, input: str, schema: dict = None):
         """Gegeven het config, stuurt de juiste input waarde aan
 
         Parameters:
@@ -109,6 +128,13 @@ class DataAdapter(PydanticBaseModel):
         # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
         bijbehorende_functie = self.input_types[data_type]
         df = bijbehorende_functie(functie_input_config)
+
+        # Als schema is meegegeven, controleer of de data aan het schema voldoet.
+        if schema is not None:
+            status, message = self.validate_dataframe(df=df, schema=schema)
+            if status > 0:
+                raise UserWarning(message)
+
         return df
 
     @staticmethod
