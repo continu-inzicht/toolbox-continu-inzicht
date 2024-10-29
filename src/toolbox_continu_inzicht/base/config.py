@@ -17,6 +17,7 @@ class Config(PydanticBaseModel):
     config_path: Path
     global_variables: dict = {}
     data_adapters: dict = {}
+    available_types: list[str] = ["csv", "postgresql_database", "netcdf"]
 
     def lees_config(self):
         """Laad het gegeven pad in, zet de configuraties klaar in de Config class"""
@@ -37,10 +38,13 @@ class Config(PydanticBaseModel):
                 case "GlobalVariables":
                     self.global_variables = configuration
 
-        # add any applicable global variables to the
-        # not that fast but config shouldn't get too big
-        # TODO: be careful that global variables will over write any specifics as we use .update
-        for val in self.global_variables:
+        # opties die in de DataAdapter worden mee gegeven
+        # worden toegevoegd aan de adapters, mits de adapter zelf niet die waarde heeft
+        if "default_options" in self.data_adapters:
             for name, adapter in self.data_adapters.items():
-                if adapter["type"] == val:
-                    self.data_adapters[name].update(self.global_variables[val])
+                if "type" in adapter and adapter["type"] in self.available_types:
+                    if adapter["type"] in self.data_adapters["default_options"]:
+                        options = self.data_adapters["default_options"][adapter["type"]]
+                        for option in options:
+                            if option not in self.data_adapters[name]:
+                                self.data_adapters[name][option] = options[option]

@@ -26,10 +26,8 @@ async def test_run():
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    waterinfo = LoadsWaterinfo(
-        data_adapter=data_adapter, input="locaties", output="waterstanden"
-    )
-    df_output = await waterinfo.run()
+    waterinfo = LoadsWaterinfo(data_adapter=data_adapter)
+    df_output = await waterinfo.run(input="locaties", output="waterstanden")
 
     assert os.path.exists(output_file)
 
@@ -43,9 +41,7 @@ def test_create_dataframe():
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
-    waterinfo = LoadsWaterinfo(
-        data_adapter=data_adapter, input="locaties", output="waterstanden"
-    )
+    waterinfo = LoadsWaterinfo(data_adapter=data_adapter)
 
     options = {
         "datatype": "waterhoogte",

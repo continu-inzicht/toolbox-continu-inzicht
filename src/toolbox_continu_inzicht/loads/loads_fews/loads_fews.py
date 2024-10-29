@@ -4,7 +4,6 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
 from typing import Optional, List
 from toolbox_continu_inzicht.utils.datetime_functions import (
-    epoch_from_datetime,
     datetime_from_string,
 )
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
@@ -18,8 +17,6 @@ class LoadsFews:
     """
 
     data_adapter: DataAdapter
-    input: str
-    output: str
 
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
@@ -30,7 +27,7 @@ class LoadsFews:
         "name": "object"
     }
 
-    async def run(self, input=None, output=None) -> pd.DataFrame:
+    async def run(self, input: str, output: str) -> pd.DataFrame:
         """
         De runner van de Loads Fews.
 
@@ -39,10 +36,6 @@ class LoadsFews:
         Returns:
             Dataframe: Pandas dataframe met opgehaalde gegevens uit FEWS.
         """
-        if input is None:
-            input = self.input
-        if output is None:
-            output = self.output
 
         self.df_in = self.data_adapter.input(input, self.input_schema)
 

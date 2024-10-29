@@ -1,10 +1,11 @@
 GlobalVariables:
     rootdir: 'data_sets'
-    postgresql_database:
-        database: 'citoolbox'
-        schema: 'citoolbox_schema'
 
 DataAdapter:
+    default_options:
+        postgresql_database:
+            database: 'citoolbox'
+            schema: 'citoolbox_schema'
     MyCSV_in: 
         type: csv
         file: 'test_csv_in.csv'

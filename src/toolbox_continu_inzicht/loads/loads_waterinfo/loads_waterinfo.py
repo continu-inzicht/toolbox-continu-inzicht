@@ -3,7 +3,6 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
 from typing import Optional
 from toolbox_continu_inzicht.utils.datetime_functions import (
-    epoch_from_datetime,
     datetime_from_string,
 )
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
@@ -16,8 +15,6 @@ class LoadsWaterinfo:
     """
 
     data_adapter: DataAdapter
-    input: str
-    output: str
 
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
@@ -30,7 +27,7 @@ class LoadsWaterinfo:
         "name": "object"
     }
 
-    async def run(self, input=None, output=None) -> None:
+    async def run(self, input: str, output: str) -> None:
         """
         De runner van de Belasting Waterinfo functie.
 
@@ -41,11 +38,6 @@ class LoadsWaterinfo:
             Dataframe: Pandas dataframe geschikt voor uitvoer.       
         """
 
-        if input is None:
-            input = self.input
-        if output is None:
-            output = self.output
-        
         # Haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
         options = global_variables["LoadsWaterinfo"]

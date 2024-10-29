@@ -2,14 +2,15 @@ GlobalVariables:
     rootdir: "tests/src/loads/data_sets" 
     moments: [-24,0,24,48]  
 
-    csv:
-        delimiter: ","
-
     LoadsMatroos:
-        source: "bma2_95"
-        parameters: ["waterlevel"]
+        model: "bma2_95"
+        parameters: ["WATHTE"]
 
 DataAdapter: 
+    default_options:
+        csv:
+            delimiter: ","
+
     BelastingLocaties: 
         type: csv
         path: "test_loads_matroos.csv"
