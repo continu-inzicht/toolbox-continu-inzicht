@@ -14,15 +14,15 @@ def test_LoadsMatroos_noos():
     c.lees_config()
     data = DataAdapter(config=c)
 
-    matroos = LoadsMatroos(
-        data_adapter=data, input="BelastingLocaties", output="Waterstanden"
-    )
+    matroos = LoadsMatroos(data_adapter=data)
     try:
         loop = asyncio.get_running_loop()
     except RuntimeError:
         loop = asyncio.new_event_loop()
 
-    loop.run_until_complete(matroos.run())
+    loop.run_until_complete(
+        matroos.run(input="BelastingLocaties", output="Waterstanden")
+    )
 
     assert len(matroos.df_out) > 100
 
@@ -36,9 +36,7 @@ def test_LoadsMatroos_no_website():
     c.lees_config()
     data = DataAdapter(config=c)
 
-    matroos = LoadsMatroos(
-        data_adapter=data, input="BelastingLocaties", output="Waterstanden"
-    )
+    matroos = LoadsMatroos(data_adapter=data)
     try:
         loop = asyncio.get_running_loop()
     except RuntimeError:
@@ -46,7 +44,9 @@ def test_LoadsMatroos_no_website():
 
     match = "Specify a `website` to consult in config: Noos, Matroos or Vitaal. In case of the later two, also provide a password and username"
     with pytest.raises(UserWarning, match=match):
-        loop.run_until_complete(matroos.run())
+        loop.run_until_complete(
+            matroos.run(input="BelastingLocaties", output="Waterstanden")
+        )
 
     matroos
 
@@ -58,9 +58,7 @@ def test_LoadsMatroos_create_url_vitaal():
     c.lees_config()
     data = DataAdapter(config=c)
 
-    matroos = LoadsMatroos(
-        data_adapter=data, input="BelastingLocaties", output="Waterstanden"
-    )
+    matroos = LoadsMatroos(data_adapter=data)
     t_now = datetime(
         2024,
         10,
@@ -70,7 +68,7 @@ def test_LoadsMatroos_create_url_vitaal():
         0,
     ).replace(tzinfo=timezone.utc)
 
-    options = {"website": "vitaal", "source": "observed", "parameters": ["waterlevel"]}
+    options = {"website": "vitaal", "model": "observed", "parameters": ["WATHTE"]}
     global_variables = {
         "moments": [-24, 0, 24, 48],
         "vitaal_user": "test_vitaal_user",
@@ -94,9 +92,7 @@ def test_LoadsMatroos_create_url_matroos():
     c.lees_config()
     data = DataAdapter(config=c)
 
-    matroos = LoadsMatroos(
-        data_adapter=data, input="BelastingLocaties", output="Waterstanden"
-    )
+    matroos = LoadsMatroos(data_adapter=data)
     t_now = datetime(
         2024,
         10,
@@ -106,7 +102,7 @@ def test_LoadsMatroos_create_url_matroos():
         0,
     ).replace(tzinfo=timezone.utc)
 
-    options = {"website": "matroos", "source": "observed", "parameters": ["waterlevel"]}
+    options = {"website": "matroos", "model": "observed", "parameters": ["WATHTE"]}
     global_variables = {
         "moments": [-24, 0, 24, 48],
         "matroos_user": "test_matroos_user",
@@ -130,9 +126,7 @@ def test_LoadsMatroos_create_url_noos():
     c.lees_config()
     data = DataAdapter(config=c)
 
-    matroos = LoadsMatroos(
-        data_adapter=data, input="BelastingLocaties", output="Waterstanden"
-    )
+    matroos = LoadsMatroos(data_adapter=data)
     t_now = datetime(
         2024,
         10,
@@ -142,7 +136,7 @@ def test_LoadsMatroos_create_url_noos():
         0,
     ).replace(tzinfo=timezone.utc)
 
-    options = {"website": "noos", "source": "observed", "parameters": ["waterlevel"]}
+    options = {"website": "noos", "model": "observed", "parameters": ["WATHTE"]}
     global_variables = {"moments": [-24, 0, 24, 48]}
     url = matroos.generate_url(
         t_now=t_now,
@@ -159,8 +153,8 @@ def test_LoadsMatroos_data_frame():
     """Tests of we belasing data van de matroos json om kunnen zetten in een dataframe"""
     options = {
         "website": "noos",
-        "source": "bma2_95",
-        "parameters": ["waterlevel"],
+        "model": "bma2_95",
+        "parameters": ["WATHTE"],
         "MISSING_VALUE": 999,
     }
 
@@ -597,13 +591,13 @@ def test_LoadsMatroos_data_frame():
     )
     assert len(df_out) == 349
     columns_names = [
-        "object_id",
-        "object_type",
-        "meetlocatie_naam",
-        "parameter_naam",
+        "measurement_location_id",
+        "measurement_location_code",
+        "measurement_location_description",
+        "parameter_id",
+        "parameter_code",
         "datetime",
-        "waarde",
-        "type_waarde",
-        "bron_naam",
+        "value",
+        "value_type",
     ]
     assert all([col in list(df_out.columns) for col in columns_names])

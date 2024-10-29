@@ -2,16 +2,16 @@ GlobalVariables:
     rootdir: "data_sets" 
     moments: [-24,0,24,48]  
 
-    csv:
-        delimiter: ","
-
     LoadsMatroos:
         website: "vitaal"
-        source: "dcsm6_kf"
-        parameters: ["waterlevel"]
+        model: "dcsm6_kf"
+        parameters: ["WATHTE"]
         MISSING_VALUE: 999
 
 DataAdapter: 
+    default_options:
+        csv:
+            delimiter: ","
     BelastingLocaties: 
         type: csv
         path: "belastingen_matroos.csv"

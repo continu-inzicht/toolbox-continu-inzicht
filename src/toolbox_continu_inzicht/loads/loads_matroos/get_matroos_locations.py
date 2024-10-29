@@ -20,7 +20,10 @@ async def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame
             gdf = gpd.GeoDataFrame.from_features(geojson_data)
             gdf = gdf.drop(columns=["url", "node"])
             gdf = gdf.rename(
-                columns={"locationName": "meetlocatie_naam", "locationId": "object_id"}
+                columns={
+                    "locationName": "measurement_location_code",
+                    "locationId": "measurement_location_id",
+                }
             )
 
         else:
@@ -31,7 +34,7 @@ async def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame
     return gdf
 
 
-async def get_matroos_sources() -> pd.DataFrame:
+async def get_matroos_models() -> pd.DataFrame:
     """Haalt alle matroos bronnen op"""
     url = "https://noos.matroos.rws.nl/timeseries/search/get_sources.php?"
     params = {"format": "dd_default_2.0.0"}
