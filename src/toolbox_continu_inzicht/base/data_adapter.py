@@ -10,9 +10,6 @@ from dotenv import load_dotenv, dotenv_values
 from toolbox_continu_inzicht.base.config import Config
 
 
-available_types = ["csv", "postgresql_database", "netcdf"]
-
-
 class DataAdapter(PydanticBaseModel):
     """Basis DataAdapter"""
 
@@ -21,14 +18,26 @@ class DataAdapter(PydanticBaseModel):
     output_types: dict = {}
 
     def initialize_input_types(self):
+        """
+        Initializes input mapping and checks to see if type in the configured types
+
+        Future editor: ensure that changes made here are also reflected in Config.available_types
+        """
         self.input_types["csv"] = self.input_csv
         self.input_types["postgresql_database"] = self.input_postgresql
         self.input_types["netcdf"] = self.input_netcdf
+        assert "csv" in self.config.available_types
+        assert "postgresql_database" in self.config.available_types
+        assert "netcdf" in self.config.available_types
 
     def initialize_output_types(self):
+        """Initializes ouput mapping and checks to see if type in the configured types"""
         self.output_types["csv"] = self.output_csv
         self.output_types["postgresql_database"] = self.output_postgresql
         self.output_types["netcdf"] = self.output_netcdf
+        assert "csv" in self.config.available_types
+        assert "postgresql_database" in self.config.available_types
+        assert "netcdf" in self.config.available_types
 
     def input(self, input: str):
         """Gegeven het config, stuurt de juiste input waarde aan

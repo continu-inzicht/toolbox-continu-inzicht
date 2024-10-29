@@ -18,13 +18,11 @@ class LoadsFews:
     """
 
     data_adapter: DataAdapter
-    input: str
-    output: str
 
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    async def run(self, input=None, output=None) -> pd.DataFrame:
+    async def run(self, input:str, output:str) -> pd.DataFrame:
         """
         De runner van de Loads Fews.
 
@@ -33,10 +31,6 @@ class LoadsFews:
         Returns:
             Dataframe: Pandas dataframe met opgehaalde gegevens uit FEWS.
         """
-        if input is None:
-            input = self.input
-        if output is None:
-            output = self.output
 
         self.df_in = self.data_adapter.input(input)
 

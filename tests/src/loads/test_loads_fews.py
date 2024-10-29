@@ -26,8 +26,8 @@ async def test_run():
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    fews = LoadsFews(data_adapter=data_adapter, input="locaties", output="waterstanden")
-    df_output = await fews.run()
+    fews = LoadsFews(data_adapter=data_adapter)
+    df_output = await fews.run(input="locaties", output="waterstanden")
 
     assert os.path.exists(output_file)
 
@@ -41,7 +41,7 @@ def test_create_url():
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
-    fews = LoadsFews(data_adapter=data_adapter, input="locaties", output="waterstanden")
+    fews = LoadsFews(data_adapter=data_adapter)
 
     options = {"host": "https://**********", "port": 8443, "region": "region"}
 
@@ -55,7 +55,7 @@ def test_create_params():
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
-    fews = LoadsFews(data_adapter=data_adapter, input="locaties", output="waterstanden")
+    fews = LoadsFews(data_adapter=data_adapter)
 
     options = {
         "host": "https://**********",
@@ -99,7 +99,7 @@ def test_create_dataframe():
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
-    fews = LoadsFews(data_adapter=data_adapter, input="locaties", output="waterstanden")
+    fews = LoadsFews(data_adapter=data_adapter)
 
     options = {"parameters": ["WNSHDB1"]}
 

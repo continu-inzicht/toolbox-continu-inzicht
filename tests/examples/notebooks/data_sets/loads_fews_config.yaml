@@ -2,9 +2,6 @@ GlobalVariables:
     rootdir: "data_sets"   
     moments: [-24,0,24,48]
 
-    csv:
-        delimiter: ","
-
     LoadsFews:
         host: "https://********************"
         port: 8443
@@ -15,6 +12,9 @@ GlobalVariables:
         MISSING_VALUE: -9999.0        
 
 DataAdapter: 
+    default_options:    
+        csv:
+            delimiter: ","
     locaties: 
         type: csv
         path: "locations_fews.csv"
