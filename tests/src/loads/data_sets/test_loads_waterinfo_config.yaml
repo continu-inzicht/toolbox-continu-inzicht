@@ -1,18 +1,15 @@
 GlobalVariables:
     rootdir: "tests/src/loads/data_sets"
     moments: [-24,0,24,48]
-    
-    csv:
-        delimiter: ","
+    MISSING_VALUE: -9999.0    
 
     LoadsWaterinfo:
-        datatype: "waterhoogte"
-        observedhours: 48
-        predictionhours: 48
-        momentsupdate: True
-        MISSING_VALUE: -9999.0        
+        datatype: "waterhoogte"           
 
 DataAdapter: 
+    default_options:
+        csv:
+            delimiter: ","
     locaties: 
         type: csv
         path: "test_locations_waterinfo.csv"

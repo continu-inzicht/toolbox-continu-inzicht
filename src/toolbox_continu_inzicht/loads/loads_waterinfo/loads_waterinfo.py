@@ -42,17 +42,44 @@ class LoadsWaterinfo:
         global_variables = self.data_adapter.config.global_variables
         options = global_variables["LoadsWaterinfo"]
 
+        # moments eventueel toevoegen aan options
+        if "moments" not in options and "moments" in global_variables:
+            options["moments"] = global_variables["moments"]
+        elif "moments" not in options:
+            options["moments"] = [-24, 0, 24, 48]
+
+        # moments eventueel toevoegen aan options
+        if "MISSING_VALUE" not in options and "MISSING_VALUE" in global_variables:
+            options["MISSING_VALUE"] = global_variables["MISSING_VALUE"]      
+        elif "MISSING_VALUE" not in options:     
+            options["MISSING_VALUE"] = -9999
+
         # Dit zijn de meetlocaties vanuit invoer
         self.df_in = self.data_adapter.input(input, self.input_schema)
         
         self.df_out = pd.DataFrame()
+        
+        # observedhours,predictionhours
+        # -672, 0   | achtentwintig dagen terug
+        # -216, 48  | negen dagen terug en 2 dagen vooruit
+        #   -6, 3   | zes uur teru, en 3 uur vooruit
+        #  -48, 48  | twee dagen terug en 2 dagen vooruit
+        observedhours = -48
+        predictionhours = 48
+        if options["moments"][0] < observedhours:
+            observedhours = -216
+
+        datatype = "waterhoogte"
+        if "parameters" in options:
+            if type(options["parameters"]) is list and len(options["parameters"]) > 0:
+                datatype = options["parameters"][0]
 
         # Loop over alle meetstations
         for _, measuringstation in self.df_in.iterrows():
             params = {
-                "mapType": options["datatype"],
+                "mapType": datatype,
                 "locationCodes": measuringstation["code"],
-                "values": f"-{options['observedhours']},{options['predictionhours']}",
+                "values": f"{observedhours},{predictionhours}",
             }
 
             # Ophalen json data van de Waterinfo api
