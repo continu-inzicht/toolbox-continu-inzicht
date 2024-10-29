@@ -14,7 +14,7 @@ DataAdapter:
 
     BelastingLocaties: 
         type: csv
-        path: "belastingen_matroos.csv"
+        path: "loads_matroos.csv"
     Waterstanden: 
         type: csv
         path: "waterstanden.csv"
