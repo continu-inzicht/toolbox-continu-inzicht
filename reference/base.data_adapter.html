@@ -136,6 +136,11 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter" id="toc-toolbox_continu_inzicht.base.data_adapter.DataAdapter" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.data_adapter.DataAdapter">DataAdapter</a></li>
   </ul></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
+  <ul class="collapse">
+  <li><a href="#toolbox_continu_inzicht.base.data_adapter.check_rootdir" id="toc-toolbox_continu_inzicht.base.data_adapter.check_rootdir" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.data_adapter.check_rootdir">check_rootdir</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.data_adapter.get_kwargs" id="toc-toolbox_continu_inzicht.base.data_adapter.get_kwargs" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.data_adapter.get_kwargs">get_kwargs</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -206,11 +211,11 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_input_types">initialize_input_types</a></td>
-<td></td>
+<td>Initializes input mapping and checks to see if type in the configured types</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_output_types">initialize_output_types</a></td>
-<td></td>
+<td>Initializes ouput mapping and checks to see if type in the configured types</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.base.data_adapter.DataAdapter.input">input</a></td>
@@ -249,10 +254,13 @@ ul.task-list li input[type="checkbox"] {
 <section id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_input_types" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_input_types">initialize_input_types</h5>
 <p><code>base.data_adapter.DataAdapter.initialize_input_types()</code></p>
+<p>Initializes input mapping and checks to see if type in the configured types</p>
+<p>Future editor: ensure that changes made here are also reflected in Config.available_types</p>
 </section>
 <section id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_output_types" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.initialize_output_types">initialize_output_types</h5>
 <p><code>base.data_adapter.DataAdapter.initialize_output_types()</code></p>
+<p>Initializes ouput mapping and checks to see if type in the configured types</p>
 </section>
 <section id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.input" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.data_adapter.DataAdapter.input">input</h5>
@@ -296,7 +304,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="notes-1" class="level6">
 <h6 class="anchored" data-anchor-id="notes-1">Notes:</h6>
-<p>In de <code>.env</code> environment bestand moet staan: user: str password: str host: str port: str database: str schema: str</p>
+<p>In de <code>.env</code> environment bestand moet staan: postgresql_user: str postgresql_password: str postgresql_host: str postgresql_port: str database: str schema: str</p>
 </section>
 <section id="returns-2" class="level6">
 <h6 class="anchored" data-anchor-id="returns-2">Returns:</h6>
@@ -349,16 +357,47 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="notes-4" class="level6">
 <h6 class="anchored" data-anchor-id="notes-4">Notes:</h6>
-<p>In het credential bestand moet staan: user: str password: str host: str port: str database: str</p>
+<p>In het credential bestand moet staan: postgresql_user: str postgresql_password: str postgresql_host: str postgresql_port: str database: str</p>
 </section>
 <section id="returns-5" class="level6">
 <h6 class="anchored" data-anchor-id="returns-5">Returns:</h6>
 <p>None</p>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.base.data_adapter.check_rootdir">check_rootdir</a></td>
+<td>Checkt of de rootdir bestaat</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.base.data_adapter.get_kwargs">get_kwargs</a></td>
+<td>Gegeven een input/output functie, stuurt de relevanten kwargs uit de input config naar de functie.</td>
+</tr>
+</tbody>
+</table>
+<section id="toolbox_continu_inzicht.base.data_adapter.check_rootdir" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.data_adapter.check_rootdir">check_rootdir</h3>
+<p><code>base.data_adapter.check_rootdir(global_variables)</code></p>
+<p>Checkt of de rootdir bestaat</p>
+</section>
+<section id="toolbox_continu_inzicht.base.data_adapter.get_kwargs" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.data_adapter.get_kwargs">get_kwargs</h3>
+<p><code>base.data_adapter.get_kwargs(function, input_config)</code></p>
+<p>Gegeven een input/output functie, stuurt de relevanten kwargs uit de input config naar de functie.</p>
 
 
-</section>
-</section>
-</section>
 </section>
 </section>
 </section>

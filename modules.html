@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -187,8 +221,13 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#configuratie" id="toc-configuratie" class="nav-link" data-scroll-target="#configuratie">Configuratie</a></li>
   <li><a href="#data-adapter" id="toc-data-adapter" class="nav-link" data-scroll-target="#data-adapter">Data adapter</a></li>
+  <li><a href="#wachtwoorden" id="toc-wachtwoorden" class="nav-link" data-scroll-target="#wachtwoorden">Wachtwoorden</a></li>
   </ul></li>
-  <li><a href="#sec-belastingen" id="toc-sec-belastingen" class="nav-link" data-scroll-target="#sec-belastingen">Belastingen inlezen en classificeren</a></li>
+  <li><a href="#sec-belastingen" id="toc-sec-belastingen" class="nav-link" data-scroll-target="#sec-belastingen">Belastingen inlezen en classificeren</a>
+  <ul class="collapse">
+  <li><a href="#belastingen-inlezen" id="toc-belastingen-inlezen" class="nav-link" data-scroll-target="#belastingen-inlezen">Belastingen inlezen</a></li>
+  <li><a href="#classificeren-van-beslastingen" id="toc-classificeren-van-beslastingen" class="nav-link" data-scroll-target="#classificeren-van-beslastingen">Classificeren van beslastingen</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -231,7 +270,40 @@ ul.task-list li input[type="checkbox"] {
 <p>De architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn.</p>
 <section id="configuratie" class="level3">
 <h3 class="anchored" data-anchor-id="configuratie">Configuratie</h3>
-<p>Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen.</p>
+<p>Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen. Door middel van een <code>yaml</code> configuratie bestand wordt de juist informatie meegegeven aan de modules en de data adapter.</p>
+<p>Het kopje <code>GlobalVariables</code> is verplicht met minimaal een <code>rootdir</code>: dit is een map waarin de data bestanden staan en weggeschreven worden. De <code>DataAdapter</code> is ook verplicht, met minimaal één data adapter. De naam van de adapter kan vrij gekozen worden, hier van kunnen zo veel als gewenst worden aangemaakt</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">'C:/data/toobox/'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">EenTypeDataAdapter</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">'eerste_voorbeeld.csv'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Onder <code>GlobalVariables</code> kan per data type variabele worden meegegeven die voor alle adapters van dit type gelden. Voor <code>csv</code> kan dit bijvoorbeeld het scheidingsteken zijn. Alle data adapters met het type <code>csv</code> krijgen nu de extra variabele mee.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">'C:/data/toobox/'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">delimiter</span><span class="kw">:</span><span class="at"> </span><span class="st">';'</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">EenTypeDataAdapter</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">'eerste_voorbeeld.csv'</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">CSV_output</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">'voorbeeld_output.csv'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Naast de data adapters worden modules ook geconfigureerd in de <code>GlobalVariables</code>. Zo worden de opties voor de module <code>LoadsMatroos</code> ook mee gegeven in de <code>GlobalVariables</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">'C:/data/toobox/'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">LoadsMatroos</span><span class="kw">:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">website</span><span class="kw">:</span><span class="at"> </span><span class="st">'noos'</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">source</span><span class="kw">:</span><span class="at"> </span><span class="st">'dcsm6_kf'</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">parameters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'waterlevel'</span><span class="kw">]</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">MISSING_VALUE</span><span class="kw">:</span><span class="at"> </span><span class="dv">999</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="at">    ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="data-adapter" class="level3">
 <h3 class="anchored" data-anchor-id="data-adapter">Data adapter</h3>
@@ -241,11 +313,146 @@ ul.task-list li input[type="checkbox"] {
 <li>NetCDF</li>
 <li>PostgreSQL</li>
 </ol>
+<p>Deze wordt geconfigureerd in de een <code>.yaml</code> configuratie bestand, een voorbeeld van een csv-bestand wordt hieronder weergegeven. Hierbij zijn <code>type</code> en <code>file</code> of <code>path</code> verplicht. In het voorbeeld hier onder wordt een relatief pad mee gegeven als <code>rootdir</code>, dit wordt ook ondersteund.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">'data_sets'</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">MyCSV_in</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">'test_csv_in.csv'</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">MyCSV_out</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">'test_csv_out.csv'</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Indien een bestand buiten de root directory valt kan in plaats van <code>file</code>ook een absoluut <code>path</code> worden mee gegeven.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">MyCSV_anders</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">'C:/data/Ander/pad_naar_csv.csv'</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Naast de verplichte opties, worden alle overige opties doorgegeven aan de output functie. De <code>csv</code>module maakt gebruik van de <a href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html">pandas.read_csv</a> module voor het lees werk, all opties die deze module ondersteund kunnen worden doorgegeven. Voor <code>NetCDF</code> is dit <a href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html">xarray.open_dataset</a>. Echter is voor <code>PostgreSQL</code> dit niet het geval, hier zijn alleen een drie standaard opties beschikbaar: <code>database</code>, <code>schema</code> en <code>table</code>.</p>
+</section>
+<section id="wachtwoorden" class="level3">
+<h3 class="anchored" data-anchor-id="wachtwoorden">Wachtwoorden</h3>
+<p>Voor bepaalde diensten, zo als toegang tot een database, zijn wachtwoorden nodig. Deze kunnen in de ‘environmental variables’ worden mee gegeven, in de vorm van een <code>.env</code> bestand.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">host='xxx.xx.xx.xx'</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">database='xxxxxxx'</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">port='xxxx'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">password='xxxx'</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">user='xx'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="sec-belastingen" class="level2">
 <h2 class="anchored" data-anchor-id="sec-belastingen">Belastingen inlezen en classificeren</h2>
-<p>Dit maakt deel uit van sprint 2, deze tekst zal na uitvoering van de sprint worden aangevuld.</p>
+<p>Om continu inzicht te leveren in de veiligheid van waterkeringen is het van belang de belastingen op de keringen in kaart te brengen. Deze worden ingelezen uit verschillende bronnen en vervolgens geclassificeerd.</p>
+<section id="belastingen-inlezen" class="level3">
+<h3 class="anchored" data-anchor-id="belastingen-inlezen">Belastingen inlezen</h3>
+<p>De Bronnen die op dit moment worden ondersteund in de toolbox continu inzicht zijn:</p>
+<ol type="1">
+<li>Delft FEWS</li>
+<li>Matroos</li>
+<li>RWS water web services</li>
+<li>RWS waterinfo</li>
+</ol>
+<section id="delft-fews" class="level4">
+<h4 class="anchored" data-anchor-id="delft-fews">Delft FEWS</h4>
+<p>Veel waterschappen gebruiken een <a href="https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen">Delft - Forecast Early Warning System (FEWS)</a> implementatie voor het beheren van verschillende interne en externe informatie bronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot FEWS is complexer dan andere bronnen, hierom zijn meer parameters nodig in het configuratiebestand. De functie <code>get_fews_locations()</code> kan worden gebruikt om de beschikbare locaties te tonen.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span><span class="at"> </span><span class="er">&nbsp;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">    ...</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">LoadsFews</span><span class="kw">:</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">host</span><span class="kw">:</span><span class="at"> </span><span class="st">"https:**********"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">port</span><span class="kw">:</span><span class="at"> </span><span class="ot">****</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">region</span><span class="kw">:</span><span class="at"> </span><span class="st">"fewspiservice"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">"1.25"</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">filter</span><span class="kw">:</span><span class="at"> </span><span class="st">"HKV_WV_1"</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">parameters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"WNSHDB1"</span><span class="kw">]</span><span class="at"> &nbsp;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">MISSING_VALUE</span><span class="kw">:</span><span class="at"> </span><span class="fl">-9999.0</span><span class="at"> &nbsp; &nbsp;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="at">    ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="matroos" class="level4">
+<h4 class="anchored" data-anchor-id="matroos">Matroos</h4>
+<p>Matroos of <code>Multifunctional Access Tool foR Operational Oceandata Services</code> is een systeem van Rijkswaterstaat (RWS). Recente waterstand metingen en verwachtingen kunnen hieruit worden opgehaald. Matroos is beschikbaar in verschillende smaken, waarvan drie relevant. De verschillen worden in de tabel hieronder toegelicht, zie <a href="https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf">iplo.nl</a> voor meer informatie. In de toolbox wordt nu alleen de series API gebruikt dus volstaat NOOS.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>URL</th>
+<th>Type</th>
+<th>Inhoud</th>
+<th>Doelgroep</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://vitaal.matroos.rws.nl/">vitaal.matroos.rws.nl</a></td>
+<td>extern, vitaal</td>
+<td>21 dagen</td>
+<td>Kustwacht, Waterschappen</td>
+</tr>
+<tr class="even">
+<td><a href="https://matroos.rws.nl/">matroos.rws.nl</a></td>
+<td>extern</td>
+<td>Volledige historie</td>
+<td>Waterschappen, universiteiten, extene</td>
+</tr>
+<tr class="odd">
+<td><a href="https://noos.matroos.rws.nl/">noos.matroos.rws.nl</a></td>
+<td>extern, open</td>
+<td>Beperkte set; series:volledig; maps: 14 dagen</td>
+<td>NOOS internationaal, Open Data</td>
+</tr>
+</tbody>
+</table>
+<p>In Matroos zijn verschillende bronnen beschikbaar, met <code>get_matroos_sources()</code> kan een lijst van deze worden gegeneerd. De beschikbare locaties kunnen worden weergegeven met <code>get_matroos_locations()</code>, met mogelijkheid om te filteren op een bron en parameter.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span><span class="at"> </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">    ...</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">LoadsMatroos</span><span class="kw">:</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">website</span><span class="kw">:</span><span class="at"> </span><span class="st">"noos"</span><span class="co"> # noos, vitaal of matroos</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">source</span><span class="kw">:</span><span class="at"> </span><span class="st">"observed"</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">parameters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"waterlevel"</span><span class="kw">]</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">MISSING_VALUE</span><span class="kw">:</span><span class="at"> </span><span class="dv">999</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="at">    ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Voor het gebruik van vitaal en matroos is een gebruikersnaam en wachtwoord nodig. Deze moeten in de environmental variables worden meegegeven (<code>.env</code> bestand).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vitaal_user</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vitaal_password</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># of </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">matroos_user</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">matroos_password</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="rws-waterwebservices" class="level4">
+<h4 class="anchored" data-anchor-id="rws-waterwebservices">RWS WaterWebservices</h4>
+<p>Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen rondom rivieren beschikbaar via de <a href="https://rijkswaterstaatdata.nl/waterdata/">WaterWebservices</a> API. Deze is openbaar en vereist weinig configuratie. De <code>MISSING_VALUE</code> kan in de configuratie worden aangepast, maar staat al standaard ingesteld.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">LoadsWaterwebservicesRWS</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">MISSING_VALUE</span><span class="kw">:</span><span class="at"> </span><span class="fl">999999999.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Beschikbare locaties kunnen worden weergegeven met <code>get_rws_webservices_locations()</code>.</p>
+</section>
+<section id="rws-waterinfo" class="level4">
+<h4 class="anchored" data-anchor-id="rws-waterinfo">RWS waterinfo</h4>
+<p>Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via <a href="https://waterinfo.rws.nl/">waterinfo.rws.nl</a>. Deze is openbaar, wel moet het data type worden opgegeven en de uren voor en na het moment van opvragen.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">LoadsWaterinfo</span><span class="kw">:</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">datatype</span><span class="kw">:</span><span class="at"> </span><span class="st">"waterhoogte"</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">observedhours</span><span class="kw">:</span><span class="at"> </span><span class="dv">48</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">predictionhours</span><span class="kw">:</span><span class="at"> </span><span class="dv">48</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">MISSING_VALUE</span><span class="kw">:</span><span class="at"> </span><span class="fl">-9999.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="classificeren-van-beslastingen" class="level3">
+<h3 class="anchored" data-anchor-id="classificeren-van-beslastingen">Classificeren van beslastingen</h3>
 <!-- ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
 
 Tekst na uitvoering aan te vulen 
@@ -276,6 +483,7 @@ Tekst na uitvoering aan te vulen
 Tekst na uitvoering aan te vulen -->
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
