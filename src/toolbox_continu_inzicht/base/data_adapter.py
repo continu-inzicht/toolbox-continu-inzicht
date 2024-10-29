@@ -10,6 +10,9 @@ from dotenv import load_dotenv, dotenv_values
 from toolbox_continu_inzicht.base.config import Config
 
 
+available_types = ["csv", "postgresql_database", "netcdf"]
+
+
 class DataAdapter(PydanticBaseModel):
     """Basis DataAdapter"""
 
@@ -127,10 +130,10 @@ class DataAdapter(PydanticBaseModel):
         Notes:
         ------
         In de `.env` environment bestand moet staan:
-        user: str
-        password: str
-        host: str
-        port: str
+        postgresql_user: str
+        postgresql_password: str
+        postgresql_host: str
+        postgresql_port: str
         database: str
         schema: str
 
@@ -144,12 +147,19 @@ class DataAdapter(PydanticBaseModel):
         # TODO: doen we dit zo?
         table = input_config["table"]
 
-        keys = ["user", "password", "host", "port", "database", "schema"]
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+        ]
         assert all(key in input_config for key in keys)
 
         # maak verbinding object
         engine = sqlalchemy.create_engine(
-            f"postgresql://{input_config['user']}:{input_config['password']}@{input_config['host']}:{int(input_config['port'])}/{input_config['database']}"
+            f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
         )
 
         query = f"SELECT objectid, objecttype, parameterid, datetime, value FROM {input_config['schema']}.{table};"
@@ -297,10 +307,10 @@ class DataAdapter(PydanticBaseModel):
         Notes:
         ------
         In het credential bestand moet staan:
-        user: str
-        password: str
-        host: str
-        port: str
+        postgresql_user: str
+        postgresql_password: str
+        postgresql_host: str
+        postgresql_port: str
         database: str
 
 
@@ -313,11 +323,18 @@ class DataAdapter(PydanticBaseModel):
         schema = output_config["schema"]
 
         # check all required variables are availible from the .env file
-        keys = ["user", "password", "host", "port", "database", "schema"]
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+        ]
         assert all(key in output_config for key in keys)
 
         engine = sqlalchemy.create_engine(
-            f"postgresql://{output_config['user']}:{output_config['password']}@{output_config['host']}:{int(output_config['port'])}/{output_config['database']}"
+            f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
         )
 
         df.to_sql(

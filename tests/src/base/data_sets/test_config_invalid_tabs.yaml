@@ -1,13 +1,15 @@
 # DEZE CONFIG HEEFT TABS IPV SPATIES
 GlobalVariables:
 	rootdir: 'tests/src/base/data_sets'
-	postgresql_database:
-	database: 'citoolbox'
-	schema: 'citoolbox_schema'
-	csv:
-		delimiter: ","
 
 DataAdapter:
+    default_options:
+        postgresql_database:
+        database: 'citoolbox'
+        schema: 'citoolbox_schema'
+        csv:
+    
+		delimiter: ","
     MyCSV_in: 
         type: csv
         path: 'test_csv_in.csv'

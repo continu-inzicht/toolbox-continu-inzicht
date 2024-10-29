@@ -37,10 +37,13 @@ class Config(PydanticBaseModel):
                 case "GlobalVariables":
                     self.global_variables = configuration
 
-        # add any applicable global variables to the
-        # not that fast but config shouldn't get too big
-        # TODO: be careful that global variables will over write any specifics as we use .update
-        for val in self.global_variables:
-            for name, adapter in self.data_adapters.items():
-                if adapter["type"] == val:
-                    self.data_adapters[name].update(self.global_variables[val])
+        # opties die in de DataAdapter worden mee gegeven
+        # worden toegevoegd aan de adapters, mits de adapter zelf niet die waarde heeft
+        available_types = ["csv", "postgresql_database", "netcdf"]
+        for name, adapter in self.data_adapters.items():
+            if "type" in adapter and adapter["type"] in available_types:
+                if adapter["type"] in self.data_adapters["default_options"]:
+                    options = self.data_adapters["default_options"][adapter["type"]]
+                    for option in options:
+                        if option not in self.data_adapters[name]:
+                            self.data_adapters[name][option] = options[option]
