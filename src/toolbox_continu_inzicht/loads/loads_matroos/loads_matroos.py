@@ -6,10 +6,14 @@ from typing import Optional
 
 from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
     get_matroos_locations,
-    get_matroos_sources,
+    get_matroos_models,
 )
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
+
+aquo_matroos_dict = {"WATHTE": "waterlevel"}
+matroos_aquo_dict = {"waterlevel": "WATHTE"}
+aquo_id_dict = {"WATHTE": 4724}
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -19,8 +23,6 @@ class LoadsMatroos:
     """
 
     data_adapter: DataAdapter
-    input: str
-    output: str
 
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
@@ -29,41 +31,39 @@ class LoadsMatroos:
     url_retrieve_series_matroos: str = "matroos.rws.nl/direct/get_series.php?"
     url_retrieve_series_vitaal: str = "vitaal.matroos.rws.nl/direct/get_series.php?"
 
-    async def run(self, input=None, output=None) -> None:
+    async def run(self, input: str, output: str) -> None:
         """
         De runner van de Belasting matroos.
         """
-        if input is None:
-            input = self.input
-        if output is None:
-            output = self.output
 
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
         options = global_variables["LoadsMatroos"]
+        if "MISSING_VALUE" not in options:
+            options["MISSING_VALUE"] = -999
 
         self.df_in = self.data_adapter.input(input)
 
         # doe een data type check
-        if "meetlocatie_naam" not in self.df_in.columns:
+        if "measurement_location_code" not in self.df_in.columns:
             raise UserWarning(
-                f"Input data missing 'meetlocatie_naam' in columns {self.df_in.columns}"
+                f"Input data 'measurement_location_code' ontbreekt in kollomen {self.df_in.columns}"
             )
         else:
-            df_sources = await get_matroos_sources()
+            df_sources = await get_matroos_models()
             # maak een lijst met alle parameter namen, noos herhekend ook een heleboel aliases
             list_aliases = []
             for alias in list(df_sources["source_alias"]):
                 list_aliases.extend(alias.split(";"))
 
-            if options["source"] not in list_aliases:
+            if options["model"] not in list_aliases:
                 raise UserWarning(
-                    "Source supplied is not valid, if needed refer to get_matroos_sources()"
+                    "Gegeven model bestaat niet, indeien nodig gebruik get_matroos_models() voor meer info"
                 )
 
             # haal de locaties op die bij de bron horen
-            gdf_locations = await get_matroos_locations(source=options["source"])
-            available_location_names = list(gdf_locations["meetlocatie_naam"])
+            gdf_locations = await get_matroos_locations(source=options["model"])
+            available_location_names = list(gdf_locations["measurement_location_code"])
             # maak een set van de namen en formateer ze zonder spaties en hoofdletters
             available_location_names = set(
                 self.format_location_names(available_location_names)
@@ -71,7 +71,7 @@ class LoadsMatroos:
 
             # herhaal formateren voor de gegeven locatie namen
             supplied_location_names = self.format_location_names(
-                list(self.df_in["meetlocatie_naam"].values)
+                list(self.df_in["measurement_location_code"].values)
             )
             # die je wilt ophalen is het overlap tussen de twee
             wanted_location_names = available_location_names.intersection(
@@ -98,8 +98,9 @@ class LoadsMatroos:
 
         # maak een url aan
         for parameter in options["parameters"]:
+            aquo_parameter = aquo_matroos_dict[parameter]  # "WATHTE -> waterlevel"
             request_forecast_url = self.generate_url(
-                t_now, options, global_variables, parameter, wanted_location_names
+                t_now, options, global_variables, aquo_parameter, wanted_location_names
             )
             status, json_data = await fetch_data(
                 url=request_forecast_url, params={}, mime_type="json"
@@ -136,19 +137,24 @@ class LoadsMatroos:
         # loop over de lijst met data heen
         for serie in json_data["results"]:
             # hier zit ook coordinaten in
-            object_id = serie["location"]["properties"]["locationId"]
-            meetlocatie_naam = serie["location"]["properties"]["locationName"]
-            parameter_naam = serie["observationType"]["quantityName"]
-            bron_naam = serie["source"]["name"]
+            measurement_location_id = serie["location"]["properties"]["locationId"]
+            measurement_location_name = serie["location"]["properties"]["locationName"]
+            measurement_location_code = measurement_location_name.lower().replace(
+                " ", ""
+            )
+            parameter_matroos = serie["observationType"]["quantityName"]
+            # "waterlevel -> WATHTE", code matchign WATHTE
+            parameter_code = matroos_aquo_dict[parameter_matroos]
+            parameter_id = aquo_id_dict[parameter_code]
             # process per lijst en stop het in een record
             for event in serie["events"]:
                 datestr = event["timeStamp"]
                 utc_dt = datetime.fromisoformat(datestr)
 
                 if utc_dt > t_now:
-                    type_waarde = "verwachting"
+                    value_type = "verwachting"
                 else:
-                    type_waarde = "meting"
+                    value_type = "meting"
 
                 if event["value"]:
                     value = float(event["value"])
@@ -156,14 +162,14 @@ class LoadsMatroos:
                     value = options["MISSING_VALUE"]
 
                 record = {
-                    "object_id": object_id,
-                    "object_type": "meetlocatie",
-                    "meetlocatie_naam": meetlocatie_naam,
-                    "parameter_naam": parameter_naam,
+                    "measurement_location_id": measurement_location_id,
+                    "measurement_location_code": measurement_location_code,
+                    "measurement_location_description": measurement_location_name,
+                    "parameter_id": parameter_id,
+                    "parameter_code": parameter_code,
                     "datetime": utc_dt,
-                    "waarde": value,
-                    "type_waarde": type_waarde,
-                    "bron_naam": bron_naam,
+                    "value": value,
+                    "value_type": value_type,
                 }
                 records.append(record)
 
@@ -228,7 +234,7 @@ class LoadsMatroos:
         moments = global_variables["moments"]
         tstart = (t_now + timedelta(hours=int(moments[0]))).strftime("%Y%m%d%H%M")
         tend = (t_now + timedelta(hours=int(moments[-1]))).strftime("%Y%m%d%H%M")
-        source = options["source"]
+        source = options["model"]
         # Multiple locations can be specified by separating them with a semicolon ';'.
         location_names_str = ";".join(location_names)
         url = (

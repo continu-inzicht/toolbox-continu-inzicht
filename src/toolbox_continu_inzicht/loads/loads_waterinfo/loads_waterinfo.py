@@ -16,22 +16,16 @@ class LoadsWaterinfo:
     """
 
     data_adapter: DataAdapter
-    input: str
-    output: str
 
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
     url: str = "https://waterinfo.rws.nl/api/chart/get"
 
-    async def run(self, input=None, output=None) -> None:
+    async def run(self, input: str, output: str) -> None:
         """
         De runner van de Belasting Waterinfo.
         """
-        if input is None:
-            input = self.input
-        if output is None:
-            output = self.output
 
         # Haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables

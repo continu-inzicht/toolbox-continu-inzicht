@@ -18,14 +18,26 @@ class DataAdapter(PydanticBaseModel):
     output_types: dict = {}
 
     def initialize_input_types(self):
+        """
+        Initializes input mapping and checks to see if type in the configured types
+
+        Future editor: ensure that changes made here are also reflected in Config.available_types
+        """
         self.input_types["csv"] = self.input_csv
         self.input_types["postgresql_database"] = self.input_postgresql
         self.input_types["netcdf"] = self.input_netcdf
+        assert "csv" in self.config.available_types
+        assert "postgresql_database" in self.config.available_types
+        assert "netcdf" in self.config.available_types
 
     def initialize_output_types(self):
+        """Initializes ouput mapping and checks to see if type in the configured types"""
         self.output_types["csv"] = self.output_csv
         self.output_types["postgresql_database"] = self.output_postgresql
         self.output_types["netcdf"] = self.output_netcdf
+        assert "csv" in self.config.available_types
+        assert "postgresql_database" in self.config.available_types
+        assert "netcdf" in self.config.available_types
 
     def input(self, input: str):
         """Gegeven het config, stuurt de juiste input waarde aan
@@ -127,10 +139,10 @@ class DataAdapter(PydanticBaseModel):
         Notes:
         ------
         In de `.env` environment bestand moet staan:
-        user: str
-        password: str
-        host: str
-        port: str
+        postgresql_user: str
+        postgresql_password: str
+        postgresql_host: str
+        postgresql_port: str
         database: str
         schema: str
 
@@ -144,12 +156,19 @@ class DataAdapter(PydanticBaseModel):
         # TODO: doen we dit zo?
         table = input_config["table"]
 
-        keys = ["user", "password", "host", "port", "database", "schema"]
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+        ]
         assert all(key in input_config for key in keys)
 
         # maak verbinding object
         engine = sqlalchemy.create_engine(
-            f"postgresql://{input_config['user']}:{input_config['password']}@{input_config['host']}:{int(input_config['port'])}/{input_config['database']}"
+            f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
         )
 
         query = f"SELECT objectid, objecttype, parameterid, datetime, value FROM {input_config['schema']}.{table};"
@@ -297,10 +316,10 @@ class DataAdapter(PydanticBaseModel):
         Notes:
         ------
         In het credential bestand moet staan:
-        user: str
-        password: str
-        host: str
-        port: str
+        postgresql_user: str
+        postgresql_password: str
+        postgresql_host: str
+        postgresql_port: str
         database: str
 
 
@@ -313,11 +332,18 @@ class DataAdapter(PydanticBaseModel):
         schema = output_config["schema"]
 
         # check all required variables are availible from the .env file
-        keys = ["user", "password", "host", "port", "database", "schema"]
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+        ]
         assert all(key in output_config for key in keys)
 
         engine = sqlalchemy.create_engine(
-            f"postgresql://{output_config['user']}:{output_config['password']}@{output_config['host']}:{int(output_config['port'])}/{output_config['database']}"
+            f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
         )
 
         df.to_sql(

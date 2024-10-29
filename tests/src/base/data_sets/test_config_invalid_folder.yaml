@@ -1,10 +1,12 @@
 GlobalVariables:
     rootdir: 'tests/src/base/data_sets_WRONGFOLDER'
-    postgresql_database:
-        database: 'citoolbox'
-        schema: 'citoolbox_schema'
         
 DataAdapter:
+    default_options:
+        postgresql_database:
+            database: 'citoolbox'
+            schema: 'citoolbox_schema'
+
     MyCSV_in: 
         type: csv
         path: 'test_csv_in.csv'

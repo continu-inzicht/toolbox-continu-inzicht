@@ -1,17 +1,17 @@
 GlobalVariables:
     rootdir: "data_sets" 
-    moments: [-24,0,24,48]  
-
-    csv:
-        delimiter: ","
+    moments: [-24,0,24,48] 
 
     LoadsMatroos:
         website: "noos"
-        source: "dcsm6_kf"
-        parameters: ["waterlevel"]
-        MISSING_VALUE: 999
+        model: "dcsm6_kf"
+        parameters: ["WATHTE"]
 
 DataAdapter: 
+    default_options:
+        csv:
+            delimiter: ","
+
     BelastingLocaties: 
         type: csv
         path: "belastingen_matroos.csv"

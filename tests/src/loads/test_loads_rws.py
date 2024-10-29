@@ -13,15 +13,13 @@ def test_BelastingWaterwebservicesRWS():
     c.lees_config()
     data = DataAdapter(config=c)
 
-    RWS_webservice = LoadsWaterwebservicesRWS(
-        data_adapter=data, input="BelastingLocaties", output="Waterstanden"
-    )
+    RWS_webservice = LoadsWaterwebservicesRWS(data_adapter=data)
     global loop
     try:
         loop = asyncio.get_running_loop()
     except RuntimeError:
         loop = asyncio.new_event_loop()
-    loop.run_until_complete(RWS_webservice.run())
+    loop.run_until_complete(RWS_webservice.run(input="BelastingLocaties", output="Waterstanden"))
 
     assert len(RWS_webservice.df_out) > 300
 
