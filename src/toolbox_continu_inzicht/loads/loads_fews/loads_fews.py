@@ -22,7 +22,7 @@ class LoadsFews:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    async def run(self, input:str, output:str) -> pd.DataFrame:
+    async def run(self, input: str, output: str) -> pd.DataFrame:
         """
         De runner van de Loads Fews.
 
