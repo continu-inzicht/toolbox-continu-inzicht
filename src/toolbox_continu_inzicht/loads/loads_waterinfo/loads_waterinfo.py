@@ -24,21 +24,35 @@ class LoadsWaterinfo:
 
     url: str = "https://waterinfo.rws.nl/api/chart/get"
 
+    # Kolommen schema van de invoer data
+    input_schema = {
+        "id": "int64", 
+        "name": "object"
+    }
+
     async def run(self, input=None, output=None) -> None:
         """
-        De runner van de Belasting Waterinfo.
+        De runner van de Belasting Waterinfo functie.
+
+        Args:
+            json_data (str): JSON data
+
+        Returns:
+            Dataframe: Pandas dataframe geschikt voor uitvoer.       
         """
+
         if input is None:
             input = self.input
         if output is None:
             output = self.output
-
+        
         # Haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
         options = global_variables["LoadsWaterinfo"]
 
         # Dit zijn de meetlocaties vanuit invoer
-        self.df_in = self.data_adapter.input(input)
+        self.df_in = self.data_adapter.input(input, self.input_schema)
+        
         self.df_out = pd.DataFrame()
 
         # Loop over alle meetstations
@@ -81,30 +95,38 @@ class LoadsWaterinfo:
             locations (Dataframe):
 
         Returns:
-            Dataframe: Pandas dataframe geschikt voor uitvoer
+            Dataframe: Pandas dataframe geschikt voor uitvoer:
+            definition:
+                - Meetlocatie id (measurement_location_id)
+                - Meetlocatie code (measurement_location_code)
+                - Meetlocatie omschrijving/naam (measurement_location_description)
+                - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id)
+                - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code)
+                - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description)
+                - Eenheid (unit)
+                - Datum en tijd (date_time)
+                - Waarde (value)
+                - Type waarde: meting of verwachting (value_type)                 
         """
         dataframe = pd.DataFrame()
-
-        h10 = 1
-        h10v = 2
-        h10a = 99
 
         if "series" in json_data:
             records = []
 
             for serie in json_data["series"]:
-                parameterid = h10
+                parameter_id = 4724
+                value_type = "meting"
+                location_name = serie["meta"]["locationName"]
                 parameter_name = serie["meta"]["parameterName"]
+                parameter_description = serie["meta"]["displayName"]
+                unit = serie["unit"].lower()
 
                 if "verwacht" in parameter_name.lower():
-                    parameterid = h10v
+                    value_type = "verwachting"
                 if "astronomisch" in parameter_name.lower():
-                    parameterid = h10a
+                    value_type = "verwachting (astronomisch)"
 
-                if parameterid > 0:
-                    conversion_to_meter = 1.0
-                    if serie["unit"].lower() == "cm":
-                        conversion_to_meter = 0.01
+                if value_type in ["meting", "verwachting"]:
 
                     for data in serie["data"]:
                         utc_dt = datetime_from_string(
@@ -112,18 +134,21 @@ class LoadsWaterinfo:
                         )
 
                         if data["value"]:
-                            value = float(data["value"]) * conversion_to_meter
+                            value = float(data["value"])
                         else:
                             value = options["MISSING_VALUE"]
 
                         record = {
-                            "code": measuringstation.code,
-                            "objectid": measuringstation.id,
-                            "objecttype": "measuringstation",
-                            "parameterid": parameterid,
-                            "datetime": epoch_from_datetime(utc_dt=utc_dt),
+                            "measurement_location_id": measuringstation.id,
+                            "measurement_location_code": measuringstation.code,
+                            "measurement_location_description": location_name,
+                            "parameter_id": parameter_id,
+                            "parameter_code": parameter_name,
+                            "parameter_description": parameter_description,
+                            "unit": unit,
+                            "date_time": utc_dt,
                             "value": value,
-                            "calculating": True,
+                            "value_type": value_type
                         }
 
                         records.append(record)
