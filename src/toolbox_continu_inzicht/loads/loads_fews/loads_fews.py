@@ -22,10 +22,7 @@ class LoadsFews:
     df_out: Optional[pd.DataFrame] | None = None
 
     # Kolommen schema van de invoer data
-    input_schema = {
-        "id": "int64", 
-        "name": "object"
-    }
+    input_schema = {"id": "int64", "name": "object"}
 
     async def run(self, input: str, output: str) -> pd.DataFrame:
         """
@@ -141,21 +138,23 @@ class LoadsFews:
                 - Eenheid (unit)
                 - Datum en tijd (date_time)
                 - Waarde (value)
-                - Type waarde: meting of verwachting (value_type)                
+                - Type waarde: meting of verwachting (value_type)
         """
 
         dataframe = pd.DataFrame()
         if "timeSeries" in json_data:
             records = []
-            for serie in json_data["timeSeries"]:                
+            for serie in json_data["timeSeries"]:
                 parameter_id = 4724
                 parameter_code = serie["header"]["parameterId"]
-                parameter_description=serie["header"]["parameterId"]
+                parameter_description = serie["header"]["parameterId"]
                 measurement_location_code = serie["header"]["locationId"]
                 measurement_location_description = serie["header"]["stationName"]
                 unit = serie["header"]["units"]
 
-                measuringstation = locations[locations["name"] == measurement_location_code]
+                measuringstation = locations[
+                    locations["name"] == measurement_location_code
+                ]
 
                 if len(measuringstation) > 0:
                     measurement_location_id = int(measuringstation["id"].iloc[0])
@@ -163,7 +162,7 @@ class LoadsFews:
                     if parameter_code in options["parameters"]:
                         for event in serie["events"]:
                             datestr = f"{event['date']}T{event['time']}Z"
-                            utc_dt = datetime_from_string(datestr, "%Y-%m-%dT%H:%M:%SZ")                            
+                            utc_dt = datetime_from_string(datestr, "%Y-%m-%dT%H:%M:%SZ")
                             value_type = "meting"
 
                             if utc_dt > t_now:
@@ -184,7 +183,7 @@ class LoadsFews:
                                 "unit": unit,
                                 "date_time": utc_dt,
                                 "value": value,
-                                "value_type": value_type
+                                "value_type": value_type,
                             }
 
                             records.append(record)

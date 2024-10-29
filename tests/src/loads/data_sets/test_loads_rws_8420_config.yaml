@@ -3,7 +3,7 @@ GlobalVariables:
     moments: [-24,0,24,48]  
 
     LoadsWaterwebservicesRWS:
-        MISSING_VALUE: 999999999.0
+        parameters:  ['WATHTE']
 
 DataAdapter: 
     default_options:

@@ -2,17 +2,17 @@ GlobalVariables:
     rootdir: "data_sets" 
     moments: [-24,0,24,48]  
 
-    csv:
-        delimiter: ","
-
     LoadsWaterwebservicesRWS:
-        MISSING_VALUE: 999999999.0 # dit is ook de default waarde van de API
+        parameters:  ['WATHTE']
 
 DataAdapter: 
+    default_options:
+        csv:
+            delimiter: ","
     BelastingLocaties: 
         type: csv
-        path: "belastingen_rws.csv"
+        path: "loads_rws.csv"
     Waterstanden: 
         type: csv
-        path: "waterstanden.csv"
+        path: "hidden_waterstanden.csv"
         delimiter: ";"

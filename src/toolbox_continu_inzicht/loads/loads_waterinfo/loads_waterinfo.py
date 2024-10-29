@@ -22,10 +22,7 @@ class LoadsWaterinfo:
     url: str = "https://waterinfo.rws.nl/api/chart/get"
 
     # Kolommen schema van de invoer data
-    input_schema = {
-        "id": "int64", 
-        "name": "object"
-    }
+    input_schema = {"id": "int64", "name": "object"}
 
     async def run(self, input: str, output: str) -> None:
         """
@@ -35,7 +32,7 @@ class LoadsWaterinfo:
             json_data (str): JSON data
 
         Returns:
-            Dataframe: Pandas dataframe geschikt voor uitvoer.       
+            Dataframe: Pandas dataframe geschikt voor uitvoer.
         """
 
         # Haal opties en dataframe van de config
@@ -56,7 +53,7 @@ class LoadsWaterinfo:
 
         # Dit zijn de meetlocaties vanuit invoer
         self.df_in = self.data_adapter.input(input, self.input_schema)
-        
+
         self.df_out = pd.DataFrame()
         
         # observedhours,predictionhours
@@ -125,7 +122,7 @@ class LoadsWaterinfo:
                 - Eenheid (unit)
                 - Datum en tijd (date_time)
                 - Waarde (value)
-                - Type waarde: meting of verwachting (value_type)                 
+                - Type waarde: meting of verwachting (value_type)
         """
         dataframe = pd.DataFrame()
 
@@ -146,7 +143,6 @@ class LoadsWaterinfo:
                     value_type = "verwachting (astronomisch)"
 
                 if value_type in ["meting", "verwachting"]:
-
                     for data in serie["data"]:
                         utc_dt = datetime_from_string(
                             data["dateTime"], "%Y-%m-%dT%H:%M:%SZ"
@@ -167,7 +163,7 @@ class LoadsWaterinfo:
                             "unit": unit,
                             "date_time": utc_dt,
                             "value": value,
-                            "value_type": value_type
+                            "value_type": value_type,
                         }
 
                         records.append(record)

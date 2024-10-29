@@ -157,7 +157,10 @@ class LoadsMatroos:
                     value_type = "meting"
 
                 if event["value"]:
+                    # matroos is in meters
+                    # https://publicwiki.deltares.nl/display/NETCDF/Matroos+Standard+names
                     value = float(event["value"])
+                    value_cm = value * 100
                 else:
                     value = options["MISSING_VALUE"]
 
@@ -168,7 +171,8 @@ class LoadsMatroos:
                     "parameter_id": parameter_id,
                     "parameter_code": parameter_code,
                     "datetime": utc_dt,
-                    "value": value,
+                    "unit": "cm",
+                    "value": value_cm,
                     "value_type": value_type,
                 }
                 records.append(record)
