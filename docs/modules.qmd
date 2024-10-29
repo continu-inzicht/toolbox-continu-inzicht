@@ -39,10 +39,11 @@ Onder `GlobalVariables` kan per data type variabele worden meegegeven die voor a
 ```yaml
 GlobalVariables:
     rootdir: 'C:/data/toobox/'
-    csv:
-    	delimiter: ';'
 
 DataAdapter:
+    default_options:
+        csv:
+    	    delimiter: ';'
     EenTypeDataAdapter: 
         type: csv
         file: 'eerste_voorbeeld.csv'
@@ -106,11 +107,11 @@ Naast de verplichte opties, worden alle overige opties doorgegeven aan de output
 
 Voor bepaalde diensten, zo als toegang tot een database, zijn wachtwoorden nodig. Deze kunnen in de 'environmental variables' worden mee gegeven, in de vorm van een `.env` bestand. 
 ```yaml
-host='xxx.xx.xx.xx'
-database='xxxxxxx'
-port='xxxx'
-password='xxxx'
-user='xx'
+postgresql_host='xxx.xx.xx.xx'
+postgresql_database='xxxxxxx'
+postgresql_port='xxxx'
+postgresql_password='xxxx'
+postgresql_user='xx'
 ```
 
 ## Belastingen inlezen en classificeren {#sec-belastingen}

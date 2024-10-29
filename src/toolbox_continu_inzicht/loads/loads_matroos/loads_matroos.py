@@ -96,6 +96,7 @@ class LoadsMatroos:
             0,
         ).replace(tzinfo=timezone.utc)
 
+        lst_dfs = []
         # maak een url aan
         for parameter in options["parameters"]:
             aquo_parameter = aquo_matroos_dict[parameter]  # "WATHTE -> waterlevel"
@@ -107,13 +108,16 @@ class LoadsMatroos:
             )
             if status is None and json_data is not None:
                 if "results" in json_data:
-                    self.df_out = self.create_dataframe(options, t_now, json_data)
+                    lst_dfs.append(self.create_dataframe(options, t_now, json_data))
                 else:
                     raise ConnectionError(
                         f"No results in data, only: {json_data.keys()}"
                     )
             else:
                 raise ConnectionError(f"Connection failed:{status}")
+
+        self.df_out = pd.concat(lst_dfs, axis=0)
+        self.data_adapter.output(output, self.df_out)
 
     @staticmethod
     def format_location_names(location_names: list[str]) -> list[str]:

@@ -17,4 +17,4 @@ DataAdapter:
         path: "loads_matroos.csv"
     Waterstanden: 
         type: csv
-        path: "waterstanden.csv"
+        path: "hidden_waterstanden.csv"
