@@ -9,9 +9,8 @@ from toolbox_continu_inzicht.loads.loads_rws_webservice.get_rws_webservices_loca
 )
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
-from toolbox_continu_inzicht.utils.datetime_functions import (
-    epoch_from_datetime,
-)
+
+aquo_id_dict = {"WATHTE": 4724, "WATHTEVERWACHT": 4724}
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -35,19 +34,19 @@ class LoadsWaterwebservicesRWS:
         global_variables = self.data_adapter.config.global_variables
         options = global_variables["LoadsWaterwebservicesRWS"]
         if "MISSING_VALUE" not in options:
-            options["MISSING_VALUE"] = 999999999.0
+            options["MISSING_VALUE"] = -999
 
         self.df_in = self.data_adapter.input(input)
 
         # doe een data type check
-        if "measuringstationid" not in self.df_in.columns:
+        if "measurement_location_id" not in self.df_in.columns:
             raise UserWarning(
-                f"Input data missing 'measuringstationid' in columns {self.df_in.columns}"
+                f"Input data missing 'measurement_location_id' in columns {self.df_in.columns}"
             )
 
         df_available_locations = await get_rws_webservices_locations()
         # uit de dataframe haal je een lijst met meetlocatie ids
-        wanted_measuringstationid = list(self.df_in["measuringstationid"].values)
+        wanted_measuringstationid = list(self.df_in["measurement_location_id"].values)
         # met de meet locatie id's halen selecteren we de informatie uit de catalogus
         wanted_locations = df_available_locations.loc[wanted_measuringstationid]
 
@@ -71,18 +70,14 @@ class LoadsWaterwebservicesRWS:
         # gemaakt wordt in de waardebepalingsmethode en het procestype.
 
         # maak een lijst met jsons met de info die we opvragen aan de API
-        verwachting = "WATHTEVERWACHT"
-        lst_json_verwachting = self.create_json_list(
-            verwachting, t_now, global_variables, wanted_locations
-        )
-
         # herhaal dit ook met waarmeningen, niet alleen verwachtingen
-        waarnmeningen = "WATHTE"
-        lst_json_waarnmeningen = self.create_json_list(
-            waarnmeningen, t_now, global_variables, wanted_locations
-        )
-
-        lst_json = lst_json_verwachting + lst_json_waarnmeningen
+        lst_json = []
+        if "WATHTE" in options["parameters"]:
+            options["parameters"].append("WATHTEVERWACHT")
+        for parameter in options["parameters"]:
+            lst_json += self.create_json_list(
+                parameter, t_now, global_variables, wanted_locations
+            )
 
         # haal deze data a-synchroon op
         tasks = [
@@ -95,6 +90,7 @@ class LoadsWaterwebservicesRWS:
 
         # post_process de data & maak een dataframe
         lst_observations = [value for _, value in observation_data]
+
         self.df_out = self.create_dataframe(options, t_now, lst_observations)
 
         # output de dataframe
@@ -112,9 +108,6 @@ class LoadsWaterwebservicesRWS:
         Returns:
             Dataframe: Pandas dataframe geschikt voor uitvoer
         """
-        h10 = 1
-        h10v = 2
-
         dataframe = pd.DataFrame()
         records = []
         # loop over de lijst met data heen
@@ -122,33 +115,39 @@ class LoadsWaterwebservicesRWS:
             # als er geen data is, zit er geen waarnemingen lijst in
             if "WaarnemingenLijst" in serie_in:
                 serie = serie_in["WaarnemingenLijst"][0]
-                measuringstationid = serie["Locatie"]["Locatie_MessageID"]
-                measurement_or_observation = serie["AquoMetadata"]["Grootheid"]["Code"]
+                measurement_location_id = serie["Locatie"]["Locatie_MessageID"]
+                measurement_location_code = serie["Locatie"]["Code"]
+                measurement_location_name = serie["Locatie"]["Naam"]
+                parameter_code = serie["AquoMetadata"]["Grootheid"]["Code"]
+                unit = serie["AquoMetadata"]["Eenheid"]["Code"]
+                parameter_id = aquo_id_dict[parameter_code]
                 # process per lijst en stop het in een record
                 for event in serie["MetingenLijst"]:
                     datestr = event["Tijdstip"]
                     utc_dt = datetime.fromisoformat(datestr)
 
-                    parameterid = h10
                     if utc_dt > t_now:
-                        parameterid = h10v
+                        value_type = "verwachting"
+                    else:
+                        value_type = "meting"
 
-                    if parameterid > 0:
-                        if event["Meetwaarde"]:
-                            value = float(event["Meetwaarde"]["Waarde_Numeriek"])
-                        else:
-                            value = options["MISSING_VALUE"]
+                    if event["Meetwaarde"]:
+                        value = float(event["Meetwaarde"]["Waarde_Numeriek"])
+                    else:
+                        value = options["MISSING_VALUE"]
 
-                        record = {
-                            "objectid": measuringstationid,
-                            "objecttype": "measuringstation",
-                            "parameterid": parameterid,
-                            "datetime": epoch_from_datetime(utc_dt=utc_dt),
-                            "value": value,
-                            "calculating": True,
-                            "measurementcode": measurement_or_observation,
-                        }
-                        records.append(record)
+                    record = {
+                        "measurement_location_id": measurement_location_id,
+                        "measurement_location_code": measurement_location_code,
+                        "measurement_location_description": measurement_location_name,
+                        "parameter_id": parameter_id,
+                        "parameter_code": parameter_code,
+                        "datetime": utc_dt,
+                        "unit": unit,
+                        "value": value,
+                        "value_type": value_type,
+                    }
+                    records.append(record)
 
                 # voeg de records samen
                 dataframe = pd.DataFrame.from_records(records)
