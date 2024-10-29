@@ -50,7 +50,9 @@ class LoadsClassify:
         df_waterstanden["value"] = df_waterstanden["value"] * 100
 
         self.df_out = df_waterstanden.merge(df_thresholds, on="code", how="outer")
-        self.df_out = self.df_out[["code", "datetime", "value", "van", "tot", "kleur", "label"]]
+        self.df_out = self.df_out[
+            ["code", "datetime", "value", "van", "tot", "kleur", "label"]
+        ]
         self.df_out = self.df_out[
             (self.df_out["value"] < self.df_out["tot"])
             & (self.df_out["value"] > self.df_out["van"])
