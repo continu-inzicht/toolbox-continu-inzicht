@@ -1,15 +1,11 @@
 GlobalVariables:
-    rootdir: "tests/src/sections/data_sets"
+    rootdir: "tests/src/sections/data_sets"  
     moments: [-24,0,24,48]
-    
-    csv:
-        delimiter: ","
-
-    SectionsLoads:
-        MISSING_VALUE: -9999.0
-        
 
 DataAdapter: 
+    default_options:
+        csv:
+            delimiter: ","
     dijkvakken: 
         type: csv
         path: "test_sections_loads_dijkvakken.csv"
@@ -21,4 +17,5 @@ DataAdapter:
         path: "test_sections_loads_koppeling_meetstation_dijkvak.csv"      
     waterstanden_per_dijkvak: 
         type: csv
-        path: "hidden_waterstanden_per_dijkvak.csv"            
+        path: "hidden_waterstanden_per_dijkvak.csv"          
+        

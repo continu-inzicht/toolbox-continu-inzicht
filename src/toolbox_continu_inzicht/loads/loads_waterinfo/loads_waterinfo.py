@@ -45,17 +45,20 @@ class LoadsWaterinfo:
         elif "moments" not in options:
             options["moments"] = [-24, 0, 24, 48]
 
-        # moments eventueel toevoegen aan options
-        if "MISSING_VALUE" not in options and "MISSING_VALUE" in global_variables:
-            options["MISSING_VALUE"] = global_variables["MISSING_VALUE"]      
-        elif "MISSING_VALUE" not in options:     
-            options["MISSING_VALUE"] = -9999
+        # missing value controleren
+        if "MISSING_VALUE" not in options:
+            if "MISSING_VALUE" in self.data_adapter.config.global_variables:
+                options["MISSING_VALUE"] = self.data_adapter.config.global_variables[
+                    "MISSING_VALUE"
+                ]
+            else:
+                options["MISSING_VALUE"] = -999
 
         # Dit zijn de meetlocaties vanuit invoer
         self.df_in = self.data_adapter.input(input, self.input_schema)
 
         self.df_out = pd.DataFrame()
-        
+
         # observedhours,predictionhours
         # -672, 0   | achtentwintig dagen terug
         # -216, 48  | negen dagen terug en 2 dagen vooruit
