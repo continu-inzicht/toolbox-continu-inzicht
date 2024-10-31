@@ -1,9 +1,9 @@
 GlobalVariables:
     rootdir: "tests/src/loads/data_sets"
-    moments: [-24,0,24,48]
+    moments: [-48,0]
 
     LoadsWaterinfo:
-        parameters: ["waterhoogte"]
+        parameters: ["luchttemperatuur"]
 
 DataAdapter: 
     default_options:
@@ -11,7 +11,7 @@ DataAdapter:
             delimiter: ","
     locaties: 
         type: csv
-        path: "test_locations_waterinfo.csv"
+        path: "test_locations_waterinfo_luchttemperatuur.csv"
     waterstanden: 
         type: csv
-        path: "hidden_waterstanden_waterinfo.csv"
+        path: "hidden_luchttemperatuur_waterinfo.csv"

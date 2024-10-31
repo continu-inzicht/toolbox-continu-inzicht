@@ -64,54 +64,66 @@ class LoadsWaterinfo:
         # -216, 48  | negen dagen terug en 2 dagen vooruit
         #   -6, 3   | zes uur teru, en 3 uur vooruit
         #  -48, 48  | twee dagen terug en 2 dagen vooruit
-        observedhours = -48
-        predictionhours = 48
-        if options["moments"][0] < observedhours:
-            observedhours = -216
 
         datatype = "waterhoogte"
         if "parameters" in options:
             if type(options["parameters"]) is list and len(options["parameters"]) > 0:
                 datatype = options["parameters"][0]
 
-        # Loop over alle meetstations
-        for _, measuringstation in self.df_in.iterrows():
-            params = {
-                "mapType": datatype,
-                "locationCodes": measuringstation["code"],
-                "values": f"{observedhours},{predictionhours}",
-            }
-
-            # Ophalen json data van de Waterinfo api
-            status, json_data = await fetch_data(
-                url=self.url, params=params, mime_type="json"
+        maptype_schema = self.get_maptype(datatype)
+        if maptype_schema is not None:
+            # bepaal welke range opgehaald moet worden
+            observedhours_moments = options["moments"][0]
+            values = self.get_value_by_observedhours(
+                maptype_schema=maptype_schema,
+                observedhours_moments=observedhours_moments,
             )
 
-            if status is None and json_data is not None:
-                dataframe = self.create_dataframe(
-                    options=options,
-                    measuringstation=measuringstation,
-                    json_data=json_data,
+            # Loop over alle meetstations
+            for _, measuringstation in self.df_in.iterrows():
+                params = {
+                    "mapType": datatype,
+                    "locationCodes": measuringstation["code"],
+                    "values": f"{values}",
+                }
+
+                # Ophalen json data van de Waterinfo api
+                status, json_data = await fetch_data(
+                    url=self.url, params=params, mime_type="json"
                 )
 
-                if not self.df_out.empty:
-                    self.df_out = pd.concat([self.df_out, dataframe], ignore_index=True)
-                else:
-                    self.df_out = dataframe
+                if status is None and json_data is not None:
+                    dataframe = self.create_dataframe(
+                        options=options,
+                        maptype_schema=maptype_schema,
+                        measuringstation=measuringstation,
+                        json_data=json_data,
+                    )
+
+                    if not self.df_out.empty:
+                        self.df_out = pd.concat(
+                            [self.df_out, dataframe], ignore_index=True
+                        )
+                    else:
+                        self.df_out = dataframe
 
         self.data_adapter.output(output=output, df=self.df_out)
         return self.df_out
 
     def create_dataframe(
-        self, options: dict, measuringstation, json_data: str
+        self,
+        options: dict,
+        maptype_schema: dict,
+        measuringstation: dict,
+        json_data: str,
     ) -> pd.DataFrame:
         """Maak een pandas dataframe van de opgehaalde data uit Waterinfo
 
         Args:
-            options (dict):
-            t_now (datetime):
-            json_data (str): JSON data
-            locations (Dataframe):
+            options (dict): options opgegeven in de yaml
+            maptype_schema (dict): gegevens van de maptype
+            measuringstation (dict): gegevens van het meetstation
+            json_data (str): JSON data met opgehaalde belasting data
 
         Returns:
             Dataframe: Pandas dataframe geschikt voor uitvoer:
@@ -131,9 +143,10 @@ class LoadsWaterinfo:
 
         if "series" in json_data:
             records = []
+            parameter_id = maptype_schema["parameter_id"]
+            parameter_code = maptype_schema["parameter_code"]
 
             for serie in json_data["series"]:
-                parameter_id = 4724
                 value_type = "meting"
                 location_name = serie["meta"]["locationName"]
                 parameter_name = serie["meta"]["parameterName"]
@@ -161,7 +174,7 @@ class LoadsWaterinfo:
                             "measurement_location_code": measuringstation.code,
                             "measurement_location_description": location_name,
                             "parameter_id": parameter_id,
-                            "parameter_code": parameter_name,
+                            "parameter_code": parameter_code,
                             "parameter_description": parameter_description,
                             "unit": unit,
                             "date_time": utc_dt,
@@ -174,3 +187,161 @@ class LoadsWaterinfo:
             dataframe = pd.DataFrame.from_records(records)
 
         return dataframe
+
+    def get_maptype(self, maptype: str):
+        """
+        bepaal welke schema gebruikt moet worden voor het ophalen van de belasting
+
+        Args:
+            maptype (str): maptypes:
+                - waterhoogte,
+                - wind,
+                - golfhoogte,
+                - watertemperatuur,
+                - luchttemperatuur,
+                - astronomische-getij,
+                - waterafvoer,
+                - zouten
+
+        returns:
+            de query van de range als string. voorbeeld: -48,0
+        """
+        waterinfo_series = [
+            {
+                "maptype": "waterhoogte",
+                "parameter_id": 4724,
+                "parameter_code": "WATHTE",
+                "values": [
+                    {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
+                    {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
+                    {"observedhours": 216, "predictionhours": 48, "query": "-216,48"},
+                    {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+                ],
+            },
+            {
+                "maptype": "wind",
+                "parameter_id": -9999,
+                "parameter_code": "P_WIND",
+                "values": [
+                    {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
+                    {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
+                    {"observedhours": 216, "predictionhours": 48, "query": "-216,48"},
+                    {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+                ],
+            },
+            {
+                "maptype": "golfhoogte",
+                "parameter_id": -9999,
+                "parameter_code": "P_GOLFHOOGTE",
+                "values": [
+                    {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
+                    {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
+                    {"observedhours": 216, "predictionhours": 48, "query": "-216,48"},
+                    {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+                ],
+            },
+            {
+                "maptype": "watertemperatuur",
+                "parameter_id": -9999,
+                "parameter_code": "P_WATERTEMPERATUUR",
+                "values": [
+                    {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
+                    {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
+                    {"observedhours": 216, "predictionhours": 0, "query": "-216,0"},
+                    {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+                ],
+            },
+            {
+                "maptype": "luchttemperatuur",
+                "parameter_id": -9999,
+                "parameter_code": "P_LUCHTTEMPERATUUR",
+                "values": [
+                    {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
+                    {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
+                    {"observedhours": 216, "predictionhours": 0, "query": "-216,0"},
+                    {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+                ],
+            },
+            {
+                "maptype": "astronomische-getij",
+                "parameter_id": -9999,
+                "parameter_code": "P_ASTRONOMISCHE-GETIJ",
+                "values": [
+                    {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
+                    {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
+                    {"observedhours": 216, "predictionhours": 48, "query": "-216,48"},
+                    {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+                ],
+            },
+            {
+                "maptype": "stroming",
+                "parameter_id": -9999,
+                "parameter_code": "P_STROMING",
+                "values": [
+                    {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
+                    {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
+                    {"observedhours": 216, "predictionhours": 0, "query": "-216,0"},
+                    {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+                ],
+            },
+            {
+                "maptype": "waterafvoer",
+                "parameter_id": -9999,
+                "parameter_code": "P_WATERAFVOER",
+                "values": [
+                    {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
+                    {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
+                    {"observedhours": 216, "predictionhours": 48, "query": "-216,48"},
+                    {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+                ],
+            },
+            {
+                "maptype": "zouten",
+                "parameter_id": -9999,
+                "parameter_code": "P_ZOUTEN",
+                "values": [
+                    {"observedhours": 48, "predictionhours": 48, "query": "-48,0"},
+                    {"observedhours": 6, "predictionhours": 3, "query": "-6,0"},
+                    {"observedhours": 216, "predictionhours": 48, "query": "-216,0"},
+                    {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+                ],
+            },
+        ]
+
+        for item in waterinfo_series:
+            if item["maptype"] == maptype:
+                return item
+
+        return None
+
+    def get_value_by_observedhours(
+        self, maptype_schema: dict, observedhours_moments: int
+    ):
+        """
+        bepaal welke range gebruikt moet worden voor het ophalen van de belasting
+
+        Args:
+            maptype_schema (dict): schema met mogelijke ranges. Voorbeeld:
+                {"observedhours": 48, "predictionhours": 48, "query": "-48,0"},
+                {"observedhours": 6, "predictionhours": 3, "query": "-6,0"},
+                {"observedhours": 216, "predictionhours": 48, "query": "-216,0"},
+                {"observedhours": 672, "predictionhours": 0, "query": "-672,0"}
+            observedhours_moments (int): het laagste moment.
+
+        returns:
+            de query van de range als string. voorbeeld: -48,0
+        """
+
+        observedhours = 6
+        if observedhours_moments < -216:
+            observedhours = 672
+        elif observedhours_moments < -48:
+            observedhours = 216
+        elif observedhours_moments < -6:
+            observedhours = 48
+
+        for value in maptype_schema["values"]:
+            if value["observedhours"] == observedhours:
+                return value["query"]
+
+        return None
