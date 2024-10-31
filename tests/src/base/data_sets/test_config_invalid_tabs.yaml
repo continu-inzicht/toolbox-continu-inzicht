@@ -9,7 +9,7 @@ DataAdapter:
         schema: 'citoolbox_schema'
         csv:
     
-		delimiter: ","
+		sep: ","
     MyCSV_in: 
         type: csv
         path: 'test_csv_in.csv'

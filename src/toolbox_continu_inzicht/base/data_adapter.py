@@ -328,7 +328,6 @@ class DataAdapter(PydanticBaseModel):
         # TODO: opties voor csv mogen alleen zijn wat er mee gegeven mag wroden aan .to_csv
         path = output_config["abs_path"]
         kwargs = get_kwargs(pd.DataFrame.to_csv, output_config)
-        print(kwargs)
         df.to_csv(path, **kwargs)
 
     @staticmethod

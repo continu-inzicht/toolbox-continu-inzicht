@@ -3,7 +3,7 @@ GlobalVariables:
     moments: [-24,0,24,48]
     
     csv:
-        delimiter: ","
+        sep: ","
 
     SectionsLoads:
         MISSING_VALUE: -9999.0

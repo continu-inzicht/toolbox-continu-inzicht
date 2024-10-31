@@ -40,14 +40,16 @@ class Config(PydanticBaseModel):
 
         # opties die in de DataAdapter worden mee gegeven
         # worden toegevoegd aan de adapters, mits de adapter zelf niet die waarde heeft
-        default_options = self.data_adapters["default_options"]
-        adapters = set(self.data_adapters.keys())
-        adapters.discard("default_options")
-        for adapter in adapters:
-            input_type = self.data_adapters[adapter]["type"]
-            if input_type in default_options:
-                for key in default_options[input_type]:
-                    if key not in self.data_adapters[adapter]:
-                        self.data_adapters[adapter][key] = default_options[input_type][
-                            key
-                        ]
+        if "default_options" in self.data_adapters:
+            default_options = self.data_adapters["default_options"]
+            adapters = set(self.data_adapters.keys())
+            adapters.discard("default_options")
+            for adapter in adapters:
+                input_type = self.data_adapters[adapter]["type"]
+                if input_type in default_options:
+                    for key in default_options[input_type]:
+                        # alleen nieuwe opties toeveogen als die er niet al zijn
+                        if key not in self.data_adapters[adapter]:
+                            self.data_adapters[adapter][key] = default_options[
+                                input_type
+                            ][key]
