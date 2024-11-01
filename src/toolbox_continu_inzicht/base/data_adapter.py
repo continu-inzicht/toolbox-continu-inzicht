@@ -24,11 +24,17 @@ class DataAdapter(PydanticBaseModel):
         Future editor: ensure that changes made here are also reflected in Config.available_types
         """
         self.input_types["csv"] = self.input_csv
-        self.input_types["postgresql_database"] = self.input_postgresql
-        self.input_types["netcdf"] = self.input_netcdf
         assert "csv" in self.config.available_types
+        
+        self.input_types["postgresql_database"] = self.input_postgresql
         assert "postgresql_database" in self.config.available_types
+
+        self.input_types["ci_postgresql_waterlevels"] = self.input_ci_postgresql_waterlevels
+        assert "ci_postgresql_waterlevels" in self.config.available_types
+
+        self.input_types["netcdf"] = self.input_netcdf
         assert "netcdf" in self.config.available_types
+        
 
     def initialize_output_types(self):
         """Initializes ouput mapping and checks to see if type in the configured types"""
@@ -179,16 +185,11 @@ class DataAdapter(PydanticBaseModel):
         database: str
         schema: str
 
-
-
         Returns:
         --------
         pd.Dataframe
 
         """
-        # TODO: doen we dit zo?
-        table = input_config["table"]
-
         keys = [
             "postgresql_user",
             "postgresql_password",
@@ -204,7 +205,26 @@ class DataAdapter(PydanticBaseModel):
             f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
         )
 
-        query = f"SELECT objectid, objecttype, parameterid, datetime, value FROM {input_config['schema']}.{table};"
+        schema = ""
+        table = ""
+        query = ""
+
+        if "query" in input_config:
+            
+            # bepaal eventueel de tabelnaam voor het vervangen in de query string
+            if "table" in input_config: 
+                table = input_config["table"]
+
+            if "schema" in input_config: 
+                schema = input_config["schema"]                
+
+            query = input_config["query"]
+            query = query.replace("{{schema}}", schema).replace("{{table}}", table)
+
+        elif "table" in input_config:
+            query = f"SELECT * FROM {input_config['schema']}.{input_config["table"]};"
+        else:
+            raise UserWarning("De parameter 'table' en/ of 'query' zijn niet in de DataAdapter gedefinieerd.")
 
         # qurey uitvoeren op de database
         with engine.connect() as connection:
@@ -214,6 +234,79 @@ class DataAdapter(PydanticBaseModel):
         engine.dispose()
 
         return df
+
+
+    def input_ci_postgresql_waterlevels(input_config: dict):
+        """
+        Ophalen belasting uit een continu database voor het whatis scenario.
+
+        Args:
+        ----------
+        input_config (dict):
+
+        Opmerking:
+        ------
+        In de `.env` environment bestand moeten de volgende parameters staan:
+        postgresql_user (str):
+        postgresql_password (str):
+        postgresql_host (str):
+        postgresql_port (str):
+
+        In de 'yaml' config moeten de volgende parameters staan:
+        database (str):
+        schema (str):
+
+        Returns:
+        --------
+        pd.Dataframe
+
+        """
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+        ]
+
+        assert all(key in input_config for key in keys)
+
+        # maak verbinding object
+        engine = sqlalchemy.create_engine(
+            f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+        )
+
+        schema = input_config["schema"]   
+        scenario_id = 1
+
+        query = f"""
+            SELECT 
+                waterlevel.measuringstationid AS measurement_location_id, 
+                measuringstation.code AS measurement_location_code,
+                measuringstation.name AS measurement_location_description,	
+                parameter.id AS parameter_id,
+                parameter.code AS parameter_code,
+                parameter.name AS parameter_description,
+                parameter.unit AS unit,
+                TO_TIMESTAMP(datetime/1000) AS date_time, 
+                value AS value,
+                'gemeten' AS value_type                
+            FROM {schema}.waterlevels AS waterlevel
+            INNER JOIN {schema}.measuringstations AS measuringstation ON waterlevel.measuringstationid=measuringstation.id
+            INNER JOIN {schema}.parameters AS parameter ON waterlevel.parameter=parameter.id
+            WHERE waterlevel.scenarioid={scenario_id}    
+        """
+
+        # qurey uitvoeren op de database
+        with engine.connect() as connection:
+            df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+        # verbinding opruimen
+        engine.dispose()
+
+        return df
+
 
     def output(self, output: str, df: pd.DataFrame):
         """Gegeven het config, stuurt de juiste input waarde aan
