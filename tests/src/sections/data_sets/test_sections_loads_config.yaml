@@ -1,11 +1,14 @@
 GlobalVariables:
     rootdir: "tests/src/sections/data_sets"  
     moments: [-24,0,24,48]
+    
+    SectionsLoads:
+        MISSING_VALUE: -9999.0
 
 DataAdapter: 
     default_options:
         csv:
-            delimiter: ","
+            sep: ","
     dijkvakken: 
         type: csv
         path: "test_sections_loads_dijkvakken.csv"

@@ -1,9 +1,13 @@
 import pytest
 from toolbox_continu_inzicht.loads import get_fews_thresholds
+import os
 
 
-@pytest.mark.asyncio
-async def test_get_waterinfo_locations():
+@pytest.mark.skipif(
+    os.getenv("GITHUB_ACTIONS") == "true",
+    reason="Not possible in FEWS",
+)
+async def test_get_fews_thresholds():
     df = await get_fews_thresholds(
         host="https://fews.hhnk.nl",
         port=443,

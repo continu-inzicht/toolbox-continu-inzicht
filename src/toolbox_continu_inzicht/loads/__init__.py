@@ -21,7 +21,6 @@ from toolbox_continu_inzicht.loads.loads_matroos.loads_matroos import (
 from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
     get_matroos_locations,
 )
-
 from toolbox_continu_inzicht.loads.loads_waterinfo.loads_waterinfo import (
     LoadsWaterinfo,
 )
@@ -32,6 +31,9 @@ from toolbox_continu_inzicht.loads.loads_waterinfo.get_waterinfo_thresholds impo
     get_waterinfo_thresholds,
 )
 from toolbox_continu_inzicht.loads.loads_classify.loads_classify import LoadsClassify
+from toolbox_continu_inzicht.loads.loads_to_moments.loads_to_moments import (
+    LoadsToMoments,
+)
 
 
 __all__ = [
@@ -39,6 +41,7 @@ __all__ = [
     "LoadsFews",
     "LoadsMatroos",
     "LoadsWaterinfo",
+    "LoadsWhatIf",
     "get_rws_webservices_locations",
     "get_fews_locations",
     "get_fews_thresholds",
@@ -46,4 +49,5 @@ __all__ = [
     "get_waterinfo_locations",
     "get_waterinfo_thresholds",
     "LoadsClassify",
+    "LoadsToMoments",
 ]

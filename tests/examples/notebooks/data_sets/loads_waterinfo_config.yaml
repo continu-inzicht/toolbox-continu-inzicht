@@ -1,14 +1,12 @@
 GlobalVariables:
     rootdir: "data_sets"   
-    moments: [-24,0,24,48]    
-
     LoadsWaterinfo:
         parameters: ["waterhoogte"]
 
 DataAdapter: 
     default_options:    
         csv:
-            delimiter: ","
+            sep: ","
     locaties: 
         type: csv
         path: "locations_waterinfo.csv"
