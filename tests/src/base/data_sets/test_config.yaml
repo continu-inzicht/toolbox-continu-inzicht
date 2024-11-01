@@ -7,7 +7,7 @@ DataAdapter:
             database: 'citoolbox'
             schema: 'citoolbox_schema'
         csv:
-            delimiter: ","
+            sep: ","
 
     MyCSV_in: 
         type: csv
