@@ -141,7 +141,7 @@ class LoadsMatroos:
         # loop over de lijst met data heen
         for serie in json_data["results"]:
             # hier zit ook coordinaten in
-            measurement_location_id = serie["location"]["properties"]["locationId"]
+            measurement_location_id = int(serie["location"]["properties"]["locationId"])
             measurement_location_name = serie["location"]["properties"]["locationName"]
             measurement_location_code = measurement_location_name.lower().replace(
                 " ", ""
