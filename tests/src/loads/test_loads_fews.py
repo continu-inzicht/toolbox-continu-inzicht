@@ -9,7 +9,6 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.loads import LoadsFews
 
 
-@pytest.mark.skip(reason="Eerst een Fews rest service definieren")
 @pytest.mark.asyncio
 async def test_run():
     test_data_sets_path = Path(__file__).parent / "data_sets"

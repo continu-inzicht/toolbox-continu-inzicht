@@ -200,17 +200,27 @@ Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen r
 Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_locations()`. 
 
 #### RWS waterinfo
-Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Deze is openbaar, wel moet het data type worden opgegeven en de uren voor en na het moment van opvragen.
+Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Deze is openbaar, wel moet de maptype als parameter worden opgegeven.
+
+voorbeeld van maptypes:
+|omschrijving|maptype|periode|
+|--|--|--|
+|Waterhoogte in cm|waterhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0| 
+|Windsnelheid in m/s|wind|2d terug: -48,48<br>6u terug: -6,3<br>9d terug: -216,48<br>28d terug: -672,0| -48,48/-6,3/216,48/-672,0| 
+|Golfhoogte in cm|golfhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0| 
+|Watertemperatuur in °C|watertemperatuur|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+|Luchttemperatuur in °C|luchttemperatuur|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+|Astronomisch getij|astronomische-getij|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit:-6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug:-672,0|  
+|Stroomsnelheid in m/s|stroming|2d terug: -48,0<br>6u terug:-6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+|Debiet in m3/s|waterafvoer|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit:-216,48<br>28d terug:-672,0|
+|Chloride in mg/l|zouten|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
 
 ```yaml
  GlobalVariables:
     rootdir: "data_sets"
 
     LoadsWaterinfo:
-        datatype: "waterhoogte"
-        observedhours: 48
-        predictionhours: 48
-        MISSING_VALUE: -9999.0
+        parameters: ["waterhoogte"]
 
 ```
 

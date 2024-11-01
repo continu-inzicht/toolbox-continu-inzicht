@@ -35,6 +35,34 @@ async def test_run():
     assert len(df_output) > 0
 
 
+@pytest.mark.asyncio()
+async def test_run_luchttemperatuur():
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(
+        config_path=test_data_sets_path
+        / "test_loads_waterinfo_config_luchttemperatuur.yaml"
+    )
+    config.lees_config()
+
+    data_adapter = DataAdapter(config=config)
+
+    # Oude gegevens verwijderen
+    output_info = config.data_adapters
+    output_file = Path(
+        config.global_variables["rootdir"] / Path(output_info["waterstanden"]["path"])
+    )
+    if os.path.exists(output_file):
+        os.remove(output_file)
+
+    waterinfo = LoadsWaterinfo(data_adapter=data_adapter)
+    df_output = await waterinfo.run(input="locaties", output="waterstanden")
+
+    assert os.path.exists(output_file)
+
+    assert df_output is not None
+    assert len(df_output) > 0
+
+
 def test_create_dataframe():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_sets_path / "test_loads_fews_config.yaml")
@@ -417,8 +445,23 @@ def test_create_dataframe():
         "isCombined": False,
     }
 
+    maptype_schema = {
+        "maptype": "waterhoogte",
+        "parameter_id": 4724,
+        "parameter_code": "WATHTE",
+        "values": [
+            {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
+            {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
+            {"observedhours": 216, "predictionhours": 48, "query": "-216,48"},
+            {"observedhours": 672, "predictionhours": 0, "query": "-672,0"},
+        ],
+    }
+
     df_out = waterinfo.create_dataframe(
-        options=options, measuringstation=measuringstations[0], json_data=json_data
+        options=options,
+        maptype_schema=maptype_schema,
+        measuringstation=measuringstations[0],
+        json_data=json_data,
     )
     assert df_out is not None
     assert len(df_out) == 286

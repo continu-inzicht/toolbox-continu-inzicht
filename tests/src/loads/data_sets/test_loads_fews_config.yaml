@@ -1,15 +1,14 @@
 GlobalVariables:
     rootdir: "tests/src/loads/data_sets"   
     moments: [-24,0,24,48]
-
+    
     LoadsFews:
-        host: "https://*************"
-        port: 8443
+        host: "https://fews.hhnk.nl"
+        port: 443
         region: "fewspiservice"
         version: "1.25"
-        filter: "HKV_WV_1"
-        parameters: ["WNSHDB1"]  
-        MISSING_VALUE: -9999.0        
+        filter: "HHNK_WEB"
+        parameters: ["WATHTE [m][NAP][OW]"]                
 
 DataAdapter: 
     default_options:

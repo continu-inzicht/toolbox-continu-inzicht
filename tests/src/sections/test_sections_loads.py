@@ -24,15 +24,12 @@ async def test_run():
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    sections_loads = SectionsLoads(
-        data_adapter=data_adapter,
-        input="dijkvakken",
-        input2="waterstanden",
-        input3="koppeling_meetstation_dijkvak",
+    sections_loads = SectionsLoads(data_adapter=data_adapter)
+
+    df_output = await sections_loads.run(
+        input=["dijkvakken", "waterstanden", "koppeling_meetstation_dijkvak"],
         output="waterstanden_per_dijkvak",
     )
-
-    df_output = await sections_loads.run()
 
     assert os.path.exists(output_file)
 
