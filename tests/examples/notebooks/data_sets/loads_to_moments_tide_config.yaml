@@ -1,0 +1,14 @@
+GlobalVariables:
+    rootdir: "data_sets"  
+    moments: [-24,0,24,48] 
+
+    LoadsMaxima:
+        tide: True
+
+DataAdapter:
+    waterstanden: 
+        type: csv
+        path: "hidden_waterstanden_matroos.csv"
+    maxima:   
+        type: csv
+        path: "hidden_waterstanden_maxima.csv"       

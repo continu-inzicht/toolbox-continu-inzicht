@@ -31,7 +31,9 @@ from toolbox_continu_inzicht.loads.loads_waterinfo.get_waterinfo_thresholds impo
     get_waterinfo_thresholds,
 )
 from toolbox_continu_inzicht.loads.loads_classify.loads_classify import LoadsClassify
-from toolbox_continu_inzicht.loads.loads_whatif.loads_whatif import LoadsWhatIf
+from toolbox_continu_inzicht.loads.loads_to_moments.loads_to_moments import (
+    LoadsToMoments,
+)
 
 
 __all__ = [
@@ -47,4 +49,5 @@ __all__ = [
     "get_waterinfo_locations",
     "get_waterinfo_thresholds",
     "LoadsClassify",
+    "LoadsToMoments",
 ]

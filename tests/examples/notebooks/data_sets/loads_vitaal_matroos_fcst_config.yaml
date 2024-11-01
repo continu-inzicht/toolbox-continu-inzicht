@@ -11,10 +11,10 @@ GlobalVariables:
 DataAdapter: 
     default_options:
         csv:
-            delimiter: ","
+            sep: ","
     BelastingLocaties: 
         type: csv
         path: "loads_matroos.csv"
     Waterstanden: 
         type: csv
-        path: "hidden_waterstanden.csv"
+        path: "hidden_waterstanden_matroos.csv"

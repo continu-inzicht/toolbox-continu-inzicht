@@ -43,7 +43,7 @@ GlobalVariables:
 DataAdapter:
     default_options:
         csv:
-    	    delimiter: ';'
+    	    sep: ';'
     EenTypeDataAdapter: 
         type: csv
         file: 'eerste_voorbeeld.csv'
@@ -171,9 +171,8 @@ GlobalVariables:
 
     LoadsMatroos:
         website: "noos" # noos, vitaal of matroos
-        source: "observed"
-        parameters: ["waterlevel"]
-        MISSING_VALUE: 999
+        model: "observed"
+        parameters: ["WATHTE"]
 
 DataAdapter:
 	...
@@ -195,7 +194,7 @@ Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen r
 
 ```yaml
     LoadsWaterwebservicesRWS:
-        MISSING_VALUE: 999999999.0
+        parameters:  ['WATHTE']
 ```
 
 Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_locations()`. 

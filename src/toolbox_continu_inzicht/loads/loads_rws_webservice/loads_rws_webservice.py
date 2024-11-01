@@ -93,6 +93,11 @@ class LoadsWaterwebservicesRWS:
 
         self.df_out = self.create_dataframe(options, t_now, lst_observations)
 
+        rws_missing_value = 999999999.0  # implemented by default
+        if options["MISSING_VALUE"] != rws_missing_value:
+            self.df_out["value"] = self.df_out["value"].apply(
+                lambda x: options["MISSING_VALUE"] if x == rws_missing_value else x
+            )
         # output de dataframe
         self.data_adapter.output(output=output, df=self.df_out)
 
@@ -119,6 +124,7 @@ class LoadsWaterwebservicesRWS:
                 measurement_location_code = serie["Locatie"]["Code"]
                 measurement_location_name = serie["Locatie"]["Naam"]
                 parameter_code = serie["AquoMetadata"]["Grootheid"]["Code"]
+                # TODO: WATHTEVERWACHT weer terug maar WATHTE
                 unit = serie["AquoMetadata"]["Eenheid"]["Code"]
                 parameter_id = aquo_id_dict[parameter_code]
                 # process per lijst en stop het in een record

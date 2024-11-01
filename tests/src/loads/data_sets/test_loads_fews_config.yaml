@@ -13,7 +13,7 @@ GlobalVariables:
 DataAdapter: 
     default_options:
         csv:
-            delimiter: ","
+            sep: ","
     locaties: 
         type: csv
         path: "test_locations_fews.csv"

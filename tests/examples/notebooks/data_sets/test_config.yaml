@@ -8,7 +8,7 @@ DataAdapter:
             schema: 'citoolbox_schema'
         
         csv:
-            delimiter: ","
+            sep: ","
 
     MyCSV_in: 
         type: csv
@@ -16,7 +16,7 @@ DataAdapter:
     MyCSV_in_delim: 
         type: csv
         file: 'test_csv_in_delim.csv'
-        delimiter: ';'
+        sep: ';'
     MyCSV_out: 
         type: csv
         file: 'test_csv_out.csv'
