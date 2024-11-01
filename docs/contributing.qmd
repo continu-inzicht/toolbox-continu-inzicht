@@ -1,17 +1,17 @@
 # Richtlijnen voor bijdragen aan toolbox continu inzicht
 
 Het ontwikkelen van de toolbox continu inzicht bestaat uit twee delen.
-Eerst ontwikkeld HKV de basisfunctionaliteit. Deze ontwikkeling is voor iedereen te volgen op GitHub, maar toevoegingen worden nog niet geaccepteerd.
+Eerst ontwikkelt HKV de basisfunctionaliteit. Deze ontwikkeling is voor iedereen te volgen op GitHub, maar toevoegingen worden nog niet geaccepteerd.
 Daarna blijft het project open source beschikbaar en kan het verder worden ontwikkeld.
 De term 'ontwikkelaars' duidt in de eerste ontwikkelfase op het team van HKV, later op anderen die een bijdrage willen leveren.
-Een bijdragen kan uiteenlopen van een vraag tot een grote wijziging via een [pull
+Een bijdrage kan uiteenlopen van een vraag tot een grote wijziging via een [pull
 request](https://help.github.com/articles/about-pull-requests/).
 
-Een bijdrage kan een van de volgend dingen zijn:
+Een bijdrage kan een van de volgend zaken zijn:
 
 1. Je hebt een vraag
 1. Je denkt een probleem (bug) te hebben gevonden (of onverwachte  functionaliteit)
-1. Je wilt een aanpassing maken (Bug fixen, nieuwe functionaliteit, update aan de documentatie)
+1. Je wilt een aanpassing maken (bug fixen, nieuwe functionaliteit, update aan de documentatie)
 1. Je wilt een nieuwe versie publiceren
 
 De onderstaande secties behandelen de stappen per geval.
@@ -22,7 +22,7 @@ De onderstaande secties behandelen de stappen per geval.
     [hier](https://github.com/continu-inzicht/toolbox-continu-inzicht/issues) om te kijken
     of iemand anders dezelfde vraag heeft;
 1. Als je niks vergelijkbaars kan vinden, maak een nieuwe issue aan.
-1. Voeg de \"Question"\ label toe; voeg andere labels toe waar nodig.
+1. Voeg het \"Question"\ label toe; voeg andere labels toe waar nodig.
 
 ## Je denkt een probleem (bug) te hebben gevonden
 
@@ -51,21 +51,21 @@ De onderstaande secties behandelen de stappen per geval.
     repository, (zie instructies
     [hier](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
     en [hier](https://help.github.com/articles/syncing-a-fork/));
-1. Voor [Visual Studio Code](https://code.visualstudio.com) staat er een voorbeeld configuratie.
+1. Voor [Visual Studio Code](https://code.visualstudio.com) staat er een voorbeeldconfiguratie.
 1. Installeer de benodigde python packages in een pixi omgeving met `pixi install`, volg de uitleg van de [pixi](https://pixi.sh/latest/). Pixi zorgt er voor dat iedereen dezelfde versies van python packages heeft.
 1. Zorg dat de format van je code correct is met `pixi run ruff check`.
-1. Zorg dat alle bestaande testen werken met `pixi run pytest`;
+1. Zorg dat alle bestaande testen werken met `pixi run pytest`.
 1. Zorg dat alle documentatie automatisch genereert met `pixi run quarto-render`. [Quarto](https://quarto.org/docs/computations/python.html) is al onderdeel van de zojuist aangemaakte pixi omgeving.
-1. Voeg bij nieuwe functionaliteit altijd nieuwe tests.
+1. Voeg bij nieuwe functionaliteit altijd nieuwe tests toe.
 1. Update en voeg documentatie toe. Gebruik [Numpy Style Python
-    docstrings](https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes). Zorg dat je code leesbaar en begrijpelijk is voor andere.
-1. [push](http://rogerdudler.github.io/git-guide/) je branch.
-    naar (jou fork van) de toolbox continu inzicht repo op GitHub;
+    docstrings](https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes). Zorg dat je code leesbaar en begrijpelijk is voor anderen.
+1. [Push](http://rogerdudler.github.io/git-guide/) je branch.
+    naar (jouw fork van) de toolbox continu inzicht repo op GitHub;
 1. Maak een pull request aan, bijvoorbeeld volgens
-    [deze instructies](https://help.github.com/articles/creating-a-pull-request/). Pull requests worden ontvangen altijd een review.
+    [deze instructies](https://help.github.com/articles/creating-a-pull-request/). Pull requests die worden ontvangen, krijgen altijd een review.
 
 Als je het idee heb dat je iets nuttig heb toegevoegd,
-maar je weet niet hoe je test schrijft of runt,
+maar je weet niet hoe je tests schrijft of runt
 of hoe je documentatie aanmaakt: geen probleem.
 Maak een pull request en dan kijken we hoe we kunnen helpen.
 
@@ -80,19 +80,19 @@ Dit is een stukje voor de hoofdontwikkelaars van toolbox continu inzicht.
 1. Pas de versie aan in `src/toolbox_continu_inzicht/__init__.py`, de `pyptoject.toml` leest deze uit.
 1. Pas de `docs/changelog.qmd` aan met de veranderingen. Vergeet de link naar de pull request niet. 
 1. Zorg dat de format van je code correct is met `pixi run ruff check`.
-1. Zorg dat alle bestaande testen werken met `pixi run pytest`;
+1. Zorg dat alle bestaande testen werken met `pixi run pytest`.
 1. Commit & push je aanpassingen naar GitHub.
-1. Maak een pull request aan, laat iemand het reviewen, wacht voor all actie, deze worden groen, en merge de pull request.
+1. Maak een pull request aan, laat iemand het reviewen, wacht op alle acties, deze worden groen, en merge de pull request.
 1. Wacht tot de GitHub-acties op de main branch klaar zijn en er een groen vinkje bij staat.
 1. Maak een nieuwe \'release\' aan op GitHub
-    - Gebruik de versie als titel en pas een versie tag toe.
+    - Gebruik de versie als titel en pas een versietag toe.
     - Als beschrijving gebruik de intro van de `README.md` en veranderingen uit de `changelog.qmd`.
 
 1. Check
 
-    1. Is de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) bijgewerkt?
-    1. Heeft de Github actie alles naar [PyPI](https://pypi.org/project/continu_inzicht_toolbox) gestuurd?
-    1. Werkt de nieuwe versie met:
+    - Is de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) bijgewerkt?
+    - Heeft de GitHub actie alles naar [PyPI](https://pypi.org/project/continu_inzicht_toolbox) gestuurd?
+    - Werkt de nieuwe versie met:
         `pip3 install toolbox_continu_inzicht==<new version>`?
 
 1. Vier je nieuwe versie!
