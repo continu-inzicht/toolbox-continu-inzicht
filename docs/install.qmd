@@ -1,6 +1,6 @@
 # Installatie-instructies
 
-De toolbox continu inzicht kan op verschillende manieren worden gebruikt:
+De Toolbox continu inzicht kan op verschillende manieren worden gebruikt:
 1. Als vervanging van de huidige Continu Inzicht back-end
 1. Als losstaande modules
 1. Als ontwikkelaar
@@ -8,7 +8,7 @@ De toolbox continu inzicht kan op verschillende manieren worden gebruikt:
 ## Vervanging
 
 Om de toolbox als vervanging van de huidige Continu Inzicht back-end te gebruiken, zal in de toekomst meer informatie beschikbaar gesteld worden.
-De oude back-end kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen kunnen dan worden meegenomen. 
+De oude back-end kan met weinig aanpassingen worden vervangen door de nieuwe code. Verdere aanpassingen die in de toolbox worden gedaan, kunnen dan worden meegenomen.
 
 ## Losstaande modules
 
