@@ -1,18 +1,12 @@
 GlobalVariables:
     rootdir: "data_sets"   
-    moments: [-24,0,24,48]
-
-    csv:
-        sep: ","
-
     LoadsWaterinfo:
-        datatype: "waterhoogte"
-        observedhours: 48
-        predictionhours: 48
-        momentsupdate: True
-        MISSING_VALUE: -9999.0
+        parameters: ["waterhoogte"]
 
 DataAdapter: 
+    default_options:    
+        csv:
+            sep: ","
     locaties: 
         type: csv
         path: "locations_waterinfo.csv"

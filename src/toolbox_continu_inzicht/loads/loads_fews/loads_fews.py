@@ -49,6 +49,15 @@ class LoadsFews:
         options = self.data_adapter.config.global_variables["LoadsFews"]
         moments = self.data_adapter.config.global_variables["moments"]
 
+        # missing value controleren
+        if "MISSING_VALUE" not in options:
+            if "MISSING_VALUE" in self.data_adapter.config.global_variables:
+                options["MISSING_VALUE"] = self.data_adapter.config.global_variables[
+                    "MISSING_VALUE"
+                ]
+            else:
+                options["MISSING_VALUE"] = -999
+
         url = self.create_url(options=options)
         parameters = self.create_params(
             t_now=t_now, options=options, moments=moments, locations=self.df_in

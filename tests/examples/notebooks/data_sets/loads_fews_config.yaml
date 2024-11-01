@@ -8,8 +8,7 @@ GlobalVariables:
         region: "fewspiservice"
         version: "1.25"
         filter: "HKV_WV_1"
-        parameters: ["WNSHDB1"]  
-        MISSING_VALUE: -9999.0        
+        parameters: ["WNSHDB1"]                
 
 DataAdapter: 
     default_options:    

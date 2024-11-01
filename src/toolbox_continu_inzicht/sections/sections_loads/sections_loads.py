@@ -11,101 +11,116 @@ class SectionsLoads:
     """
 
     data_adapter: DataAdapter
-    input: str
-    input2: str
-    input3: str
-    output: str
 
-    df_in: Optional[pd.DataFrame] | None = None
-    df_in2: Optional[pd.DataFrame] | None = None
-    df_in3: Optional[pd.DataFrame] | None = None
+    df_in_sections: Optional[pd.DataFrame] | None = None
+    df_in_loads: Optional[pd.DataFrame] | None = None
+    df_in_section_fractions: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    async def run(self, input=None, input2=None, input3=None, output=None) -> None:
+    # Kolommen schema van de invoer data
+
+    # Lijst met dijkvakken
+    input_schema_sections = {"id": "int64", "name": "object"}
+
+    # belasting per moment per meetlocaties
+    input_schema_loads = {
+        "measurement_location_id": "int64",
+        "parameter_id": "int64",
+        "unit": "object",
+        "date_time": "object",
+        "value": "float64",
+        "value_type": "object",
+    }
+
+    # koppeling van de maatgevende meetlocaties per dijkvak
+    input_schema_section_fractions = {
+        "idup": "int64",
+        "iddown": "int64",
+        "fractionup": "float64",
+        "fractiondown": "float64",
+    }
+
+    async def run(self, input: list[str], output: str) -> None:
         """
         Uitvoeren van het bepalen van de belasting op een dijkvak.
 
         Args:
-            input  (str): input sectie van het yaml-bestand:
-                          lijst met dijkvakken
-            input2 (str): tweede input sectie van het yaml-bestand:
-                          belastingen van alle meetlocaties
+            input List(str): [0] lijst met dijkvakken
+                             [1] belasting per moment per meetlocaties
+                             [2] koppeling van de maatgevende meetlocaties per dijkvak
             output (str): uitvoer sectie van het yaml-bestand:
                           koppeling van de maatgevende meetlocaties per dijkvak
 
         Returns:
             Dataframe: Pandas dataframe
         """
-        if input is None:
-            input = self.input
-        if input2 is None:
-            input2 = self.input2
-        if input3 is None:
-            input3 = self.input3
-        if output is None:
-            output = self.output
+        if not len(input) == 3:
+            raise UserWarning("Input variabele moet 3 string waarden bevatten.")
 
         # invoer 1: lijst met dijkvakken
-        self.df_in = self.data_adapter.input(input)
-        if not {"id", "name"}.issubset(self.df_in.columns):
-            raise UserWarning("Invoer dijkvakken voldoet niet aan het juiste formaat.")
+        self.df_in_sections = self.data_adapter.input(
+            input[0], self.input_schema_sections
+        )
 
         # invoer 2: belastingen van alle meetlocaties
-        self.df_in2 = self.data_adapter.input(input2)
-        if not {"objectid", "parameterid", "datetime", "value"}.issubset(
-            self.df_in2.columns
-        ):
-            raise UserWarning("Invoer belastingen voldoet niet aan het juiste formaat.")
+        self.df_in_loads = self.data_adapter.input(input[1], self.input_schema_loads)
 
         # invoer 3: koppeling van de maatgevende meetlocaties per dijkvak
-        self.df_in3 = self.data_adapter.input(input3)
-        if not {"id", "idup", "iddown", "fractionup", "fractiondown"}.issubset(
-            self.df_in3.columns
-        ):
-            raise UserWarning(
-                "Invoer maatgevende meetlocaties per dijkvak voldoet niet aan het juiste formaat."
-            )
+        self.df_in_section_fractions = self.data_adapter.input(
+            input[2], self.input_schema_section_fractions
+        )
 
         # uitvoer: belasting per dijkvak
         self.df_out = pd.DataFrame()
 
-        df_sections = self.df_in.copy()
+        df_sections = self.df_in_sections.copy()
 
-        df_loads = self.df_in2.copy()
-        df_loads = df_loads[["objectid", "parameterid", "datetime", "value"]]
-        df_loads = df_loads[df_loads["parameterid"] == 1]
+        # Filter benodigde kolommen uit belastingdata
+        df_loads = self.df_in_loads.copy()
+        df_loads = df_loads[
+            [
+                "measurement_location_id",
+                "date_time",
+                "value",
+                "unit",
+                "parameter_id",
+                "value_type",
+            ]
+        ]
 
-        df_section_station = self.df_in3.copy()
+        # Lijst met koppeling dijkvak en bovenstrooms en benedenstrooms meetstation
+        df_section_station = self.df_in_section_fractions.copy()
         df_section_station = df_section_station.set_index("id")
 
         # voeg dijkvakken samen met de maatgevende meetlocatie-ids
-        df_fractions = df_sections.merge(df_section_station, on="id", how="outer")
+        df_section_fractions = df_sections.merge(
+            df_section_station, on="id", how="outer"
+        )
 
         # tijdelijke tabellen voor koppeling met belasting
         df_loads_up = df_loads.copy()
         df_loads_up = df_loads_up.rename(
             columns={
-                "objectid": "idup",
+                "measurement_location_id": "idup",
                 "value": "value_up",
-                "parameterid": "parameterid_up",
-                "datetime": "datetime_up",
-            }
-        )
-        df_loads_down = df_loads.copy()
-        df_loads_down = df_loads_down.rename(
-            columns={
-                "objectid": "iddown",
-                "value": "value_down",
-                "parameterid": "parameterid_down",
+                "date_time": "date_time_up",
+                "value_type": "value_type_up",
+                "parameter_id": "parameter_id_up",
+                "unit": "unit_up",
             }
         )
 
-        # voeg de dijkvakken en belastingen samen
-        df_merged = df_fractions.merge(df_loads_up, on="idup", how="left").rename(
-            columns={"datetime_up": "datetime"}
+        df_loads_down = df_loads.copy()
+        df_loads_down = df_loads_down.rename(
+            columns={"measurement_location_id": "iddown", "value": "value_down"}
         )
+
+        # voeg de dijkvakken en belastingen samen
+        df_merged = df_section_fractions.merge(
+            df_loads_up, on="idup", how="left"
+        ).rename(columns={"date_time_up": "date_time"})
         df_merged = df_merged.merge(
-            df_loads_down, on=["iddown", "datetime"], how="left"
+            df_loads_down, on=["iddown", "date_time"], how="left"
         )
         df_merged["value"] = (
             df_merged["value_up"] * df_merged["fractionup"]
@@ -113,8 +128,10 @@ class SectionsLoads:
         )
 
         self.df_out = df_merged[
-            ["id", "name", "parameterid_up", "datetime", "value"]
-        ].rename(columns={"parameterid_up": "parameterid"})
+            ["id", "name", "date_time", "value", "unit", "parameter_id", "value_type"]
+        ]
+        self.df_out.set_index(["id", "name", "date_time"], inplace=False)
+
         self.data_adapter.output(output=output, df=self.df_out)
 
         return self.df_out
