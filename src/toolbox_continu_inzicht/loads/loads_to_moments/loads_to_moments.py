@@ -18,6 +18,7 @@ class LoadsToMoments:
 
     def run(self, input: str, output: str):
         self.df_in = self.data_adapter.input(input)
+        # TODO add validate schema
         global_variables = self.data_adapter.config.global_variables
         moments = global_variables["moments"]
         options = global_variables["LoadsMaxima"]
