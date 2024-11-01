@@ -8,6 +8,7 @@ from typing import Optional
 class LoadsClassify:
     """
     Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd
+
     """
 
     data_adapter: DataAdapter

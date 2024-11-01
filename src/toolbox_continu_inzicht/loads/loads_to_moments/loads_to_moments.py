@@ -8,7 +8,17 @@ from datetime import datetime, timezone, timedelta
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsToMoments:
     """
-    Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd
+    Met deze klasse kunnen waterstandsgegevens worden omgezet naar bepaalde momenten.
+    Deze klasse bevat een methode genaamd 'run' die de waterstandsgegevens verwerkt en de resulterende momenten opslaat in een dataframe.
+
+    Attributes:
+        data_adapter (DataAdapter): Een object van de klasse DataAdapter.
+        df_in (Optional[pd.DataFrame] | None): Het invoerdataframe met waterstandsgegevens. Standaard is dit None.
+        df_out (Optional[pd.DataFrame] | None): Het uitvoerdataframe met de resulterende momenten. Standaard is dit None.
+    Methods:
+        run(input: str, output: str): Verwerkt de waterstandsgegevens en slaat de resulterende momenten op in het uitvoerdataframe.
+        get_moment_from_dataframe(moment, df_moments): Haalt het moment op uit het gegeven dataframe met waterstandsgegevens.
+
     """
 
     data_adapter: DataAdapter
@@ -17,6 +27,16 @@ class LoadsToMoments:
     df_out: Optional[pd.DataFrame] | None = None
 
     def run(self, input: str, output: str):
+        """
+        Verwerkt de invoergegevens om momenten te berekenen en genereert het uitvoerdataframe.
+
+        Args:
+            input (str): Naam van de dataadapter met invoergegevens.
+            output (str): Naam van de dataadapter om uitvoergegevens op te slaan.
+        Returns:
+            None
+        """
+
         self.df_in = self.data_adapter.input(input)
         # TODO add validate schema
         global_variables = self.data_adapter.config.global_variables
@@ -75,6 +95,15 @@ class LoadsToMoments:
 
     @staticmethod
     def get_moment_from_dataframe(moment, df_moments):
+        """
+        Haalt het moment op uit een dataframe van momenten.
+        Parameters:
+            - moment: Het moment dat moet worden opgehaald.
+            - df_moments: Het dataframe van momenten.
+        Returns:
+            Het dataframe met het opgehaalde moment.
+        """
+
         if moment in df_moments.index:
             df_moment = df_moments.loc[[moment]]
         else:
