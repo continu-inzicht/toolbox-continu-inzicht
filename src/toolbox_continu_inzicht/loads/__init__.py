@@ -1,6 +1,9 @@
 """Belasting module for toolbox continu inzicht"""
 
 # op alfabetische volgorde van module toevoegen
+from toolbox_continu_inzicht.loads.loads_ci_whatif.loads_ci_whatif import (
+    LoadsCIWhatIf,
+)
 from toolbox_continu_inzicht.loads.loads_classify.loads_classify import LoadsClassify
 from toolbox_continu_inzicht.loads.loads_fews.loads_fews import (
     LoadsFews,
@@ -35,17 +38,10 @@ from toolbox_continu_inzicht.loads.loads_waterinfo.get_waterinfo_locations impor
 from toolbox_continu_inzicht.loads.loads_waterinfo.get_waterinfo_thresholds import (
     get_waterinfo_thresholds,
 )
-from toolbox_continu_inzicht.loads.loads_classify.loads_classify import LoadsClassify
-from toolbox_continu_inzicht.loads.loads_to_moments.loads_to_moments import (
-    LoadsToMoments,
-)
-from toolbox_continu_inzicht.loads.loads_ci_whatif.loads_ci_whatif import (
-    LoadsCIWhatIf,
-)
-
 
 # deze ook in de zelfde volgorde als hierboven.
 __all__ = [
+    "LoadsCIWhatIf",
     "LoadsClassify",
     "LoadsFews",
     "get_fews_locations",
@@ -58,7 +54,4 @@ __all__ = [
     "LoadsWaterinfo",
     "get_waterinfo_locations",
     "get_waterinfo_thresholds",
-    "LoadsClassify",
-    "LoadsToMoments",
-    "LoadsCIWhatIf",
 ]
