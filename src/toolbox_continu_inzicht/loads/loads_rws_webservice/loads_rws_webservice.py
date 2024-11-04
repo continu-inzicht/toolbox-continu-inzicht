@@ -70,7 +70,7 @@ class LoadsWaterwebservicesRWS:
             0,
             0,
         ).replace(tzinfo=timezone.utc)
-        
+
         # TODO DIT GAAT VERANDEREN
         # https://rijkswaterstaatdata.nl/projecten/beta-waterwebservices/#:~:text=00.000%2B01%3A00%22%7D%7D-,Voorbeelden,-Een%20aantal%20specifieke
         # Verwachte waterstand over een uur
