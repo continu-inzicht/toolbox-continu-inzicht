@@ -1,5 +1,6 @@
 from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
+import numpy as np
 import pandas as pd
 import sqlalchemy
 import inspect
@@ -8,6 +9,7 @@ import xarray as xr
 
 from dotenv import load_dotenv, dotenv_values
 from toolbox_continu_inzicht.base.config import Config
+from toolbox_continu_inzicht.utils.datetime_functions import epoch_from_datetime
 
 
 class DataAdapter(PydanticBaseModel):
@@ -24,20 +26,47 @@ class DataAdapter(PydanticBaseModel):
         Future editor: ensure that changes made here are also reflected in Config.available_types
         """
         self.input_types["csv"] = self.input_csv
-        self.input_types["postgresql_database"] = self.input_postgresql
-        self.input_types["netcdf"] = self.input_netcdf
         assert "csv" in self.config.available_types
-        assert "postgresql_database" in self.config.available_types
+
+        self.input_types["netcdf"] = self.input_netcdf
         assert "netcdf" in self.config.available_types
+
+        self.input_types["postgresql_database"] = self.input_postgresql
+        assert "postgresql_database" in self.config.available_types
+
+        self.input_types["ci_postgresql_from_waterlevels"] = (
+            self.input_ci_postgresql_from_waterlevels
+        )
+        assert "ci_postgresql_from_waterlevels" in self.config.available_types
+
+        self.input_types["ci_postgresql_from_conditions"] = (
+            self.input_ci_postgresql_from_conditions
+        )
+        assert "ci_postgresql_from_conditions" in self.config.available_types
+
+        self.input_types["ci_postgresql_from_measuringstations"] = (
+            self.input_ci_postgresql_from_measuringstations
+        )
+        assert "ci_postgresql_from_measuringstations" in self.config.available_types
 
     def initialize_output_types(self):
         """Initializes ouput mapping and checks to see if type in the configured types"""
         self.output_types["csv"] = self.output_csv
-        self.output_types["postgresql_database"] = self.output_postgresql
-        self.output_types["netcdf"] = self.output_netcdf
         assert "csv" in self.config.available_types
+
+        self.output_types["postgresql_database"] = self.output_postgresql
         assert "postgresql_database" in self.config.available_types
+
+        self.output_types["netcdf"] = self.output_netcdf
         assert "netcdf" in self.config.available_types
+
+        self.output_types["ci_postgresql_to_data"] = self.output_ci_postgresql_to_data
+        assert "ci_postgresql_to_data" in self.config.available_types
+
+        self.output_types["ci_postgresql_to_states"] = (
+            self.output_ci_postgresql_to_states
+        )
+        assert "ci_postgresql_to_states" in self.config.available_types
 
     @staticmethod
     def validate_dataframe(df: pd.DataFrame, schema: dict):
@@ -179,16 +208,11 @@ class DataAdapter(PydanticBaseModel):
         database: str
         schema: str
 
-
-
         Returns:
         --------
         pd.Dataframe
 
         """
-        # TODO: doen we dit zo?
-        table = input_config["table"]
-
         keys = [
             "postgresql_user",
             "postgresql_password",
@@ -204,7 +228,263 @@ class DataAdapter(PydanticBaseModel):
             f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
         )
 
-        query = f"SELECT objectid, objecttype, parameterid, datetime, value FROM {input_config['schema']}.{table};"
+        schema = ""
+        table = ""
+        query = ""
+
+        if "query" in input_config:
+            # bepaal eventueel de tabelnaam voor het vervangen in de query string
+            if "table" in input_config:
+                table = input_config["table"]
+
+            if "schema" in input_config:
+                schema = input_config["schema"]
+
+            query = input_config["query"]
+            query = query.replace("{{schema}}", schema).replace("{{table}}", table)
+
+        elif "table" in input_config:
+            query = f"SELECT * FROM {input_config['schema']}.{input_config["table"]};"
+        else:
+            raise UserWarning(
+                "De parameter 'table' en/ of 'query' zijn niet in de DataAdapter gedefinieerd."
+            )
+
+        # qurey uitvoeren op de database
+        with engine.connect() as connection:
+            df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+        # verbinding opruimen
+        engine.dispose()
+
+        return df
+
+    @staticmethod
+    def input_netcdf(input_config):
+        """Laat een netcdf bestand in gegeven een pad
+
+        Notes:
+        --------
+        Lees het netCDF bestand met xarray in en converteer de dataset naar
+        een pandas dataframe.
+
+        Returns:
+        --------
+        pd.Dataframe
+        """
+        # Data checks worden gedaan in de functies zelf, hier alleen geladen
+        abs_path = input_config["abs_path"]
+        kwargs = get_kwargs(xr.open_dataset, input_config)
+        ds = xr.open_dataset(abs_path, **kwargs)
+
+        # netcdf dataset to pandas dataframe
+        df = xr.Dataset.to_dataframe(ds)
+        return df
+
+    @staticmethod
+    def input_ci_postgresql_from_waterlevels(input_config: dict):
+        """
+        Ophalen belasting uit een continu database voor het whatis scenario.
+
+        Args:
+        ----------
+        input_config (dict):
+
+        Opmerking:
+        ------
+        In de `.env` environment bestand moeten de volgende parameters staan:
+        postgresql_user (str):
+        postgresql_password (str):
+        postgresql_host (str):
+        postgresql_port (str):
+
+        In de 'yaml' config moeten de volgende parameters staan:
+        database (str):
+        schema (str):
+
+        Returns:
+        --------
+        pd.Dataframe
+
+        """
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+        ]
+
+        assert all(key in input_config for key in keys)
+
+        # maak verbinding object
+        engine = sqlalchemy.create_engine(
+            f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+        )
+
+        schema = input_config["schema"]
+        query = f"""
+            SELECT                
+                        waterlevel.measuringstationid AS measurement_location_id, 
+                        measuringstation.code AS measurement_location_code,
+                        measuringstation.name AS measurement_location_description,	
+                        parameter.id AS parameter_id,
+                        parameter.code AS parameter_code,
+                        parameter.name AS parameter_description,
+                        parameter.unit AS unit,			
+                        TO_TIMESTAMP(waterlevel.datetime/1000) AS date_time, 
+                        value*100 AS value,
+                        (
+                            CASE 
+                                WHEN waterlevel.datetime > simulation.datetime THEN 'verwacht'
+                                ELSE 'gemeten'
+                            END
+                        ) AS value_type
+                        
+            FROM {schema}.waterlevels AS waterlevel
+            INNER JOIN 
+                (
+                    SELECT MIN(moments.id)*(60*60*1000) AS start_diff, MAX(moments.id)*(60*60*1000) AS end_diff
+                    FROM {schema}.moments
+                ) AS moment ON 1=1
+            INNER JOIN {schema}.simulation ON simulation.scenarioid=waterlevel.scenarioid	
+            INNER JOIN {schema}.measuringstations AS measuringstation ON waterlevel.measuringstationid=measuringstation.id
+            INNER JOIN {schema}.parameters AS parameter ON waterlevel.parameter=parameter.id
+            WHERE 	
+                waterlevel.datetime >= simulation.datetime + moment.start_diff AND
+                waterlevel.datetime <= simulation.datetime + moment.end_diff;
+        """
+
+        # qurey uitvoeren op de database
+        with engine.connect() as connection:
+            df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+        # verbinding opruimen
+        engine.dispose()
+
+        # Datum kolom moet een object zijn en niet een 'datetime64[ns, UTC]'
+        df["date_time"] = df["date_time"].astype(object)
+
+        return df
+
+    @staticmethod
+    def input_ci_postgresql_from_conditions(input_config: dict):
+        """
+        Ophalen dremple waarden uit een continu database.
+
+        Args:
+        ----------
+        input_config (dict):
+
+        Opmerking:
+        ------
+        In de `.env` environment bestand moeten de volgende parameters staan:
+        postgresql_user (str):
+        postgresql_password (str):
+        postgresql_host (str):
+        postgresql_port (str):
+
+        In de 'yaml' config moeten de volgende parameters staan:
+        database (str):
+        schema (str):
+
+        Returns:
+        --------
+        pd.Dataframe
+
+        """
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+        ]
+
+        assert all(key in input_config for key in keys)
+
+        # maak verbinding object
+        engine = sqlalchemy.create_engine(
+            f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+        )
+
+        schema = input_config["schema"]
+        query = f"""
+            SELECT 
+                measuringstation.code AS measurement_location_code, 
+                LAG(condition.upperboundary, 1) OVER (PARTITION BY condition.objectid ORDER BY condition.stateid) AS van, 
+                condition.upperboundary AS tot, 
+                condition.color AS kleur, 
+                condition.description AS label, 
+                parameter.unit AS unit
+            FROM {schema}.conditions AS condition
+            INNER JOIN {schema}.measuringstations AS measuringstation ON measuringstation.id=condition.objectid
+            INNER JOIN {schema}.parameters AS parameter ON parameter.id=1
+            WHERE condition.objecttype='measuringstation'
+            ORDER BY condition.objectid,condition.stateid;;
+        """
+
+        # qurey uitvoeren op de database
+        with engine.connect() as connection:
+            df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+        # verbinding opruimen
+        engine.dispose()
+
+        return df
+
+    @staticmethod
+    def input_ci_postgresql_from_measuringstations(input_config: dict):
+        """
+        Ophalen meetstations uit een continu database.
+
+        Args:
+        ----------
+        input_config (dict):
+
+        Opmerking:
+        ------
+        In de `.env` environment bestand moeten de volgende parameters staan:
+        postgresql_user (str):
+        postgresql_password (str):
+        postgresql_host (str):
+        postgresql_port (str):
+
+        In de 'yaml' config moeten de volgende parameters staan:
+        database (str):
+        schema (str):
+
+        Returns:
+        --------
+        pd.Dataframe
+
+        """
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+        ]
+
+        assert all(key in input_config for key in keys)
+
+        # maak verbinding object
+        engine = sqlalchemy.create_engine(
+            f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+        )
+
+        schema = input_config["schema"]
+        query = f"""
+            SELECT 
+                id AS id, 
+                name AS name, 
+                code AS code
+            FROM {schema}.measuringstations;
+        """
 
         # qurey uitvoeren op de database
         with engine.connect() as connection:
@@ -286,28 +566,6 @@ class DataAdapter(PydanticBaseModel):
         # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
         bijbehorende_functie = self.output_types[data_type]
         df = bijbehorende_functie(functie_output_config, df)
-        return df
-
-    @staticmethod
-    def input_netcdf(input_config):
-        """Laat een netcdf bestand in gegeven een pad
-
-        Notes:
-        --------
-        Lees het netCDF bestand met xarray in en converteer de dataset naar
-        een pandas dataframe.
-
-        Returns:
-        --------
-        pd.Dataframe
-        """
-        # Data checks worden gedaan in de functies zelf, hier alleen geladen
-        abs_path = input_config["abs_path"]
-        kwargs = get_kwargs(xr.open_dataset, input_config)
-        ds = xr.open_dataset(abs_path, **kwargs)
-
-        # netcdf dataset to pandas dataframe
-        df = xr.Dataset.to_dataframe(ds)
         return df
 
     @staticmethod
@@ -420,6 +678,243 @@ class DataAdapter(PydanticBaseModel):
         kwargs["path"] = output_config["abs_path"]
         # path is al een kwarg
         ds.to_netcdf(**kwargs)
+
+    @staticmethod
+    def output_ci_postgresql_to_data(output_config: dict, df):
+        """
+        Schrijft data naar Continu Inzicht database
+
+        Args:
+        ----------
+        output_config (dict):
+
+        Opmerking:
+        ------
+        In de `.env` environment bestand moeten de volgende parameters staan:
+        postgresql_user (str):
+        postgresql_password (str):
+        postgresql_host (str):
+        postgresql_port (str):
+
+        In de 'yaml' config moeten de volgende parameters staan:
+        database (str):
+        schema (str):
+
+        Returns:
+        --------
+        pd.Dataframe
+
+        """
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+            "objecttype",
+        ]
+
+        assert all(key in output_config for key in keys)
+
+        table = "data"
+        schema = output_config["schema"]
+        objecttype = output_config["objecttype"]
+
+        # objectid, objecttype, parameterid, datetime, value, calculating
+        if objecttype == "measuringstation":
+            df["objecttype"] = objecttype
+            df["calculating"] = True
+            df["datetime"] = df["date_time"].apply(epoch_from_datetime)
+
+            df_data = df.loc[
+                :,
+                [
+                    "measurement_location_id",
+                    "objecttype",
+                    "parameter_id",
+                    "datetime",
+                    "value",
+                    "calculating",
+                ],
+            ]
+            df_data = df_data.rename(
+                columns={
+                    "measurement_location_id": "objectid",
+                    "parameter_id": "parameterid",
+                }
+            )
+
+            # maak verbinding object
+            engine = sqlalchemy.create_engine(
+                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+            )
+
+            # schrijf data naar de database
+            df_data.to_sql(
+                table,
+                con=engine,
+                schema=schema,
+                if_exists="append",
+                index=False,
+            )
+
+            # verbinding opruimen
+            engine.dispose()
+
+        return df
+
+    @staticmethod
+    def output_ci_postgresql_to_states(output_config: dict, df):
+        """
+        Schrijft data naar Continu Inzicht database tabel states
+
+        Args:
+        ----------
+        output_config (dict):
+
+        Opmerking:
+        ------
+        In de `.env` environment bestand moeten de volgende parameters staan:
+        postgresql_user (str):
+        postgresql_password (str):
+        postgresql_host (str):
+        postgresql_port (str):
+
+        In de 'yaml' config moeten de volgende parameters staan:
+        database (str):
+        schema (str):
+
+        Returns:
+        --------
+        pd.Dataframe
+
+        """
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+            "objecttype",
+        ]
+
+        assert all(key in output_config for key in keys)
+
+        table = "states"
+        schema = output_config["schema"]
+        objecttype = output_config["objecttype"]
+
+        # ,measurement_location_code,date_time,value,van,tot,kleur,label
+        # 2,DENH,1991-01-13 22:40:00+00:00,173.4,170.0,190.0,#4bacc6,verhoogd
+
+        # objectid, objecttype, parameterid, momentid, stateid, calculating, changedate
+        if objecttype == "measuringstation":
+            # maak verbinding object
+            engine = sqlalchemy.create_engine(
+                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+            )
+
+            # eerst lookup data ophalen om de juiste id's te bepalen
+            query = f""" 
+                SELECT 
+                    id AS objectid, 
+                    code AS measurement_location_code
+                FROM {schema}.measuringstations;
+            """
+
+            # query uitvoeren op de database
+            with engine.connect() as connection:
+                df_stations = pd.read_sql_query(
+                    sql=sqlalchemy.text(query), con=connection
+                )
+
+            # eerst lookup data ophalen om de juiste id's te bepalen
+            query = f""" 
+                SELECT 
+                    moment.id AS momentid, 
+                    TO_TIMESTAMP(moment.calctime/1000) AS date_time
+                FROM {schema}.moments AS moment;
+            """
+
+            # query uitvoeren op de database
+            with engine.connect() as connection:
+                df_moments = pd.read_sql_query(
+                    sql=sqlalchemy.text(query), con=connection
+                )
+
+            query = f""" 
+                SELECT 
+                    stateid AS stateid, 
+                    objectid AS objectid, 
+                    upperboundary AS tot
+                FROM {schema}.conditions
+                WHERE objecttype='measuringstation'
+                ORDER BY objectid, stateid;
+            """
+
+            # query uitvoeren op de database
+            with engine.connect() as connection:
+                df_conditions = pd.read_sql_query(
+                    sql=sqlalchemy.text(query), con=connection
+                )
+
+            df.set_index("measurement_location_code")
+            df_merge = df.merge(
+                df_stations, on="measurement_location_code", how="outer"
+            )
+
+            df_moments["date_time"] = df_moments["date_time"].astype(object)
+            df_moments.set_index("date_time")
+
+            df_merge["date_time"] = df_merge["date_time"].astype(object)
+            df_merge.set_index("date_time")
+            df_merge = df_merge.merge(
+                df_moments, on="date_time", how="inner", validate="many_to_one"
+            )
+
+            df_merge.set_index(["objectid", "tot"])
+            df_merge = df_merge.merge(
+                df_conditions,
+                on=["objectid", "tot"],
+                how="left",
+                validate="many_to_one",
+            )
+
+            # objectid, objecttype, parameterid, momentid, stateid, calculating, changedate
+
+            df_merge["objecttype"] = objecttype
+            df_merge["parameterid"] = np.where(df_merge["momentid"] <= 0, 1, 2)
+            df_merge["calculating"] = True
+            df_merge["changedate"] = 0
+
+            df_states = df_merge.loc[
+                :,
+                [
+                    "objectid",
+                    "objecttype",
+                    "parameterid",
+                    "momentid",
+                    "stateid",
+                    "calculating",
+                    "changedate",
+                ],
+            ]
+
+            # schrijf data naar de database
+            df_states.to_sql(
+                table,
+                con=engine,
+                schema=schema,
+                if_exists="append",
+                index=False,
+            )
+
+            # verbinding opruimen
+            engine.dispose()
+
+        return df
 
 
 def get_kwargs(function, input_config):

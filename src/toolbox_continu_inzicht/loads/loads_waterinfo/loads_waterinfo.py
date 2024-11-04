@@ -21,8 +21,8 @@ class LoadsWaterinfo:
 
     url: str = "https://waterinfo.rws.nl/api/chart/get"
 
-    # Kolommen schema van de invoer data
-    input_schema = {"id": "int64", "name": "object"}
+    # Kolommen schema van de invoer data meetlocaties
+    input_schema = {"id": "int64", "name": "object", "code": "object"}
 
     async def run(self, input: str, output: str) -> None:
         """

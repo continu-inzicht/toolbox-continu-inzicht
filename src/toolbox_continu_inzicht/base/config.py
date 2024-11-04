@@ -17,7 +17,16 @@ class Config(PydanticBaseModel):
     config_path: Path
     global_variables: dict = {}
     data_adapters: dict = {}
-    available_types: list[str] = ["csv", "postgresql_database", "netcdf"]
+    available_types: list[str] = [
+        "csv",
+        "postgresql_database",
+        "netcdf",
+        "ci_postgresql_from_waterlevels",
+        "ci_postgresql_from_conditions",
+        "ci_postgresql_from_measuringstations",
+        "ci_postgresql_to_data",
+        "ci_postgresql_to_states",
+    ]
 
     def lees_config(self):
         """Laad het gegeven pad in, zet de configuraties klaar in de Config class"""
