@@ -6,9 +6,37 @@ Het format is beschreven op [keepachangelog.com](https://keepachangelog.com/en/1
 
 ## [Ongeplubliceerd]
 
-### Toegevoegd
+### Sprint 1
 
 - Werkende Quarto documentatie [#7](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/7)
 - Proof of concept met csv en database [#9](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/9) 
 - Voeg notebook toe om te laten zien hoe het werkt [#12](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/12)
 - Maak map structuur overzichtelijker [#19](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/19)
+
+### sprint 2 
+
+In sprint 2 is gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#36](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/36). 
+
+Allereerst zijn er nog rest punten uit sprint 1 aangepast: 
+
+- het specificeren van `delimiter` deed het niet, dit moet `sep` zijn. Daarnaast worden nu alle opties die in de configuratie zijn gespecificeerd doorgegeven aan de data adapters. 
+- `Path` is nu `File`, waarbij `file` altijd een bestand is in de `rootdir`, Path mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie. 
+- `.env` bestand is niet meer verplicht, maar geeft wel een Warning
+- `util` map voor generieke functies als tijd en post/get functies
+- `pytest.skipif` voor tests die alleen op het HKV netwerk draaien door FEWS/postgresql verbindingen. 
+- de keywords `input=..` en `output=..` worden nu alleen aan de `.run()` functie doorgegeven, niet aan de class zelf.
+
+Daarnaast is er een hoop toegevoegd rondom het inlezen van belastingen:
+
+- Inlezen van, ophalen van locaties, parameters en grenswaardes(waar mogelijk) uit:
+  
+    - (Noos/Vitaal) Matroos
+    -  FEWS
+    -  RWS waterinfo
+    -  RWS waterwebservices
+  
+Deze inleesfuncties gebruiken allemaal de aquo standaard naam en code (WATHTE). 
+
+- Classificeren van belastingen aan de hand van opgehaalde/meegegeven grenswaardes. 
+- Toekennen van belastingen aan secties.
+- Aggregeren van tijdreeks naar momenten of bij getij naar maxima over de getijperiode.
