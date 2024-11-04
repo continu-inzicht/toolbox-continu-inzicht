@@ -66,13 +66,18 @@ quartodoc:
     include_classes: true
     include_functions: true
   sections:  
-    - title: Continu inzicht toolbox
-      desc: Toolbox voor continu inzicht
+    - title: Basis
+      desc: Lees & schrijf functionaliteit waar andere functies op verder bouwen
       package: toolbox_continu_inzicht
       contents: 
        - config
        - data_adapter
        - proof_of_concept.example_module
+    - title: Belastingen
+      desc: Verschillende functies die belastingen inladen, classifiseren of toekennen. 
+      package: toolbox_continu_inzicht
+      contents: 
+       - loads.LoadsCIWhatIf
        - loads.LoadsClassify
        - loads.LoadsFews
        - loads.get_fews_locations

@@ -203,6 +203,7 @@ Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_location
 Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Deze is openbaar, wel moet de maptype als parameter worden opgegeven.
 
 voorbeeld van maptypes:
+
 |omschrijving|maptype|periode|
 |--|--|--|
 |Waterhoogte in cm|waterhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0| 
