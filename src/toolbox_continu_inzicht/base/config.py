@@ -21,10 +21,11 @@ class Config(PydanticBaseModel):
         "csv",
         "postgresql_database",
         "netcdf",
-        "ci_postgresql_waterlevels",
-        "ci_postgresql_conditions",
-        "ci_postgresql_data",
-        "ci_postgresql_states",
+        "ci_postgresql_from_waterlevels",
+        "ci_postgresql_from_conditions",
+        "ci_postgresql_from_measuringstations",
+        "ci_postgresql_to_data",
+        "ci_postgresql_to_states",
     ]
 
     def lees_config(self):

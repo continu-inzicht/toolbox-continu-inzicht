@@ -1,5 +1,6 @@
 from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
+import numpy as np
 import pandas as pd
 import sqlalchemy
 import inspect
@@ -33,15 +34,20 @@ class DataAdapter(PydanticBaseModel):
         self.input_types["postgresql_database"] = self.input_postgresql
         assert "postgresql_database" in self.config.available_types
 
-        self.input_types["ci_postgresql_waterlevels"] = (
-            self.input_ci_postgresql_waterlevels
+        self.input_types["ci_postgresql_from_waterlevels"] = (
+            self.input_ci_postgresql_from_waterlevels
         )
-        assert "ci_postgresql_waterlevels" in self.config.available_types
+        assert "ci_postgresql_from_waterlevels" in self.config.available_types
 
-        self.input_types["ci_postgresql_conditions"] = (
-            self.input_ci_postgresql_conditions
+        self.input_types["ci_postgresql_from_conditions"] = (
+            self.input_ci_postgresql_from_conditions
         )
-        assert "ci_postgresql_waterlevels" in self.config.available_types
+        assert "ci_postgresql_from_conditions" in self.config.available_types
+
+        self.input_types["ci_postgresql_from_measuringstations"] = (
+            self.input_ci_postgresql_from_measuringstations
+        )
+        assert "ci_postgresql_from_measuringstations" in self.config.available_types
 
     def initialize_output_types(self):
         """Initializes ouput mapping and checks to see if type in the configured types"""
@@ -54,11 +60,13 @@ class DataAdapter(PydanticBaseModel):
         self.output_types["netcdf"] = self.output_netcdf
         assert "netcdf" in self.config.available_types
 
-        self.output_types["ci_postgresql_data"] = self.output_ci_postgresql_data
-        assert "ci_postgresql_data" in self.config.available_types
+        self.output_types["ci_postgresql_to_data"] = self.output_ci_postgresql_to_data
+        assert "ci_postgresql_to_data" in self.config.available_types
 
-        self.output_types["ci_postgresql_states"] = self.output_ci_postgresql_states
-        assert "ci_postgresql_states" in self.config.available_types
+        self.output_types["ci_postgresql_to_states"] = (
+            self.output_ci_postgresql_to_states
+        )
+        assert "ci_postgresql_to_states" in self.config.available_types
 
     @staticmethod
     def validate_dataframe(df: pd.DataFrame, schema: dict):
@@ -274,7 +282,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def input_ci_postgresql_waterlevels(input_config: dict):
+    def input_ci_postgresql_from_waterlevels(input_config: dict):
         """
         Ophalen belasting uit een continu database voor het whatis scenario.
 
@@ -361,7 +369,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def input_ci_postgresql_conditions(input_config: dict):
+    def input_ci_postgresql_from_conditions(input_config: dict):
         """
         Ophalen dremple waarden uit een continu database.
 
@@ -416,6 +424,66 @@ class DataAdapter(PydanticBaseModel):
             INNER JOIN {schema}.parameters AS parameter ON parameter.id=1
             WHERE condition.objecttype='measuringstation'
             ORDER BY condition.objectid,condition.stateid;;
+        """
+
+        # qurey uitvoeren op de database
+        with engine.connect() as connection:
+            df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+        # verbinding opruimen
+        engine.dispose()
+
+        return df
+
+    @staticmethod
+    def input_ci_postgresql_from_measuringstations(input_config: dict):
+        """
+        Ophalen meetstations uit een continu database.
+
+        Args:
+        ----------
+        input_config (dict):
+
+        Opmerking:
+        ------
+        In de `.env` environment bestand moeten de volgende parameters staan:
+        postgresql_user (str):
+        postgresql_password (str):
+        postgresql_host (str):
+        postgresql_port (str):
+
+        In de 'yaml' config moeten de volgende parameters staan:
+        database (str):
+        schema (str):
+
+        Returns:
+        --------
+        pd.Dataframe
+
+        """
+        keys = [
+            "postgresql_user",
+            "postgresql_password",
+            "postgresql_host",
+            "postgresql_port",
+            "database",
+            "schema",
+        ]
+
+        assert all(key in input_config for key in keys)
+
+        # maak verbinding object
+        engine = sqlalchemy.create_engine(
+            f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+        )
+
+        schema = input_config["schema"]
+        query = f"""
+            SELECT 
+                id AS id, 
+                name AS name, 
+                code AS code
+            FROM {schema}.measuringstations;
         """
 
         # qurey uitvoeren op de database
@@ -612,7 +680,7 @@ class DataAdapter(PydanticBaseModel):
         ds.to_netcdf(**kwargs)
 
     @staticmethod
-    def output_ci_postgresql_data(output_config: dict, df):
+    def output_ci_postgresql_to_data(output_config: dict, df):
         """
         Schrijft data naar Continu Inzicht database
 
@@ -697,7 +765,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def output_ci_postgresql_states(output_config: dict, df):
+    def output_ci_postgresql_to_states(output_config: dict, df):
         """
         Schrijft data naar Continu Inzicht database tabel states
 
@@ -800,18 +868,24 @@ class DataAdapter(PydanticBaseModel):
             df_moments["date_time"] = df_moments["date_time"].astype(object)
             df_moments.set_index("date_time")
 
+            df_merge["date_time"] = df_merge["date_time"].astype(object)
             df_merge.set_index("date_time")
-            df_merge = df_merge.merge(df_moments, on="date_time", how="right")
+            df_merge = df_merge.merge(
+                df_moments, on="date_time", how="inner", validate="many_to_one"
+            )
 
             df_merge.set_index(["objectid", "tot"])
-            df_merge = df_merge.merge(df_conditions, on=["objectid", "tot"], how="left")
-            print(df_merge)
+            df_merge = df_merge.merge(
+                df_conditions,
+                on=["objectid", "tot"],
+                how="left",
+                validate="many_to_one",
+            )
 
             # objectid, objecttype, parameterid, momentid, stateid, calculating, changedate
-            parameterid = 1
 
             df_merge["objecttype"] = objecttype
-            df_merge["parameterid"] = parameterid
+            df_merge["parameterid"] = np.where(df_merge["momentid"] <= 0, 1, 2)
             df_merge["calculating"] = True
             df_merge["changedate"] = 0
 

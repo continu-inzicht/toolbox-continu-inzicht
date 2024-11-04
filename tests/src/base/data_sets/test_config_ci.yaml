@@ -1,0 +1,34 @@
+GlobalVariables:
+    rootdir: 'tests/src/base/data_sets'
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    ci_measuringstations: 
+        type: ci_postgresql_from_measuringstations
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    ci_waterlevels: 
+        type: ci_postgresql_from_waterlevels
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    ci_conditions: 
+        type: ci_postgresql_from_conditions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    ci_data: 
+        type: ci_postgresql_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        objecttype: "measuringstation"
+
+    ci_states:   
+        type: ci_postgresql_to_states
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        objecttype: "measuringstation"        
