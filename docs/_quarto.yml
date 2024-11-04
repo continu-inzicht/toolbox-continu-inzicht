@@ -70,12 +70,21 @@ quartodoc:
       desc: Toolbox voor continu inzicht
       package: toolbox_continu_inzicht
       contents: 
-       - base.config
-       - base.data_adapter
+       - config
+       - data_adapter
        - proof_of_concept.example_module
-       - loads.loads_rws_webservice.loads_rws_webservice
-       - loads.loads_fews.loads_fews
-       - loads.loads_waterinfo.loads_waterinfo
+       - loads.LoadsClassify
+       - loads.LoadsFews
+       - loads.get_fews_locations
+       - loads.get_fews_thresholds
+       - loads.LoadsMatroos
+       - loads.get_matroos_locations
+       - loads.LoadsWaterwebservicesRWS
+       - loads.get_rws_webservices_locations
+       - loads.LoadsToMoments
+       - loads.LoadsWaterinfo
+       - loads.get_waterinfo_locations
+       - loads.get_waterinfo_thresholds
 
       #  - base
     

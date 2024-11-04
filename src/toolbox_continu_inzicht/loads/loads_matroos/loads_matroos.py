@@ -19,7 +19,25 @@ aquo_id_dict = {"WATHTE": 4724}
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsMatroos:
     """
-    Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://noos.matroos.rws.nl/
+    De LoadsMatroos klasse haalt belastinggegevens op van de Rijkswaterstaat Waterwebservices.
+
+    Attributes:
+        data_adapter (DataAdapter): De data adapter voor het ophalen en opslaan van gegevens.
+        df_in (Optional[pd.DataFrame] | None): Het invoerdataframe.
+        df_out (Optional[pd.DataFrame] | None): Het uitvoerdataframe.
+        url_retrieve_series_noos (str): De URL voor het ophalen van belastinggegevens van Noos.
+        url_retrieve_series_matroos (str): De URL voor het ophalen van belastinggegevens van Matroos.
+        url_retrieve_series_vitaal (str): De URL voor het ophalen van belastinggegevens van Vitaal.
+
+    Methods:
+        run(input: str, output: str) -> None:
+            Voert de belastingmatroos uit en haalt de belastinggegevens op.
+        format_location_names(location_names: list[str]) -> list[str]:
+            Formateert de locatienamen door spaties te verwijderen en naar kleine letters te converteren.
+        create_dataframe(options: dict, t_now: datetime, json_data: list) -> pd.DataFrame:
+            Maakt een dataframe met waardes van de RWS Waterwebservices.
+        generate_url(t_now, options, global_variables, parameter, location_names) -> str:
+            Geeft de benodigde URL terug om een verzoek naar de Noos-server te maken.
     """
 
     data_adapter: DataAdapter
@@ -33,7 +51,14 @@ class LoadsMatroos:
 
     async def run(self, input: str, output: str) -> None:
         """
-        De runner van de Belasting matroos.
+        Voert de functie uit om gegevens op te halen en te verwerken voor de matroos-toolbox.
+
+        Parameters:
+            input (str): Naam van de dataadapter met invoergegevens.
+            output (str): Naam van de dataadapter om uitvoergegevens op te slaan.
+
+        Returns:
+            None
         """
 
         # haal opties en dataframe van de config
@@ -141,7 +166,7 @@ class LoadsMatroos:
         # loop over de lijst met data heen
         for serie in json_data["results"]:
             # hier zit ook coordinaten in
-            measurement_location_id = serie["location"]["properties"]["locationId"]
+            measurement_location_id = int(serie["location"]["properties"]["locationId"])
             measurement_location_name = serie["location"]["properties"]["locationName"]
             measurement_location_code = measurement_location_name.lower().replace(
                 " ", ""
