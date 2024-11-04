@@ -21,23 +21,13 @@ class LoadsMatroos:
     """
     De LoadsMatroos klasse haalt belastinggegevens op van de Rijkswaterstaat Waterwebservices.
 
-    Attributes:
-        data_adapter (DataAdapter): De data adapter voor het ophalen en opslaan van gegevens.
-        df_in (Optional[pd.DataFrame] | None): Het invoerdataframe.
-        df_out (Optional[pd.DataFrame] | None): Het uitvoerdataframe.
-        url_retrieve_series_noos (str): De URL voor het ophalen van belastinggegevens van Noos.
-        url_retrieve_series_matroos (str): De URL voor het ophalen van belastinggegevens van Matroos.
-        url_retrieve_series_vitaal (str): De URL voor het ophalen van belastinggegevens van Vitaal.
-
-    Methods:
-        run(input: str, output: str) -> None:
-            Voert de belastingmatroos uit en haalt de belastinggegevens op.
-        format_location_names(location_names: list[str]) -> list[str]:
-            Formateert de locatienamen door spaties te verwijderen en naar kleine letters te converteren.
-        create_dataframe(options: dict, t_now: datetime, json_data: list) -> pd.DataFrame:
-            Maakt een dataframe met waardes van de RWS Waterwebservices.
-        generate_url(t_now, options, global_variables, parameter, location_names) -> str:
-            Geeft de benodigde URL terug om een verzoek naar de Noos-server te maken.
+    Args:
+        data_adapter: DataAdapter
+            De data adapter voor het ophalen en opslaan van gegevens.
+        df_in: Optional[pd.DataFrame] | None = None
+            Het invoerdataframe.
+        df_out: Optional[pd.DataFrame] | None = None
+            Het uitvoerdataframe.
     """
 
     data_adapter: DataAdapter
@@ -53,12 +43,12 @@ class LoadsMatroos:
         """
         Voert de functie uit om gegevens op te halen en te verwerken voor de matroos-toolbox.
 
-        Parameters:
-            input (str): Naam van de dataadapter met invoergegevens.
-            output (str): Naam van de dataadapter om uitvoergegevens op te slaan.
-
-        Returns:
-            None
+        Parameters
+        ----------
+        input: str
+            Naam van de dataadapter met invoergegevens.
+        output: str
+            Naam van de dataadapter om uitvoergegevens op te slaan.
         """
 
         # haal opties en dataframe van de config
@@ -146,20 +136,30 @@ class LoadsMatroos:
 
     @staticmethod
     def format_location_names(location_names: list[str]) -> list[str]:
-        """takes a list with locations names and removes spaces and make lower case"""
+        """Neemt een lijst met locatienamen en verwijdert spaties en maakt ze allemaal in kleine letters"""
         return [location.lower().replace(" ", "") for location in location_names]
 
     @staticmethod
     def create_dataframe(
         options: dict, t_now: datetime, json_data: list
     ) -> pd.DataFrame:
-        """Maakt een dataframe met waardes van de rws water webservices
+        """
+        Maakt een dataframe met waardes van de rws water webservices
 
-        Args:
-            json_data (str): JSON data
+        Parameters
+        ----------
+        options: dict
+            Een dictionary met opties uit de config
+        t_now: datetime
+            De huidige tijd
+        json_data: list
+            Een lijst met JSON data
+
 
         Returns:
-            Dataframe: Pandas dataframe geschikt voor uitvoer
+        --------
+            pd.Dataframe
+                Pandas dataframe geschikt voor uitvoer
         """
         dataframe = pd.DataFrame()
         records = []
@@ -213,13 +213,26 @@ class LoadsMatroos:
     def generate_url(
         self, t_now, options, global_variables, parameter, location_names
     ) -> str:
-        """Returns the needed url to make the request to the Noos server
+        """
+        Geeft de benodigde URL terug om het verzoek naar de Noos-server te maken
 
-        Args:
-            t_now: datetime
-                Huidige tijd, wordt gebruikt om meest recente voorspelling op te halen
-            options: dict
-                opties die door gebruiker zijn opgegeven, in dit geval is source het belangrijkst
+        Parameters
+        ----------
+        t_now: datetime
+            Huidige tijd, wordt gebruikt om de meest recente voorspelling op te halen
+        options: dict
+            Opties die door de gebruiker zijn opgegeven, in dit geval is 'source' het belangrijkst
+        global_variables: dict
+            Globale variabelen die nodig zijn om de URL te genereren
+        parameter: str
+            Eenheid van de parameter waarvoor gegevens worden opgehaald
+        location_names: list
+            Lijst van locatienamen waarvoor gegevens worden opgehaald
+
+        Returns
+        -------
+            str
+                De gegenereerde URL voor het verzoek aan de Noos-server
         """
         if "website" not in options:
             raise UserWarning(
