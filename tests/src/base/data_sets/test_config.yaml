@@ -17,7 +17,7 @@ DataAdapter:
         path: 'test_csv_out.csv'
     MyPostgresql: 
         type: postgresql_database
-        table: data
+        table: data_test
     MyNetCDF_in:
         type: netcdf
         path: 'test_netcdf_in.nc'

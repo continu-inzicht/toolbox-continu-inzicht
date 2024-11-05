@@ -134,8 +134,7 @@ Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](
 
 GlobalVariables:
     rootdir: "data_sets"  
-    moments: [-24,0,24,48]
-	...
+    moments: [-24,0,24,48]	
 
     LoadsFews:
         host: "https:**********"
@@ -144,12 +143,44 @@ GlobalVariables:
         version: "1.25"
         filter: "HKV_WV_1"
         parameters: ["WNSHDB1"]  
-        MISSING_VALUE: -9999.0    
+        
 
 DataAdapter:
 	...
-
 ```
+
+##### GlobalVariables:
+- rootdir: Bestandlocatie van de invoer/ uitvoerbestanden
+- moments: Momenten in uren waar gegevens voor opgehaald moet worden
+
+
+##### LoadsFews:
+- host: Fews PI REST url
+- port: Fews PI REST poortnummer
+- region: FEWS PI REST regionaam
+- version: FEWS PI versienummer
+- filter: Filternaam zoals deze in FEWS wordt gebruikt
+- parameters: Parameternaam zoals deze in FEWS wordt gebruikt
+
+
+##### Invoer schema locaties:
+- measurement_location_id (int): Meetlocatie id
+- measurement_location_code (str): Meetlocatie code
+- measurement_location_description (str): Meetlocatie omschrijving/naam
+
+
+##### Uitvoer schema:    
+- measurement_location_id (int): Meetlocatie id
+- measurement_location_code (str): Meetlocatie code
+- measurement_location_description (str): Meetlocatie omschrijving/naam
+- parameter_id (int): Parameter id overeenkomstig Aquo-standaard
+- parameter_code (str): Parameter code overeenkomstig Aquo-standaard
+- parameter_description (str): Parameter omschrijving overeenkomstig Aquo-standaard
+- unit (str): Eenheid van de waarde
+- date_time (datetime): Datum en tijd van de waarde
+- value (float): Waarde
+- value_type (str): Type waarde: meting of verwachting
+
 
 #### Matroos
 Matroos of `Multifunctional Access Tool foR Operational Oceandata Services` is een systeem van Rijkswaterstaat (RWS). Recente waterstand metingen en verwachtingen kunnen hieruit worden opgehaald.  Matroos is beschikbaar in verschillende smaken, waarvan drie relevant. De verschillen worden in de tabel hieronder toegelicht, zie [iplo.nl](https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf) voor meer informatie. In de toolbox wordt nu alleen de series API gebruikt dus volstaat NOOS. 
@@ -202,7 +233,23 @@ Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_location
 #### RWS waterinfo
 Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Deze is openbaar, wel moet de maptype als parameter worden opgegeven.
 
-voorbeeld van maptypes:
+
+```yaml
+ GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,48]
+
+    LoadsWaterinfo:
+        parameters: ["waterhoogte"]
+
+```
+##### GlobalVariables:
+- rootdir: Bestandlocatie van de invoer/ uitvoerbestanden
+- moments: Momenten in uren waar gegevens voor opgehaald moet worden
+
+##### LoadsWaterinfo:
+- parameters:
+
 |omschrijving|maptype|periode|
 |--|--|--|
 |Waterhoogte in cm|waterhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0| 
@@ -215,16 +262,25 @@ voorbeeld van maptypes:
 |Debiet in m3/s|waterafvoer|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit:-216,48<br>28d terug:-672,0|
 |Chloride in mg/l|zouten|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
 
-```yaml
- GlobalVariables:
-    rootdir: "data_sets"
+##### Invoer schema locaties:
+- measurement_location_id (int): Meetlocatie id
+- measurement_location_code (str): Meetlocatie code
+- measurement_location_description (str): Meetlocatie omschrijving/naam
 
-    LoadsWaterinfo:
-        parameters: ["waterhoogte"]
 
-```
+##### Uitvoer schema:    
+- measurement_location_id (int): Meetlocatie id
+- measurement_location_code (str): Meetlocatie code
+- measurement_location_description (str): Meetlocatie omschrijving/naam
+- parameter_id (int): Parameter id overeenkomstig Aquo-standaard
+- parameter_code (str): Parameter code overeenkomstig Aquo-standaard
+- parameter_description (str): Parameter omschrijving overeenkomstig Aquo-standaard
+- unit (str): Eenheid van de waarde
+- date_time (datetime): Datum en tijd van de waarde
+- value (float): Waarde
+- value_type (str): Type waarde: meting of verwachting
 
-### Classificeren van beslastingen
+### Classificeren van belastingen
 
 ```{=html}
 <!-- ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
