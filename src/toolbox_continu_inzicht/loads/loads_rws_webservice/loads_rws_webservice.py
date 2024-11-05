@@ -18,6 +18,15 @@ RWS_webservices_verwacht = {"WATHTEVERWACHT": "WATHTE"}
 class LoadsWaterwebservicesRWS:
     """
     Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/
+
+    Attributes
+    ----------
+        data_adapter: DataAdapter
+            De data adapter voor het ophalen en opslaan van gegevens.
+        df_in: Optional[pd.DataFrame] | None = None
+            Het invoerdataframe.
+        df_out: Optional[pd.DataFrame] | None = None
+            Het uitvoerdataframe.
     """
 
     data_adapter: DataAdapter
@@ -108,11 +117,19 @@ class LoadsWaterwebservicesRWS:
     ) -> pd.DataFrame:
         """Maakt een dataframe met waardes van de rws water webservices
 
-        Args:
-            json_data (str): JSON data
+        Parameters
+        ----------
+        options: dict
+            Een dictionary met opties uit de config
+        t_now: datetime
+            De huidige tijd
+        lst_data: list
+            Een lijst met JSON data uit de post request
 
         Returns:
-            Dataframe: Pandas dataframe geschikt voor uitvoer
+        --------
+            pd.Dataframe
+                Pandas dataframe geschikt voor uitvoer
         """
         dataframe = pd.DataFrame()
         records = []

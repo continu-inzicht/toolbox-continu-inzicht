@@ -72,17 +72,13 @@ yaml = "*"
 sqlalchemy = "*"
 types-pyyaml = "*"
 psycopg2 = "*"
-
+jupyter-cache = ">=1.0.0,<2"
+python-dotenv = ">=1.0.1,<2"
+netcdf4 = ">=1.7.1,<2"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
 
-
 [environments]
 default = { features = ["common"] }
 
-[dependencies]
-jupyter-cache = ">=1.0.0,<2"
-python-dotenv = ">=1.0.1,<2"
-netcdf4 = ">=1.7.1,<2"
-pytest = ">=8.3.3,<9"
