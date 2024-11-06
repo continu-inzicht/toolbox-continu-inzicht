@@ -7,12 +7,17 @@ website:
   navbar:
     logo: https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png
     left:
-      - text: "Achtergrond"
-        file: index.qmd
-      - text: "Python documentatie"
-        file: reference/index.qmd
+      - text: "Installeren"
+        file:  install.qmd
       - text: "Voorbeelden"
         file: examples/notebooks/proof_of_concept.ipynb
+      - text: "Modules"
+        file:  modules.qmd
+      - text: "Python API"
+        file: reference/index.qmd
+      - text: "Overig"
+        file: contact.qmd
+          
     right:
       - text: "Bijdragen"
         file: contributing.qmd
@@ -21,24 +26,29 @@ website:
         aria-label: GitHub
 
   sidebar:
-      - title: "Achtergrond"
+      - title: "Installeren"
         contents:
-          - index.qmd
-          - modules.qmd
-          - tests.qmd
-          - contact.qmd
           - install.qmd
-          - changelog.qmd
-
-      - title: "Python documentatie"
-        contents:
-          - reference/index.qmd
       
       - title: "Voorbeelden"
         contents:
           - examples/notebooks/proof_of_concept.ipynb
         
-      - title: "Bijdagen"
+      - title: "Modules"
+        contents:
+          - modules.qmd
+
+      - title: "Python API"
+        contents:
+          - reference/index.qmd
+
+      - title: "Overig"
+        contents:
+          - contact.qmd
+          - tests.qmd
+          - changelog.qmd
+        
+      - title: "Bijdragen"
         contents:
           - contributing.qmd
 

@@ -41,8 +41,12 @@ class LoadsToMoments:
         # TODO add validate schema
         global_variables = self.data_adapter.config.global_variables
         moments = global_variables["moments"]
-        options = global_variables["LoadsMaxima"]
-        tide = options["tide"]
+
+        if "LoadsToMoments" in global_variables:
+            options = global_variables["LoadsToMoments"]
+            tide = options["tide"]
+        else:
+            tide = False
 
         dt_now = datetime.now(timezone.utc)
         t_now = datetime(
@@ -86,7 +90,7 @@ class LoadsToMoments:
 
                     lst_dfs.append(df_moment)
         else:
-            for index, moment in enumerate(dt_moments):
+            for moment in dt_moments:
                 df_moment = self.get_moment_from_dataframe(moment, df_moments)
                 lst_dfs.append(df_moment)
 

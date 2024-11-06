@@ -6,18 +6,18 @@ DataAdapter:
         postgresql_database:
             database: 'citoolbox'
             schema: 'citoolbox_schema'
-    MyCSV_in: 
+    my_csv_in: 
         type: csv
         file: 'test_csv_in.csv'
-    MyCSV_out: 
+    my_csv_out: 
         type: csv
         file: 'test_csv_out.csv'
-    MyPostgresql: 
+    my_postgresql: 
         type: postgresql_database
         table: data
-    MyNetCDF_in:
+    my_netcdf_in:
         type: netcdf
         file: 'test_netcdf_in.nc'
-    MyNetCDF_out:
+    my_netcdf_out:
         type: netcdf
         file: 'test_netcdf_out.nc'

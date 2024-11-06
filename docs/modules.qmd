@@ -26,42 +26,42 @@ Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook
 Het kopje `GlobalVariables` is verplicht met minimaal een `rootdir`: dit is een map waarin de data bestanden staan en weggeschreven worden. De `DataAdapter` is ook verplicht, met minimaal één data adapter. De naam van de adapter kan vrij gekozen worden, hier van kunnen zo veel als gewenst worden aangemaakt
 ```yaml
 GlobalVariables:
-    rootdir: 'C:/data/toobox/'
+    rootdir: "C:/data/toobox/"
 
 DataAdapter:
     EenTypeDataAdapter: 
         type: csv
-        file: 'eerste_voorbeeld.csv'
+        file: "eerste_voorbeeld.csv"
 ```
 
 
 Onder `GlobalVariables` kan per data type variabele worden meegegeven die voor alle adapters van dit type gelden. Voor `csv` kan dit bijvoorbeeld het scheidingsteken zijn. Alle data adapters met het type `csv` krijgen nu de extra variabele mee. 
 ```yaml
 GlobalVariables:
-    rootdir: 'C:/data/toobox/'
+    rootdir: "C:/data/toobox/"
 
 DataAdapter:
     default_options:
         csv:
-    	    sep: ';'
+    	    sep: ";"
     EenTypeDataAdapter: 
         type: csv
-        file: 'eerste_voorbeeld.csv'
+        file: "eerste_voorbeeld.csv"
     CSV_output: 
         type: csv
-        file: 'voorbeeld_output.csv'
+        file: "voorbeeld_output.csv"
 ```
 
 
 Naast de data adapters worden modules ook geconfigureerd in de `GlobalVariables`. Zo worden de opties voor de module `LoadsMatroos` ook mee gegeven in de `GlobalVariables`. 
 ```yaml
 GlobalVariables:
-    rootdir: 'C:/data/toobox/'
+    rootdir: "C:/data/toobox/"
     
     LoadsMatroos:
-        website: 'noos'
-        source: 'dcsm6_kf'
-        parameters: ['waterlevel']
+        website: "noos"
+        source: "dcsm6_kf"
+        parameters: ["waterlevel"]
         MISSING_VALUE: 999
 
 DataAdapter:
@@ -80,15 +80,15 @@ Deze wordt geconfigureerd in de een `.yaml` configuratie bestand, een voorbeeld 
 
 ```yaml
 GlobalVariables:
-    rootdir: 'data_sets'
+    rootdir: "data_sets"
 
 DataAdapter:
     MyCSV_in: 
         type: csv
-        file: 'test_csv_in.csv'
+        file: "test_csv_in.csv"
     MyCSV_out: 
         type: csv
-        file: 'test_csv_out.csv'
+        file: "test_csv_out.csv"
 ...
 ```
 
@@ -97,7 +97,7 @@ Indien een bestand buiten de root directory valt kan in plaats van `file `ook ee
 DataAdapter:
     MyCSV_anders: 
         type: csv
-        path: 'C:/data/Ander/pad_naar_csv.csv'
+        path: "C:/data/Ander/pad_naar_csv.csv"
 ...
 ```
 
@@ -105,13 +105,13 @@ Naast de verplichte opties, worden alle overige opties doorgegeven aan de output
 
 ### Wachtwoorden
 
-Voor bepaalde diensten, zo als toegang tot een database, zijn wachtwoorden nodig. Deze kunnen in de 'environmental variables' worden mee gegeven, in de vorm van een `.env` bestand. 
+Voor bepaalde diensten, zo als toegang tot een database, zijn wachtwoorden nodig. Deze kunnen in de "environmental variables" worden mee gegeven, in de vorm van een `.env` bestand. 
 ```yaml
-postgresql_host='xxx.xx.xx.xx'
-postgresql_database='xxxxxxx'
-postgresql_port='xxxx'
-postgresql_password='xxxx'
-postgresql_user='xx'
+postgresql_host="xxx.xx.xx.xx"
+postgresql_database="xxxxxxx"
+postgresql_port="xxxx"
+postgresql_password="xxxx"
+postgresql_user="xx"
 ```
 
 ## Belastingen inlezen en classificeren {#sec-belastingen}
@@ -225,7 +225,7 @@ Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen r
 
 ```yaml
     LoadsWaterwebservicesRWS:
-        parameters:  ['WATHTE']
+        parameters:  ["WATHTE"]
 ```
 
 Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_locations()`. 
@@ -281,6 +281,35 @@ Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaa
 - value_type (str): Type waarde: meting of verwachting
 
 ### Classificeren van belastingen
+
+De verschillende hierboven benoemde klasses voor het inlezen van belastingen geven een tijdreeks terug op bepaalde punten.
+Deze kunnen worden geinterpoleerd met 
+
+
+#### Classificeren
+Met grenswaardes kunnen de waterstanden worden geclassificeerd. Dit kan met de klasse `LoadsClassify`.
+
+#### Tijdreeks naar momenten
+
+Om de tijdsreeks om te zetten naar specifieke momenten kan de klasse `LoadsToMoments` worden gebruikt.
+
+Voor getij is hier configuratie voor nodig, anders wordt er uit gegaan van het geval zonder getij.
+Bij getij wordt de maximum waarde tijdens een getij cyclus (+/-12.25 uur) als moment gebruikt. 
+
+```yaml
+ GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+
+    LoadsToMoments:
+        tide: true
+
+```
+
+#### Toekennen van belastingen
+
+Alleen om meetlocaties zijn de waterstanden in eerste instantie beschikbaar als ze zijn opgehaald door de belasting klasses. Om deze om te zetten naar waardes bij dijkvakken kan de `SectionsLoads` klasse worden gebruikt. 
+
 
 ```{=html}
 <!-- ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
