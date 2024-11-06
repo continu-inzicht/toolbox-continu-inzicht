@@ -2,7 +2,7 @@ GlobalVariables:
     rootdir: "tests/src/loads/data_sets"  
     moments: [-24,0,24,48] 
 
-    LoadsMaxima:
+    LoadsToMoments:
         tide: True
 
 DataAdapter:
