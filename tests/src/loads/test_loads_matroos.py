@@ -580,7 +580,7 @@ def test_LoadsMatroos_data_frame():
         "measurement_location_description",
         "parameter_id",
         "parameter_code",
-        "datetime",
+        "date_time",
         "value",
         "value_type",
     ]

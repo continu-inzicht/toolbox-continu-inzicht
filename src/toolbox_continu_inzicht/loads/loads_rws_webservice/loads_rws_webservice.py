@@ -164,7 +164,7 @@ class LoadsWaterwebservicesRWS:
                         "measurement_location_description": measurement_location_name,
                         "parameter_id": parameter_id,
                         "parameter_code": parameter_code,
-                        "datetime": utc_dt,
+                        "date_time": utc_dt,
                         "unit": unit,
                         "value": value,
                         "value_type": value_type,

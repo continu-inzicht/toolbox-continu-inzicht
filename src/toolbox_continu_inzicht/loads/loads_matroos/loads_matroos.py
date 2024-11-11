@@ -199,7 +199,7 @@ class LoadsMatroos:
                     "measurement_location_description": measurement_location_name,
                     "parameter_id": parameter_id,
                     "parameter_code": parameter_code,
-                    "datetime": utc_dt,
+                    "date_time": utc_dt,
                     "unit": "cm",
                     "value": value_cm,
                     "value_type": value_type,
