@@ -6,6 +6,7 @@ import sqlalchemy
 import inspect
 import warnings
 import xarray as xr
+from typing import Tuple
 
 from dotenv import load_dotenv, dotenv_values
 from toolbox_continu_inzicht.base.config import Config
@@ -19,7 +20,7 @@ class DataAdapter(PydanticBaseModel):
     input_types: dict = {}
     output_types: dict = {}
 
-    def initialize_input_types(self):
+    def initialize_input_types(self) -> None | AssertionError:
         """
         Initializes input mapping and checks to see if type in the configured types
 
@@ -49,7 +50,7 @@ class DataAdapter(PydanticBaseModel):
         )
         assert "ci_postgresql_from_measuringstations" in self.config.available_types
 
-    def initialize_output_types(self):
+    def initialize_output_types(self) -> None | AssertionError:
         """Initializes ouput mapping and checks to see if type in the configured types"""
         self.output_types["csv"] = self.output_csv
         assert "csv" in self.config.available_types
@@ -69,7 +70,7 @@ class DataAdapter(PydanticBaseModel):
         assert "ci_postgresql_to_states" in self.config.available_types
 
     @staticmethod
-    def validate_dataframe(df: pd.DataFrame, schema: dict):
+    def validate_dataframe(df: pd.DataFrame, schema: dict) -> Tuple[int, str]:
         expected_columns = list(schema.keys())
 
         actual_columns = df.columns.tolist()
@@ -94,7 +95,7 @@ class DataAdapter(PydanticBaseModel):
                     f"Datatypes komen niet overeen.\nVerwachte kolommen: {schema}.\nHuidige kolommen: {actual_dtypes}.",
                 )
 
-    def input(self, input: str, schema: dict = None):
+    def input(self, input: str, schema: dict = None) -> pd.DataFrame:
         """Gegeven het config, stuurt de juiste input waarde aan
 
         Parameters:
@@ -108,45 +109,46 @@ class DataAdapter(PydanticBaseModel):
         """
         self.initialize_input_types()  # maak een dictionary van type: functie
         # haal de input configuratie op van de functie
-        functie_input_config = self.config.data_adapters[input]
+        function_input_config = self.config.data_adapters[input]
         # leid het data type af
-        data_type = functie_input_config["type"]
+        data_type = function_input_config["type"]
 
         check_rootdir(self.config.global_variables)
 
         # pad relatief tot rootdir mee gegeven in config
-        if "file" in functie_input_config:
+        if "file" in function_input_config:
             # als de gebruiker een compleet pad mee geeft:
             if Path(self.config.global_variables["rootdir"]).is_absolute():
-                functie_input_config["abs_path"] = (
+                function_input_config["abs_path"] = (
                     Path(self.config.global_variables["rootdir"])
-                    / functie_input_config["file"]
+                    / function_input_config["file"]
                 )
             # als rootdir geen absoluut pad is, nemen we relatief aan
             else:
-                functie_input_config["abs_path"] = (
+                function_input_config["abs_path"] = (
                     Path.cwd()
                     / self.config.global_variables["rootdir"]
-                    / functie_input_config["file"]
+                    / function_input_config["file"]
                 )
 
-            if not functie_input_config["abs_path"].is_absolute():
+            if not function_input_config["abs_path"].is_absolute():
                 raise UserWarning(
-                    f"Check if root dir ({self.config.global_variables['rootdir']}) and file ({functie_input_config['file']}) exist"
+                    f"Check if root dir ({self.config.global_variables['rootdir']}) and file ({function_input_config['file']}) exist"
                 )
         # als een pad wordt mee gegeven
-        elif "path" in functie_input_config:
+        elif "path" in function_input_config:
             # eerst checken of het absoluut is
-            if Path(functie_input_config["path"]).is_absolute():
-                functie_input_config["abs_path"] = Path(functie_input_config["path"])
+            if Path(function_input_config["path"]).is_absolute():
+                function_input_config["abs_path"] = Path(function_input_config["path"])
             # anders alsnog toevoegen
             else:
-                functie_input_config["abs_path"] = (
+                function_input_config["abs_path"] = (
                     Path(self.config.global_variables["rootdir"])
-                    / functie_input_config["path"]
+                    / function_input_config["path"]
                 )
 
         # uit het .env bestand halen we de extra waardes en laden deze in de config
+        # .env is een lokaal bestand waar wachtwoorden in kunnen worden opgeslagen, zie .evn.template
         environmental_variables = {}
         dotenv_path = None
         if "dotenv_path" in self.config.global_variables:
@@ -161,13 +163,13 @@ class DataAdapter(PydanticBaseModel):
             )
 
         # in eerste instantie alleen beschikbaar voor de data adapters
-        functie_input_config.update(environmental_variables)
+        function_input_config.update(environmental_variables)
         # maar je wilt er  vanuit de functies ook bij kunnen
         self.config.global_variables.update(environmental_variables)
 
         # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
-        bijbehorende_functie = self.input_types[data_type]
-        df = bijbehorende_functie(functie_input_config)
+        correspinding_function = self.input_types[data_type]
+        df = correspinding_function(function_input_config)
 
         # Als schema is meegegeven, controleer of de data aan het schema voldoet.
         if schema is not None:
@@ -178,7 +180,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def input_csv(input_config):
+    def input_csv(input_config: dict) -> pd.DataFrame:
         """Laat een csv bestand in gegeven een pad
 
         Returns:
@@ -193,7 +195,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def input_postgresql(input_config: dict):
+    def input_postgresql(input_config: dict) -> pd.DataFrame:
         """Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.
 
         Parametes:
@@ -264,7 +266,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def input_netcdf(input_config):
+    def input_netcdf(input_config: dict) -> pd.DataFrame:
         """Laat een netcdf bestand in gegeven een pad
 
         Notes:
@@ -286,7 +288,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def input_ci_postgresql_from_waterlevels(input_config: dict):
+    def input_ci_postgresql_from_waterlevels(input_config: dict) -> pd.DataFrame:
         """
         Ophalen belasting uit een continu database voor het whatis scenario.
 
@@ -373,7 +375,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def input_ci_postgresql_from_conditions(input_config: dict):
+    def input_ci_postgresql_from_conditions(input_config: dict) -> pd.DataFrame:
         """
         Ophalen dremple waarden uit een continu database.
 
@@ -440,7 +442,7 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     @staticmethod
-    def input_ci_postgresql_from_measuringstations(input_config: dict):
+    def input_ci_postgresql_from_measuringstations(input_config: dict) -> pd.DataFrame:
         """
         Ophalen meetstations uit een continu database.
 
@@ -499,7 +501,7 @@ class DataAdapter(PydanticBaseModel):
 
         return df
 
-    def output(self, output: str, df: pd.DataFrame):
+    def output(self, output: str, df: pd.DataFrame) -> pd.DataFrame:
         """Gegeven het config, stuurt de juiste input waarde aan
 
         Parameters:
@@ -569,11 +571,10 @@ class DataAdapter(PydanticBaseModel):
 
         # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
         bijbehorende_functie = self.output_types[data_type]
-        df = bijbehorende_functie(functie_output_config, df)
-        return df
+        bijbehorende_functie(functie_output_config, df)
 
     @staticmethod
-    def output_csv(output_config, df):
+    def output_csv(output_config: dict, df: pd.DataFrame):
         """schrijft een csv bestand in gegeven een pad
 
         Notes:
@@ -593,7 +594,7 @@ class DataAdapter(PydanticBaseModel):
         df.to_csv(path, **kwargs)
 
     @staticmethod
-    def output_postgresql(output_config, df):
+    def output_postgresql(output_config: dict, df: pd.DataFrame):
         """Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.
 
         Parametes:
@@ -684,7 +685,7 @@ class DataAdapter(PydanticBaseModel):
         ds.to_netcdf(**kwargs)
 
     @staticmethod
-    def output_ci_postgresql_to_data(output_config: dict, df):
+    def output_ci_postgresql_to_data(output_config: dict, df: pd.DataFrame):
         """
         Schrijft data naar Continu Inzicht database
 
@@ -767,10 +768,8 @@ class DataAdapter(PydanticBaseModel):
             # verbinding opruimen
             engine.dispose()
 
-        return df
-
     @staticmethod
-    def output_ci_postgresql_to_states(output_config: dict, df):
+    def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
         """
         Schrijft data naar Continu Inzicht database tabel states
 
@@ -887,7 +886,7 @@ class DataAdapter(PydanticBaseModel):
                 validate="many_to_one",
             )
 
-            # objectid, objecttype, parameterid, momentid, stateid, calculating, changedate
+            # haal [objectid, objecttype, parameterid, momentid, stateid, calculating, changedate] op
 
             df_merge["objecttype"] = objecttype
             df_merge["parameterid"] = np.where(df_merge["momentid"] <= 0, 1, 2)
@@ -919,10 +918,8 @@ class DataAdapter(PydanticBaseModel):
             # verbinding opruimen
             engine.dispose()
 
-        return df
 
-
-def get_kwargs(function, input_config):
+def get_kwargs(function, input_config: dict) -> dict:
     """
     Gegeven een input/output functie, stuurt de relevanten kwargs uit de input config naar de functie.
     """
@@ -934,7 +931,7 @@ def get_kwargs(function, input_config):
     return {key: input_config[key] for key in wanted_keys}
 
 
-def check_rootdir(global_variables):
+def check_rootdir(global_variables: dict) -> None | UserWarning:
     """
     Checkt of de rootdir bestaat
     """
