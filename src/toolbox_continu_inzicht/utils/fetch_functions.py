@@ -1,7 +1,7 @@
 import httpx
 
 
-async def fetch_data(
+def fetch_data(
     url: str,
     params: dict,
     mime_type: str = "text",
@@ -28,14 +28,14 @@ async def fetch_data(
     if path_certificate is None:
         path_certificate = False
 
-    async with httpx.AsyncClient(verify=path_certificate) as client:
+    with httpx.Client(verify=path_certificate) as client:
         try:
             headers = {}
             if mime_type == "json":
                 # Zet de 'Accept' header naar application/json
                 headers = {"Accept": "application/json"}
 
-            response = await client.get(
+            response = client.get(
                 url=url, params=params, timeout=timeout, headers=headers
             )
 
@@ -55,7 +55,7 @@ async def fetch_data(
     return result, data
 
 
-async def fetch_data_post(
+def fetch_data_post(
     url: str, json: dict, mime_type: str = "text", timeout: float = 60.0
 ):
     """
@@ -74,9 +74,9 @@ async def fetch_data_post(
     data = None
     result = None
 
-    async with httpx.AsyncClient() as client:
+    with httpx.Client() as client:
         try:
-            response = await client.post(url=url, json=json, timeout=timeout)
+            response = client.post(url=url, json=json, timeout=timeout)
 
             if response.status_code == httpx.codes.OK:
                 if mime_type == "json":
@@ -92,3 +92,4 @@ async def fetch_data_post(
 
     # Geef resultaat terug
     return result, data
+

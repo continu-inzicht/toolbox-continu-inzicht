@@ -2,7 +2,7 @@ from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.loads import LoadsMatroos
-import asyncio
+
 import pytest
 from datetime import datetime, timezone
 
@@ -15,14 +15,7 @@ def test_LoadsMatroos_noos():
     data = DataAdapter(config=c)
 
     matroos = LoadsMatroos(data_adapter=data)
-    try:
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-
-    loop.run_until_complete(
-        matroos.run(input="BelastingLocaties", output="Waterstanden")
-    )
+    matroos.run(input="BelastingLocaties", output="Waterstanden")
 
     assert len(matroos.df_out) > 100
 
@@ -37,18 +30,9 @@ def test_LoadsMatroos_no_website():
     data = DataAdapter(config=c)
 
     matroos = LoadsMatroos(data_adapter=data)
-    try:
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-
     match = "Specify a `website` to consult in config: Noos, Matroos or Vitaal. In case of the later two, also provide a password and username"
     with pytest.raises(UserWarning, match=match):
-        loop.run_until_complete(
-            matroos.run(input="BelastingLocaties", output="Waterstanden")
-        )
-
-    matroos
+        matroos.run(input="BelastingLocaties", output="Waterstanden")
 
 
 def test_LoadsMatroos_create_url_vitaal():

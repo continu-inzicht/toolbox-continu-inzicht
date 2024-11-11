@@ -7,9 +7,7 @@ from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.loads import LoadsWaterinfo
 
-
-@pytest.mark.asyncio()
-async def test_run():
+def test_run():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path / "test_loads_waterinfo_config.yaml"
@@ -27,7 +25,7 @@ async def test_run():
         os.remove(output_file)
 
     waterinfo = LoadsWaterinfo(data_adapter=data_adapter)
-    df_output = await waterinfo.run(input="locaties", output="waterstanden")
+    df_output = waterinfo.run(input="locaties", output="waterstanden")
 
     assert os.path.exists(output_file)
 
@@ -35,8 +33,7 @@ async def test_run():
     assert len(df_output) > 0
 
 
-@pytest.mark.asyncio()
-async def test_run_luchttemperatuur():
+def test_run_luchttemperatuur():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path
@@ -55,7 +52,7 @@ async def test_run_luchttemperatuur():
         os.remove(output_file)
 
     waterinfo = LoadsWaterinfo(data_adapter=data_adapter)
-    df_output = await waterinfo.run(input="locaties", output="waterstanden")
+    df_output = waterinfo.run(input="locaties", output="waterstanden")
 
     assert os.path.exists(output_file)
 

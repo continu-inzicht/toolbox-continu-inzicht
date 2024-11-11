@@ -7,8 +7,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.sections import SectionsLoads
 
 
-@pytest.mark.asyncio()
-async def test_run():
+def test_run():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_sets_path / "test_sections_loads_config.yaml")
     config.lees_config()
@@ -26,7 +25,7 @@ async def test_run():
 
     sections_loads = SectionsLoads(data_adapter=data_adapter)
 
-    df_output = await sections_loads.run(
+    df_output = sections_loads.run(
         input=["dijkvakken", "waterstanden", "koppeling_meetstation_dijkvak"],
         output="waterstanden_per_dijkvak",
     )

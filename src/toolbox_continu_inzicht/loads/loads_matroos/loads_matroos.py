@@ -39,7 +39,7 @@ class LoadsMatroos:
     url_retrieve_series_matroos: str = "matroos.rws.nl/direct/get_series.php?"
     url_retrieve_series_vitaal: str = "vitaal.matroos.rws.nl/direct/get_series.php?"
 
-    async def run(self, input: str, output: str) -> None:
+    def run(self, input: str, output: str) -> None:
         """
         Voert de functie uit om gegevens op te halen en te verwerken voor de matroos-toolbox.
 
@@ -65,7 +65,7 @@ class LoadsMatroos:
                 f"Input data 'measurement_location_code' ontbreekt in kollomen {self.df_in.columns}"
             )
         else:
-            df_sources = await get_matroos_models()
+            df_sources = get_matroos_models()
             # maak een lijst met alle parameter namen, noos herhekend ook een heleboel aliases
             list_aliases = []
             for alias in list(df_sources["source_alias"]):
@@ -77,7 +77,7 @@ class LoadsMatroos:
                 )
 
             # haal de locaties op die bij de bron horen
-            gdf_locations = await get_matroos_locations(source=options["model"])
+            gdf_locations = get_matroos_locations(source=options["model"])
             available_location_names = list(gdf_locations["measurement_location_code"])
             # maak een set van de namen en formateer ze zonder spaties en hoofdletters
             available_location_names = set(
@@ -118,7 +118,7 @@ class LoadsMatroos:
             request_forecast_url = self.generate_url(
                 t_now, options, global_variables, aquo_parameter, wanted_location_names
             )
-            status, json_data = await fetch_data(
+            status, json_data = fetch_data(
                 url=request_forecast_url, params={}, mime_type="json"
             )
             if status is None and json_data is not None:

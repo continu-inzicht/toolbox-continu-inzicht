@@ -7,8 +7,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.loads import LoadsClassify
 
 
-@pytest.mark.asyncio()
-async def test_run():
+def test_run():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_sets_path / "test_loads_classify_config.yaml")
     config.lees_config()
@@ -25,7 +24,7 @@ async def test_run():
 
     classify = LoadsClassify(data_adapter=data_adapter)
 
-    df_out = await classify.run(
+    df_out = classify.run(
         input=["thresholds", "waterstanden"], output="classificatie"
     )
 

@@ -40,7 +40,7 @@ class SectionsLoads:
         "fractiondown": "float64",
     }
 
-    async def run(self, input: list[str], output: str) -> None:
+    def run(self, input: list[str], output: str) -> None:
         """
         Uitvoeren van het bepalen van de belasting op een dijkvak.
 

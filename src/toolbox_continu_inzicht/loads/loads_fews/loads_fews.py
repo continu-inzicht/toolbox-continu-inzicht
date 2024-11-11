@@ -24,7 +24,7 @@ class LoadsFews:
     # Kolommen schema van de invoer data
     input_schema = {"id": "int64", "name": "object"}
 
-    async def run(self, input: str, output: str) -> pd.DataFrame:
+    def run(self, input: str, output: str) -> pd.DataFrame:
         """
         De runner van de Loads Fews.
 
@@ -62,7 +62,7 @@ class LoadsFews:
         parameters = self.create_params(
             t_now=t_now, options=options, moments=moments, locations=self.df_in
         )
-        status, json_data = await fetch_data(
+        status, json_data = fetch_data(
             url=url, params=parameters, mime_type="json", path_certificate=None
         )
 

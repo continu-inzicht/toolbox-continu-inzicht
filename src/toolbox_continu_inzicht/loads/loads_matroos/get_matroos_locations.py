@@ -3,7 +3,7 @@ import pandas as pd
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
 
-async def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame:
+def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame:
     """Haalt alle matroos locaties op, indien gewenst ook bron en parameter"""
     url = "https://noos.matroos.rws.nl/direct/get_available.php?dd_endpoint=locations&"
 
@@ -13,7 +13,7 @@ async def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame
     if parameter is not None:
         params["unit"] = parameter
 
-    status, geojson_data = await fetch_data(url=url, params=params, mime_type="json")
+    status, geojson_data = fetch_data(url=url, params=params, mime_type="json")
 
     if status is None and geojson_data is not None:
         if "features" in geojson_data:
@@ -34,11 +34,11 @@ async def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame
     return gdf
 
 
-async def get_matroos_models() -> pd.DataFrame:
+def get_matroos_models() -> pd.DataFrame:
     """Haalt alle matroos bronnen op"""
     url = "https://noos.matroos.rws.nl/timeseries/search/get_sources.php?"
     params = {"format": "dd_default_2.0.0"}
-    status, json_data = await fetch_data(url=url, params=params, mime_type="json")
+    status, json_data = fetch_data(url=url, params=params, mime_type="json")
 
     if status is None and json_data is not None:
         if "records" in json_data:

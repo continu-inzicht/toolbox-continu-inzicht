@@ -2,7 +2,7 @@ import pandas as pd
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
 
-async def get_rws_webservices_locations():
+def get_rws_webservices_locations():
     """Haal locaties die bekend zijn bij de RWS webservice."""
 
     url_catalog: str = "https://waterwebservices.rijkswaterstaat.nl/METADATASERVICES_DBO/OphalenCatalogus"
@@ -11,7 +11,7 @@ async def get_rws_webservices_locations():
         "CatalogusFilter": {"Compartimenten": True, "Grootheden": True}
     }
 
-    status, catalog_data = await fetch_data_post(
+    status, catalog_data = fetch_data_post(
         url_catalog, body_catalog, mime_type="json"
     )
 

@@ -10,7 +10,7 @@ from toolbox_continu_inzicht.loads import LoadsFews
 
 
 @pytest.mark.skip(reason="Eerst een Fews rest service definieren")
-async def test_run():
+def test_run():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_sets_path / "test_loads_fews_config.yaml")
     config.lees_config()
@@ -26,7 +26,7 @@ async def test_run():
         os.remove(output_file)
 
     fews = LoadsFews(data_adapter=data_adapter)
-    df_output = await fews.run(input="locaties", output="waterstanden")
+    df_output = fews.run(input="locaties", output="waterstanden")
 
     assert os.path.exists(output_file)
 

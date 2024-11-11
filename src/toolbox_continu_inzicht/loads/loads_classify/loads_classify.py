@@ -35,7 +35,7 @@ class LoadsClassify:
         "value_type": "object",
     }
 
-    async def run(self, input: list[str], output=None) -> pd.DataFrame:
+    def run(self, input: list[str], output=None) -> pd.DataFrame:
         """
         De runner van de Loads Classify.
 

@@ -1,4 +1,3 @@
-import asyncio
 from datetime import datetime, timezone, timedelta
 from pydantic.dataclasses import dataclass
 import pandas as pd
@@ -36,7 +35,7 @@ class LoadsWaterwebservicesRWS:
 
     url_retrieve_observations: str = "https://waterwebservices.rijkswaterstaat.nl/ONLINEWAARNEMINGENSERVICES_DBO/OphalenWaarnemingen"
 
-    async def run(self, input: str, output: str) -> None:
+    def run(self, input: str, output: str) -> None:
         """
         De runner van de Belasting WaterwebservicesRWS.
         """
@@ -54,7 +53,7 @@ class LoadsWaterwebservicesRWS:
                 f"Input data missing 'measurement_location_id' in columns {self.df_in.columns}"
             )
 
-        df_available_locations = await get_rws_webservices_locations()
+        df_available_locations = get_rws_webservices_locations()
         # uit de dataframe haal je een lijst met meetlocatie ids
         wanted_measuringstationid = list(self.df_in["measurement_location_id"].values)
         # met de meet locatie id's halen selecteren we de informatie uit de catalogus
@@ -90,13 +89,10 @@ class LoadsWaterwebservicesRWS:
             )
 
         # haal deze data a-synchroon op
-        tasks = [
-            asyncio.create_task(
-                fetch_data_post(self.url_retrieve_observations, json, mime_type="json")
-            )
+        observation_data = [
+            fetch_data_post(self.url_retrieve_observations, json, mime_type="json")
             for json in lst_json
         ]
-        observation_data = await asyncio.gather(*tasks)
 
         # post_process de data & maak een dataframe
         lst_observations = [value for _, value in observation_data]
@@ -229,13 +225,3 @@ class LoadsWaterwebservicesRWS:
                 }
                 lst_json.append(json)
         return lst_json
-
-    async def get_data(self, lst_json: list):
-        """
-        Haal de data a-synchroon op van de api gegevne een lijst met Json objecten
-        """
-        tasks = [
-            asyncio.create_task(fetch_data_post(self.url_retrieve_observations, json))
-            for json in lst_json
-        ]
-        return await asyncio.gather(*tasks)

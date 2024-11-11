@@ -28,9 +28,6 @@ path = "toolbox_continu_inzicht/__init__.py"
 [tool.hatch.build.targets.wheel]
 packages = ["toolbox_continu_inzicht"]
 
-[tool.pytest.ini_options]
-asyncio_mode = "auto"
-asyncio_default_fixture_loop_scope = "function"
 
 [project.urls]
 Documentation = "https://continu-inzicht.github.io/toolbox_continu_inzicht/"

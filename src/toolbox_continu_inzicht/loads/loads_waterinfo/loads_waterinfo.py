@@ -24,7 +24,7 @@ class LoadsWaterinfo:
     # Kolommen schema van de invoer data meetlocaties
     input_schema = {"id": "int64", "name": "object", "code": "object"}
 
-    async def run(self, input: str, output: str) -> None:
+    def run(self, input: str, output: str) -> None:
         """
         De runner van de Belasting Waterinfo functie.
 
@@ -88,7 +88,7 @@ class LoadsWaterinfo:
                 }
 
                 # Ophalen json data van de Waterinfo api
-                status, json_data = await fetch_data(
+                status, json_data = fetch_data(
                     url=self.url, params=params, mime_type="json"
                 )
 

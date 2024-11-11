@@ -2,7 +2,7 @@ import pandas as pd
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
 
 
-async def get_fews_locations(
+def get_fews_locations(
     host: str, port: int, region: str, filter_id: str
 ) -> pd.DataFrame:
     """Haal voor Fews de locaties op voor de opgegegeven parameters
@@ -28,7 +28,7 @@ async def get_fews_locations(
 
     url: str = f"{host}:{port}/FewsWebServices/rest/{region}/v1/locations"
 
-    status, json_data = await fetch_data(
+    status, json_data = fetch_data(
         url=url, params=parameters, mime_type="json", path_certificate=None
     )
 
