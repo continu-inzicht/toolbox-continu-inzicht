@@ -62,8 +62,18 @@ class LoadsWaterwebservicesRWS:
         df_available_locations = get_rws_webservices_locations()
         # uit de dataframe haal je een lijst met meetlocatie ids
         wanted_measuringstationcode = list(self.df_in["measurement_location_code"].values)
+
+        wanted_measuringstationcode_ints = []
+        for item in wanted_measuringstationcode:
+            if str(item).isnumeric():
+                wanted_measuringstationcode_ints.append(int(item))
+            else:
+                raise UserWarning(
+                    "measurement_location_code moeten getallen zijn"
+            )
+
         # met de meet locatie code's selecteren we de informatie uit de catalogus
-        wanted_locations = df_available_locations.loc[wanted_measuringstationcode]
+        wanted_locations = df_available_locations.loc[wanted_measuringstationcode_ints]
 
         # zet tijd goed
         dt_now = datetime.now(timezone.utc)
