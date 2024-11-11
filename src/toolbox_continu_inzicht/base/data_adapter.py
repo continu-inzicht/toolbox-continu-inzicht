@@ -50,6 +50,9 @@ class DataAdapter(PydanticBaseModel):
         )
         assert "ci_postgresql_from_measuringstations" in self.config.available_types
 
+        self.input_types["csv_source"] = self.input_csv_source
+        assert "csv_source" in self.config.available_types        
+
     def initialize_output_types(self) -> None | AssertionError:
         """Initializes ouput mapping and checks to see if type in the configured types"""
         self.output_types["csv"] = self.output_csv
@@ -198,6 +201,30 @@ class DataAdapter(PydanticBaseModel):
         df = pd.read_csv(path, **kwargs)
         return df
 
+    @staticmethod
+    def input_csv_source(input_config: dict) -> pd.DataFrame:
+        """Laat een csv bestand in gegeven een pad en filter op een waarde
+
+        Returns:
+        --------
+        pd.Dataframe
+        """
+        path = input_config["abs_path"]
+
+        kwargs = get_kwargs(pd.read_csv, input_config)
+
+        df = pd.read_csv(path, **kwargs)
+
+        if "source" in df.columns:
+            filter_parameter = input_config["filter"]
+            filter = f"source.str.contains('{filter_parameter}', case=False)"
+            filtered_df = df.query(filter)
+            df = filtered_df
+        else:
+            raise UserWarning("Kolom 'source' is niet aanwezig in het CSV bestand.")
+
+        return df
+    
     @staticmethod
     def input_postgresql(input_config: dict) -> pd.DataFrame:
         """Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.
