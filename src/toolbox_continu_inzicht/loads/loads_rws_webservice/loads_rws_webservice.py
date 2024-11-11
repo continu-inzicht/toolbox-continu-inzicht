@@ -61,9 +61,9 @@ class LoadsWaterwebservicesRWS:
 
         df_available_locations = get_rws_webservices_locations()
         # uit de dataframe haal je een lijst met meetlocatie ids
-        wanted_measuringstationid = list(self.df_in["measurement_location_id"].values)
-        # met de meet locatie id's halen selecteren we de informatie uit de catalogus
-        wanted_locations = df_available_locations.loc[wanted_measuringstationid]
+        wanted_measuringstationcode = list(self.df_in["measurement_location_code"].values)
+        # met de meet locatie code's selecteren we de informatie uit de catalogus
+        wanted_locations = df_available_locations.loc[wanted_measuringstationcode]
 
         # zet tijd goed
         dt_now = datetime.now(timezone.utc)
@@ -104,6 +104,7 @@ class LoadsWaterwebservicesRWS:
         lst_observations = [value for _, value in observation_data]
 
         self.df_out = self.create_dataframe(options, t_now, lst_observations)
+        #TODO bij geen resultaat waarschuwing uitspugen en voeg de id uit de input to aan het resultaat en schrijf die weg 
 
         rws_missing_value = 999999999.0  # implemented by default
         if options["MISSING_VALUE"] != rws_missing_value:
