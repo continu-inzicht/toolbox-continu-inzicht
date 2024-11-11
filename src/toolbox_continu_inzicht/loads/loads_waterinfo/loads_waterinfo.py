@@ -111,6 +111,15 @@ class LoadsWaterinfo:
                     else:
                         self.df_out = dataframe
 
+                else:
+                    raise UserWarning(
+                        f"Locatie: {measuringstation.measurement_location_code} geeft geen resultaat in Waterinfo."
+            )
+        else:
+            raise UserWarning(
+                f"De opgegeven parameter(s) komen niet voor in Waterinfo."
+            )
+        
         self.data_adapter.output(output=output, df=self.df_out)
         return self.df_out
 
