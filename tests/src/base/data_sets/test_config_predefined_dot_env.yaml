@@ -1,6 +1,6 @@
 GlobalVariables:
     rootdir: 'tests/src/base/data_sets'
-    dotenv_path: 'tests/src/base/data_sets/.env'
+    dotenv_path: 'tests/src/base/data_sets/test.env'
 
 DataAdapter:
     default_options:
