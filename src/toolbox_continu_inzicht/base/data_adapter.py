@@ -148,8 +148,12 @@ class DataAdapter(PydanticBaseModel):
 
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
-        if load_dotenv():
-            environmental_variables = dict(dotenv_values())
+        dotenv_path = None
+        if "dotenv_path" in self.config.global_variables:
+            dotenv_path = self.config.global_variables["dotenv_path"]
+
+        if load_dotenv(dotenv_path=dotenv_path):
+            environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
         else:
             warnings.warn(
                 "A `.env` file is not present in the root directory, continuing without",
@@ -750,6 +754,8 @@ class DataAdapter(PydanticBaseModel):
                 f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
             )
 
+            # TODO: add check to overwrite exisiting data with new forecast
+
             # schrijf data naar de database
             df_data.to_sql(
                 table,
@@ -758,7 +764,6 @@ class DataAdapter(PydanticBaseModel):
                 if_exists="append",
                 index=False,
             )
-
             # verbinding opruimen
             engine.dispose()
 

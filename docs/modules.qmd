@@ -83,10 +83,10 @@ GlobalVariables:
     rootdir: "data_sets"
 
 DataAdapter:
-    MyCSV_in: 
+    my_csv_in: 
         type: csv
         file: "test_csv_in.csv"
-    MyCSV_out: 
+    my_csv_out: 
         type: csv
         file: "test_csv_out.csv"
 ...
