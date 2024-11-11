@@ -165,6 +165,10 @@ class DataAdapter(PydanticBaseModel):
         bijbehorende_functie = self.input_types[data_type]
         df = bijbehorende_functie(functie_input_config)
 
+        # Controleer of er data is opgehaald.
+        if len(df) == 0:
+            raise UserWarning("Geen data")
+
         # Als schema is meegegeven, controleer of de data aan het schema voldoet.
         if schema is not None:
             status, message = self.validate_dataframe(df=df, schema=schema)
@@ -468,6 +472,7 @@ class DataAdapter(PydanticBaseModel):
             "postgresql_port",
             "database",
             "schema",
+            "source"
         ]
 
         assert all(key in input_config for key in keys)
@@ -478,12 +483,16 @@ class DataAdapter(PydanticBaseModel):
         )
 
         schema = input_config["schema"]
+
+        # WaterInfo, NOOS Matroos/ ...
+        source = input_config['source']        
         query = f"""
             SELECT 
-                id AS id, 
-                name AS name, 
-                code AS code
-            FROM {schema}.measuringstations;
+                id AS measurement_location_id, 
+                code AS measurement_location_code,
+                name AS measurement_location_description 
+            FROM {schema}.measuringstations
+            WHERE source='{source}';
         """
 
         # qurey uitvoeren op de database
@@ -721,46 +730,69 @@ class DataAdapter(PydanticBaseModel):
         schema = output_config["schema"]
         objecttype = output_config["objecttype"]
 
-        # objectid, objecttype, parameterid, datetime, value, calculating
-        if objecttype == "measuringstation":
-            df["objecttype"] = objecttype
-            df["calculating"] = True
-            df["datetime"] = df["date_time"].apply(epoch_from_datetime)
+        if len(df) > 0:
 
-            df_data = df.loc[
-                :,
-                [
-                    "measurement_location_id",
-                    "objecttype",
-                    "parameter_id",
-                    "datetime",
-                    "value",
-                    "calculating",
-                ],
-            ]
-            df_data = df_data.rename(
-                columns={
-                    "measurement_location_id": "objectid",
-                    "parameter_id": "parameterid",
-                }
+            # objectid, objecttype, parameterid, datetime, value, calculating
+            if objecttype == "measuringstation":
+
+                # maak verbinding object
+                engine = sqlalchemy.create_engine(
+                    f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+                )
+
+                df["objecttype"] = objecttype
+                df["calculating"] = True
+                df["datetime"] = df["date_time"].apply(epoch_from_datetime)
+
+                df_data = df.loc[
+                    :,
+                    [
+                        "measurement_location_id",
+                        "objecttype",
+                        "parameter_id",
+                        "datetime",
+                        "value",
+                        "calculating",
+                    ],
+                ]
+                df_data = df_data.rename(
+                    columns={
+                        "measurement_location_id": "objectid",
+                        "parameter_id": "parameterid",
+                    }
+                )
+
+                # Eerst bestaande gegevens van meetstations verwijderen
+                location_ids = df_data.objectid.unique()
+                location_ids_str = ','.join(map(str, location_ids))
+
+                with engine.connect() as connection:        
+                    connection.execute(
+                        sqlalchemy.text(f"""
+                                        DELETE FROM {schema}.{table} 
+                                        WHERE objectid IN ({location_ids_str}) AND 
+                                              calculating=true AND
+                                              objecttype='measuringstation';
+                                        """)
+                    )
+                    connection.commit()  # commit the transaction
+
+
+                # schrijf data naar de database
+                df_data.to_sql(
+                    table,
+                    con=engine,
+                    schema=schema,
+                    if_exists="append",
+                    index=False,
+                )
+
+                # verbinding opruimen
+                engine.dispose()
+
+            else:
+                raise UserWarning("Geen gegevens om op te slaan."
             )
-
-            # maak verbinding object
-            engine = sqlalchemy.create_engine(
-                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
-            )
-
-            # schrijf data naar de database
-            df_data.to_sql(
-                table,
-                con=engine,
-                schema=schema,
-                if_exists="append",
-                index=False,
-            )
-
-            # verbinding opruimen
-            engine.dispose()
 
         return df
 
@@ -883,6 +915,21 @@ class DataAdapter(PydanticBaseModel):
             )
 
             # objectid, objecttype, parameterid, momentid, stateid, calculating, changedate
+
+            # Eerst bestaande gegevens van meetstations verwijderen
+            location_ids = df_merge.objectid.unique()
+            location_ids_str = ','.join(map(str, location_ids))
+
+            with engine.connect() as connection:        
+                connection.execute(
+                    sqlalchemy.text(f"""
+                                        DELETE FROM {schema}.{table} 
+                                        WHERE objectid IN ({location_ids_str}) AND 
+                                              calculating=true AND
+                                              objecttype='measuringstation';
+                                        """)
+                )
+                connection.commit()  # commit the transaction
 
             df_merge["objecttype"] = objecttype
             df_merge["parameterid"] = np.where(df_merge["momentid"] <= 0, 1, 2)

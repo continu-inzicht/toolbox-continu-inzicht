@@ -22,7 +22,7 @@ class LoadsWaterinfo:
     url: str = "https://waterinfo.rws.nl/api/chart/get"
 
     # Kolommen schema van de invoer data meetlocaties
-    input_schema = {"id": "int64", "name": "object", "code": "object"}
+    input_schema = {"measurement_location_id": "int64", "measurement_location_code": "object", "measurement_location_description": "object"}
 
     async def run(self, input: str, output: str) -> None:
         """
@@ -83,7 +83,7 @@ class LoadsWaterinfo:
             for _, measuringstation in self.df_in.iterrows():
                 params = {
                     "mapType": datatype,
-                    "locationCodes": measuringstation["code"],
+                    "locationCodes": measuringstation["measurement_location_code"],
                     "values": f"{values}",
                 }
 
@@ -97,7 +97,7 @@ class LoadsWaterinfo:
                         options=options,
                         maptype_schema=maptype_schema,
                         measuringstation=measuringstation,
-                        json_data=json_data,
+                        json_data=json_data
                     )
 
                     if not self.df_out.empty:
@@ -170,9 +170,9 @@ class LoadsWaterinfo:
                             value = options["MISSING_VALUE"]
 
                         record = {
-                            "measurement_location_id": measuringstation.id,
-                            "measurement_location_code": measuringstation.code,
-                            "measurement_location_description": location_name,
+                            "measurement_location_id": measuringstation.measurement_location_id,
+                            "measurement_location_code": measuringstation.measurement_location_code,
+                            "measurement_location_description": measuringstation.measurement_location_description,
                             "parameter_id": parameter_id,
                             "parameter_code": parameter_code,
                             "parameter_description": parameter_description,
