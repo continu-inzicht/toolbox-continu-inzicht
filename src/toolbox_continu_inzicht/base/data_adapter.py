@@ -729,6 +729,12 @@ class DataAdapter(PydanticBaseModel):
             "objecttype",
         ]
 
+        def bepaal_parameter_id(value_type:str):
+            if value_type == "meting":
+                return 1
+            else:
+                return 2
+            
         assert all(key in output_config for key in keys)
 
         table = "data"
@@ -746,13 +752,13 @@ class DataAdapter(PydanticBaseModel):
                 df["objecttype"] = objecttype
                 df["calculating"] = True
                 df["datetime"] = df["date_time"].apply(epoch_from_datetime)
-
+                df["parameterid"] = df['value_type'].apply(bepaal_parameter_id)
                 df_data = df.loc[
                     :,
                     [
                         "measurement_location_id",
                         "objecttype",
-                        "parameter_id",
+                        "parameterid",
                         "datetime",
                         "value",
                         "calculating",
@@ -760,8 +766,7 @@ class DataAdapter(PydanticBaseModel):
                 ]
                 df_data = df_data.rename(
                     columns={
-                        "measurement_location_id": "objectid",
-                        "parameter_id": "parameterid",
+                        "measurement_location_id": "objectid"
                     }
                 )
 
@@ -794,23 +799,7 @@ class DataAdapter(PydanticBaseModel):
 
             else:
                 raise UserWarning("Geen gegevens om op te slaan.")
-
-            # maak verbinding object
-            engine = sqlalchemy.create_engine(
-                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
-            )
-
-            # schrijf data naar de database
-            df_data.to_sql(
-                table,
-                con=engine,
-                schema=schema,
-                if_exists="append",
-                index=False,
-            )
-            # verbinding opruimen
-            engine.dispose()
-
+            
         return df
 
     @staticmethod
