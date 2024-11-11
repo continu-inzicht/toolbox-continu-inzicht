@@ -1,6 +1,6 @@
 import geopandas as gpd
 import pandas as pd
-from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
+from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 
 
 def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame:
@@ -13,7 +13,7 @@ def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame:
     if parameter is not None:
         params["unit"] = parameter
 
-    status, geojson_data = fetch_data(url=url, params=params, mime_type="json")
+    status, geojson_data = fetch_data_get(url=url, params=params, mime_type="json")
 
     if status is None and geojson_data is not None:
         if "features" in geojson_data:
@@ -38,7 +38,7 @@ def get_matroos_models() -> pd.DataFrame:
     """Haalt alle matroos bronnen op"""
     url = "https://noos.matroos.rws.nl/timeseries/search/get_sources.php?"
     params = {"format": "dd_default_2.0.0"}
-    status, json_data = fetch_data(url=url, params=params, mime_type="json")
+    status, json_data = fetch_data_get(url=url, params=params, mime_type="json")
 
     if status is None and json_data is not None:
         if "records" in json_data:

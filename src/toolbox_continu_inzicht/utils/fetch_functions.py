@@ -1,7 +1,7 @@
 import httpx
 
 
-def fetch_data(
+def fetch_data_get(
     url: str,
     params: dict,
     mime_type: str = "text",
@@ -92,4 +92,3 @@ def fetch_data_post(
 
     # Geef resultaat terug
     return result, data
-

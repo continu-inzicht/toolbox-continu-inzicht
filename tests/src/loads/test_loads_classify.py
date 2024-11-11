@@ -1,5 +1,4 @@
 import os
-import pytest
 
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
@@ -24,9 +23,7 @@ def test_run():
 
     classify = LoadsClassify(data_adapter=data_adapter)
 
-    df_out = classify.run(
-        input=["thresholds", "waterstanden"], output="classificatie"
-    )
+    df_out = classify.run(input=["thresholds", "waterstanden"], output="classificatie")
 
     assert os.path.exists(output_file)
     assert df_out is not None

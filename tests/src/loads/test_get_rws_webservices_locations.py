@@ -1,4 +1,3 @@
-import pytest
 from toolbox_continu_inzicht.loads import get_rws_webservices_locations
 
 

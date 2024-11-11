@@ -5,7 +5,7 @@ from typing import Optional
 from toolbox_continu_inzicht.utils.datetime_functions import (
     datetime_from_string,
 )
-from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
+from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -88,7 +88,7 @@ class LoadsWaterinfo:
                 }
 
                 # Ophalen json data van de Waterinfo api
-                status, json_data = fetch_data(
+                status, json_data = fetch_data_get(
                     url=self.url, params=params, mime_type="json"
                 )
 

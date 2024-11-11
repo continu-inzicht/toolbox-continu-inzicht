@@ -1,5 +1,5 @@
-import pytest
 from toolbox_continu_inzicht.loads import get_fews_locations
+
 
 def test_get_fews_locations():
     df = get_fews_locations(

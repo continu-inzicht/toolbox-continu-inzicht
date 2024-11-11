@@ -1,5 +1,5 @@
 import pandas as pd
-from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
+from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 
 
 def get_waterinfo_thresholds(
@@ -22,7 +22,7 @@ def get_waterinfo_thresholds(
     }
 
     # Ophalen json data van de Waterinfo api
-    status, json_data = fetch_data(url=url, params=params, mime_type="json")
+    status, json_data = fetch_data_get(url=url, params=params, mime_type="json")
 
     # dataframe
     dataframe = pd.DataFrame()

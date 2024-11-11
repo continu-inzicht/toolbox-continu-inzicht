@@ -1,5 +1,4 @@
 import os
-import pytest
 
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config

@@ -6,7 +6,7 @@ from typing import Optional, List
 from toolbox_continu_inzicht.utils.datetime_functions import (
     datetime_from_string,
 )
-from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
+from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -62,7 +62,7 @@ class LoadsFews:
         parameters = self.create_params(
             t_now=t_now, options=options, moments=moments, locations=self.df_in
         )
-        status, json_data = fetch_data(
+        status, json_data = fetch_data_get(
             url=url, params=parameters, mime_type="json", path_certificate=None
         )
 

@@ -9,7 +9,7 @@ from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
     get_matroos_models,
 )
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
+from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 
 aquo_matroos_dict = {"WATHTE": "waterlevel"}
 matroos_aquo_dict = {"waterlevel": "WATHTE"}
@@ -118,7 +118,7 @@ class LoadsMatroos:
             request_forecast_url = self.generate_url(
                 t_now, options, global_variables, aquo_parameter, wanted_location_names
             )
-            status, json_data = fetch_data(
+            status, json_data = fetch_data_get(
                 url=request_forecast_url, params={}, mime_type="json"
             )
             if status is None and json_data is not None:

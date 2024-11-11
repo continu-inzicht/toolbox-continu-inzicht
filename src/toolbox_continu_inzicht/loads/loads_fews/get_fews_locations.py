@@ -1,5 +1,5 @@
 import pandas as pd
-from toolbox_continu_inzicht.utils.fetch_functions import fetch_data
+from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 
 
 def get_fews_locations(
@@ -28,7 +28,7 @@ def get_fews_locations(
 
     url: str = f"{host}:{port}/FewsWebServices/rest/{region}/v1/locations"
 
-    status, json_data = fetch_data(
+    status, json_data = fetch_data_get(
         url=url, params=parameters, mime_type="json", path_certificate=None
     )
 

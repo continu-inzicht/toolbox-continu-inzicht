@@ -11,9 +11,7 @@ def get_rws_webservices_locations():
         "CatalogusFilter": {"Compartimenten": True, "Grootheden": True}
     }
 
-    status, catalog_data = fetch_data_post(
-        url_catalog, body_catalog, mime_type="json"
-    )
+    status, catalog_data = fetch_data_post(url_catalog, body_catalog, mime_type="json")
 
     if status is None and catalog_data is not None:
         df_available_locations = pd.DataFrame(catalog_data["LocatieLijst"])
