@@ -41,6 +41,10 @@ class LoadsWaterwebservicesRWS:
         """
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
+
+        if "LoadsWaterwebservicesRWS" not in global_variables:
+            raise UserWarning("LoadsWaterwebservicesRWS sectie niet aanwezig in global_variables (config)")
+
         options = global_variables["LoadsWaterwebservicesRWS"]
         if "MISSING_VALUE" not in options:
             options["MISSING_VALUE"] = -999

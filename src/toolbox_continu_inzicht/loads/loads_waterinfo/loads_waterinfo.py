@@ -41,13 +41,17 @@ class LoadsWaterinfo:
 
         # Haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
+
+        if "LoadsWaterinfo" not in global_variables:
+            raise UserWarning("LoadsWaterinfo sectie niet aanwezig in global_variables (config)")
+
         options = global_variables["LoadsWaterinfo"]
 
         # moments eventueel toevoegen aan options
         if "moments" not in options and "moments" in global_variables:
             options["moments"] = global_variables["moments"]
         elif "moments" not in options:
-            options["moments"] = [-24, 0, 24, 48]
+            raise UserWarning("moments niet aanwezig in global_variables (config)")
 
         # missing value controleren
         if "MISSING_VALUE" not in options:

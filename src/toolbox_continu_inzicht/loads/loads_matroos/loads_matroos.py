@@ -53,6 +53,10 @@ class LoadsMatroos:
 
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
+
+        if "LoadsMatroos" not in global_variables:
+            raise UserWarning("LoadsMatroos sectie niet aanwezig in global_variables (config)")
+    
         options = global_variables["LoadsMatroos"]
         if "MISSING_VALUE" not in options:
             options["MISSING_VALUE"] = -999

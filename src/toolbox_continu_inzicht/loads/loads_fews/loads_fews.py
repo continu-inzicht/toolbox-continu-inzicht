@@ -50,8 +50,18 @@ class LoadsFews:
             0,
         ).replace(tzinfo=timezone.utc)
 
-        options = self.data_adapter.config.global_variables["LoadsFews"]
-        moments = self.data_adapter.config.global_variables["moments"]
+        global_variables = self.data_adapter.config.global_variables
+
+        if "LoadsFews" not in global_variables:
+            raise UserWarning("LoadsFews sectie niet aanwezig in global_variables (config)")
+               
+        options = global_variables["LoadsFews"]
+
+        # moments eventueel toevoegen aan options
+        if "moments" not in options and "moments" in global_variables:
+            options["moments"] = global_variables["moments"]
+        elif "moments" not in options:
+            raise UserWarning("moments niet aanwezig in global_variables (config)")
 
         # missing value controleren
         if "MISSING_VALUE" not in options:
