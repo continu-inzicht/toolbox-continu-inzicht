@@ -53,15 +53,15 @@ class LoadsFews:
         global_variables = self.data_adapter.config.global_variables
 
         if "LoadsFews" not in global_variables:
-            raise UserWarning("LoadsFews sectie niet aanwezig in global_variables (config)")
-               
+            raise UserWarning("LoadsFews niet in ")
+
         options = global_variables["LoadsFews"]
 
         # moments eventueel toevoegen aan options
         if "moments" not in options and "moments" in global_variables:
             options["moments"] = global_variables["moments"]
         elif "moments" not in options:
-            raise UserWarning("moments niet aanwezig in global_variables (config)")
+            options["moments"] = [-24, 0, 24, 48]
 
         # missing value controleren
         if "MISSING_VALUE" not in options:
@@ -74,7 +74,10 @@ class LoadsFews:
 
         url = self.create_url(options=options)
         parameters = self.create_params(
-            t_now=t_now, options=options, moments=moments, locations=self.df_in
+            t_now=t_now,
+            options=options,
+            moments=options["moments"],
+            locations=self.df_in,
         )
         status, json_data = fetch_data_get(
             url=url, params=parameters, mime_type="json", path_certificate=None

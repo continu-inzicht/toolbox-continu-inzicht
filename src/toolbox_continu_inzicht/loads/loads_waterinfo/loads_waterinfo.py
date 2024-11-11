@@ -43,7 +43,9 @@ class LoadsWaterinfo:
         global_variables = self.data_adapter.config.global_variables
 
         if "LoadsWaterinfo" not in global_variables:
-            raise UserWarning("LoadsWaterinfo sectie niet aanwezig in global_variables (config)")
+            raise UserWarning(
+                "LoadsWaterinfo sectie niet aanwezig in global_variables (config)"
+            )
 
         options = global_variables["LoadsWaterinfo"]
 
@@ -118,12 +120,10 @@ class LoadsWaterinfo:
                 else:
                     raise UserWarning(
                         f"Locatie: {measuringstation.measurement_location_code} geeft geen resultaat in Waterinfo."
-            )
+                    )
         else:
-            raise UserWarning(
-                f"De opgegeven parameter(s) komen niet voor in Waterinfo."
-            )
-        
+            raise UserWarning("De opgegeven parameter(s) komen niet voor in Waterinfo.")
+
         self.data_adapter.output(output=output, df=self.df_out)
         return self.df_out
 
@@ -164,7 +164,7 @@ class LoadsWaterinfo:
             parameter_code = maptype_schema["parameter_code"]
 
             for serie in json_data["series"]:
-                value_type = "meting"                
+                value_type = "meting"
                 parameter_name = serie["meta"]["parameterName"]
                 parameter_description = serie["meta"]["displayName"]
                 unit = serie["unit"].lower()

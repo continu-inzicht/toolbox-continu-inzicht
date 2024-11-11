@@ -810,7 +810,7 @@ class DataAdapter(PydanticBaseModel):
             )
             # verbinding opruimen
             engine.dispose()
-            
+
         return df
 
     @staticmethod

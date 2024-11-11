@@ -63,7 +63,11 @@ def test_dataadapter_ci_postgresql_from_measuringstations():
     data_adapter = DataAdapter(config=config)
 
     input_string = "ci_measuringstations"
-    schema = {"measurement_location_id": "int64", "measurement_location_code": "object", "measurement_location_description": "object"}
+    schema = {
+        "measurement_location_id": "int64",
+        "measurement_location_code": "object",
+        "measurement_location_description": "object",
+    }
 
     df_in = data_adapter.input(input=input_string, schema=schema)
     assert df_in is not None
