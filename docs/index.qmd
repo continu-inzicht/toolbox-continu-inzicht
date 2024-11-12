@@ -6,9 +6,8 @@ title: "Toolbox continu inzicht"
 Waterkeringbeheerders zijn gewend om hun waterkeringen te laten voldoen aan vastgestelde normen: daar baseren ze het ontwerp en hun beheer en onderhoud op. 
 In een situatie met extreme droogte of extreem hoge waterstanden is er meer nodig. 
 Dan is het belangrijk continu inzicht te hebben in de actuele risico’s voor het gebied in de eerstvolgende dagen. 
-De methode ‘continu inzicht’ is precies daarop gericht: ervoor zorgen dat de beheerder 24/7 in control is. 
+De methode 'continu inzicht' is precies daarop gericht: ervoor zorgen dat de beheerder 24/7 in control is. 
 Met slimme monitoring en rekenmodellen wordt de actuele situatie geanalyseerd. 
 De beheerder ziet hoe groot het risico is en waar de zwakke plekken zitten, zodat hij of zij gericht maatregelen kan nemen. 
 De 'Toolbox continu inzicht' is door HKV lijn in water ontwikkeld voor waterschappen en Rijkswaterstaat. 
-Doormiddel van deze python toolbox worden de systemen achter 'continu inzicht' her ontwikkeld in python en open source aangeboden.
-
+Door middel van deze toolbox worden de systemen achter 'continu inzicht' herontwikkeld in python en open source aangeboden.
