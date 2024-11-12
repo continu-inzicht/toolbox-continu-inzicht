@@ -179,12 +179,12 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="richtlijnen-voor-bijdragen-aan-toolbox-continu-inzicht" class="level1">
 <h1>Richtlijnen voor bijdragen aan toolbox continu inzicht</h1>
-<p>Het ontwikkelen van de toolbox continu inzicht bestaat uit twee delen. Eerst ontwikkeld HKV de basisfunctionaliteit. Deze ontwikkeling is voor iedereen te volgen op GitHub, maar toevoegingen worden nog niet geaccepteerd. Daarna blijft het project open source beschikbaar en kan het verder worden ontwikkeld. De term ‘ontwikkelaars’ duidt in de eerste ontwikkelfase op het team van HKV, later op anderen die een bijdrage willen leveren. Een bijdragen kan uiteenlopen van een vraag tot een grote wijziging via een <a href="https://help.github.com/articles/about-pull-requests/">pull request</a>.</p>
-<p>Een bijdrage kan een van de volgend dingen zijn:</p>
+<p>Het ontwikkelen van de toolbox continu inzicht bestaat uit twee delen. Eerst ontwikkelt HKV de basisfunctionaliteit. Deze ontwikkeling is voor iedereen te volgen op GitHub, maar toevoegingen worden nog niet geaccepteerd. Daarna blijft het project open source beschikbaar en kan het verder worden ontwikkeld. De term ‘ontwikkelaars’ duidt in de eerste ontwikkelfase op het team van HKV, later op anderen die een bijdrage willen leveren. Een bijdrage kan uiteenlopen van een vraag tot een grote wijziging via een <a href="https://help.github.com/articles/about-pull-requests/">pull request</a>.</p>
+<p>Een bijdrage kan een van de volgend zaken zijn:</p>
 <ol type="1">
 <li>Je hebt een vraag</li>
 <li>Je denkt een probleem (bug) te hebben gevonden (of onverwachte functionaliteit)</li>
-<li>Je wilt een aanpassing maken (Bug fixen, nieuwe functionaliteit, update aan de documentatie)</li>
+<li>Je wilt een aanpassing maken (bug fixen, nieuwe functionaliteit, update aan de documentatie)</li>
 <li>Je wilt een nieuwe versie publiceren</li>
 </ol>
 <p>De onderstaande secties behandelen de stappen per geval.</p>
@@ -193,7 +193,7 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>Gebruik de zoekfunctie <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/issues">hier</a> om te kijken of iemand anders dezelfde vraag heeft;</li>
 <li>Als je niks vergelijkbaars kan vinden, maak een nieuwe issue aan.</li>
-<li>Voeg de "Question”&nbsp;label toe; voeg andere labels toe waar nodig.</li>
+<li>Voeg het "Question”&nbsp;label toe; voeg andere labels toe waar nodig.</li>
 </ol>
 </section>
 <section id="je-denkt-een-probleem-bug-te-hebben-gevonden" class="level2">
@@ -210,17 +210,17 @@ ul.task-list li input[type="checkbox"] {
 <li>(<strong>Belangrijk</strong>) Communiceer aan de rest van de ontwikkelaars <em>voor je begint</em> dat je een aanpassing wilt maken. Dit laat je weten door een issue aan te maken.</li>
 <li>(<strong>Belangrijk</strong>) Bereik consensus over je idee.</li>
 <li>De hoofdontwikkelaars hebben rechten om nieuwe branches aan te maken. Als je deze rechten niet hebt, maak een 'fork' (kopie) in je eigen account. In deze fork maak je een eigen branch van de laatste commit in main. Probeer om veranderingen die in de tussentijd worden doorgevoerd op main al mee te nemen. Dit doe je door te pullen van de 'upstream' repository, (zie instructies <a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/">hier</a> en <a href="https://help.github.com/articles/syncing-a-fork/">hier</a>);</li>
-<li>Voor <a href="https://code.visualstudio.com">Visual Studio Code</a> staat er een voorbeeld configuratie.</li>
+<li>Voor <a href="https://code.visualstudio.com">Visual Studio Code</a> staat er een voorbeeldconfiguratie.</li>
 <li>Installeer de benodigde python packages in een pixi omgeving met <code>pixi install</code>, volg de uitleg van de <a href="https://pixi.sh/latest/">pixi</a>. Pixi zorgt er voor dat iedereen dezelfde versies van python packages heeft.</li>
 <li>Zorg dat de format van je code correct is met <code>pixi run ruff check</code>.</li>
-<li>Zorg dat alle bestaande testen werken met <code>pixi run pytest</code>;</li>
+<li>Zorg dat alle bestaande testen werken met <code>pixi run pytest</code>.</li>
 <li>Zorg dat alle documentatie automatisch genereert met <code>pixi run quarto-render</code>. <a href="https://quarto.org/docs/computations/python.html">Quarto</a> is al onderdeel van de zojuist aangemaakte pixi omgeving.</li>
-<li>Voeg bij nieuwe functionaliteit altijd nieuwe tests.</li>
-<li>Update en voeg documentatie toe. Gebruik <a href="https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes">Numpy Style Python docstrings</a>. Zorg dat je code leesbaar en begrijpelijk is voor andere.</li>
-<li><a href="http://rogerdudler.github.io/git-guide/">push</a> je branch. naar (jou fork van) de toolbox continu inzicht repo op GitHub;</li>
-<li>Maak een pull request aan, bijvoorbeeld volgens <a href="https://help.github.com/articles/creating-a-pull-request/">deze instructies</a>. Pull requests worden ontvangen altijd een review.</li>
+<li>Voeg bij nieuwe functionaliteit altijd nieuwe tests toe.</li>
+<li>Update en voeg documentatie toe. Gebruik <a href="https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes">Numpy Style Python docstrings</a>. Zorg dat je code leesbaar en begrijpelijk is voor anderen.</li>
+<li><a href="http://rogerdudler.github.io/git-guide/">Push</a> je branch. naar (jouw fork van) de toolbox continu inzicht repo op GitHub;</li>
+<li>Maak een pull request aan, bijvoorbeeld volgens <a href="https://help.github.com/articles/creating-a-pull-request/">deze instructies</a>. Pull requests die worden ontvangen, krijgen altijd een review.</li>
 </ol>
-<p>Als je het idee heb dat je iets nuttig heb toegevoegd, maar je weet niet hoe je test schrijft of runt, of hoe je documentatie aanmaakt: geen probleem. Maak een pull request en dan kijken we hoe we kunnen helpen.</p>
+<p>Als je het idee heb dat je iets nuttig heb toegevoegd, maar je weet niet hoe je tests schrijft of runt of hoe je documentatie aanmaakt: geen probleem. Maak een pull request en dan kijken we hoe we kunnen helpen.</p>
 </section>
 <section id="je-wilt-een-nieuwe-versie-publiceren" class="level2">
 <h2 class="anchored" data-anchor-id="je-wilt-een-nieuwe-versie-publiceren">Je wilt een nieuwe versie publiceren</h2>
@@ -233,21 +233,21 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Pas de versie aan in <code>src/toolbox_continu_inzicht/__init__.py</code>, de <code>pyptoject.toml</code> leest deze uit.</p></li>
 <li><p>Pas de <code>docs/changelog.qmd</code> aan met de veranderingen. Vergeet de link naar de pull request niet.</p></li>
 <li><p>Zorg dat de format van je code correct is met <code>pixi run ruff check</code>.</p></li>
-<li><p>Zorg dat alle bestaande testen werken met <code>pixi run pytest</code>;</p></li>
+<li><p>Zorg dat alle bestaande testen werken met <code>pixi run pytest</code>.</p></li>
 <li><p>Commit &amp; push je aanpassingen naar GitHub.</p></li>
-<li><p>Maak een pull request aan, laat iemand het reviewen, wacht voor all actie, deze worden groen, en merge de pull request.</p></li>
+<li><p>Maak een pull request aan, laat iemand het reviewen, wacht op alle acties, deze worden groen, en merge de pull request.</p></li>
 <li><p>Wacht tot de GitHub-acties op de main branch klaar zijn en er een groen vinkje bij staat.</p></li>
 <li><p>Maak een nieuwe 'release' aan op GitHub</p>
 <ul>
-<li>Gebruik de versie als titel en pas een versie tag toe.</li>
+<li>Gebruik de versie als titel en pas een versietag toe.</li>
 <li>Als beschrijving gebruik de intro van de <code>README.md</code> en veranderingen uit de <code>changelog.qmd</code>.</li>
 </ul></li>
 <li><p>Check</p>
-<ol type="1">
+<ul>
 <li>Is de <a href="https://continu-inzicht.github.io/toolbox-continu-inzicht/">wiki</a> bijgewerkt?</li>
-<li>Heeft de Github actie alles naar <a href="https://pypi.org/project/continu_inzicht_toolbox">PyPI</a> gestuurd?</li>
+<li>Heeft de GitHub actie alles naar <a href="https://pypi.org/project/continu_inzicht_toolbox">PyPI</a> gestuurd?</li>
 <li>Werkt de nieuwe versie met: <code>pip3 install toolbox_continu_inzicht==&lt;new version&gt;</code>?</li>
-</ol></li>
+</ul></li>
 <li><p>Vier je nieuwe versie!</p></li>
 </ol>
 
