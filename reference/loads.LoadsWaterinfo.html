@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>loads.loads_rws_webservice.loads_rws_webservice – Toolbox continu inzicht</title>
+<title>loads.loadswaterinfo – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -92,16 +92,24 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Achtergrond</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reference/index.html"> 
-<span class="menu-text">Python documentatie</span></a>
+    <a class="nav-link" href="../install.html"> 
+<span class="menu-text">Installeren</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../examples/notebooks/proof_of_concept.html"> 
 <span class="menu-text">Voorbeelden</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../modules.html"> 
+<span class="menu-text">Modules</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/index.html"> 
+<span class="menu-text">Python API</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contact.html"> 
+<span class="menu-text">Overig</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -130,11 +138,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice" id="toc-toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice">loads.loads_rws_webservice.loads_rws_webservice</a>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo" id="toc-toolbox_continu_inzicht.loads.LoadsWaterinfo" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterinfo">loads.LoadsWaterinfo</a>
   <ul class="collapse">
-  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
+  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS" id="toc-toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS">LoadsWaterwebservicesRWS</a></li>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.create_dataframe" id="toc-toolbox_continu_inzicht.loads.LoadsWaterinfo.create_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterinfo.create_dataframe">create_dataframe</a></li>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.get_maptype" id="toc-toolbox_continu_inzicht.loads.LoadsWaterinfo.get_maptype" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterinfo.get_maptype">get_maptype</a></li>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.get_value_by_observedhours" id="toc-toolbox_continu_inzicht.loads.LoadsWaterinfo.get_value_by_observedhours" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterinfo.get_value_by_observedhours">get_value_by_observedhours</a></li>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.run" id="toc-toolbox_continu_inzicht.loads.LoadsWaterinfo.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterinfo.run">run</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -146,11 +158,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice" class="level1">
-<h1>loads.loads_rws_webservice.loads_rws_webservice</h1>
-<p><code>loads.loads_rws_webservice.loads_rws_webservice</code></p>
-<section id="classes" class="level2">
-<h2 class="anchored" data-anchor-id="classes">Classes</h2>
+<section id="toolbox_continu_inzicht.loads.LoadsWaterinfo" class="level1">
+<h1>loads.LoadsWaterinfo</h1>
+<p><code>loads.LoadsWaterinfo()</code></p>
+<p>Belasting gegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte</p>
+<section id="attributes" class="level2">
+<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -160,46 +173,30 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS">LoadsWaterwebservicesRWS</a></td>
-<td>Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/</td>
-</tr>
-</tbody>
-</table>
-<section id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS">LoadsWaterwebservicesRWS</h3>
-<p><code>loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS()</code></p>
-<p>Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/</p>
-<section id="attributes" class="level4">
-<h4 class="anchored" data-anchor-id="attributes">Attributes</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.data_adapter">data_adapter</a></td>
+<td><a href="#toolbox_continu_inzicht.loads.loads_waterinfo.loads_waterinfo.LoadsWaterinfo.data_adapter">data_adapter</a></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.df_in">df_in</a></td>
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.df_in">df_in</a></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.df_out">df_out</a></td>
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.df_out">df_out</a></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.url_retrieve_observations">url_retrieve_observations</a></td>
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.input_schema">input_schema</a></td>
+<td>dict() -&gt; new empty dictionary</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.url">url</a></td>
 <td>str(object=’’) -&gt; str</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="methods" class="level4">
-<h4 class="anchored" data-anchor-id="methods">Methods</h4>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -209,50 +206,52 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.create_dataframe">create_dataframe</a></td>
-<td>Maakt een dataframe met waardes van de rws water webservices</td>
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.create_dataframe">create_dataframe</a></td>
+<td>Maak een pandas dataframe van de opgehaalde data uit Waterinfo</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.create_json_list">create_json_list</a></td>
-<td>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</td>
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.get_maptype">get_maptype</a></td>
+<td>bepaal welke schema gebruikt moet worden voor het ophalen van de belasting</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.get_data">get_data</a></td>
-<td>Haal de data a-synchroon op van de api gegevne een lijst met Json objecten</td>
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.get_value_by_observedhours">get_value_by_observedhours</a></td>
+<td>bepaal welke range gebruikt moet worden voor het ophalen van de belasting</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.run">run</a></td>
-<td>De runner van de Belasting WaterwebservicesRWS.</td>
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterinfo.run">run</a></td>
+<td>De runner van de Belasting Waterinfo functie.</td>
 </tr>
 </tbody>
 </table>
-<section id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.create_dataframe" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.create_dataframe">create_dataframe</h5>
-<p><code>loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.create_dataframe(options, t_now, lst_data)</code></p>
-<p>Maakt een dataframe met waardes van de rws water webservices</p>
+<section id="toolbox_continu_inzicht.loads.LoadsWaterinfo.create_dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterinfo.create_dataframe">create_dataframe</h3>
+<p><code>loads.LoadsWaterinfo.create_dataframe(options, maptype_schema, measuringstation, json_data)</code></p>
+<p>Maak een pandas dataframe van de opgehaalde data uit Waterinfo</p>
+<p>Args: options (dict): options opgegeven in de yaml maptype_schema (dict): gegevens van de maptype measuringstation (dict): gegevens van het meetstation json_data (str): JSON data met opgehaalde belasting data</p>
+<p>Returns: Dataframe: Pandas dataframe geschikt voor uitvoer: definition: - Meetlocatie id (measurement_location_id) - Meetlocatie code (measurement_location_code) - Meetlocatie omschrijving/naam (measurement_location_description) - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id) - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code) - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description) - Eenheid (unit) - Datum en tijd (date_time) - Waarde (value) - Type waarde: meting of verwachting (value_type)</p>
+</section>
+<section id="toolbox_continu_inzicht.loads.LoadsWaterinfo.get_maptype" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterinfo.get_maptype">get_maptype</h3>
+<p><code>loads.LoadsWaterinfo.get_maptype(maptype)</code></p>
+<p>bepaal welke schema gebruikt moet worden voor het ophalen van de belasting</p>
+<p>Args: maptype (str): maptypes: - waterhoogte, - wind, - golfhoogte, - watertemperatuur, - luchttemperatuur, - astronomische-getij, - waterafvoer, - zouten</p>
+<p>returns: de query van de range als string. voorbeeld: -48,0</p>
+</section>
+<section id="toolbox_continu_inzicht.loads.LoadsWaterinfo.get_value_by_observedhours" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterinfo.get_value_by_observedhours">get_value_by_observedhours</h3>
+<p><code>loads.LoadsWaterinfo.get_value_by_observedhours(maptype_schema, observedhours_moments)</code></p>
+<p>bepaal welke range gebruikt moet worden voor het ophalen van de belasting</p>
+<p>Args: maptype_schema (dict): schema met mogelijke ranges. Voorbeeld: {“observedhours”: 48, “predictionhours”: 48, “query”: “-48,0”}, {“observedhours”: 6, “predictionhours”: 3, “query”: “-6,0”}, {“observedhours”: 216, “predictionhours”: 48, “query”: “-216,0”}, {“observedhours”: 672, “predictionhours”: 0, “query”: “-672,0”} observedhours_moments (int): het laagste moment.</p>
+<p>returns: de query van de range als string. voorbeeld: -48,0</p>
+</section>
+<section id="toolbox_continu_inzicht.loads.LoadsWaterinfo.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterinfo.run">run</h3>
+<p><code>loads.LoadsWaterinfo.run(input, output)</code></p>
+<p>De runner van de Belasting Waterinfo functie.</p>
 <p>Args: json_data (str): JSON data</p>
-<p>Returns: Dataframe: Pandas dataframe geschikt voor uitvoer</p>
-</section>
-<section id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.create_json_list" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.create_json_list">create_json_list</h5>
-<p><code>loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.create_json_list(measurement, t_now, global_variables, locations)</code></p>
-<p>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</p>
-<p>Args: t_now: T0 in UTC global_variables: globale variable uit de invoer yaml locations: dataframe with locations wanted</p>
-<p>Returns: dict: lijst met parameters</p>
-</section>
-<section id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.get_data" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.get_data">get_data</h5>
-<p><code>loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.get_data(lst_json)</code></p>
-<p>Haal de data a-synchroon op van de api gegevne een lijst met Json objecten</p>
-</section>
-<section id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.run" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.run">run</h5>
-<p><code>loads.loads_rws_webservice.loads_rws_webservice.LoadsWaterwebservicesRWS.run(input, output)</code></p>
-<p>De runner van de Belasting WaterwebservicesRWS.</p>
+<p>Returns: Dataframe: Pandas dataframe geschikt voor uitvoer.</p>
 
 
-</section>
-</section>
 </section>
 </section>
 </section>

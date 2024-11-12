@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>base.config – Toolbox continu inzicht</title>
+<title>loads.get_matroos_locations – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -92,16 +92,24 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Achtergrond</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reference/index.html"> 
-<span class="menu-text">Python documentatie</span></a>
+    <a class="nav-link" href="../install.html"> 
+<span class="menu-text">Installeren</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../examples/notebooks/proof_of_concept.html"> 
 <span class="menu-text">Voorbeelden</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../modules.html"> 
+<span class="menu-text">Modules</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/index.html"> 
+<span class="menu-text">Python API</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contact.html"> 
+<span class="menu-text">Overig</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -130,13 +138,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#toolbox_continu_inzicht.base.config" id="toc-toolbox_continu_inzicht.base.config" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.base.config">base.config</a>
-  <ul class="collapse">
-  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
-  <ul class="collapse">
-  <li><a href="#toolbox_continu_inzicht.base.config.Config" id="toc-toolbox_continu_inzicht.base.config.Config" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.config.Config">Config</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#toolbox_continu_inzicht.loads.get_matroos_locations" id="toc-toolbox_continu_inzicht.loads.get_matroos_locations" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.loads.get_matroos_locations">loads.get_matroos_locations</a></li>
   </ul>
 </nav>
     </div>
@@ -146,111 +148,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="toolbox_continu_inzicht.base.config" class="level1">
-<h1>base.config</h1>
-<p><code>base.config</code></p>
-<section id="classes" class="level2">
-<h2 class="anchored" data-anchor-id="classes">Classes</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.config.Config">Config</a></td>
-<td>Basis functie om de configuratie in te laden.</td>
-</tr>
-</tbody>
-</table>
-<section id="toolbox_continu_inzicht.base.config.Config" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.config.Config">Config</h3>
-<p><code>base.config.Config()</code></p>
-<p>Basis functie om de configuratie in te laden.</p>
-<section id="parameters" class="level4">
-<h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 11%">
-<col style="width: 6%">
-<col style="width: 73%">
-<col style="width: 9%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>config_path</code></td>
-<td></td>
-<td>Pad naar een <code>.yaml</code> bestand waarin per functie staat beschreven wat de in/ouput bestanden zijn</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="attributes" class="level4">
-<h4 class="anchored" data-anchor-id="attributes">Attributes</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.config.Config.available_types">available_types</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.base.config.Config.config_path">config_path</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.config.Config.data_adapters">data_adapters</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.base.config.Config.global_variables">global_variables</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="methods" class="level4">
-<h4 class="anchored" data-anchor-id="methods">Methods</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.config.Config.lees_config">lees_config</a></td>
-<td>Laad het gegeven pad in, zet de configuraties klaar in de Config class</td>
-</tr>
-</tbody>
-</table>
-<section id="toolbox_continu_inzicht.base.config.Config.lees_config" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.config.Config.lees_config">lees_config</h5>
-<p><code>base.config.Config.lees_config()</code></p>
-<p>Laad het gegeven pad in, zet de configuraties klaar in de Config class</p>
+<section id="toolbox_continu_inzicht.loads.get_matroos_locations" class="level1">
+<h1>loads.get_matroos_locations</h1>
+<p><code>loads.get_matroos_locations(source=None, parameter=None)</code></p>
+<p>Haalt alle matroos locaties op, indien gewenst ook bron en parameter</p>
 
 
-</section>
-</section>
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->

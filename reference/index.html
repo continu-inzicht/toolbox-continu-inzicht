@@ -92,16 +92,24 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Achtergrond</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="../reference/index.html" aria-current="page"> 
-<span class="menu-text">Python documentatie</span></a>
+    <a class="nav-link" href="../install.html"> 
+<span class="menu-text">Installeren</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../examples/notebooks/proof_of_concept.html"> 
 <span class="menu-text">Voorbeelden</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../modules.html"> 
+<span class="menu-text">Modules</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../reference/index.html" aria-current="page"> 
+<span class="menu-text">Python API</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contact.html"> 
+<span class="menu-text">Overig</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -155,7 +163,8 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#api-reference" id="toc-api-reference" class="nav-link active" data-scroll-target="#api-reference">API Reference</a>
   <ul class="collapse">
-  <li><a href="#continu-inzicht-toolbox" id="toc-continu-inzicht-toolbox" class="nav-link" data-scroll-target="#continu-inzicht-toolbox">Continu inzicht toolbox</a></li>
+  <li><a href="#basis" id="toc-basis" class="nav-link" data-scroll-target="#basis">Basis</a></li>
+  <li><a href="#belastingen" id="toc-belastingen" class="nav-link" data-scroll-target="#belastingen">Belastingen</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -168,34 +177,82 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="api-reference" class="level1 doc doc-index">
 <h1 class="doc doc-index">API Reference</h1>
-<section id="continu-inzicht-toolbox" class="level2">
-<h2 class="anchored" data-anchor-id="continu-inzicht-toolbox">Continu inzicht toolbox</h2>
-<p>Toolbox voor continu inzicht</p>
+<section id="basis" class="level2">
+<h2 class="anchored" data-anchor-id="basis">Basis</h2>
+<p>Lees &amp; schrijf functionaliteit waar andere functies op verder bouwen</p>
 <table class="caption-top table">
 <tbody>
 <tr class="odd">
-<td><a href="../reference/base.config.html#toolbox_continu_inzicht.base.config">base.config</a></td>
+<td><a href="../reference/config.html#toolbox_continu_inzicht.config">config</a></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="../reference/base.data_adapter.html#toolbox_continu_inzicht.base.data_adapter">base.data_adapter</a></td>
+<td><a href="../reference/data_adapter.html#toolbox_continu_inzicht.data_adapter">data_adapter</a></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><a href="../reference/proof_of_concept.example_module.html#toolbox_continu_inzicht.proof_of_concept.example_module">proof_of_concept.example_module</a></td>
 <td></td>
 </tr>
+</tbody>
+</table>
+</section>
+<section id="belastingen" class="level2">
+<h2 class="anchored" data-anchor-id="belastingen">Belastingen</h2>
+<p>Verschillende functies die belastingen inladen, classifiseren of toekennen.</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><a href="../reference/loads.LoadsCIWhatIf.html#toolbox_continu_inzicht.loads.LoadsCIWhatIf">loads.LoadsCIWhatIf</a></td>
+<td>Met deze functie worden belasting opgehaald en weggeschreven</td>
+</tr>
 <tr class="even">
-<td><a href="../reference/loads.loads_rws_webservice.loads_rws_webservice.html#toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice">loads.loads_rws_webservice.loads_rws_webservice</a></td>
-<td></td>
+<td><a href="../reference/loads.LoadsClassify.html#toolbox_continu_inzicht.loads.LoadsClassify">loads.LoadsClassify</a></td>
+<td>Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/loads.loads_fews.loads_fews.html#toolbox_continu_inzicht.loads.loads_fews.loads_fews">loads.loads_fews.loads_fews</a></td>
-<td></td>
+<td><a href="../reference/loads.LoadsFews.html#toolbox_continu_inzicht.loads.LoadsFews">loads.LoadsFews</a></td>
+<td>Met deze functie wordt er bij de opgegeven FEWS omgeving via</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/loads.loads_waterinfo.loads_waterinfo.html#toolbox_continu_inzicht.loads.loads_waterinfo.loads_waterinfo">loads.loads_waterinfo.loads_waterinfo</a></td>
-<td></td>
+<td><a href="../reference/loads.get_fews_locations.html#toolbox_continu_inzicht.loads.get_fews_locations">loads.get_fews_locations</a></td>
+<td>Haal voor Fews de locaties op voor de opgegegeven parameters</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/loads.get_fews_thresholds.html#toolbox_continu_inzicht.loads.get_fews_thresholds">loads.get_fews_thresholds</a></td>
+<td>Haal voor Fews de thresholds op voor de opgegegeven parameter en locatie</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/loads.LoadsMatroos.html#toolbox_continu_inzicht.loads.LoadsMatroos">loads.LoadsMatroos</a></td>
+<td>De LoadsMatroos klasse haalt belastinggegevens op van de Rijkswaterstaat Waterwebservices.</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/loads.get_matroos_locations.html#toolbox_continu_inzicht.loads.get_matroos_locations">loads.get_matroos_locations</a></td>
+<td>Haalt alle matroos locaties op, indien gewenst ook bron en parameter</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/loads.LoadsWaterwebservicesRWS.html#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS">loads.LoadsWaterwebservicesRWS</a></td>
+<td>Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/loads.get_rws_webservices_locations.html#toolbox_continu_inzicht.loads.get_rws_webservices_locations">loads.get_rws_webservices_locations</a></td>
+<td>Haal locaties die bekend zijn bij de RWS webservice.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/loads.LoadsToMoments.html#toolbox_continu_inzicht.loads.LoadsToMoments">loads.LoadsToMoments</a></td>
+<td>Met deze klasse kunnen waterstandsgegevens worden omgezet naar bepaalde momenten.</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/loads.LoadsWaterinfo.html#toolbox_continu_inzicht.loads.LoadsWaterinfo">loads.LoadsWaterinfo</a></td>
+<td>Belasting gegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/loads.get_waterinfo_locations.html#toolbox_continu_inzicht.loads.get_waterinfo_locations">loads.get_waterinfo_locations</a></td>
+<td>Haal voor Waterinfo de locaties op voor de opgegegeven parameter</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/loads.get_waterinfo_thresholds.html#toolbox_continu_inzicht.loads.get_waterinfo_thresholds">loads.get_waterinfo_thresholds</a></td>
+<td>Haal voor Waterinfo de thresholds op voor de opgegegeven parameter</td>
 </tr>
 </tbody>
 </table>

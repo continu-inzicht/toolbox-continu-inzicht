@@ -92,16 +92,24 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
-<span class="menu-text">Achtergrond</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./reference/index.html"> 
-<span class="menu-text">Python documentatie</span></a>
+    <a class="nav-link" href="./install.html"> 
+<span class="menu-text">Installeren</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./examples/notebooks/proof_of_concept.html"> 
 <span class="menu-text">Voorbeelden</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./modules.html"> 
+<span class="menu-text">Modules</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./reference/index.html"> 
+<span class="menu-text">Python API</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./contact.html" aria-current="page"> 
+<span class="menu-text">Overig</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -139,32 +147,14 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Toolbox continu inzicht</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./modules.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Modules</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Testprotocol</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./contact.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contact</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./install.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Installatie-instructies</span></a>
+  <a href="./tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Testprotocol</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -187,7 +177,8 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#ongeplubliceerd" id="toc-ongeplubliceerd" class="nav-link" data-scroll-target="#ongeplubliceerd">[Ongeplubliceerd]</a>
   <ul class="collapse">
-  <li><a href="#toegevoegd" id="toc-toegevoegd" class="nav-link" data-scroll-target="#toegevoegd">Toegevoegd</a></li>
+  <li><a href="#sprint-1" id="toc-sprint-1" class="nav-link" data-scroll-target="#sprint-1">Sprint 1</a></li>
+  <li><a href="#sprint-2" id="toc-sprint-2" class="nav-link" data-scroll-target="#sprint-2">sprint 2</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -204,13 +195,42 @@ ul.task-list li input[type="checkbox"] {
 <p>Alle noemenswaardige veranderingen worden hier bijgehouden. Dit project gebruikt <a href="http://semver.org/">Semantic Versioning</a>. Het format is beschreven op <a href="https://keepachangelog.com/en/1.0.0/">keepachangelog.com</a>.</p>
 <section id="ongeplubliceerd" class="level2">
 <h2 class="anchored" data-anchor-id="ongeplubliceerd">[Ongeplubliceerd]</h2>
-<section id="toegevoegd" class="level3">
-<h3 class="anchored" data-anchor-id="toegevoegd">Toegevoegd</h3>
+<section id="sprint-1" class="level3">
+<h3 class="anchored" data-anchor-id="sprint-1">Sprint 1</h3>
 <ul>
 <li>Werkende Quarto documentatie <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/7">#7</a></li>
 <li>Proof of concept met csv en database <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/9">#9</a></li>
 <li>Voeg notebook toe om te laten zien hoe het werkt <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/12">#12</a></li>
 <li>Maak map structuur overzichtelijker <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/19">#19</a></li>
+</ul>
+</section>
+<section id="sprint-2" class="level3">
+<h3 class="anchored" data-anchor-id="sprint-2">sprint 2</h3>
+<p>In sprint 2 is gebruikt gemaakt van aparte ‘feature branches’ met een grote pull request naar main <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/36">#36</a>.</p>
+<p>Allereerst zijn er nog rest punten uit sprint 1 aangepast:</p>
+<ul>
+<li>het specificeren van <code>delimiter</code> deed het niet, dit moet <code>sep</code> zijn. Daarnaast worden nu alle opties die in de configuratie zijn gespecificeerd doorgegeven aan de data adapters.</li>
+<li><code>Path</code> is nu <code>File</code>, waarbij <code>file</code> altijd een bestand is in de <code>rootdir</code>, Path mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie.</li>
+<li><code>.env</code> bestand is niet meer verplicht, maar geeft wel een Warning</li>
+<li><code>util</code> map voor generieke functies als tijd en post/get functies</li>
+<li><code>pytest.skipif</code> voor tests die alleen op het HKV netwerk draaien door FEWS/postgresql verbindingen.</li>
+<li>de keywords <code>input=..</code> en <code>output=..</code> worden nu alleen aan de <code>.run()</code> functie doorgegeven, niet aan de class zelf.</li>
+</ul>
+<p>Daarnaast is er een hoop toegevoegd rondom het inlezen van belastingen:</p>
+<ul>
+<li><p>Inlezen van, ophalen van locaties, parameters en grenswaardes(waar mogelijk) uit:</p>
+<ul>
+<li>(Noos/Vitaal) Matroos</li>
+<li>FEWS</li>
+<li>RWS waterinfo</li>
+<li>RWS waterwebservices</li>
+</ul></li>
+</ul>
+<p>Deze inleesfuncties gebruiken allemaal de aquo standaard naam en code (WATHTE).</p>
+<ul>
+<li>Classificeren van belastingen aan de hand van opgehaalde/meegegeven grenswaardes.</li>
+<li>Toekennen van belastingen aan secties.</li>
+<li>Aggregeren van tijdreeks naar momenten of bij getij naar maxima over de getijperiode.</li>
 </ul>
 
 
