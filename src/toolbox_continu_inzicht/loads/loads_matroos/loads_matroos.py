@@ -130,7 +130,7 @@ class LoadsMatroos:
             if status is None and json_data is not None:
                 if "results" in json_data:
                     lst_dfs.append(self.create_dataframe(options, t_now, json_data))
-                    #TODO voeg de id uit de input to aan het resultaat en schrijf die weg 
+                    # TODO voeg de id uit de input to aan het resultaat en schrijf die weg
                 else:
                     raise ConnectionError(
                         f"No results in data, only: {json_data.keys()}"

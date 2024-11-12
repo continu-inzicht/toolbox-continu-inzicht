@@ -3,6 +3,7 @@ from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.loads import LoadsWaterwebservicesRWS
 from datetime import datetime, timezone
+import pandas as pd
 
 
 def test_BelastingWaterwebservicesRWS():
@@ -20,6 +21,10 @@ def test_BelastingWaterwebservicesRWS():
 
 def test_test_BelastingWaterwebservicesRWS_create_dataframe():
     """ "tests creating of dataframe"""
+
+    df_in = pd.DataFrame(
+        data=[{"measurement_location_id": 1, "measurement_location_code": 8420}]
+    )
     options = {"MISSING_VALUE": 999999999.0}
     t_now = datetime(
         2024,
@@ -5013,7 +5018,7 @@ def test_test_BelastingWaterwebservicesRWS_create_dataframe():
     ]
 
     df_out = LoadsWaterwebservicesRWS.create_dataframe(
-        options=options, t_now=t_now, lst_data=lst_data
+        options=options, t_now=t_now, lst_data=lst_data, df_in=df_in
     )
 
     assert len(df_out) == 437

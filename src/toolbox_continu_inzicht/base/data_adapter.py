@@ -51,7 +51,7 @@ class DataAdapter(PydanticBaseModel):
         assert "ci_postgresql_from_measuringstations" in self.config.available_types
 
         self.input_types["csv_source"] = self.input_csv_source
-        assert "csv_source" in self.config.available_types        
+        assert "csv_source" in self.config.available_types
 
     def initialize_output_types(self) -> None | AssertionError:
         """Initializes ouput mapping and checks to see if type in the configured types"""
@@ -224,7 +224,7 @@ class DataAdapter(PydanticBaseModel):
             raise UserWarning("Kolom 'source' is niet aanwezig in het CSV bestand.")
 
         return df
-    
+
     @staticmethod
     def input_postgresql(input_config: dict) -> pd.DataFrame:
         """Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.
@@ -756,12 +756,12 @@ class DataAdapter(PydanticBaseModel):
             "objecttype",
         ]
 
-        def bepaal_parameter_id(value_type:str):
+        def bepaal_parameter_id(value_type: str):
             if value_type == "meting":
                 return 1
             else:
                 return 2
-            
+
         assert all(key in output_config for key in keys)
 
         table = "data"
@@ -779,7 +779,7 @@ class DataAdapter(PydanticBaseModel):
                 df["objecttype"] = objecttype
                 df["calculating"] = True
                 df["datetime"] = df["date_time"].apply(epoch_from_datetime)
-                df["parameterid"] = df['value_type'].apply(bepaal_parameter_id)
+                df["parameterid"] = df["value_type"].apply(bepaal_parameter_id)
                 df_data = df.loc[
                     :,
                     [
@@ -792,9 +792,7 @@ class DataAdapter(PydanticBaseModel):
                     ],
                 ]
                 df_data = df_data.rename(
-                    columns={
-                        "measurement_location_id": "objectid"
-                    }
+                    columns={"measurement_location_id": "objectid"}
                 )
 
                 # Eerst bestaande gegevens van meetstations verwijderen
@@ -826,7 +824,7 @@ class DataAdapter(PydanticBaseModel):
 
             else:
                 raise UserWarning("Geen gegevens om op te slaan.")
-            
+
         return df
 
     @staticmethod

@@ -65,7 +65,9 @@ def test_create_params():
         "parameters": ["WNSHDB1"],
     }
 
-    locations = pd.DataFrame(data={"name": ["location_a", "location_b"]})
+    locations = pd.DataFrame(
+        data={"measurement_location_code": ["location_a", "location_b"]}
+    )
     moments = [-24, 0, 24, 48]
 
     t_now = datetime(
@@ -87,7 +89,7 @@ def test_create_params():
     assert params["filterId"] == options["filter"]
     assert params["documentVersion"] == options["version"]
     assert params["parameterIds"] == options["parameters"]
-    assert params["locationIds"] == locations["name"].tolist()
+    assert params["locationIds"] == locations["measurement_location_code"].tolist()
     assert params["startTime"] == starttime.strftime("%Y-%m-%dT%H:%M:%SZ")
     assert params["endTime"] == endtime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -102,7 +104,13 @@ def test_create_dataframe():
 
     options = {"parameters": ["WNSHDB1"]}
 
-    locations = pd.DataFrame(data={"name": ["VOV9345"], "id": [1]})
+    locations = pd.DataFrame(
+        data={
+            "measurement_location_code": ["VOV9345"],
+            "measurement_location_id": [1],
+            "measurement_location_description": "test_locations",
+        }
+    )
     t_now = datetime(
         2024,
         10,
