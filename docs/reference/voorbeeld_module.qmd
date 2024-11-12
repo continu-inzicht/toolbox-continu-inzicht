@@ -1,4 +1,0 @@
-# voorbeeld_module { #continu_inzicht_toolbox.voorbeeld_module }
-
-`voorbeeld_module`
-

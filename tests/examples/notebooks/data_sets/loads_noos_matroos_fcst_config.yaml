@@ -1,0 +1,20 @@
+GlobalVariables:
+    rootdir: "data_sets" 
+    moments: [-24,0,24,48] 
+
+    LoadsMatroos:
+        website: "noos"
+        model: "dcsm6_kf"
+        parameters: ["WATHTE"]
+
+DataAdapter: 
+    default_options:
+        csv:
+            sep: ","
+
+    BelastingLocaties: 
+        type: csv
+        path: "loads_matroos.csv"
+    Waterstanden: 
+        type: csv
+        path: "hidden_waterstanden_matroos.csv"

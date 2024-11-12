@@ -1,4 +1,4 @@
 /.quarto/
 /docs/
-/docs/*
-/docs/reference
+/reference/
+/_freeze/

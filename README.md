@@ -27,8 +27,8 @@ iwr -useb https://pixi.sh/install.ps1 | iex
 ```bash
 curl -fsSL https://pixi.sh/install.sh | bash
 ```
-Hiermee installeer je het programma pixi.
 
+Hiermee installeer je het programma pixi.
 
 #### Instaleer python omgeving met pixi
 
@@ -38,6 +38,7 @@ Met Pixi kun je vervolgens de juiste python bestanden installeren:
  cd ..../toolbox-continu-inzicht
  pixi install
 ```
+
 Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand op de juiste packages te laden en zet deze in de `.pixi` map. 
 
 #### Jupyter lab

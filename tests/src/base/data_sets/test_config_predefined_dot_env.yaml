@@ -1,0 +1,26 @@
+GlobalVariables:
+    rootdir: 'tests/src/base/data_sets'
+    dotenv_path: 'tests/src/base/data_sets/test.env'
+
+DataAdapter:
+    default_options:
+        postgresql_database:
+            database: 'citoolbox'
+            schema: 'citoolbox_schema'
+        csv:
+            sep: ","
+    my_csv_in: 
+        type: csv
+        path: 'test_csv_in.csv'
+    my_csv_out: 
+        type: csv
+        path: 'test_csv_out.csv'
+    my_postgresql: 
+        type: postgresql_database
+        table: data_test
+    my_netcdf_in:
+        type: netcdf
+        path: 'test_netcdf_in.nc'
+    my_netcdf_out:
+        type: netcdf
+        path: 'test_netcdf_out.nc'

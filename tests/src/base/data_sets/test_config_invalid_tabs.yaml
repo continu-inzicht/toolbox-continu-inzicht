@@ -1,0 +1,27 @@
+# DEZE CONFIG HEEFT TABS IPV SPATIES
+GlobalVariables:
+	rootdir: 'tests/src/base/data_sets'
+
+DataAdapter:
+    default_options:
+        postgresql_database:
+        database: 'citoolbox'
+        schema: 'citoolbox_schema'
+        csv:
+    
+		sep: ","
+    MyCSV_in: 
+        type: csv
+        path: 'test_csv_in.csv'
+    MyCSV_out: 
+        type: csv
+        path: 'test_csv_out.csv'
+    MyPostgresql: 
+        type: postgresql_database
+        table: data_test
+    MyNetCDF_in:
+        type: netcdf
+        path: 'test_netcdf_in.nc'
+    MyNetCDF_out:
+        type: netcdf
+        path: 'test_netcdf_out.nc'

@@ -1,0 +1,35 @@
+GlobalVariables:
+    rootdir: 'tests/src/base/data_sets'
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    ci_measuringstations: 
+        type: ci_postgresql_from_measuringstations
+        database: "citoolbox"
+        schema: "citoolbox_schema"
+        source: 'WaterInfo'
+
+    ci_waterlevels: 
+        type: ci_postgresql_from_waterlevels
+        database: "citoolbox"
+        schema: "citoolbox_schema"
+
+    ci_conditions: 
+        type: ci_postgresql_from_conditions
+        database: "citoolbox"
+        schema: "citoolbox_schema"
+
+    ci_data: 
+        type: ci_postgresql_to_data
+        database: "citoolbox"
+        schema: "citoolbox_schema"
+        objecttype: "measuringstation"
+
+    ci_states:   
+        type: ci_postgresql_to_states
+        database: "citoolbox"
+        schema: "citoolbox_schema"
+        objecttype: "measuringstation"        

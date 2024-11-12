@@ -1,0 +1,22 @@
+GlobalVariables:
+    rootdir: "tests/src/loads/data_sets"   
+    moments: [-24,0,24,48]
+    
+    LoadsFews:
+        host: "https://fews.hhnk.nl"
+        port: 443
+        region: "fewspiservice"
+        version: "1.25"
+        filter: "HHNK_WEB"
+        parameters: ["WATHTE [m][NAP][OW]"]                
+
+DataAdapter: 
+    default_options:
+        csv:
+            sep: ","
+    locaties: 
+        type: csv
+        path: "test_locations_fews.csv"
+    waterstanden: 
+        type: csv
+        path: "hidden_waterstanden_fews.csv"

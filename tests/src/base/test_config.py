@@ -1,5 +1,6 @@
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
+import pytest
 
 
 def test_Config():
@@ -18,3 +19,12 @@ def test_Config():
 
     keys = ["schema", "database"]
     assert all([key in c.data_adapters["MyPostgresql"] for key in keys])
+
+
+def test_Config_invalid():
+    """Tests loading of invalid_yaml"""
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    print(test_data_sets_path)
+    c = Config(config_path=test_data_sets_path / "test_config_invalid_tabs.yaml")
+    with pytest.raises(UserWarning):
+        c.lees_config()

@@ -1,24 +1,31 @@
 GlobalVariables:
     rootdir: 'data_sets'
-    postgresql_database:
-        database: 'citoolbox'
-        schema: 'citoolbox_schema'
-    csv:
-        delimiter: ","
 
 DataAdapter:
-    MyCSV_in: 
+    default_options:
+        postgresql_database:
+            database: 'citoolbox'
+            schema: 'citoolbox_schema'
+        
+        csv:
+            sep: ","
+
+    mycsv_in: 
         type: csv
-        path: 'test_csv_in.csv'
-    MyCSV_out: 
+        file: 'test_csv_in.csv'
+    mycsv_in_delim: 
         type: csv
-        path: 'test_csv_out.csv'
-    MyPostgresql: 
+        file: 'test_csv_in_delim.csv'
+        sep: ';'
+    mycsv_out: 
+        type: csv
+        file: 'test_csv_out.csv'
+    mypostgresql: 
         type: postgresql_database
         table: data
-    MyNetCDF_in:
+    mynetcdf_in:
         type: netcdf
-        path: 'test_netcdf_in.nc'
-    MyNetCDF_out:
+        file: 'test_netcdf_in.nc'
+    mynetcdf_out:
         type: netcdf
-        path: 'test_netcdf_out.nc'
+        file: 'test_netcdf_out.nc'

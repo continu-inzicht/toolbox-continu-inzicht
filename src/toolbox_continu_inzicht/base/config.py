@@ -1,6 +1,7 @@
 import yaml
 from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
+from yaml.scanner import ScannerError
 
 
 class Config(PydanticBaseModel):
@@ -16,12 +17,29 @@ class Config(PydanticBaseModel):
     config_path: Path
     global_variables: dict = {}
     data_adapters: dict = {}
+    available_types: list[str] = [
+        "csv",
+        "csv_source",
+        "postgresql_database",
+        "netcdf",
+        "ci_postgresql_from_waterlevels",
+        "ci_postgresql_from_conditions",
+        "ci_postgresql_from_measuringstations",
+        "ci_postgresql_to_data",
+        "ci_postgresql_to_states",
+    ]
 
     def lees_config(self):
         """Laad het gegeven pad in, zet de configuraties klaar in de Config class"""
 
         with self.config_path.open() as fin:
-            data = yaml.safe_load(fin)
+            try:
+                data = yaml.safe_load(fin)
+            except ScannerError:
+                raise UserWarning(
+                    f"Het yaml configuratie bestand '{self.config_path}' kan niet worden gelezen."
+                    + "Controleer dat spatie worden gebruikt inplaats van tabs."
+                )
 
         for header, configuration in data.items():
             match header:
@@ -30,9 +48,18 @@ class Config(PydanticBaseModel):
                 case "GlobalVariables":
                     self.global_variables = configuration
 
-        # add any applicable global variables to the
-        # not that fast but config shouldn't get too big
-        for val in self.global_variables:
-            for name, adapter in self.data_adapters.items():
-                if adapter["type"] == val:
-                    self.data_adapters[name].update(self.global_variables[val])
+        # opties die in de DataAdapter worden mee gegeven
+        # worden toegevoegd aan de adapters, mits de adapter zelf niet die waarde heeft
+        if "default_options" in self.data_adapters:
+            default_options = self.data_adapters["default_options"]
+            adapters = set(self.data_adapters.keys())
+            adapters.discard("default_options")
+            for adapter in adapters:
+                input_type = self.data_adapters[adapter]["type"]
+                if input_type in default_options:
+                    for key in default_options[input_type]:
+                        # alleen nieuwe opties toeveogen als die er niet al zijn
+                        if key not in self.data_adapters[adapter]:
+                            self.data_adapters[adapter][key] = default_options[
+                                input_type
+                            ][key]
