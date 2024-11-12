@@ -1,4 +1,5 @@
 from datetime import datetime, timezone, timedelta
+import warnings
 from pydantic.dataclasses import dataclass
 import pandas as pd
 from typing import Optional
@@ -41,6 +42,12 @@ class LoadsWaterwebservicesRWS:
         """
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
+
+        if "LoadsWaterwebservicesRWS" not in global_variables:
+            raise UserWarning(
+                "LoadsWaterwebservicesRWS sectie niet aanwezig in global_variables (config)"
+            )
+
         options = global_variables["LoadsWaterwebservicesRWS"]
         if "MISSING_VALUE" not in options:
             options["MISSING_VALUE"] = -999
@@ -55,9 +62,19 @@ class LoadsWaterwebservicesRWS:
 
         df_available_locations = get_rws_webservices_locations()
         # uit de dataframe haal je een lijst met meetlocatie ids
-        wanted_measuringstationid = list(self.df_in["measurement_location_id"].values)
-        # met de meet locatie id's halen selecteren we de informatie uit de catalogus
-        wanted_locations = df_available_locations.loc[wanted_measuringstationid]
+        wanted_measuringstationcode = list(
+            self.df_in["measurement_location_code"].values
+        )
+
+        wanted_measuringstationcode_ints = []
+        for item in wanted_measuringstationcode:
+            if str(item).isnumeric():
+                wanted_measuringstationcode_ints.append(int(item))
+            else:
+                raise UserWarning("measurement_location_code moeten getallen zijn")
+
+        # met de meet locatie code's selecteren we de informatie uit de catalogus
+        wanted_locations = df_available_locations.loc[wanted_measuringstationcode_ints]
 
         # zet tijd goed
         dt_now = datetime.now(timezone.utc)
@@ -88,16 +105,31 @@ class LoadsWaterwebservicesRWS:
                 parameter, t_now, global_variables, wanted_locations
             )
 
-        # haal deze data a-synchroon op
-        observation_data = [
-            fetch_data_post(self.url_retrieve_observations, json, mime_type="json")
-            for json in lst_json
-        ]
+        # haal de de data op & maak een dataframe
+        lst_observations = []
+        missing_data = []
+        for json in lst_json:
+            result, data = fetch_data_post(
+                self.url_retrieve_observations, json, mime_type="json"
+            )
+            if data is None:
+                missing_data.append(result)
+            else:
+                lst_observations.append(data)
 
-        # post_process de data & maak een dataframe
-        lst_observations = [value for _, value in observation_data]
+        if len(lst_observations) == 0:
+            raise UserWarning(
+                f"Fout bij het ophalen van gegevens voor locatie(s) met code(s) {wanted_locations}: {missing_data[0]}"
+            )
 
-        self.df_out = self.create_dataframe(options, t_now, lst_observations)
+        elif len(missing_data) > 0 and len(lst_observations) > 0:
+            warnings.warn(
+                f"Ontbrekende gegevens voor {len(missing_data)} locaties, controleer de invoer op fouten \n doorgaan met {len(lst_observations)} locaties"
+            )
+
+        self.df_out = self.create_dataframe(
+            options, t_now, lst_observations, self.df_in
+        )
 
         rws_missing_value = 999999999.0  # implemented by default
         if options["MISSING_VALUE"] != rws_missing_value:
@@ -109,7 +141,7 @@ class LoadsWaterwebservicesRWS:
 
     @staticmethod
     def create_dataframe(
-        options: dict, t_now: datetime, lst_data: list
+        options: dict, t_now: datetime, lst_data: list, df_in: pd.DataFrame
     ) -> pd.DataFrame:
         """Maakt een dataframe met waardes van de rws water webservices
 
@@ -136,6 +168,9 @@ class LoadsWaterwebservicesRWS:
                 serie = serie_in["WaarnemingenLijst"][0]
                 measurement_location_id = serie["Locatie"]["Locatie_MessageID"]
                 measurement_location_code = serie["Locatie"]["Code"]
+                measurement_location_id = df_in[
+                    df_in["measurement_location_code"] == measurement_location_id
+                ].iloc[0]["measurement_location_id"]
                 measurement_location_name = serie["Locatie"]["Naam"]
                 parameter_code = serie["AquoMetadata"]["Grootheid"]["Code"]
                 # binnen aquo is WATHTEVERWACHT niks, dus zet de code terug

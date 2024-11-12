@@ -22,7 +22,11 @@ class LoadsWaterinfo:
     url: str = "https://waterinfo.rws.nl/api/chart/get"
 
     # Kolommen schema van de invoer data meetlocaties
-    input_schema = {"id": "int64", "name": "object", "code": "object"}
+    input_schema = {
+        "measurement_location_id": "int64",
+        "measurement_location_code": "object",
+        "measurement_location_description": "object",
+    }
 
     def run(self, input: str, output: str) -> None:
         """
@@ -37,13 +41,19 @@ class LoadsWaterinfo:
 
         # Haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
+
+        if "LoadsWaterinfo" not in global_variables:
+            raise UserWarning(
+                "LoadsWaterinfo sectie niet aanwezig in global_variables (config)"
+            )
+
         options = global_variables["LoadsWaterinfo"]
 
         # moments eventueel toevoegen aan options
         if "moments" not in options and "moments" in global_variables:
             options["moments"] = global_variables["moments"]
         elif "moments" not in options:
-            options["moments"] = [-24, 0, 24, 48]
+            raise UserWarning("moments niet aanwezig in global_variables (config)")
 
         # missing value controleren
         if "MISSING_VALUE" not in options:
@@ -83,7 +93,7 @@ class LoadsWaterinfo:
             for _, measuringstation in self.df_in.iterrows():
                 params = {
                     "mapType": datatype,
-                    "locationCodes": measuringstation["code"],
+                    "locationCodes": measuringstation["measurement_location_code"],
                     "values": f"{values}",
                 }
 
@@ -106,6 +116,13 @@ class LoadsWaterinfo:
                         )
                     else:
                         self.df_out = dataframe
+
+                else:
+                    raise UserWarning(
+                        f"Locatie: {measuringstation.measurement_location_code} geeft geen resultaat in Waterinfo."
+                    )
+        else:
+            raise UserWarning("De opgegeven parameter(s) komen niet voor in Waterinfo.")
 
         self.data_adapter.output(output=output, df=self.df_out)
         return self.df_out
@@ -148,7 +165,6 @@ class LoadsWaterinfo:
 
             for serie in json_data["series"]:
                 value_type = "meting"
-                location_name = serie["meta"]["locationName"]
                 parameter_name = serie["meta"]["parameterName"]
                 parameter_description = serie["meta"]["displayName"]
                 unit = serie["unit"].lower()
@@ -170,9 +186,9 @@ class LoadsWaterinfo:
                             value = options["MISSING_VALUE"]
 
                         record = {
-                            "measurement_location_id": measuringstation.id,
-                            "measurement_location_code": measuringstation.code,
-                            "measurement_location_description": location_name,
+                            "measurement_location_id": measuringstation.measurement_location_id,
+                            "measurement_location_code": measuringstation.measurement_location_code,
+                            "measurement_location_description": measuringstation.measurement_location_description,
                             "parameter_id": parameter_id,
                             "parameter_code": parameter_code,
                             "parameter_description": parameter_description,

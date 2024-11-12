@@ -78,7 +78,11 @@ def test_create_dataframe():
     }
 
     measuringstations = pd.DataFrame.from_dict(
-        {"id": 1, "name": "Rottedamse hoek", "code": "Rotterdamse-hoek(FL02)-1"},
+        {
+            "measurement_location_id": 1,
+            "measurement_location_description": "Rottedamse hoek",
+            "measurement_location_code": "Rotterdamse-hoek(FL02)-1",
+        },
         orient="index",
     )
 

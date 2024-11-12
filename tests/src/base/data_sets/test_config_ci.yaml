@@ -10,6 +10,7 @@ DataAdapter:
         type: ci_postgresql_from_measuringstations
         database: "citoolbox"
         schema: "citoolbox_schema"
+        source: 'WaterInfo'
 
     ci_waterlevels: 
         type: ci_postgresql_from_waterlevels

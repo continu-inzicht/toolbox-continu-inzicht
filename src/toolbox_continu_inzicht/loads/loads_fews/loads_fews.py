@@ -21,8 +21,12 @@ class LoadsFews:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    # Kolommen schema van de invoer data
-    input_schema = {"id": "int64", "name": "object"}
+    # Kolommen schema van de invoer data meetlocaties
+    input_schema = {
+        "measurement_location_id": "int64",
+        "measurement_location_code": "object",
+        "measurement_location_description": "object",
+    }
 
     def run(self, input: str, output: str) -> pd.DataFrame:
         """
@@ -46,8 +50,18 @@ class LoadsFews:
             0,
         ).replace(tzinfo=timezone.utc)
 
-        options = self.data_adapter.config.global_variables["LoadsFews"]
-        moments = self.data_adapter.config.global_variables["moments"]
+        global_variables = self.data_adapter.config.global_variables
+
+        if "LoadsFews" not in global_variables:
+            raise UserWarning("LoadsFews niet in ")
+
+        options = global_variables["LoadsFews"]
+
+        # moments eventueel toevoegen aan options
+        if "moments" not in options and "moments" in global_variables:
+            options["moments"] = global_variables["moments"]
+        elif "moments" not in options:
+            options["moments"] = [-24, 0, 24, 48]
 
         # missing value controleren
         if "MISSING_VALUE" not in options:
@@ -60,7 +74,10 @@ class LoadsFews:
 
         url = self.create_url(options=options)
         parameters = self.create_params(
-            t_now=t_now, options=options, moments=moments, locations=self.df_in
+            t_now=t_now,
+            options=options,
+            moments=options["moments"],
+            locations=self.df_in,
         )
         status, json_data = fetch_data_get(
             url=url, params=parameters, mime_type="json", path_certificate=None
@@ -121,7 +138,7 @@ class LoadsFews:
             params["documentFormat"] = "PI_JSON"
             params["forecastCount"] = 1
             params["parameterIds"] = options["parameters"]
-            params["locationIds"] = locations["name"].tolist()
+            params["locationIds"] = locations["measurement_location_code"].tolist()
             params["startTime"] = starttime.strftime("%Y-%m-%dT%H:%M:%SZ")
             params["endTime"] = endtime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -158,44 +175,52 @@ class LoadsFews:
                 parameter_code = serie["header"]["parameterId"]
                 parameter_description = serie["header"]["parameterId"]
                 measurement_location_code = serie["header"]["locationId"]
-                measurement_location_description = serie["header"]["stationName"]
+                # measurement_location_description = serie["header"]["stationName"]
                 unit = serie["header"]["units"]
 
                 measuringstation = locations[
-                    locations["name"] == measurement_location_code
+                    locations["measurement_location_code"] == measurement_location_code
                 ]
 
                 if len(measuringstation) > 0:
-                    measurement_location_id = int(measuringstation["id"].iloc[0])
+                    measurement_location_id = int(
+                        measuringstation["measurement_location_id"].iloc[0]
+                    )
+                    measurement_location_description = str(
+                        measuringstation["measurement_location_description"].iloc[0]
+                    )
 
                     if parameter_code in options["parameters"]:
-                        for event in serie["events"]:
-                            datestr = f"{event['date']}T{event['time']}Z"
-                            utc_dt = datetime_from_string(datestr, "%Y-%m-%dT%H:%M:%SZ")
-                            value_type = "meting"
+                        if "events" in serie:
+                            for event in serie["events"]:
+                                datestr = f"{event['date']}T{event['time']}Z"
+                                utc_dt = datetime_from_string(
+                                    datestr, "%Y-%m-%dT%H:%M:%SZ"
+                                )
+                                value_type = "meting"
 
-                            if utc_dt > t_now:
-                                value_type = "verwachting"
+                                if utc_dt > t_now:
+                                    value_type = "verwachting"
 
-                            if event["value"]:
-                                value = float(event["value"])
-                            else:
-                                value = options["MISSING_VALUE"]
+                                if event["value"]:
+                                    value = float(event["value"])
+                                else:
+                                    value = options["MISSING_VALUE"]
 
-                            record = {
-                                "measurement_location_id": measurement_location_id,
-                                "measurement_location_code": measurement_location_code,
-                                "measurement_location_description": measurement_location_description,
-                                "parameter_id": parameter_id,
-                                "parameter_code": parameter_code,
-                                "parameter_description": parameter_description,
-                                "unit": unit,
-                                "date_time": utc_dt,
-                                "value": value,
-                                "value_type": value_type,
-                            }
+                                record = {
+                                    "measurement_location_id": measurement_location_id,
+                                    "measurement_location_code": measurement_location_code,
+                                    "measurement_location_description": measurement_location_description,
+                                    "parameter_id": parameter_id,
+                                    "parameter_code": parameter_code,
+                                    "parameter_description": parameter_description,
+                                    "unit": unit,
+                                    "date_time": utc_dt,
+                                    "value": value,
+                                    "value_type": value_type,
+                                }
 
-                            records.append(record)
+                                records.append(record)
 
             dataframe = pd.DataFrame.from_records(records)
 

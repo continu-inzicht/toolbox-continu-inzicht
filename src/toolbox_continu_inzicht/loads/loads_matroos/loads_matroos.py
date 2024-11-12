@@ -53,6 +53,12 @@ class LoadsMatroos:
 
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
+
+        if "LoadsMatroos" not in global_variables:
+            raise UserWarning(
+                "LoadsMatroos sectie niet aanwezig in global_variables (config)"
+            )
+
         options = global_variables["LoadsMatroos"]
         if "MISSING_VALUE" not in options:
             options["MISSING_VALUE"] = -999
@@ -124,6 +130,7 @@ class LoadsMatroos:
             if status is None and json_data is not None:
                 if "results" in json_data:
                     lst_dfs.append(self.create_dataframe(options, t_now, json_data))
+                    # TODO voeg de id uit de input to aan het resultaat en schrijf die weg
                 else:
                     raise ConnectionError(
                         f"No results in data, only: {json_data.keys()}"
