@@ -1,0 +1,15 @@
+GlobalVariables:
+    rootdir: "data_sets"   
+    LoadsWaterinfo:
+        parameters: ["waterhoogte"]
+
+DataAdapter: 
+    default_options:    
+        csv:
+            sep: ","
+    locaties: 
+        type: csv
+        path: "locations_waterinfo.csv"
+    waterstanden: 
+        type: csv
+        path: "waterstanden_waterinfo.csv"

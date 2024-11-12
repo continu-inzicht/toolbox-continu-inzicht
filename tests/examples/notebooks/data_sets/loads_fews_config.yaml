@@ -1,0 +1,22 @@
+GlobalVariables:
+    rootdir: "data_sets"   
+    moments: [-24,0,24,48]
+
+    LoadsFews:
+        host: "https://********************"
+        port: 8443
+        region: "fewspiservice"
+        version: "1.25"
+        filter: "HKV_WV_1"
+        parameters: ["WNSHDB1"]                
+
+DataAdapter: 
+    default_options:    
+        csv:
+            sep: ","
+    locaties: 
+        type: csv
+        path: "locations_fews.csv"
+    waterstanden: 
+        type: csv
+        path: "waterstanden_fews.csv"

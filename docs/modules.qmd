@@ -2,40 +2,316 @@
 title: "Modules"
 ---
 
-De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het uitlezen van waterstanden uit FEWS. 
-De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke [Github](https://github.com/continu-inzicht/toolbox-continu-inzicht). De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.
+De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het uitlezen van waterstanden uit FEWS. De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke [Github](https://github.com/continu-inzicht/toolbox-continu-inzicht). De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.
 
 De ontwikkeling van de volgende modules is voorzien:
 
-1. [Basis architectuur Toolbox Continu Inzicht](#sec-architectuur)
-1. [Belastingen inlezen en classificeren](#sec-belastingen)
-1. Bepalen fragility curves
-1. Bijstellen fragility curves (beheerdersoordeel in voorbereiding)
-1. Conditionele kansen en status waterkering per sectie
-1. Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans
-1. Inspectieresultaten inlezen en weergeven 
-1. Resultaten ontsluiten via Digitale Delta API
+1.  [Basis architectuur Toolbox Continu Inzicht](#sec-architectuur)
+2.  [Belastingen inlezen en classificeren](#sec-belastingen)
+3.  Bepalen fragility curves
+4.  Bijstellen fragility curves (beheerdersoordeel in voorbereiding)
+5.  Conditionele kansen en status waterkering per sectie
+6.  Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans
+7.  Inspectieresultaten inlezen en weergeven
+8.  Resultaten ontsluiten via Digitale Delta API
 
 ## Basis architectuur Toolbox Continu Inzicht {#sec-architectuur}
 
-De architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn. 
+De architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn.
 
 ### Configuratie
-Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen.
+
+Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen. Door middel van een `yaml` configuratie bestand wordt de juist informatie meegegeven aan de modules en de data adapter.
+
+Het kopje `GlobalVariables` is verplicht met minimaal een `rootdir`: dit is een map waarin de data bestanden staan en weggeschreven worden. De `DataAdapter` is ook verplicht, met minimaal één data adapter. De naam van de adapter kan vrij gekozen worden, hier van kunnen zo veel als gewenst worden aangemaakt
+```yaml
+GlobalVariables:
+    rootdir: "C:/data/toobox/"
+
+DataAdapter:
+    EenTypeDataAdapter: 
+        type: csv
+        file: "eerste_voorbeeld.csv"
+```
+
+
+Onder `GlobalVariables` kan per data type variabele worden meegegeven die voor alle adapters van dit type gelden. Voor `csv` kan dit bijvoorbeeld het scheidingsteken zijn. Alle data adapters met het type `csv` krijgen nu de extra variabele mee. 
+```yaml
+GlobalVariables:
+    rootdir: "C:/data/toobox/"
+
+DataAdapter:
+    default_options:
+        csv:
+    	    sep: ";"
+    EenTypeDataAdapter: 
+        type: csv
+        file: "eerste_voorbeeld.csv"
+    CSV_output: 
+        type: csv
+        file: "voorbeeld_output.csv"
+```
+
+
+Naast de data adapters worden modules ook geconfigureerd in de `GlobalVariables`. Zo worden de opties voor de module `LoadsMatroos` ook mee gegeven in de `GlobalVariables`. 
+```yaml
+GlobalVariables:
+    rootdir: "C:/data/toobox/"
+    
+    LoadsMatroos:
+        website: "noos"
+        source: "dcsm6_kf"
+        parameters: ["waterlevel"]
+        MISSING_VALUE: 999
+
+DataAdapter:
+	...
+```
 
 ### Data adapter
-De data adapter wordt gebruikt om verschillende data types in en uit te lezen. 
-Op het moment zijn dit de volgende data formaten:
 
-1. CSV
-1. NetCDF
-1. PostgreSQL
+De data adapter wordt gebruikt om verschillende data types in en uit te lezen. Op het moment zijn dit de volgende data formaten:
+
+1.  CSV
+2.  NetCDF
+3.  PostgreSQL
+
+Deze wordt geconfigureerd in de een `.yaml` configuratie bestand, een voorbeeld van een csv-bestand wordt hieronder weergegeven. Hierbij zijn `type` en `file` of `path` verplicht. In het voorbeeld hier onder wordt een relatief pad mee gegeven als `rootdir`, dit wordt ook ondersteund. 
+
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    my_csv_in: 
+        type: csv
+        file: "test_csv_in.csv"
+    my_csv_out: 
+        type: csv
+        file: "test_csv_out.csv"
+...
+```
+
+Indien een bestand buiten de root directory valt kan in plaats van `file `ook een absoluut `path` worden mee gegeven. 
+```yaml 
+DataAdapter:
+    MyCSV_anders: 
+        type: csv
+        path: "C:/data/Ander/pad_naar_csv.csv"
+...
+```
+
+Naast de verplichte opties, worden alle overige opties doorgegeven aan de output functie. De `csv`module maakt gebruik van de [pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) module voor het lees werk, all opties die deze module ondersteund kunnen worden doorgegeven. Voor `NetCDF` is dit [xarray.open_dataset](https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html). Echter is voor `PostgreSQL` dit niet het geval, hier zijn alleen een drie standaard opties beschikbaar: `database`, `schema` en `table`. 
+
+### Wachtwoorden
+
+Voor bepaalde diensten, zo als toegang tot een database, zijn wachtwoorden nodig. Deze kunnen in de "environmental variables" worden mee gegeven, in de vorm van een `.env` bestand. 
+```yaml
+postgresql_host="xxx.xx.xx.xx"
+postgresql_database="xxxxxxx"
+postgresql_port="xxxx"
+postgresql_password="xxxx"
+postgresql_user="xx"
+```
 
 ## Belastingen inlezen en classificeren {#sec-belastingen}
 
-Dit maakt deel uit van sprint 2, deze tekst zal na uitvoering van de sprint worden aangevuld.
+Om continu inzicht te leveren in de veiligheid van waterkeringen is het van belang de belastingen op de keringen in kaart te brengen. Deze worden ingelezen uit verschillende bronnen en vervolgens geclassificeerd. 
+
+### Belastingen inlezen
+
+De Bronnen die op dit moment worden ondersteund in de toolbox continu inzicht zijn:
+
+1. Delft FEWS
+2. Matroos
+3. RWS water web services
+4. RWS waterinfo
+
+#### Delft FEWS
+Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen) implementatie voor het beheren van verschillende interne en externe informatie bronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot FEWS is complexer dan andere bronnen, hierom zijn meer parameters nodig in het configuratiebestand.  De functie `get_fews_locations()` kan worden gebruikt om de beschikbare locaties te tonen. 
+
+```Yaml
+
+GlobalVariables:
+    rootdir: "data_sets"  
+    moments: [-24,0,24,48]	
+
+    LoadsFews:
+        host: "https:**********"
+        port: ****
+        region: "fewspiservice"
+        version: "1.25"
+        filter: "HKV_WV_1"
+        parameters: ["WNSHDB1"]  
+        
+
+DataAdapter:
+	...
+```
+
+##### GlobalVariables:
+- rootdir: Bestandlocatie van de invoer/ uitvoerbestanden
+- moments: Momenten in uren waar gegevens voor opgehaald moet worden
 
 
+##### LoadsFews:
+- host: Fews PI REST url
+- port: Fews PI REST poortnummer
+- region: FEWS PI REST regionaam
+- version: FEWS PI versienummer
+- filter: Filternaam zoals deze in FEWS wordt gebruikt
+- parameters: Parameternaam zoals deze in FEWS wordt gebruikt
+
+
+##### Invoer schema locaties:
+- measurement_location_id (int): Meetlocatie id
+- measurement_location_code (str): Meetlocatie code
+- measurement_location_description (str): Meetlocatie omschrijving/naam
+
+
+##### Uitvoer schema:    
+- measurement_location_id (int): Meetlocatie id
+- measurement_location_code (str): Meetlocatie code
+- measurement_location_description (str): Meetlocatie omschrijving/naam
+- parameter_id (int): Parameter id overeenkomstig Aquo-standaard
+- parameter_code (str): Parameter code overeenkomstig Aquo-standaard
+- parameter_description (str): Parameter omschrijving overeenkomstig Aquo-standaard
+- unit (str): Eenheid van de waarde
+- date_time (datetime): Datum en tijd van de waarde
+- value (float): Waarde
+- value_type (str): Type waarde: meting of verwachting
+
+
+#### Matroos
+Matroos of `Multifunctional Access Tool foR Operational Oceandata Services` is een systeem van Rijkswaterstaat (RWS). Recente waterstand metingen en verwachtingen kunnen hieruit worden opgehaald.  Matroos is beschikbaar in verschillende smaken, waarvan drie relevant. De verschillen worden in de tabel hieronder toegelicht, zie [iplo.nl](https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf) voor meer informatie. In de toolbox wordt nu alleen de series API gebruikt dus volstaat NOOS. 
+
+| URL                                                     | Type           | Inhoud                                        | Doelgroep                             |
+|---------------------------------------------------------|----------------|-----------------------------------------------|---------------------------------------|
+| [vitaal.matroos.rws.nl](https://vitaal.matroos.rws.nl/) | extern, vitaal | 21 dagen                                      | Kustwacht, Waterschappen              |
+| [matroos.rws.nl](https://matroos.rws.nl/)               | extern         | Volledige historie                            | Waterschappen, universiteiten, extene |
+| [noos.matroos.rws.nl](https://noos.matroos.rws.nl/)     | extern, open   | Beperkte set; series:volledig; maps: 14 dagen | NOOS internationaal, Open Data        |
+
+In Matroos zijn verschillende bronnen beschikbaar, met `get_matroos_sources()` kan een lijst van deze worden gegeneerd. De beschikbare locaties kunnen worden weergegeven met `get_matroos_locations()`, met mogelijkheid om te filteren op een bron en parameter. 
+
+```Yaml
+
+GlobalVariables:
+    rootdir: "data_sets" 
+    moments: [-24,0,24,48]
+    ...
+
+    LoadsMatroos:
+        website: "noos" # noos, vitaal of matroos
+        model: "observed"
+        parameters: ["WATHTE"]
+
+DataAdapter:
+	...
+```
+
+Voor het gebruik van vitaal en matroos is een gebruikersnaam en wachtwoord nodig. Deze moeten in de environmental variables worden meegegeven (`.env` bestand). 
+
+```yaml
+vitaal_user: "..."
+vitaal_password: "..."
+# of 
+matroos_user: "..."
+matroos_password: "..."
+```
+
+#### RWS WaterWebservices
+
+Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen rondom rivieren beschikbaar via de [WaterWebservices](https://rijkswaterstaatdata.nl/waterdata/) API. Deze is openbaar en vereist weinig configuratie. De `MISSING_VALUE` kan in de configuratie worden aangepast, maar staat al standaard ingesteld.
+
+```yaml
+    LoadsWaterwebservicesRWS:
+        parameters:  ["WATHTE"]
+```
+
+Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_locations()`. 
+
+#### RWS waterinfo
+Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Deze is openbaar, wel moet de maptype als parameter worden opgegeven.
+
+
+```yaml
+ GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,48]
+
+    LoadsWaterinfo:
+        parameters: ["waterhoogte"]
+
+```
+##### GlobalVariables:
+- rootdir: Bestandlocatie van de invoer/ uitvoerbestanden
+- moments: Momenten in uren waar gegevens voor opgehaald moet worden
+
+##### LoadsWaterinfo:
+- parameters:
+
+|omschrijving|maptype|periode|
+|--|--|--|
+|Waterhoogte in cm|waterhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0| 
+|Windsnelheid in m/s|wind|2d terug: -48,48<br>6u terug: -6,3<br>9d terug: -216,48<br>28d terug: -672,0| -48,48/-6,3/216,48/-672,0| 
+|Golfhoogte in cm|golfhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0| 
+|Watertemperatuur in °C|watertemperatuur|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+|Luchttemperatuur in °C|luchttemperatuur|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+|Astronomisch getij|astronomische-getij|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit:-6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug:-672,0|  
+|Stroomsnelheid in m/s|stroming|2d terug: -48,0<br>6u terug:-6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+|Debiet in m3/s|waterafvoer|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit:-216,48<br>28d terug:-672,0|
+|Chloride in mg/l|zouten|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+
+##### Invoer schema locaties:
+- measurement_location_id (int): Meetlocatie id
+- measurement_location_code (str): Meetlocatie code
+- measurement_location_description (str): Meetlocatie omschrijving/naam
+
+
+##### Uitvoer schema:    
+- measurement_location_id (int): Meetlocatie id
+- measurement_location_code (str): Meetlocatie code
+- measurement_location_description (str): Meetlocatie omschrijving/naam
+- parameter_id (int): Parameter id overeenkomstig Aquo-standaard
+- parameter_code (str): Parameter code overeenkomstig Aquo-standaard
+- parameter_description (str): Parameter omschrijving overeenkomstig Aquo-standaard
+- unit (str): Eenheid van de waarde
+- date_time (datetime): Datum en tijd van de waarde
+- value (float): Waarde
+- value_type (str): Type waarde: meting of verwachting
+
+### Classificeren van belastingen
+
+De verschillende hierboven benoemde klasses voor het inlezen van belastingen geven een tijdreeks terug op bepaalde punten.
+Deze kunnen worden geinterpoleerd met 
+
+
+#### Classificeren
+Met grenswaardes kunnen de waterstanden worden geclassificeerd. Dit kan met de klasse `LoadsClassify`.
+
+#### Tijdreeks naar momenten
+
+Om de tijdsreeks om te zetten naar specifieke momenten kan de klasse `LoadsToMoments` worden gebruikt.
+
+Voor getij is hier configuratie voor nodig, anders wordt er uit gegaan van het geval zonder getij.
+Bij getij wordt de maximum waarde tijdens een getij cyclus (+/-12.25 uur) als moment gebruikt. 
+
+```yaml
+ GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+
+    LoadsToMoments:
+        tide: true
+
+```
+
+#### Toekennen van belastingen
+
+Alleen om meetlocaties zijn de waterstanden in eerste instantie beschikbaar als ze zijn opgehaald door de belasting klasses. Om deze om te zetten naar waardes bij dijkvakken kan de `SectionsLoads` klasse worden gebruikt. 
+
+
+```{=html}
 <!-- ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
 
 Tekst na uitvoering aan te vulen 
@@ -64,4 +340,4 @@ Tekst na uitvoering aan te vulen
 ## Resultaten ontsluiten via Digitale Delta API {#sec-Resltaten-ontsluiten}
 
 Tekst na uitvoering aan te vulen -->
-
+```

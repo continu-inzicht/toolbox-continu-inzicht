@@ -1,0 +1,19 @@
+GlobalVariables:
+    rootdir: "tests/src/loads/data_sets" 
+    moments: [-24,0,24,48]  
+
+    LoadsMatroos:
+        website: "noos" # only test noos as vital and matroos require passwords
+        model: "bma2_95"
+        parameters: ["WATHTE"]
+
+DataAdapter: 
+    default_options:
+        csv:
+            sep: ","
+    BelastingLocaties: 
+        type: csv
+        path: "test_loads_matroos.csv"
+    Waterstanden: 
+        type: csv
+        path: "hidden_waterstanden.csv"

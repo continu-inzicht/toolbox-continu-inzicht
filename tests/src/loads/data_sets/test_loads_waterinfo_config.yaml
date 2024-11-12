@@ -1,0 +1,16 @@
+GlobalVariables:
+    rootdir: "tests/src/loads/data_sets"
+    moments: [-24,0,24,48]
+    LoadsWaterinfo:
+        parameters: ["waterhoogte"]
+
+DataAdapter: 
+    default_options:
+        csv:
+            sep: ","
+    locaties: 
+        type: csv
+        path: "test_locations_waterinfo.csv"
+    waterstanden: 
+        type: csv
+        path: "hidden_waterstanden_waterinfo.csv"
