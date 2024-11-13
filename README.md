@@ -1,12 +1,15 @@
 # Continu inzicht toolbox <img align="right" src="/docs/assets/logo.png" height="32" alt='logo'></img>
 
-Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen.
+Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij het ontwikkelen van de toolbox is rekening gehouden met type interacties met de toolbox: de gebruiken van de toolbox en bijdragen. Op de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) is voor beide informatie beschikbaar.
 
-Voor documentatie zie: [https://continu-inzicht.github.io/toolbox-continu-inzicht/](https://continu-inzicht.github.io/toolbox-continu-inzicht/).
+## Gebruik van de toolbox
 
-## Bijdragen
+De toolbox kan _(staks)_ geinstaleerd worden met `pip install toolbox-continu-inzicht`, onder het kopje [instaleren](https://continu-inzicht.github.io/toolbox-continu-inzicht/install.html) op de wiki vindt je meer informatie.
+Zie het kopje [modules](https://continu-inzicht.github.io/toolbox-continu-inzicht/modules.html) voor beschrijving van hoe je verschillende bouwstenen van de toolbox continu inzicht kan benutten, of bekijk het [voorbeeld](https://continu-inzicht.github.io/toolbox-continu-inzicht/examples/notebooks/proof_of_concept.html).
 
-Zie het kopje [bijdragen](https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html) op de wiki voor meer uitleg.
+## Bijdragen aan de toolbox
+
+Zie het kopje [bijdragen](https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html) op de wiki voor een uitgebreide uitleg.
 
 ### Developen in het kort
 
@@ -32,7 +35,7 @@ Hiermee installeer je het programma pixi.
 
 #### Instaleer python omgeving met pixi
 
-Met Pixi kun je vervolgens de juiste python bestanden installeren:
+Met het `Pixi` commando in powershell kun je vervolgens de juiste python bestanden installeren:
 
 ```bash
  cd ..../toolbox-continu-inzicht
@@ -47,4 +50,4 @@ Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand op de juiste packages 
  pixi run jupyter lab
 ```
 
-Of selecteer `...\.pixi\envs\default\python.exe` in een notebook editor (bijv. Visual Studio Code).
+Of selecteer de juiste python instantie: `...\.pixi\envs\default\python.exe` in je ontwikkel omgeving. 
