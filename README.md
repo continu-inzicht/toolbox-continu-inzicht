@@ -4,7 +4,13 @@ Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij h
 
 ## Gebruik van de toolbox
 
-De toolbox kan _(staks)_ geinstaleerd worden met `pip install toolbox-continu-inzicht`, onder het kopje [instaleren](https://continu-inzicht.github.io/toolbox-continu-inzicht/install.html) op de wiki vindt je meer informatie.
+De toolbox kan _(staks)_ geinstaleerd worden met: 
+
+```bash 
+pip install toolbox-continu-inzicht
+```
+
+onder het kopje [instaleren](https://continu-inzicht.github.io/toolbox-continu-inzicht/install.html) op de wiki vindt je meer informatie.
 Zie het kopje [modules](https://continu-inzicht.github.io/toolbox-continu-inzicht/modules.html) voor beschrijving van hoe je verschillende bouwstenen van de toolbox continu inzicht kan benutten, of bekijk het [voorbeeld](https://continu-inzicht.github.io/toolbox-continu-inzicht/examples/notebooks/proof_of_concept.html).
 
 ## Bijdragen aan de toolbox
