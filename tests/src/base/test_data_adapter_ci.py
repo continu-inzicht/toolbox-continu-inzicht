@@ -13,7 +13,7 @@ load_dotenv()
 
 
 @pytest.mark.skipif(
-    os.getenv("GITHUB_ACTIONS") == "true" and os.getenv("DEBUG_CI") != "true",
+    os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("DEBUG_CI") != "true",
     reason="Kan alleen lokaal getest worden",
 )
 def test_dataadapter_ci_postgresql_from_waterlevels():
@@ -47,7 +47,7 @@ def test_dataadapter_ci_postgresql_from_waterlevels():
 
 
 @pytest.mark.skipif(
-    os.getenv("GITHUB_ACTIONS") == "true" and os.getenv("DEBUG_CI") != "true",
+    os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("DEBUG_CI") != "true",
     reason="Kan alleen lokaal getest worden",
 )
 def test_dataadapter_ci_postgresql_from_measuringstations():
@@ -103,7 +103,7 @@ def test_dataadapter_ci_postgresql_from_conditions():
 
 
 @pytest.mark.skipif(
-    os.getenv("GITHUB_ACTIONS") == "true" and os.getenv("DEBUG_CI") != "true",
+    os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("DEBUG_CI") != "true",
     reason="Kan alleen lokaal getest worden",
 )
 def test_dataadapter_ci_postgresql_to_data():
@@ -182,7 +182,7 @@ def test_dataadapter_ci_postgresql_to_data():
 
 
 @pytest.mark.skipif(
-    os.getenv("GITHUB_ACTIONS") == "true" and os.getenv("DEBUG_CI") != "true",
+    os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("DEBUG_CI") != "true",
     reason="Kan alleen lokaal getest worden",
 )
 def test_dataadapter_ci_postgresql_to_states():

@@ -72,6 +72,9 @@ class DataAdapter(PydanticBaseModel):
         )
         assert "ci_postgresql_to_states" in self.config.available_types
 
+        self.input_types["csv_source"] = self.input_csv_source
+        assert "csv_source" in self.config.available_types
+
     @staticmethod
     def validate_dataframe(df: pd.DataFrame, schema: dict) -> Tuple[int, str]:
         expected_columns = list(schema.keys())
@@ -777,9 +780,11 @@ class DataAdapter(PydanticBaseModel):
                 )
 
                 df["objecttype"] = objecttype
-                df["calculating"] = True
+                df["calculating"] = False
                 df["datetime"] = df["date_time"].apply(epoch_from_datetime)
                 df["parameterid"] = df["value_type"].apply(bepaal_parameter_id)
+                # TODO fix units:
+                df["value"] = df["value"].div(100)
                 df_data = df.loc[
                     :,
                     [
@@ -799,12 +804,22 @@ class DataAdapter(PydanticBaseModel):
                 location_ids = df_data.objectid.unique()
                 location_ids_str = ",".join(map(str, location_ids))
 
+                # with engine.connect() as connection:
+                #     connection.execute(
+                #         sqlalchemy.text(f"""
+                #                         DELETE FROM {schema}.{table}
+                #                         WHERE objectid IN ({location_ids_str}) AND
+                #                               calculating=true AND
+                #                               objecttype='measuringstation';
+                #                         """)
+                #     )
+                #     connection.commit()  # commit the transaction
+
                 with engine.connect() as connection:
                     connection.execute(
                         sqlalchemy.text(f"""
                                         DELETE FROM {schema}.{table} 
-                                        WHERE objectid IN ({location_ids_str}) AND 
-                                              calculating=true AND
+                                        WHERE objectid IN ({location_ids_str}) AND                                               
                                               objecttype='measuringstation';
                                         """)
                     )
