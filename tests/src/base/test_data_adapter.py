@@ -91,3 +91,17 @@ def test_DataAdapter_predefined_dot_env_file():
     assert all(
         [var in data_adapter.config.global_variables for var in environmental_variables]
     )
+
+
+
+def test_DataAdapter_csv_keer():
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    c = Config(config_path=test_data_sets_path / "test_config.yaml")
+    c.lees_config()
+
+    data_adapter = DataAdapter(config=c)
+
+    keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
+    keer_twee.run(input="MyCSV_in", output="MyCSV_out")
+
+    assert all((keer_twee.df_in["value"] * 2 == keer_twee.df_out["value"]).values)

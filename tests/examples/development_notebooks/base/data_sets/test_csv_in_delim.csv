@@ -1,4 +1,4 @@
-objectid;objecttype;parameterid;datetime;value
+objectid;objecttype;parameterid;date_time;value
 1;measuringstation;1;1726227377000;4.8
 2;measuringstation;1;1726227377000;5
 3;measuringstation;1;1726227377000;5.2

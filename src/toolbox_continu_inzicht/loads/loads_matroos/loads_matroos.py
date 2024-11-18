@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 import warnings
 from pydantic.dataclasses import dataclass
 import pandas as pd
@@ -107,22 +107,18 @@ class LoadsMatroos:
                 warnings.warn(f"location {locations_not_found}")
 
         # zet tijd goed
-        dt_now = datetime.now(timezone.utc)
-        t_now = datetime(
-            dt_now.year,
-            dt_now.month,
-            dt_now.day,
-            dt_now.hour,
-            0,
-            0,
-        ).replace(tzinfo=timezone.utc)
+        calc_time = global_variables["calc_time"]
 
         lst_dfs = []
         # maak een url aan
         for parameter in options["parameters"]:
             aquo_parameter = aquo_matroos_dict[parameter]  # "WATHTE -> waterlevel"
             request_forecast_url = self.generate_url(
-                t_now, options, global_variables, aquo_parameter, wanted_location_names
+                calc_time,
+                options,
+                global_variables,
+                aquo_parameter,
+                wanted_location_names,
             )
             status, json_data = fetch_data_get(
                 url=request_forecast_url, params={}, mime_type="json"
@@ -130,7 +126,7 @@ class LoadsMatroos:
             if status is None and json_data is not None:
                 if "results" in json_data:
                     lst_dfs.append(
-                        self.create_dataframe(options, t_now, json_data, self.df_in)
+                        self.create_dataframe(options, self.df_in, calc_time, json_data)
                     )
                     # TODO voeg de id uit de input to aan het resultaat en schrijf die weg
                 else:
@@ -150,7 +146,7 @@ class LoadsMatroos:
 
     @staticmethod
     def create_dataframe(
-        options: dict, t_now: datetime, json_data: list, df_in: pd.DataFrame
+        options: dict, df_in: pd.DataFrame, calc_time: datetime, json_data: list
     ) -> pd.DataFrame:
         """
         Maakt een dataframe met waardes van de rws water webservices
@@ -159,7 +155,7 @@ class LoadsMatroos:
         ----------
         options: dict
             Een dictionary met opties uit de config
-        t_now: datetime
+        calc_time: datetime
             De huidige tijd
         json_data: list
             Een lijst met JSON data
@@ -192,7 +188,7 @@ class LoadsMatroos:
                 datestr = event["timeStamp"]
                 utc_dt = datetime.fromisoformat(datestr)
 
-                if utc_dt > t_now:
+                if utc_dt > calc_time:
                     value_type = "verwachting"
                 else:
                     value_type = "meting"
@@ -223,14 +219,14 @@ class LoadsMatroos:
         return dataframe
 
     def generate_url(
-        self, t_now, options, global_variables, parameter, location_names
+        self, calc_time, options, global_variables, parameter, location_names
     ) -> str:
         """
         Geeft de benodigde URL terug om het verzoek naar de Noos-server te maken
 
         Parameters
         ----------
-        t_now: datetime
+        calc_time: datetime
             Huidige tijd, wordt gebruikt om de meest recente voorspelling op te halen
         options: dict
             Opties die door de gebruiker zijn opgegeven, in dit geval is 'source' het belangrijkst
@@ -290,8 +286,8 @@ class LoadsMatroos:
                     )
 
         moments = global_variables["moments"]
-        tstart = (t_now + timedelta(hours=int(moments[0]))).strftime("%Y%m%d%H%M")
-        tend = (t_now + timedelta(hours=int(moments[-1]))).strftime("%Y%m%d%H%M")
+        tstart = (calc_time + timedelta(hours=int(moments[0]))).strftime("%Y%m%d%H%M")
+        tend = (calc_time + timedelta(hours=int(moments[-1]))).strftime("%Y%m%d%H%M")
         source = options["model"]
         # Multiple locations can be specified by separating them with a semicolon ';'.
         location_names_str = ";".join(location_names)

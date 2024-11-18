@@ -48,22 +48,14 @@ class LoadsToMoments:
         else:
             tide = False
 
-        dt_now = datetime.now(timezone.utc)
-        t_now = datetime(
-            dt_now.year,
-            dt_now.month,
-            dt_now.day,
-            dt_now.hour,
-            0,
-            0,
-        ).replace(tzinfo=timezone.utc)
+        calc_time = global_variables["calc_time"]
 
         self.df_in["date_time"] = self.df_in["date_time"].apply(
             lambda x: datetime.fromisoformat(x)
         )
         df_moments = self.df_in.set_index("date_time")
         lst_dfs = []
-        dt_moments = [t_now + timedelta(hours=moment) for moment in moments]
+        dt_moments = [calc_time + timedelta(hours=moment) for moment in moments]
 
         if tide:
             locations = df_moments["measurement_location_id"].unique()

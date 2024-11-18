@@ -2,6 +2,7 @@ import yaml
 from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
 from yaml.scanner import ScannerError
+from datetime import datetime, timezone
 
 
 class Config(PydanticBaseModel):
@@ -46,6 +47,19 @@ class Config(PydanticBaseModel):
                 case "DataAdapter":
                     self.data_adapters = configuration
                 case "GlobalVariables":
+                    # add a central calculating time in case not specified
+                    if "calc_time" not in configuration:
+                        dt_now = datetime.now(timezone.utc)
+                        t_now = datetime(
+                            dt_now.year,
+                            dt_now.month,
+                            dt_now.day,
+                            dt_now.hour,
+                            0,
+                            0,
+                        ).replace(tzinfo=timezone.utc)
+                        configuration["calc_time"] = t_now
+
                     self.global_variables = configuration
 
         # opties die in de DataAdapter worden mee gegeven
