@@ -2,7 +2,7 @@ from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
 from typing import Optional
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
