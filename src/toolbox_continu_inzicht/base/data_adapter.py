@@ -970,7 +970,7 @@ class DataAdapter(PydanticBaseModel):
             # verbinding opruimen
             engine.dispose()
 
-    def update_global_variables(self, key: str, value: Any):
+    def set_global_variable(self, key: str, value: Any):
         """
         Functie voor het dynamisch overschrijven van global variablen.
 
@@ -985,7 +985,9 @@ class DataAdapter(PydanticBaseModel):
         self.config.global_variables[key] = value
 
     # TODO: support voor geodataframe in de toekomst?
-    def supply_dataframe(self, key: str, df: pd.DataFrame) -> None:
+    def set_dataframe_adapter(
+        self, key: str, df: pd.DataFrame, if_not_exist: str = "raise"
+    ) -> None:
         """
         Functie om een dataframe mee te geven aan een data adapter met `type: python`.
         Let er zelf op dat de kollom namen en datatypes overeen komen met de beoogde functie.
@@ -997,6 +999,10 @@ class DataAdapter(PydanticBaseModel):
 
         df: pd.Dataframe
             Object om mee te geven
+
+        if_not_exist: str[raise, create]
+            Geeft aan wat te doen als de data adapter niet bestaat,
+            bij raise krijg je een error, bij create wordt er een nieuwe data adapter aangemaakt.
         """
         if key in self.config.data_adapters:
             data_adapter_config = self.config.data_adapters[key]
@@ -1006,9 +1012,19 @@ class DataAdapter(PydanticBaseModel):
                 raise UserWarning(
                     "Deze functionaliteit is voor data adapters van type `python`, "
                 )
-        else:
+        elif if_not_exist == "raise":
             raise UserWarning(
                 f"Data adapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
+            )
+        elif if_not_exist == "create":
+            self.config.data_adapters[key] = {
+                "type": "python",
+                "dataframe_from_python": df,
+            }
+
+        else:
+            raise UserWarning(
+                f"Data adapter `{key=}` niet gevonden, en {if_not_exist=} is ongeldig, moet `raise` of `create` zijn"
             )
 
 

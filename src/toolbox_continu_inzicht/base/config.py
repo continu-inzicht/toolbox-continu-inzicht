@@ -60,6 +60,22 @@ class Config(PydanticBaseModel):
                             0,
                         ).replace(tzinfo=timezone.utc)
                         configuration["calc_time"] = t_now
+                    else:
+                        try:
+                            dt = datetime.fromisoformat(configuration["calc_time"])
+                        except Exception as e:
+                            raise UserWarning(
+                                f"Issue parsing calc_time: {configuration['calc_time']}.\ncheck: {e}"
+                            )
+                        formated_dt = datetime(
+                            dt.year,
+                            dt.month,
+                            dt.day,
+                            dt.hour,
+                            0,
+                            0,
+                        ).replace(tzinfo=timezone.utc)
+                        configuration["calc_time"] = formated_dt
 
                     self.global_variables = configuration
 

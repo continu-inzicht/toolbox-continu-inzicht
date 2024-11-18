@@ -68,6 +68,24 @@ DataAdapter:
 	...
 ```
 
+De tijd waarop de berekening van de toolbox plaats vindt is ook te configureren met `calc_time`. Deze tijd moet in het ISO 8601 format zijn en wordt uitgelezen met [datetime.datetime.fromisoformat](https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat). Indien geen tijd wordt meegegeven, wordt d
+
+```yaml
+GlobalVariables:
+    rootdir: "C:/data/toobox/"
+    calc_time: '2024-11-18 08:00:00'
+    
+    LoadsMatroos:
+        website: "noos"
+        source: "dcsm6_kf"
+        parameters: ["waterlevel"]
+        MISSING_VALUE: 999
+
+DataAdapter:
+	...
+```
+
+
 ### Data adapter
 
 De data adapter wordt gebruikt om verschillende data types in en uit te lezen. Op het moment zijn dit de volgende data formaten:

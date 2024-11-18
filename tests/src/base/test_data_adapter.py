@@ -95,7 +95,7 @@ def test_DataAdapter_predefined_dot_env_file():
     )
 
 
-def test_DataAdapter_csv_keer_python_df():
+def test_DataAdapter_keer_python_df():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_sets_path / "test_config.yaml")
     config.lees_config()
@@ -103,9 +103,41 @@ def test_DataAdapter_csv_keer_python_df():
     keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
     keer_twee.run(input="MyCSV_in", output="MyCSV_out")
     input_df = keer_twee.df_in
-    data_adapter.supply_dataframe(key="my_df_python", df=input_df)
+    data_adapter.set_dataframe_adapter(
+        key="my_df_python", df=input_df, if_not_exist="raise"
+    )
     keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
     keer_twee.run(input="my_df_python", output="my_df_python")
+    assert all((input_df["value"] * 2 == keer_twee.df_out["value"]).values)
+
+
+def test_DataAdapter_keer_python_non_exists():
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
+    keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
+    keer_twee.run(input="MyCSV_in", output="MyCSV_out")
+    input_df = keer_twee.df_in
+    with pytest.raises(UserWarning):
+        data_adapter.set_dataframe_adapter(
+            key="non_existant", df=input_df, if_not_exist="raise"
+        )
+
+
+def test_DataAdapter_keer_python_df_create_new():
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
+    keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
+    keer_twee.run(input="MyCSV_in", output="MyCSV_out")
+    input_df = keer_twee.df_in
+    data_adapter.set_dataframe_adapter(
+        key="new_df_adapter", df=input_df, if_not_exist="create"
+    )
+    keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
+    keer_twee.run(input="new_df_adapter", output="new_df_adapter")
     assert all((input_df["value"] * 2 == keer_twee.df_out["value"]).values)
 
 
@@ -118,5 +150,8 @@ def test_DataAdapter_invalid_name():
     data_adapter = DataAdapter(config=config)
     delen_twee = ValuesDivideTwo(data_adapter=data_adapter)
     input_df = delen_twee.df_in
-    with pytest.raises(UserWarning):
-        data_adapter.supply_dataframe(key="wrong_name_data_adapter", df=input_df)
+    error = "Data adapter `key='wrong_name_data_adapter'` niet gevonden, en if_not_exist='wrong_input_str' is ongeldig, moet `raise` of `create` zijn"
+    with pytest.raises(UserWarning, match=error):
+        data_adapter.set_dataframe_adapter(
+            key="wrong_name_data_adapter", df=input_df, if_not_exist="wrong_input_str"
+        )
