@@ -24,3 +24,5 @@ DataAdapter:
     MyNetCDF_out:
         type: netcdf
         path: 'test_netcdf_out.nc'
+    my_df_python:
+        type: python

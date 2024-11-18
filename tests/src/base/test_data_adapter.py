@@ -7,10 +7,10 @@ import pytest
 
 def test_DataAdapter_csv_keer():
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    c = Config(config_path=test_data_sets_path / "test_config.yaml")
-    c.lees_config()
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
 
-    data_adapter = DataAdapter(config=c)
+    data_adapter = DataAdapter(config=config)
 
     keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
     keer_twee.run(input="MyCSV_in", output="MyCSV_out")
@@ -20,10 +20,10 @@ def test_DataAdapter_csv_keer():
 
 def test_DataAdapter_csv_delen():
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    c = Config(config_path=test_data_sets_path / "test_config.yaml")
-    c.lees_config()
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
 
-    data_adapter = DataAdapter(config=c)
+    data_adapter = DataAdapter(config=config)
 
     keer_twee = ValuesDivideTwo(data_adapter=data_adapter)
     keer_twee.run(input="MyCSV_in", output="MyCSV_out")
@@ -33,10 +33,10 @@ def test_DataAdapter_csv_delen():
 
 def test_DataAdapter_netCDF_keer():
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    c = Config(config_path=test_data_sets_path / "test_config.yaml")
-    c.lees_config()
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
 
-    data_adapter = DataAdapter(config=c)
+    data_adapter = DataAdapter(config=config)
 
     keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
     keer_twee.run(input="MyNetCDF_in", output="MyNetCDF_out")
@@ -47,10 +47,10 @@ def test_DataAdapter_netCDF_keer():
 def test_DataAdapter_netCDF_delen():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     print(test_data_sets_path)
-    c = Config(config_path=test_data_sets_path / "test_config.yaml")
-    c.lees_config()
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
 
-    data_adapter = DataAdapter(config=c)
+    data_adapter = DataAdapter(config=config)
 
     delen_twee = ValuesDivideTwo(data_adapter=data_adapter)
     delen_twee.run(input="MyNetCDF_in", output="MyNetCDF_out")
@@ -61,10 +61,10 @@ def test_DataAdapter_netCDF_delen():
 def test_DataAdapter_invalid_folder():
     """ "Checkt error afhandeling als een map niet bestaat"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    c = Config(config_path=test_data_sets_path / "test_config_invalid_folder.yaml")
-    c.lees_config()
+    config = Config(config_path=test_data_sets_path / "test_config_invalid_folder.yaml")
+    config.lees_config()
 
-    data_adapter = DataAdapter(config=c)
+    data_adapter = DataAdapter(config=config)
     delen_twee = ValuesDivideTwo(data_adapter=data_adapter)
     with pytest.raises(UserWarning):
         delen_twee.run(input="MyCSV_in", output="MyCSV_out")
@@ -73,10 +73,12 @@ def test_DataAdapter_invalid_folder():
 def test_DataAdapter_predefined_dot_env_file():
     """Checkt of we een specifieke .env kunnen opgeven"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    c = Config(config_path=test_data_sets_path / "test_config_predefined_dot_env.yaml")
-    c.lees_config()
+    config = Config(
+        config_path=test_data_sets_path / "test_config_predefined_dot_env.yaml"
+    )
+    config.lees_config()
 
-    data_adapter = DataAdapter(config=c)
+    data_adapter = DataAdapter(config=config)
     delen_twee = ValuesDivideTwo(data_adapter=data_adapter)
     delen_twee.run(input="my_csv_in", output="my_csv_out")
     environmental_variables = [
@@ -93,15 +95,28 @@ def test_DataAdapter_predefined_dot_env_file():
     )
 
 
-
-def test_DataAdapter_csv_keer():
+def test_DataAdapter_csv_keer_python_df():
     test_data_sets_path = Path(__file__).parent / "data_sets"
-    c = Config(config_path=test_data_sets_path / "test_config.yaml")
-    c.lees_config()
-
-    data_adapter = DataAdapter(config=c)
-
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
     keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
     keer_twee.run(input="MyCSV_in", output="MyCSV_out")
+    input_df = keer_twee.df_in
+    data_adapter.supply_dataframe(key="my_df_python", df=input_df)
+    keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
+    keer_twee.run(input="my_df_python", output="my_df_python")
+    assert all((input_df["value"] * 2 == keer_twee.df_out["value"]).values)
 
-    assert all((keer_twee.df_in["value"] * 2 == keer_twee.df_out["value"]).values)
+
+def test_DataAdapter_invalid_name():
+    """Checkt error afhandeling verkeerde key meegegeven wordt"""
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
+
+    data_adapter = DataAdapter(config=config)
+    delen_twee = ValuesDivideTwo(data_adapter=data_adapter)
+    input_df = delen_twee.df_in
+    with pytest.raises(UserWarning):
+        data_adapter.supply_dataframe(key="wrong_name_data_adapter", df=input_df)

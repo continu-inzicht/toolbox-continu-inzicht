@@ -6,7 +6,7 @@ import sqlalchemy
 import inspect
 import warnings
 import xarray as xr
-from typing import Tuple
+from typing import Tuple, Any
 
 from dotenv import load_dotenv, dotenv_values
 from toolbox_continu_inzicht.base.config import Config
@@ -28,6 +28,9 @@ class DataAdapter(PydanticBaseModel):
         """
         self.input_types["csv"] = self.input_csv
         assert "csv" in self.config.available_types
+
+        self.input_types["python"] = self.input_python
+        assert "python" in self.config.available_types
 
         self.input_types["netcdf"] = self.input_netcdf
         assert "netcdf" in self.config.available_types
@@ -57,6 +60,9 @@ class DataAdapter(PydanticBaseModel):
         """Initializes ouput mapping and checks to see if type in the configured types"""
         self.output_types["csv"] = self.output_csv
         assert "csv" in self.config.available_types
+
+        self.output_types["python"] = self.output_python
+        assert "python" in self.config.available_types
 
         self.output_types["postgresql_database"] = self.output_postgresql
         assert "postgresql_database" in self.config.available_types
@@ -120,38 +126,7 @@ class DataAdapter(PydanticBaseModel):
         data_type = function_input_config["type"]
 
         check_rootdir(self.config.global_variables)
-
-        # pad relatief tot rootdir mee gegeven in config
-        if "file" in function_input_config:
-            # als de gebruiker een compleet pad mee geeft:
-            if Path(self.config.global_variables["rootdir"]).is_absolute():
-                function_input_config["abs_path"] = (
-                    Path(self.config.global_variables["rootdir"])
-                    / function_input_config["file"]
-                )
-            # als rootdir geen absoluut pad is, nemen we relatief aan
-            else:
-                function_input_config["abs_path"] = (
-                    Path.cwd()
-                    / self.config.global_variables["rootdir"]
-                    / function_input_config["file"]
-                )
-
-            if not function_input_config["abs_path"].is_absolute():
-                raise UserWarning(
-                    f"Check if root dir ({self.config.global_variables['rootdir']}) and file ({function_input_config['file']}) exist"
-                )
-        # als een pad wordt mee gegeven
-        elif "path" in function_input_config:
-            # eerst checken of het absoluut is
-            if Path(function_input_config["path"]).is_absolute():
-                function_input_config["abs_path"] = Path(function_input_config["path"])
-            # anders alsnog toevoegen
-            else:
-                function_input_config["abs_path"] = (
-                    Path(self.config.global_variables["rootdir"])
-                    / function_input_config["path"]
-                )
+        check_file_and_path(function_input_config, self.config.global_variables)
 
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         # .env is een lokaal bestand waar wachtwoorden in kunnen worden opgeslagen, zie .evn.template
@@ -188,6 +163,16 @@ class DataAdapter(PydanticBaseModel):
                 raise UserWarning(message)
 
         return df
+
+    @staticmethod
+    def input_python(input_config: dict) -> pd.DataFrame:
+        """Wrapper voor de functionalitiet om dataframes vanuit python te ondersteunen
+
+        Returns:
+        --------
+        pd.Dataframe
+        """
+        return input_config["dataframe_from_python"]
 
     @staticmethod
     def input_csv(input_config: dict) -> pd.DataFrame:
@@ -540,7 +525,7 @@ class DataAdapter(PydanticBaseModel):
 
         return df
 
-    def output(self, output: str, df: pd.DataFrame) -> pd.DataFrame:
+    def output(self, output: str, df: pd.DataFrame) -> None:
         """Gegeven het config, stuurt de juiste input waarde aan
 
         Parameters:
@@ -564,37 +549,7 @@ class DataAdapter(PydanticBaseModel):
 
         # check of de rootdir bestaat
         check_rootdir(self.config.global_variables)
-
-        if "file" in functie_output_config:
-            # als de gebruiker een compleet pad mee geeft:
-            if Path(self.config.global_variables["rootdir"]).is_absolute():
-                functie_output_config["abs_path"] = (
-                    Path(self.config.global_variables["rootdir"])
-                    / functie_output_config["file"]
-                )
-            # als rootdir geen absoluut pad is, nemen we relatief aan
-            else:
-                functie_output_config["abs_path"] = (
-                    Path.cwd()
-                    / self.config.global_variables["rootdir"]
-                    / functie_output_config["file"]
-                )
-
-            if not functie_output_config["abs_path"].is_absolute():
-                raise UserWarning(
-                    f"Check if root dir ({self.config.global_variables['rootdir']}) and file ({functie_output_config['file']}) exist"
-                )
-        # als een pad wordt mee gegeven
-        elif "path" in functie_output_config:
-            # eerst checken of het absoluut is
-            if Path(functie_output_config["path"]).is_absolute():
-                functie_output_config["abs_path"] = Path(functie_output_config["path"])
-            # anders alsnog toevoegen
-            else:
-                functie_output_config["abs_path"] = (
-                    Path(self.config.global_variables["rootdir"])
-                    / functie_output_config["path"]
-                )
+        check_file_and_path(functie_output_config, self.config.global_variables)
 
         # uit het .env bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
@@ -613,6 +568,16 @@ class DataAdapter(PydanticBaseModel):
         bijbehorende_functie(functie_output_config, df)
 
     @staticmethod
+    def output_python(output_config: dict, df: pd.DataFrame) -> None:
+        """Wrapper voor de functionalitiet om dataframes vanuit python te ondersteunen
+
+        Returns:
+        --------
+        None
+        """
+        pass
+
+    @staticmethod
     def output_csv(output_config: dict, df: pd.DataFrame):
         """schrijft een csv bestand in gegeven een pad
 
@@ -626,8 +591,6 @@ class DataAdapter(PydanticBaseModel):
         None
         """
         # Data checks worden gedaan in de functies zelf, hier alleen geladen
-
-        # TODO: opties voor csv mogen alleen zijn wat er mee gegeven mag wroden aan .to_csv
         path = output_config["abs_path"]
         kwargs = get_kwargs(pd.DataFrame.to_csv, output_config)
         df.to_csv(path, **kwargs)
@@ -1007,6 +970,47 @@ class DataAdapter(PydanticBaseModel):
             # verbinding opruimen
             engine.dispose()
 
+    def update_global_variables(self, key: str, value: Any):
+        """
+        Functie voor het dynamisch overschrijven van global variablen.
+
+        Parameters:
+        -----------
+        key: str
+            naam van de waarde om te overschrijven
+
+        value: Any
+            Object om mee te geven
+        """
+        self.config.global_variables[key] = value
+
+    # TODO: support voor geodataframe in de toekomst?
+    def supply_dataframe(self, key: str, df: pd.DataFrame) -> None:
+        """
+        Functie om een dataframe mee te geven aan een data adapter met `type: python`.
+        Let er zelf op dat de kollom namen en datatypes overeen komen met de beoogde functie.
+
+        Parameters:
+        -----------
+        key: str
+            naam van de data adapter zoals opgegeven in de configuratie yaml
+
+        df: pd.Dataframe
+            Object om mee te geven
+        """
+        if key in self.config.data_adapters:
+            data_adapter_config = self.config.data_adapters[key]
+            if data_adapter_config["type"] == "python":
+                data_adapter_config["dataframe_from_python"] = df
+            else:
+                raise UserWarning(
+                    "Deze functionaliteit is voor data adapters van type `python`, "
+                )
+        else:
+            raise UserWarning(
+                f"Data adapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
+            )
+
 
 def get_kwargs(function, input_config: dict) -> dict:
     """
@@ -1030,4 +1034,34 @@ def check_rootdir(global_variables: dict) -> None | UserWarning:
         if condition1 or condition2:
             raise UserWarning(
                 f"De rootdir map '{global_variables["rootdir"]}' bestaat niet"
+            )
+
+
+def check_file_and_path(function_config: dict, global_vars: dict) -> None:
+    # pad relatief tot rootdir mee gegeven in config
+    if "file" in function_config:
+        # als de gebruiker een compleet pad mee geeft:
+        if Path(global_vars["rootdir"]).is_absolute():
+            function_config["abs_path"] = (
+                Path(global_vars["rootdir"]) / function_config["file"]
+            )
+        # als rootdir geen absoluut pad is, nemen we relatief aan
+        else:
+            function_config["abs_path"] = (
+                Path.cwd() / global_vars["rootdir"] / function_config["file"]
+            )
+
+        if not function_config["abs_path"].is_absolute():
+            raise UserWarning(
+                f"Check if root dir ({global_vars['rootdir']}) and file ({function_config['file']}) exist"
+            )
+    # als een pad wordt mee gegeven
+    elif "path" in function_config:
+        # eerst checken of het absoluut is
+        if Path(function_config["path"]).is_absolute():
+            function_config["abs_path"] = Path(function_config["path"])
+        # anders alsnog toevoegen
+        else:
+            function_config["abs_path"] = (
+                Path(global_vars["rootdir"]) / function_config["path"]
             )

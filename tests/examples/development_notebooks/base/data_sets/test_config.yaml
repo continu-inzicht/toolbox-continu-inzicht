@@ -29,3 +29,5 @@ DataAdapter:
     mynetcdf_out:
         type: netcdf
         file: 'test_netcdf_out.nc'
+    my_df_python:
+        type: python

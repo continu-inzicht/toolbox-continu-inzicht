@@ -20,6 +20,7 @@ class Config(PydanticBaseModel):
     data_adapters: dict = {}
     available_types: list[str] = [
         "csv",
+        "python",
         "csv_source",
         "postgresql_database",
         "netcdf",
