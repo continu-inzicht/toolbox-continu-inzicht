@@ -19,10 +19,10 @@ class LoadsClassify:
 
     # Lijst met drempelwaarden per meetlocatie
     input_schema_thresholds = {
-        "measurement_location_code": "object",
-        "van": "float64",
-        "tot": "float64",
-        "kleur": "object",
+        "measurement_location_id": "int64",
+        "lower_boundary": "float64",
+        "upper_boundary": "float64",
+        "color": "object",
         "label": "object",
     }
 
@@ -53,6 +53,7 @@ class LoadsClassify:
             raise UserWarning("Input variabele moet 2 string waarden bevatten.")
 
         # drempelwaarden per meetlocatie
+        # TODO we kunnen er toch niet vanuit gaan dat de eerste (nulde) input string de verwijzing naar deklassegrenzen is...?
         self.df_in_thresholds = self.data_adapter.input(
             input[0], self.input_schema_thresholds
         )
@@ -61,32 +62,36 @@ class LoadsClassify:
         self.df_in_loads = self.data_adapter.input(input[1], self.input_schema_loads)
 
         df_thresholds = self.df_in_thresholds.copy()
-        df_thresholds["van"] = df_thresholds["van"].fillna(-999900)
-        df_thresholds["tot"] = df_thresholds["tot"].fillna(+999900)
+        df_thresholds["lower_boundary"] = df_thresholds["lower_boundary"].fillna(
+            -999900
+        )
+        df_thresholds["upper_boundary"] = df_thresholds["upper_boundary"].fillna(
+            +999900
+        )
 
         # waterstanden in centimeters
         df_loads = self.df_in_loads.copy()
 
-        df_loads.set_index("measurement_location_code")
-        df_thresholds.set_index("measurement_location_code")
+        df_loads.set_index("measurement_location_id")
+        df_thresholds.set_index("measurement_location_id")
 
         self.df_out = df_loads.merge(
-            df_thresholds, on="measurement_location_code", how="outer"
+            df_thresholds, on="measurement_location_id", how="outer"
         )
         self.df_out = self.df_out[
             [
-                "measurement_location_code",
+                "measurement_location_id",
                 "date_time",
                 "value",
-                "van",
-                "tot",
-                "kleur",
+                "lower_boundary",
+                "upper_boundary",
+                "color",
                 "label",
             ]
         ]
         self.df_out = self.df_out[
-            (self.df_out["value"] < self.df_out["tot"])
-            & (self.df_out["value"] > self.df_out["van"])
+            (self.df_out["value"] < self.df_out["upper_boundary"])
+            & (self.df_out["value"] > self.df_out["lower_boundary"])
         ]
 
         self.data_adapter.output(output=output, df=self.df_out)

@@ -1,0 +1,15 @@
+GlobalVariables:
+    rootdir: 'data_demo'
+    csv:
+        delimiter: ","
+
+DataAdapter:
+    CSV_in: 
+        type: csv
+        path: 'demo.csv'
+    CSV_out: 
+        type: csv
+        path: 'demo_out.csv'
+    NetCDF_out:
+        type: netcdf
+        path: 'demo_out.nc'

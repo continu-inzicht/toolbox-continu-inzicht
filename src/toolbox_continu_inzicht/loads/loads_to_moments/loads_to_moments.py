@@ -58,10 +58,10 @@ class LoadsToMoments:
             0,
         ).replace(tzinfo=timezone.utc)
 
-        self.df_in["datetime"] = self.df_in["datetime"].apply(
+        self.df_in["date_time"] = self.df_in["date_time"].apply(
             lambda x: datetime.fromisoformat(x)
         )
-        df_moments = self.df_in.set_index("datetime")
+        df_moments = self.df_in.set_index("date_time")
         lst_dfs = []
         dt_moments = [t_now + timedelta(hours=moment) for moment in moments]
 

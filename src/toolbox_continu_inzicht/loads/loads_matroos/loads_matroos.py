@@ -129,7 +129,9 @@ class LoadsMatroos:
             )
             if status is None and json_data is not None:
                 if "results" in json_data:
-                    lst_dfs.append(self.create_dataframe(options, t_now, json_data))
+                    lst_dfs.append(
+                        self.create_dataframe(options, t_now, json_data, self.df_in)
+                    )
                     # TODO voeg de id uit de input to aan het resultaat en schrijf die weg
                 else:
                     raise ConnectionError(
@@ -148,7 +150,7 @@ class LoadsMatroos:
 
     @staticmethod
     def create_dataframe(
-        options: dict, t_now: datetime, json_data: list
+        options: dict, t_now: datetime, json_data: list, df_in: pd.DataFrame
     ) -> pd.DataFrame:
         """
         Maakt een dataframe met waardes van de rws water webservices
@@ -173,11 +175,14 @@ class LoadsMatroos:
         # loop over de lijst met data heen
         for serie in json_data["results"]:
             # hier zit ook coordinaten in
-            measurement_location_id = int(serie["location"]["properties"]["locationId"])
             measurement_location_name = serie["location"]["properties"]["locationName"]
             measurement_location_code = measurement_location_name.lower().replace(
                 " ", ""
             )
+            measurement_location_id = df_in[
+                df_in["measurement_location_code"].apply(lambda x: str(x))
+                == str(measurement_location_code)
+            ].iloc[0]["measurement_location_id"]
             parameter_matroos = serie["observationType"]["quantityName"]
             # "waterlevel -> WATHTE", code matchign WATHTE
             parameter_code = matroos_aquo_dict[parameter_matroos]
@@ -206,7 +211,7 @@ class LoadsMatroos:
                     "measurement_location_description": measurement_location_name,
                     "parameter_id": parameter_id,
                     "parameter_code": parameter_code,
-                    "datetime": utc_dt,
+                    "date_time": utc_dt,
                     "unit": "cm",
                     "value": value_cm,
                     "value_type": value_type,

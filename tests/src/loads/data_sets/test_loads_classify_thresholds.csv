@@ -1,37 +1,37 @@
-measurement_location_code,van,tot,kleur,label,unit
-Hoek-van-Holland(HOEK),,-92.0,#673327,Laagwater (< -92cm),cm
-Hoek-van-Holland(HOEK),-92.0,200.0,#39870C,Normaal (-92 tot 200cm),cm
-Hoek-van-Holland(HOEK),200.0,220.0,#CDDC39,Licht verhoogd (>200cm),cm
-Hoek-van-Holland(HOEK),220.0,280.0,#FFDE12,Verhoogde waterstand (> 220cm),cm
-Hoek-van-Holland(HOEK),280.0,365.0,#E17000,Stormvloed (> 280cm),cm
-Hoek-van-Holland(HOEK),365.0,,#D52B1E,Extreem hoogwater (> 365cm),cm
-Houtrib-Noord(HOUN),,-55.0,#673327,Verlaagde waterstand (<-55cm),cm
-Houtrib-Noord(HOUN),-55.0,20.0,#39870C,Normaal (-55 tot 20cm),cm
-Houtrib-Noord(HOUN),20.0,40.0,#CDDC39,Licht verhoogd (>20cm),cm
-Houtrib-Noord(HOUN),40.0,70.0,#FFDE12,Verhoogde waterstand (>40cm),cm
-Houtrib-Noord(HOUN),70.0,110.0,#E17000,Hoogwater (>70cm),cm
-Houtrib-Noord(HOUN),110.0,,#D52B1E,Extreem hoogwater (>110cm),cm
-Houtrib-Zuid(HOUZ),,-55.0,#673327,Verlaagde waterstand (<-55cm),cm
-Houtrib-Zuid(HOUZ),-55.0,20.0,#39870C,Normale waterstand (-55 tot 20cm),cm
-Houtrib-Zuid(HOUZ),20.0,60.0,#CDDC39,Licht verhoogd (>20cm),cm
-Houtrib-Zuid(HOUZ),60.0,90.0,#FFDE12,Verhoogde waterstand (>60cm),cm
-Houtrib-Zuid(HOUZ),90.0,110.0,#E17000,Hoogwater (>90cm),cm
-Houtrib-Zuid(HOUZ),110.0,,#D52B1E,Extreem hoogwater (>110cm),cm
-Lobith(LOBI),,720.0,#673327,Verlaagd (<720cm),cm
-Lobith(LOBI),720.0,1200.0,#39870C,Normaal (720 - 1200cm),cm
-Lobith(LOBI),1200.0,1300.0,#CDDC39,Licht verhoogd (>1200cm),cm
-Lobith(LOBI),1300.0,1500.0,#FFDE12,Verhoogd (1300 - 1500cm),cm
-Lobith(LOBI),1500.0,1650.0,#E17000,Hoogwater (> 1500cm),cm
-Lobith(LOBI),1650.0,,#D52B1E,Extreem hoogwater (> 1650cm),cm
-Lobith-Haven(LOBH),,720.0,#673327,Verlaagd (<720cm),cm
-Lobith-Haven(LOBH),720.0,1175.0,#39870C,Normaal (720 tot 1175cm),cm
-Lobith-Haven(LOBH),1175.0,1280.0,#CDDC39,Licht verhoogd (>1175cm),cm
-Lobith-Haven(LOBH),1280.0,1480.0,#FFDE12,Verhoogd (>1280cm),cm
-Lobith-Haven(LOBH),1480.0,1630.0,#E17000,Hoog water (>1480cm),cm
-Lobith-Haven(LOBH),1630.0,,#D52B1E,Extreem hoog water (>1630cm),cm
-Vlissingen(VLIS),,-256.0,#673327,Laagwater (< -256cm),cm
-Vlissingen(VLIS),-256.0,309.0,#39870C,Normaal (> -350cm),cm
-Vlissingen(VLIS),309.0,330.0,#CDDC39,Licht verhoogd (>310cm),cm
-Vlissingen(VLIS),330.0,370.0,#FFDE12,Verhoogde waterstand (> 330cm),cm
-Vlissingen(VLIS),370.0,410.0,#E17000,Stormvloed (> 370cm),cm
-Vlissingen(VLIS),410.0,,#D52B1E,Extreem hoogwater (> 410cm),cm
+measurement_location_id,measurement_location_code,lower_boundary,upper_boundary,color,label,unit
+1,Hoek-van-Holland(HOEK),,-92.0,#673327,Laagwater (< -92cm),cm
+1,Hoek-van-Holland(HOEK),-92.0,200.0,#39870C,Normaal (-92 tot 200cm),cm
+1,Hoek-van-Holland(HOEK),200.0,220.0,#CDDC39,Licht verhoogd (>200cm),cm
+1,Hoek-van-Holland(HOEK),220.0,280.0,#FFDE12,Verhoogde waterstand (> 220cm),cm
+1,Hoek-van-Holland(HOEK),280.0,365.0,#E17000,Stormvloed (> 280cm),cm
+1,Hoek-van-Holland(HOEK),365.0,,#D52B1E,Extreem hoogwater (> 365cm),cm
+2,Houtrib-Noord(HOUN),,-55.0,#673327,Verlaagde waterstand (<-55cm),cm
+2,Houtrib-Noord(HOUN),-55.0,20.0,#39870C,Normaal (-55 tot 20cm),cm
+2,Houtrib-Noord(HOUN),20.0,40.0,#CDDC39,Licht verhoogd (>20cm),cm
+2,Houtrib-Noord(HOUN),40.0,70.0,#FFDE12,Verhoogde waterstand (>40cm),cm
+2,Houtrib-Noord(HOUN),70.0,110.0,#E17000,Hoogwater (>70cm),cm
+2,Houtrib-Noord(HOUN),110.0,,#D52B1E,Extreem hoogwater (>110cm),cm
+3,Houtrib-Zuid(HOUZ),,-55.0,#673327,Verlaagde waterstand (<-55cm),cm
+3,Houtrib-Zuid(HOUZ),-55.0,20.0,#39870C,Normale waterstand (-55 tot 20cm),cm
+3,Houtrib-Zuid(HOUZ),20.0,60.0,#CDDC39,Licht verhoogd (>20cm),cm
+3,Houtrib-Zuid(HOUZ),60.0,90.0,#FFDE12,Verhoogde waterstand (>60cm),cm
+3,Houtrib-Zuid(HOUZ),90.0,110.0,#E17000,Hoogwater (>90cm),cm
+3,Houtrib-Zuid(HOUZ),110.0,,#D52B1E,Extreem hoogwater (>110cm),cm
+4,Lobith(LOBI),,720.0,#673327,Verlaagd (<720cm),cm
+4,Lobith(LOBI),720.0,1200.0,#39870C,Normaal (720 - 1200cm),cm
+4,Lobith(LOBI),1200.0,1300.0,#CDDC39,Licht verhoogd (>1200cm),cm
+4,Lobith(LOBI),1300.0,1500.0,#FFDE12,Verhoogd (1300 - 1500cm),cm
+4,Lobith(LOBI),1500.0,1650.0,#E17000,Hoogwater (> 1500cm),cm
+4,Lobith(LOBI),1650.0,,#D52B1E,Extreem hoogwater (> 1650cm),cm
+5,Lobith-Haven(LOBH),,720.0,#673327,Verlaagd (<720cm),cm
+5,Lobith-Haven(LOBH),720.0,1175.0,#39870C,Normaal (720 tot 1175cm),cm
+5,Lobith-Haven(LOBH),1175.0,1280.0,#CDDC39,Licht verhoogd (>1175cm),cm
+5,Lobith-Haven(LOBH),1280.0,1480.0,#FFDE12,Verhoogd (>1280cm),cm
+5,Lobith-Haven(LOBH),1480.0,1630.0,#E17000,Hoog water (>1480cm),cm
+5,Lobith-Haven(LOBH),1630.0,,#D52B1E,Extreem hoog water (>1630cm),cm
+6,Vlissingen(VLIS),,-256.0,#673327,Laagwater (< -256cm),cm
+6,Vlissingen(VLIS),-256.0,309.0,#39870C,Normaal (> -350cm),cm
+6,Vlissingen(VLIS),309.0,330.0,#CDDC39,Licht verhoogd (>310cm),cm
+6,Vlissingen(VLIS),330.0,370.0,#FFDE12,Verhoogde waterstand (> 330cm),cm
+6,Vlissingen(VLIS),370.0,410.0,#E17000,Stormvloed (> 370cm),cm
+6,Vlissingen(VLIS),410.0,,#D52B1E,Extreem hoogwater (> 410cm),cm

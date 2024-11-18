@@ -166,11 +166,14 @@ class LoadsWaterwebservicesRWS:
             # als er geen data is, zit er geen waarnemingen lijst in
             if "WaarnemingenLijst" in serie_in:
                 serie = serie_in["WaarnemingenLijst"][0]
+                # dit is een beetje verwarrend, maar de Location_MessageID is wel uniek, de CODE niet: vandaar dat we de id en code hier wisselen.
                 measurement_location_id = serie["Locatie"]["Locatie_MessageID"]
-                measurement_location_code = serie["Locatie"]["Code"]
                 measurement_location_id = df_in[
-                    df_in["measurement_location_code"] == measurement_location_id
+                    df_in["measurement_location_code"].apply(lambda x: str(x))
+                    == str(measurement_location_id)
                 ].iloc[0]["measurement_location_id"]
+                measurement_location_code = serie["Locatie"]["Locatie_MessageID"]
+
                 measurement_location_name = serie["Locatie"]["Naam"]
                 parameter_code = serie["AquoMetadata"]["Grootheid"]["Code"]
                 # binnen aquo is WATHTEVERWACHT niks, dus zet de code terug
@@ -199,7 +202,7 @@ class LoadsWaterwebservicesRWS:
                         "measurement_location_description": measurement_location_name,
                         "parameter_id": parameter_id,
                         "parameter_code": parameter_code,
-                        "datetime": utc_dt,
+                        "date_time": utc_dt,
                         "unit": unit,
                         "value": value,
                         "value_type": value_type,

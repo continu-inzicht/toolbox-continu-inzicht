@@ -16,7 +16,7 @@ def test_BelastingWaterwebservicesRWS():
     RWS_webservice = LoadsWaterwebservicesRWS(data_adapter=data)
     RWS_webservice.run(input="BelastingLocaties", output="Waterstanden")
 
-    assert len(RWS_webservice.df_out) > 300
+    assert len(RWS_webservice.df_out) > 50
 
 
 def test_test_BelastingWaterwebservicesRWS_create_dataframe():

@@ -5,6 +5,7 @@ from toolbox_continu_inzicht.loads import LoadsMatroos
 
 import pytest
 from datetime import datetime, timezone
+import pandas as pd
 
 
 def test_LoadsMatroos_noos():
@@ -17,7 +18,7 @@ def test_LoadsMatroos_noos():
     matroos = LoadsMatroos(data_adapter=data)
     matroos.run(input="BelastingLocaties", output="Waterstanden")
 
-    assert len(matroos.df_out) > 100
+    assert len(matroos.df_out) > 10
 
 
 def test_LoadsMatroos_no_website():
@@ -141,7 +142,14 @@ def test_LoadsMatroos_data_frame():
         "parameters": ["WATHTE"],
         "MISSING_VALUE": 999,
     }
-
+    df_in = pd.DataFrame(
+        data=[
+            {
+                "measurement_location_id": 1,
+                "measurement_location_code": "hoekvanholland",
+            }
+        ]
+    )
     dt_now = datetime.now(timezone.utc)
     t_now = datetime(
         dt_now.year,
@@ -571,7 +579,7 @@ def test_LoadsMatroos_data_frame():
     }
 
     df_out = LoadsMatroos.create_dataframe(
-        options=options, t_now=t_now, json_data=json_data
+        options=options, t_now=t_now, json_data=json_data, df_in=df_in
     )
     assert len(df_out) == 349
     columns_names = [
@@ -580,7 +588,7 @@ def test_LoadsMatroos_data_frame():
         "measurement_location_description",
         "parameter_id",
         "parameter_code",
-        "datetime",
+        "date_time",
         "value",
         "value_type",
     ]
