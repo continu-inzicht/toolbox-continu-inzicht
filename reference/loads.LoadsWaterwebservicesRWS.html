@@ -211,13 +211,13 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe">create_dataframe</h3>
-<p><code>loads.LoadsWaterwebservicesRWS.create_dataframe(options, t_now, lst_data, df_in)</code></p>
+<p><code>loads.LoadsWaterwebservicesRWS.create_dataframe(options, calc_time, lst_data, df_in)</code></p>
 <p>Maakt een dataframe met waardes van de rws water webservices</p>
 <section id="parameters" class="level4">
 <h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 15%">
+<col style="width: 16%">
 <col style="width: 12%">
 <col style="width: 56%">
 <col style="width: 15%">
@@ -238,7 +238,7 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="even">
-<td><code>t_now</code></td>
+<td><code>calc_time</code></td>
 <td>datetime</td>
 <td>De huidige tijd</td>
 <td><em>required</em></td>
@@ -260,9 +260,9 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list">create_json_list</h3>
-<p><code>loads.LoadsWaterwebservicesRWS.create_json_list(measurement, t_now, global_variables, locations)</code></p>
+<p><code>loads.LoadsWaterwebservicesRWS.create_json_list(measurement, calc_time, global_variables, locations)</code></p>
 <p>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</p>
-<p>Args: t_now: T0 in UTC global_variables: globale variable uit de invoer yaml locations: dataframe with locations wanted</p>
+<p>Args: calc_time: T0 in UTC global_variables: globale variable uit de invoer yaml locations: dataframe with locations wanted</p>
 <p>Returns: dict: lijst met parameters</p>
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run" class="level3">

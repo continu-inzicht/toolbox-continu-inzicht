@@ -221,16 +221,16 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <section id="toolbox_continu_inzicht.loads.LoadsFews.create_dataframe" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsFews.create_dataframe">create_dataframe</h3>
-<p><code>loads.LoadsFews.create_dataframe(options, t_now, json_data, locations)</code></p>
+<p><code>loads.LoadsFews.create_dataframe(options, calc_time, json_data, locations)</code></p>
 <p>Maak een pandas dataframe</p>
 <p>Args: json_data (str): JSON data</p>
 <p>Returns: Dataframe: Pandas dataframe geschikt voor uitvoer definition: - Meetlocatie id (measurement_location_id) - Meetlocatie code (measurement_location_code) - Meetlocatie omschrijving/naam (measurement_location_description) - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id) - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code) - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description) - Eenheid (unit) - Datum en tijd (date_time) - Waarde (value) - Type waarde: meting of verwachting (value_type)</p>
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsFews.create_params" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsFews.create_params">create_params</h3>
-<p><code>loads.LoadsFews.create_params(t_now, options, moments, locations)</code></p>
+<p><code>loads.LoadsFews.create_params(calc_time, options, moments, locations)</code></p>
 <p>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</p>
-<p>Args: t_now (datetime): T0 in UTC options (<em>type</em>): options uit de invoer yaml</p>
+<p>Args: calc_time (datetime): T0 in UTC options (<em>type</em>): options uit de invoer yaml</p>
 <p>Returns: dict: lijst met parameters</p>
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsFews.create_url" class="level3">
