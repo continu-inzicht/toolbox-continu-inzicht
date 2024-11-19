@@ -23,10 +23,10 @@ class ValuesDivideTwo:
 
         if self.df_in is not None:
             # check of de data klopt
-            cols = ["objectid", "objecttype", "parameterid", "datetime", "value"]
+            cols = ["objectid", "objecttype", "parameterid", "date_time", "value"]
             list_bool_cols = [col in self.df_in.columns for col in cols]
             if all(list_bool_cols):
-                self.df_out = self.delen_door_twee(self.df_in)
+                self.df_out = self.divide_two(self.df_in)
                 self.data_adapter.output(output, self.df_out)
 
             else:
@@ -40,7 +40,7 @@ class ValuesDivideTwo:
 
     # Maar dan een hoop risico berekeningen
     @staticmethod
-    def delen_door_twee(dataframe):
+    def divide_two(dataframe: pd.DataFrame) -> pd.DataFrame:
         """Vermenigvuldigd de meetstation waardes met 2 als voorbeeld"""
         df = dataframe.copy(
             deep=True
@@ -72,10 +72,10 @@ class ValuesTimesTwo:
 
         if self.df_in is not None:
             # check of de data klopt
-            cols = ["objectid", "objecttype", "parameterid", "datetime", "value"]
+            cols = ["objectid", "objecttype", "parameterid", "date_time", "value"]
             list_bool_cols = [col in self.df_in.columns for col in cols]
             if all(list_bool_cols):
-                self.df_out = self.keer_twee(self.df_in)
+                self.df_out = self.times_two(self.df_in)
                 self.data_adapter.output(output, self.df_out)
 
             else:
@@ -90,7 +90,7 @@ class ValuesTimesTwo:
 
     # Maar dan een hoop risico berekeningen
     @staticmethod
-    def keer_twee(dataframe):
+    def times_two(dataframe: pd.DataFrame) -> pd.DataFrame:
         """Deelt de meetstation waardes door 2 als voorbeeld"""
         df = dataframe.copy(
             deep=True

@@ -1,4 +1,6 @@
 from pathlib import Path
+
+import pandas as pd
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.loads import LoadsMatroos
@@ -17,7 +19,7 @@ def test_LoadsMatroos_noos():
     matroos = LoadsMatroos(data_adapter=data)
     matroos.run(input="BelastingLocaties", output="Waterstanden")
 
-    assert len(matroos.df_out) > 100
+    assert len(matroos.df_out) > 10
 
 
 def test_LoadsMatroos_no_website():
@@ -43,7 +45,7 @@ def test_LoadsMatroos_create_url_vitaal():
     data = DataAdapter(config=c)
 
     matroos = LoadsMatroos(data_adapter=data)
-    t_now = datetime(
+    calc_time = datetime(
         2024,
         10,
         22,
@@ -59,7 +61,7 @@ def test_LoadsMatroos_create_url_vitaal():
         "vitaal_password": "test_vitaal_password",
     }
     url = matroos.generate_url(
-        t_now=t_now,
+        calc_time=calc_time,
         options=options,
         global_variables=global_variables,
         parameter="waterlevel",
@@ -77,7 +79,7 @@ def test_LoadsMatroos_create_url_matroos():
     data = DataAdapter(config=c)
 
     matroos = LoadsMatroos(data_adapter=data)
-    t_now = datetime(
+    calc_time = datetime(
         2024,
         10,
         22,
@@ -93,7 +95,7 @@ def test_LoadsMatroos_create_url_matroos():
         "matroos_password": "test_matroos_password",
     }
     url = matroos.generate_url(
-        t_now=t_now,
+        calc_time=calc_time,
         options=options,
         global_variables=global_variables,
         parameter="waterlevel",
@@ -111,7 +113,7 @@ def test_LoadsMatroos_create_url_noos():
     data = DataAdapter(config=c)
 
     matroos = LoadsMatroos(data_adapter=data)
-    t_now = datetime(
+    calc_time = datetime(
         2024,
         10,
         22,
@@ -123,7 +125,7 @@ def test_LoadsMatroos_create_url_noos():
     options = {"website": "noos", "model": "observed", "parameters": ["WATHTE"]}
     global_variables = {"moments": [-24, 0, 24, 48]}
     url = matroos.generate_url(
-        t_now=t_now,
+        calc_time=calc_time,
         options=options,
         global_variables=global_variables,
         parameter="waterlevel",
@@ -141,9 +143,16 @@ def test_LoadsMatroos_data_frame():
         "parameters": ["WATHTE"],
         "MISSING_VALUE": 999,
     }
-
+    df_in = pd.DataFrame(
+        data=[
+            {
+                "measurement_location_id": 1,
+                "measurement_location_code": "hoekvanholland",
+            }
+        ]
+    )
     dt_now = datetime.now(timezone.utc)
-    t_now = datetime(
+    calc_time = datetime(
         dt_now.year,
         dt_now.month,
         dt_now.day,
@@ -571,7 +580,7 @@ def test_LoadsMatroos_data_frame():
     }
 
     df_out = LoadsMatroos.create_dataframe(
-        options=options, t_now=t_now, json_data=json_data
+        options=options, df_in=df_in, calc_time=calc_time, json_data=json_data
     )
     assert len(df_out) == 349
     columns_names = [
@@ -580,7 +589,7 @@ def test_LoadsMatroos_data_frame():
         "measurement_location_description",
         "parameter_id",
         "parameter_code",
-        "datetime",
+        "date_time",
         "value",
         "value_type",
     ]

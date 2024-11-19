@@ -2,6 +2,7 @@ import yaml
 from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
 from yaml.scanner import ScannerError
+from datetime import datetime, timezone
 
 
 class Config(PydanticBaseModel):
@@ -17,17 +18,18 @@ class Config(PydanticBaseModel):
     config_path: Path
     global_variables: dict = {}
     data_adapters: dict = {}
-    available_types: list[str] = [
-        "csv",
-        "csv_source",
-        "postgresql_database",
-        "netcdf",
-        "ci_postgresql_from_waterlevels",
-        "ci_postgresql_from_conditions",
-        "ci_postgresql_from_measuringstations",
-        "ci_postgresql_to_data",
-        "ci_postgresql_to_states",
-    ]
+    # available_types: list[str] = [
+    #     "csv",
+    #     "python",
+    #     "csv_source",
+    #     "postgresql_database",
+    #     "netcdf",
+    #     "ci_postgresql_from_waterlevels",
+    #     "ci_postgresql_from_conditions",
+    #     "ci_postgresql_from_measuringstations",
+    #     "ci_postgresql_to_data",
+    #     "ci_postgresql_to_states",
+    # ]
 
     def lees_config(self):
         """Laad het gegeven pad in, zet de configuraties klaar in de Config class"""
@@ -46,6 +48,35 @@ class Config(PydanticBaseModel):
                 case "DataAdapter":
                     self.data_adapters = configuration
                 case "GlobalVariables":
+                    # add a central calculating time in case not specified
+                    if "calc_time" not in configuration:
+                        dt_now = datetime.now(timezone.utc)
+                        t_now = datetime(
+                            dt_now.year,
+                            dt_now.month,
+                            dt_now.day,
+                            dt_now.hour,
+                            0,
+                            0,
+                        ).replace(tzinfo=timezone.utc)
+                        configuration["calc_time"] = t_now
+                    else:
+                        try:
+                            dt = datetime.fromisoformat(configuration["calc_time"])
+                        except Exception as e:
+                            raise UserWarning(
+                                f"Issue parsing calc_time: {configuration['calc_time']}.\ncheck: {e}"
+                            )
+                        formated_dt = datetime(
+                            dt.year,
+                            dt.month,
+                            dt.day,
+                            dt.hour,
+                            0,
+                            0,
+                        ).replace(tzinfo=timezone.utc)
+                        configuration["calc_time"] = formated_dt
+
                     self.global_variables = configuration
 
         # opties die in de DataAdapter worden mee gegeven

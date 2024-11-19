@@ -1,4 +1,4 @@
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
 import warnings
 from pydantic.dataclasses import dataclass
 import pandas as pd
@@ -77,15 +77,7 @@ class LoadsWaterwebservicesRWS:
         wanted_locations = df_available_locations.loc[wanted_measuringstationcode_ints]
 
         # zet tijd goed
-        dt_now = datetime.now(timezone.utc)
-        t_now = datetime(
-            dt_now.year,
-            dt_now.month,
-            dt_now.day,
-            dt_now.hour,
-            0,
-            0,
-        ).replace(tzinfo=timezone.utc)
+        calc_time = global_variables["calc_time"]
 
         # TODO DIT GAAT VERANDEREN
         # https://rijkswaterstaatdata.nl/projecten/beta-waterwebservices/#:~:text=00.000%2B01%3A00%22%7D%7D-,Voorbeelden,-Een%20aantal%20specifieke
@@ -102,7 +94,7 @@ class LoadsWaterwebservicesRWS:
             options["parameters"].append("WATHTEVERWACHT")
         for parameter in options["parameters"]:
             lst_json += self.create_json_list(
-                parameter, t_now, global_variables, wanted_locations
+                parameter, calc_time, global_variables, wanted_locations
             )
 
         # haal de de data op & maak een dataframe
@@ -128,7 +120,7 @@ class LoadsWaterwebservicesRWS:
             )
 
         self.df_out = self.create_dataframe(
-            options, t_now, lst_observations, self.df_in
+            options, calc_time, lst_observations, self.df_in
         )
 
         rws_missing_value = 999999999.0  # implemented by default
@@ -141,7 +133,7 @@ class LoadsWaterwebservicesRWS:
 
     @staticmethod
     def create_dataframe(
-        options: dict, t_now: datetime, lst_data: list, df_in: pd.DataFrame
+        options: dict, calc_time: datetime, lst_data: list, df_in: pd.DataFrame
     ) -> pd.DataFrame:
         """Maakt een dataframe met waardes van de rws water webservices
 
@@ -149,7 +141,7 @@ class LoadsWaterwebservicesRWS:
         ----------
         options: dict
             Een dictionary met opties uit de config
-        t_now: datetime
+        calc_time: datetime
             De huidige tijd
         lst_data: list
             Een lijst met JSON data uit de post request
@@ -166,11 +158,14 @@ class LoadsWaterwebservicesRWS:
             # als er geen data is, zit er geen waarnemingen lijst in
             if "WaarnemingenLijst" in serie_in:
                 serie = serie_in["WaarnemingenLijst"][0]
+                # dit is een beetje verwarrend, maar de Location_MessageID is wel uniek, de CODE niet: vandaar dat we de id en code hier wisselen.
                 measurement_location_id = serie["Locatie"]["Locatie_MessageID"]
-                measurement_location_code = serie["Locatie"]["Code"]
                 measurement_location_id = df_in[
-                    df_in["measurement_location_code"] == measurement_location_id
+                    df_in["measurement_location_code"].apply(lambda x: str(x))
+                    == str(measurement_location_id)
                 ].iloc[0]["measurement_location_id"]
+                measurement_location_code = serie["Locatie"]["Locatie_MessageID"]
+
                 measurement_location_name = serie["Locatie"]["Naam"]
                 parameter_code = serie["AquoMetadata"]["Grootheid"]["Code"]
                 # binnen aquo is WATHTEVERWACHT niks, dus zet de code terug
@@ -183,7 +178,7 @@ class LoadsWaterwebservicesRWS:
                     datestr = event["Tijdstip"]
                     utc_dt = datetime.fromisoformat(datestr)
 
-                    if utc_dt > t_now:
+                    if utc_dt > calc_time:
                         value_type = "verwachting"
                     else:
                         value_type = "meting"
@@ -199,7 +194,7 @@ class LoadsWaterwebservicesRWS:
                         "measurement_location_description": measurement_location_name,
                         "parameter_id": parameter_id,
                         "parameter_code": parameter_code,
-                        "datetime": utc_dt,
+                        "date_time": utc_dt,
                         "unit": unit,
                         "value": value,
                         "value_type": value_type,
@@ -213,7 +208,7 @@ class LoadsWaterwebservicesRWS:
     @staticmethod
     def create_json_list(
         measurement: str,
-        t_now: datetime,
+        calc_time: datetime,
         global_variables: dict,
         locations: pd.DataFrame,
     ) -> list:
@@ -221,7 +216,7 @@ class LoadsWaterwebservicesRWS:
         Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.
 
         Args:
-            t_now: T0 in UTC
+            calc_time: T0 in UTC
             global_variables: globale variable uit de invoer yaml
             locations: dataframe with locations wanted
 
@@ -235,8 +230,8 @@ class LoadsWaterwebservicesRWS:
 
         for _, row in locations.iterrows():
             if len(moments) > 0:
-                starttime = t_now + timedelta(hours=int(moments[0]))
-                endtime = t_now + timedelta(hours=int(moments[-1]))
+                starttime = calc_time + timedelta(hours=int(moments[0]))
+                endtime = calc_time + timedelta(hours=int(moments[-1]))
                 x = getattr(row, "X")
                 y = getattr(row, "Y")
                 locatie = getattr(row, "Code")

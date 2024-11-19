@@ -1,5 +1,6 @@
 GlobalVariables:
     rootdir: 'tests/src/base/data_sets'
+    calc_time: '2024-11-18 08:00:00'
 
 DataAdapter:
     default_options:
@@ -24,3 +25,5 @@ DataAdapter:
     MyNetCDF_out:
         type: netcdf
         path: 'test_netcdf_out.nc'
+    my_df_python:
+        type: python

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
@@ -40,17 +40,8 @@ class LoadsFews:
 
         self.df_in = self.data_adapter.input(input, self.input_schema)
 
-        dt_now = datetime.now(timezone.utc)
-        t_now = datetime(
-            dt_now.year,
-            dt_now.month,
-            dt_now.day,
-            dt_now.hour,
-            0,
-            0,
-        ).replace(tzinfo=timezone.utc)
-
         global_variables = self.data_adapter.config.global_variables
+        calc_time = global_variables["calc_time"]
 
         if "LoadsFews" not in global_variables:
             raise UserWarning("LoadsFews niet in ")
@@ -74,7 +65,7 @@ class LoadsFews:
 
         url = self.create_url(options=options)
         parameters = self.create_params(
-            t_now=t_now,
+            calc_time=calc_time,
             options=options,
             moments=options["moments"],
             locations=self.df_in,
@@ -85,7 +76,10 @@ class LoadsFews:
 
         if status is None and json_data is not None:
             self.df_out = self.create_dataframe(
-                options=options, t_now=t_now, json_data=json_data, locations=self.df_in
+                options=options,
+                calc_time=calc_time,
+                json_data=json_data,
+                locations=self.df_in,
             )
 
             self.data_adapter.output(output=output, df=self.df_out)
@@ -109,13 +103,13 @@ class LoadsFews:
         return f"{host}:{port}/FewsWebServices/rest/{region}/v1/timeseries"
 
     def create_params(
-        self, t_now: datetime, options: dict, moments: List, locations: pd.DataFrame
+        self, calc_time: datetime, options: dict, moments: List, locations: pd.DataFrame
     ) -> dict:
         """
         Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.
 
         Args:
-            t_now (datetime): T0 in UTC
+            calc_time (datetime): T0 in UTC
             options (_type_): options uit de invoer yaml
 
         Returns:
@@ -125,8 +119,8 @@ class LoadsFews:
 
         if len(moments) > 0:
             n_moments = len(moments) - 1
-            starttime = t_now + timedelta(hours=int(moments[0]))
-            endtime = t_now + timedelta(hours=int(moments[n_moments]))
+            starttime = calc_time + timedelta(hours=int(moments[0]))
+            endtime = calc_time + timedelta(hours=int(moments[n_moments]))
 
             params["filterId"] = options["filter"]
             params["useDisplayUnits"] = False
@@ -145,7 +139,11 @@ class LoadsFews:
         return params
 
     def create_dataframe(
-        self, options: dict, t_now: datetime, json_data: str, locations: pd.DataFrame
+        self,
+        options: dict,
+        calc_time: datetime,
+        json_data: str,
+        locations: pd.DataFrame,
     ) -> pd.DataFrame:
         """Maak een pandas dataframe
 
@@ -199,7 +197,7 @@ class LoadsFews:
                                 )
                                 value_type = "meting"
 
-                                if utc_dt > t_now:
+                                if utc_dt > calc_time:
                                     value_type = "verwachting"
 
                                 if event["value"]:

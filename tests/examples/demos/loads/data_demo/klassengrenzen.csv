@@ -1,0 +1,6 @@
+measurement_location_id,lower_boundary,upper_boundary,color,label
+1,0.0,695.0,"#daeef3","normaal"
+1,695.0,1155.0,"#b6dde8","licht verhoogd"
+1,1155.0,1250.0,"#4bacc6","verhoogd"
+1,1250.0,1430.0,"#31849b","hoog water"
+1,1430.0,10000.0,"#002060","extreem hoog water"

@@ -70,7 +70,7 @@ def test_create_params():
     )
     moments = [-24, 0, 24, 48]
 
-    t_now = datetime(
+    calc_time = datetime(
         2024,
         10,
         17,
@@ -79,12 +79,12 @@ def test_create_params():
         0,
     ).replace(tzinfo=timezone.utc)
     params = fews.create_params(
-        t_now=t_now, options=options, moments=moments, locations=locations
+        calc_time=calc_time, options=options, moments=moments, locations=locations
     )
 
     n_moments = len(moments) - 1
-    starttime = t_now + timedelta(hours=int(moments[0]))
-    endtime = t_now + timedelta(hours=int(moments[n_moments]))
+    starttime = calc_time + timedelta(hours=int(moments[0]))
+    endtime = calc_time + timedelta(hours=int(moments[n_moments]))
 
     assert params["filterId"] == options["filter"]
     assert params["documentVersion"] == options["version"]
@@ -111,7 +111,7 @@ def test_create_dataframe():
             "measurement_location_description": "test_locations",
         }
     )
-    t_now = datetime(
+    calc_time = datetime(
         2024,
         10,
         17,
@@ -169,7 +169,7 @@ def test_create_dataframe():
     }
 
     df_out = fews.create_dataframe(
-        options=options, t_now=t_now, json_data=json_data, locations=locations
+        options=options, calc_time=calc_time, json_data=json_data, locations=locations
     )
     assert df_out is not None
     assert len(df_out) == 1
