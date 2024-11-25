@@ -2,6 +2,6 @@
 title: "Testprotocol"
 ---
 
-Elk ontwikkelde script wordt getest. Hiervoor is een testprotocol opgesteld (link naar document volgt). Dit testprotocol bestaat o.a. uit een unittest en integratietesten. Met unittesten testen we of de individuele componenten van de broncode goed werken (bijv. bij foutieve data). Integratietesten voeren we uit om de samenwerking tussen de verschillende scripts te controleren.
+Elk ontwikkeld script wordt getest. Hiervoor is een testprotocol opgesteld (link naar document volgt). Dit testprotocol bestaat o.a. uit een unittest en integratietesten. Met unittesten testen we of de individuele componenten van de broncode goed werken (bijv. als de gebruiker foutieve data opgeeft). Integratietesten voeren we uit om de samenwerking tussen de verschillende scripts te controleren.
 
-Voor het testen gebruiken we de webviewer van de Toolbox continu inzicht en de standaard PostGreSQL database.
+Voor het testen gebruiken we de webviewer van de Toolbox Continu Inzicht en de standaard PostGreSQL database.
