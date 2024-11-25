@@ -2,7 +2,7 @@
 title: "Modules"
 ---
 
-De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het uitlezen van waterstanden uit FEWS. De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke [Github](https://github.com/continu-inzicht/toolbox-continu-inzicht). De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.
+De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het inlezen van waterstanden uit FEWS. De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke [Github](https://github.com/continu-inzicht/toolbox-continu-inzicht). De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.
 
 De ontwikkeling van de volgende modules is voorzien:
 
@@ -17,13 +17,13 @@ De ontwikkeling van de volgende modules is voorzien:
 
 ## Basis architectuur Toolbox Continu Inzicht {#sec-architectuur}
 
-De architectuur van de toolbox continu inzicht is ontworpen om flexibel te zijn.
+De architectuur van de Toolbox Continu Inzicht is ontworpen om flexibel te zijn.
 
 ### Configuratie
 
-Per systeem kunnen de wensen van de gebruiker veranderen, het systeem is dan ook te configureren voor verschillende data bronnen. Door middel van een `yaml` configuratie bestand wordt de juist informatie meegegeven aan de modules en de data adapter.
+Per systeem kunnen de wensen van de gebruiker veranderen. Het systeem is dan ook te configureren voor verschillende databronnen. Door middel van een `yaml` configuratiebestand wordt de juist informatie meegegeven aan de modules en de data adapter.
 
-Het kopje `GlobalVariables` is verplicht met minimaal een `rootdir`: dit is een map waarin de data bestanden staan en weggeschreven worden. De `DataAdapter` is ook verplicht, met minimaal één data adapter. De naam van de adapter kan vrij gekozen worden, hier van kunnen zo veel als gewenst worden aangemaakt. 
+Het kopje `GlobalVariables` is verplicht met minimaal een `rootdir`: dit is een map waarin de data bestanden staan en weggeschreven worden. De `DataAdapter` is ook verplicht, met minimaal één data adapter. De naam van de data adapter is vrij te kiezen. Er kunnen zoveel data adapters aangemaakt worden, als gewenst. 
 ```yaml
 GlobalVariables:
     rootdir: "C:/data/toobox/"
@@ -35,7 +35,7 @@ DataAdapter:
 ```
 
 
-Onder `GlobalVariables` kan per data type variabele worden meegegeven die voor alle adapters van dit type gelden. Voor `csv` kan dit bijvoorbeeld het scheidingsteken zijn. Alle data adapters met het type `csv` krijgen nu de extra variabele mee. 
+Onder `GlobalVariables` kan per datatype een variabele worden meegegeven die voor alle adapters van dit type gelden. Voor `csv` kan dit bijvoorbeeld het scheidingsteken zijn. Alle data adapters met het type `csv` krijgen nu de extra variabele mee. 
 ```yaml
 GlobalVariables:
     rootdir: "C:/data/toobox/"
@@ -68,7 +68,7 @@ DataAdapter:
 	...
 ```
 
-De tijd waarop de berekening van de toolbox plaats vindt is ook te configureren met `calc_time`. Deze tijd moet in het ISO 8601 format zijn en wordt uitgelezen met [datetime.datetime.fromisoformat](https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat). Indien geen tijd wordt meegegeven, wordt maakt de `Config` klasse deze zelf aan met het moment van runnen. 
+De tijd waarop de berekening van de toolbox plaatsvindt is ook te configureren met `calc_time`. Deze tijd moet in het ISO 8601 format zijn en wordt uitgelezen met [datetime.datetime.fromisoformat](https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat). Indien geen tijd wordt meegegeven, maakt de `Config` klasse deze zelf aan met het tijdstip van runnen. 
 
 ```yaml
 GlobalVariables:
@@ -87,13 +87,13 @@ DataAdapter:
 
 ### Data adapter
 
-De data adapter wordt gebruikt om verschillende data types in en uit te lezen. Op het moment zijn dit de volgende data formaten:
+De data adapter wordt gebruikt om verschillende datatypes in en uit te lezen. Op dit moment zijn dit de volgende data formaten:
 
 1.  CSV
 2.  NetCDF
 3.  PostgreSQL
 
-Deze wordt geconfigureerd in de een `.yaml` configuratie bestand, een voorbeeld van een csv-bestand wordt hieronder weergegeven. Hierbij zijn `type` en `file` of `path` verplicht. In het voorbeeld hier onder wordt een relatief pad mee gegeven als `rootdir`, dit wordt ook ondersteund. 
+Deze wordt geconfigureerd in de een `.yaml` configuratiebestand. Een voorbeeld van een csv-bestand wordt hieronder weergegeven. Hierbij zijn `type` en `file` of `path` verplicht. In het voorbeeld hieronder wordt een relatief pad meegegeven als `rootdir`, dit wordt ook ondersteund. 
 
 ```yaml
 GlobalVariables:
@@ -109,7 +109,7 @@ DataAdapter:
 ...
 ```
 
-Indien een bestand buiten de root directory valt kan in plaats van `file `ook een absoluut `path` worden mee gegeven. 
+Indien een bestand buiten de root directory valt kan in plaats van `file` ook een absoluut `path` worden meegegeven. 
 ```yaml 
 DataAdapter:
     MyCSV_anders: 
@@ -118,16 +118,16 @@ DataAdapter:
 ...
 ```
 
-Naast de verplichte opties, worden alle overige opties doorgegeven aan de output functie. De `csv`module maakt gebruik van de [pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) module voor het lees werk, all opties die deze module ondersteund kunnen worden doorgegeven. Voor `NetCDF` is dit [xarray.open_dataset](https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html). Echter is voor `PostgreSQL` dit niet het geval, hier zijn alleen een drie standaard opties beschikbaar: `database`, `schema` en `table`. 
+Naast de verplichte opties, worden alle overige opties doorgegeven aan de output functie. De `csv` module maakt gebruik van de [pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) voor lees en werk. Alle opties die deze module ondersteund, kunnen worden doorgegeven. Voor  `NetCDF` is dit [xarray.open_dataset](https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html). Voor `PostgreSQL` dit niet het geval, hier zijn alleen een drie standaard opties beschikbaar: `database`, `schema` en `table`. 
 
-#### Adapters aanmaken vanuit python
+#### Adapters aanmaken vanuit Python
 
-Naast data adapters definieren in het configuratie bestand, kan dit ook vanuit python zelf met de functie `set_dataframe_adapter`. 
+Naast het definieren van data adapters via het configuratiebestand, kan dit ook vanuit Python zelf gedaan worden met de functie `set_dataframe_adapter`. 
 
-Deze kan op twee manieren worden: 
+Dit kan op twee manieren: 
 
-1. De data adapter wordt van te voren in de configuratie opgegeven met het type python, de functie geeft de desbetrefende dataframe door.
-1. Er is geen data adapter, deze wordt aangemaakt bij het runnen van de code. Let op: het configuratie bestand verandert niet mee. 
+1. De data adapter wordt vooraf in de configuratie opgegeven met het type Python. De functie geeft het desbetrefende dataframe door.
+1. Er is geen data adapter gedefinieerd. Deze wordt aangemaakt bij het runnen van de code. Let op: het configuratiebestand verandert niet mee. 
 
 Optie 1: 
 
@@ -173,7 +173,7 @@ data_adapter.set_dataframe_adapter("my_new_data_adapter", input_df, if_not_exist
 
 ### Wachtwoorden
 
-Voor bepaalde diensten, zo als toegang tot een database, zijn wachtwoorden nodig. Deze kunnen in de "environmental variables" worden mee gegeven, in de vorm van een `.env` bestand. 
+Voor bepaalde diensten - zoals het toegang krijgen tot een database - is een wachtwoord vereist. Deze kunnen in de "environmental variables" worden meegegeven, in de vorm van een `.env` bestand. 
 ```yaml
 postgresql_host="xxx.xx.xx.xx"
 postgresql_database="xxxxxxx"
@@ -184,19 +184,19 @@ postgresql_user="xx"
 
 ## Belastingen inlezen en classificeren {#sec-belastingen}
 
-Om continu inzicht te leveren in de veiligheid van waterkeringen is het van belang de belastingen op de keringen in kaart te brengen. Deze worden ingelezen uit verschillende bronnen en vervolgens geclassificeerd. 
+In inzicht te krijgen in de veiligheid van waterkeringen is het van belang om de belastingen op de waterkeringen in kaart te brengen. Dit kunnen waterstanden op het buitenwater (zee, rivieren of meren) zijn, maar ook grondwaterstanden. De belastingen worden eerst ingelezen uit verschillende databronnen en vervolgens geclassificeerd. De belastingen worden ingelezen voor verschillende momenten (bijv. gister, nu, morgen of overmorgen etc.), zodat naast metingen ook voorspellingen van belastingen worden ingelezen. 
 
 ### Belastingen inlezen
 
-De Bronnen die op dit moment worden ondersteund in de toolbox continu inzicht zijn:
+De volgende databronnen worden op dit moment in de Toolbox Continu Inzicht ondersteund:
 
-1. Delft FEWS
-2. Matroos
-3. RWS water web services
+1. Delft-FEWS
+2. (Noos)Matroos
+3. RWS waterwebservices
 4. RWS waterinfo
 
-#### Delft FEWS
-Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen) implementatie voor het beheren van verschillende interne en externe informatie bronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot FEWS is complexer dan andere bronnen, hierom zijn meer parameters nodig in het configuratiebestand.  De functie `get_fews_locations()` kan worden gebruikt om de beschikbare locaties te tonen. 
+#### Delft-FEWS
+Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen) implementatie voor het beheren van verschillende interne en externe informatiebronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot een FEWS is complexer dan andere bronnen, waardoor het noodzakelijk is om extra parameters te definieren in het configuratiebestand.  De functie `get_fews_locations()` kan worden gebruikt om de beschikbare locaties te tonen. 
 
 ```Yaml
 
@@ -219,8 +219,8 @@ DataAdapter:
 ```
 
 ##### GlobalVariables:
-- rootdir: Bestandlocatie van de invoer/ uitvoerbestanden
-- moments: Momenten in uren waar gegevens voor opgehaald moet worden
+- rootdir: Bestandlocatie van de invoer- en uitvoerbestanden
+- moments: Momenten in uren waar gegevens voor opgehaald moet worden (bijv. -24, 0, +24, +48, +72 uur)
 
 
 ##### LoadsFews:
@@ -252,7 +252,7 @@ DataAdapter:
 
 
 #### Matroos
-Matroos of `Multifunctional Access Tool foR Operational Oceandata Services` is een systeem van Rijkswaterstaat (RWS). Recente waterstand metingen en verwachtingen kunnen hieruit worden opgehaald.  Matroos is beschikbaar in verschillende smaken, waarvan drie relevant. De verschillen worden in de tabel hieronder toegelicht, zie [iplo.nl](https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf) voor meer informatie. In de toolbox wordt nu alleen de series API gebruikt dus volstaat NOOS. 
+Matroos of `Multifunctional Access Tool for Operational Oceandata Services` is een webbased distributiesysteem van de operationele verwachtingen van waterstanden, stroming, debieten en golven, van onder meer het Watermanagementcentrum Nederland. Matroos is beschikbaar voor verschillende doelgroepen, waarvan er - op dit moment - drie relevant zijn voor de ontwikkeling van de Toolbox Continu Inzicht. De verschillende versies worden in de tabel hieronder toegelicht. Voor meer informatie verwijzen we naar de nieuwsbrief op [iplo.nl](https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf). In de Toolbox wordt nu alleen de series API gebruikt dus volstaat NOOS. 
 
 | URL                                                     | Type           | Inhoud                                        | Doelgroep                             |
 |---------------------------------------------------------|----------------|-----------------------------------------------|---------------------------------------|
@@ -278,7 +278,7 @@ DataAdapter:
 	...
 ```
 
-Voor het gebruik van vitaal en matroos is een gebruikersnaam en wachtwoord nodig. Deze moeten in de environmental variables worden meegegeven (`.env` bestand). 
+Voor het gebruik van vitaal.matroos en matroos is een gebruikersnaam en wachtwoord nodig. Deze moeten in de environmental variables worden meegegeven (`.env` bestand). 
 
 ```yaml
 vitaal_user: "..."
@@ -289,8 +289,7 @@ matroos_password: "..."
 ```
 
 #### RWS WaterWebservices
-
-Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen rondom rivieren beschikbaar via de [WaterWebservices](https://rijkswaterstaatdata.nl/waterdata/) API. Deze is openbaar en vereist weinig configuratie. De `MISSING_VALUE` kan in de configuratie worden aangepast, maar staat al standaard ingesteld.
+Via de RWS WaterWebservices zijn metingen en verwachtingen van o.a. waterstanden beschikbaar via de [WaterWebservices](https://rijkswaterstaatdata.nl/waterdata/) API. Vooral langs de rivieren zijn veel meetpunten beschikbaar. Deze API is openbaar en vereist weinig configuratie. De `MISSING_VALUE` kan in de configuratie worden aangepast, maar staat al standaard ingesteld.
 
 ```yaml
     LoadsWaterwebservicesRWS:
@@ -299,8 +298,8 @@ Waar matroos meer gericht is op zee, zijn waterstand metingen en verwachtingen r
 
 Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_locations()`. 
 
-#### RWS waterinfo
-Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Deze is openbaar, wel moet de maptype als parameter worden opgegeven.
+#### RWS Waterinfo
+Naast de RWS WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Deze is openbaar, wel moet de maptype als parameter worden opgegeven.
 
 
 ```yaml
@@ -313,8 +312,8 @@ Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaa
 
 ```
 ##### GlobalVariables:
-- rootdir: Bestandlocatie van de invoer/ uitvoerbestanden
-- moments: Momenten in uren waar gegevens voor opgehaald moet worden
+- rootdir: Bestandlocatie van de invoer- en uitvoerbestanden
+- moments: Momenten in uren waar gegevens voor opgehaald moet worden (bijv. -24, 0, +24, +48, +72 uur)
 
 ##### LoadsWaterinfo:
 - parameters:
@@ -352,18 +351,16 @@ Naast de WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaa
 ### Classificeren van belastingen
 
 De verschillende hierboven benoemde klasses voor het inlezen van belastingen geven een tijdreeks terug op bepaalde punten.
-Deze kunnen worden geinterpoleerd met 
 
+#### Classificeren van belastingen
 
-#### Classificeren
-Met grenswaardes kunnen de waterstanden worden geclassificeerd. Dit kan met de klasse `LoadsClassify`.
+Door vooraf grenswaardes voor belastingen te definieren, kunnen de belastingen worden geclassificeerd (bijv. 1x per 100 jaar waterstand). Dit kan met de klasse `LoadsClassify`.
 
 #### Tijdreeks naar momenten
 
-Om de tijdsreeks om te zetten naar specifieke momenten kan de klasse `LoadsToMoments` worden gebruikt.
+De ingelezen tijdsreeks met belastingen wordt omgezet naar belastingen op specifieke momenten met de klasse `LoadsToMoments`. 
 
-Voor getij is hier configuratie voor nodig, anders wordt er uit gegaan van het geval zonder getij.
-Bij getij wordt de maximum waarde tijdens een getij cyclus (+/-12.25 uur) als moment gebruikt. 
+Voor gebieden waar het getij van invloed is, is een aanvullende configuratie nodig. Bij getij wordt de maximale belasting tijdens een getijdecyclus (+/-12.25 uur) bepaald. Zonder deze configuratie wordt de belasting exact op het vooraf gedefinieerde moment bepaald. 
 
 ```yaml
  GlobalVariables:
@@ -375,9 +372,9 @@ Bij getij wordt de maximum waarde tijdens een getij cyclus (+/-12.25 uur) als mo
 
 ```
 
-#### Toekennen van belastingen
+#### Toekennen van belastingen aan secties
 
-Alleen om meetlocaties zijn de waterstanden in eerste instantie beschikbaar als ze zijn opgehaald door de belasting klasses. Om deze om te zetten naar waardes bij dijkvakken kan de `SectionsLoads` klasse worden gebruikt. 
+De belastingen zijn nu beschikbaar in de meetlocaties van FEWS, Matroos, RWS Waterinfo en RWS WaterWebServices. De volgende stap is het vertalen van de belastingen in de meetpunten naar de secties (dijkvakken of kunstwerken) via de klasse `SectionsLoads`. Als een sectie tussen twee meetpunten ligt, wordt een interpolatiealgoritme (bijv. 25% waarde in meetpunt 1 + 75% waarde in meetpunt 2) toegepast. Dit interpolatiealgoritme is vooraf gedefinieerd.  
 
 
 ```{=html}
