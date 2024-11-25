@@ -13,17 +13,17 @@ Het format is beschreven op [keepachangelog.com](https://keepachangelog.com/en/1
 - Voeg notebook toe om te laten zien hoe het werkt [#12](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/12)
 - Maak map structuur overzichtelijker [#19](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/19)
 
-### sprint 2 
+### Sprint 2 
 
 In sprint 2 is gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#36](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/36). 
 
-Allereerst zijn er nog rest punten uit sprint 1 aangepast: 
+Allereerst zijn er nog restpunten uit sprint 1 aangepast: 
 
 - het specificeren van `delimiter` deed het niet, dit moet `sep` zijn. Daarnaast worden nu alle opties die in de configuratie zijn gespecificeerd doorgegeven aan de data adapters. 
-- `Path` is nu `File`, waarbij `file` altijd een bestand is in de `rootdir`, Path mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie. 
-- `.env` bestand is niet meer verplicht, maar geeft wel een Warning
+- `path` is nu `file`, waarbij `file` altijd een bestand is in de `rootdir`, Path mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie. 
+- `.env` bestand is niet meer verplicht, maar geeft wel een warning
 - `util` map voor generieke functies als tijd en post/get functies
-- `pytest.skipif` voor tests die alleen op het HKV netwerk draaien door FEWS/postgresql verbindingen. 
+- `pytest.skipif` voor testen die alleen op het HKV-netwerk draaien door FEWS/postgreSQL verbindingen. 
 - de keywords `input=..` en `output=..` worden nu alleen aan de `.run()` functie doorgegeven, niet aan de class zelf.
 
 Daarnaast is er een hoop toegevoegd rondom het inlezen van belastingen:
@@ -35,8 +35,8 @@ Daarnaast is er een hoop toegevoegd rondom het inlezen van belastingen:
     -  RWS waterinfo
     -  RWS waterwebservices
   
-Deze inleesfuncties gebruiken allemaal de aquo standaard naam en code (WATHTE). 
+Deze inleesfuncties gebruiken allemaal de Aquo-standaard naam en code (WATHTE). 
 
-- Classificeren van belastingen aan de hand van opgehaalde/meegegeven grenswaardes. 
+- Classificeren van belastingen aan de hand van opgehaalde/opgegeven grenswaardes. 
 - Toekennen van belastingen aan secties.
-- Aggregeren van tijdreeks naar momenten of bij getij naar maxima over de getijperiode.
+- Aggregeren van tijdreeksen naar momenten of bij het getij naar maxima over de getijperiode.
