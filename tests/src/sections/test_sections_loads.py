@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
@@ -24,12 +25,14 @@ def test_run():
 
     sections_loads = SectionsLoads(data_adapter=data_adapter)
 
-    df_output = sections_loads.run(
+    sections_loads.run(
         input=["dijkvakken", "waterstanden", "koppeling_meetstation_dijkvak"],
         output="waterstanden_per_dijkvak",
     )
 
     assert os.path.exists(output_file)
+
+    df_output = pd.read_csv(output_file)
 
     assert df_output is not None
     assert len(df_output) > 0

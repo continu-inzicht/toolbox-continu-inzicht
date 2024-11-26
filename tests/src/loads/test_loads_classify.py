@@ -23,8 +23,8 @@ def test_run():
 
     classify = LoadsClassify(data_adapter=data_adapter)
 
-    df_out = classify.run(input=["thresholds", "waterstanden"], output="classificatie")
+    classify.run(input=["thresholds", "waterstanden"], output="classificatie")
 
     assert os.path.exists(output_file)
-    assert df_out is not None
+    assert classify.df_out is not None
     # assert {"code", "value", "van", "tot", "kleur", "label"}.issubset(df_out.columns)

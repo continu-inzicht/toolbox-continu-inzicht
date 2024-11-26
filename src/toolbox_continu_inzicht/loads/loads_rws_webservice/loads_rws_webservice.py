@@ -123,11 +123,18 @@ class LoadsWaterwebservicesRWS:
             options, calc_time, lst_observations, self.df_in
         )
 
-        rws_missing_value = 999999999.0  # implemented by default
-        if options["MISSING_VALUE"] != rws_missing_value:
-            self.df_out["value"] = self.df_out["value"].apply(
-                lambda x: options["MISSING_VALUE"] if x == rws_missing_value else x
+        if not self.df_out.empty:
+            rws_missing_value = 999999999.0  # implemented by default
+            if options["MISSING_VALUE"] != rws_missing_value:
+                self.df_out["value"] = self.df_out["value"].apply(
+                    lambda x: options["MISSING_VALUE"] if x == rws_missing_value else x
+                )
+
+        else:
+            raise UserWarning(
+                f"Geen gegevens beschikbaar voor locatie(s): {wanted_locations}"
             )
+
         # output de dataframe
         self.data_adapter.output(output=output, df=self.df_out)
 
