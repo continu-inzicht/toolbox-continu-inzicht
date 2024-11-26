@@ -178,7 +178,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#ongeplubliceerd" id="toc-ongeplubliceerd" class="nav-link" data-scroll-target="#ongeplubliceerd">[Ongeplubliceerd]</a>
   <ul class="collapse">
   <li><a href="#sprint-1" id="toc-sprint-1" class="nav-link" data-scroll-target="#sprint-1">Sprint 1</a></li>
-  <li><a href="#sprint-2" id="toc-sprint-2" class="nav-link" data-scroll-target="#sprint-2">sprint 2</a></li>
+  <li><a href="#sprint-2" id="toc-sprint-2" class="nav-link" data-scroll-target="#sprint-2">Sprint 2</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -205,15 +205,15 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 <section id="sprint-2" class="level3">
-<h3 class="anchored" data-anchor-id="sprint-2">sprint 2</h3>
+<h3 class="anchored" data-anchor-id="sprint-2">Sprint 2</h3>
 <p>In sprint 2 is gebruikt gemaakt van aparte ‘feature branches’ met een grote pull request naar main <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/36">#36</a>.</p>
-<p>Allereerst zijn er nog rest punten uit sprint 1 aangepast:</p>
+<p>Allereerst zijn er nog restpunten uit sprint 1 aangepast:</p>
 <ul>
 <li>het specificeren van <code>delimiter</code> deed het niet, dit moet <code>sep</code> zijn. Daarnaast worden nu alle opties die in de configuratie zijn gespecificeerd doorgegeven aan de data adapters.</li>
-<li><code>Path</code> is nu <code>File</code>, waarbij <code>file</code> altijd een bestand is in de <code>rootdir</code>, Path mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie.</li>
-<li><code>.env</code> bestand is niet meer verplicht, maar geeft wel een Warning</li>
+<li><code>path</code> is nu <code>file</code>, waarbij <code>file</code> altijd een bestand is in de <code>rootdir</code>, Path mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie.</li>
+<li><code>.env</code> bestand is niet meer verplicht, maar geeft wel een warning</li>
 <li><code>util</code> map voor generieke functies als tijd en post/get functies</li>
-<li><code>pytest.skipif</code> voor tests die alleen op het HKV netwerk draaien door FEWS/postgresql verbindingen.</li>
+<li><code>pytest.skipif</code> voor testen die alleen op het HKV-netwerk draaien door FEWS/postgreSQL verbindingen.</li>
 <li>de keywords <code>input=..</code> en <code>output=..</code> worden nu alleen aan de <code>.run()</code> functie doorgegeven, niet aan de class zelf.</li>
 </ul>
 <p>Daarnaast is er een hoop toegevoegd rondom het inlezen van belastingen:</p>
@@ -226,11 +226,11 @@ ul.task-list li input[type="checkbox"] {
 <li>RWS waterwebservices</li>
 </ul></li>
 </ul>
-<p>Deze inleesfuncties gebruiken allemaal de aquo standaard naam en code (WATHTE).</p>
+<p>Deze inleesfuncties gebruiken allemaal de Aquo-standaard naam en code (WATHTE).</p>
 <ul>
-<li>Classificeren van belastingen aan de hand van opgehaalde/meegegeven grenswaardes.</li>
+<li>Classificeren van belastingen aan de hand van opgehaalde/opgegeven grenswaardes.</li>
 <li>Toekennen van belastingen aan secties.</li>
-<li>Aggregeren van tijdreeks naar momenten of bij getij naar maxima over de getijperiode.</li>
+<li>Aggregeren van tijdreeksen naar momenten of bij het getij naar maxima over de getijperiode.</li>
 </ul>
 
 
