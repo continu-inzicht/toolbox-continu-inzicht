@@ -73,7 +73,7 @@ DataAdapter:
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
         objecttype: "measuringstation"     
-        unit_conversion_factor: 0.001  
+        unit_conversion_factor: 0.01  
 
     out_waterstanden_ci_postgresql_1: 
         type: ci_postgresql_to_data
