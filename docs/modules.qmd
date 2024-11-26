@@ -118,19 +118,21 @@ DataAdapter:
 ...
 ```
 
-Naast de verplichte opties, worden alle overige opties doorgegeven aan de output functie. De `csv` module maakt gebruik van de [pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) voor lees en werk. Alle opties die deze module ondersteund, kunnen worden doorgegeven. Voor  `NetCDF` is dit [xarray.open_dataset](https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html). Voor `PostgreSQL` dit niet het geval, hier zijn alleen een drie standaard opties beschikbaar: `database`, `schema` en `table`. 
+Naast de verplichte waardes van een data adapter, worden ook alle overige opties doorgegeven. Voor de generieke data adapters is er een check of de extra opgegeven opties ondersteund worden. Zo maakt de `csv` data adapter gebruik van [pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) en de `NetCDF` data adapter [xarray.open_dataset](https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html). Voor `PostgreSQL` zijn alleen drie standaard opties beschikbaar: `database`, `schema` en `table`. 
 
 #### Adapters aanmaken vanuit Python
 
-Naast het definieren van data adapters via het configuratiebestand, kan dit ook vanuit Python zelf gedaan worden met de functie `set_dataframe_adapter`. 
+Naast het definiëren van data adapters via het configuratiebestand, kan dit ook vanuit Python zelf gedaan worden met de functie `set_dataframe_adapter`. 
 
 Dit kan op twee manieren: 
 
-1. De data adapter wordt vooraf in de configuratie opgegeven met het type Python. De functie geeft het desbetrefende dataframe door.
+1. De data adapter wordt vooraf in de configuratie opgegeven met het type Python. De functie geeft het desbetreffende dataframe door.
 1. Er is geen data adapter gedefinieerd. Deze wordt aangemaakt bij het runnen van de code. Let op: het configuratiebestand verandert niet mee. 
 
 Optie 1: 
 
+::: {.panel-tabset}
+## Configuratie
 ```yaml
 GlobalVariables:
     rootdir: "data_sets"
@@ -140,7 +142,7 @@ DataAdapter:
         type: python
 ...
 ```
-
+## Code
 ```python
 config = Config(config_path="config.yaml")
 config.lees_config()
@@ -148,9 +150,12 @@ data_adapter = DataAdapter(config=config)
 data_adapter.set_dataframe_adapter("my_df_in", input_df, if_not_exist="raise")
 ...
 ```
+:::
 
 Optie 2: 
 
+::: {.panel-tabset}
+## Configuratie
 ```yaml
 GlobalVariables:
     rootdir: "data_sets"
@@ -161,14 +166,14 @@ DataAdapter:
         file: "test_csv_in.csv"
 ...
 ```
-
+## Code
 ```python
 config = Config(config_path="config.yaml")
 config.lees_config()
 data_adapter = DataAdapter(config=config)
 data_adapter.set_dataframe_adapter("my_new_data_adapter", input_df, if_not_exist="create")
 ```
-
+:::
 
 
 ### Wachtwoorden
@@ -196,10 +201,9 @@ De volgende databronnen worden op dit moment in de Toolbox Continu Inzicht onder
 4. RWS waterinfo
 
 #### Delft-FEWS
-Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen) implementatie voor het beheren van verschillende interne en externe informatiebronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot een FEWS is complexer dan andere bronnen, waardoor het noodzakelijk is om extra parameters te definieren in het configuratiebestand.  De functie `get_fews_locations()` kan worden gebruikt om de beschikbare locaties te tonen. 
+Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen) implementatie voor het beheren van verschillende interne en externe informatiebronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot een FEWS is complexer dan andere bronnen, waardoor het noodzakelijk is om extra parameters te definiëren in het configuratiebestand.  De functie `get_fews_locations()` kan worden gebruikt om de beschikbare locaties te tonen. 
 
 ```Yaml
-
 GlobalVariables:
     rootdir: "data_sets"  
     moments: [-24,0,24,48]
@@ -219,7 +223,7 @@ DataAdapter:
 ```
 
 ##### GlobalVariables:
-- rootdir: Bestandlocatie van de invoer- en uitvoerbestanden
+- rootdir: Bestandslocatie van de invoer- en uitvoerbestanden
 - moments: Momenten in uren waar gegevens voor opgehaald moet worden (bijv. -24, 0, +24, +48, +72 uur)
 
 
@@ -257,7 +261,7 @@ Matroos of `Multifunctional Access Tool for Operational Oceandata Services` is e
 | URL                                                     | Type           | Inhoud                                        | Doelgroep                             |
 |---------------------------------------------------------|----------------|-----------------------------------------------|---------------------------------------|
 | [vitaal.matroos.rws.nl](https://vitaal.matroos.rws.nl/) | extern, vitaal | 21 dagen                                      | Kustwacht, Waterschappen              |
-| [matroos.rws.nl](https://matroos.rws.nl/)               | extern         | Volledige historie                            | Waterschappen, universiteiten, extene |
+| [matroos.rws.nl](https://matroos.rws.nl/)               | extern         | Volledige historie                            | Waterschappen, universiteiten, externe |
 | [noos.matroos.rws.nl](https://noos.matroos.rws.nl/)     | extern, open   | Beperkte set; series:volledig; maps: 14 dagen | NOOS internationaal, Open Data        |
 
 In Matroos zijn verschillende bronnen beschikbaar, met `get_matroos_sources()` kan een lijst van deze worden gegeneerd. De beschikbare locaties kunnen worden weergegeven met `get_matroos_locations()`, met mogelijkheid om te filteren op een bron en parameter. 
@@ -299,7 +303,7 @@ Via de RWS WaterWebservices zijn metingen en verwachtingen van o.a. waterstanden
 Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_locations()`. 
 
 #### RWS Waterinfo
-Naast de RWS WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Deze is openbaar, wel moet de maptype als parameter worden opgegeven.
+Naast de RWS WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/). Waterinfo is bedoelt als informatie portaal, en niet als API om data op te halen. Voordat de WaterWebservices API beschikbaar was, werd de Waterinfo website gebruikt in verschillende Continu Inzicht systemen. Om de comptabiliteit met deze oudere Continu Inzicht systemen te behouden, is deze functie nu nog wel beschikbaar in de Toolbox Continu Inzicht. Wel is in de toekomst mogelijk dat door veranderingen aan de waterinfo website, deze ondersteuning komt te vervallen. 
 
 
 ```yaml
@@ -311,14 +315,56 @@ Naast de RWS WaterWebservices is alle informatie van Rijkswaterstaat ook verkrij
         parameters: ["waterhoogte"]
 
 ```
-##### GlobalVariables:
-- rootdir: Bestandlocatie van de invoer- en uitvoerbestanden
-- moments: Momenten in uren waar gegevens voor opgehaald moet worden (bijv. -24, 0, +24, +48, +72 uur)
+Omdat data ophalen uit waterinfo gevoeliger is, worden de verschillende parameters hieronder weergegeven. 
 
-##### LoadsWaterinfo:
-- parameters:
-
+::: {.panel-tabset}
+## Waterhoogte
 |omschrijving|maptype|periode|
+|--|--|--|
+|Waterhoogte in cm|waterhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0| 
+
+## Windsnelheid
+|omschrijving|maptype|periode|
+|--|--|--|
+|Windsnelheid in m/s|wind|2d terug: -48,48<br>6u terug: -6,3<br>9d terug: -216,48<br>28d terug: -672,0| -48,48/-6,3/216,48/-672,0| 
+
+## Golfhoogte
+|omschrijving|maptype|periode|
+|--|--|--|
+|Golfhoogte in cm|golfhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0| 
+
+## Watertemperatuur
+|omschrijving|maptype|periode|
+|--|--|--|
+|Watertemperatuur in °C|watertemperatuur|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+
+## Luchttemperatuur
+|omschrijving|maptype|periode|
+|--|--|--|
+|Luchttemperatuur in °C|luchttemperatuur|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+
+## Astronomisch getij
+|omschrijving|maptype|periode|
+|--|--|--|
+|Astronomisch getij|astronomische-getij|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit:-6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug:-672,0|  
+
+## Stroomsnelheid
+|omschrijving|maptype|periode|
+|--|--|--|
+|Stroomsnelheid in m/s|stroming|2d terug: -48,0<br>6u terug:-6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+
+## Debiet
+|omschrijving|maptype|periode|
+|--|--|--|
+|Debiet in m3/s|waterafvoer|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit:-216,48<br>28d terug:-672,0|
+
+## Chloride
+|omschrijving|maptype|periode|
+|--|--|--|
+|Chloride in mg/l|zouten|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+
+:::
+<!-- |omschrijving|maptype|periode|
 |--|--|--|
 |Waterhoogte in cm|waterhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0| 
 |Windsnelheid in m/s|wind|2d terug: -48,48<br>6u terug: -6,3<br>9d terug: -216,48<br>28d terug: -672,0| -48,48/-6,3/216,48/-672,0| 
@@ -328,7 +374,7 @@ Naast de RWS WaterWebservices is alle informatie van Rijkswaterstaat ook verkrij
 |Astronomisch getij|astronomische-getij|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit:-6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug:-672,0|  
 |Stroomsnelheid in m/s|stroming|2d terug: -48,0<br>6u terug:-6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
 |Debiet in m3/s|waterafvoer|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit:-216,48<br>28d terug:-672,0|
-|Chloride in mg/l|zouten|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0| 
+|Chloride in mg/l|zouten|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0|  -->
 
 ##### Invoer schema locaties:
 - measurement_location_id (int): Meetlocatie id
@@ -350,32 +396,144 @@ Naast de RWS WaterWebservices is alle informatie van Rijkswaterstaat ook verkrij
 
 ### Classificeren van belastingen
 
-De verschillende hierboven benoemde klasses voor het inlezen van belastingen geven een tijdreeks terug op bepaalde punten.
-
-#### Classificeren van belastingen
-
-Door vooraf grenswaardes voor belastingen te definieren, kunnen de belastingen worden geclassificeerd (bijv. 1x per 100 jaar waterstand). Dit kan met de klasse `LoadsClassify`.
+De verschillende hierboven benoemde functies voor het inlezen van belastingen geven een tijdreeks terug op bepaalde punten. Deze kunnen omgezet worden naar moment, geclassificeerd met grenswaardes en toegekend aan dijkvakken. 
 
 #### Tijdreeks naar momenten
 
-De ingelezen tijdsreeks met belastingen wordt omgezet naar belastingen op specifieke momenten met de klasse `LoadsToMoments`. 
+De ingelezen tijdsreeks met belastingen wordt omgezet naar belastingen op specifieke momenten met `LoadsToMoments`. 
 
-Voor gebieden waar het getij van invloed is, is een aanvullende configuratie nodig. Bij getij wordt de maximale belasting tijdens een getijdecyclus (+/-12.25 uur) bepaald. Zonder deze configuratie wordt de belasting exact op het vooraf gedefinieerde moment bepaald. 
+Voor gebieden waar het getij van invloed is, is een aanvullende configuratie nodig. Bij getij wordt de maximale belasting tijdens een getijdencyclus (+/-12.25 uur) bepaald. Zonder deze configuratie wordt de belasting exact op het vooraf gedefinieerde moment bepaald. 
 
+::: {.panel-tabset}
+## Configuratie
 ```yaml
- GlobalVariables:
+GlobalVariables:
     rootdir: "data_sets"
     moments: [-24,0,24,48]
 
     LoadsToMoments:
         tide: true
 
+DataAdapter: 
+    default_options:
+        csv:
+            sep: ","
+    waterstanden_waterinfo: 
+        type: csv
+        path: "waterstanden_waterinfo.csv"
+    waterstanden_waterinfo_maxima:   
+        type: csv
+        path: "waterstanden_waterinfo_maxima.csv" 
+
 ```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.loads import LoadsToMoments
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+moments = LoadsToMoments(data_adapter=data_adapter)
+moments.run(input="waterstanden_waterinfo", output="waterstanden_waterinfo_maxima")
+```
+:::
+
+#### Classificeren van belastingen
+
+Met `LoadsClassify` kunnen met vooraf gedefinieerde grenswaardes de belastingen worden geclassificeerd, bijvoorbeeld als waterstand die 1 keer per 100 jaar voorkomt. Hierbij moeten de data adapters van de grenswaardes en belastingen worden doorgegeven in een lijst. Hierbij is de volgorde van de lijst belangrijk: eerst grenswaardes en dan belastingen. De belastingen moeten voor het classificeren aangeleverd worden als moment waardes. 
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_demo" 
+    moments: [-24,0,24,48]  
+
+    LoadsMaxima:
+        tide: False   
+
+DataAdapter: 
+    default_options:
+        csv:
+            sep: ","
+    waterstanden_waterinfo_maxima:   
+        type: csv
+        path: "waterstanden_waterinfo_maxima.csv" 
+    waterinfo_klassengrenzen: 
+        type: csv
+        path: "klassengrenzen.csv"    
+    waterstanden_waterinfo_klassen: 
+        type: csv
+        path: "waterstanden_waterinfo_klassen.csv"    
+```
+
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.loads import LoadsClassify
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+classify = LoadsClassify(data_adapter=data_adapter)
+classify.run(
+    input=["waterinfo_klassengrenzen", "waterstanden_waterinfo_maxima"],
+    output="waterstanden_waterinfo_klassen",
+)
+```
+:::
 
 #### Toekennen van belastingen aan secties
 
-De belastingen zijn nu beschikbaar in de meetlocaties van FEWS, Matroos, RWS Waterinfo en RWS WaterWebServices. De volgende stap is het vertalen van de belastingen in de meetpunten naar de secties (dijkvakken of kunstwerken) via de klasse `SectionsLoads`. Als een sectie tussen twee meetpunten ligt, wordt een interpolatiealgoritme (bijv. 25% waarde in meetpunt 1 + 75% waarde in meetpunt 2) toegepast. Dit interpolatiealgoritme is vooraf gedefinieerd.  
+De belastingen zijn nu beschikbaar op de meetlocaties van FEWS, Matroos, RWS Waterinfo of RWS WaterWebServices. De volgende stap is het vertalen van de belastingen in de meetpunten naar de secties (dijkvakken of kunstwerken) via `SectionsLoads`. 
+Voor het toekennen van belastingen aan secties zijn drie data bronnen nodig: de dijkvakken, de belastingen en een koppeling tussen dijkvakken en belastinglocaties. De drie data adapters worden vervolgens doorgegeven aan als een lijst. 
+Hierbij is de eerder genoemde volgorde van belang: dijkvakken, belastingen en koppeling dijkvakken en belastinglocaties. Als een sectie tussen twee meetpunten ligt, wordt een interpolatiealgoritme (bijv. 25% waarde in meetpunt 1 + 75% waarde in meetpunt 2) toegepast. 
+Omdat dit lokaal kan verschillen hoe deze interpolatie wordt gemaakt, is er geen automatische script voor. De interpolatie moet dus vooraf gedefinieerd worden door de gebruiker en wordt mee gegeven bij de koppeling tussen dijkvakken en belastinglocaties. Hierbij wordt gebruikt gemaakt van `fractionup` en `fractiondown` om het gewicht van de bovenstroomse en benedenstroomse belastinglocatie te bepalen. 
 
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_demo"  
+    moments: [-24,0,24,48]
+    
+    SectionsLoads:
+        MISSING_VALUE: -9999.0 
+
+DataAdapter: 
+    default_options:
+        csv:
+            sep: ","
+    dijkvakken: 
+        type: csv
+        path: "dijkvakken.csv"   
+    waterstanden: 
+        type: csv
+        path: "waterstanden_waterinfo.csv"
+    koppeling_dijkvak_belastinglocatie: 
+        type: csv
+        path: "dijkvak_belastinglocatie.csv"   
+    waterstanden_per_dijkvak: 
+        type: csv
+        path: "waterstanden_per_dijkvak.csv"  
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.sections import SectionsLoads
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+sections_loads = SectionsLoads(data_adapter=data_adapter)
+sections_loads.run(
+    input=["dijkvakken", "waterstanden", "koppeling_dijkvak_belastinglocatie"],
+    output="waterstanden_per_dijkvak",
+)
+
+```
+:::
 
 ```{=html}
 <!-- ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
