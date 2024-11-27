@@ -1,5 +1,5 @@
 ---
-title: "Toolbox continu inzicht"
+title: "Toolbox Continu Inzicht"
 ---
 
 
@@ -9,5 +9,5 @@ Dan is het belangrijk continu inzicht te hebben in de actuele risico’s voor he
 De methode 'continu inzicht' is precies daarop gericht: ervoor zorgen dat de beheerder 24/7 in control is. 
 Met slimme monitoring en rekenmodellen wordt de actuele situatie geanalyseerd. 
 De beheerder ziet hoe groot het risico is en waar de zwakke plekken zitten, zodat hij of zij gericht maatregelen kan nemen. 
-De 'Toolbox continu inzicht' is door HKV lijn in water ontwikkeld voor waterschappen en Rijkswaterstaat. 
+De 'Toolbox Continu Inzicht' is door HKV lijn in water ontwikkeld voor waterschappen en Rijkswaterstaat. 
 Door middel van deze toolbox worden de systemen achter 'continu inzicht' herontwikkeld in python en open source aangeboden.
