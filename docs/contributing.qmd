@@ -1,6 +1,6 @@
-# Richtlijnen voor bijdragen aan toolbox continu inzicht
+# Richtlijnen voor bijdragen aan Toolbox Continu Inzicht
 
-Het ontwikkelen van de toolbox continu inzicht bestaat uit twee delen.
+Het ontwikkelen van de Toolbox Continu Inzicht bestaat uit twee delen.
 Eerst ontwikkelt HKV de basisfunctionaliteit. Deze ontwikkeling is voor iedereen te volgen op GitHub, maar toevoegingen worden nog niet geaccepteerd.
 Daarna blijft het project open source beschikbaar en kan het verder worden ontwikkeld.
 De term 'ontwikkelaars' duidt in de eerste ontwikkelfase op het team van HKV, later op anderen die een bijdrage willen leveren.
@@ -20,7 +20,7 @@ De onderstaande secties behandelen de stappen per geval.
 
 1. Gebruik de zoekfunctie
     [hier](https://github.com/continu-inzicht/toolbox-continu-inzicht/issues) om te kijken
-    of iemand anders dezelfde vraag heeft;
+    of iemand anders dezelfde vraag heeft.
 1. Als je niks vergelijkbaars kan vinden, maak een nieuwe issue aan.
 1. Voeg het \"Question"\ label toe; voeg andere labels toe waar nodig.
 
@@ -28,7 +28,7 @@ De onderstaande secties behandelen de stappen per geval.
 
 1. Gebruik de zoekfunctie
     [hier](https://github.com/continu-inzicht/toolbox-continu-inzicht/issues) om te kijken
-    of iemand anders dezelfde vraag/probleem heeft;
+    of iemand anders dezelfde vraag/probleem heeft.
 1. Als je niks vergelijkbaars kan vinden, maak een nieuwe issue aan.
    Zorg dat je genoeg informatie meegeeft zodat andere ontwikkelaars je
    probleem begrijpen en genoeg context hebben om je te helpen.
@@ -36,7 +36,6 @@ De onderstaande secties behandelen de stappen per geval.
    hashcode](https://help.github.com/articles/autolinked-references-and-urls/#commit-shas) 
    van de commit die problemen veroorzaakt toevoegen. Denk daarnaast ook aan
    versie- en besturingssysteeminformatie.
-
 1. Voeg labels toe die relevant zijn voor je probleem.
 
 ## Je wilt een aanpassing maken
