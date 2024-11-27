@@ -11,7 +11,7 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsWaterinfo:
     """
-    Belasting gegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte
+    Belastinggegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte
     """
 
     data_adapter: DataAdapter
