@@ -5,7 +5,7 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 def get_waterinfo_thresholds(
     location_code: str, parameter_id: str = "waterhoogte"
 ) -> pd.DataFrame:
-    """Haal voor Waterinfo de thresholds op voor de opgegegeven parameter
+    """Haal voor Waterinfo de thresholds op voor de opgegegeven parameter.
 
     Args:
         parameter_id (str): Waterinfo parameter bij geen waarde 'waterhoogte'
