@@ -210,15 +210,15 @@ ul.task-list li input[type="checkbox"] {
 <p>Allereerst zijn er nog restpunten uit sprint 1 aangepast:</p>
 <ul>
 <li>het specificeren van <code>delimiter</code> deed het niet, dit moet <code>sep</code> zijn. Daarnaast worden nu alle opties die in de configuratie zijn gespecificeerd doorgegeven aan de data adapters.</li>
-<li><code>path</code> is nu <code>file</code>, waarbij <code>file</code> altijd een bestand is in de <code>rootdir</code>, Path mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie.</li>
+<li><code>path</code> is nu <code>file</code>, waarbij <code>file</code> altijd een bestand is in de <code>rootdir</code>. ‘path’ mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie.</li>
 <li><code>.env</code> bestand is niet meer verplicht, maar geeft wel een warning</li>
-<li><code>util</code> map voor generieke functies als tijd en post/get functies</li>
+<li><code>util</code> map aangemaakt voor generieke functies als tijd en post/get functies</li>
 <li><code>pytest.skipif</code> voor testen die alleen op het HKV-netwerk draaien door FEWS/postgreSQL verbindingen.</li>
 <li>de keywords <code>input=..</code> en <code>output=..</code> worden nu alleen aan de <code>.run()</code> functie doorgegeven, niet aan de class zelf.</li>
 </ul>
-<p>Daarnaast is er een hoop toegevoegd rondom het inlezen van belastingen:</p>
+<p>Daarnaast zijn er toevoegingen gedaan ten behoeve van het inlezen van belastingen:</p>
 <ul>
-<li><p>Inlezen van, ophalen van locaties, parameters en grenswaardes(waar mogelijk) uit:</p>
+<li><p>Inlezen en ophalen van locaties, parameters en grenswaardes(waar mogelijk) uit:</p>
 <ul>
 <li>(Noos/Vitaal) Matroos</li>
 <li>FEWS</li>
