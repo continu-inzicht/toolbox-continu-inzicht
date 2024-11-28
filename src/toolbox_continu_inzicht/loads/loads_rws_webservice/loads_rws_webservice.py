@@ -8,10 +8,11 @@ from toolbox_continu_inzicht.loads.loads_rws_webservice.get_rws_webservices_loca
     get_rws_webservices_locations,
 )
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
+from toolbox_continu_inzicht.base.aquo import read_aquo
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
-aquo_id_dict = {"WATHTE": 4724}
-RWS_webservices_verwacht = {"WATHTEVERWACHT": "WATHTE"}
+# aquo_id_dict = {"WATHTE": 4724}
+# RWS_webservices_verwacht = {"WATHTEVERWACHT": "WATHTE"}
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -168,11 +169,11 @@ class LoadsWaterwebservicesRWS:
 
                 measurement_location_name = serie["Locatie"]["Naam"]
                 parameter_code = serie["AquoMetadata"]["Grootheid"]["Code"]
-                # binnen aquo is WATHTEVERWACHT niks, dus zet de code terug
-                if parameter_code in RWS_webservices_verwacht:
-                    parameter_code = RWS_webservices_verwacht[parameter_code]
                 unit = serie["AquoMetadata"]["Eenheid"]["Code"]
-                parameter_id = aquo_id_dict[parameter_code]
+                # de read_aquo functie geeft zelf de juiste naam terug
+                # is WATHTEVERWACHT niks, dus zet de code terug
+                parameter_code, aquo_grootheid_dict = read_aquo(parameter_code)
+                parameter_id = aquo_grootheid_dict["id"]
                 # process per lijst en stop het in een record
                 for event in serie["MetingenLijst"]:
                     datestr = event["Tijdstip"]
