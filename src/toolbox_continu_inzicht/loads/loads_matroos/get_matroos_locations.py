@@ -4,7 +4,7 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 
 
 def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame:
-    """Haalt alle matroos locaties op, indien gewenst ook bron en parameter"""
+    """Haalt alle matroos locaties op, indien gewenst ook bron en parameter."""
     url = "https://noos.matroos.rws.nl/direct/get_available.php?dd_endpoint=locations&"
 
     params = {"format": "dd_default_2.0.0", "geojson": 1}

@@ -12,8 +12,7 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsFews:
     """
-    Met deze functie wordt er bij de opgegeven FEWS omgeving via
-    REST gegevens opgehaald.
+    Met deze functie worden gegevens uit de opgegeven FEWS omgeving opgehaald via REST.
     """
 
     data_adapter: DataAdapter
