@@ -25,12 +25,12 @@ def test_run():
         os.remove(output_file)
 
     waterinfo = LoadsWaterinfo(data_adapter=data_adapter)
-    df_output = waterinfo.run(input="locaties", output="waterstanden")
+    waterinfo.run(input="locaties", output="waterstanden")
 
     assert os.path.exists(output_file)
 
-    assert df_output is not None
-    assert len(df_output) > 0
+    assert waterinfo.df_out is not None
+    assert len(waterinfo.df_out) > 0
 
 
 def test_run_luchttemperatuur():
@@ -52,12 +52,12 @@ def test_run_luchttemperatuur():
         os.remove(output_file)
 
     waterinfo = LoadsWaterinfo(data_adapter=data_adapter)
-    df_output = waterinfo.run(input="locaties", output="waterstanden")
+    waterinfo.run(input="locaties", output="waterstanden")
 
     assert os.path.exists(output_file)
 
-    assert df_output is not None
-    assert len(df_output) > 0
+    assert waterinfo.df_out is not None
+    assert len(waterinfo.df_out) > 0
 
 
 def test_create_dataframe():

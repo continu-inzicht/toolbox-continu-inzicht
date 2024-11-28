@@ -53,7 +53,6 @@ class LoadsMatroos:
 
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
-
         if "LoadsMatroos" not in global_variables:
             raise UserWarning(
                 "LoadsMatroos sectie niet aanwezig in global_variables (config)"
@@ -74,26 +73,29 @@ class LoadsMatroos:
             df_sources = get_matroos_models()
             # maak een lijst met alle parameter namen, noos herhekend ook een heleboel aliases
             list_aliases = []
-            for alias in list(df_sources["source_alias"]):
+            for alias in list(df_sources["source_label"]):
                 list_aliases.extend(alias.split(";"))
 
+            # TODO geef melding van unknown_source als ophalen van waterstanden niet goed gaat.
+            unknown_source: str = ""
             if options["model"] not in list_aliases:
-                raise UserWarning(
-                    "Gegeven model bestaat niet, indeien nodig gebruik get_matroos_models() voor meer info"
+                unknown_source = options["model"]
+                UserWarning(
+                    f"Gegeven model: {unknown_source} niet gevonden, we proberen het toch op te halen."
                 )
 
             # haal de locaties op die bij de bron horen
             gdf_locations = get_matroos_locations(source=options["model"])
             available_location_names = list(gdf_locations["measurement_location_code"])
+
             # maak een set van de namen en formateer ze zonder spaties en hoofdletters
-            available_location_names = set(
-                self.format_location_names(available_location_names)
-            )
+            available_location_names = set(available_location_names)
 
             # herhaal formateren voor de gegeven locatie namen
-            supplied_location_names = self.format_location_names(
-                list(self.df_in["measurement_location_code"].values)
+            supplied_location_names = list(
+                self.df_in["measurement_location_code"].values
             )
+
             # die je wilt ophalen is het overlap tussen de twee
             wanted_location_names = available_location_names.intersection(
                 supplied_location_names
@@ -172,8 +174,8 @@ class LoadsMatroos:
         for serie in json_data["results"]:
             # hier zit ook coordinaten in
             measurement_location_name = serie["location"]["properties"]["locationName"]
-            measurement_location_code = measurement_location_name.lower().replace(
-                " ", ""
+            measurement_location_code = (
+                measurement_location_name  # .lower().replace(" ", "")
             )
             measurement_location_id = df_in[
                 df_in["measurement_location_code"].apply(lambda x: str(x))

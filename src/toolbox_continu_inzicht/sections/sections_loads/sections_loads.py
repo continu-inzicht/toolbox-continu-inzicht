@@ -133,5 +133,3 @@ class SectionsLoads:
         self.df_out.set_index(["id", "name", "date_time"], inplace=False)
 
         self.data_adapter.output(output=output, df=self.df_out)
-
-        return self.df_out

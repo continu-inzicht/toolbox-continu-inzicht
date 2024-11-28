@@ -1,7 +1,10 @@
+from datetime import timedelta
+from zoneinfo import ZoneInfo
+
 from pydantic.dataclasses import dataclass
+from typing import Optional
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
-from typing import Optional
 from toolbox_continu_inzicht.utils.datetime_functions import (
     datetime_from_string,
 )
@@ -32,11 +35,12 @@ class LoadsWaterinfo:
         """
         De runner van de Belasting Waterinfo functie.
 
-        Args:
-            json_data (str): JSON data
-
-        Returns:
-            Dataframe: Pandas dataframe geschikt voor uitvoer.
+        Parameters
+        ----------
+        input: str
+            Naam van de dataadapter met invoergegevens.
+        output: str
+            Naam van de dataadapter om uitvoergegevens op te slaan.
         """
 
         # Haal opties en dataframe van de config
@@ -68,6 +72,17 @@ class LoadsWaterinfo:
         self.df_in = self.data_adapter.input(input, self.input_schema)
 
         self.df_out = pd.DataFrame()
+
+        # zet tijd goed
+        calc_time = global_variables["calc_time"]
+        moments = global_variables["moments"]
+
+        min_date_time = calc_time
+        max_date_time = calc_time
+
+        for moment in moments:
+            min_date_time = min(min_date_time, calc_time + timedelta(hours=moment))
+            max_date_time = max(max_date_time, calc_time + timedelta(hours=moment))
 
         # observedhours,predictionhours
         # -672, 0   | achtentwintig dagen terug
@@ -106,14 +121,13 @@ class LoadsWaterinfo:
                     dataframe = self.create_dataframe(
                         options=options,
                         maptype_schema=maptype_schema,
-                        measuringstation=measuringstation,
+                        measuringstation=measuringstation.to_dict(),
                         json_data=json_data,
                     )
 
                     if not self.df_out.empty:
-                        self.df_out = pd.concat(
-                            [self.df_out, dataframe], ignore_index=True
-                        )
+                        lst_dfs = [self.df_out, dataframe]
+                        self.df_out = pd.concat(lst_dfs, ignore_index=True)
                     else:
                         self.df_out = dataframe
 
@@ -124,15 +138,25 @@ class LoadsWaterinfo:
         else:
             raise UserWarning("De opgegeven parameter(s) komen niet voor in Waterinfo.")
 
+        # filer alleen de opgegeven periode
+        self.df_out = self.df_out[
+            (self.df_out["date_time"] >= min_date_time)
+            & (self.df_out["date_time"] <= max_date_time)
+        ]
+        # df_filter = df_filter[((df_filter['date_time'] >= calc_time) & (df_filter['value_type'] == "verwachting"))
+        #                      |((df_filter['date_time'] <= calc_time) & (df_filter['value_type'] == "meting"))]
+
+        if self.df_out is None:
+            self.df_out = pd.DataFrame()
+
         self.data_adapter.output(output=output, df=self.df_out)
-        return self.df_out
 
     def create_dataframe(
         self,
         options: dict,
         maptype_schema: dict,
         measuringstation: dict,
-        json_data: str,
+        json_data: dict,
     ) -> pd.DataFrame:
         """Maak een pandas dataframe van de opgehaalde data uit Waterinfo
 
@@ -176,8 +200,10 @@ class LoadsWaterinfo:
 
                 if value_type in ["meting", "verwachting"]:
                     for data in serie["data"]:
-                        utc_dt = datetime_from_string(
-                            data["dateTime"], "%Y-%m-%dT%H:%M:%SZ"
+                        utc_dt = (
+                            datetime_from_string(data["dateTime"], "%Y-%m-%dT%H:%M:%SZ")
+                            .replace(tzinfo=ZoneInfo("Europe/Amsterdam"))
+                            .astimezone(ZoneInfo("UTC"))
                         )
 
                         if data["value"]:
@@ -186,9 +212,15 @@ class LoadsWaterinfo:
                             value = options["MISSING_VALUE"]
 
                         record = {
-                            "measurement_location_id": measuringstation.measurement_location_id,
-                            "measurement_location_code": measuringstation.measurement_location_code,
-                            "measurement_location_description": measuringstation.measurement_location_description,
+                            "measurement_location_id": measuringstation[
+                                "measurement_location_id"
+                            ],
+                            "measurement_location_code": measuringstation[
+                                "measurement_location_code"
+                            ],
+                            "measurement_location_description": measuringstation[
+                                "measurement_location_description"
+                            ],
                             "parameter_id": parameter_id,
                             "parameter_code": parameter_code,
                             "parameter_description": parameter_description,

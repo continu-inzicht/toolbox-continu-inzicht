@@ -1,8 +1,8 @@
-from typing import Tuple
+from typing import Dict, Tuple
 import pandas as pd
 
 
-def validate_dataframe(df: pd.DataFrame, schema: dict) -> Tuple[int, str]:
+def validate_dataframe(df: pd.DataFrame, schema: Dict) -> Tuple[int, str]:
     expected_columns = list(schema.keys())
 
     actual_columns = df.columns.tolist()
@@ -21,7 +21,8 @@ def validate_dataframe(df: pd.DataFrame, schema: dict) -> Tuple[int, str]:
                 1,
                 f"Kolommen komen niet overeen. \nVerwachte kolommen: {schema}.\nHuidige kolommen: {actual_dtypes}.",
             )
-        if not dtypes_match:
+        else:
+            # not dtypes_match:
             return (
                 2,
                 f"Datatypes komen niet overeen.\nVerwachte kolommen: {schema}.\nHuidige kolommen: {actual_dtypes}.",

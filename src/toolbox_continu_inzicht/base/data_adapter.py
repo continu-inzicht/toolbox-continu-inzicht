@@ -2,7 +2,7 @@ from pydantic import BaseModel as PydanticBaseModel
 import pandas as pd
 
 import warnings
-from typing import Any
+from typing import Any, Optional, Dict
 
 from dotenv import load_dotenv, dotenv_values
 from toolbox_continu_inzicht.base.config import Config
@@ -64,7 +64,7 @@ class DataAdapter(PydanticBaseModel):
         # combineer alle functions (externe functies overschrijven input functions)
         self.output_types.update(externe_functies)
 
-    def input(self, input: str, schema: dict = None) -> pd.DataFrame:
+    def input(self, input: str, schema: Optional[Dict] = None) -> pd.DataFrame:
         """Gegeven het config, stuurt de juiste input waarde aan
 
         Parameters:

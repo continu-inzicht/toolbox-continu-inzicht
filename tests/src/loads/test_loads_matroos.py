@@ -147,7 +147,7 @@ def test_LoadsMatroos_data_frame():
         data=[
             {
                 "measurement_location_id": 1,
-                "measurement_location_code": "hoekvanholland",
+                "measurement_location_code": "Hoek van Holland",
             }
         ]
     )

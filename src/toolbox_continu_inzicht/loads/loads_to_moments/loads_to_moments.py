@@ -1,6 +1,7 @@
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
+import pandas.api.types as ptypes
 from typing import Optional
 from datetime import datetime, timedelta
 
@@ -50,12 +51,19 @@ class LoadsToMoments:
 
         calc_time = global_variables["calc_time"]
 
-        self.df_in["date_time"] = self.df_in["date_time"].apply(
-            lambda x: datetime.fromisoformat(x)
-        )
+        is_datetime = ptypes.is_datetime64_any_dtype(self.df_in["date_time"])
+        if not is_datetime:
+            self.df_in["date_time"] = self.df_in["date_time"].apply(
+                lambda x: datetime.fromisoformat(x)
+            )
+
         df_moments = self.df_in.set_index("date_time")
         lst_dfs = []
-        dt_moments = [calc_time + timedelta(hours=moment) for moment in moments]
+
+        dt_moments = [
+            {"date_time": calc_time + timedelta(hours=moment), "hours": moment}
+            for moment in moments
+        ]
 
         if tide:
             locations = df_moments["measurement_location_id"].unique()
@@ -66,8 +74,12 @@ class LoadsToMoments:
             for df_per_location in df_moments_per_location:
                 for moment in dt_moments:
                     time_interval = (
-                        df_per_location.index > (moment - timedelta(hours=12.25))
-                    ) & (df_per_location.index < (moment + timedelta(hours=12.25)))
+                        df_per_location.index
+                        > (moment["date_time"] - timedelta(hours=12.25))
+                    ) & (
+                        df_per_location.index
+                        < (moment["date_time"] + timedelta(hours=12.25))
+                    )
 
                     df_per_location_time_interval = df_per_location.loc[time_interval]
                     if len(df_per_location_time_interval) > 0:
@@ -100,10 +112,19 @@ class LoadsToMoments:
             Het dataframe met het opgehaalde moment.
         """
 
-        if moment in df_moments.index:
-            df_moment = df_moments.loc[[moment]]
+        df_moment = pd.DataFrame()
+
+        if moment["date_time"] in df_moments.index:
+            df_moment = df_moments.loc[[moment["date_time"]]]
         else:
-            df_moment = df_moments[df_moments.index < moment].iloc[[-1]]
+            df_filter = df_moments[df_moments.index < moment["date_time"]]
+            if not df_filter.empty:
+                df_moment = df_filter.iloc[[-1]]
+
             ## evntueel ook een optie:
-            # df_moment = df_moments[df_moments.index < moment].iloc[[0]]
+            # df_moment = df_moments[df_moments.index < moment["date_time"]].iloc[[0]]
+
+        if not df_moment.empty:
+            df_moment["hours"] = moment["hours"]
+
         return df_moment

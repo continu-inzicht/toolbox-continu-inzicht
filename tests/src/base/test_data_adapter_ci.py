@@ -91,11 +91,12 @@ def test_dataadapter_ci_postgresql_from_conditions():
 
     input_string = "ci_conditions"
     schema = {
-        "measurement_location_code": "object",
-        "van": "float64",
-        "tot": "float64",
-        "kleur": "object",
+        "measurement_location_id": "int64",
+        "lower_boundary": "float64",
+        "upper_boundary": "float64",
+        "color": "object",
         "label": "object",
+        "unit": "object",
     }
 
     df_in = data_adapter.input(input=input_string, schema=schema)
@@ -159,9 +160,7 @@ def test_dataadapter_ci_postgresql_to_data():
         dataframe = pd.DataFrame.from_records(records)
 
         # schijf record naar database
-        df_out = data_adapter.output(output=output_string, df=dataframe)
-
-        assert df_out is not None
+        data_adapter.output(output=output_string, df=dataframe)
 
         # controleer of record in database staat
         df_from_db = pd.read_sql_query(
@@ -207,7 +206,7 @@ def test_dataadapter_ci_postgresql_to_states():
     schema = output_info[output_string]["schema"]
 
     # verwijder alle data met objectid gelijk aan 999999
-    dummy_object_id = 7  # SPY
+    dummy_object_id = 1  # SPY
     engine = create_engine(
         f"postgresql://{postgresql_user}:{postgresql_password}@{postgresql_host}:{int(postgresql_port)}/{database}"
     )
@@ -237,12 +236,13 @@ def test_dataadapter_ci_postgresql_to_states():
         for index, row in df_moments_from_db.iterrows():
             records.append(
                 {
-                    "measurement_location_code": "SPY",
+                    "measurement_location_id": dummy_object_id,
+                    "hours": row["momentid"],
                     "date_time": row["date_time"],
-                    "value": 81.0,
-                    "van": -92.0,
-                    "tot": 200.0,
-                    "kleur": "#39870C",
+                    "value": -25.0,
+                    "lower_boundary": -10.0,
+                    "upper_boundary": -45.0,
+                    "color": "#39870C",
                     "label": "Normaal (-92 tot 200cm)",
                 }
             )
@@ -250,9 +250,7 @@ def test_dataadapter_ci_postgresql_to_states():
         dataframe = pd.DataFrame.from_records(records)
 
         # schijf record naar database
-        df_out = data_adapter.output(output=output_string, df=dataframe)
-
-        assert df_out is not None
+        data_adapter.output(output=output_string, df=dataframe)
 
         # controleer of record in database staat
         select_query = f"""

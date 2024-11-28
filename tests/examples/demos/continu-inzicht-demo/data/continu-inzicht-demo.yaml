@@ -1,0 +1,127 @@
+GlobalVariables:
+    rootdir: "data"     
+    calc_time: "2024-11-19"
+    moments: [-24,0,24,48]     
+
+    LoadsWaterinfo:    
+            parameters: ["waterhoogte"]
+            MISSING_VALUE: 999
+
+    LoadsMatroos:
+        website: "noos"
+        model: "fews_rmm_km"
+        parameters: ["WATHTE"]              
+
+    LoadsFews:
+        host: "https://fews.hhnk.nl"
+        port: 443
+        region: "fewspiservice"
+        version: "1.25"
+        filter: ""
+        parameters: [ "WATHTE [m][NAP][OW]" ]    
+        uurdata: true,
+        addnearestmoments: true,
+        addmaxmoment: false       
+
+    LoadsFewsLimburg:
+        host: "http://109.232.44.231"
+        port: 443
+        region: "fewspiservice"
+        version: "1.25"
+        filter: "App_Maas"
+        parameters: [ "WATHTE" ]    
+        uurdata: true,
+        addnearestmoments: true,
+        addmaxmoment: false           
+
+    LoadsWaterwebservicesRWS:        
+        parameters: ["WATHTE"]
+        MISSING_VALUE: -999           
+
+DataAdapter: 
+
+    default_options:
+        csv:
+            sep: ","
+
+    in_measuringstation_waterinfo: 
+        type: ci_postgresql_from_measuringstations
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        source: "waterinfo"        
+
+    in_measuringstation_matroos: 
+        type: ci_postgresql_from_measuringstations
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        source: "matroos"
+
+    in_measuringstation_fews_hhnk:
+        type: ci_postgresql_from_measuringstations
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        source: "fews_hhnk"   
+
+    in_measuringstation_fews_limburg:          
+        type: ci_postgresql_from_measuringstations
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        source: "fews_limburg" 
+
+    out_waterstanden_ci_postgresql_001: 
+        type: ci_postgresql_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        objecttype: "measuringstation"     
+        unit_conversion_factor: 0.01  
+
+    out_waterstanden_ci_postgresql_1: 
+        type: ci_postgresql_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        objecttype: "measuringstation"     
+        unit_conversion_factor: 1           
+
+    in_measuringstation_data_table: 
+        type: ci_postgresql_measuringstation_data_table
+        database: geoserver        
+        schema: continuinzicht_demo_realtime    
+
+    in_measuringstation_conditions_table: 
+        type: ci_postgresql_from_conditions
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"   
+
+    out_measuringstation_states_table:   
+        type: ci_postgresql_to_states
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"  
+        objecttype: "measuringstation"                    
+
+    in_section_table: 
+        type: ci_postgresql_from_sections
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime" 
+
+    in_sectionfractions_table: 
+        type: ci_postgresql_from_sectionfractions
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"           
+
+    out_moments_table:   
+        type: ci_postgresql_to_moments
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"  
+
+    out_waterstanden_section_ci_postgresql: 
+        type: ci_postgresql_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        objecttype: "section"             
+
+    df_moment_waterstanden: 
+        type: python
+
+    waterstanden: 
+        type: csv
+        path: "hidden_waterstanden_moments.csv"

@@ -24,18 +24,21 @@ class LoadsClassify:
         "upper_boundary": "float64",
         "color": "object",
         "label": "object",
+        "unit": "object",
     }
 
     # belasting per moment per meetlocaties
     input_schema_loads = {
+        "measurement_location_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
         "date_time": "object",
         "value": "float64",
         "value_type": "object",
+        "hours": "int64",
     }
 
-    def run(self, input: list[str], output=None) -> pd.DataFrame:
+    def run(self, input: list[str], output: str) -> pd.DataFrame:
         """
         De runner van de Loads Classify.
 
@@ -87,6 +90,7 @@ class LoadsClassify:
                 "upper_boundary",
                 "color",
                 "label",
+                "hours",
             ]
         ]
         self.df_out = self.df_out[

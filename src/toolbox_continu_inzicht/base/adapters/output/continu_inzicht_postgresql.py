@@ -50,21 +50,36 @@ def output_ci_postgresql_to_data(output_config: dict, df: pd.DataFrame):
     table = "data"
     schema = output_config["schema"]
     objecttype = output_config["objecttype"]
+    calculating = False
+
+    unit_conversion_factor = 1
+    if "unit_conversion_factor" in output_config:
+        unit_conversion_factor = float(output_config["unit_conversion_factor"])
 
     if len(df) > 0:
+        # maak verbinding object
+        engine = sqlalchemy.create_engine(
+            f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+        )
+
         # objectid, objecttype, parameterid, datetime, value, calculating
         if objecttype == "measuringstation":
-            # maak verbinding object
-            engine = sqlalchemy.create_engine(
-                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+            # dubbele records geven een foutmeldig bij opslaan in database
+            df = df.drop_duplicates(
+                subset=["measurement_location_id", "date_time", "value_type"]
             )
 
-            df["objecttype"] = objecttype
-            df["calculating"] = False
+            # df["objecttype"] = str(objecttype)
+            # df["calculating"] = False
+
+            df = df.assign(objecttype=str(objecttype))
+            df = df.assign(calculating=calculating)
+
             df["datetime"] = df["date_time"].apply(epoch_from_datetime)
             df["parameterid"] = df["value_type"].apply(bepaal_parameter_id)
+
             # TODO fix units:
-            df["value"] = df["value"].div(100)
+            df["value"] = df["value"].mul(unit_conversion_factor)
             df_data = df.loc[
                 :,
                 [
@@ -82,23 +97,64 @@ def output_ci_postgresql_to_data(output_config: dict, df: pd.DataFrame):
             location_ids = df_data.objectid.unique()
             location_ids_str = ",".join(map(str, location_ids))
 
-            # with engine.connect() as connection:
-            #     connection.execute(
-            #         sqlalchemy.text(f"""
-            #                         DELETE FROM {schema}.{table}
-            #                         WHERE objectid IN ({location_ids_str}) AND
-            #                               calculating=true AND
-            #                               objecttype='measuringstation';
-            #                         """)
-            #     )
-            #     connection.commit()  # commit the transaction
-
             with engine.connect() as connection:
                 connection.execute(
                     sqlalchemy.text(f"""
                                     DELETE FROM {schema}.{table} 
                                     WHERE objectid IN ({location_ids_str}) AND                                               
-                                            objecttype='measuringstation';
+                                            objecttype='{objecttype}' AND
+                                            calculating={calculating};
+                                    """)
+                )
+                connection.commit()  # commit the transaction
+
+            # schrijf data naar de database
+            df_data.to_sql(
+                table,
+                con=engine,
+                schema=schema,
+                if_exists="append",
+                index=False,
+            )
+
+            # verbinding opruimen
+            engine.dispose()
+
+        elif objecttype == "section":
+            df_data = df.dropna(how="any")
+
+            df_data = df_data.assign(objecttype=str(objecttype))
+            df_data = df_data.assign(calculating=False)
+
+            # df_data["datetime"] = df_data["date_time"].apply(datetime.fromisoformat)
+            df_data["datetime"] = df_data["date_time"].apply(epoch_from_datetime)
+            df_data["parameterid"] = df_data["value_type"].apply(bepaal_parameter_id)
+
+            df_data = df_data.loc[
+                :,
+                [
+                    "id",
+                    "objecttype",
+                    "parameterid",
+                    "datetime",
+                    "value",
+                    "calculating",
+                ],
+            ]
+
+            df_data = df_data.rename(columns={"id": "objectid"})
+            df_data = df_data.reset_index(drop=True)
+
+            section_ids = df_data.objectid.unique()
+            section_ids_str = ",".join(map(str, section_ids))
+
+            with engine.connect() as connection:
+                connection.execute(
+                    sqlalchemy.text(f"""
+                                    DELETE FROM {schema}.{table} 
+                                    WHERE objectid IN ({section_ids_str}) AND                                               
+                                            objecttype='{objecttype}' AND
+                                            calculating={calculating};
                                     """)
                 )
                 connection.commit()  # commit the transaction
@@ -172,35 +228,11 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
             f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
         )
 
-        # eerst lookup data ophalen om de juiste id's te bepalen
-        query = f""" 
-            SELECT 
-                id AS objectid, 
-                code AS measurement_location_code
-            FROM {schema}.measuringstations;
-        """
-
-        # query uitvoeren op de database
-        with engine.connect() as connection:
-            df_stations = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
-
-        # eerst lookup data ophalen om de juiste id's te bepalen
-        query = f""" 
-            SELECT 
-                moment.id AS momentid, 
-                TO_TIMESTAMP(moment.calctime/1000) AS date_time
-            FROM {schema}.moments AS moment;
-        """
-
-        # query uitvoeren op de database
-        with engine.connect() as connection:
-            df_moments = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
-
         query = f""" 
             SELECT 
                 stateid AS stateid, 
                 objectid AS objectid, 
-                upperboundary AS tot
+                upperboundary AS upper_boundary
             FROM {schema}.conditions
             WHERE objecttype='measuringstation'
             ORDER BY objectid, stateid;
@@ -212,22 +244,17 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
                 sql=sqlalchemy.text(query), con=connection
             )
 
-        df.set_index("measurement_location_code")
-        df_merge = df.merge(df_stations, on="measurement_location_code", how="outer")
-
-        df_moments["date_time"] = df_moments["date_time"].astype(object)
-        df_moments.set_index("date_time")
-
-        df_merge["date_time"] = df_merge["date_time"].astype(object)
-        df_merge.set_index("date_time")
-        df_merge = df_merge.merge(
-            df_moments, on="date_time", how="inner", validate="many_to_one"
+        df_merge = df.copy()
+        df_merge.rename(
+            columns={"hours": "momentid", "measurement_location_id": "objectid"},
+            inplace=True,
         )
+        df_merge.set_index("objectid")
 
-        df_merge.set_index(["objectid", "tot"])
+        df_merge.set_index(["objectid", "upper_boundary"])
         df_merge = df_merge.merge(
             df_conditions,
-            on=["objectid", "tot"],
+            on=["objectid", "upper_boundary"],
             how="left",
             validate="many_to_one",
         )
@@ -243,7 +270,7 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
                 sqlalchemy.text(f"""
                                     DELETE FROM {schema}.{table} 
                                     WHERE objectid IN ({location_ids_str}) AND 
-                                            calculating=true AND
+                                            calculating=false AND
                                             objecttype='measuringstation';
                                     """)
             )
@@ -251,7 +278,7 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
 
         df_merge["objecttype"] = objecttype
         df_merge["parameterid"] = np.where(df_merge["momentid"] <= 0, 1, 2)
-        df_merge["calculating"] = True
+        df_merge["calculating"] = False
         df_merge["changedate"] = 0
 
         df_states = df_merge.loc[
@@ -278,3 +305,67 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
 
         # verbinding opruimen
         engine.dispose()
+
+
+def output_ci_postgresql_to_moments(output_config: dict, df: pd.DataFrame):
+    """
+    Schrijft moments naar Continu Inzicht database tabel moments
+
+    Args:
+    ----------
+    output_config (dict):
+
+    Opmerking:
+    ------
+    In de `.env` environment bestand moeten de volgende parameters staan:
+    postgresql_user (str):
+    postgresql_password (str):
+    postgresql_host (str):
+    postgresql_port (str):
+
+    In de 'yaml' config moeten de volgende parameters staan:
+    database (str):
+    schema (str):
+
+    Returns:
+    --------
+    pd.Dataframe
+
+    """
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in output_config for key in keys)
+
+    schema = output_config["schema"]
+
+    if not df.empty:
+        if "date_time" in df and "calc_time" in df and "moment_id" in df:
+            df["datetime"] = df["date_time"].apply(epoch_from_datetime)
+            df["calctime"] = df["calc_time"].apply(epoch_from_datetime)
+            query = []
+
+            for _, row in df.iterrows():
+                query.append(
+                    f"UPDATE {schema}.moments SET datetime={str(row["datetime"])},calctime={str(row["calctime"])} WHERE id={str(row["moment_id"])};"
+                )
+
+            # maak verbinding object
+            engine = sqlalchemy.create_engine(
+                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+            )
+
+            query = " ".join(query)
+
+            with engine.connect() as connection:
+                connection.execute(sqlalchemy.text(str(query)))
+                connection.commit()  # commit the transaction
+
+            # verbinding opruimen
+            engine.dispose()
