@@ -10,7 +10,7 @@ def get_fews_thresholds(
     parameter_id: str,
     location_id: str,
 ) -> pd.DataFrame:
-    """Haal voor Fews de thresholds op voor de opgegegeven parameter en locatie
+    """Haal voor Fews de thresholds op voor de opgegegeven parameter en locatie.
 
     Args:
         host (str): fews server host url
