@@ -7,7 +7,7 @@ from typing import Optional
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsCIWhatIf:
     """
-    Met deze functie worden belasting opgehaald en weggeschreven
+    Met deze functie worden belasting opgehaald en weggeschreven.
     """
 
     data_adapter: DataAdapter
