@@ -43,6 +43,7 @@ class LoadsToMoments:
         global_variables = self.data_adapter.config.global_variables
         moments = global_variables["moments"]
 
+        # TODO: er kunnen meerdere opties zijn voor LoadsToMoments 
         if "LoadsToMoments" in global_variables:
             options = global_variables["LoadsToMoments"]
             tide = options["tide"]

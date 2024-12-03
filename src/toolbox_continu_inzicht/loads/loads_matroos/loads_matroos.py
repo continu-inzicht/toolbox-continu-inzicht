@@ -10,11 +10,11 @@ from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
 )
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
+from toolbox_continu_inzicht.base.aquo import read_aquo
 
-aquo_matroos_dict = {"WATHTE": "waterlevel"}
-matroos_aquo_dict = {"waterlevel": "WATHTE"}
-aquo_id_dict = {"WATHTE": 4724}
 
+# dit is functie specifiek omdat waterlevel niet in de aquo standaard zit
+matroos_aquo_synoniem = {"water height": "waterlevel"}
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsMatroos:
@@ -114,7 +114,8 @@ class LoadsMatroos:
         lst_dfs = []
         # maak een url aan
         for parameter in options["parameters"]:
-            aquo_parameter = aquo_matroos_dict[parameter]  # "WATHTE -> waterlevel"
+            parameter_code, aquo_grootheid_dict = read_aquo(parameter)
+            aquo_parameter = matroos_aquo_synoniem[aquo_grootheid_dict["label_en"]]  # "WATHTE -> waterlevel"
             request_forecast_url = self.generate_url(
                 calc_time,
                 options,
@@ -181,10 +182,12 @@ class LoadsMatroos:
                 df_in["measurement_location_code"].apply(lambda x: str(x))
                 == str(measurement_location_code)
             ].iloc[0]["measurement_location_id"]
+
+            # we krijgen water height, maar we willen waterlevel
             parameter_matroos = serie["observationType"]["quantityName"]
-            # "waterlevel -> WATHTE", code matchign WATHTE
-            parameter_code = matroos_aquo_dict[parameter_matroos]
-            parameter_id = aquo_id_dict[parameter_code]
+            # "waterlevel -> WATHTE", code matching WATHTE
+            parameter_code, aquo_grootheid_dict = read_aquo(parameter_matroos)
+            parameter_id = aquo_grootheid_dict["id"]
             # process per lijst en stop het in een record
             for event in serie["events"]:
                 datestr = event["timeStamp"]

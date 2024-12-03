@@ -6,7 +6,7 @@ from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base import data_adapter
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
-# hier de hoof modules, sub modules in de mapjes zelf
+# hier de hoofd modules, sub modules in de mapjes zelf
 from toolbox_continu_inzicht import base
 from toolbox_continu_inzicht import loads
 from toolbox_continu_inzicht import proof_of_concept
