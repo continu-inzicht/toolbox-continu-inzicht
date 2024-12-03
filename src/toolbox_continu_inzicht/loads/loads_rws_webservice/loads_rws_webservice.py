@@ -17,7 +17,7 @@ RWS_webservices_verwacht = {"WATHTEVERWACHT": "WATHTE"}
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsWaterwebservicesRWS:
     """
-    Belasting gegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/
+    Belastinggegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/
 
     Attributes
     ----------
