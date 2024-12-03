@@ -5,7 +5,7 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 def get_fews_locations(
     host: str, port: int, region: str, filter_id: str
 ) -> pd.DataFrame:
-    """Haal voor Fews de locaties op voor de opgegegeven parameters
+    """Haal voor Fews de locaties op voor de opgegegeven parameters.
 
     Args:
         host (str): Fews server host url
