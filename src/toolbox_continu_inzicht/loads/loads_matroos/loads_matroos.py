@@ -16,6 +16,7 @@ from toolbox_continu_inzicht.base.aquo import read_aquo
 # dit is functie specifiek omdat waterlevel niet in de aquo standaard zit
 matroos_aquo_synoniem = {"water height": "waterlevel"}
 
+
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsMatroos:
     """
@@ -115,7 +116,9 @@ class LoadsMatroos:
         # maak een url aan
         for parameter in options["parameters"]:
             parameter_code, aquo_grootheid_dict = read_aquo(parameter)
-            aquo_parameter = matroos_aquo_synoniem[aquo_grootheid_dict["label_en"]]  # "WATHTE -> waterlevel"
+            aquo_parameter = matroos_aquo_synoniem[
+                aquo_grootheid_dict["label_en"]
+            ]  # "WATHTE -> waterlevel"
             request_forecast_url = self.generate_url(
                 calc_time,
                 options,
