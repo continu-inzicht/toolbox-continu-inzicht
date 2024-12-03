@@ -47,6 +47,14 @@ class LoadsFews:
 
         options = global_variables["LoadsFews"]
 
+        # TODO: add user mapping for aquo equivalent
+        # if "aquo_equivalent" in options:
+        #     user_aquo_mapping = dict(
+        #         zip(options["parameters"], options["aquo_equivalent"])
+        #     )
+        # else:
+        #     user_aquo_mapping = dict(zip(options["parameters"], options["parameters"]))
+
         # moments eventueel toevoegen aan options
         if "moments" not in options and "moments" in global_variables:
             options["moments"] = global_variables["moments"]

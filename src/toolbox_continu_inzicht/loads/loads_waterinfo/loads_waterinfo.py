@@ -8,7 +8,9 @@ import pandas as pd
 from toolbox_continu_inzicht.utils.datetime_functions import (
     datetime_from_string,
 )
+
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
+from toolbox_continu_inzicht.base.aquo import read_aquo
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -90,6 +92,7 @@ class LoadsWaterinfo:
         #   -6, 3   | zes uur teru, en 3 uur vooruit
         #  -48, 48  | twee dagen terug en 2 dagen vooruit
 
+        # TODO: hard coded op een data type: nl de eerste
         datatype = "waterhoogte"
         if "parameters" in options:
             if type(options["parameters"]) is list and len(options["parameters"]) > 0:
@@ -184,6 +187,8 @@ class LoadsWaterinfo:
 
         if "series" in json_data:
             records = []
+
+            # haal uit de aquo
             parameter_id = maptype_schema["parameter_id"]
             parameter_code = maptype_schema["parameter_code"]
 
@@ -236,6 +241,7 @@ class LoadsWaterinfo:
 
         return dataframe
 
+    # TODO: Hier zitten nu aquo parameters in, maar die moeten eigenlijk uit base.aquo.read_aquo komen
     def get_maptype(self, maptype: str):
         """
         bepaal welke schema gebruikt moet worden voor het ophalen van de belasting
@@ -257,8 +263,8 @@ class LoadsWaterinfo:
         waterinfo_series = [
             {
                 "maptype": "waterhoogte",
-                "parameter_id": 4724,
-                "parameter_code": "WATHTE",
+                # "parameter_id": 4724,
+                # "parameter_code": "WATHTE",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -268,8 +274,8 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "wind",
-                "parameter_id": -9999,
-                "parameter_code": "P_WIND",
+                # "parameter_id": -9999,
+                # "parameter_code": "P_WIND",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -279,8 +285,8 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "golfhoogte",
-                "parameter_id": -9999,
-                "parameter_code": "P_GOLFHOOGTE",
+                # "parameter_id": -9999,
+                # "parameter_code": "P_GOLFHOOGTE",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -290,8 +296,8 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "watertemperatuur",
-                "parameter_id": -9999,
-                "parameter_code": "P_WATERTEMPERATUUR",
+                # "parameter_id": -9999,
+                # "parameter_code": "P_WATERTEMPERATUUR",
                 "values": [
                     {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
@@ -301,8 +307,8 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "luchttemperatuur",
-                "parameter_id": -9999,
-                "parameter_code": "P_LUCHTTEMPERATUUR",
+                # "parameter_id": -9999,
+                # "parameter_code": "P_LUCHTTEMPERATUUR",
                 "values": [
                     {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
@@ -312,8 +318,8 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "astronomische-getij",
-                "parameter_id": -9999,
-                "parameter_code": "P_ASTRONOMISCHE-GETIJ",
+                # "parameter_id": -9999,
+                # "parameter_code": "P_ASTRONOMISCHE-GETIJ",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -323,8 +329,8 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "stroming",
-                "parameter_id": -9999,
-                "parameter_code": "P_STROMING",
+                # "parameter_id": -9999,
+                # "parameter_code": "P_STROMING",
                 "values": [
                     {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
@@ -334,8 +340,8 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "waterafvoer",
-                "parameter_id": -9999,
-                "parameter_code": "P_WATERAFVOER",
+                # "parameter_id": -9999,
+                # "parameter_code": "P_WATERAFVOER",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -345,8 +351,8 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "zouten",
-                "parameter_id": -9999,
-                "parameter_code": "P_ZOUTEN",
+                # "parameter_id": -9999,
+                # "parameter_code": "P_ZOUTEN",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,0"},
@@ -358,6 +364,10 @@ class LoadsWaterinfo:
 
         for item in waterinfo_series:
             if item["maptype"] == maptype:
+                parameter_code, aquo_grootheid_dict = read_aquo(maptype)
+                item["parameter_code"] = parameter_code
+                item["parameter_id"] = aquo_grootheid_dict["id"]
+
                 return item
 
         return None
