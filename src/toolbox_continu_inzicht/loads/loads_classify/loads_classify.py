@@ -7,7 +7,7 @@ from typing import Optional
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsClassify:
     """
-    Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd
+    Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd.
 
     """
 

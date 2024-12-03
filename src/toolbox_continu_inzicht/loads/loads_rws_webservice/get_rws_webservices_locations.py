@@ -3,7 +3,7 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
 
 def get_rws_webservices_locations():
-    """Haal locaties die bekend zijn bij de RWS webservice."""
+    """Haal locaties op die bekend zijn bij de RWS webservice."""
 
     url_catalog: str = "https://waterwebservices.rijkswaterstaat.nl/METADATASERVICES_DBO/OphalenCatalogus"
     # haal voor all locaties de informatie op: catalogus met data
