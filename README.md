@@ -1,10 +1,10 @@
-# Continu inzicht toolbox <img align="right" src="/docs/assets/logo.png" height="32" alt='logo'></img>
+# Continu Inzicht Toolbox <img align="right" src="/docs/assets/logo.png" height="32" alt='logo'></img>
 
-Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij het ontwikkelen van de toolbox is rekening gehouden met type interacties met de toolbox: de gebruiken van de toolbox en bijdragen. Op de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) is voor beide informatie beschikbaar.
+Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij het ontwikkelen van de toolbox is rekening gehouden met type interacties met de toolbox: het gebruiken van de toolbox en bijdragen. Op de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) is voor beide informatie beschikbaar.
 
 ## Gebruik van de toolbox
 
-De toolbox kan _(staks)_ geinstaleerd worden met: 
+De toolbox kan _(straks)_ geinstaleerd worden met: 
 
 ```bash 
 pip install toolbox-continu-inzicht
