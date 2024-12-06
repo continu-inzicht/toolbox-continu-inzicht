@@ -17,7 +17,7 @@ website:
         file: reference/index.qmd
       - text: "Overig"
         file: contact.qmd
-          
+
     right:
       - text: "Bijdragen"
         file: contributing.qmd
@@ -29,11 +29,11 @@ website:
       - title: "Installeren"
         contents:
           - install.qmd
-      
+
       - title: "Voorbeelden"
         contents:
           - examples/notebooks/proof_of_concept.ipynb
-        
+
       - title: "Modules"
         contents:
           - modules.qmd
@@ -47,7 +47,7 @@ website:
           - contact.qmd
           - tests.qmd
           - changelog.qmd
-        
+
       - title: "Bijdragen"
         contents:
           - contributing.qmd
@@ -67,6 +67,7 @@ quartodoc:
   dir: reference
   title: API Reference
   package: toolbox_continu_inzicht
+  parser: numpy
   dynamic: True
   rewrite_all_pages: True
   options:
@@ -75,18 +76,18 @@ quartodoc:
     include_attributes: true
     include_classes: true
     include_functions: true
-  sections:  
+  sections:
     - title: Basis
       desc: Lees & schrijf functionaliteit waar andere functies op verder bouwen
       package: toolbox_continu_inzicht
-      contents: 
+      contents:
        - config
        - data_adapter
        - proof_of_concept.example_module
     - title: Belastingen
-      desc: Verschillende functies die belastingen inladen, classifiseren of toekennen. 
+      desc: Verschillende functies die belastingen inladen, classifiseren of toekennen.
       package: toolbox_continu_inzicht
-      contents: 
+      contents:
        - loads.LoadsCIWhatIf
        - loads.LoadsClassify
        - loads.LoadsFews
@@ -102,12 +103,12 @@ quartodoc:
        - loads.get_waterinfo_thresholds
 
       #  - base
-    
-  
+
+
           # - haal_waterstanden_op
           # - calculate_fragility_curves
-          
-          
+
+
   # # options:
   #   include_inherited: true
   #   include_empty: true
@@ -118,5 +119,5 @@ quartodoc:
   #   - title: Continu inzicht toolbox
   #     desc: Toolbox voor continu inzicht
   #     package: continu_inzicht_toolbox
-  #     content: 
+  #     content:
   #      - PlaceHolder

@@ -45,18 +45,18 @@ def ci_postgresql_measuringstation_data_table(input_config: dict) -> pd.DataFram
 
     schema = input_config["schema"]
     query = f"""
-        SELECT 
-            data.objectid AS measurement_location_id, 
+        SELECT
+            data.objectid AS measurement_location_id,
             measuringstation.code AS measurement_location_code,
-            measuringstation.name AS measurement_location_description,	
+            measuringstation.name AS measurement_location_description,
             parameter.id AS parameter_id,
             parameter.code AS parameter_code,
             parameter.name AS parameter_description,
-            parameter.unit AS unit,					
-            TO_TIMESTAMP(data.datetime/1000) AS date_time, 
+            parameter.unit AS unit,
+            TO_TIMESTAMP(data.datetime/1000) AS date_time,
             value AS value,
             (
-                CASE 
+                CASE
                     WHEN parameter.id > 1 THEN 'verwacht'
                     ELSE 'gemeten'
                 END
@@ -64,7 +64,7 @@ def ci_postgresql_measuringstation_data_table(input_config: dict) -> pd.DataFram
         FROM {schema}.data
         INNER JOIN {schema}.measuringstations AS measuringstation ON data.objectid=measuringstation.id
         INNER JOIN {schema}.parameters AS parameter ON data.parameterid=parameter.id
-        WHERE data.objecttype='measuringstation' AND data.calculating=false;    
+        WHERE data.objecttype='measuringstation' AND data.calculating=false;
     """
 
     # qurey uitvoeren op de database
@@ -123,33 +123,33 @@ def input_ci_postgresql_from_waterlevels(input_config: dict) -> pd.DataFrame:
 
     schema = input_config["schema"]
     query = f"""
-        SELECT                
-                    waterlevel.measuringstationid AS measurement_location_id, 
+        SELECT
+                    waterlevel.measuringstationid AS measurement_location_id,
                     measuringstation.code AS measurement_location_code,
-                    measuringstation.name AS measurement_location_description,	
+                    measuringstation.name AS measurement_location_description,
                     parameter.id AS parameter_id,
                     parameter.code AS parameter_code,
                     parameter.name AS parameter_description,
-                    parameter.unit AS unit,			
-                    TO_TIMESTAMP(waterlevel.datetime/1000) AS date_time, 
+                    parameter.unit AS unit,
+                    TO_TIMESTAMP(waterlevel.datetime/1000) AS date_time,
                     value AS value,
                     (
-                        CASE 
+                        CASE
                             WHEN waterlevel.datetime > simulation.datetime THEN 'verwacht'
                             ELSE 'gemeten'
                         END
                     ) AS value_type
-                    
+
         FROM {schema}.waterlevels AS waterlevel
-        INNER JOIN 
+        INNER JOIN
             (
                 SELECT MIN(moments.id)*(60*60*1000) AS start_diff, MAX(moments.id)*(60*60*1000) AS end_diff
                 FROM {schema}.moments
             ) AS moment ON 1=1
-        INNER JOIN {schema}.simulation ON simulation.scenarioid=waterlevel.scenarioid	
+        INNER JOIN {schema}.simulation ON simulation.scenarioid=waterlevel.scenarioid
         INNER JOIN {schema}.measuringstations AS measuringstation ON waterlevel.measuringstationid=measuringstation.id
         INNER JOIN {schema}.parameters AS parameter ON waterlevel.parameter=parameter.id
-        WHERE 	
+        WHERE
             waterlevel.datetime >= simulation.datetime + moment.start_diff AND
             waterlevel.datetime <= simulation.datetime + moment.end_diff;
     """
@@ -210,13 +210,13 @@ def input_ci_postgresql_from_conditions(input_config: dict) -> pd.DataFrame:
 
     schema = input_config["schema"]
     query = f"""
-        SELECT 
-            measuringstation.id AS measurement_location_id, 
-            measuringstation.code AS measurement_location_code, 
-            LAG(condition.upperboundary, 1) OVER (PARTITION BY condition.objectid ORDER BY condition.stateid) AS lower_boundary, 
-            condition.upperboundary AS upper_boundary, 
-            condition.color AS color, 
-            condition.description AS label, 
+        SELECT
+            measuringstation.id AS measurement_location_id,
+            measuringstation.code AS measurement_location_code,
+            LAG(condition.upperboundary, 1) OVER (PARTITION BY condition.objectid ORDER BY condition.stateid) AS lower_boundary,
+            condition.upperboundary AS upper_boundary,
+            condition.color AS color,
+            condition.description AS label,
             parameter.unit AS unit
         FROM {schema}.conditions AS condition
         INNER JOIN {schema}.measuringstations AS measuringstation ON measuringstation.id=condition.objectid
@@ -282,10 +282,10 @@ def input_ci_postgresql_from_measuringstations(input_config: dict) -> pd.DataFra
     # WaterInfo, NOOS Matroos/ ...
     source = input_config["source"]
     query = f"""
-        SELECT 
-            id AS measurement_location_id, 
+        SELECT
+            id AS measurement_location_id,
             code AS measurement_location_code,
-            name AS measurement_location_description 
+            name AS measurement_location_description
         FROM {schema}.measuringstations
         WHERE source='{source}';
     """
@@ -344,8 +344,8 @@ def input_ci_postgresql_from_sections(input_config: dict) -> pd.DataFrame:
     schema = input_config["schema"]
 
     query = f"""
-        SELECT 
-            id AS id, 
+        SELECT
+            id AS id,
             name AS name
         FROM {schema}.sections;
     """
@@ -404,11 +404,11 @@ def input_ci_postgresql_from_sectionfractions(input_config: dict) -> pd.DataFram
     schema = input_config["schema"]
 
     query = f"""
-        SELECT 
-            sectionid AS id, 
-            idup, 
-            iddown, 
-            fractionup, 
+        SELECT
+            sectionid AS id,
+            idup,
+            iddown,
+            fractionup,
             fractiondown
         FROM {schema}.sectionfractions;
     """

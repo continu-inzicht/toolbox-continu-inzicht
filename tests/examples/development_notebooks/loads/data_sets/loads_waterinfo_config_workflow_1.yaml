@@ -1,23 +1,22 @@
 GlobalVariables:
-    rootdir: "data_sets"   
+    rootdir: "data_sets"
     moments: [-24,0,24,48]
     LoadsWaterinfo:
         parameters: ["waterhoogte"]
-    
-DataAdapter: 
-    default_options:    
+
+DataAdapter:
+    default_options:
         csv:
             sep: ","
-    locaties: 
+    locaties:
         type: csv
         path: "hidden_workflow_locaties.csv"
-    waterstanden: 
+    waterstanden:
         type: csv
         path: "hidden_workflow_waterstanden.csv"
-    thresholds: 
+    thresholds:
         type: csv
-        path: "hidden_workflow_thresholds.csv"        
-    classificatie:   
+        path: "hidden_workflow_thresholds.csv"
+    classificatie:
         type: csv
         path: "hidden_workflow_classificaties.csv"
-        

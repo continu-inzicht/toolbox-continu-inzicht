@@ -9,13 +9,13 @@ DataAdapter:
             schema: 'citoolbox_schema'
         csv:
             sep: ","
-    my_csv_in: 
+    my_csv_in:
         type: csv
         path: 'test_csv_in.csv'
-    my_csv_out: 
+    my_csv_out:
         type: csv
         path: 'test_csv_out.csv'
-    my_postgresql: 
+    my_postgresql:
         type: postgresql_database
         table: data_test
     my_netcdf_in:

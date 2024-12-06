@@ -1,4 +1,4 @@
-# Continu inzicht toolbox 
+# Continu inzicht toolbox
 
 Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen.
 

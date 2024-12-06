@@ -213,8 +213,8 @@ def test_dataadapter_ci_postgresql_to_states():
 
     with engine.connect() as connection:
         delete_query = f"""
-            DELETE 
-            FROM {schema}.states 
+            DELETE
+            FROM {schema}.states
             WHERE objecttype='measuringstation' AND objectid={dummy_object_id};
         """
         connection.execute(text(delete_query))
@@ -226,8 +226,8 @@ def test_dataadapter_ci_postgresql_to_states():
 
         # controleer of record in database staat
         select_query = f"""
-            SELECT 
-                moment.id AS momentid, 
+            SELECT
+                moment.id AS momentid,
                 TO_TIMESTAMP(moment.calctime/1000) AS date_time
             FROM {schema}.moments AS moment;
         """
@@ -254,8 +254,8 @@ def test_dataadapter_ci_postgresql_to_states():
 
         # controleer of record in database staat
         select_query = f"""
-            SELECT * 
-            FROM {schema}.states 
+            SELECT *
+            FROM {schema}.states
             WHERE objecttype='measuringstation' AND objectid={dummy_object_id};
         """
         df_from_db = pd.read_sql_query(sql=text(select_query), con=connection)

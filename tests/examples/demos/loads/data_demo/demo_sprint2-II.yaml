@@ -1,6 +1,6 @@
 GlobalVariables:
-    rootdir: "data_demo" 
-    moments: [-24,0,24,48]  
+    rootdir: "data_demo"
+    moments: [-24,0,24,48]
 
     LoadsWaterinfo:
         parameters: ["waterhoogte"]
@@ -14,32 +14,32 @@ GlobalVariables:
         filter: "HHNK_WEB"
         parameters: ["WATHTE [m][NAP][OW]"]
         MISSING_VALUE: 999
-    
+
     LoadsMatroos:
         website: "vitaal"
         model: "dcsm6_kf"
         parameters: ["WATHTE"]
         MISSING_VALUE: 999
-    
+
     LoadsWaterwebservicesRWS:
         parameters: ["WATHTE"]
         MISSING_VALUE: 999
 
-DataAdapter: 
+DataAdapter:
     BelastingLocaties_WaterInfo:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
-        schema: "continuinzicht_demo_whatif"        
+        schema: "continuinzicht_demo_whatif"
         source: "WaterInfo"
     Waterstanden_WaterInfo:
         type: ci_postgresql_to_data
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
-        objecttype: "measuringstation" 
+        objecttype: "measuringstation"
     BelastingLocaties_FEWS:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
-        schema: "continuinzicht_demo_whatif"        
+        schema: "continuinzicht_demo_whatif"
         source: "FEWS"
     Waterstanden_FEWS:
         type: ci_postgresql_to_data
@@ -49,7 +49,7 @@ DataAdapter:
     BelastingLocaties_Matroos:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
-        schema: "continuinzicht_demo_whatif"        
+        schema: "continuinzicht_demo_whatif"
         source: "NOOS Matroos"
     Waterstanden_Matroos:
         type: ci_postgresql_to_data
@@ -59,7 +59,7 @@ DataAdapter:
     BelastingLocaties_Waterwebservices_RWS:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
-        schema: "continuinzicht_demo_whatif"        
+        schema: "continuinzicht_demo_whatif"
         source: "RWS Waterwebservices"
     Waterstanden_Waterwebservices_RWS:
         type: ci_postgresql_to_data

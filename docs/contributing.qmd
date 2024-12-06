@@ -33,17 +33,17 @@ De onderstaande secties behandelen de stappen per geval.
    Zorg dat je genoeg informatie meegeeft zodat andere ontwikkelaars je
    probleem begrijpen en genoeg context hebben om je te helpen.
    Afhankelijk van je probleem, kan je de [SHA
-   hashcode](https://help.github.com/articles/autolinked-references-and-urls/#commit-shas) 
+   hashcode](https://help.github.com/articles/autolinked-references-and-urls/#commit-shas)
    van de commit die problemen veroorzaakt toevoegen. Denk daarnaast ook aan
    versie- en besturingssysteeminformatie.
 1. Voeg labels toe die relevant zijn voor je probleem.
 
 ## Je wilt een aanpassing maken
 
-1. (**Belangrijk**) Communiceer aan de rest van de ontwikkelaars _voor je begint_ dat je een aanpassing wilt maken. Dit laat je weten door een issue aan te maken. 
+1. (**Belangrijk**) Communiceer aan de rest van de ontwikkelaars _voor je begint_ dat je een aanpassing wilt maken. Dit laat je weten door een issue aan te maken.
 1. (**Belangrijk**) Bereik consensus over je idee.
-1. De hoofdontwikkelaars hebben rechten om nieuwe branches aan te maken. 
-   Als je deze rechten niet hebt, maak een \'fork\' (kopie) in je eigen account. 
+1. De hoofdontwikkelaars hebben rechten om nieuwe branches aan te maken.
+   Als je deze rechten niet hebt, maak een \'fork\' (kopie) in je eigen account.
    In deze fork maak je een eigen branch van de laatste  commit in main. Probeer om
     veranderingen die in de tussentijd worden doorgevoerd op main al mee
     te nemen. Dit doe je door te pullen van de \'upstream\'
@@ -77,7 +77,7 @@ Dit is een stukje voor de hoofdontwikkelaars van toolbox continu inzicht.
 1. Omdat je niet direct naar de main branch kan schrijven (protected), maak een nieuwe branch aan met ``git checkout -b release-<version>``.
 1. Indien dependencies zijn aangepast, maak een nieuw [pixi lock](https://pixi.sh/latest/features/lockfile/) bestand.
 1. Pas de versie aan in `src/toolbox_continu_inzicht/__init__.py`, de `pyptoject.toml` leest deze uit.
-1. Pas de `docs/changelog.qmd` aan met de veranderingen. Vergeet de link naar de pull request niet. 
+1. Pas de `docs/changelog.qmd` aan met de veranderingen. Vergeet de link naar de pull request niet.
 1. Zorg dat de format van je code correct is met `pixi run ruff check`.
 1. Zorg dat alle bestaande testen werken met `pixi run pytest`.
 1. Commit & push je aanpassingen naar GitHub.

@@ -4,10 +4,10 @@ GlobalVariables:
         delimiter: ","
 
 DataAdapter:
-    CSV_in: 
+    CSV_in:
         type: csv
         path: 'demo.csv'
-    CSV_out: 
+    CSV_out:
         type: csv
         path: 'demo_out.csv'
     NetCDF_out:

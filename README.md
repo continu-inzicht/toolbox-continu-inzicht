@@ -4,9 +4,9 @@ Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij h
 
 ## Gebruik van de toolbox
 
-De toolbox kan _(straks)_ geinstaleerd worden met: 
+De toolbox kan _(straks)_ geinstaleerd worden met:
 
-```bash 
+```bash
 pip install toolbox-continu-inzicht
 ```
 
@@ -48,7 +48,7 @@ Met het `Pixi` commando in powershell kun je vervolgens de juiste python bestand
  pixi install
 ```
 
-Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand op de juiste packages te laden en zet deze in de `.pixi` map. 
+Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand op de juiste packages te laden en zet deze in de `.pixi` map.
 
 #### Jupyter lab
 
@@ -56,4 +56,4 @@ Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand op de juiste packages 
  pixi run jupyter lab
 ```
 
-Of selecteer de juiste python instantie: `...\.pixi\envs\default\python.exe` in je ontwikkel omgeving. 
+Of selecteer de juiste python instantie: `...\.pixi\envs\default\python.exe` in je ontwikkel omgeving.

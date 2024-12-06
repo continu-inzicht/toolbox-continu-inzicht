@@ -100,8 +100,8 @@ def output_ci_postgresql_to_data(output_config: dict, df: pd.DataFrame):
             with engine.connect() as connection:
                 connection.execute(
                     sqlalchemy.text(f"""
-                                    DELETE FROM {schema}.{table} 
-                                    WHERE objectid IN ({location_ids_str}) AND                                               
+                                    DELETE FROM {schema}.{table}
+                                    WHERE objectid IN ({location_ids_str}) AND
                                             objecttype='{objecttype}' AND
                                             calculating={calculating};
                                     """)
@@ -151,8 +151,8 @@ def output_ci_postgresql_to_data(output_config: dict, df: pd.DataFrame):
             with engine.connect() as connection:
                 connection.execute(
                     sqlalchemy.text(f"""
-                                    DELETE FROM {schema}.{table} 
-                                    WHERE objectid IN ({section_ids_str}) AND                                               
+                                    DELETE FROM {schema}.{table}
+                                    WHERE objectid IN ({section_ids_str}) AND
                                             objecttype='{objecttype}' AND
                                             calculating={calculating};
                                     """)
@@ -228,10 +228,10 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
             f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
         )
 
-        query = f""" 
-            SELECT 
-                stateid AS stateid, 
-                objectid AS objectid, 
+        query = f"""
+            SELECT
+                stateid AS stateid,
+                objectid AS objectid,
                 upperboundary AS upper_boundary
             FROM {schema}.conditions
             WHERE objecttype='measuringstation'
@@ -268,8 +268,8 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
         with engine.connect() as connection:
             connection.execute(
                 sqlalchemy.text(f"""
-                                    DELETE FROM {schema}.{table} 
-                                    WHERE objectid IN ({location_ids_str}) AND 
+                                    DELETE FROM {schema}.{table}
+                                    WHERE objectid IN ({location_ids_str}) AND
                                             calculating=false AND
                                             objecttype='measuringstation';
                                     """)

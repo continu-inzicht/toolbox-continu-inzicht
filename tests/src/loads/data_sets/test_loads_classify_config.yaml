@@ -1,19 +1,19 @@
 GlobalVariables:
-    rootdir: "tests/src/loads/data_sets"  
-    moments: [-24,0,24,48] 
+    rootdir: "tests/src/loads/data_sets"
+    moments: [-24,0,24,48]
     LoadsClassify:
-        MISSING_VALUE: -9999.0        
+        MISSING_VALUE: -9999.0
 
-DataAdapter: 
+DataAdapter:
     default_options:
         csv:
             sep: ","
-    waterstanden: 
+    waterstanden:
         type: csv
         path: "test_loads_classify_loads.csv"
-    thresholds: 
+    thresholds:
         type: csv
         path: "test_loads_classify_thresholds.csv"
-    classificatie:   
+    classificatie:
         type: csv
-        path: "hidden_loads_stations_classify.csv"       
+        path: "hidden_loads_stations_classify.csv"

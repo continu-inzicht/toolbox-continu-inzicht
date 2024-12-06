@@ -81,4 +81,3 @@ toolbox_continu_inzicht = { path = "src", editable = true }
 
 [environments]
 default = { features = ["common"] }
-

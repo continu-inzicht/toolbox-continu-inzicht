@@ -13,7 +13,7 @@ authors = [
     { name = "Rolf Waterman", email = "r.watermans@hkv.nl" },
     { name = "Bart Thonus", email = "b.thonus@hkv.nl" },
     { name = "Marit Zethof", email = "m.zethof@hkv.nl" },
-    
+
 ]
 
 license = { text = "GPL-3.0-or-later" }

@@ -1,17 +1,17 @@
 global_variables:
     rootdir: 'tests/src/base/data_sets'
-WaardesKeerTwee: 
-    input: 
+WaardesKeerTwee:
+    input:
         type: netcdf
         path: 'test_netcdf_in.nc'
-    output: 
+    output:
         type: csv
         path: 'test_csv_out.csv'
 
-WaardesDelenTwee: 
-    input: 
+WaardesDelenTwee:
+    input:
         type: csv
         path: 'test_csv_in.csv'
-    output: 
+    output:
         type: netcdf
         path: 'test_netcdf_out.nc'
