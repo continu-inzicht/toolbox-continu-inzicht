@@ -44,7 +44,17 @@ DataAdapter:
         csv:
             sep: ","
 
-    in_measuringstation_waterinfo:
+    calculation_start_config:
+        type: ci_postgresql_to_calculation_start
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"  
+
+    calculation_end_config:
+        type: ci_postgresql_to_calculation_end
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"          
+
+    in_measuringstation_waterinfo: 
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
@@ -122,6 +132,43 @@ DataAdapter:
     df_moment_waterstanden:
         type: python
 
-    waterstanden:
+    in_fragilitycurves_table: 
+        type: ci_postgresql_fragilitycurves_table
+        database: geoserver        
+        schema: continuinzicht_demo_realtime         
+
+    in_section_load_from_data_table: 
+        type: ci_postgresql_section_load_from_data_table
+        database: geoserver        
+        schema: continuinzicht_demo_realtime      
+
+    out_section_failure_probability_data: 
+        type: ci_postgresql_section_to_data
+        database: geoserver        
+        schema: continuinzicht_demo_realtime 
+        parameter_id: 100  
+
+    out_section_technical_failure_probability_data:            
+        type: ci_postgresql_section_to_data
+        database: geoserver        
+        schema: continuinzicht_demo_realtime 
+        parameter_id: 5  
+
+    in_section_conditions: 
+        type: ci_postgresql_section_thresholds_from_conditions_table
+        database: geoserver        
+        schema: continuinzicht_demo_realtime 
+
+    in_section_data_failure_probability: 
+        type: ci_postgresql_section_failure_probability_from_data_table
+        database: geoserver        
+        schema: continuinzicht_demo_realtime      
+
+    out_section_states: 
+        type: ci_postgresql_section_to_states
+        database: geoserver        
+        schema: continuinzicht_demo_realtime               
+
+    waterstanden: 
         type: csv
         path: "hidden_waterstanden_moments.csv"
