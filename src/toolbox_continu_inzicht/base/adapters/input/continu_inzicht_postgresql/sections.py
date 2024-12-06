@@ -46,8 +46,8 @@ def input_ci_postgresql_from_sections(input_config: dict) -> pd.DataFrame:
     schema = input_config["schema"]
 
     query = f"""
-        SELECT 
-            id AS id, 
+        SELECT
+            id AS id,
             name AS name
         FROM {schema}.sections;
     """
@@ -106,11 +106,11 @@ def input_ci_postgresql_from_sectionfractions(input_config: dict) -> pd.DataFram
     schema = input_config["schema"]
 
     query = f"""
-        SELECT 
-            sectionid AS id, 
-            idup, 
-            iddown, 
-            fractionup, 
+        SELECT
+            sectionid AS id,
+            idup,
+            iddown,
+            fractionup,
             fractiondown
         FROM {schema}.sectionfractions;
     """
@@ -170,11 +170,11 @@ def input_ci_postgresql_section_load_from_data_table(
 
     schema = input_config["schema"]
     query = f"""
-        SELECT 
-            data.objectid AS section_id, 
+        SELECT
+            data.objectid AS section_id,
             parameter.id AS parameter_id,
             parameter.unit As unit,
-            TO_TIMESTAMP(data.datetime/1000) AS date_time, 	
+            TO_TIMESTAMP(data.datetime/1000) AS date_time,
             data.value AS value,
             CASE WHEN parameter.measured THEN 'meting' ELSE 'verwacht' END AS value_type
         FROM {schema}.data
@@ -240,19 +240,19 @@ def input_ci_postgresql_section_failure_probability_from_data_table(
 
     schema = input_config["schema"]
     query = f"""
-        SELECT             
+        SELECT
             failureprobability.id AS failureprobability_id,
-            failureprobability.objectid AS section_id,         
+            failureprobability.objectid AS section_id,
             failuremechanism.id AS failuremechanism_id,
             failuremechanism.name AS failuremechanism,
             failureprobability.measureid AS measures_id,
-            measures.name AS measures,	
-            parameter.id AS parameter_id,            
-            parameter.unit As unit,            
+            measures.name AS measures,
+            parameter.id AS parameter_id,
+            parameter.unit As unit,
             TO_TIMESTAMP(data.datetime/1000) AS date_time,
-            data.value AS value	
-        FROM {schema}.data        
-        INNER JOIN {schema}.parameters AS parameter ON parameter.id=data.parameterid    
+            data.value AS value
+        FROM {schema}.data
+        INNER JOIN {schema}.parameters AS parameter ON parameter.id=data.parameterid
         INNER JOIN {schema}.failureprobability ON failureprobability.id=data.objectid
         LEFT JOIN {schema}.failuremechanism ON failuremechanism.id=failureprobability.failuremechanismid
         LEFT JOIN {schema}.measures ON measures.id=failureprobability.measureid
@@ -314,12 +314,12 @@ def input_ci_postgresql_section_thresholds_from_conditions_table(
 
     schema = input_config["schema"]
     query = f"""
-        SELECT 
+        SELECT
             condition.stateid AS state_id,
-            LAG(condition.upperboundary, 1) OVER (PARTITION BY condition.objectid ORDER BY condition.stateid) AS lower_boundary, 
-            condition.upperboundary AS upper_boundary, 
-            condition.color AS color, 
-            condition.description AS label, 
+            LAG(condition.upperboundary, 1) OVER (PARTITION BY condition.objectid ORDER BY condition.stateid) AS lower_boundary,
+            condition.upperboundary AS upper_boundary,
+            condition.color AS color,
+            condition.description AS label,
             parameter.unit AS unit
         FROM {schema}.conditions AS condition
         INNER JOIN {schema}.parameters AS parameter ON parameter.id=5

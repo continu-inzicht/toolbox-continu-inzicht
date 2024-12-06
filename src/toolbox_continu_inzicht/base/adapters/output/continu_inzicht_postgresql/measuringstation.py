@@ -268,8 +268,8 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
         with engine.connect() as connection:
             connection.execute(
                 sqlalchemy.text(f"""
-                                    DELETE FROM {schema}.{table} 
-                                    WHERE objectid IN ({location_ids_str}) AND 
+                                    DELETE FROM {schema}.{table}
+                                    WHERE objectid IN ({location_ids_str}) AND
                                             calculating=true AND
                                             objecttype='measuringstation';
                                     """)

@@ -33,7 +33,7 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
         "postgresql_host",
         "postgresql_port",
         "database",
-        "schema",        
+        "schema",
     ]
 
     assert all(key in input_config for key in keys)
@@ -42,7 +42,7 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
     engine = sqlalchemy.create_engine(
         f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
     )
-        
+
     schema = input_config["schema"]
 
     measureid = 0
@@ -55,13 +55,13 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
 
     degradatieid = 0
     if "degradatieid" in input_config:
-        degradatieid = input_config["degradatieid"]                
+        degradatieid = input_config["degradatieid"]
 
     query = f"""
-        SELECT 
-            sectionid AS section_id, 
+        SELECT
+            sectionid AS section_id,
             failuremechanism.name AS failuremechanism,
-            hydraulicload AS hydraulicload, 
+            hydraulicload AS hydraulicload,
             failureprobability AS failureprobability
         FROM {schema}.fragilitycurves
         INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid

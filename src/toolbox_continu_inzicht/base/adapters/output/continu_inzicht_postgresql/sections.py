@@ -217,7 +217,7 @@ def output_ci_postgresql_section_to_data(output_config: dict, df: pd.DataFrame):
                             connection.execute(
                                 sqlalchemy.text(
                                     f"""
-                                    DELETE FROM {schema}.data 
+                                    DELETE FROM {schema}.data
                                     WHERE (objectid,objecttype,parameterid,calculating) IN ({values});
                                     """
                                 )
@@ -294,8 +294,8 @@ def output_ci_postgresql_section_to_states(output_config: dict, df: pd.DataFrame
         df_data["epoch"] = df_data["date_time"].apply(epoch_from_datetime)
 
         select_moments_query = f"""
-            SELECT 
-                id AS moment_id, 
+            SELECT
+                id AS moment_id,
                 calctime AS calc_time
             FROM {schema}.moments;
         """
@@ -361,7 +361,7 @@ def output_ci_postgresql_section_to_states(output_config: dict, df: pd.DataFrame
                         connection.execute(
                             sqlalchemy.text(
                                 f"""
-                                DELETE FROM {schema}.states 
+                                DELETE FROM {schema}.states
                                 WHERE (objectid,objecttype,parameterid,calculating) IN ({values});
                                 """
                             )

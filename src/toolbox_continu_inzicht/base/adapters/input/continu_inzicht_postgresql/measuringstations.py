@@ -64,7 +64,7 @@ def input_ci_postgresql_measuringstation_data_table(input_config: dict) -> pd.Da
         FROM {schema}.data
         INNER JOIN {schema}.measuringstations AS measuringstation ON data.objectid=measuringstation.id
         INNER JOIN {schema}.parameters AS parameter ON data.parameterid=parameter.id
-        WHERE data.objecttype='measuringstation' AND data.calculating=True;    
+        WHERE data.objecttype='measuringstation' AND data.calculating=True;
     """
 
     # qurey uitvoeren op de database
