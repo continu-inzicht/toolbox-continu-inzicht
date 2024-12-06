@@ -15,7 +15,7 @@ class LoadsCIWhatIf:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    def run(self, input: list[str], output=None) -> pd.DataFrame:
+    def run(self, input: str, output: str) -> None:
         """
         De runner van de Loads Classify.
 
@@ -35,5 +35,3 @@ class LoadsCIWhatIf:
         self.df_out = self.df_in.copy()
 
         self.data_adapter.output(output=output, df=self.df_out)
-
-        return self.df_out

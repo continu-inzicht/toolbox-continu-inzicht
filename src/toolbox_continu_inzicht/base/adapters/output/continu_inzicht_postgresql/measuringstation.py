@@ -50,7 +50,7 @@ def output_ci_postgresql_to_data(output_config: dict, df: pd.DataFrame):
     table = "data"
     schema = output_config["schema"]
     objecttype = output_config["objecttype"]
-    calculating = False
+    calculating = True
 
     unit_conversion_factor = 1
     if "unit_conversion_factor" in output_config:
@@ -70,7 +70,7 @@ def output_ci_postgresql_to_data(output_config: dict, df: pd.DataFrame):
             )
 
             # df["objecttype"] = str(objecttype)
-            # df["calculating"] = False
+            # df["calculating"] = True
 
             df = df.assign(objecttype=str(objecttype))
             df = df.assign(calculating=calculating)
@@ -124,7 +124,7 @@ def output_ci_postgresql_to_data(output_config: dict, df: pd.DataFrame):
             df_data = df.dropna(how="any")
 
             df_data = df_data.assign(objecttype=str(objecttype))
-            df_data = df_data.assign(calculating=False)
+            df_data = df_data.assign(calculating=True)
 
             # df_data["datetime"] = df_data["date_time"].apply(datetime.fromisoformat)
             df_data["datetime"] = df_data["date_time"].apply(epoch_from_datetime)
@@ -270,7 +270,7 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
                 sqlalchemy.text(f"""
                                     DELETE FROM {schema}.{table} 
                                     WHERE objectid IN ({location_ids_str}) AND 
-                                            calculating=false AND
+                                            calculating=true AND
                                             objecttype='measuringstation';
                                     """)
             )
@@ -278,7 +278,7 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame):
 
         df_merge["objecttype"] = objecttype
         df_merge["parameterid"] = np.where(df_merge["momentid"] <= 0, 1, 2)
-        df_merge["calculating"] = False
+        df_merge["calculating"] = True
         df_merge["changedate"] = 0
 
         df_states = df_merge.loc[

@@ -27,7 +27,7 @@ class LoadsToMoments:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    def run(self, input: str, output: str):
+    def run(self, input: str, output: str) -> None:
         """
         Verwerkt de invoergegevens om momenten te berekenen en genereert het uitvoerdataframe.
 
