@@ -1,3 +1,7 @@
+"""
+Bepaal de belasting op een dijkvak
+"""
+
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
@@ -10,33 +14,34 @@ class SectionsLoads:
     Bepaal de belasting op een dijkvak\n
 
     ## Input schema's
-    **input_schema_sections (DataFrame):** Schema voor de lijst met dijkvakken\n
-    - id: int64
-    - name: str
+    **input_schema_sections (DataFrame): schema voor de lijst met dijkvakken\n
+    - id: int64                         : id van het dijkvak
+    - name: str                         : naam van de dijkvak
 
-    **input_schema_loads (DataFrame):** Schema voor belasting per moment per meetlocaties\n
-    - measurement_location_id: int64
-    - parameter_id: int64
-    - unit: str
-    - date_time: datetime64[ns, UTC]
-    - value: float64
-    - value_type: str
+    **input_schema_loads (DataFrame): schema voor belasting per moment per meetlocaties\n
+    - measurement_location_id: int64    : id van het meetstation
+    - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
+    - unit: str                         : eenheid van de belastingparameter
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : waarde van de tijdreeksitem
+    - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
 
-    **input_schema_section_fractions (DataFrame):** koppeling van de maatgevende meetlocaties per dijkvak\n
-    - idup: int64
-    - iddown: int64
-    - fractionup: float64
-    - fractiondown: float64
+    **input_schema_section_fractions (DataFrame): schema voor koppeling van de maatgevende meetlocaties per dijkvak\n
+    - id: int64                         : id van de dijkvak
+    - idup: int64                       : id van bovenstrooms meetstation
+    - iddown: int64                     : id van benedenstrooms meetstation
+    - fractionup: float64               : fractie van bovenstrooms meetstation
+    - fractiondown: float64             : fractie van benedestrooms meetstation
 
     ## Output schema
-    **df_out (DataFrame):** uitvoer\n
-    - id: int64
-    - name; str
-    - date_time: datetime64[ns, UTC]
-    - value: float64
-    - unit: str
-    - parameter_id: int64
-    - value_type: str
+    **df_out (DataFrame): uitvoer\n
+    - id: int64                         : id van het dijkvak
+    - name; str                         : naam van de dijkvak
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : waarde van de tijdreeksitem
+    - unit: str                         : eenheid van de belastingparameter
+    - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
+    - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
     """
 
     data_adapter: DataAdapter
@@ -85,9 +90,6 @@ class SectionsLoads:
                 [1] belasting per moment per meetlocaties
                 [2] koppeling van de maatgevende meetlocaties per dijkvak
             output (str): uitvoer sectie van het yaml-bestand.
-
-        Returns:\n
-            Dataframe: Pandas dataframe
         """
 
         if not len(input) == 3:

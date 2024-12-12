@@ -1,3 +1,7 @@
+"""
+Bepaal de faalkans van een dijkvak
+"""
+
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from typing import Optional
@@ -8,43 +12,52 @@ import pandas as pd
 @dataclass(config={"arbitrary_types_allowed": True})
 class SectionsFailureprobability:
     """
-    Bepaal de belasting op een dijkvak
+    Bepaal de faalkans van een dijkvak
+
+    ## Input schema's
+    **input_schema_failureprobability (DataFrame): schema voor de lijst met dijkvakken\n
+    - section_id: int64                 : id van de dijkvak
+    - failuremechanism_id: int64        : id van het faalmechanisme
+    - value_parameter_id: int64         : id van de belastingparameter (1,2,3,4)
+    - parameter_id: int64               : id van de faalkans parameter (5,100,101,102)
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : belasting van de tijdreeksitem
+
+    ## Output schema
+    **df_out (DataFrame): uitvoer\n
+    - section_id: int64                 : id van het dijkvak
+    - failuremechanism_id: int64        : id van het faalmechanisme
+    - value_parameter_id: int64         : id van de belastingparameter (1,2,3,4)
+    - parameter_id: int64               : id van de faalkans parameter (5,100,101,102)
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - failureprobability: float64       : faalkans van de tijdreeksitem
     """
 
     data_adapter: DataAdapter
 
-    df_in_section_loads: Optional[pd.DataFrame] | None = None
-    df_in_fragility_curves: Optional[pd.DataFrame] | None = None
+    df_in_failureprobability: Optional[pd.DataFrame] | None = None
+    """DataFrame: lijst met faalkansen op een dijkvak voor verschillende faalmechanisms en maatregelen."""
+
     df_out: Optional[pd.DataFrame] | None = None
+    """DataFrame: uitvoer."""
 
     # faalkans per moment per dijkvak
     input_schema_failureprobability = {
         "section_id": "int64",
+        "failuremechanism_id": "int64",
+        "value_parameter_id": "int64",
+        "parameter_id": "int64",
         "date_time": "datetime64[ns, UTC]",
         "value": "float64",
     }
 
     def run(self, input: str, output: str) -> None:
         """
-        Uitvoeren van het bepalen van de faalkans van een dijkvak.
+        Bepaal de faalkans van een dijkvak.
 
-        Args:
-            input List(str): faalkans per dijkvak
-            output (str):    maatgevende faalkans per dijkvak
-
-        Returns: TODO RW aanpassen
-            Dataframe: Pandas dataframe geschikt voor uitvoer:
-            definition:
-                - Meetlocatie id (measurement_location_id)
-                - Meetlocatie code (measurement_location_code)
-                - Meetlocatie omschrijving/naam (measurement_location_description)
-                - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id)
-                - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code)
-                - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description)
-                - Eenheid (unit)
-                - Datum en tijd (date_time)
-                - Waarde (value)
-                - Type waarde: meting of verwachting (value_type)
+        Args: \n
+            input  (str): faalkans per dijkvak, faalmechanisms en maatregel
+            output (str): maatgevende faalkans per dijkvak
         """
 
         # invoer: faalskans per dijkvak

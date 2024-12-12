@@ -102,7 +102,11 @@ quartodoc:
       desc: Functies die betrekking hebben op dijkvakken
       package: toolbox_continu_inzicht.sections
       contents:
-       - name: SectionsLoads                  
+       - SectionsLoads
+       - SectionsFailureprobability
+       - SectionsTechnicalFailureprobability
+       - SectionsMeasureFailureprobability
+       - SectionsClassify
     - title: Continu Inzicht Adapters (invoer)
       desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
       package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql

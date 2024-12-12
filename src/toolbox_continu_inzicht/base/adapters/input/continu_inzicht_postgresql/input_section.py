@@ -334,7 +334,7 @@ def input_ci_postgresql_section_thresholds_from_conditions_table(
 
     Returns:\n
     df (DataFrame):\n
-    - state_id: float64             : id van de klassegrens
+    - state_id: int64               : id van de klassegrens
     - lower_boundary: float64       : ondergrens van de klassegrens
     - upper_boundary: float64       : bovengrens van de klassegrens
     - color: str                    : kleur van de klassegrens
