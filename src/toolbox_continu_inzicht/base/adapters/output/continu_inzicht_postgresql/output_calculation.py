@@ -1,3 +1,7 @@
+"""
+Data adapters voor het schrijven naar de Continu Inzicht database
+"""
+
 import pandas as pd
 import sqlalchemy
 
@@ -5,31 +9,40 @@ from datetime import datetime, timezone
 from toolbox_continu_inzicht.utils.datetime_functions import epoch_from_datetime
 
 
-def output_ci_postgresql_to_calculation_start(output_config: dict, df: pd.DataFrame):
+def output_ci_postgresql_to_calculation_start(
+    output_config: dict, df: pd.DataFrame
+) -> None:
     """
     Update de calculatietijd in de Continu Inzicht database tabel moments
 
-    Args:
-    ----------
-    output_config (dict):
+    Yaml example:\n
+        type: ci_postgresql_to_calculation_start
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
 
-    Opmerking:
-    ------
-    In de `.env` environment bestand moeten de volgende parameters staan:
-    postgresql_user (str):
-    postgresql_password (str):
-    postgresql_host (str):
-    postgresql_port (str):
+    Args:\n
+        * output_config (dict): configuratie opties
+        * df (DataFrame):\n
+        - moment_id: int64
+        - calc_time: datetime64[ns, UTC]
 
-    In de 'yaml' config moeten de volgende parameters staan:
-    database (str):
-    schema (str):
+    **Opmerking:**\n
+    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+    - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+    - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+    - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    Returns:
-    --------
-    pd.Dataframe
-
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht
+    - schema (str): schema van de Continu Inzicht
     """
+
+    # TODO WEGHALEN
+    df.to_csv(
+        "d:/toolbox/adapters/calculation/output_ci_postgresql_to_calculation_start.csv"
+    )
+
     keys = [
         "postgresql_user",
         "postgresql_password",
@@ -78,33 +91,40 @@ def output_ci_postgresql_to_calculation_start(output_config: dict, df: pd.DataFr
             engine.dispose()
 
 
-def output_ci_postgresql_to_calculation_end(output_config: dict, df: pd.DataFrame):
+def output_ci_postgresql_to_calculation_end(
+    output_config: dict, df: pd.DataFrame
+) -> None:
     """
-    - Update de datetime in de Continu Inzicht database tabel moments
-    - Verwijderd alle data waar calculating op False staat
-    - Zet alle data waar calculating op True staat naar False
+     - Update de datetime in de Continu Inzicht database tabel moments
+     - Verwijderd alle data waar calculating op False staat
+     - Zet alle data waar calculating op True staat naar False
 
-    Args:
-    ----------
-    output_config (dict):
+    Yaml example:\n
+         type: ci_postgresql_to_calculation_end
+         database: "geoserver"
+         schema: "continuinzicht_demo_realtime"
 
-    Opmerking:
-    ------
-    In de `.env` environment bestand moeten de volgende parameters staan:
-    postgresql_user (str):
-    postgresql_password (str):
-    postgresql_host (str):
-    postgresql_port (str):
+     Args:\n
+         * output_config (dict): configuratie opties
+         * df (DataFrame): geen data nodig
 
-    In de 'yaml' config moeten de volgende parameters staan:
-    database (str):
-    schema (str):
+     **Opmerking:**\n
+     In de `.env` environment bestand moeten de volgende parameters staan:\n
+     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    Returns:
-    --------
-    pd.Dataframe
-
+     In de 'yaml' config moeten de volgende parameters staan:\n
+     - database (str): database van de Continu Inzicht
+     - schema (str): schema van de Continu Inzicht
     """
+
+    # TODO WEGHALEN
+    df.to_csv(
+        "d:/toolbox/adapters/calculation/output_ci_postgresql_to_calculation_end.csv"
+    )
+
     keys = [
         "postgresql_user",
         "postgresql_password",

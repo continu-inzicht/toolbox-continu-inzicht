@@ -1,3 +1,3 @@
-from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.fragilitycurves import *  # noqa: F403
-from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.sections import *  # noqa: F403
-from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.measuringstations import *  # noqa: F403
+from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve import *  # noqa: F403
+from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section import *  # noqa: F403
+from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_measuringstation import *  # noqa: F403

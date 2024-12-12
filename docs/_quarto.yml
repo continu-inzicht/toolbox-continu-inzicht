@@ -56,11 +56,8 @@ website:
 format:
   html:
     theme: cosmo
-    css: styles.css
+    css: styles/styles.css
     toc: true
-
-
-
 
 quartodoc:
   style: pkgdown
@@ -86,38 +83,37 @@ quartodoc:
        - proof_of_concept.example_module
     - title: Belastingen
       desc: Verschillende functies die belastingen inladen, classifiseren of toekennen.
-      package: toolbox_continu_inzicht
+      package: toolbox_continu_inzicht.loads
       contents:
-       - loads.LoadsCIWhatIf
-       - loads.LoadsClassify
-       - loads.LoadsFews
-       - loads.get_fews_locations
-       - loads.get_fews_thresholds
-       - loads.LoadsMatroos
-       - loads.get_matroos_locations
-       - loads.LoadsWaterwebservicesRWS
-       - loads.get_rws_webservices_locations
-       - loads.LoadsToMoments
-       - loads.LoadsWaterinfo
-       - loads.get_waterinfo_locations
-       - loads.get_waterinfo_thresholds
-
-      #  - base
-
-
-          # - haal_waterstanden_op
-          # - calculate_fragility_curves
-
-
-  # # options:
-  #   include_inherited: true
-  #   include_empty: true
-  #   include_attributes: true
-  #   include_classes: true
-  #   include_functions: true
-  # # sections:
-  #   - title: Continu inzicht toolbox
-  #     desc: Toolbox voor continu inzicht
-  #     package: continu_inzicht_toolbox
-  #     content:
-  #      - PlaceHolder
+       - LoadsCIWhatIf
+       - LoadsClassify
+       - LoadsFews
+       - get_fews_locations
+       - get_fews_thresholds
+       - LoadsMatroos
+       - get_matroos_locations
+       - LoadsWaterwebservicesRWS
+       - get_rws_webservices_locations
+       - LoadsToMoments
+       - LoadsWaterinfo
+       - get_waterinfo_locations
+       - get_waterinfo_thresholds
+    - title: Dijkvak      
+      desc: Functies die betrekking hebben op dijkvakken
+      package: toolbox_continu_inzicht.sections
+      contents:
+       - name: SectionsLoads                  
+    - title: Continu Inzicht Adapters (invoer)
+      desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
+      package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql
+      contents:       
+       - input_measuringstation   # measuringstation
+       - input_section            # section
+       - input_fragilitycurve     # fragilitycurve
+    - title: Continu Inzicht Adapters (uitvoer)
+      desc: Uitvoer adapters voor Continu Inzicht meetstations/ dijkvak
+      package: toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql
+      contents:       
+       - output_measuringstation  # measuringstation
+       - output_section           # section
+       - output_calculation       # calculation

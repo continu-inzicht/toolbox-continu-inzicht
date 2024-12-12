@@ -7,20 +7,56 @@ from typing import Optional
 @dataclass(config={"arbitrary_types_allowed": True})
 class SectionsLoads:
     """
-    Bepaal de belasting op een dijkvak
+    Bepaal de belasting op een dijkvak\n
+
+    ## Input schema's
+    **input_schema_sections (DataFrame):** Schema voor de lijst met dijkvakken\n
+    - id: int64
+    - name: str
+
+    **input_schema_loads (DataFrame):** Schema voor belasting per moment per meetlocaties\n
+    - measurement_location_id: int64
+    - parameter_id: int64
+    - unit: str
+    - date_time: datetime64[ns, UTC]
+    - value: float64
+    - value_type: str
+
+    **input_schema_section_fractions (DataFrame):** koppeling van de maatgevende meetlocaties per dijkvak\n
+    - idup: int64
+    - iddown: int64
+    - fractionup: float64
+    - fractiondown: float64
+
+    ## Output schema
+    **df_out (DataFrame):** uitvoer\n
+    - id: int64
+    - name; str
+    - date_time: datetime64[ns, UTC]
+    - value: float64
+    - unit: str
+    - parameter_id: int64
+    - value_type: str
     """
 
     data_adapter: DataAdapter
+    """DataAdapter: De data adapter."""
 
     df_in_sections: Optional[pd.DataFrame] | None = None
-    df_in_loads: Optional[pd.DataFrame] | None = None
-    df_in_section_fractions: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
+    """DataFrame: lijst met dijkvakken."""
 
-    # Kolommen schema van de invoer data
+    df_in_loads: Optional[pd.DataFrame] | None = None
+    """DataFrame: belasting per moment per meetlocaties."""
+
+    df_in_section_fractions: Optional[pd.DataFrame] | None = None
+    """DataFrame: koppeling van de maatgevende meetlocaties per dijkvak ."""
+
+    df_out: Optional[pd.DataFrame] | None = None
+    """DataFrame: uitvoer."""
 
     # Lijst met dijkvakken
     input_schema_sections = {"id": "int64", "name": "object"}
+    """Schema voor de lijst met dijkvakken"""
 
     # belasting per moment per meetlocaties
     input_schema_loads = {
@@ -41,19 +77,19 @@ class SectionsLoads:
     }
 
     def run(self, input: list[str], output: str) -> None:
-        """
-        Uitvoeren van het bepalen van de belasting op een dijkvak.
+        """Bepalen de belasting op een dijkvak.
 
-        Args:
-            input List(str): [0] lijst met dijkvakken
-                             [1] belasting per moment per meetlocaties
-                             [2] koppeling van de maatgevende meetlocaties per dijkvak
-            output (str): uitvoer sectie van het yaml-bestand:
-                          koppeling van de maatgevende meetlocaties per dijkvak
+        Args:\n
+            input (list[str]): Lijst met namen van configuratie:
+                [0] lijst met dijkvakken
+                [1] belasting per moment per meetlocaties
+                [2] koppeling van de maatgevende meetlocaties per dijkvak
+            output (str): uitvoer sectie van het yaml-bestand.
 
-        Returns:
+        Returns:\n
             Dataframe: Pandas dataframe
         """
+
         if not len(input) == 3:
             raise UserWarning("Input variabele moet 3 string waarden bevatten.")
 

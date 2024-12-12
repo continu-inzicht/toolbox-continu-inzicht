@@ -32,37 +32,33 @@ DataAdapter:
         schema: "continuinzicht_demo_whatif"
         source: "WaterInfo"
     Waterstanden_WaterInfo:
-        type: ci_postgresql_to_data
+        type: ci_postgresql_measuringstation_to_data
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
-        objecttype: "measuringstation"
     BelastingLocaties_FEWS:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
         source: "FEWS"
     Waterstanden_FEWS:
-        type: ci_postgresql_to_data
+        type: ci_postgresql_measuringstation_to_data
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
-        objecttype: "measuringstation"
     BelastingLocaties_Matroos:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
         source: "NOOS Matroos"
     Waterstanden_Matroos:
-        type: ci_postgresql_to_data
+        type: ci_postgresql_measuringstation_to_data
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
-        objecttype: "measuringstation"
     BelastingLocaties_Waterwebservices_RWS:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
         source: "RWS Waterwebservices"
     Waterstanden_Waterwebservices_RWS:
-        type: ci_postgresql_to_data
+        type: ci_postgresql_measuringstation_to_data
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
-        objecttype: "measuringstation"

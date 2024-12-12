@@ -92,14 +92,17 @@ class SectionsMeasureFailureprobability:
 
         # Unieke combinaties van section_id en failuremechanism
         unique_combinations = (
-            self.df_in_fragility_curves[["section_id", "failuremechanism"]]
-            .drop_duplicates(subset=["section_id", "failuremechanism"])
+            self.df_in_fragility_curves[
+                ["section_id", "failuremechanism", "measure_id"]
+            ]
+            .drop_duplicates(subset=["section_id", "failuremechanism", "measure_id"])
             .reset_index(drop=True)
         )
 
         for _, combination in unique_combinations.iterrows():
             section_id = combination["section_id"]
             failuremechanism = combination["failuremechanism"]
+            measure_id = combination["measure_id"]
 
             # Filter de DataFrames
             filtered_df_values = self.df_in_belasting[
@@ -136,6 +139,7 @@ class SectionsMeasureFailureprobability:
 
             # Voeg de failuremechanism kolom toe
             filtered_df_values["failuremechanism"] = failuremechanism
+            filtered_df_values["measure_id"] = measure_id
 
             # Vervang kleine positieve waarde door een 0
             # TODO RW is het nodig om de kans terug te zetten naar 0.0?
