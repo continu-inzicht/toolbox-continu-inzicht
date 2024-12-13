@@ -74,7 +74,7 @@ def test_dataadapter_ci_postgresql_from_measuringstations():
 
 
 @pytest.mark.skipif(
-    os.getenv("GITHUB_ACTIONS") == "true" and os.getenv("DEBUG_CI") != "true",
+    os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("DEBUG_CI") != "true",
     reason="Kan alleen lokaal getest worden",
 )
 def test_dataadapter_ci_postgresql_from_conditions():
@@ -153,7 +153,7 @@ def test_dataadapter_ci_postgresql_to_data():
             "unit": "unit",
             "date_time": datetime(2024, 10, 16, 15, 00).replace(tzinfo=timezone.utc),
             "value": 12.34,
-            "value_type": "gemeten",
+            "value_type": "meting",
         }
 
         records.append(record)

@@ -127,7 +127,7 @@ class LoadsMatroos:
                 wanted_location_names,
             )
             status, json_data = fetch_data_get(
-                url=request_forecast_url, params={}, mime_type="json"
+                url=request_forecast_url, params={}, mime_type="json", timeout=600
             )
             if status is None and json_data is not None:
                 if "results" in json_data:

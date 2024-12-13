@@ -38,7 +38,7 @@ class LoadsClassify:
         "hours": "int64",
     }
 
-    def run(self, input: list[str], output: str) -> pd.DataFrame:
+    def run(self, input: list[str], output: str) -> None:
         """
         De runner van de Loads Classify.
 
@@ -99,5 +99,3 @@ class LoadsClassify:
         ]
 
         self.data_adapter.output(output=output, df=self.df_out)
-
-        return self.df_out
