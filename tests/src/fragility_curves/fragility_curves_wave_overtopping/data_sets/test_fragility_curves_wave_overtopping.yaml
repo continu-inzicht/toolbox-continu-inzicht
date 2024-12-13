@@ -1,0 +1,24 @@
+GlobalVariables:
+    rootdir: "tests/src/fragility_curves/fragility_curves_wave_overtopping/data_sets"
+    moments: [-24,0,24,48]
+
+    CreateFragilityCurvesWaveOvertopping:
+        windspeed: 20
+        sectormin: 180
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes.csv"
+    profiles:
+        type: csv
+        file: "profiles.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_curves.csv"
