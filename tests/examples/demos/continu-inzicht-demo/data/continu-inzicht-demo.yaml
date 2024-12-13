@@ -89,7 +89,7 @@ DataAdapter:
     in_measuringstation_data_table:
         type: ci_postgresql_measuringstation_data_table
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime" 
+        schema: "continuinzicht_demo_realtime"
 
     in_measuringstation_conditions_table:
         type: ci_postgresql_from_conditions
@@ -123,7 +123,7 @@ DataAdapter:
     in_fragilitycurves_table:
         type: ci_postgresql_fragilitycurves_table
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime" 
+        schema: "continuinzicht_demo_realtime"
         measureid: 0
 
     in_measure_fragilitycurves_table:
@@ -134,35 +134,35 @@ DataAdapter:
     in_section_load_from_data_table:
         type: ci_postgresql_section_load_from_data_table
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime" 
+        schema: "continuinzicht_demo_realtime"
 
     out_section_failure_probability_data:
         type: ci_postgresql_section_to_data
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime" 
+        schema: "continuinzicht_demo_realtime"
         parameter_id: 5
 
     out_section_technical_failure_probability_data:
         type: ci_postgresql_section_to_data
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime" 
+        schema: "continuinzicht_demo_realtime"
         parameter_id: 100
 
     out_section_measure_failure_probability_data:
         type: ci_postgresql_section_to_data
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime" 
+        schema: "continuinzicht_demo_realtime"
         parameter_id: 101
 
     in_section_conditions:
         type: ci_postgresql_section_thresholds_from_conditions_table
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime" 
+        schema: "continuinzicht_demo_realtime"
 
     in_section_data_failure_probability:
         type: ci_postgresql_section_failure_probability_from_data_table
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime" 
+        schema: "continuinzicht_demo_realtime"
 
     out_section_states:
         type: ci_postgresql_section_to_states

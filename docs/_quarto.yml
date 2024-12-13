@@ -88,17 +88,17 @@ quartodoc:
        - LoadsCIWhatIf
        - LoadsClassify
        - LoadsFews
-       - get_fews_locations
-       - get_fews_thresholds
        - LoadsMatroos
-       - get_matroos_locations
        - LoadsWaterwebservicesRWS
-       - get_rws_webservices_locations
        - LoadsToMoments
        - LoadsWaterinfo
+       - get_fews_locations
+       - get_fews_thresholds
+       - get_matroos_locations
+       - get_rws_webservices_locations
        - get_waterinfo_locations
        - get_waterinfo_thresholds
-    - title: Dijkvak      
+    - title: Dijkvak
       desc: Functies die betrekking hebben op dijkvakken
       package: toolbox_continu_inzicht.sections
       contents:
@@ -110,14 +110,14 @@ quartodoc:
     - title: Continu Inzicht Adapters (invoer)
       desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
       package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql
-      contents:       
+      contents:
        - input_measuringstation   # measuringstation
        - input_section            # section
        - input_fragilitycurve     # fragilitycurve
     - title: Continu Inzicht Adapters (uitvoer)
       desc: Uitvoer adapters voor Continu Inzicht meetstations/ dijkvak
       package: toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql
-      contents:       
+      contents:
        - output_measuringstation  # measuringstation
        - output_section           # section
        - output_calculation       # calculation

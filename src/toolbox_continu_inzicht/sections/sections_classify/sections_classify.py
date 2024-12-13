@@ -57,7 +57,7 @@ class SectionsClassify:
     # faalkans per moment per dijkvak
     input_schema_failureprobability = {
         "section_id": "int64",
-        "date_time": "datetime64[ns, UTC]",
+        "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
     }
 
@@ -85,6 +85,14 @@ class SectionsClassify:
         self.df_in_failureprobability = self.data_adapter.input(
             input[1], self.input_schema_failureprobability
         )
+
+        # Datum als string omzetten naar datetime object
+        if not pd.api.types.is_datetime64_any_dtype(
+            self.df_in_failureprobability["date_time"]
+        ):
+            self.df_in_failureprobability["date_time"] = pd.to_datetime(
+                self.df_in_failureprobability["date_time"]
+            )
 
         # uitvoer: belasting per dijkvak
         self.df_out = self.df_in_failureprobability.copy()

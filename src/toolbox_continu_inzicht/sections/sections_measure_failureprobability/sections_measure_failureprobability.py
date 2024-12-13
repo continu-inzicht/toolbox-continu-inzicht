@@ -23,7 +23,7 @@ class SectionsMeasureFailureprobability:
     - measure: str                      : naam van de maatregel
     - failuremechanismid: int64         : id van het faalmechanisme
     - failuremechanism: str             : code van het faalmechanisme
-    - hydraulicload: float64            : belasting 
+    - hydraulicload: float64            : belasting
     - failureprobability: float64       : faalkans
     - successrate: float64              : slagingskans van de maatregel
 
@@ -31,16 +31,16 @@ class SectionsMeasureFailureprobability:
     - section_id: int64                 : id van het dijkvak
     - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
     - unit: str                         : eenheid van de belastingparameter
-    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem 
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
     - value: float64                    : belasting van de tijdreeksitem
     - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
-    
+
     ## Output schema
-    **df_out (DataFrame): uitvoer\n      
+    **df_out (DataFrame): uitvoer\n
     - section_id: int64                 : id van het dijkvak
     - parameter_id: int64               : id van de faalkans parameter (5,100,101,102)
     - unit: str                         : eenheid van de belastingparameter
-    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem 
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
     - value: float64                    : belasting van de tijdreeksitem
     - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
     - failureprobability float64        : faalkans bepaald voor de tijdreeksitem
@@ -73,7 +73,7 @@ class SectionsMeasureFailureprobability:
         "section_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
-        "date_time": "datetime64[ns, UTC]",
+        "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
         "value_type": "object",
     }
@@ -103,6 +103,12 @@ class SectionsMeasureFailureprobability:
         self.df_in_belasting = self.data_adapter.input(
             input[1], self.input_schema_loads
         )
+
+        # Datum als string omzetten naar datetime object
+        if not pd.api.types.is_datetime64_any_dtype(self.df_in_belasting["date_time"]):
+            self.df_in_belasting["date_time"] = pd.to_datetime(
+                self.df_in_belasting["date_time"]
+            )
 
         # uitvoer: belasting per dijkvak
         self.df_out = pd.DataFrame()

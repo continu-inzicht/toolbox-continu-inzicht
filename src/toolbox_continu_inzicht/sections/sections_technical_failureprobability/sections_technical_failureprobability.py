@@ -67,7 +67,7 @@ class SectionsTechnicalFailureprobability:
         "section_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
-        "date_time": "datetime64[ns, UTC]",
+        "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
         "value_type": "object",
     }
@@ -97,6 +97,12 @@ class SectionsTechnicalFailureprobability:
         self.df_in_belasting = self.data_adapter.input(
             input[1], self.input_schema_loads
         )
+
+        # Datum als string omzetten naar datetime object
+        if not pd.api.types.is_datetime64_any_dtype(self.df_in_belasting["date_time"]):
+            self.df_in_belasting["date_time"] = pd.to_datetime(
+                self.df_in_belasting["date_time"]
+            )
 
         # uitvoer: belasting per dijkvak
         self.df_out = pd.DataFrame()

@@ -186,9 +186,6 @@ def input_ci_postgresql_from_waterlevels(input_config: dict) -> pd.DataFrame:
     # verbinding opruimen
     engine.dispose()
 
-    # Datum kolom moet een object zijn en niet een 'datetime64[ns, UTC]'
-    df["date_time"] = df["date_time"].astype(object)
-
     return df
 
 

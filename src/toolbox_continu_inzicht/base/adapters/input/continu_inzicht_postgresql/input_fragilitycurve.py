@@ -73,7 +73,7 @@ def input_ci_postgresql_measure_fragilitycurves_table(
 
     query = f"""
         SELECT
-            fragilitycurves.sectionid AS section_id,			
+            fragilitycurves.sectionid AS section_id,
 			measures.id AS measure_id,
 			measures.name AS measure,
 			failuremechanism.id AS failuremechanismid,
@@ -82,13 +82,13 @@ def input_ci_postgresql_measure_fragilitycurves_table(
             fragilitycurves.failureprobability AS failureprobability,
 			expertjudgement.successrate AS successrate
         FROM {schema}.fragilitycurves
-        INNER JOIN {schema}.failuremechanism ON 
+        INNER JOIN {schema}.failuremechanism ON
 			failuremechanism.id=fragilitycurves.failuremechanismid
-		INNER JOIN {schema}.expertjudgement ON 
-			expertjudgement.sectionid=fragilitycurves.sectionid AND 
+		INNER JOIN {schema}.expertjudgement ON
+			expertjudgement.sectionid=fragilitycurves.sectionid AND
 			expertjudgement.measureid=fragilitycurves.measureid
-        INNER JOIN {schema}.measures ON 			
-            measures.id=fragilitycurves.measureid			
+        INNER JOIN {schema}.measures ON
+            measures.id=fragilitycurves.measureid
         WHERE fragilitycurves.timedep={timedep} AND fragilitycurves.degradatieid={degradatieid}
     """
 
@@ -181,10 +181,10 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
             hydraulicload AS hydraulicload,
             failureprobability AS failureprobability
         FROM {schema}.fragilitycurves
-        INNER JOIN {schema}.failuremechanism ON 
+        INNER JOIN {schema}.failuremechanism ON
             failuremechanism.id=fragilitycurves.failuremechanismid
-        INNER JOIN {schema}.measures ON 			
-            measures.id=fragilitycurves.measureid	
+        INNER JOIN {schema}.measures ON
+            measures.id=fragilitycurves.measureid
         WHERE measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid}
     """
 

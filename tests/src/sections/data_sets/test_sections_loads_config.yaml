@@ -1,6 +1,6 @@
 GlobalVariables:
     rootdir: "tests/src/sections/data_sets"
-    moments: [-24,0,24,48]
+    moments: [-24, 0, 24, 48]
 
     SectionsLoads:
         MISSING_VALUE: -9999.0
@@ -9,15 +9,30 @@ DataAdapter:
     default_options:
         csv:
             sep: ","
-    dijkvakken:
+    in_dijkvakken:
         type: csv
         path: "test_sections_loads_dijkvakken.csv"
-    waterstanden:
+    in_dijkvakken_fout:
+        type: csv
+        path: "test_sections_loads_dijkvakken_fout.csv"
+    in_dijkvakken_no_csv:
+        type: csv
+        path: "test_sections_loads_dijkvakken.json"
+    in_dijkvakken_leeg:
+        type: csv
+        path: "test_sections_loads_dijkvakken_leeg.csv"
+    in_dijkvakken_fout_data_type:
+        type: fout_type
+        path: "test_sections_loads_dijkvakken.csv"
+    in_waterstanden:
         type: csv
         path: "test_sections_loads_waterstanden.csv"
-    koppeling_meetstation_dijkvak:
+    in_waterstanden_fout_nan:
+        type: csv
+        path: "test_sections_loads_waterstanden_fout_nan.csv"
+    in_koppeling_meetstation_dijkvak:
         type: csv
         path: "test_sections_loads_koppeling_meetstation_dijkvak.csv"
-    waterstanden_per_dijkvak:
+    out_waterstanden_per_dijkvak:
         type: csv
         path: "hidden_waterstanden_per_dijkvak.csv"

@@ -68,7 +68,7 @@ class SectionsLoads:
         "measurement_location_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
-        "date_time": "object",
+        "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
         "value_type": "object",
     }
@@ -107,6 +107,12 @@ class SectionsLoads:
         self.df_in_section_fractions = self.data_adapter.input(
             input[2], self.input_schema_section_fractions
         )
+
+        # Datum als string omzetten naar datetime object
+        if not pd.api.types.is_datetime64_any_dtype(self.df_in_loads["date_time"]):
+            self.df_in_loads["date_time"] = pd.to_datetime(
+                self.df_in_loads["date_time"]
+            )
 
         # uitvoer: belasting per dijkvak
         self.df_out = pd.DataFrame()
@@ -165,7 +171,12 @@ class SectionsLoads:
             + df_merged["value_down"] * df_merged["fractiondown"]
         )
 
-        self.df_out = df_merged[
+        # verwijder alle rijen waar geen data voor is gevonden
+        df_cleaned = df_merged.dropna(
+            subset=["id", "date_time", "value", "unit", "parameter_id", "value_type"]
+        )
+
+        self.df_out = df_cleaned[
             ["id", "name", "date_time", "value", "unit", "parameter_id", "value_type"]
         ]
         self.df_out.set_index(["id", "name", "date_time"], inplace=False)

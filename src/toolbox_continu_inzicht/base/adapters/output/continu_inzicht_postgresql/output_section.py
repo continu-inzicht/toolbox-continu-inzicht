@@ -543,7 +543,7 @@ def get_parameters(engine: Engine, schema: str) -> dict:
     parameters = []
 
     with engine.connect() as connection:
-        select_query = f""" 
+        select_query = f"""
             SELECT id, code AS name FROM {schema}.parameters;
         """
         df_parameters = pd.read_sql_query(
@@ -574,7 +574,7 @@ def get_failuremechanisms(engine: Engine, schema: str) -> dict:
     failuremechanisms = []
 
     with engine.connect() as connection:
-        select_query = f""" 
+        select_query = f"""
             SELECT id, name FROM {schema}.failuremechanism;
         """
         df_failuremechanisms = pd.read_sql_query(
