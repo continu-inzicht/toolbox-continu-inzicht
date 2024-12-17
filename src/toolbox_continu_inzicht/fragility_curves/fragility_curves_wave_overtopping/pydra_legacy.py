@@ -131,23 +131,26 @@ def get_qcr_dist(Hs, grass_quality):
     grass_quality : str
         Grass quality (open or closed)
     """
-    if grass_quality not in ["open", "closed"]:
-        raise ValueError(
-            f'Grass quality "{grass_quality}" not understood. Choose from "open" and "closed".'
-        )
-
-    # Get wave height class
-    if Hs < 1.0:
-        hs_class = 1
-    elif Hs < 2.0:
-        hs_class = 2
+    if isinstance(grass_quality, tuple):
+        mu, sigma = grass_quality
     else:
-        hs_class = 3
+        if grass_quality not in ["open", "closed"]:
+            raise ValueError(
+                f'Grass quality "{grass_quality}" not understood. Choose from "open" and "closed".'
+            )
 
-    # Get parameters
-    a = qcr_table[(grass_quality, "EX", hs_class)]
-    b = qcr_table[(grass_quality, "SDX", hs_class)]
+        # Get wave height class
+        if Hs < 1.0:
+            hs_class = 1
+        elif Hs < 2.0:
+            hs_class = 2
+        else:
+            hs_class = 3
 
-    mu, sigma = _get_mu_sigma(a, b)
+        # Get parameters
+        a = qcr_table[(grass_quality, "EX", hs_class)]
+        b = qcr_table[(grass_quality, "SDX", hs_class)]
+
+        mu, sigma = _get_mu_sigma(a, b)
 
     return mu, sigma

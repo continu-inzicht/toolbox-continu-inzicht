@@ -13,40 +13,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.fragility_curves.fragility_curves_wave_overtopping.calculate_fragility_curve_wave_overtopping import (
     WaveOvertoppingCalculation,
 )
-
-
-def loginextrp1d(x, xp, fp):
-    fp[fp < 1e-20] = 1e-20
-    return np.exp(inextrp1d(x, xp, np.log(fp)))
-
-
-def inextrp1d(x, xp, fp):
-    """
-    Interpolate an array along the given axis.
-    Similar to np.interp, but with extrapolation outside range.
-
-    Parameters
-    ----------
-    x : np.array
-        Array with positions to interpolate at
-    xp : np.array
-        Array with positions of known values
-    fp : np.array
-        Array with values as known positions to interpolate between
-
-    Returns
-    -------
-    np.array
-        interpolated array
-    """
-    # Determine lower bounds
-    intidx = np.minimum(np.maximum(0, np.searchsorted(xp, x) - 1), len(xp) - 2)
-    # Determine interpolation fractions
-    fracs = (x - xp[intidx]) / (xp[intidx + 1] - xp[intidx])
-    # Interpolate (1-frac) * f_low + frac * f_up
-    f = (1 - fracs) * fp[intidx] + fp[intidx + 1] * fracs
-
-    return f
+from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
 
 
 # TODO: DO WE WANT THIS?
@@ -84,7 +51,7 @@ class FragilityCurve:
             0.0,
             np.minimum(
                 1.0,
-                loginextrp1d(
+                log_interpolate_1d(
                     self.waterlevels,
                     self.waterlevels + effect,
                     self.failureprobabilities,
@@ -98,7 +65,9 @@ class FragilityCurve:
             0.0,
             np.minimum(
                 1.0,
-                loginextrp1d(waterlevels, self.waterlevels, self.failureprobabilities),
+                log_interpolate_1d(
+                    waterlevels, self.waterlevels, self.failureprobabilities
+                ),
             ),
         )
         self.waterlevels = waterlevels.copy()
@@ -121,16 +90,16 @@ class CreateFragilityCurvesWaveOvertopping:
     """
 
     data_adapter: DataAdapter
-
     list_curves: ClassVar[list[FragilityCurve]] = []
+
     # Debug variable
     berekening: None | WaveOvertoppingCalculation = None
 
     def run(self, input: list[str], output: str) -> None:
         self.df_slopes = self.data_adapter.input(input[0])
-        self.df_profiles = self.data_adapter.input(input[1])
-        self.df_bed_levels = self.data_adapter.input(input[2])
+        self.df_bed_levels = self.data_adapter.input(input[1])
 
+        # TODO: keuze: hoeveel in config, hoeveel automatisch bepalen
         default_options = {
             "windchanged": False,
             "timedep": False,
@@ -138,9 +107,12 @@ class CreateFragilityCurvesWaveOvertopping:
             "sectormin": 180.0,
             "sectorsize": 90.0,
             "effect": 0.0,
-            "measureid": 0,
-            "failuremechanismid": 0,
             "closing_situation": 0,
+            "qcr": 10.0 / 1000,  # m3/s
+            "orientation": 0,
+            "crestlevel": 10,
+            "dam": 0,
+            "damheight": None,
         }
 
         global_variables = self.data_adapter.config.global_variables
@@ -157,99 +129,61 @@ class CreateFragilityCurvesWaveOvertopping:
         windspeed = options["windspeed"]
         sectormin = options["sectormin"]
         sectorsize = options["sectorsize"]
-        measureid = options["measureid"]
-        failuremechanismid = options["failuremechanismid"]
-        closing_situation = options["closing_situation"]
 
-        # sectionids = df_profiles["sectionid"].unique()
-        for sectionid in self.df_profiles["sectionid"]:
-            df_profile = self.df_profiles[
-                self.df_profiles["sectionid"] == sectionid
-            ].iloc[0]
-            databaseid = df_profile["id"]
-            df_slope = self.df_slopes[self.df_slopes["profileid"] == databaseid]
+        # Formateer de data uit het dataframe voor pydra
+        df_slope_dike = self.df_slopes[self.df_slopes["slopetypeid"] == 1]
+        profiel_dict = {
+            "profile_name": "profiel_CI",
+            "dike_x_coordinates": list(df_slope_dike["x"].to_numpy()),
+            "dike_y_coordinates": list(df_slope_dike["y"].to_numpy()),
+            "dike_roughness": list(df_slope_dike["r"].to_numpy()),
+            "dike_orientation": options["orientation"],
+            "dike_crest_level": options["crestlevel"],
+        }
 
-            df_slope_dike = df_slope[df_slope["slopetypeid"] == 1]
-            profiel_dict = {
-                "profile_name": f"profiel_{sectionid}",
-                "dike_x_coordinates": list(df_slope_dike["x"].to_numpy()),
-                "dike_y_coordinates": list(df_slope_dike["y"].to_numpy()),
-                "dike_roughness": list(df_slope_dike["r"].to_numpy()),
-                "dike_orientation": df_profile["orientation"],
-                "dike_crest_level": df_profile["crestlevel"],
-            }
+        basis_profiel = pydra_core.Profile.from_dictionary(profiel_dict)
 
-            basis_profiel = pydra_core.Profile.from_dictionary(profiel_dict)
-
-            foreland_profile = {}
-            df_slope_foreland = df_slope.loc[df_slope["slopetypeid"] == 2]
-            if len(df_slope_foreland) > 0:
-                foreland_profile["foreland_x_coordinates"] = list(
-                    df_slope_foreland["x"].to_numpy()
-                )
-                foreland_profile["foreland_y_coordinates"] = list(
-                    df_slope_foreland["y"].to_numpy()
-                )
-
-            profiel_dict.update(foreland_profile)
-
-            overtopping = pydra_core.Profile.from_dictionary(profiel_dict)
-
-            if df_profile["dam"] != 0:
-                breakwater_type = pydra_core.common.enum.Breakwater(df_profile["dam"])
-                overtopping.set_breakwater(
-                    breakwater_type=breakwater_type,
-                    breakwater_level=df_profile["damheight"],
-                )
-
-            # Bodemhoogte en strijklengte
-            df_bed_level = self.df_bed_levels[
-                self.df_bed_levels["sectionid"] == sectionid
-            ]
-            richtingen = df_bed_level["direction"]
-            bodemhoogte = df_bed_level["bedlevel"]
-            strijklengte = df_bed_level["fetch"]
-
-            # Backwards compatible code voor prob_qcr, graskwaliteit en qcr_dist
-            prob_qcr = df_profile["prob_qcr"]
-            graskwaliteit = df_profile["qcr_dist"]
-            qcr = df_profile["qcr"]
-            if qcr is not None:
-                qcr = qcr / 1000.0  # m3/s/m
-
-            # Calculate curve
-            overtopping_calc = self.calculate_overtopping_curve(
-                effect,
-                windspeed,
-                sectormin,
-                sectorsize,
-                overtopping,
-                basis_profiel,
-                prob_qcr,
-                qcr,
-                graskwaliteit,
-                richtingen,
-                bodemhoogte,
-                strijklengte,
-                closing_situation,
+        # Voorland doen we nu even apart zodat het zelfde is als de originele versie van pydra
+        foreland_profile = {}
+        df_slope_foreland = self.df_slopes.loc[self.df_slopes["slopetypeid"] == 2]
+        if len(df_slope_foreland) > 0:
+            foreland_profile["foreland_x_coordinates"] = list(
+                df_slope_foreland["x"].to_numpy()
+            )
+            foreland_profile["foreland_y_coordinates"] = list(
+                df_slope_foreland["y"].to_numpy()
             )
 
-            curve = FragilityCurve(
-                sectionid, failuremechanismid, *overtopping_calc, measureid=measureid
-            )
-            self.list_curves.append(curve)
+        profiel_dict.update(foreland_profile)
 
-        # TODO: ensure the format matches the other functions
-        lst_df = []
-        for curve in self.list_curves:
-            lst_df.append(
-                pd.DataFrame(
-                    columns=["waterlevel", "failure_probability"],
-                    data=curve.as_array()[:, 3:5],
-                )
+        overtopping = pydra_core.Profile.from_dictionary(profiel_dict)
+
+        if options["dam"] != 0:
+            breakwater_type = pydra_core.common.enum.Breakwater(options["dam"])
+            overtopping.set_breakwater(
+                breakwater_type=breakwater_type,
+                breakwater_level=options["damheight"],
             )
 
-        self.df_out = pd.concat(lst_df, axis=0)
+        # Calculate curve
+        niveaus, ovkansqcr = self.calculate_overtopping_curve(
+            effect,
+            windspeed,
+            sectormin,
+            sectorsize,
+            overtopping,
+            basis_profiel,
+            qcr=options["qcr"],
+            richtingen=self.df_bed_levels["direction"],
+            bodemhoogte=self.df_bed_levels["bedlevel"],
+            strijklengte=self.df_bed_levels["fetch"],
+            closing_situation=options["closing_situation"],
+        )
+
+        self.df_out = pd.DataFrame(
+            {"waterlevel": niveaus, "failure_probability": ovkansqcr}
+        )
+
         self.data_adapter.output(output=output, df=self.df_out)
 
     def calculate_overtopping_curve(
@@ -260,9 +194,7 @@ class CreateFragilityCurvesWaveOvertopping:
         sectorsize,
         overtopping,
         basis_profiel,
-        prob_qcr,
         qcr,
-        graskwaliteit,
         richtingen,
         bodemhoogte,
         strijklengte,
@@ -302,22 +234,18 @@ class CreateFragilityCurvesWaveOvertopping:
             fetch,
         )
 
-        # TODO pass correcty to berekening
-        # berekening.invoergeg.qcr = qcr
-        # ir = 0
         # Calculate fragility curve
         niveaus, ovkansqcr = berekening.bereken_fc_cond(
             richting=windrichtingen[ir],
             windsnelheid=windspeed,
             bedlevel=bedlevel[ir],
             fetch=fetch[ir],
-            prob_qcr=prob_qcr,
             qcr=qcr,
-            graskwaliteit=graskwaliteit,
             crestlevel=overtopping.dike_crest_level,
             hstap=0.05,
             closing_situation=closing_situation,
         )
-        # TODOL remove: only for debuging
+
+        # TODO: remove: only for debuging
         self.berekening = berekening
         return niveaus, ovkansqcr

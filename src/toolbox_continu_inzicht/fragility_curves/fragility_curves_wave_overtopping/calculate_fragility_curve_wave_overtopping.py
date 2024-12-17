@@ -76,9 +76,7 @@ class WaveOvertoppingCalculation:
         windsnelheid,
         bedlevel,
         fetch,
-        prob_qcr,
         qcr,
-        graskwaliteit=None,
         crestlevel=None,
         hstap=0.05,
         closing_situation=1,
@@ -98,15 +96,14 @@ class WaveOvertoppingCalculation:
         )
         t_tspec = 1.1
         # TODO: check of dit correct is
-        # tspec_dw = tp_dw / t_tspec
+        tspec_dw = tp_dw / t_tspec
         richting = np.ones_like(waterlevels) * richting
 
         # Alloceer lege array om kansen aan toe te kennen
         ovkansqcr = np.zeros(len(waterlevels))
 
-        waterlevels = waterlevels.round(2)
-        hs_dw = hs_dw.round(6)
-        tp_dw = tp_dw.round(6)
+        prob_qcr = not isinstance(qcr, int | float | np.integer)
+
         # Voor elke combinatie van modelonzekerheid
         for (
             factor_hs,
@@ -116,15 +113,15 @@ class WaveOvertoppingCalculation:
             closing_situation=closing_situation
         ):
             self.kansen.append((factor_hs, factor_tspec, onzkans))
-            hs, tp = (
+            hs, tspec = (
                 hs_dw * factor_hs,
-                tp_dw * factor_tspec,
+                tspec_dw * factor_tspec,
             )
             qov = self.profile.calculate_overtopping(
-                water_level=waterlevels.flatten().tolist(),
-                significant_wave_height=hs.flatten().tolist(),
-                spectral_wave_period=tp.flatten().tolist(),
-                wave_direction=richting.flatten().tolist(),
+                water_level=waterlevels.flatten(),
+                significant_wave_height=hs.flatten(),
+                spectral_wave_period=tspec.flatten(),
+                wave_direction=richting.flatten(),
                 tp_tspec=t_tspec,
                 dll_settings=None,
             )
@@ -139,7 +136,7 @@ class WaveOvertoppingCalculation:
                     if not idx.any():
                         continue
 
-                    mu, sigma = get_qcr_dist(lower + 0.5, graskwaliteit)
+                    mu, sigma = get_qcr_dist(lower + 0.5, qcr)
                     ovkansqcr[idx] += (
                         lognorm._cdf(qov[idx] / np.exp(mu), sigma) * onzkans
                     )
