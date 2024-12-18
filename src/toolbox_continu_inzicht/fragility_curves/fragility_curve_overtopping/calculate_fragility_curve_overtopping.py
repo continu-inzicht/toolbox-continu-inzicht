@@ -10,7 +10,7 @@ from pydra_core.location.model.statistics.stochastics.model_uncertainty import (
     ModelUncertainty,
     DistributionUncertainty,
 )
-from toolbox_continu_inzicht.fragility_curves.fragility_curves_wave_overtopping.pydra_legacy import (
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.pydra_legacy import (
     bretschneider,
     get_qcr_dist,
 )
@@ -22,11 +22,12 @@ class WaveOvertoppingCalculation:
     fragility curves te berekenen voor Continu inzicht rivierenland
     """
 
-    def __init__(self, profile):
+    def __init__(self, profile, options):
         self.profile: pydra_core.Profile = profile
         # Stel standaardonzekerheden voor bretschneider in
         standaard_model_onzekerheden = {}
-        # gh =  golf hoogte onzerherheid mu/sigma/aanta;
+        # gh =  golf hoogte onzerherheid mu/sigma/aantal;
+
         standaard_model_onzekerheden["gh_onz_mu"] = 0.96
         standaard_model_onzekerheden["gh_onz_sigma"] = 0.27
 
@@ -41,6 +42,11 @@ class WaveOvertoppingCalculation:
 
         standaard_model_onzekerheden["closing_situation"] = profile.closing_situation
 
+        # overwrite default values with user input
+        for onzekerheid in standaard_model_onzekerheden:
+            if onzekerheid in options:
+                standaard_model_onzekerheden[onzekerheid] = options[onzekerheid]
+
         self.modelonzekerheid: CustomModelUncertainty = CustomModelUncertainty(
             standaard_model_onzekerheden
         )
@@ -48,14 +54,76 @@ class WaveOvertoppingCalculation:
         self.qov = []
         self.kansen = []
 
+    @classmethod
+    def calculate_overtopping_curve(
+        cls,
+        windspeed,
+        sectormin,
+        sectorsize,
+        overtopping,
+        basis_profiel,
+        qcr,
+        richtingen,
+        bodemhoogte,
+        strijklengte,
+        closing_situation,
+        options,
+    ):
+        # Pas profiel aan voor maatregel (via kruinhoogte)
+        overtopping.closing_situation = (
+            closing_situation  # niet zo netjes maar het werkt
+        )
+        # Berekening
+        berekening = cls(overtopping, options)
+
+        # Bereken fragility curve
+        windrichtingen = (
+            np.linspace(sectormin, sectormin + sectorsize, int(round(sectorsize))) % 360
+        )
+        bedlevel = np.interp(windrichtingen, richtingen, bodemhoogte, period=360)
+        fetch = np.interp(windrichtingen, richtingen, strijklengte, period=360)
+
+        # Voor dominante windrichting bepalen gebruik(te)/(en) we het profiel zonder voorland
+        basis_profiel.closing_situation = (
+            closing_situation  # niet zo netjes maar het werkt
+        )
+        # Maak een berekening object met het basis profiel aan (WaveOvertoppingCalculation)
+        berekening_basis = cls(basis_profiel, options)
+        t_tspec = 1.1
+        if "tp_tspec" in options:
+            t_tspec = options["tp_tspec"]
+
+        # Bepaal dominante windrichting
+        ir = berekening_basis.bepaal_dominante_richting(
+            overtopping.dike_crest_level - 0.5,
+            windspeed,
+            windrichtingen,
+            bedlevel,
+            fetch,
+            t_tspec,
+        )
+        # Calculate fragility curve
+        niveaus, ovkansqcr = berekening.bereken_fc_cond(
+            richting=windrichtingen[ir],
+            windsnelheid=windspeed,
+            bedlevel=bedlevel[ir],
+            fetch=fetch[ir],
+            qcr=qcr,
+            crestlevel=overtopping.dike_crest_level,
+            closing_situation=closing_situation,
+            t_tspec=t_tspec,
+            options=options
+        )
+
+        return niveaus, ovkansqcr
+
     def bepaal_dominante_richting(
-        self, level, windspeed, richtingen, bedlevels, fetches
+        self, level, windspeed, richtingen, bedlevels, fetches, t_tspec
     ):
         # Bereken golfcondities met Bretschneider
         hss, tps = bretschneider(
             d=level - bedlevels, fe=fetches, u=np.ones_like(bedlevels) * windspeed
         )
-
         # bereken overslagdebieten
         qov = []
         for r, hs, tp in zip(richtingen, hss, tps):
@@ -63,7 +131,7 @@ class WaveOvertoppingCalculation:
                 self.profile.calculate_overtopping(
                     water_level=level,
                     significant_wave_height=hs,
-                    spectral_wave_period=tp / 1.1,
+                    spectral_wave_period=tp / t_tspec,
                     wave_direction=r,
                 )
             )
@@ -77,15 +145,23 @@ class WaveOvertoppingCalculation:
         bedlevel,
         fetch,
         qcr,
-        crestlevel=None,
-        hstap=0.05,
-        closing_situation=1,
+        t_tspec,
+        crestlevel,
+        closing_situation,
+        options
     ):
+        # TODO: configurabele defaults?
+        # Set default values
+        hstap = options.get("hstap", 0.05)
+        lower_limit_coarse = options.get("lower_limit_coarse", 4)
+        upper_limit_coarse = options.get("upper_limit_coarse", 2)
+        upper_limit_fine = options.get("upper_limit_fine", 1.01)
         # Leidt golfcondities af voor de richting
-        cl_rnd = np.round(crestlevel / hstap) * hstap
+        cl_rnd = np.round(crestlevel / hstap) * hstap # crest level rounded
+        # refine grid around crest level
         waterlevels = np.r_[
-            np.arange(cl_rnd - 4, cl_rnd - 2, hstap * 2),
-            np.arange(cl_rnd - 2, cl_rnd + 1.01, hstap),
+            np.arange(cl_rnd - lower_limit_coarse, cl_rnd - upper_limit_coarse, hstap * 2),
+            np.arange(cl_rnd - upper_limit_coarse, cl_rnd + upper_limit_fine, hstap),
         ][:, None]
 
         # Bereken de golfhoogte en piekgolfperiode met Bretschneider
@@ -94,8 +170,6 @@ class WaveOvertoppingCalculation:
             fe=np.ones_like(waterlevels) * fetch,
             u=np.ones_like(waterlevels) * windsnelheid,
         )
-        t_tspec = 1.1
-        # TODO: check of dit correct is
         tspec_dw = tp_dw / t_tspec
         richting = np.ones_like(waterlevels) * richting
 
