@@ -29,8 +29,8 @@ class FragilityCurveOvertopping(FragilityCurve):
     df_bed_levels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    def __init__(self):
-        super().__init__()
+    # def __init__(self):
+    #     super().__init__()
 
     def run(self, input: list[str], output: str) -> None:
         """

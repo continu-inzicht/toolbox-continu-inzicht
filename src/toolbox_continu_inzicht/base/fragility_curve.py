@@ -35,7 +35,7 @@ class FragilityCurve:
         if effect == 0.0:
             return None
         # TODO: Log or not? ideally interpolate beta values
-        self.failureprobabilities = np.maximum(
+        self.df_out["failure_probability"] = np.maximum(
             0.0,
             np.minimum(
                 1.0,

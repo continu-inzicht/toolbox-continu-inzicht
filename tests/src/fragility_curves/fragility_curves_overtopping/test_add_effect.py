@@ -1,11 +1,14 @@
+import numpy as np
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter, Config
 from pathlib import Path
 import pandas as pd
 from toolbox_continu_inzicht.fragility_curves import (
+    FragilityCurveOvertopping,
     ShiftFragilityCurveOvertopping,
     ChangeCrestHeightFragilityCurveOvertopping,
 )
 
+# %%
 profiles = {
     "sectionid": 11,  # only for our reference
     "crestlevel": 14.63,
@@ -83,6 +86,7 @@ bed_levels = {
         59.5193,
     ],
 }
+# %%
 
 
 def setup_data_adapter():
@@ -105,26 +109,52 @@ def setup_data_adapter():
 
 def test_ShiftFragilityCurveOvertopping():
     data_adapter = setup_data_adapter()
+    input_val = ["slopes", "profiles", "bed_levels"]
+    output_val = "fragility_curves"
+    FCO = FragilityCurveOvertopping(data_adapter=data_adapter)
+    FCO.run(input=input_val, output=output_val)
+    fco_df = FCO.df_out
+
     SFCC = ShiftFragilityCurveOvertopping(data_adapter=data_adapter)
 
     SFCC.run(
-        input=["slopes", "profiles", "bed_levels"],
-        output="fragility_curves",
+        input=input_val,
+        output=output_val,
         effect=0.5,
     )
-    # TODO: assert the output
+    sfcc_df = SFCC.df_out
+
+    fco_df.set_index("waterlevels", inplace=True)
+    sfcc_df.set_index("waterlevels", inplace=True)
+
+    df_combined = pd.concat([fco_df, sfcc_df], axis=1)
+    df_combined.columns = ["fco", "sfcc"]
+    # check that the centre of the fragility curve has changed
+    assert (
+        ~np.isclose(
+            df_combined["fco"].to_list()[41:59], df_combined["sfcc"].to_list()[41:59]
+        )
+    ).all()
 
 
 def test_ChangeCrestHeightFragilityCurveOvertopping():
     data_adapter = setup_data_adapter()
-    CCHFCC = ChangeCrestHeightFragilityCurveOvertopping(data_adapter=data_adapter)
+    input_val = ["slopes", "profiles", "bed_levels"]
+    output_val = "fragility_curves"
+    FCO = FragilityCurveOvertopping(data_adapter=data_adapter)
+    FCO.run(input=input_val, output=output_val)
+    result_FCO = FCO.df_out["failure_probability"].iloc[50:70].to_list()
 
-    CCHFCC.run(
+    CCHFCO = ChangeCrestHeightFragilityCurveOvertopping(data_adapter=data_adapter)
+
+    CCHFCO.run(
         input=["slopes", "profiles", "bed_levels"],
         output="fragility_curves",
-        effect=0.5,
+        effect=2.5,
     )
-    # TODO: assert the output
+    result_CCHFCO = CCHFCO.df_out["failure_probability"].iloc[50:70].to_list()
+    ## check that the centre of the fragility curve has changed
+    assert (~np.isclose(result_FCO, result_CCHFCO)).all()
 
 
 if __name__ == "__main__":
