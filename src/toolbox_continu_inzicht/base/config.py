@@ -67,6 +67,9 @@ class Config(PydanticBaseModel):
 
                     self.global_variables = configuration
 
+        self.init_data_adapters()
+
+    def init_data_adapters(self):
         # opties die in de DataAdapter worden mee gegeven
         # worden toegevoegd aan de adapters, mits de adapter zelf niet die waarde heeft
         if "default_options" in self.data_adapters:

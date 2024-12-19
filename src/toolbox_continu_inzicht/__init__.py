@@ -5,6 +5,7 @@ from toolbox_continu_inzicht.base import config
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base import data_adapter
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
+from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 
 # hier de hoofd modules, sub modules in de mapjes zelf
 from toolbox_continu_inzicht import base
@@ -17,6 +18,7 @@ __all__ = [
     "data_adapter",
     "Config",
     "DataAdapter",
+    "FragilityCurve",
     "loads",
     "sections",
     "proof_of_concept",

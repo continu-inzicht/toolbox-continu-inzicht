@@ -126,6 +126,9 @@ class LoadsToMoments:
             # df_moment = df_moments[df_moments.index < moment["date_time"]].iloc[[0]]
 
         if not df_moment.empty:
-            df_moment["hours"] = moment["hours"]
+            # TODO: maak eleganter, test ga een warning 'setting on copy of a slice'
+            df_moment_hours = df_moment.copy()
+            df_moment_hours["hours"] = moment["hours"]
+            df_moment = df_moment_hours
 
         return df_moment
