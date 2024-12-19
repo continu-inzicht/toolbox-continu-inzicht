@@ -78,9 +78,8 @@ class Config(PydanticBaseModel):
                         configuration["calc_time"] = formated_dt
 
                     self.global_variables = configuration
-        
+
         self.init_data_adapters()
-            
 
     def init_data_adapters(self):
         # opties die in de DataAdapter worden mee gegeven

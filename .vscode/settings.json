@@ -10,7 +10,7 @@
         "editor.codeActionsOnSave": {
             "source.fixAll": "explicit"
         }
-        
+
     },
     "python.testing.pytestArgs": [
         "tests"

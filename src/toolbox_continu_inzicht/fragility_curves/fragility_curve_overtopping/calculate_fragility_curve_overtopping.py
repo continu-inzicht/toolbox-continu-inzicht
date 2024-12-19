@@ -112,7 +112,7 @@ class WaveOvertoppingCalculation:
             crestlevel=overtopping.dike_crest_level,
             closing_situation=closing_situation,
             t_tspec=t_tspec,
-            options=options
+            options=options,
         )
 
         return niveaus, ovkansqcr
@@ -148,7 +148,7 @@ class WaveOvertoppingCalculation:
         t_tspec,
         crestlevel,
         closing_situation,
-        options
+        options,
     ):
         # TODO: configurabele defaults?
         # Set default values
@@ -157,10 +157,12 @@ class WaveOvertoppingCalculation:
         upper_limit_coarse = options.get("upper_limit_coarse", 2)
         upper_limit_fine = options.get("upper_limit_fine", 1.01)
         # Leidt golfcondities af voor de richting
-        cl_rnd = np.round(crestlevel / hstap) * hstap # crest level rounded
+        cl_rnd = np.round(crestlevel / hstap) * hstap  # crest level rounded
         # refine grid around crest level
         waterlevels = np.r_[
-            np.arange(cl_rnd - lower_limit_coarse, cl_rnd - upper_limit_coarse, hstap * 2),
+            np.arange(
+                cl_rnd - lower_limit_coarse, cl_rnd - upper_limit_coarse, hstap * 2
+            ),
             np.arange(cl_rnd - upper_limit_coarse, cl_rnd + upper_limit_fine, hstap),
         ][:, None]
 

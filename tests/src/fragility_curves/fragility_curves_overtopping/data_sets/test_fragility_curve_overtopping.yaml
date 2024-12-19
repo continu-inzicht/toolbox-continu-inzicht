@@ -3,7 +3,7 @@ GlobalVariables:
     moments: [-24,0,24,48]
 
     FragilityCurveOvertopping:
-        gh_onz_mu: 0.96 # default waarde 
+        gh_onz_mu: 0.96 # default waarde
 
 DataAdapter:
     default_options:

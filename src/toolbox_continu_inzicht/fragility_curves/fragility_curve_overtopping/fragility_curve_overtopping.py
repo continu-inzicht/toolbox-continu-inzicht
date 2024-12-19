@@ -1,4 +1,4 @@
-﻿import pandas as pd
+import pandas as pd
 from pydantic.dataclasses import dataclass
 from typing import Optional
 
