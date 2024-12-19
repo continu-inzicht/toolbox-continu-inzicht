@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "tests/src/fragility_curves/fragility_curves_wave_overtopping/data_sets"
+    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping/data_sets"
     moments: [-24,0,24,48]
 
     FragilityCurveOvertopping:

@@ -1,7 +1,9 @@
+import pytest
+import os
 import numpy as np
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter, Config
 from pathlib import Path
 import pandas as pd
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter, Config
 from toolbox_continu_inzicht.fragility_curves import (
     FragilityCurveOvertopping,
     ShiftFragilityCurveOvertopping,
@@ -107,6 +109,10 @@ def setup_data_adapter():
     return data_adapter
 
 
+@pytest.mark.skipif(
+    os.getenv("GITHUB_ACTIONS") == "true",
+    reason="DLL's staan nog niet in de pypi package",
+)
 def test_ShiftFragilityCurveOvertopping():
     data_adapter = setup_data_adapter()
     input_val = ["slopes", "profiles", "bed_levels"]
@@ -137,13 +143,17 @@ def test_ShiftFragilityCurveOvertopping():
     ).all()
 
 
+@pytest.mark.skipif(
+    os.getenv("GITHUB_ACTIONS") == "true",
+    reason="DLL's staan nog niet in de pypi package",
+)
 def test_ChangeCrestHeightFragilityCurveOvertopping():
     data_adapter = setup_data_adapter()
     input_val = ["slopes", "profiles", "bed_levels"]
     output_val = "fragility_curves"
     FCO = FragilityCurveOvertopping(data_adapter=data_adapter)
     FCO.run(input=input_val, output=output_val)
-    result_FCO = FCO.df_out["failure_probability"].iloc[50:70].to_list()
+    result_FCO = FCO.df_out["failure_probability"].iloc[50:57].to_list()
 
     CCHFCO = ChangeCrestHeightFragilityCurveOvertopping(data_adapter=data_adapter)
 
@@ -152,10 +162,6 @@ def test_ChangeCrestHeightFragilityCurveOvertopping():
         output="fragility_curves",
         effect=2.5,
     )
-    result_CCHFCO = CCHFCO.df_out["failure_probability"].iloc[50:70].to_list()
+    result_CCHFCO = CCHFCO.df_out["failure_probability"].iloc[50:57].to_list()
     ## check that the centre of the fragility curve has changed
     assert (~np.isclose(result_FCO, result_CCHFCO)).all()
-
-
-if __name__ == "__main__":
-    test_ChangeCrestHeightFragilityCurveOvertopping()

@@ -82,7 +82,8 @@ yaml = "*"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
-pydra_core = { path = "../pydra_core/src", editable = true }
+pydra-core = "==0.0.1"
+#pydra_core = { path = "../pydra_core/src", editable = true }
 
 [environments]
 default = { features = ["common"] }

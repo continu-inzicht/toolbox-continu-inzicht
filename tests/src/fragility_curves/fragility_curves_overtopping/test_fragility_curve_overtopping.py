@@ -3,6 +3,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pytest
+import os
 
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
@@ -205,6 +206,10 @@ parameters = [
 
 
 # %%
+@pytest.mark.skipif(
+    os.getenv("GITHUB_ACTIONS") == "true",
+    reason="DLL's staan nog niet in de pypi package",
+)
 def test_fragility_curves_wave_overtopping_csv():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
@@ -250,6 +255,10 @@ def test_fragility_curves_wave_overtopping_csv():
     assert np.isclose(result, expected).all()
 
 
+@pytest.mark.skipif(
+    os.getenv("GITHUB_ACTIONS") == "true",
+    reason="DLL's staan nog niet in de pypi package",
+)
 def test_fragility_curves_wave_overtopping_vary_standard_values():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
@@ -301,6 +310,10 @@ def test_fragility_curves_wave_overtopping_vary_standard_values():
     assert np.isclose(result, expected).all()
 
 
+@pytest.mark.skipif(
+    os.getenv("GITHUB_ACTIONS") == "true",
+    reason="DLL's staan nog niet in de pypi package",
+)
 @pytest.mark.parametrize(
     "windspeed,sectormin,sectorsize,closing_situation,foreshore,qcr,expected",
     parameters,
@@ -355,6 +368,6 @@ def test_fragility_curves_wave_overtopping_parametric(
     assert np.isclose(result, expected).all()
 
 
-# if __name__ == "__main__":
-#     # test_fragility_curves_wave_overtopping_parametric(*parameters[0])
-#     test_fragility_curves_wave_overtopping_csv()
+if __name__ == "__main__":
+    #     # test_fragility_curves_wave_overtopping_parametric(*parameters[0])
+    test_fragility_curves_wave_overtopping_csv()
