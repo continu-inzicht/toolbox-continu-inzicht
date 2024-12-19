@@ -44,15 +44,17 @@ class SectionsLoads:
         """
         Uitvoeren van het bepalen van de belasting op een dijkvak.
 
-        Args:
-            input List(str): [0] lijst met dijkvakken
-                             [1] belasting per moment per meetlocaties
-                             [2] koppeling van de maatgevende meetlocaties per dijkvak
-            output (str): uitvoer sectie van het yaml-bestand:
-                          koppeling van de maatgevende meetlocaties per dijkvak
+        Parameters
+        ----------
+        input: list[str]
+            [0] lijst met dijkvakken
 
-        Returns:
-            Dataframe: Pandas dataframe
+            [1] belasting per moment per meetlocaties
+
+            [2] koppeling van de maatgevende meetlocaties per dijkvak
+
+        output: str
+            uitvoer sectie van het yaml-bestand: koppeling van de maatgevende meetlocaties per dijkvak
         """
         if not len(input) == 3:
             raise UserWarning("Input variabele moet 3 string waarden bevatten.")

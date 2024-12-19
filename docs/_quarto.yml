@@ -78,14 +78,15 @@ quartodoc:
     include_functions: true
   sections:
     - title: Basis
-      desc: Lees & schrijf functionaliteit waar andere functies op verder bouwen
+      desc: Basis functionaliteit waar andere functies op verder bouwen
       package: toolbox_continu_inzicht
       contents:
-       - config
-       - data_adapter
+       - Config
+       - DataAdapter
        - proof_of_concept.example_module
+       - FragilityCurve
     - title: Belastingen
-      desc: Verschillende functies die belastingen inladen, classifiseren of toekennen.
+      desc: Functies die belastingen inladen, classificeren of toekennen.
       package: toolbox_continu_inzicht
       contents:
        - loads.LoadsCIWhatIf
@@ -101,10 +102,22 @@ quartodoc:
        - loads.LoadsWaterinfo
        - loads.get_waterinfo_locations
        - loads.get_waterinfo_thresholds
-
-      #  - base
-
-
+    - title: Secties
+      desc: Functies voor het inlezen, classificeren en toekennen van kansen aan dijkvakken
+      package: toolbox_continu_inzicht
+      contents:
+       - sections.SectionsLoads
+       - sections.SectionsClassify
+       - sections.SectionsFailureprobability
+       - sections.SectionsTechnicalFailureprobability
+       - sections.SectionsMeasureFailureprobability
+    - title: Kwetsbaarheidscurve
+      desc: Functies voor het berekenen en aanpassen van kwetsbaarheidscurve
+      package: toolbox_continu_inzicht
+      contents:
+       - fragility_curves.FragilityCurveOvertopping
+       - fragility_curves.ShiftFragilityCurveOvertopping
+       - fragility_curves.ChangeCrestHeightFragilityCurveOvertopping
           # - haal_waterstanden_op
           # - calculate_fragility_curves
 

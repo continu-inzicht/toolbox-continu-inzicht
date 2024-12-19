@@ -1,3 +1,4 @@
+from typing import Any, Dict, List, Tuple
 import numpy as np
 import pandas as pd
 
@@ -57,18 +58,54 @@ class WaveOvertoppingCalculation:
     @classmethod
     def calculate_overtopping_curve(
         cls,
-        windspeed,
-        sectormin,
-        sectorsize,
-        overtopping,
-        basis_profiel,
-        qcr,
-        richtingen,
-        bodemhoogte,
-        strijklengte,
-        closing_situation,
-        options,
-    ):
+        windspeed: float,
+        sectormin: float,
+        sectorsize: float,
+        overtopping: object,
+        basis_profiel: object,
+        qcr: float,
+        richtingen: List[float],
+        bodemhoogte: List[float],
+        strijklengte: List[float],
+        closing_situation: object,
+        options: Dict[str, Any],
+    ) -> Tuple[List[float], List[float]]:
+        """
+        Bereken de overloopcurve voor overtopping.
+        Parameters:
+        -----------
+        cls : class
+            De klasse van het berekeningsobject.
+        windspeed : float
+            De windsnelheid.
+        sectormin : float
+            De minimale sectorhoek.
+        sectorsize : float
+            De grootte van de sectorhoek.
+        overtopping : object
+            Het overtopping object.
+        basis_profiel : object
+            Het basisprofiel object.
+        qcr : float
+            De kritieke afvoer.
+        richtingen : List[float]
+            De windrichtingen.
+        bodemhoogte : List[float]
+            De bodemhoogtes.
+        strijklengte : List[float]
+            De strijklengtes.
+        closing_situation : object
+            De sluitsituatie.
+        options : Dict[str, Any]
+            Optionele parameters uit de config.
+
+        Returns:
+        --------
+        niveaus : List[float]
+            De niveaus.
+        ovkansqcr : List[float]
+            De overloopkansen.
+        """
         # Pas profiel aan voor maatregel (via kruinhoogte)
         overtopping.closing_situation = (
             closing_situation  # niet zo netjes maar het werkt
@@ -118,8 +155,34 @@ class WaveOvertoppingCalculation:
         return niveaus, ovkansqcr
 
     def bepaal_dominante_richting(
-        self, level, windspeed, richtingen, bedlevels, fetches, t_tspec
-    ):
+        self,
+        level: float,
+        windspeed: float,
+        richtingen: List[float],
+        bedlevels: List[float],
+        fetches: List[float],
+        t_tspec: float,
+    ) -> int:
+        """
+        Parameters
+        ----------
+        level : float
+            Het waterpeil.
+        windspeed : float
+            De windsnelheid.
+        richtingen : List[float]
+            De array met richtingen.
+        bedlevels : List[float]
+            De array met bodemhoogtes.
+        fetches : List[float]
+            De array met strijklengtes.
+        t_tspec : float
+            De spectrale golfperiode.
+        Returns
+        -------
+        int
+            De index van de dominante richting.
+        """
         # Bereken golfcondities met Bretschneider
         hss, tps = bretschneider(
             d=level - bedlevels, fe=fetches, u=np.ones_like(bedlevels) * windspeed
@@ -140,16 +203,45 @@ class WaveOvertoppingCalculation:
 
     def bereken_fc_cond(
         self,
-        richting,
-        windsnelheid,
-        bedlevel,
-        fetch,
-        qcr,
-        t_tspec,
-        crestlevel,
-        closing_situation,
-        options,
-    ):
+        richting: float,
+        windsnelheid: float,
+        bedlevel: float,
+        fetch: float,
+        qcr: float,
+        t_tspec: float,
+        crestlevel: float,
+        closing_situation: object,
+        options: Dict[str, Any],
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Bereken de overloopcurve voor overtopping.
+
+        Parameters:
+        -----------
+        richting : float
+            De windrichting.
+        windsnelheid : float
+            De windsnelheid.
+        bedlevel : float
+            De bodemhoogte.
+        fetch : float
+            De strijklengte.
+        qcr : float
+            De kritieke afvoer.
+        t_tspec : float
+            De spectrale golfperiode.
+        crestlevel : float
+            Het kruinhoogte.
+        closing_situation : object
+            De sluitsituatie.
+        options : Dict[str, Any]
+            Optionele parameters uit de config.
+
+        Returns:
+        --------
+        Tuple[np.ndarray, np.ndarray]
+            Een tuple met de niveaus en overloopkansen.
+        """
         # TODO: configurabele defaults?
         # Set default values
         hstap = options.get("hstap", 0.05)
@@ -225,13 +317,14 @@ class WaveOvertoppingCalculation:
 
 class CustomModelUncertainty(ModelUncertainty):
     """
-    Custom version of the original Model uncertainties class. Containing all model uncertainties for each closing situation.
-    The original class leans heavily on database interactions, which we avoid here
+    Aangepaste versie van de oorspronkelijke ModelUncertainty-klasse.
+    De oorspronkelijke klasse maakt veel gebruik van database-interacties, die we hier vermijden. Gebruikt de dictionary 'model_uncertainties' als invoer.
+    Er wordt aangenomen dat de correlaties nul zijn.
 
-    Attributes
+    Attributen
     ----------
     model_uncertainties : dict
-        A dictionary with
+        Een dictionary met modelonzekerheden
     """
 
     model_uncertainties = {}

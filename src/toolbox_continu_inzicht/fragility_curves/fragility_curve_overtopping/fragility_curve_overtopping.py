@@ -29,24 +29,79 @@ class FragilityCurveOvertopping(FragilityCurve):
     df_bed_levels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    # def __init__(self):
-    #     super().__init__()
+    # TODO: add, first think about what to do with ids
+    # input_schema_slopes = {
+    #     "slopetypeid": "int64",
+    #     "x": "float64",
+    #     "y": "float64",
+    #     "r": "float64",
+    # }
+
+    # input_schema_bed_levels = {
+    #     "direction": "float64",
+    #     "bedlevel": "float64",
+    #     "fetch": "float64",
+    # }
 
     def run(self, input: list[str], output: str) -> None:
         """
         Runt de berekening van de fragility curve voor golf overslag
 
-        args:
-            input list[str]:
-                [0] df_slopes (pd.DataFrame): DataFrame met helling data. Moet de volgende kolommen bevatten:
-                    - slopetypeid: int (1: dike or 2: slope)
-                [1] df_profile (pd.DataFrame): DataFrame with profile data
-                [2] df_bed_levels (pd.DataFrame): DataFrame with bed level data
-            output str: fragility curve output
+        Parameters
+        ----------
+        input: list[str]
+               [0] df_slopes (pd.DataFrame),
+               [1] df_profile (pd.DataFrame),
+               [2] df_bed_levels (pd.DataFrame)
+        output: str
+            Fragility curve output
+
+        Notes:
+        ------
+        input: list[str]
+
+               [0] df_slopes (pd.DataFrame)
+
+                    DataFrame met helling data.
+                    Moet de volgende kolommen bevatten:
+                    - x : float
+                    - y : float
+                    - r : float
+                    - slopetypeid : int (1: dike or 2: slope)
+
+               [1] df_profile (pd.DataFrame):
+                    DataFrame met profiel data.
+                    Moet de volgende kolommen bevatten:
+                    - windspeed : float
+                    - sectormin : float
+                    - sectorsize : float
+                    - orientation : float (in graden)
+                    - crestlevel : float (in meters)
+                    - dam : int (0: geen dam or 1: dam)
+                    - damheight : float (in meters)
+                    - qcr : float (waarde in m^3/s)
+                        str (close | open)
+                        tuple (waarden van mu en sigma)
+
+               [2] df_bed_levels (pd.DataFrame):
+                    DataFrame met bed level data.
+                    Moet de volgende kolommen bevatten:
+                    - direction : float
+                    - bedlevel : float
+                    - fetch : float
+
         """
         self.calculate_fragility_curve(input, output)
 
     def calculate_fragility_curve(self, input: list[str], output: str) -> None:
+        """
+        Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
+        Parameters:
+            input (list[str]): Een lijst met de bestandsnamen van de inputbestanden.
+            output (str): De bestandsnaam waarin het resultaat moet worden opgeslagen.
+        Returns:
+            None
+        """
         # haal input op
         self.df_slopes = self.data_adapter.input(input[0])
         self.df_profile = self.data_adapter.input(input[1])

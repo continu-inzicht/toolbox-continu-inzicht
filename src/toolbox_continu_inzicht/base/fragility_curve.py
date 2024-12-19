@@ -30,7 +30,7 @@ class FragilityCurve:
         return arr
 
     def shift(self, effect):
-        """Schijf de waterstanden vna de fragility curve op (voor een noodmaatregel), en interpoleer de faalkansen
+        """Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleer de faalkansen
         op het oorspronkelijke waterstandsgrid"""
         if effect == 0.0:
             return None
