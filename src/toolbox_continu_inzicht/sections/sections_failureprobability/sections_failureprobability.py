@@ -51,13 +51,43 @@ class SectionsFailureprobability:
         "value": "float64",
     }
 
-    def run(self, input: str, output: str) -> None:
+    def run(self, input: list[str], output: str) -> None:
         """
-        Bepaal de faalkans van een dijkvak.
+        Uitvoeren van het bepalen van de faalkans van een dijkvak.
+        TODO RW aanpassen
 
-        Args: \n
-            input  (str): faalkans per dijkvak, faalmechanisms en maatregel
-            output (str): maatgevende faalkans per dijkvak
+        Parameters:
+        ----------
+        input: list[str]
+
+            [0] fragility curve per dijkvak<br>
+
+            [1] belasting per dijkvak<br>
+
+        output: str
+
+            uitvoer sectie van het yaml-bestand: koppeling van de maatgevende meetlocaties per dijkvak
+            Dataframe: Pandas dataframe geschikt voor uitvoer:
+
+                - Meetlocatie id (measurement_location_id)
+
+                - Meetlocatie code (measurement_location_code)
+
+                - Meetlocatie omschrijving/naam (measurement_location_description)
+
+                - Parameter id overeenkomstig Aquo-standaard: '4724' (parameter_id)
+
+                - Parameter code overeenkomstig Aquo-standaard: 'WATHTE' (parameter_code)
+
+                - Parameter omschrijving overeenkomstig Aquo-standaard: 'Waterhoogte' (parameter_description)
+
+                - Eenheid (unit)
+
+                - Datum en tijd (date_time)
+
+                - Waarde (value)
+
+                - Type waarde: meting of verwachting (value_type)
         """
 
         # invoer: faalskans per dijkvak

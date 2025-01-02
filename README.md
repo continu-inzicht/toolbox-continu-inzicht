@@ -23,23 +23,25 @@ Zie het kopje [bijdragen](https://continu-inzicht.github.io/toolbox-continu-inzi
 
 We maken gebruik van [pixi](https://pixi.sh/latest/) om de conda environment te beheren.
 
-Om Pixi te installeren run je:
-
-##### windows
+<details>
+    <summary>Installatie instructies Windows</summary>
 
 ```powershell
 iwr -useb https://pixi.sh/install.ps1 | iex
 ```
 
-##### Linux/Mac
+</details>
+
+<details>
+    <summary>Installatie instructies Linux/Mac</summary>
 
 ```bash
 curl -fsSL https://pixi.sh/install.sh | bash
 ```
 
-Hiermee installeer je het programma pixi.
+</details>
 
-#### Instaleer python omgeving met pixi
+#### Instaleer python pacackges met pixi
 
 Met het `Pixi` commando in powershell kun je vervolgens de juiste python bestanden installeren:
 

@@ -83,15 +83,19 @@ class SectionsLoads:
 
     def run(self, input: list[str], output: str) -> None:
         """Bepalen de belasting op een dijkvak.
+        
+        Parameters
+        ----------
+        input: list[str]
+            [0] lijst met dijkvakken
 
-        Args:\n
-            input (list[str]): Lijst met namen van configuratie:
-                [0] lijst met dijkvakken
-                [1] belasting per moment per meetlocaties
-                [2] koppeling van de maatgevende meetlocaties per dijkvak
-            output (str): uitvoer sectie van het yaml-bestand.
+            [1] belasting per moment per meetlocaties
+
+            [2] koppeling van de maatgevende meetlocaties per dijkvak
+
+        output: str
+            uitvoer sectie van het yaml-bestand: koppeling van de maatgevende meetlocaties per dijkvak
         """
-
         if not len(input) == 3:
             raise UserWarning("Input variabele moet 3 string waarden bevatten.")
 

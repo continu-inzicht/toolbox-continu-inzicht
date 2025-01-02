@@ -573,17 +573,67 @@ sections_loads.run(
 ```
 :::
 
-```{=html}
-<!-- ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
+## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
 
-Tekst na uitvoering aan te vulen
+Fragility curves kunnen voor verschillende faalmechanismes worden berekend. Hier onder wordt per type faalmechanisme uitleg gegeven over de beschikbare functies. 
+
+### Golfoverslag Erosie Kruin en Binnentalud (GEKB){#sec-Bepalen-fragility-curves-GEKB}
+
+Voor het bereken van fragility curves voor GEKB wordt gebruik gemaakt van de python module [`pydra-core`](https://pypi.org/project/pydra-core/). Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikaar gemaakt op [github](https://github.com/HKV-products-services/pydra_core). De documentatie van deze module is daar ook te vinden. 
+
+Een fragility curve kan berekend door de functie `FragilityCurveOvertopping` aan te roepen. Hier zijn drie dataframes voor nodig: de eeste met informatie over de de hellingen, ten tweede over het profiel en als laatste over de strijklente en de bodem. Voor de berekening wordt model onzekerheid mee genomen. Hiervoor zijn een heel aantal standaard waardes gebruikt voor bretschneider waarmee golf hoogte en periode worden bepaald. Deze kunnen aangepaste worden als opties in de `config.yaml`, zo als te zien in het voorbeeld met `gh_onz_mu`. Naast onzekerheden kan ook de verhouding tussen de piek periode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) worden aangepast met `tp_tspec` (standaard 1.1). De waterniveaus waarmee probablistisch gerekend wordt is verdeelt in twee delen: grof en fijn. Standaard zijn fijne stappen van 2m (`upper_limit_coarse`)  onder de kruin tot 1.01m (`upper_limit_fine`) boven de kruin met stappen van 0.05 (`hstap`). Standaard groven stappen lopen van 4m (`lower_limit_coarse`) onder de kruin tot 2m (`upper_limit_coarse`) onder de kruin met stappen van twee keer zo groot (2 * `hstap` = 0.1). Al deze variable zijn los configurable, als er niks wordt opgegeven, worden de standaard genoemde waardes gebruikt.  
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+    FragilityCurveOvertopping:
+        gh_onz_mu: 0.96 # default waarde
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes.csv"
+    profiles:
+        type: csv
+        file: "profiles.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_curves.csv"
+
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import FragilityCurveOvertopping
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+fragility_curve_overtopping = FragilityCurveOvertopping(data_adapter=data_adapter)
+fragility_curve_overtopping.run(
+    input=["slopes", "profiles", "bedlevel_fetch"],
+    output="fragility_curves",
+)
+
+```
+:::
 
 
 ## Bijstellen fragility curves {#sec-Bijstellen-fragility-curves}
 
 Tekst na uitvoering aan te vulen
 
-
+```{=html}
+<!-- 
 ## Conditionele kansen en status waterkering per sectie  {#sec-Conditionele-kansen}
 
 Tekst na uitvoering aan te vulen
