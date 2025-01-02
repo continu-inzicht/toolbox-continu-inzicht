@@ -83,7 +83,7 @@ class SectionsLoads:
 
     def run(self, input: list[str], output: str) -> None:
         """Bepalen de belasting op een dijkvak.
-        
+
         Parameters
         ----------
         input: list[str]
