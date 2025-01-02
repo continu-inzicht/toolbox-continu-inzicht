@@ -12,8 +12,8 @@ De ontwikkeling van de volgende modules is voorzien:
 
 1.  [Basis architectuur Toolbox Continu Inzicht](#sec-architectuur)
 2.  [Belastingen inlezen en classificeren](#sec-belastingen)
-3.  Bepalen fragility curves
-4.  Bijstellen fragility curves (beheerdersoordeel in voorbereiding)
+3.  [Bepalen fragility curves](#sec-Bepalen-fragility-curves)
+4.  [Bijstellen fragility curves](#sec-Bijstellen-fragility-curves) (beheerdersoordeel in voorbereiding)
 5.  Conditionele kansen en status waterkering per sectie
 6.  Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans
 7.  Inspectieresultaten inlezen en weergeven
@@ -575,13 +575,13 @@ sections_loads.run(
 
 ## Bepalen fragility curves {#sec-Bepalen-fragility-curves}
 
-Fragility curves kunnen voor verschillende faalmechanismes worden berekend. Hier onder wordt per type faalmechanisme uitleg gegeven over de beschikbare functies. 
+Fragility curves kunnen voor verschillende faalmechanismes worden berekend. Hier onder wordt per type faalmechanisme uitleg gegeven over de beschikbare functies.
 
 ### Golfoverslag Erosie Kruin en Binnentalud (GEKB){#sec-Bepalen-fragility-curves-GEKB}
 
-Voor het bereken van fragility curves voor GEKB wordt gebruik gemaakt van de python module [`pydra-core`](https://pypi.org/project/pydra-core/). Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikaar gemaakt op [github](https://github.com/HKV-products-services/pydra_core). De documentatie van deze module is daar ook te vinden. 
+Voor het bereken van fragility curves voor GEKB wordt gebruik gemaakt van de python module [`pydra-core`](https://pypi.org/project/pydra-core/). Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikaar gemaakt op [github](https://github.com/HKV-products-services/pydra_core). De documentatie van deze module is daar ook te vinden.
 
-Een fragility curve kan berekend door de functie `FragilityCurveOvertopping` aan te roepen. Hier zijn drie dataframes voor nodig: de eeste met informatie over de de hellingen, ten tweede over het profiel en als laatste over de strijklente en de bodem. Voor de berekening wordt model onzekerheid mee genomen. Hiervoor zijn een heel aantal standaard waardes gebruikt voor bretschneider waarmee golf hoogte en periode worden bepaald. Deze kunnen aangepaste worden als opties in de `config.yaml`, zo als te zien in het voorbeeld met `gh_onz_mu`. Naast onzekerheden kan ook de verhouding tussen de piek periode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) worden aangepast met `tp_tspec` (standaard 1.1). De waterniveaus waarmee probablistisch gerekend wordt is verdeelt in twee delen: grof en fijn. Standaard zijn fijne stappen van 2m (`upper_limit_coarse`)  onder de kruin tot 1.01m (`upper_limit_fine`) boven de kruin met stappen van 0.05 (`hstap`). Standaard groven stappen lopen van 4m (`lower_limit_coarse`) onder de kruin tot 2m (`upper_limit_coarse`) onder de kruin met stappen van twee keer zo groot (2 * `hstap` = 0.1). Al deze variable zijn los configurable, als er niks wordt opgegeven, worden de standaard genoemde waardes gebruikt.  
+Een fragility curve kan berekend door de functie `FragilityCurveOvertopping` aan te roepen. Hier zijn drie dataframes voor nodig: de eeste met informatie over de hellingen, de tweede over het profiel en als laatste over de strijklente en de derde de bodem. Voor de berekening wordt model onzekerheid mee genomen. Hiervoor zijn een heel aantal standaard waardes gebruikt voor bretschneider waarmee golf hoogte en periode worden bepaald. Deze kunnen aangepast worden als opties in de `config.yaml`, zo als te zien in het voorbeeld met `gh_onz_mu`. Naast onzekerheden kan ook de verhouding tussen de piek periode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) worden aangepast met `tp_tspec` (standaard 1.1). De waterniveaus waarmee probablistisch gerekend wordt is verdeelt in twee delen: grof en fijn. Standaard zijn fijne stappen van 2m (`upper_limit_coarse`)  onder de kruin tot 1.01m (`upper_limit_fine`) boven de kruin met stappen van 0.05 (`hstap`). Standaard groven stappen lopen van 4m (`lower_limit_coarse`) onder de kruin tot 2m (`upper_limit_coarse`) onder de kruin met stappen van twee keer zo groot (2 * `hstap` = 0.1). Al deze variable zijn los configurable, als er niks wordt opgegeven, worden de standaard genoemde waardes gebruikt.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -627,13 +627,215 @@ fragility_curve_overtopping.run(
 ```
 :::
 
+### Piping (STPH) {#sec-Bepalen-fragility-curves-STPH}
+Voor het bereken van fragility curves voor piping (STPH) wordt gebruik gemaakt van de python module [`probabilistic_piping`](https://pypi.org/project/pydra-core/). Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikaar gemaakt op [github](https://github.com/HKV-products-services/probabilistic_piping). De documentatie van deze module is daar ook te vinden.
+
+#### FragilityCurvePipingFixedWaterlevel{#sec-Bepalen-fragility-curves-STPH-single}
+Een fragility curve kan berekend door de functie `FragilityCurvePipingFixedWaterlevel` aan te roepen. Hier zijn twee dataframes voor nodig: de eeste met informatie over de probabilitische berekening, de tweede met een reeks waterstanden waarvoor de fragility curve wordt afgeleid. Als opties kunnen debug en progress opties worden opgegeven in de `config.yaml`, standaard staan deze uit. De type functie die gebruikt wordt voor de grenstoestand (`z_type`) kan worden mee geven als optie, standaard is dit 'sellmeijer' maar kan ook aangepast worden naar 'heave', 'uplift' of 'combi'.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+    FragilityCurvePipingFixedWaterlevel:
+        z_type: "sellmeijer"
+        debug: False
+        progress: True
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    probabilistic_input:
+        type: excel
+        file: "invoer_piping_v2.xlsx"
+        index_col: 0
+    waterlevels:
+        type: csv
+        file: "waterlevels.csv"
+    fragility_curve:
+        type: csv
+        file: "fragility_curves_piping.csv"
+
+
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import FragilityCurvePipingFixedWaterlevel
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevel(data_adapter=data_adapter)
+fragility_curve_piping_fixed_waterlevel.run(
+    input=["probabilistic_input", "waterlevels"],
+    output="fragility_curves",
+)
+
+```
+:::
+
+#### FragilityCurvePipingFixedWaterlevelCombined {#sec-Bepalen-fragility-curves-STPH-combined}
+
+De functie `FragilityCurvePipingFixedWaterlevelCombined` rekent met alle beschikbare grenstoestanden benoemd bij [`FragilityCurvePipingFixedWaterlevel`](#sec-Bepalen-fragility-curves-STPH-single) en geeft de curve gecombineerde terug.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+    FragilityCurvePipingFixedWaterlevelCombined:
+        debug: False
+        progress: True
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    probabilistic_input:
+        type: excel
+        file: "invoer_piping_v2.xlsx"
+        index_col: 0
+    waterlevels:
+        type: csv
+        file: "waterlevels.csv"
+    fragility_curve:
+        type: csv
+        file: "fragility_curves_piping.csv"
+
+
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import FragilityCurvePipingFixedWaterlevelCombined
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevelCombined(data_adapter=data_adapter)
+fragility_curve_piping_fixed_waterlevel.run(
+    input=["probabilistic_input", "waterlevels"],
+    output="fragility_curves",
+)
+
+```
+:::
 
 ## Bijstellen fragility curves {#sec-Bijstellen-fragility-curves}
 
-Tekst na uitvoering aan te vulen
+### Verschuiven van een curve
+
+Voor het simpel weg vershuiven van een curve is voor alle type fragility curves de functie `Shift*` beschikbaar, `*` de naam van de functie is.
+Zo schuift `ShiftFragilityCurveOvertopping` de curve van `FragilityCurveOvertopping` naar rechts met een gegeven effect.
+Belangrijk om hier te benoemen is dat de opties in GlobalVariables nogsteeds moeten verwijzen naar de originele functie, ook alle andere configuraties blijven hetzelfde.
+In het voorbeeld hier onder is het dus `FragilityCurveOvertopping` in de GlobalVariables ookal wordt de `ShiftFragilityCurveOvertopping` functie aangeroepen, dit komt door het gebruik van overerving in python.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+    FragilityCurveOvertopping:
+        gh_onz_mu: 0.96 # default waarde
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes.csv"
+    profiles:
+        type: csv
+        file: "profiles.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_curves.csv"
+
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import ShiftFragilityCurveOvertopping
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+shifted_fragility_curve_overtopping = ShiftFragilityCurveOvertopping(data_adapter=data_adapter)
+shifted_fragility_curve_overtopping.run(
+    input=["slopes", "profiles", "bedlevel_fetch"],
+    output="fragility_curves",
+    effect=0.5
+)
+
+```
+:::
+
+
+### Aanpassen van de kruinhoogte
+
+Voor het aanpassen van de kruinhoogte bij een [GEKB](#sec-Bepalen-fragility-curves-GEKB) is de functie `ChangeCrestHeightFragilityCurveOvertopping` beschikbaar, hier kan als effect mee gegeven worden wat de verandering van kruinhoogte is. De zelfde berekening als bij `FragilityCurveOvertopping` wordt dan uitgevoerd, maar met de aangepaste kruin hoogte.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+    FragilityCurveOvertopping:
+        gh_onz_mu: 0.96 # default waarde
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes.csv"
+    profiles:
+        type: csv
+        file: "profiles.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_curves.csv"
+
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import ChangeCrestHeightFragilityCurveOvertopping
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+change_crest_fragility_curve_overtopping = ChangeCrestHeightFragilityCurveOvertopping(data_adapter=data_adapter)
+change_crest_fragility_curve_overtopping.run(
+    input=["slopes", "profiles", "bedlevel_fetch"],
+    output="fragility_curves",
+    effect=1
+)
+
+```
+:::
 
 ```{=html}
-<!-- 
+<!--
 ## Conditionele kansen en status waterkering per sectie  {#sec-Conditionele-kansen}
 
 Tekst na uitvoering aan te vulen
