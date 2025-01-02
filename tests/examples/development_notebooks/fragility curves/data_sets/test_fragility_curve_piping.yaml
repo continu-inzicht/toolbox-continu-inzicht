@@ -1,0 +1,28 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+
+    FragilityCurvePipingFixedWaterlevelCombined:
+        debug: False
+        progress: True
+    
+    FragilityCurvePipingFixedWaterlevel:
+        debug: False
+        progress: True
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+        
+    probabilistic_input:
+        type: excel
+        file: "invoer_piping_v2.xlsx"
+        index_col: 0
+    waterlevels:
+        type: csv
+        file: "waterlevels.csv"
+    fragility_curve:
+        type: csv
+        file: "fragility_curves_piping.csv"

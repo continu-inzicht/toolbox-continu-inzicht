@@ -17,5 +17,9 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "cSpell.language": "en,nl"
+    "cSpell.language": "en,nl",
+    "jupyter.debugJustMyCode": false,
+    "cSpell.words": [
+        "sellmeijer"
+    ],
 }
