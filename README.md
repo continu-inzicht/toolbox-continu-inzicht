@@ -4,7 +4,7 @@ Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij h
 
 ## Gebruik van de toolbox
 
-De toolbox kan _(straks)_ geinstaleerd worden met:
+De toolbox kan _(straks)_ geïnstalleerd worden met:
 
 ```bash
 pip install toolbox-continu-inzicht
@@ -41,7 +41,7 @@ curl -fsSL https://pixi.sh/install.sh | bash
 
 </details>
 
-#### Instaleer python pacackges met pixi
+#### Instaleer python packages met pixi
 
 Met het `Pixi` commando in powershell kun je vervolgens de juiste python bestanden installeren:
 
@@ -59,3 +59,7 @@ Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand op de juiste packages 
 ```
 
 Of selecteer de juiste python instantie: `...\.pixi\envs\default\python.exe` in je ontwikkel omgeving.
+
+#### Afhankelijkheden
+
+Voor het berekenen van fragility curves worden twee packages gebruikt: [Pydra-core](https://github.com/HKV-products-services/pydra_core) voor GEKB en [probabilistic-piping](https://github.com/HKV-products-services/probabilistic_piping) voor STPH. Deze worden los ontwikkeld door HKV.
