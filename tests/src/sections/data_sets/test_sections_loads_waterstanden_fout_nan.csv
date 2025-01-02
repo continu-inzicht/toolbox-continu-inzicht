@@ -1,0 +1,4 @@
+,measurement_location_id,measurement_location_code,measurement_location_description,parameter_id,parameter_code,parameter_description,unit,date_time,value,value_type
+0,1,Rotterdamse-hoek(FL02)-1,Rotterdamse hoek,4724,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2024-10-27 15:50:00+00:00,-31.0,meting
+1,1,Rotterdamse-hoek(FL02)-1,Rotterdamse hoek,4724,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2024-10-27 16:00:00+00:00,,meting
+2,1,Rotterdamse-hoek(FL02)-1,Rotterdamse hoek,4724,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2024-10-27 16:10:00+00:00,-30.0,meting

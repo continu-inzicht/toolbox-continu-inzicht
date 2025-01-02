@@ -1,50 +1,54 @@
+"""
+Bepaal de faalkans van een dijkvak
+"""
+
 from pydantic.dataclasses import dataclass
-from scipy.interpolate import interp1d
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from typing import Optional
 
-import numpy as np
 import pandas as pd
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class SectionsFailureprobability:
     """
-    Bepaal de belasting op een dijkvak
+    Bepaal de faalkans van een dijkvak
+
+    ## Input schema's
+    **input_schema_failureprobability (DataFrame): schema voor de lijst met dijkvakken\n
+    - section_id: int64                 : id van de dijkvak
+    - failuremechanism_id: int64        : id van het faalmechanisme
+    - value_parameter_id: int64         : id van de belastingparameter (1,2,3,4)
+    - parameter_id: int64               : id van de faalkans parameter (5,100,101,102)
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : belasting van de tijdreeksitem
+
+    ## Output schema
+    **df_out (DataFrame): uitvoer\n
+    - section_id: int64                 : id van het dijkvak
+    - failuremechanism_id: int64        : id van het faalmechanisme
+    - value_parameter_id: int64         : id van de belastingparameter (1,2,3,4)
+    - parameter_id: int64               : id van de faalkans parameter (5,100,101,102)
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - failureprobability: float64       : faalkans van de tijdreeksitem
     """
 
     data_adapter: DataAdapter
 
-    df_in_section_loads: Optional[pd.DataFrame] | None = None
-    df_in_fragility_curves: Optional[pd.DataFrame] | None = None
+    df_in_failureprobability: Optional[pd.DataFrame] | None = None
+    """DataFrame: lijst met faalkansen op een dijkvak voor verschillende faalmechanisms en maatregelen."""
+
     df_out: Optional[pd.DataFrame] | None = None
+    """DataFrame: uitvoer."""
 
-    # Faalmechanismes:
-    # Code| omschrijving
-    # COMB: Combinatie faalmechanismen
-    # GEKB: Overloop en overslag dijken
-    # STPH: Opbarsten en piping dijken
-    # STBI: Stabiliteit binnenwaarts dijken
-    # HTKW: Overloop en overslag langsconstructies
-    # STKWl: Stabiliteit langsconstructies
-    # PKW: Piping langsconstructies
-
-    # fragility curve per dijkvak
-    input_schema_fragility_curves = {
+    # faalkans per moment per dijkvak
+    input_schema_failureprobability = {
         "section_id": "int64",
-        "failuremechanism": "object",
-        "hydraulicload": "float64",
-        "failureprobability": "float64",
-    }
-
-    # belasting per moment per dijkvak
-    input_schema_loads = {
-        "section_id": "int64",
+        "failuremechanism_id": "int64",
+        "value_parameter_id": "int64",
         "parameter_id": "int64",
-        "unit": "object",
-        "date_time": "datetime64[ns, UTC]",
+        "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
-        "value_type": "object",
     }
 
     def run(self, input: list[str], output: str) -> None:
@@ -86,78 +90,50 @@ class SectionsFailureprobability:
                 - Type waarde: meting of verwachting (value_type)
         """
 
-        if not len(input) == 2:
-            raise UserWarning(
-                "Input variabele moet 2 string waarden bevatten. (fragility curve per dijkvak/belasting per dijkvak)"
+        # invoer: faalskans per dijkvak
+        self.df_in_failureprobability = self.data_adapter.input(
+            input, self.input_schema_failureprobability
+        )
+
+        # Datum als string omzetten naar datetime object
+        if not pd.api.types.is_datetime64_any_dtype(
+            self.df_in_failureprobability["date_time"]
+        ):
+            self.df_in_failureprobability["date_time"] = pd.to_datetime(
+                self.df_in_failureprobability["date_time"]
             )
-
-        # invoer 1: fragility curve per dijkvak per faalmechanisme
-        self.df_in_fragility_curves = self.data_adapter.input(
-            input[0], self.input_schema_fragility_curves
-        )
-
-        # invoer 2: belasting per dijkvak
-        self.df_in_belasting = self.data_adapter.input(
-            input[1], self.input_schema_loads
-        )
 
         # uitvoer: belasting per dijkvak
         self.df_out = pd.DataFrame()
 
-        # Unieke combinaties van section_id en failuremechanism
-        unique_combinations = (
-            self.df_in_fragility_curves[["section_id", "failuremechanism"]]
-            .drop_duplicates(subset=["section_id", "failuremechanism"])
-            .reset_index(drop=True)
-        )
-
-        for _, combination in unique_combinations.iterrows():
-            section_id = combination["section_id"]
-            failuremechanism = combination["failuremechanism"]
-
-            # Filter de DataFrames
-            filtered_df_values = self.df_in_belasting[
-                self.df_in_belasting["section_id"] == section_id
-            ].copy()
-            filtered_df_fragility_curves = self.df_in_fragility_curves[
-                (self.df_in_fragility_curves["section_id"] == section_id)
-                & (self.df_in_fragility_curves["failuremechanism"] == failuremechanism)
-            ].copy()
-
-            # Vervang nulwaarden door een kleine positieve waarde
-            small_positive_value = 1e-10
-            filtered_df_fragility_curves["failureprobability"] = (
-                filtered_df_fragility_curves[
-                    "failureprobability"
-                ].replace(0, small_positive_value)
-            )
-
-            x_unique, unique_indices = np.unique(
-                filtered_df_fragility_curves["hydraulicload"], return_index=True
-            )
-            y_unique = filtered_df_fragility_curves["failureprobability"].iloc[
-                unique_indices
+        df = self.df_in_failureprobability.copy()
+        df = df[
+            [
+                "section_id",
+                "failuremechanism_id",
+                "value_parameter_id",
+                "parameter_id",
+                "date_time",
+                "value",
             ]
+        ].reset_index(drop=True)
+        df = df.loc[
+            df.groupby(
+                ["section_id", "failuremechanism_id", "value_parameter_id", "date_time"]
+            )["parameter_id"].idxmax()
+        ]
+        df = df.assign(measureid=0)
 
-            # Logaritmische interpolatie en extrapolatie functie voor failureprobability
-            log_interp_func = interp1d(
-                x_unique, np.log(y_unique), fill_value="extrapolate"
-            )  # type: ignore
-
-            # Toepassen van logaritmische interpolatie en extrapolatie
-            log_failureprobability = log_interp_func(filtered_df_values["value"])
-            filtered_df_values["failureprobability"] = np.exp(log_failureprobability)
-
-            # Voeg de failuremechanism kolom toe
-            filtered_df_values["failuremechanism"] = failuremechanism
-
-            # Vervang kleine positieve waarde door een 0
-            # TODO RW is het nodig om de kans terug te zetten naar 0.0?
-            # filtered_df_values['failureprobability'] = filtered_df_values['failureprobability'].replace(small_positive_value, 0.0)
-
-            # Voeg de gefilterde DataFrame toe aan de hoofd DataFrame
-            self.df_out = pd.concat(
-                [self.df_out, filtered_df_values], ignore_index=True
-            )
+        self.df_out = df[
+            [
+                "section_id",
+                "failuremechanism_id",
+                "parameter_id",
+                "value_parameter_id",
+                "date_time",
+                "value",
+            ]
+        ].reset_index(drop=True)
+        self.df_out = self.df_out.rename(columns={"value": "failureprobability"})
 
         self.data_adapter.output(output=output, df=self.df_out)

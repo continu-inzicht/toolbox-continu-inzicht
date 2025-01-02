@@ -77,47 +77,65 @@ class DataAdapter(PydanticBaseModel):
 
         """
         self.initialize_input_types()  # maak een dictionary van type: functie
-        # haal de input configuratie op van de functie
-        function_input_config = self.config.data_adapters[input]
-        # leid het data type af
-        data_type = function_input_config["type"]
 
-        check_rootdir(self.config.global_variables)
-        check_file_and_path(function_input_config, self.config.global_variables)
+        # initieer een leeg dataframe
+        df = pd.DataFrame()
 
-        # uit het .env bestand halen we de extra waardes en laden deze in de config
-        # .env is een lokaal bestand waar wachtwoorden in kunnen worden opgeslagen, zie .evn.template
-        environmental_variables = {}
-        dotenv_path = None
-        if "dotenv_path" in self.config.global_variables:
-            dotenv_path = self.config.global_variables["dotenv_path"]
+        # controleer of de adapter bestaat
+        if input in self.config.data_adapters:
+            # haal de input configuratie op van de functie
+            function_input_config = self.config.data_adapters[input]
 
-        if load_dotenv(dotenv_path=dotenv_path):
-            environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
-        else:
-            warnings.warn(
-                "A `.env` file is not present in the root directory, continuing without",
-                UserWarning,
-            )
+            # leid het data type af
+            data_type = function_input_config["type"]
 
-        # in eerste instantie alleen beschikbaar voor de data adapters
-        function_input_config.update(environmental_variables)
-        # maar je wilt er  vanuit de functies ook bij kunnen
-        self.config.global_variables.update(environmental_variables)
+            check_rootdir(self.config.global_variables)
+            check_file_and_path(function_input_config, self.config.global_variables)
 
-        # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
-        correspinding_function = self.input_types[data_type]
-        df = correspinding_function(function_input_config)
+            # uit het .env bestand halen we de extra waardes en laden deze in de config
+            # .env is een lokaal bestand waar wachtwoorden in kunnen worden opgeslagen, zie .evn.template
+            environmental_variables = {}
+            dotenv_path = None
+            if "dotenv_path" in self.config.global_variables:
+                dotenv_path = self.config.global_variables["dotenv_path"]
 
-        # Controleer of er data is opgehaald.
-        if len(df) == 0:
-            raise UserWarning("Geen data")
+            if load_dotenv(dotenv_path=dotenv_path):
+                environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
+            else:
+                warnings.warn(
+                    "Het bestand `.env` in niet aanwezig in de hoofdmap, code negeert deze melding.",
+                    UserWarning,
+                )
 
-        # Als schema is meegegeven, controleer of de data aan het schema voldoet.
-        if schema is not None:
-            status, message = validate_dataframe(df=df, schema=schema)
-            if status > 0:
+            # in eerste instantie alleen beschikbaar voor de data adapters
+            function_input_config.update(environmental_variables)
+
+            # maar je wilt er  vanuit de functies ook bij kunnen
+            self.config.global_variables.update(environmental_variables)
+
+            # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
+            if data_type in self.input_types:
+                correspinding_function = self.input_types[data_type]
+                df = correspinding_function(function_input_config)
+
+                # Controleer of er data is opgehaald.
+                if len(df) == 0:
+                    raise UserWarning("Ophalen van gegevens heeft niets opgeleverd.")
+
+                # Als schema is meegegeven, controleer of de data aan het schema voldoet.
+                if schema is not None:
+                    status, message = validate_dataframe(df=df, schema=schema)
+                    if status > 0:
+                        raise UserWarning(message)
+
+            else:
+                # Adapter bestaat niet
+                message = f"Adapter van het type '{data_type}' niet gevonden."
                 raise UserWarning(message)
+        else:
+            # Adapter sleutel staat niet in het yaml-bestand
+            message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
+            raise UserWarning(message)
 
         return df
 

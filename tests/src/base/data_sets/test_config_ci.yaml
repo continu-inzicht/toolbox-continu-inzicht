@@ -23,7 +23,7 @@ DataAdapter:
         schema: "citoolbox_schema"
 
     ci_data:
-        type: ci_postgresql_to_data
+        type: ci_postgresql_measuringstation_to_data
         database: "citoolbox"
         schema: "citoolbox_schema"
         objecttype: "measuringstation"

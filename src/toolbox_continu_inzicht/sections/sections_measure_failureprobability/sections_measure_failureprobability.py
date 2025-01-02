@@ -1,3 +1,7 @@
+"""
+Bepaal de faalkans door een maatregel van een dijkvak
+"""
+
 from pydantic.dataclasses import dataclass
 from scipy.interpolate import interp1d
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
@@ -10,28 +14,55 @@ import pandas as pd
 @dataclass(config={"arbitrary_types_allowed": True})
 class SectionsMeasureFailureprobability:
     """
-    Bepaal de faalkans door maatregel op een dijkvak
+    Bepaal de faalkans door een maatregel van een dijkvak
+
+    ## Input schema's
+    **input_schema_fragility_curves (DataFrame):\n
+    - section_id: int64                 : id van het dijkvak
+    - measure_id: int64                 : id van de maatregel
+    - measure: str                      : naam van de maatregel
+    - failuremechanismid: int64         : id van het faalmechanisme
+    - failuremechanism: str             : code van het faalmechanisme
+    - hydraulicload: float64            : belasting
+    - failureprobability: float64       : faalkans
+    - successrate: float64              : slagingskans van de maatregel
+
+    **input_schema_loads (DataFrame):\n
+    - section_id: int64                 : id van het dijkvak
+    - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
+    - unit: str                         : eenheid van de belastingparameter
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : belasting van de tijdreeksitem
+    - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
+
+    ## Output schema
+    **df_out (DataFrame): uitvoer\n
+    - section_id: int64                 : id van het dijkvak
+    - parameter_id: int64               : id van de faalkans parameter (5,100,101,102)
+    - unit: str                         : eenheid van de belastingparameter
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : belasting van de tijdreeksitem
+    - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
+    - failureprobability float64        : faalkans bepaald voor de tijdreeksitem
+    - failuremechanism: str             : code van het faalmechanisme
+    - measure_id: int                   : id van de maatregel
     """
 
     data_adapter: DataAdapter
 
     df_in_section_loads: Optional[pd.DataFrame] | None = None
-    df_in_fragility_curves: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
+    """DataFrame: tijdreeks met belasting op de dijkvak."""
 
-    # Faalmechanismes:
-    # Code| omschrijving
-    # COMB: Combinatie faalmechanismen
-    # GEKB: Overloop en overslag dijken
-    # STPH: Opbarsten en piping dijken
-    # STBI: Stabiliteit binnenwaarts dijken
-    # HTKW: Overloop en overslag langsconstructies
-    # STKWl: Stabiliteit langsconstructies
-    # PKW: Piping langsconstructies
+    df_in_fragility_curves: Optional[pd.DataFrame] | None = None
+    """DataFrame: fragility curves voor de dijkvak."""
+
+    df_out: Optional[pd.DataFrame] | None = None
+    """DataFrame: uitvoer."""
 
     # fragility curve per dijkvak
     input_schema_fragility_curves = {
         "section_id": "int64",
+        "measure_id": "int64",
         "failuremechanism": "object",
         "hydraulicload": "float64",
         "failureprobability": "float64",
@@ -42,34 +73,20 @@ class SectionsMeasureFailureprobability:
         "section_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
-        "date_time": "datetime64[ns, UTC]",
+        "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
         "value_type": "object",
     }
 
     def run(self, input: list[str], output: str) -> None:
         """
-        Uitvoeren van het bepalen van de faalkans van een dijkvak.
+        Uitvoeren van het bepalen van de faalkans van een dijkvak met maatregel.
 
-        Args:
-            input List(str): [0] fragility curve per dijkvak
-                             [1] belasting per dijkvak
-            output (str): uitvoer sectie van het yaml-bestand:
-                          koppeling van de maatgevende meetlocaties per dijkvak
-
-        Returns: TODO RW aanpassen
-            Dataframe: Pandas dataframe geschikt voor uitvoer:
-            definition:
-                - Meetlocatie id (measurement_location_id)
-                - Meetlocatie code (measurement_location_code)
-                - Meetlocatie omschrijving/naam (measurement_location_description)
-                - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id)
-                - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code)
-                - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description)
-                - Eenheid (unit)
-                - Datum en tijd (date_time)
-                - Waarde (value)
-                - Type waarde: meting of verwachting (value_type)
+        Args:\n
+            input (list[str]): Lijst met namen van configuratie:
+                [0] tijdreeks met belasting op de dijkvak
+                [1] fragility curves voor de dijkvak
+            output (str): uitvoer sectie van het yaml-bestand.
         """
 
         if not len(input) == 2:
@@ -87,19 +104,28 @@ class SectionsMeasureFailureprobability:
             input[1], self.input_schema_loads
         )
 
+        # Datum als string omzetten naar datetime object
+        if not pd.api.types.is_datetime64_any_dtype(self.df_in_belasting["date_time"]):
+            self.df_in_belasting["date_time"] = pd.to_datetime(
+                self.df_in_belasting["date_time"]
+            )
+
         # uitvoer: belasting per dijkvak
         self.df_out = pd.DataFrame()
 
         # Unieke combinaties van section_id en failuremechanism
         unique_combinations = (
-            self.df_in_fragility_curves[["section_id", "failuremechanism"]]
-            .drop_duplicates(subset=["section_id", "failuremechanism"])
+            self.df_in_fragility_curves[
+                ["section_id", "failuremechanism", "measure_id"]
+            ]
+            .drop_duplicates(subset=["section_id", "failuremechanism", "measure_id"])
             .reset_index(drop=True)
         )
 
         for _, combination in unique_combinations.iterrows():
             section_id = combination["section_id"]
             failuremechanism = combination["failuremechanism"]
+            measure_id = combination["measure_id"]
 
             # Filter de DataFrames
             filtered_df_values = self.df_in_belasting[
@@ -136,6 +162,7 @@ class SectionsMeasureFailureprobability:
 
             # Voeg de failuremechanism kolom toe
             filtered_df_values["failuremechanism"] = failuremechanism
+            filtered_df_values["measure_id"] = measure_id
 
             # Vervang kleine positieve waarde door een 0
             # TODO RW is het nodig om de kans terug te zetten naar 0.0?

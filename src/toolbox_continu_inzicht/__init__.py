@@ -24,6 +24,7 @@ __all__ = [
     "fragility_curve",
     "FragilityCurve",
     "loads",
+    "sections",
     "proof_of_concept",
     "base",
     "sections",

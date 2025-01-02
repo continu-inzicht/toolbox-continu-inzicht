@@ -9,9 +9,21 @@ def validate_dataframe(df: pd.DataFrame, schema: Dict) -> Tuple[int, str]:
     actual_dtypes = df.dtypes.to_dict()
 
     columns_match = set(expected_columns).issubset(set(actual_columns))
+
+    def dtype_match(expected_dtype, actual_dtype):
+        if isinstance(expected_dtype, list):
+            return actual_dtype in expected_dtype
+        return expected_dtype == actual_dtype
+
     dtypes_match = all(
-        schema[key] == actual_dtypes[key] for key in schema if key in actual_dtypes
+        dtype_match(schema[key], actual_dtypes[key])
+        for key in schema
+        if key in actual_dtypes
     )
+
+    # dtypes_match = all(
+    #     schema[key] == actual_dtypes[key] for key in schema if key in actual_dtypes
+    # )
 
     if columns_match and dtypes_match:
         return 0, "DataFrame is geldig."
