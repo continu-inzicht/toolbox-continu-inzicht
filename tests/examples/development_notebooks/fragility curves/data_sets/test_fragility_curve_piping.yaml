@@ -5,7 +5,7 @@ GlobalVariables:
     FragilityCurvePipingFixedWaterlevelCombined:
         debug: False
         progress: True
-    
+
     FragilityCurvePipingFixedWaterlevel:
         debug: False
         progress: True
@@ -15,7 +15,7 @@ DataAdapter:
     default_options:
         csv:
             sep: ","
-        
+
     probabilistic_input:
         type: excel
         file: "invoer_piping_v2.xlsx"
