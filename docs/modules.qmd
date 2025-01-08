@@ -682,7 +682,7 @@ fragility_curve_piping_fixed_waterlevel.run(
 
 #### FragilityCurvePipingFixedWaterlevelSimple {#sec-Bepalen-fragility-curves-STPH-combined}
 
-De functie `FragilityCurvePipingFixedWaterlevelSimple` rekent met alle beschikbare grenstoestanden benoemd bij [`FragilityCurvePipingFixedWaterlevel`](#sec-Bepalen-fragility-curves-STPH-single) en geeft de curve gecombineerde terug. Het verschil zit in hoe de curves worden gecombineerd. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. Dit is een simplere manier vergeleken met `FragilityCurvePipingFixedWaterlevel`. 
+De functie `FragilityCurvePipingFixedWaterlevelSimple` rekent met alle beschikbare grenstoestanden benoemd bij [`FragilityCurvePipingFixedWaterlevel`](#sec-Bepalen-fragility-curves-STPH-single) en geeft de curve gecombineerde terug. Het verschil zit in hoe de curves worden gecombineerd. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. Dit is een simplere manier vergeleken met `FragilityCurvePipingFixedWaterlevel`.
 
 ::: {.panel-tabset}
 ## Configuratie

@@ -10,7 +10,7 @@ DataAdapter:
     default_options:
         csv:
             sep: ","
-        
+
     probabilistic_input:
         type: excel
         file: "invoer_multiple_piping_sections.xlsx"
@@ -20,5 +20,3 @@ DataAdapter:
     fragility_curves:
         type: csv
         file: "fragility_multiple_curves_piping.csv"
-
-
