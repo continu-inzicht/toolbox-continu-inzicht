@@ -1,0 +1,33 @@
+Beschrijving,Waarde,Kansverdeling,Verschuiving,Mean,Spreiding,Spreidingstype,Afknot_links,Afknot_rechts,Min,Step,Max,StDev
+D -- Dikte pipinggevoelige zandlaag (aquifer) [m],4.44234,Lognormaal,0.0,9.0,0.5,Standaardafwijking,,,,,,0.5
+D_cover -- Dikte (cohesieve) deklaag in [m],3.12096,Lognormaal,0.0,4.0,0.5,Standaardafwijking,,,,,,0.5
+d_70 -- 70% kwantiel korrelgrootte van pipinggevoelige zandlaag [m],1.88016e-07,Lognormaal,0.0,0.000161,0.12,Variatiecoëfficiënt,,,,,,1.932e-05
+"eta -- White's weerstandscoefficient (sleepkrachtfactor, constante van White) [-]",0.282277,Lognormaal,0.0,0.27,0.001,Standaardafwijking,,,,,,0.001
+gamma_sat -- Verzadigd gewicht deklaag [kN/m^3]. Gewogen gemiddelde voor meerdere lagen.,13.4991,Lognormaal,10.0,17.0,0.05,Variatiecoëfficiënt,,,,,,0.8500000000000001
+h_exit -- Kwelslootpeil / polderpeil [m],0.0996889,Normaal,0.0,-1.5,0.1,Standaardafwijking,,,,,,0.1
+i_ch -- Kritieke heavegradiënt [-],0.22333,Lognormaal,0.0,0.5,0.1,Standaardafwijking,,,,,,0.1
+k -- Doorlatendheid zandlaag [m/s] (intrinsieke doorlatendheid van de bovenste zandlaag),4.75458e-09,Lognormaal,0.0,0.00012,0.25,Variatiecoëfficiënt,,,,,,3e-05
+L -- Kwelweglengte [m],88.0597,Lognormaal,0.0,115.8,0.0333,Variatiecoëfficiënt,,,,,,3.8561400000000003
+m_p -- Modelfactor piping (onzekerheid piping) [-],0.996009,Normaal,0.0,1.0,0.08,Standaardafwijking,,,,,,0.08
+m_u -- Modelfactor uplift (onzekerheid uplift) [-],0.994455,Normaal,0.0,1.0,0.1,Standaardafwijking,,,,,,0.1
+r_exit -- Dempingsfactor bij uitgang (dempingsfactor over de afstand intredepunt-uittredepunt) [-],0.793916,Lognormaal,0.0,0.8,0.1,Variatiecoëfficiënt,,,,,,0.08000000000000002
+theta -- Rolweerstandshoek [graden],42.8826,Lognormaal,0.0,37.0,0.01,Standaardafwijking,,,,,,0.01
+h -- Buitenwaterstand [in NAP+m],5,geen stochast,,,,Standaardafwijking,,,0.0,0.1,20.0,
+d_70m -- Gemiddelde waarde korrelgrootte van 70e kwantiel [m],0.000208,geen stochast,,,,Standaardafwijking,,,,,,
+g -- Zwaartekrachtversnelling (kN/m^3),9.81,geen stochast,,,,Standaardafwijking,,,,,,
+gamma_water -- Dichtheid water (volumiek gewicht water) [kN/m^3],10,geen stochast,,,,Standaardafwijking,,,,,,
+r_c -- Reductiefactor [--],0.3,geen stochast,,,,Standaardafwijking,,,,,,
+v -- Kinematische viscositeit [m^2/s],1.33e-06,geen stochast,,,,Standaardafwijking,,,,,,
+gamma_sp -- Volumieke dichtheid zand onder water [kN/m^3],16.19,geen stochast,,,,Standaardafwijking,,,,,,
+terugkeertijd norm voor de berekening (alleen voor semiprob),300,geen stochast,,,,Standaardafwijking,,,,,,
+"Rekentechniek solver faalkans (FORM, MC, IS, DS, …)",FORM AbdoRackwitz,rekeninstelling,,,,,,,,,,
+startpunt bepaling voor FORM,mean,rekeninstelling,,,,,,,,,,
+Convergentiecriterium solver: maximale toegestane absolute fout,0.01,rekeninstelling,,,,,,,,,,
+Convergentiecriterium solver: maximale toegestane relatieve fout,0.01,rekeninstelling,,,,,,,,,,
+Convergentiecriterium solver: maximale toegestane residuele fout,1e-05,rekeninstelling,,,,,,,,,,
+Convergentiecriterium solver: maximale toegestane fout in de restricties,0.01,rekeninstelling,,,,,,,,,,
+Convergentiecriterium solver: maximum toegestane aantal iteraties,100,rekeninstelling,,,,,,,,,,
+Convergentiecriterium solver: maximum aantal evaluaties,1000000000,rekeninstelling,,,,,,,,,,
+Convergentiecriterium Monte Carlo/Directional sampling,0.1,rekeninstelling,,,,,,,,,,
+Aantal samples die simultaan doorgerekend kunnen worden,1000,rekeninstelling,,,,,,,,,,
+Maximum aantal samples Monte Carlo / Directional sampling,1000,rekeninstelling,,,,,,,,,,

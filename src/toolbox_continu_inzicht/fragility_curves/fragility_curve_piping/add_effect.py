@@ -1,11 +1,12 @@
 from toolbox_continu_inzicht import DataAdapter
 from toolbox_continu_inzicht.fragility_curves import (
-    FragilityCurvePipingFixedWaterlevel,
-    FragilityCurvePipingFixedWaterlevelCombined,
+    FragilityCurvePipingFixedWaterlevelSimple,
 )
 
 
-class ShiftFragilityCurvePipingFixedWaterlevel(FragilityCurvePipingFixedWaterlevel):
+class ShiftFragilityCurvePipingFixedWaterlevel(
+    FragilityCurvePipingFixedWaterlevelSimple
+):
     """Verschuift de fragility curve voor piping met een constante water niveau met een gegeven effect"""
 
     data_adapter: DataAdapter
@@ -45,7 +46,7 @@ class ShiftFragilityCurvePipingFixedWaterlevel(FragilityCurvePipingFixedWaterlev
 
 
 class ShiftFragilityCurvePipingFixedWaterlevelSimple(
-    FragilityCurvePipingFixedWaterlevelCombined
+    FragilityCurvePipingFixedWaterlevelSimple
 ):
     """Verschuift de fragility curve voor piping met een constante water niveau (simple) met een gegeven effect"""
 

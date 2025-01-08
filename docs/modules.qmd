@@ -631,7 +631,7 @@ fragility_curve_overtopping.run(
 Voor het bereken van fragility curves voor piping (STPH) wordt gebruik gemaakt van de python module [`probabilistic_piping`](https://pypi.org/project/pydra-core/). Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikaar gemaakt op [github](https://github.com/HKV-products-services/probabilistic_piping). De documentatie van deze module is daar ook te vinden.
 
 #### FragilityCurvePipingFixedWaterlevel{#sec-Bepalen-fragility-curves-STPH-single}
-Een fragility curve kan berekend door de functie `FragilityCurvePipingFixedWaterlevel` aan te roepen. Hier zijn twee dataframes voor nodig: de eeste met informatie over de probabilitische berekening, de tweede met een reeks waterstanden waarvoor de fragility curve wordt afgeleid. Als opties kunnen debug en progress opties worden opgegeven in de `config.yaml`, standaard staan deze uit. De type functie die gebruikt wordt voor de grenstoestand (`z_type`) kan worden mee geven als optie, standaard is dit 'sellmeijer' maar kan ook aangepast worden naar 'heave', 'uplift' of 'combi'.
+Een fragility curve kan berekend door de functie `FragilityCurvePipingFixedWaterlevel` aan te roepen. Hier zijn twee dataframes voor nodig: de eeste met informatie over de probabilitische berekening, de tweede met een reeks waterstanden waarvoor de fragility curve wordt afgeleid. Als opties kunnen debug en progress opties worden opgegeven in de `config.yaml`, standaard staan deze uit. De type functie die gebruikt wordt voor de grenstoestand (`z_type`) kan worden mee geven als optie, standaard is dit 'sellmeijer' maar kan ook aangepast worden naar 'heave', 'uplift' of 'combi'. Bij het combineren van wordt het minimum van de drie sub-mechanismes genomen in de grenstoestand functie.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -652,7 +652,7 @@ DataAdapter:
 
     probabilistic_input:
         type: excel
-        file: "invoer_piping_v2.xlsx"
+        file: "invoer_piping.xlsx"
         index_col: 0
     waterlevels:
         type: csv
@@ -680,9 +680,9 @@ fragility_curve_piping_fixed_waterlevel.run(
 ```
 :::
 
-#### FragilityCurvePipingFixedWaterlevelCombined {#sec-Bepalen-fragility-curves-STPH-combined}
+#### FragilityCurvePipingFixedWaterlevelSimple {#sec-Bepalen-fragility-curves-STPH-combined}
 
-De functie `FragilityCurvePipingFixedWaterlevelCombined` rekent met alle beschikbare grenstoestanden benoemd bij [`FragilityCurvePipingFixedWaterlevel`](#sec-Bepalen-fragility-curves-STPH-single) en geeft de curve gecombineerde terug.
+De functie `FragilityCurvePipingFixedWaterlevelSimple` rekent met alle beschikbare grenstoestanden benoemd bij [`FragilityCurvePipingFixedWaterlevel`](#sec-Bepalen-fragility-curves-STPH-single) en geeft de curve gecombineerde terug. Het verschil zit in hoe de curves worden gecombineerd. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. Dit is een simplere manier vergeleken met `FragilityCurvePipingFixedWaterlevel`. 
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -690,7 +690,7 @@ De functie `FragilityCurvePipingFixedWaterlevelCombined` rekent met alle beschik
 GlobalVariables:
     rootdir: "data_sets"
 
-    FragilityCurvePipingFixedWaterlevelCombined:
+    FragilityCurvePipingFixedWaterlevelSimple:
         debug: False
         progress: True
 
@@ -702,7 +702,7 @@ DataAdapter:
 
     probabilistic_input:
         type: excel
-        file: "invoer_piping_v2.xlsx"
+        file: "invoer_piping.xlsx"
         index_col: 0
     waterlevels:
         type: csv
@@ -716,12 +716,12 @@ DataAdapter:
 ## Code
 ```python
 from toolbox_continu_inzicht import Config, DataAdapter
-from toolbox_continu_inzicht.fragility_curves import FragilityCurvePipingFixedWaterlevelCombined
+from toolbox_continu_inzicht.fragility_curves import FragilityCurvePipingFixedWaterlevelSimple
 
 config = Config(config_path="config.yaml")
 config.lees_config()
 data_adapter = DataAdapter(config=config)
-fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevelCombined(data_adapter=data_adapter)
+fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevelSimple(data_adapter=data_adapter)
 fragility_curve_piping_fixed_waterlevel.run(
     input=["probabilistic_input", "waterlevels"],
     output="fragility_curves",
