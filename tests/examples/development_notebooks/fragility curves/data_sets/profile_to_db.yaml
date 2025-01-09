@@ -1,0 +1,46 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes_multiple.csv"
+    profiles:
+        type: csv
+        file: "profiles_multiple.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch_multiple.csv"
+    
+    slopes_db:
+        type: ci_postgresql_slopes
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+    profiles_db:
+        type: ci_postgresql_profiles
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+    bedlevel_fetch_db:
+        type: ci_postgresql_bedlevelfetch
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    slopes_db_in:
+        type: postgresql_database
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        table: "slopes"
+    profiles_db_in:
+        type: postgresql_database
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        table: "profiles"
+    bedlevel_fetch_db_in:
+        type: postgresql_database
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        table: "bedlevelfetch"

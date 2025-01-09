@@ -4,6 +4,9 @@ Data adapters voor het lezen van data uit de Continu Inzicht database
 
 import pandas as pd
 import sqlalchemy
+from toolbox_continu_inzicht.base.adapters.input.postgresql import (
+    input_postgresql_database,
+)
 
 
 def input_ci_postgresql_measure_fragilitycurves_table(
@@ -195,4 +198,34 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
     # verbinding opruimen
     engine.dispose()
 
+    return df
+
+
+# overtopping:
+def input_ci_postgresql_profiles(input_config: dict) -> pd.DataFrame:
+    """leest profile data van postgresql database in de profile tabel & zet namen goed."""
+    input_config["table"] = "profiles"
+    # hernoemen van de kolom section_id naar profile_id
+
+    df = input_postgresql_database(input_config)
+    df.rename(columns={"profileid": "section_id"}, inplace=True)
+    return df
+
+
+def input_ci_postgresql_slopes(input_config: dict) -> pd.DataFrame:
+    """leest slopes data van postgresql database in de slopes tabel  & zet namen goed."""
+    input_config["table"] = "slopes"
+    # hernoemen van de kolom section_id naar sectionid
+
+    df = input_postgresql_database(input_config)
+    df.rename(columns={"sectionid": "section_id"}, inplace=True)
+    return df
+
+
+def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
+    """leest bedlevelfetch data van postgresql database in de bedlevelfetch tabel  & zet namen goed."""
+    input_config["table"] = "bedlevelfetch"
+    # hernoemen van de kolom section_id naar sectionid
+    df = input_postgresql_database(input_config)
+    df.rename(columns={"sectionid": "section_id"}, inplace=True)
     return df
