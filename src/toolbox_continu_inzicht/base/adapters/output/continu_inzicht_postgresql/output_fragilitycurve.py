@@ -24,8 +24,8 @@ def output_ci_postgresql_fragilitycurves_table(
     )
     columns = {"failuremechanismid": 0, "measureid": 0, "timedep": 0, "degradatieid": 0}
     for col in columns:
-        df[col] = columns[col]
-        schema = output_config["schema"]
+        if col not in df.columns:
+            df[col] = columns[col]
 
     # check all required variables are availible from the .env file
     keys = [

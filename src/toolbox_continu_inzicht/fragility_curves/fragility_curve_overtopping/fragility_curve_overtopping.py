@@ -268,7 +268,8 @@ class FragilityCurvesOvertopping(FragilityCurve):
     df_out: Optional[pd.DataFrame] | None = None
 
     fragility_curve_function: FragilityCurve = FragilityCurveOvertopping
-    effect: None | float = None
+    effect: float | None = None
+    measure_id: int | None = None
 
     # TODO: add, first think about what to do with ids
     # input_schema_slopes = {
@@ -412,4 +413,7 @@ class FragilityCurvesOvertopping(FragilityCurve):
             else:
                 self.df_out = pd.concat([self.df_out, df_fco])
 
+        self.df_out["failuremechanismid"] = 2  # GEKB: komt uit de
+        if self.measure_id is not None:
+            self.df_out["measureid"] = self.measure_id
         self.data_adapter.output(output=output, df=self.df_out)

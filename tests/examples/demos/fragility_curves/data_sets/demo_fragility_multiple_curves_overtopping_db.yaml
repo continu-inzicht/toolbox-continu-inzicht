@@ -15,15 +15,17 @@ DataAdapter:
         type: ci_postgresql_profiles
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-    
+
     bedlevel:
         type: ci_postgresql_bedlevelfetch
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-    
+
     fragility_curves:
-        # type: csv
-        # file: "test.csv"
         type: ci_postgresql_fragilitycurves_table
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
+
+    fragility_curves_csv:
+        type: csv
+        file: "test.csv"

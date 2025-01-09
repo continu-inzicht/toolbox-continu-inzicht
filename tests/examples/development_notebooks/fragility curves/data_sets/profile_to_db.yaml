@@ -15,7 +15,7 @@ DataAdapter:
     bedlevel_fetch:
         type: csv
         file: "bedlevelfetch_multiple.csv"
-    
+
     slopes_db:
         type: ci_postgresql_slopes
         database: "geoserver"
