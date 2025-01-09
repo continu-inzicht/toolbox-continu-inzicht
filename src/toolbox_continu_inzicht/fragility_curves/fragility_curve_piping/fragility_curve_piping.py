@@ -293,6 +293,13 @@ class FragilityCurvesPiping:
     df_waterlevels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
+    # makes it possible to add effect to these.
+    fragility_curve_function: FragilityCurve = FragilityCurvePipingFixedWaterlevel
+
+    fragility_curve_function_simple: FragilityCurve = (
+        FragilityCurvePipingFixedWaterlevelSimple
+    )
+
     def run(self, input: list[str], output: str) -> None:
         """
         Runt de berekening van de fragility curves voor piping
@@ -386,12 +393,14 @@ class FragilityCurvesPiping:
                 temp_data_adapter.set_dataframe_adapter(
                     "waterlevels", self.df_waterlevels, if_not_exist="create"
                 )
-
+                temp_data_adapter.set_dataframe_adapter(
+                    "output", pd.DataFrame(), if_not_exist="create"
+                )
                 if combination_type == "minimum_probabilities":
                     temp_data_adapter.config.global_variables[
                         "FragilityCurvePipingFixedWaterlevelSimple"
                     ] = {}
-                    fragility_curve = FragilityCurvePipingFixedWaterlevelSimple(
+                    fragility_curve = self.fragility_curve_function_simple(
                         data_adapter=temp_data_adapter
                     )
 
@@ -400,11 +409,11 @@ class FragilityCurvesPiping:
                     temp_data_adapter.config.global_variables[
                         "FragilityCurvePipingFixedWaterlevel"
                     ] = {"z_type": mechanism}
-                    fragility_curve = FragilityCurvePipingFixedWaterlevel(
+                    fragility_curve = self.fragility_curve_function(
                         data_adapter=temp_data_adapter
                     )
 
-                fragility_curve.run(input=["df_prob", "waterlevels"], output="df_prob")
+                fragility_curve.run(input=["df_prob", "waterlevels"], output="output")
                 df_fc = fragility_curve.df_out
                 df_fc["section_id"] = section_id
                 df_fc["scenario_id"] = scenario_id

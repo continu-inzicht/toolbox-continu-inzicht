@@ -1,0 +1,23 @@
+GlobalVariables:
+    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping/data_sets"
+    moments: [-24,0,24,48]
+
+    FragilityCurvesOvertopping:
+        gh_onz_mu: 0.96 # default waarde
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes_multiple.csv"
+    profiles:
+        type: csv
+        file: "profiles_multiple.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch_multiple.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_curves_multiple.csv"
