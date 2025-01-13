@@ -10,14 +10,14 @@ DataAdapter:
         csv:
             sep: ","
 
-    in_section_fragilitycurves: 
+    in_section_fragilitycurves:
         type: csv
         path: "test_sections_technical_failureprobability_fragility_curves.csv"
 
-    in_section_load: 
+    in_section_load:
         type: csv
         path: "test_sections_technical_failureprobability_load.csv"
 
-    out_section_failureprobability: 
+    out_section_failureprobability:
         type: csv
         path: "hidden_sections_technical_failureprobability.csv"

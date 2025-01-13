@@ -131,4 +131,3 @@ quartodoc:
        - output_measuringstation  # measuringstation
        - output_section           # section
        - output_calculation       # calculation
-

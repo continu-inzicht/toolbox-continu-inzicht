@@ -1,0 +1,22 @@
+GlobalVariables:
+    rootdir: "tests/src/fragility_curves/fragility_curves_piping/data_sets"
+    moments: [-24,0,24,48]
+
+    FragilityCurvesPiping:
+        combination_type: minimum_probabilities
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    probabilistic_input:
+        type: excel
+        file: "invoer_multiple_piping_sections.xlsx"
+    waterlevels:
+        type: csv
+        file: "waterlevels.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_multiple_curves_piping.csv"

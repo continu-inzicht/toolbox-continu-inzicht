@@ -3,12 +3,13 @@ import pandas as pd
 import numpy as np
 from toolbox_continu_inzicht.base.data_adapter import Config, DataAdapter
 from toolbox_continu_inzicht.fragility_curves import (
+    FragilityCurvePipingFixedWaterlevelSimple,
     FragilityCurvePipingFixedWaterlevel,
-    FragilityCurvePipingFixedWaterlevelCombined,
+    FragilityCurvesPiping,
 )
 
 
-def test_fragility_curve_piping():
+def test_fragility_curve_piping_simple():
     path = Path(__file__).parent / "data_sets"
     config = Config(config_path=path / "test_fragility_curve_piping.yaml")
     config.lees_config()
@@ -21,27 +22,31 @@ def test_fragility_curve_piping():
         input=["probabilistic_input", "waterlevels"], output="fragility_curve"
     )
     # compare to stored result
-    df_results = pd.read_csv(path / "result_test_fragility_curve_piping.csv")
+    df_exp_results = pd.read_csv(path / "full_test_output.csv")
+    # df_exp_results.prob_cond = df_exp_results.prob_cond.astype(float)
+    # a_tol en r_tol zijn wel hoog zo?
     assert np.isclose(
         fragility_curve_piping_fixed_waterlevel.df_out.failure_probability.to_list(),
-        df_results.failure_probability.to_list(),
+        df_exp_results.prob_cond.to_list(),
+        atol=1e-8,
+        rtol=1e-8,
     ).all()
 
 
-def test_fragility_curve_pipingCombined():
+def test_fragility_curve_piping_normal():
     path = Path(__file__).parent / "data_sets"
     config = Config(config_path=path / "test_fragility_curve_piping.yaml")
     config.lees_config()
     data_adapter = DataAdapter(config=config)
 
-    fragility_curve_piping_fixed_waterlevel = (
-        FragilityCurvePipingFixedWaterlevelCombined(data_adapter=data_adapter)
+    fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevelSimple(
+        data_adapter=data_adapter
     )
     fragility_curve_piping_fixed_waterlevel.run(
         input=["probabilistic_input", "waterlevels"], output="fragility_curve"
     )
     # compare to stored result
-    df_results = pd.read_csv(path / "results_test_fragility_curve_piping_combined.csv")
+    df_exp_results = pd.read_csv(path / "full_test_output_simple.csv")
     for attr, col_result in zip(
         [
             "df_result_uplift",
@@ -50,15 +55,37 @@ def test_fragility_curve_pipingCombined():
             "df_result_combined",
         ],
         [
-            "uplift",
-            "heave",
-            "sellmeijer",
-            "combined",
+            "prob_uplift",
+            "prob_heave",
+            "prob_sellmeijer",
+            "prob_cond",
         ],
     ):
         assert np.isclose(
             fragility_curve_piping_fixed_waterlevel.__getattribute__(
                 attr
             ).failure_probability.to_list(),
-            df_results[col_result].to_list(),
+            df_exp_results[col_result].to_list(),
+            atol=1e-8,
+            rtol=1e-8,
         ).all()
+
+
+def test_fragility_curve_piping_multiple_sections():
+    path = Path(__file__).parent / "data_sets"
+    config = Config(config_path=path / "test_fragility_multiple_curves_piping.yaml")
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
+
+    fragility_curve_piping = FragilityCurvesPiping(data_adapter=data_adapter)
+    fragility_curve_piping.run(
+        input=["probabilistic_input", "waterlevels"], output="fragility_curves"
+    )
+    # compare to stored result
+    df_exp_results = pd.read_csv(path / "test_output_multiple.csv")
+    assert np.isclose(
+        fragility_curve_piping.df_out.failure_probability.to_list(),
+        df_exp_results.failure_probability.to_list(),
+        atol=1e-8,
+        rtol=1e-8,
+    ).all()

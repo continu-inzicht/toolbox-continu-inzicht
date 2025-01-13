@@ -5,3 +5,4 @@ from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.out
 from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_simulation import *  # noqa: F403
 from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_dikesystem import *  # noqa: F403
 from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_segment import *  # noqa: F403
+from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_fragilitycurve import *  # noqa: F403
