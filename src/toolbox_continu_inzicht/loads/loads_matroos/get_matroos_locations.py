@@ -14,7 +14,7 @@ def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame:
         params["unit"] = parameter
 
     status, geojson_data = fetch_data_get(
-        url=url, params=params, mime_type="json", timeout=180
+        url=url, params=params, mime_type="json", timeout=30
     )
 
     if status is None and geojson_data is not None:
