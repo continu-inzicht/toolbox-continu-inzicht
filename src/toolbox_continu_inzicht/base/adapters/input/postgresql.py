@@ -57,7 +57,7 @@ def input_postgresql_database(input_config: dict) -> pd.DataFrame:
         query = query.replace("{{schema}}", schema).replace("{{table}}", table)
 
     elif "table" in input_config:
-        query = f"SELECT * FROM {input_config['schema']}.{input_config["table"]};"
+        query = f"SELECT * FROM {input_config['schema']}.{input_config['table']};"
     else:
         raise UserWarning(
             "De parameter 'table' en/ of 'query' zijn niet in de DataAdapter gedefinieerd."

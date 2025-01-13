@@ -11,6 +11,8 @@ from probabilistic_piping import (
 from toolbox_continu_inzicht import FragilityCurve, DataAdapter, Config
 
 
+# TODO: pas dit aan naar FragilityCurvePipingFixedWaterlevelSimplePerSection, en maak FragilityCurvePipingFixedWaterlevelSimple standaard voor meerdere secties
+# (net als bij  calculate_combined_curve)
 @dataclass(config={"arbitrary_types_allowed": True})
 class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
     """
@@ -92,6 +94,7 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
         self.df_prob_input = self.data_adapter.input(input[0])
         self.df_waterlevels = self.data_adapter.input(input[1])
 
+        # TODO: vanaf hier refactor naar een aparte functie zodat deze ook gebruikt kan worden in FragilityCurves
         # sommige opties niet nodig maar kan wel gaan zeuren dus maak None
         for col in ["Afknot_links", "Afknot_rechts", "Min", "Step", "Max"]:
             if col not in self.df_prob_input.columns:

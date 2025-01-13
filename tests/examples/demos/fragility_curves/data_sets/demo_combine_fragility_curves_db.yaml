@@ -1,0 +1,28 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    fragility_curve_pipping:
+        type: ci_postgresql_fragilitycurves_pipping
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    fragility_curve_overtopping:
+        type: ci_postgresql_fragilitycurves_overtopping
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    fragility_curves:
+        type: ci_postgresql_fragilitycurves_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    fragility_curves_csv:
+        type: csv
+        file: "test.csv"

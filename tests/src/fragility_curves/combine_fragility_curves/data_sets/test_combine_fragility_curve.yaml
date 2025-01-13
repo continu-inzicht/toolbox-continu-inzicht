@@ -1,0 +1,31 @@
+GlobalVariables:
+    rootdir: "tests/src/fragility_curves/combine_fragility_curves/data_sets"
+    moments: [-24,0,24,48]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    # used to quickly generate test data
+    fragility_curve_pipping:
+        type: ci_postgresql_fragilitycurves_pipping
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    fragility_curve_overtopping:
+        type: ci_postgresql_fragilitycurves_overtopping
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+    
+    # csv used for test
+    fragility_curve_pipping_csv:
+        type: csv
+        file: "fragility_curve_pipping.csv"
+    
+    fragility_curve_overtopping_csv:
+        type: csv
+        file: "fragility_curve_overtopping.csv"
+
+    fragility_curves:
+        type: csv
+        file: "fragility_curve_combined.csv"
