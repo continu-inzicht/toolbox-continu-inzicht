@@ -56,12 +56,12 @@ def input_ci_postgresql_whatif_scenario(input_config: dict) -> pd.DataFrame:
 
     schema = input_config["schema"]
     query = f"""
-        SELECT 
-            id AS scenario_id, 
-            name AS scenario_name, 
-            min AS scenario_min_date_time, 
-            max AS scenario_max_date_time, 
-            step AS scenario_time_step 
+        SELECT
+            id AS scenario_id,
+            name AS scenario_name,
+            min AS scenario_min_date_time,
+            max AS scenario_max_date_time,
+            step AS scenario_time_step
         FROM {schema}.scenarios;
     """
 
@@ -125,12 +125,12 @@ def input_ci_postgresql_whatif_load(input_config: dict) -> pd.DataFrame:
 
     schema = input_config["schema"]
     query = f"""
-        SELECT 
+        SELECT
             waterlevels.measuringstationid AS measuringstation_id,
-            waterlevels.scenarioid AS scenario_id, 
-            waterlevels.datetime AS date_time, 
-            waterlevels.value, 
-            waterlevels.parameter 
+            waterlevels.scenarioid AS scenario_id,
+            waterlevels.datetime AS date_time,
+            waterlevels.value,
+            waterlevels.parameter
         FROM {schema}.simulation AS simulation
         INNER JOIN {schema}.waterlevels AS waterlevels ON waterlevels.scenarioid=simulation.scenarioid;
     """

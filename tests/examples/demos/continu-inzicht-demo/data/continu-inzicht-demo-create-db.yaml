@@ -1,18 +1,18 @@
 GlobalVariables:
-    rootdir: "D:/Users/Thonus/mijnSoftware/Toolbox Continu Inzicht/toolbox-continu-inzicht/tests/examples/demos/continu-inzicht-demo/data"          
+    rootdir: "D:/Users/Thonus/mijnSoftware/Toolbox Continu Inzicht/toolbox-continu-inzicht/tests/examples/demos/continu-inzicht-demo/data"
     calc_time: "1901-01-01"
-    moments: [-24,0,24,48] 
+    moments: [-24,0,24,48]
 
-DataAdapter: 
+DataAdapter:
     default_options:
         csv:
             sep: ","
-    
+
     in_dikesystems_geojson:
         type: shape
         path: "dikesystems.geojson"
 
-    out_dikesystems_table:   
+    out_dikesystems_table:
         type: ci_postgresql_dikesystem
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
@@ -21,7 +21,7 @@ DataAdapter:
         type: shape
         path: "segments.geojson"
 
-    out_segments_table:   
+    out_segments_table:
         type: ci_postgresql_segment
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
@@ -30,7 +30,7 @@ DataAdapter:
         type: shape
         path: "sections.geojson"
 
-    out_sections_table:   
+    out_sections_table:
         type: ci_postgresql_section
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
