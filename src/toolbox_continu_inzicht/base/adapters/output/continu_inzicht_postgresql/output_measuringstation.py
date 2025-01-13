@@ -318,13 +318,13 @@ def output_ci_postgresql_to_measuringstation(
             area_geometry_rows = df[df["area_geometry"].isna()]
             for _, row in area_geometry_rows.iterrows():
                 query.append(
-                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide) VALUES ({str(row["id"])}, '{row["name"]}', '{row["code"]}', '{row["source"]}', '{str(row["geometry"])}', {str(row["tide"])});"
+                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide) VALUES ({str(row['id'])}, '{row['name']}', '{row['code']}', '{row['source']}', '{str(row['geometry'])}', {str(row['tide'])});"
                 )
 
             non_area_geometry_rows = df[df["area_geometry"].notna()]
             for _, row in non_area_geometry_rows.iterrows():
                 query.append(
-                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide, area_geometry)	VALUES ({str(row["id"])}, '{row["name"]}', '{row["code"]}', '{row["source"]}', '{str(row["geometry"])}', {str(row["tide"])}, '{str(row["area_geometry"])}');"
+                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide, area_geometry)	VALUES ({str(row['id'])}, '{row['name']}', '{row['code']}', '{row['source']}', '{str(row['geometry'])}', {str(row['tide'])}, '{str(row['area_geometry'])}');"
                 )
 
             # maak verbinding object

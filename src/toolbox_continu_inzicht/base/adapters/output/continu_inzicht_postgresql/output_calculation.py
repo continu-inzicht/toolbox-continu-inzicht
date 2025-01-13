@@ -63,7 +63,7 @@ def output_ci_postgresql_to_calculation_start(
 
             for _, row in df.iterrows():
                 query.append(
-                    f"UPDATE {schema}.moments SET calctime={str(row["calctime"])} WHERE id={str(row["moment_id"])};"
+                    f"UPDATE {schema}.moments SET calctime={str(row['calctime'])} WHERE id={str(row['moment_id'])};"
                 )
 
             # maak verbinding object

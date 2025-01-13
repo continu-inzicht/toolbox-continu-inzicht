@@ -568,7 +568,7 @@ def output_ci_postgresql_section(output_config: dict, df: pd.DataFrame) -> None:
 
             for _, row in df.iterrows():
                 query.append(
-                    f"INSERT INTO {schema}.sections(id, segmentid, name, geometry) VALUES ({str(row["id"])}, {str(row["segmentid"])}, '{str(row["name"])}', '{str(row["geometry"])}');"
+                    f"INSERT INTO {schema}.sections(id, segmentid, name, geometry) VALUES ({str(row['id'])}, {str(row['segmentid'])}, '{str(row['name'])}', '{str(row['geometry'])}');"
                 )
 
             # maak verbinding object
