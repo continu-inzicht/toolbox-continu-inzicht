@@ -17,6 +17,11 @@ class FragilityCurve:
     data_adapter: DataAdapter
     df_out: Optional[pd.DataFrame] | None = None
 
+    fragility_curve_schema = {
+        "waterlevels": float,
+        "failure_probability": float,
+    }
+
     def run(self, *args, **kwargs):
         self.calculate_fragility_curve(*args, **kwargs)
 
@@ -28,6 +33,10 @@ class FragilityCurve:
         """Geeft curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst"""
         arr = self.df_out[["waterlevels", "failure_probability"]].to_numpy()
         return arr
+
+    def load(self, input: str):
+        """Laad een fragility curve in"""
+        self.df_out = self.data_adapter.input(input, schema=self.fragility_curve_schema)
 
     def shift(self, effect):
         """Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleer de faalkansen
@@ -49,7 +58,7 @@ class FragilityCurve:
 
     def refine(self, waterlevels):
         """Interpolleer de fragility curve op de gegeven waterstanden"""
-        df_new = pd.Dataframe(
+        df_new = pd.DataFrame(
             {
                 "waterlevels": waterlevels,
                 "failure_probability": 0.0,

@@ -229,3 +229,72 @@ def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
     df = input_postgresql_database(input_config)
     df.rename(columns={"sectionid": "section_id"}, inplace=True)
     return df
+
+
+# TODO: replace with better query as this is ineffecient: now get all the curves and then filter, better to filter on database level
+def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.DataFrame:
+    """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
+    overtopping_id = 2
+    if overtopping_id in input_config:
+        overtopping_id = input_config["overtopping_id"]
+    input_config["query"] = (
+        f"SELECT * FROM {input_config['schema']}.fragilitycurves WHERE failuremechanismid={overtopping_id}"
+    )
+    # hernoemen van de kolom section_id naar sectionid
+    df = input_postgresql_database(input_config)
+    df.rename(
+        columns={
+            "sectionid": "section_id",
+            "failureprobability": "failure_probability",
+            "hydraulicload": "waterlevels",
+        },
+        inplace=True,
+    )
+    # df = df[df["failuremechanismid"] == overtopping_id]
+    return df
+
+
+def input_ci_postgresql_fragilitycurves_pipping(input_config: dict) -> pd.DataFrame:
+    """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
+    input_config["table"] = "fragilitycurves"
+    piping_id = 3
+    if piping_id in input_config:
+        piping_id = input_config["piping_id"]
+    input_config["query"] = (
+        f"SELECT * FROM {input_config['schema']}.fragilitycurves WHERE failuremechanismid={piping_id}"
+    )
+    # hernoemen van de kolom section_id naar sectionid
+    df = input_postgresql_database(input_config)
+    df.rename(
+        columns={
+            "sectionid": "section_id",
+            "failureprobability": "failure_probability",
+            "hydraulicload": "waterlevels",
+        },
+        inplace=True,
+    )
+    # df = df[df["failuremechanismid"] == piping_id]
+    return df
+
+
+def input_ci_postgresql_fragilitycurves_stability(input_config: dict) -> pd.DataFrame:
+    """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
+    input_config["table"] = "fragilitycurves"
+    stability_id = 4
+    if stability_id in input_config:
+        stability_id = input_config["stability_id"]
+    input_config["query"] = (
+        f"SELECT * FROM {input_config['schema']}.fragilitycurves WHERE failuremechanismid={stability_id}"
+    )
+    # hernoemen van de kolom section_id naar sectionid
+    df = input_postgresql_database(input_config)
+    df.rename(
+        columns={
+            "sectionid": "section_id",
+            "failureprobability": "failure_probability",
+            "hydraulicload": "waterlevels",
+        },
+        inplace=True,
+    )
+    # df = df[df["failuremechanismid"] == stability_id]
+    return df

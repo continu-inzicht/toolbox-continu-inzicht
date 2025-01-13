@@ -82,7 +82,7 @@ yaml = "*"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
-pydra-core = "==0.0.1"
+pydra-core = "==0.0.3"
 probabilistic-piping = "==0.0.3"
 #probabilistic_piping = { path = "../probabilistic_piping/src", editable = true }
 

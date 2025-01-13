@@ -18,6 +18,11 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_piping.add_effect 
 )
 
 
+from toolbox_continu_inzicht.fragility_curves.combine_fragility_curves import (
+    CombineFragilityCurvesPerSection,
+    CombineFragilityCurves,
+)
+
 __all__ = [
     "FragilityCurveOvertopping",
     "FragilityCurvesOvertopping",
@@ -29,4 +34,6 @@ __all__ = [
     "ShiftFragilityCurvePipingFixedWaterlevel",
     "FragilityCurvePipingFixedWaterlevelSimple",
     "ShiftFragilityCurvePipingFixedWaterlevelSimple",
+    "CombineFragilityCurvesPerSection",
+    "CombineFragilityCurves",
 ]
