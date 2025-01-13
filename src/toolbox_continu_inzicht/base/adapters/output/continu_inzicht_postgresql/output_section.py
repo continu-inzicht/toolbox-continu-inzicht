@@ -518,6 +518,79 @@ def output_ci_postgresql_section_to_states(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
+def output_ci_postgresql_section(output_config: dict, df: pd.DataFrame) -> None:
+    """
+    Schrijft secties naar de Continu Inzicht database (tabel: sections).
+
+    Yaml example:\n
+        type: ci_postgresql_section
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    Args:\n
+        * output_config (dict): configuratie opties
+        * df (DataFrame):\n
+        - id: int64                 : id van de sectie
+        - segmentid: int64          : id van het segment waartoe de sectie behoort
+        - name: str                 : naam van de sectie
+        - geometry: geom            : geometrie (ligging) van de sectie (let op projectie altijd EPSG4326!)
+
+    **Opmerking:**\n
+    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+    - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+    - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+    - postgresql_port (str): poort van de Continu Inzicht databaseserver
+
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht
+    - schema (str): schema van de Continu Inzicht
+    """
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in output_config for key in keys)
+
+    schema = output_config["schema"]
+
+    if not df.empty:
+        if "id" in df and "segmentid" in df and "name" in df and "geometry":
+            query = []
+
+            query.append(f"TRUNCATE {schema}.sections;")
+
+            for _, row in df.iterrows():
+                query.append(
+                    f"INSERT INTO {schema}.sections(id, segmentid, name, geometry) VALUES ({str(row["id"])}, {str(row["segmentid"])}, '{str(row["name"])}', '{str(row["geometry"])}');"
+                )
+
+            # maak verbinding object
+            engine = sqlalchemy.create_engine(
+                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+            )
+
+            query = " ".join(query)
+
+            with engine.connect() as connection:
+                connection.execute(sqlalchemy.text(str(query)))
+                connection.commit()  # commit the transaction
+
+            # verbinding opruimen
+            engine.dispose()
+        else:
+            raise UserWarning("Ontbrekende variabelen in dataframe!")
+
+    else:
+        raise UserWarning("Geen gegevens om op te slaan.")
+
+
 def get_parameters(engine: Engine, schema: str) -> dict:
     """
     Ophalen lijst met parameters uit de Continu Inzicht database

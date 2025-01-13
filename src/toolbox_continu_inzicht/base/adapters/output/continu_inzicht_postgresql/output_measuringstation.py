@@ -255,6 +255,98 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame) -> Non
     engine.dispose()
 
 
+def output_ci_postgresql_to_measuringstation(
+    output_config: dict, df: pd.DataFrame
+) -> None:
+    """
+    Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).
+
+    Yaml example:\n
+        type: ci_postgresql_to_measuringstation
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    Args:\n
+        * output_config (dict): configuratie opties
+        * df (DataFrame):\n
+        - id: int64                 : id van het meetstation
+        - name: str                 : naam van het meetstation
+        - code: str                 : code van het meetstation
+        - source: str               : bron van de data van het meetstation
+        - geometry: geom            : geometrie (ligging) van het meetstation (let op projectie!)
+        - tide: bool                : meetstation bevat belasting waar een getijperiode een tol speelt (default false)
+        - area_geometry: geom       : OPTIONEEL geometrie van het gebied waarbinnen de belasting wordt bepaald (bijv. een gemiddelde waarde)
+
+    **Opmerking:**\n
+    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+    - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+    - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+    - postgresql_port (str): poort van de Continu Inzicht databaseserver
+
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht
+    - schema (str): schema van de Continu Inzicht
+    """
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in output_config for key in keys)
+
+    schema = output_config["schema"]
+
+    if not df.empty:
+        if (
+            "id" in df
+            and "name" in df
+            and "code" in df
+            and "source" in df
+            and "geometry" in df
+            and "tide" in df
+        ):
+            query = []
+
+            query.append(f"TRUNCATE {schema}.measuringstations;")
+
+            area_geometry_rows = df[df["area_geometry"].isna()]
+            for _, row in area_geometry_rows.iterrows():
+                query.append(
+                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide) VALUES ({str(row["id"])}, '{row["name"]}', '{row["code"]}', '{row["source"]}', '{str(row["geometry"])}', {str(row["tide"])});"
+                )
+
+            non_area_geometry_rows = df[df["area_geometry"].notna()]
+            for _, row in non_area_geometry_rows.iterrows():
+                query.append(
+                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide, area_geometry)	VALUES ({str(row["id"])}, '{row["name"]}', '{row["code"]}', '{row["source"]}', '{str(row["geometry"])}', {str(row["tide"])}, '{str(row["area_geometry"])}');"
+                )
+
+            # maak verbinding object
+            engine = sqlalchemy.create_engine(
+                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+            )
+
+            query = " ".join(query)
+
+            with engine.connect() as connection:
+                connection.execute(sqlalchemy.text(str(query)))
+                connection.commit()  # commit the transaction
+
+            # verbinding opruimen
+            engine.dispose()
+        else:
+            raise UserWarning("Ontbrekende variabelen in dataframe!")
+
+    else:
+        raise UserWarning("Geen gegevens om op te slaan.")
+
+
 # def output_ci_postgresql_to_moments(output_config: dict, df: pd.DataFrame) -> None:
 #     """
 #     Schrijft moments naar Continu Inzicht database tabel moments
