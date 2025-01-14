@@ -67,6 +67,7 @@ class CombineFragilityCurvesPerSection:
             fc.refine(waterlevels)
             lst_fragility_curves[index] = fc.df_out
 
+        # make this more explicit
         # Combine independently: P(fail,comb|h) = 1 - (1 - P(fail,pip|h)) * (1 - P(fail,macro|h)) * (1 - P(fail,over|h))
         for fragility_curve in lst_fragility_curves:
             onderschrijdingskans *= 1 - fragility_curve["failure_probability"]

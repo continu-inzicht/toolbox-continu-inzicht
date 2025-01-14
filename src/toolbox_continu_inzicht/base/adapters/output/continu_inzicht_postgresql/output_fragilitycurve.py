@@ -79,3 +79,31 @@ def output_ci_postgresql_bedlevelfetch(output_config: dict, df: pd.DataFrame) ->
     df = df.copy()
     df.rename(columns={"section_id": "sectionid"}, inplace=True)
     output_postgresql_database(output_config, df)
+
+
+def output_ci_postgresql_probablistic_pipping(
+    output_config: dict, df: pd.DataFrame
+) -> None:
+    """Schrijft probablistic data naar van postgresql database in de probablistic piping tabel & hernoemt de kollomen."""
+    continu_inzicht_to_db = {
+        "section_id": "sectionid",
+        "scenario_id": "scenarioid",
+        "mechanism": "mechanism",
+        "Naam": "naam",
+        "Waarde": "waarde",
+        "Kansverdeling": "kansverdeling",
+        "Verschuiving": "verschuiving",
+        "Mean": "mean",
+        "Spreiding": "spreiding",
+        "Spreidingstype": "spreidingstype",
+        "Afknot_links": "afknotlinks",
+        "Afknot_rechts": "afknotrechts",
+        "Min": "min",
+        "Step": "step",
+        "Max": "max",
+        "StDev": "stdev",
+    }
+    df = df.copy()
+    output_config["table"] = "probabilisticpipping"
+    df.rename(columns=continu_inzicht_to_db, inplace=True)
+    output_postgresql_database(output_config, df)
