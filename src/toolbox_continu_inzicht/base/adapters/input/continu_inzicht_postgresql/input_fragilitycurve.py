@@ -231,7 +231,6 @@ def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
     return df
 
 
-# TODO: replace with better query as this is ineffecient: now get all the curves and then filter, better to filter on database level
 def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.DataFrame:
     """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
     overtopping_id = 2
@@ -250,7 +249,6 @@ def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.Da
         },
         inplace=True,
     )
-    # df = df[df["failuremechanismid"] == overtopping_id]
     return df
 
 
@@ -273,7 +271,6 @@ def input_ci_postgresql_fragilitycurves_pipping(input_config: dict) -> pd.DataFr
         },
         inplace=True,
     )
-    # df = df[df["failuremechanismid"] == piping_id]
     return df
 
 
@@ -296,5 +293,30 @@ def input_ci_postgresql_fragilitycurves_stability(input_config: dict) -> pd.Data
         },
         inplace=True,
     )
-    # df = df[df["failuremechanismid"] == stability_id]
+    return df
+
+
+def input_ci_postgresql_probablistic_pipping(input_config: dict) -> pd.DataFrame:
+    """leest probablistic data van postgresql database in de probablistic piping tabel en hernoemt de kollomen."""
+    db_to_continu_inzicht = {
+        "sectionid": "section_id",
+        "scenarioid": "scenario_id",
+        "mechanism": "mechanism",
+        "naam": "Naam",
+        "waarde": "Waarde",
+        "kansverdeling": "Kansverdeling",
+        "verschuiving": "Verschuiving",
+        "mean": "Mean",
+        "spreiding": "Spreiding",
+        "spreidingstype": "Spreidingstype",
+        "afknotlinks": "Afknot_links",
+        "afknotrechts": "Afknot_rechts",
+        "min": "Min",
+        "step": "Step",
+        "max": "Max",
+        "stdev": "StDev",
+    }
+    input_config["table"] = "probabilisticpipping"
+    df = input_postgresql_database(input_config)
+    df.rename(columns=db_to_continu_inzicht, inplace=True)
     return df
