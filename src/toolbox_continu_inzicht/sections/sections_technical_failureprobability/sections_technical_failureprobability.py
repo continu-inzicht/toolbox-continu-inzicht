@@ -130,9 +130,9 @@ class SectionsTechnicalFailureprobability:
             # Vervang nulwaarden door een kleine positieve waarde
             small_positive_value = 1e-10
             filtered_df_fragility_curves["failureprobability"] = (
-                filtered_df_fragility_curves[
-                    "failureprobability"
-                ].replace(0, small_positive_value)
+                filtered_df_fragility_curves["failureprobability"].replace(
+                    0, small_positive_value
+                )
             )
 
             x_unique, unique_indices = np.unique(

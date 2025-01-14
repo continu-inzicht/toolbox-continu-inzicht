@@ -56,7 +56,7 @@ def output_ci_postgresql_dikesystem(output_config: dict, df: pd.DataFrame) -> No
 
             for _, row in df.iterrows():
                 query.append(
-                    f"INSERT INTO {schema}.dikesystems(id, nr, name, geometry) VALUES ({str(row["id"])}, '{str(row["nr"])}', '{str(row["name"])}', '{str(row["geometry"])}');"
+                    f"INSERT INTO {schema}.dikesystems(id, nr, name, geometry) VALUES ({str(row['id'])}, '{str(row['nr'])}', '{str(row['name'])}', '{str(row['geometry'])}');"
                 )
 
             # maak verbinding object
