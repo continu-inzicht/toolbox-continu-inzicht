@@ -141,7 +141,7 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
                 name,
                 pd.DataFrame(
                     data=[(res.h, res.prob_cond) for res in result.results],
-                    columns=["waterlevel", "failure_probability"],
+                    columns=["waterlevels", "failure_probability"],
                 ),
             )
         self.df_out = self.df_result_combined
@@ -263,7 +263,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
 
         self.df_out = pd.DataFrame(
             data=[(res.h, res.prob_cond) for res in result.results],
-            columns=["waterlevel", "failure_probability"],
+            columns=["waterlevels", "failure_probability"],
         )
         self.data_adapter.output(output, self.df_out)
 
@@ -402,16 +402,19 @@ class FragilityCurvesPiping:
                 if combination_type == "minimum_probabilities":
                     temp_data_adapter.config.global_variables[
                         "FragilityCurvePipingFixedWaterlevelSimple"
-                    ] = {}
+                    ] = update_options_dict_debug_progress(options)
+
                     fragility_curve = self.fragility_curve_function_simple(
                         data_adapter=temp_data_adapter
                     )
 
                 # otherwise use more complex method with combination of mechanisms
                 else:
+                    temp_options = update_options_dict_debug_progress(options)
+                    temp_options["z_type"] = mechanism
                     temp_data_adapter.config.global_variables[
                         "FragilityCurvePipingFixedWaterlevel"
-                    ] = {"z_type": mechanism}
+                    ] = temp_options
                     fragility_curve = self.fragility_curve_function(
                         data_adapter=temp_data_adapter
                     )
@@ -428,3 +431,11 @@ class FragilityCurvesPiping:
 
         self.df_out.reset_index(drop=True, inplace=True)
         self.data_adapter.output(output, self.df_out)
+
+
+def update_options_dict_debug_progress(options):
+    new_options = {}
+    for key in ["progress", "debug"]:
+        if key in options:
+            new_options[key] = options[key]
+    return new_options

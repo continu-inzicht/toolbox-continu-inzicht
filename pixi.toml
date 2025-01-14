@@ -41,6 +41,7 @@ fiona = "*"
 geocube = "*"
 geopandas = "*"
 ipykernel = "*"
+ipywidgets = ">=8.1.5,<9"
 jupyter-cache = ">=1.0.0,<2"
 jupyterlab = "*"
 matplotlib = "*"
@@ -77,8 +78,6 @@ types-requests = "*"
 types-pyyaml = "*"
 xugrid = "*"
 yaml = "*"
-
-
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
