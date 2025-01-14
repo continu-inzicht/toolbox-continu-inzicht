@@ -381,3 +381,88 @@ def input_ci_postgresql_section_thresholds_from_conditions_table(
     engine.dispose()
 
     return df
+
+
+def input_ci_postgresql_section_expert_judgement_table(
+    input_config: dict,
+) -> pd.DataFrame:
+    """
+    Ophalen klassegrenzen (faalkans) van een dijkvak uit een continu database.
+
+    Yaml example:\n
+        type: ci_postgresql_section_thresholds_from_conditions_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    Args:\n
+    input_config (dict): configuratie opties
+
+    **Opmerking:**\n
+    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+    - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+    - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+    - postgresql_port (str): poort van de Continu Inzicht databaseserver
+
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht
+    - schema (str): schema van de Continu Inzicht
+
+    Returns:\n
+    df (DataFrame):\n
+    - state_id: int64               : id van de klassegrens
+    - lower_boundary: float64       : ondergrens van de klassegrens
+    - upper_boundary: float64       : bovengrens van de klassegrens
+    - color: str                    : kleur van de klassegrens
+    - label: str                    : legendanaam van de klassegrens
+    - unit: str                     : unit van de klassegrens
+    """
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+    query = f"""
+        SELECT 
+            sectionid AS section_id, 
+            parameters.id AS parameter_id,
+            parameters.unit AS unit,	            
+            TO_TIMESTAMP(moments.calctime/1000) AS date_time,            
+            expertjudgement AS state_id, 		
+            (
+                CASE
+                WHEN moments.id > 0 THEN 'verwacht'
+                ELSE 'meting'
+                END
+            ) AS value_type,
+            expertjudgementrate AS failureprobability,
+            failuremechanism.id AS failuremechanism_id,	
+            failuremechanism.name AS failuremechanism
+        FROM {schema}.expertjudgement
+        INNER JOIN {schema}.moments ON 1=1
+        INNER JOIN {schema}.failuremechanism ON failuremechanism.name='COMB'
+        INNER JOIN {schema}.parameters ON parameters.id=102
+        WHERE NOT expertjudgement IS NULL AND expertjudgement > 0;
+    """
+
+    # qurey uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
+    return df

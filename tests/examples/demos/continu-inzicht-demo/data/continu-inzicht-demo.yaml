@@ -136,6 +136,11 @@ DataAdapter:
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
+    in_expert_judgement_table:
+        type: ci_postgresql_section_expert_judgement_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
     out_section_failure_probability_data:
         type: ci_postgresql_section_to_data
         database: "geoserver"
@@ -153,6 +158,12 @@ DataAdapter:
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
         parameter_id: 101
+
+    out_section_expert_judgement_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        parameter_id: 102    
 
     in_section_conditions:
         type: ci_postgresql_section_thresholds_from_conditions_table

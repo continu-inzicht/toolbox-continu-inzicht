@@ -4,7 +4,7 @@ import pandas as pd
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.sections import SectionsTechnicalFailureprobability
+from toolbox_continu_inzicht.sections import SectionsExpertJudgementFailureprobability
 
 
 def create_data_adapter(config_file: str) -> DataAdapter:
@@ -12,25 +12,21 @@ def create_data_adapter(config_file: str) -> DataAdapter:
     Initialiseer een data adapter
 
     config:
-    SectionsTechnicalFailureprobability:
+    SectionsExpertJudgementFailureprobability:
         MISSING_VALUE: -9999.0
 
     apdaters:
-    in_section_fragilitycurves:
+    in_section_expert_judgement:
         type: csv
-        path: "test_sections_technical_failureprobability_fragility_curves.csv"
+        path: "test_sections_expert_judgement.csv"
 
-    in_section_fragilitycurves_nodata:
+    in_section_expert_judgement_nodata:
         type: csv
-        path: "test_sections_technical_failureprobability_fragility_curves_nodata.csv"
-
-    in_section_load:
-        type: csv
-        path: "test_sections_technical_failureprobability_load.csv"
+        path: "test_sections_expert_judgement_nodata.csv"
 
     out_section_failureprobability:
         type: csv
-        path: "hidden_sections_technical_failureprobability.csv"
+        path: "hidden_sections_expert_judgement_failureprobability.csv"
 
     Args:
         config_file (str): configuratie file
@@ -62,7 +58,7 @@ def test_valid_run():
 
     # Aanmaken adapter
     data_adapter = create_data_adapter(
-        "test_sections_technical_failureprobability_config.yaml"
+        "test_sections_expert_judgement_failureprobability_config.yaml"
     )
 
     # Bepaal uitvoerbestand
@@ -73,31 +69,31 @@ def test_valid_run():
         os.remove(output_file)
 
     # Initialiseer SectionsTechnicalFailureprobability functie
-    sections_failureprobability = SectionsTechnicalFailureprobability(
+    sections_failureprobability = SectionsExpertJudgementFailureprobability(
         data_adapter=data_adapter
     )
 
     # normale invoerbestanden
     sections_failureprobability.run(
-        input=["in_section_fragilitycurves", "in_section_load"],
+        input="in_section_expert_judgement",
         output="out_section_failureprobability",
     )
 
     assert os.path.exists(output_file)
-    df_output = pd.read_csv(output_file)
+    df_output = pd.read_csv(output_file, index_col=None)
 
     assert df_output is not None
-    assert len(df_output) == 36
+    assert len(df_output) == 4
 
 
-def test_no_curve_run():
+def test_no_data_run():
     """
     Test of een valide invoer een normaal uitkomst geeft.
     """
 
     # Aanmaken adapter
     data_adapter = create_data_adapter(
-        "test_sections_technical_failureprobability_config.yaml"
+        "test_sections_expert_judgement_failureprobability_config.yaml"
     )
 
     # Bepaal uitvoerbestand
@@ -108,14 +104,14 @@ def test_no_curve_run():
         os.remove(output_file)
 
     # Initialiseer SectionsTechnicalFailureprobability functie
-    sections_failureprobability = SectionsTechnicalFailureprobability(
+    sections_failureprobability = SectionsExpertJudgementFailureprobability(
         data_adapter=data_adapter
     )
 
     try:
-        # no curve invoerbestand
+        # normale invoerbestanden
         sections_failureprobability.run(
-            input=["in_section_fragilitycurves_nodata", "in_section_load"],
+            input="in_section_expert_judgement_nodata",
             output="out_section_failureprobability",
         )
     except UserWarning as user_warning:

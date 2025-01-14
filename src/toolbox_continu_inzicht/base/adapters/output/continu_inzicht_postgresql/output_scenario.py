@@ -58,7 +58,7 @@ def output_ci_postgresql_to_scenarios(output_config: dict, df: pd.DataFrame) -> 
 
             for _, row in df.iterrows():
                 query.append(
-                    f"INSERT INTO {schema}.scenarios(id, name, min, max, step) VALUES ({str(row["id"])}, '{row["name"]}', {str(row["min"])}, {str(row["max"])}, {str(row["step"])});"
+                    f"INSERT INTO {schema}.scenarios(id, name, min, max, step) VALUES ({str(row['id'])}, '{row['name']}', {str(row['min'])}, {str(row['max'])}, {str(row['step'])});"
                 )
 
             # maak verbinding object
@@ -139,7 +139,7 @@ def output_ci_postgresql_to_load(output_config: dict, df: pd.DataFrame):
 
             for _, row in df.iterrows():
                 query.append(
-                    f"INSERT INTO {schema}.waterlevels(measuringstationid, scenarioid, datetime, value, parameter) VALUES ({str(row["measuringstationid"])}, {str(row["scenarioid"])}, {str(row["datetime"])}, {str(row["value"])}, {str(row["parameter"])});"
+                    f"INSERT INTO {schema}.waterlevels(measuringstationid, scenarioid, datetime, value, parameter) VALUES ({str(row['measuringstationid'])}, {str(row['scenarioid'])}, {str(row['datetime'])}, {str(row['value'])}, {str(row['parameter'])});"
                 )
 
             # maak verbinding object

@@ -13,6 +13,9 @@ from toolbox_continu_inzicht.sections.sections_technical_failureprobability.sect
 from toolbox_continu_inzicht.sections.sections_measure_failureprobability.sections_measure_failureprobability import (
     SectionsMeasureFailureprobability,
 )
+from toolbox_continu_inzicht.sections.sections_expertjudgement_failureprobability.sections_expertjudgement_failureprobability import (
+    SectionsExpertJudgementFailureprobability,
+)
 
 
 __all__ = [
@@ -21,4 +24,5 @@ __all__ = [
     "SectionsFailureprobability",
     "SectionsTechnicalFailureprobability",
     "SectionsMeasureFailureprobability",
+    "SectionsExpertJudgementFailureprobability",
 ]

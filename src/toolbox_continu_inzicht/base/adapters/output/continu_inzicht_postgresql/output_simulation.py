@@ -71,7 +71,7 @@ def output_ci_postgresql_to_simulation(output_config: dict, df: pd.DataFrame) ->
 
             for _, row in df.iterrows():
                 query.append(
-                    f"UPDATE {schema}.simulation SET id={str(row["id"])}, scenarioid={str(row["scenarioid"])}, datetime={str(row["datetime"])}, starttime={str(row["starttime"])}, endtime={str(row["endtime"])}, timestep={str(row["timestep"])}, active={str(row["active"])} WHERE id={str(row["id"])};"
+                    f"UPDATE {schema}.simulation SET id={str(row['id'])}, scenarioid={str(row['scenarioid'])}, datetime={str(row['datetime'])}, starttime={str(row['starttime'])}, endtime={str(row['endtime'])}, timestep={str(row['timestep'])}, active={str(row['active'])} WHERE id={str(row['id'])};"
                 )
 
             # maak verbinding object

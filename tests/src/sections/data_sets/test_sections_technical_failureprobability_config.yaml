@@ -14,6 +14,10 @@ DataAdapter:
         type: csv
         path: "test_sections_technical_failureprobability_fragility_curves.csv"
 
+    in_section_fragilitycurves_nodata:
+        type: csv
+        path: "test_sections_technical_failureprobability_fragility_curves_nodata.csv"                
+
     in_section_load:
         type: csv
         path: "test_sections_technical_failureprobability_load.csv"

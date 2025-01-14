@@ -130,9 +130,9 @@ class SectionsTechnicalFailureprobability:
             # Vervang nulwaarden door een kleine positieve waarde
             small_positive_value = 1e-10
             filtered_df_fragility_curves["failureprobability"] = (
-                filtered_df_fragility_curves[
-                    "failureprobability"
-                ].replace(0, small_positive_value)
+                filtered_df_fragility_curves["failureprobability"].replace(
+                    0, small_positive_value
+                )
             )
 
             x_unique, unique_indices = np.unique(
@@ -144,8 +144,10 @@ class SectionsTechnicalFailureprobability:
 
             # Logaritmische interpolatie en extrapolatie functie voor failureprobability
             log_interp_func = interp1d(
-                x_unique, np.log(y_unique), fill_value="extrapolate"
-            )  # type: ignore
+                x_unique,
+                np.log(y_unique),
+                fill_value="extrapolate",  # type: ignore
+            )
 
             # Toepassen van logaritmische interpolatie en extrapolatie
             log_failureprobability = log_interp_func(filtered_df_values["value"])
