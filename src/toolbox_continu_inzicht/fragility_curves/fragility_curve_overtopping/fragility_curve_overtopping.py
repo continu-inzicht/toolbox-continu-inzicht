@@ -103,7 +103,7 @@ class FragilityCurveOvertopping(FragilityCurve):
                     - dam : int (0: geen dam or 1: dam)
                     - damheight : float (in meters)
                     - qcr : float (waarde in m^3/s)
-                        str (close | open)
+                        str (closed | open)
                         tuple (waarden van mu en sigma)
 
                [2] df_bed_levels (pd.DataFrame):

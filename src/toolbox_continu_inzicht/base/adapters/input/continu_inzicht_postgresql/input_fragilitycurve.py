@@ -204,30 +204,139 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
 # overtopping:
 def input_ci_postgresql_profiles(input_config: dict) -> pd.DataFrame:
     """leest profile data van postgresql database in de profile tabel & zet namen goed."""
-    input_config["table"] = "profiles"
-    # hernoemen van de kolom section_id naar profile_id
 
-    df = input_postgresql_database(input_config)
-    df.rename(columns={"profileid": "section_id"}, inplace=True)
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    query = f"""
+        SELECT 
+            profiles.sectionid AS section_id, 
+            profiles.name, 
+            profiles.crestlevel, 
+            profiles.orientation, 
+            profiles.dam, 
+            profiles.damheight, 
+            (
+                CASE 
+                    WHEN profiles.qcr_dist='gesloten' OR profiles.qcr_dist='close' OR profiles.qcr_dist='closed' THEN 'closed'
+                    WHEN profiles.qcr_dist='open' THEN 'open'
+                    WHEN profiles.qcr_dist='fragmentarisch' THEN 'open'
+                    ELSE 'closed'
+                END
+            ) AS qcr,
+            wind.windspeed, 
+            wind.sectormin, 
+            wind.sectorsize,
+            0 AS closing_situation
+        FROM {schema}.profiles
+        CROSS JOIN {schema}.wind;
+    """
+
+    # qurey uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 
 def input_ci_postgresql_slopes(input_config: dict) -> pd.DataFrame:
     """leest slopes data van postgresql database in de slopes tabel  & zet namen goed."""
-    input_config["table"] = "slopes"
-    # hernoemen van de kolom section_id naar sectionid
 
-    df = input_postgresql_database(input_config)
-    df.rename(columns={"sectionid": "section_id"}, inplace=True)
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    query = f"""
+        SELECT 
+            profiles.sectionid AS section_id, 
+            slopes.slopetypeid, 
+            slopes.x, 
+            slopes.y, 
+            slopes.r, 
+            slopes.damheight
+        FROM {schema}.slopes
+        INNER JOIN {schema}.profiles ON profiles.id=slopes.profileid;
+    """
+
+    # qurey uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 
 def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
     """leest bedlevelfetch data van postgresql database in de bedlevelfetch tabel  & zet namen goed."""
-    input_config["table"] = "bedlevelfetch"
-    # hernoemen van de kolom section_id naar sectionid
-    df = input_postgresql_database(input_config)
-    df.rename(columns={"sectionid": "section_id"}, inplace=True)
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    query = f"""
+        SELECT 
+            sectionid AS section_id, 
+            direction, 
+            bedlevel, 
+            "fetch"
+        FROM {schema}.bedlevelfetch;
+    """
+
+    # qurey uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 
