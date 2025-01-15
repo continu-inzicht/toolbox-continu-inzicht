@@ -38,6 +38,12 @@ GlobalVariables:
         parameters: ["WATHTE"]
         MISSING_VALUE: -999
 
+    FragilityCurveOvertopping:
+        gh_onz_mu: 0.96 # default waarde
+
+    FragilityCurvesOvertopping:
+        gh_onz_mu: 0.96 # default waarde        
+
 DataAdapter:
 
     calculation_start_config:
@@ -136,6 +142,11 @@ DataAdapter:
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
+    in_expert_judgement_table:
+        type: ci_postgresql_section_expert_judgement_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
     out_section_failure_probability_data:
         type: ci_postgresql_section_to_data
         database: "geoserver"
@@ -154,6 +165,12 @@ DataAdapter:
         schema: "continuinzicht_demo_realtime"
         parameter_id: 101
 
+    out_section_expert_judgement_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        parameter_id: 102    
+
     in_section_conditions:
         type: ci_postgresql_section_thresholds_from_conditions_table
         database: "geoserver"
@@ -166,5 +183,61 @@ DataAdapter:
 
     out_section_states:
         type: ci_postgresql_section_to_states
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_section_slopes:
+        type: ci_postgresql_slopes
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_section_profiles:
+        type: ci_postgresql_profiles
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_section_bedlevel_fetch:
+        type: ci_postgresql_bedlevelfetch
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"    
+
+    fragility_curve_overloop_en_overslag:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "GEKB"
+
+    fragility_curve_opbarsten_en_piping:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "STPH"
+
+    fragility_curve_stabiliteit_binnenwaarts_dijken:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "STBI"
+
+    fragility_curve_overloop_en_overslag_langsconstructies:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"        
+        failuremechanism: "HTKW"
+
+    fragility_curve_stabiliteit_langsconstructies:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"        
+        failuremechanism: "STKWI"
+
+    fragility_curve_piping_langsconstructies:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"        
+        failuremechanism: "PKW"        
+
+    out_section_fragility_curves:
+        type: ci_postgresql_fragilitycurves_table
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"

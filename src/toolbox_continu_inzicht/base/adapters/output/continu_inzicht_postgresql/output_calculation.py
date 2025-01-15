@@ -38,10 +38,10 @@ def output_ci_postgresql_to_calculation_start(
     - schema (str): schema van de Continu Inzicht
     """
 
-    # TODO WEGHALEN
-    df.to_csv(
-        "d:/toolbox/adapters/calculation/output_ci_postgresql_to_calculation_start.csv"
-    )
+    # # TODO WEGHALEN
+    # df.to_csv(
+    #     "d:/toolbox/adapters/calculation/output_ci_postgresql_to_calculation_start.csv"
+    # )
 
     keys = [
         "postgresql_user",
@@ -120,10 +120,10 @@ def output_ci_postgresql_to_calculation_end(
      - schema (str): schema van de Continu Inzicht
     """
 
-    # TODO WEGHALEN
-    df.to_csv(
-        "d:/toolbox/adapters/calculation/output_ci_postgresql_to_calculation_end.csv"
-    )
+    # # TODO WEGHALEN
+    # df.to_csv(
+    #     "d:/toolbox/adapters/calculation/output_ci_postgresql_to_calculation_end.csv"
+    # )
 
     keys = [
         "postgresql_user",

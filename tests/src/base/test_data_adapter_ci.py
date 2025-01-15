@@ -37,7 +37,7 @@ def test_dataadapter_ci_postgresql_from_waterlevels():
         "parameter_code": "object",
         "parameter_description": "object",
         "unit": "object",
-        "date_time": "object",
+        "date_time": "datetime64[ns, UTC]",
         "value": "float64",
         "value_type": "object",
     }

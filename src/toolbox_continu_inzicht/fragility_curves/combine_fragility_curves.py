@@ -157,8 +157,21 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
             df_in = self.data_adapter.input(key)
             self.lst_fragility_curves.append(df_in)
 
-        # laatste waarde van de input list is de gewichten
-        self.weights = self.data_adapter.input(input[-1])
+        # split the dataframes by section_id
+        lst_section_ids = []
+        for df in self.lst_df_in:
+            lst_section_ids.extend(df["section_id"].unique().tolist())
+
+        curves_per_section = []
+        for section_id in set(lst_section_ids):
+            lst_fragility_curves = [
+                df[df["section_id"] == section_id] for df in self.lst_df_in
+            ]
+            df_combined = self.calculate_combined_curve(
+                lst_fragility_curves, self.data_adapter
+            )
+            df_combined["section_id"] = section_id
+            curves_per_section.append(df_combined)
 
         self.df_out = self.calculate_combined_curve()
         self.data_adapter.output(output, self.df_out)

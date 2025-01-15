@@ -153,8 +153,10 @@ class SectionsMeasureFailureprobability:
 
             # Logaritmische interpolatie en extrapolatie functie voor failureprobability
             log_interp_func = interp1d(
-                x_unique, np.log(y_unique), fill_value="extrapolate"
-            )  # type: ignore
+                x_unique,
+                np.log(y_unique),
+                fill_value="extrapolate",  # type: ignore
+            )
 
             # Toepassen van logaritmische interpolatie en extrapolatie
             log_failureprobability = log_interp_func(filtered_df_values["value"])
