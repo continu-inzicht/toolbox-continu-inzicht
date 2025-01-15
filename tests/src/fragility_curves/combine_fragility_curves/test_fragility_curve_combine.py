@@ -9,6 +9,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.fragility_curves import (
     CombineFragilityCurvesIndependent,
     CombineFragilityCurvesDependent,
+    CombineFragilityCurvesWeightedSum,
 )
 
 # %%
@@ -165,15 +166,18 @@ def test_combine_fragility_curves_weighted_csv():
     )
     config.lees_config()
     data_adapter = DataAdapter(config=config)
-    combine_fragility_curve = CombineFragilityCurvesDependent(data_adapter=data_adapter)
+    combine_fragility_curve = CombineFragilityCurvesWeightedSum(
+        data_adapter=data_adapter
+    )
     combine_fragility_curve.run(
         input=[
             "fragility_curve_pipping_csv",
             "fragility_curve_overtopping_csv",
+            "weighting_factor_csv",
         ],
         output="fragility_curves",
     )
     result = combine_fragility_curve.df_out
     assert np.isclose(
-        result.iloc[100:150]["failure_probability"], expected_result
+        result.iloc[100:150]["failure_probability"], expected_result_weighted
     ).all()

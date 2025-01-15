@@ -151,27 +151,22 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
         Elke fragility curve moet de volgende kolommen bevatten:
             - waterlevels: float
             - failure_probabilities: float
+
+        De laatste fragility curve in de input lijst bevat de gewichten.
+
+        Deze moet de volgende kolom bevatten:
+
+            - weights: float
+
+                per curve de gewichten
+
         """
 
         for key in input[:-1]:
             df_in = self.data_adapter.input(key)
             self.lst_fragility_curves.append(df_in)
 
-        # split the dataframes by section_id
-        lst_section_ids = []
-        for df in self.lst_df_in:
-            lst_section_ids.extend(df["section_id"].unique().tolist())
-
-        curves_per_section = []
-        for section_id in set(lst_section_ids):
-            lst_fragility_curves = [
-                df[df["section_id"] == section_id] for df in self.lst_df_in
-            ]
-            df_combined = self.calculate_combined_curve(
-                lst_fragility_curves, self.data_adapter
-            )
-            df_combined["section_id"] = section_id
-            curves_per_section.append(df_combined)
+        self.weights = self.data_adapter.input(input[-1])["weights"].to_numpy()
 
         self.df_out = self.calculate_combined_curve()
         self.data_adapter.output(output, self.df_out)

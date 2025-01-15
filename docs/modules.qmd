@@ -630,59 +630,9 @@ fragility_curve_overtopping.run(
 ### Piping (STPH) {#sec-Bepalen-fragility-curves-STPH}
 Voor het bereken van fragility curves voor piping (STPH) wordt gebruik gemaakt van de python module [`probabilistic_piping`](https://pypi.org/project/pydra-core/). Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikaar gemaakt op [github](https://github.com/HKV-products-services/probabilistic_piping). De documentatie van deze module is daar ook te vinden.
 
-#### FragilityCurvePipingFixedWaterlevel{#sec-Bepalen-fragility-curves-STPH-single}
-Een fragility curve kan berekend door de functie `FragilityCurvePipingFixedWaterlevel` aan te roepen. Hier zijn twee dataframes voor nodig: de eeste met informatie over de probabilitische berekening, de tweede met een reeks waterstanden waarvoor de fragility curve wordt afgeleid. Als opties kunnen debug en progress opties worden opgegeven in de `config.yaml`, standaard staan deze uit. De type functie die gebruikt wordt voor de grenstoestand (`z_type`) kan worden mee geven als optie, standaard is dit 'combi' maar kan ook aangepast worden naar 'heave', 'uplift' of 'combi'. Bij het combineren van wordt het minimum van de drie sub-mechanismes genomen in de grenstoestand functie.
-
-::: {.panel-tabset}
-## Configuratie
-```yaml
-GlobalVariables:
-    rootdir: "data_sets"
-
-    FragilityCurvePipingFixedWaterlevel:
-        z_type: "sellmeijer"
-        debug: False
-        progress: True
-
-
-DataAdapter:
-    default_options:
-        csv:
-            sep: ","
-
-    probabilistic_input:
-        type: excel
-        file: "invoer_piping.xlsx"
-        index_col: 0
-    waterlevels:
-        type: csv
-        file: "waterlevels.csv"
-    fragility_curve:
-        type: csv
-        file: "fragility_curves_piping.csv"
-
-
-```
-## Code
-```python
-from toolbox_continu_inzicht import Config, DataAdapter
-from toolbox_continu_inzicht.fragility_curves import FragilityCurvePipingFixedWaterlevel
-
-config = Config(config_path="config.yaml")
-config.lees_config()
-data_adapter = DataAdapter(config=config)
-fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevel(data_adapter=data_adapter)
-fragility_curve_piping_fixed_waterlevel.run(
-    input=["probabilistic_input", "waterlevels"],
-    output="fragility_curves",
-)
-
-```
-:::
-
 #### FragilityCurvePipingFixedWaterlevelSimple {#sec-Bepalen-fragility-curves-STPH-combined}
 
-De functie `FragilityCurvePipingFixedWaterlevelSimple` rekent met alle beschikbare grenstoestanden benoemd bij [`FragilityCurvePipingFixedWaterlevel`](#sec-Bepalen-fragility-curves-STPH-single) en geeft de curve gecombineerde terug. Het verschil zit in hoe de curves worden gecombineerd. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. Dit is een simplere manier vergeleken met `FragilityCurvePipingFixedWaterlevel`.
+Een fragility curve kan berekend door de functie `FragilityCurvePipingFixedWaterlevelSimple` aan te roepen. Hier zijn twee dataframes voor nodig: de eeste met informatie over de probabilitische berekening, de tweede met een reeks waterstanden waarvoor de fragility curve wordt afgeleid. Als opties kunnen debug en progress opties worden opgegeven in de `config.yaml`, standaard staan deze uit. De functie `FragilityCurvePipingFixedWaterlevelSimple` berekent een curve voor `sellmeijer`, `heave` en `uplift` en geeft de curve gecombineerde terug. Het combineren gebeurt hier door het minimum van de kansen over de drie sub mechanismes te nemen per waterstand.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -729,6 +679,12 @@ fragility_curve_piping_fixed_waterlevel.run(
 
 ```
 :::
+
+## Combineren van fragility curves{#sec-Combineren-van-fragility-curves}
+
+Fragility curves kunnen op drie manieren worden gecombineerd: Afhankelijk, onafhankelijk of met een gewogen gemiddelde. 
+
+
 
 ## Bijstellen fragility curves {#sec-Bijstellen-fragility-curves}
 
