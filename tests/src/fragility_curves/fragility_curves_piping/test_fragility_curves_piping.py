@@ -4,36 +4,35 @@ import numpy as np
 from toolbox_continu_inzicht.base.data_adapter import Config, DataAdapter
 from toolbox_continu_inzicht.fragility_curves import (
     FragilityCurvePipingFixedWaterlevelSimple,
-    FragilityCurvePipingFixedWaterlevel,
     FragilityCurvesPiping,
 )
 
 
+### unused for now
+# def test_fragility_curve_piping():
+#     path = Path(__file__).parent / "data_sets"
+#     config = Config(config_path=path / "test_fragility_curve_piping.yaml")
+#     config.lees_config()
+#     data_adapter = DataAdapter(config=config)
+
+#     fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevel(
+#         data_adapter=data_adapter
+#     )
+#     fragility_curve_piping_fixed_waterlevel.run(
+#         input=["probabilistic_input", "waterlevels"], output="fragility_curve"
+#     )
+#     df_exp_results = pd.read_csv(path / "full_test_output.csv")
+#     assert np.isclose(
+#         fragility_curve_piping_fixed_waterlevel.df_out.failure_probability.to_list(),
+#         df_exp_results.prob_cond.to_list(),
+#         atol=1e-8,
+#         rtol=1e-8,
+#     ).all()
+
+
+# in de probabilstic pipig module zelf zit al een hoop tests om met de oude versei te vergelijken
+# deze herhalen we hier niet
 def test_fragility_curve_piping_simple():
-    path = Path(__file__).parent / "data_sets"
-    config = Config(config_path=path / "test_fragility_curve_piping.yaml")
-    config.lees_config()
-    data_adapter = DataAdapter(config=config)
-
-    fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevel(
-        data_adapter=data_adapter
-    )
-    fragility_curve_piping_fixed_waterlevel.run(
-        input=["probabilistic_input", "waterlevels"], output="fragility_curve"
-    )
-    # compare to stored result
-    df_exp_results = pd.read_csv(path / "full_test_output.csv")
-    # df_exp_results.prob_cond = df_exp_results.prob_cond.astype(float)
-    # a_tol en r_tol zijn wel hoog zo?
-    assert np.isclose(
-        fragility_curve_piping_fixed_waterlevel.df_out.failure_probability.to_list(),
-        df_exp_results.prob_cond.to_list(),
-        atol=1e-8,
-        rtol=1e-8,
-    ).all()
-
-
-def test_fragility_curve_piping_normal():
     path = Path(__file__).parent / "data_sets"
     config = Config(config_path=path / "test_fragility_curve_piping.yaml")
     config.lees_config()
@@ -45,7 +44,6 @@ def test_fragility_curve_piping_normal():
     fragility_curve_piping_fixed_waterlevel.run(
         input=["probabilistic_input", "waterlevels"], output="fragility_curve"
     )
-    # compare to stored result
     df_exp_results = pd.read_csv(path / "full_test_output_simple.csv")
     for attr, col_result in zip(
         [

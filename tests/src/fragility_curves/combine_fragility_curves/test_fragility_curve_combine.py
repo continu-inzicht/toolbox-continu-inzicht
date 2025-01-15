@@ -65,6 +65,30 @@ expected_result = [
     1.0,
 ]
 
+expected_result_indep2 = [
+    0.1592811,
+    0.17355907,
+    0.18904055,
+    0.2047145,
+    0.22159277,
+    0.23855445,
+    0.25669821,
+    0.27480068,
+    0.29404083,
+    0.31310339,
+    0.333239,
+    0.3530538,
+    0.37385961,
+    0.39419955,
+    0.4154346,
+    0.43606198,
+    0.45747861,
+    0.4781539,
+    0.49950675,
+    0.52036597,
+    0.54180909,
+]
+
 
 # %%
 def test_combine_fragility_curves_indep1_csv():
@@ -109,7 +133,7 @@ def test_combine_fragility_curves_indep2_csv():
     )
     result = combine_fragility_curve.df_out
     assert np.isclose(
-        result.iloc[100:150]["failure_probability"], expected_result
+        result.iloc[100:150]["failure_probability"], expected_result_indep2
     ).all()
 
 
