@@ -19,8 +19,9 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_piping.add_effect 
 
 
 from toolbox_continu_inzicht.fragility_curves.combine_fragility_curves import (
-    CombineFragilityCurvesPerSection,
-    CombineFragilityCurves,
+    CombineFragilityCurvesIndependent,
+    CombineFragilityCurvesDependent,
+    CombineFragilityCurvesWeightedSum,
 )
 
 __all__ = [
@@ -34,6 +35,7 @@ __all__ = [
     "ShiftFragilityCurvePipingFixedWaterlevel",
     "FragilityCurvePipingFixedWaterlevelSimple",
     "ShiftFragilityCurvePipingFixedWaterlevelSimple",
-    "CombineFragilityCurvesPerSection",
-    "CombineFragilityCurves",
+    "CombineFragilityCurvesIndependent",
+    "CombineFragilityCurvesDependent",
+    "CombineFragilityCurvesWeightedSum",
 ]

@@ -96,7 +96,7 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
 
         # TODO: vanaf hier refactor naar een aparte functie zodat deze ook gebruikt kan worden in FragilityCurves
         # sommige opties niet nodig maar kan wel gaan zeuren dus maak None
-        for col in ["Afknot_links", "Afknot_rechts", "Min", "Step", "Max"]:
+        for col in ["Afknot_links", "Afknot_rechts"]:
             if col not in self.df_prob_input.columns:
                 self.df_prob_input[col] = None
 
@@ -165,7 +165,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
     ------------------
     z_type: str
         'sellmeijer', 'heave', 'uplift' of 'combi'
-        Standaard is 'sellmeijer'
+        Standaard is 'combi'
 
     progress: bool
         Standaard is False
@@ -233,7 +233,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
                 self.df_prob_input[col] = None
 
         global_variables = self.data_adapter.config.global_variables
-        z_type = "sellmeijer"  # by default
+        z_type = "combi"  # by default
         progress: bool = False
         debug: bool = False
         if "FragilityCurvePipingFixedWaterlevel" in global_variables:
@@ -337,7 +337,7 @@ class FragilityCurvesPiping:
         self.df_waterlevels = self.data_adapter.input(input[1])
 
         global_variables = self.data_adapter.config.global_variables
-        # z_type = "sellmeijer"  # by default
+        # z_type = "combi"  # by default
         # progress: bool = False
         combination_type = "minimum_limit_state"  # by default
         if "FragilityCurvesPiping" in global_variables:

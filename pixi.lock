@@ -503,7 +503,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zlib-1.3.1-hb9d3cd8_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zstandard-0.23.0-py312hef9b889_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zstd-1.5.6-ha6fb4c9_0.conda
-      - pypi: https://files.pythonhosted.org/packages/5c/e6/dab25f7d7f98b27a0bf242dee66fa91c8537b2f42b72585ff5502b7875dd/probabilistic_piping-0.0.3-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/82/ed/cd174b3860d06aa6be10f5916f78826543b36068819c9e94e8ca9c90876d/pydra_core-0.0.3-py2.py3-none-any.whl
       - pypi: src
       osx-64:
@@ -935,7 +935,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zlib-1.3.1-hd23fc13_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstandard-0.23.0-py312h7122b0e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.6-h915ae27_0.conda
-      - pypi: https://files.pythonhosted.org/packages/5c/e6/dab25f7d7f98b27a0bf242dee66fa91c8537b2f42b72585ff5502b7875dd/probabilistic_piping-0.0.3-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/82/ed/cd174b3860d06aa6be10f5916f78826543b36068819c9e94e8ca9c90876d/pydra_core-0.0.3-py2.py3-none-any.whl
       - pypi: src
       win-64:
@@ -1331,7 +1331,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/zlib-1.3.1-h2466b09_2.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstandard-0.23.0-py312h7606c53_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.6-h0ea2cb4_0.conda
-      - pypi: https://files.pythonhosted.org/packages/5c/e6/dab25f7d7f98b27a0bf242dee66fa91c8537b2f42b72585ff5502b7875dd/probabilistic_piping-0.0.3-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/82/ed/cd174b3860d06aa6be10f5916f78826543b36068819c9e94e8ca9c90876d/pydra_core-0.0.3-py2.py3-none-any.whl
       - pypi: src
 packages:
@@ -11042,10 +11042,10 @@ packages:
   purls: []
   size: 135066
   timestamp: 1732001571166
-- pypi: https://files.pythonhosted.org/packages/5c/e6/dab25f7d7f98b27a0bf242dee66fa91c8537b2f42b72585ff5502b7875dd/probabilistic_piping-0.0.3-py2.py3-none-any.whl
+- pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
   name: probabilistic-piping
-  version: 0.0.3
-  sha256: cbc1af2ab9ea34b6838fc0c907c8a3ba0a5a598431e06856de2a371aeeb8cefc
+  version: 0.0.5
+  sha256: 2de76555888d173d045869b8b4b5fc604cfdd970e0568334342c96274f8c8305
   requires_dist:
   - numpy
   - openturns>=1.23

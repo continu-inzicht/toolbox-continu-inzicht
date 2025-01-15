@@ -6,7 +6,10 @@ import numpy as np
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
-from toolbox_continu_inzicht.fragility_curves import CombineFragilityCurves
+from toolbox_continu_inzicht.fragility_curves import (
+    CombineFragilityCurvesIndependent,
+    CombineFragilityCurvesDependent,
+)
 
 # %%
 expected_result = [
@@ -64,14 +67,81 @@ expected_result = [
 
 
 # %%
-def test_combine_fragility_curves_csv():
+def test_combine_fragility_curves_indep1_csv():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"
     )
     config.lees_config()
     data_adapter = DataAdapter(config=config)
-    combine_fragility_curve = CombineFragilityCurves(data_adapter=data_adapter)
+    combine_fragility_curve = CombineFragilityCurvesIndependent(
+        data_adapter=data_adapter
+    )
+    combine_fragility_curve.run(
+        input=[
+            "fragility_curve_pipping_csv",
+            "fragility_curve_overtopping_csv",
+        ],
+        output="fragility_curves",
+    )
+    result = combine_fragility_curve.df_out
+    assert np.isclose(
+        result.iloc[100:150]["failure_probability"], expected_result
+    ).all()
+
+
+def test_combine_fragility_curves_indep2_csv():
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(
+        config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"
+    )
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
+    combine_fragility_curve = CombineFragilityCurvesIndependent(
+        data_adapter=data_adapter
+    )
+    combine_fragility_curve.run(
+        input=[
+            "fragility_curve_pipping_csv",
+            "fragility_curve_pipping_csv",
+        ],
+        output="fragility_curves",
+    )
+    result = combine_fragility_curve.df_out
+    assert np.isclose(
+        result.iloc[100:150]["failure_probability"], expected_result
+    ).all()
+
+
+def test_combine_fragility_curves_dep_csv():
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(
+        config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"
+    )
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
+    combine_fragility_curve = CombineFragilityCurvesDependent(data_adapter=data_adapter)
+    combine_fragility_curve.run(
+        input=[
+            "fragility_curve_pipping_csv",
+            "fragility_curve_overtopping_csv",
+        ],
+        output="fragility_curves",
+    )
+    result = combine_fragility_curve.df_out
+    assert np.isclose(
+        result.iloc[100:150]["failure_probability"], expected_result
+    ).all()
+
+
+def test_combine_fragility_curves_weighted_csv():
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(
+        config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"
+    )
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
+    combine_fragility_curve = CombineFragilityCurvesDependent(data_adapter=data_adapter)
     combine_fragility_curve.run(
         input=[
             "fragility_curve_pipping_csv",
