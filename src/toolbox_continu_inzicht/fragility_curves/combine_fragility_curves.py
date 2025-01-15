@@ -47,6 +47,7 @@ class CombineFragilityCurvesPerSection:
         for key in input:
             df_in = self.data_adapter.input(key)
             self.lst_df_in.append(df_in)
+
         self.df_out = self.calculate_combined_curve(self.lst_df_in, self.data_adapter)
         self.data_adapter.output(output, self.df_out)
 
@@ -129,9 +130,16 @@ class CombineFragilityCurves(CombineFragilityCurvesPerSection):
 
         curves_per_section = []
         for section_id in set(lst_section_ids):
+            # lst_fragility_curves = [
+            #     df[df["section_id"] == section_id] for df in self.lst_df_in
+            # ]
+
             lst_fragility_curves = [
-                df[df["section_id"] == section_id] for df in self.lst_df_in
+                df[df["section_id"] == section_id]
+                for df in self.lst_df_in
+                if not df[df["section_id"] == section_id].empty
             ]
+
             df_combined = self.calculate_combined_curve(
                 lst_fragility_curves, self.data_adapter
             )

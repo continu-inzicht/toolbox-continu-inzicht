@@ -340,46 +340,184 @@ def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
     return df
 
 
+def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
+    """leest fragility curves data van postgresql database in."""
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+        "failuremechanism",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+    failuremechanism = input_config["failuremechanism"]
+
+    timedep = 0
+    if "timedep" in input_config:
+        timedep = input_config["timedep"]
+
+    degradatieid = 0
+    if "degradatieid" in input_config:
+        degradatieid = input_config["degradatieid"]
+
+    measureid = 0
+    if "measureid" in input_config:
+        measureid = input_config["measureid"]
+
+    query = f"""
+        SELECT 
+            sectionid AS section_id, 
+            failuremechanismid, 
+            measureid, 
+            hydraulicload AS waterlevels, 
+            failureprobability AS failure_probability, 
+            timedep, 
+            degradatieid
+        FROM {schema}.fragilitycurves
+        INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
+        WHERE failuremechanism.name='{failuremechanism}' AND measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid}
+    """
+
+    # query uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
+    return df
+
+
 def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
-    overtopping_id = 2
-    if overtopping_id in input_config:
-        overtopping_id = input_config["overtopping_id"]
-    input_config["query"] = (
-        f"SELECT * FROM {input_config['schema']}.fragilitycurves WHERE failuremechanismid={overtopping_id}"
+    """leest fragility curves data van postgresql database in , zet namen goed en filterd op overtopping."""
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
     )
-    # hernoemen van de kolom section_id naar sectionid
-    df = input_postgresql_database(input_config)
-    df.rename(
-        columns={
-            "sectionid": "section_id",
-            "failureprobability": "failure_probability",
-            "hydraulicload": "waterlevels",
-        },
-        inplace=True,
-    )
+
+    schema = input_config["schema"]
+
+    failuremechanism = "GEKB"
+    if failuremechanism in input_config:
+        failuremechanism = input_config["failuremechanism"]
+
+    timedep = 0
+    if "timedep" in input_config:
+        timedep = input_config["timedep"]
+
+    degradatieid = 0
+    if "degradatieid" in input_config:
+        degradatieid = input_config["degradatieid"]
+
+    measureid = 0
+    if "measureid" in input_config:
+        measureid = input_config["measureid"]
+
+    query = f"""
+        SELECT 
+            sectionid AS section_id, 
+            failuremechanismid, 
+            measureid, 
+            hydraulicload AS waterlevels, 
+            failureprobability AS failure_probability, 
+            timedep, 
+            degradatieid
+        FROM {schema}.fragilitycurves
+        INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
+        WHERE failuremechanism.name='{failuremechanism}' AND measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid};
+    """
+
+    # query uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 
 def input_ci_postgresql_fragilitycurves_pipping(input_config: dict) -> pd.DataFrame:
     """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
-    input_config["table"] = "fragilitycurves"
-    piping_id = 3
-    if piping_id in input_config:
-        piping_id = input_config["piping_id"]
-    input_config["query"] = (
-        f"SELECT * FROM {input_config['schema']}.fragilitycurves WHERE failuremechanismid={piping_id}"
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
     )
-    # hernoemen van de kolom section_id naar sectionid
-    df = input_postgresql_database(input_config)
-    df.rename(
-        columns={
-            "sectionid": "section_id",
-            "failureprobability": "failure_probability",
-            "hydraulicload": "waterlevels",
-        },
-        inplace=True,
-    )
+
+    schema = input_config["schema"]
+
+    failuremechanism = "STPH"
+    if failuremechanism in input_config:
+        failuremechanism = input_config["failuremechanism"]
+
+    timedep = 0
+    if "timedep" in input_config:
+        timedep = input_config["timedep"]
+
+    degradatieid = 0
+    if "degradatieid" in input_config:
+        degradatieid = input_config["degradatieid"]
+
+    measureid = 0
+    if "measureid" in input_config:
+        measureid = input_config["measureid"]
+
+    query = f"""
+        SELECT 
+            sectionid AS section_id, 
+            failuremechanismid, 
+            measureid, 
+            hydraulicload AS waterlevels, 
+            failureprobability AS failure_probability, 
+            timedep, 
+            degradatieid
+        FROM {schema}.fragilitycurves
+        INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
+        WHERE failuremechanism.name='{failuremechanism}' AND measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid};
+    """
+
+    # query uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 

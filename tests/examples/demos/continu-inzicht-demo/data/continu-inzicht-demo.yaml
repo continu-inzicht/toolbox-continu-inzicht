@@ -201,6 +201,42 @@ DataAdapter:
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"    
 
+    fragility_curve_overloop_en_overslag:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "GEKB"
+
+    fragility_curve_opbarsten_en_piping:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "STPH"
+
+    fragility_curve_stabiliteit_binnenwaarts_dijken:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "STBI"
+
+    fragility_curve_overloop_en_overslag_langsconstructies:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"        
+        failuremechanism: "HTKW"
+
+    fragility_curve_stabiliteit_langsconstructies:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"        
+        failuremechanism: "STKWI"
+
+    fragility_curve_piping_langsconstructies:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"        
+        failuremechanism: "PKW"        
+
     out_section_fragility_curves:
         type: ci_postgresql_fragilitycurves_table
         database: "geoserver"
