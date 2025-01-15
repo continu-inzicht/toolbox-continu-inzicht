@@ -224,23 +224,23 @@ def input_ci_postgresql_profiles(input_config: dict) -> pd.DataFrame:
     schema = input_config["schema"]
 
     query = f"""
-        SELECT 
-            profiles.sectionid AS section_id, 
-            profiles.name, 
-            profiles.crestlevel, 
-            profiles.orientation, 
-            profiles.dam, 
-            profiles.damheight, 
+        SELECT
+            profiles.sectionid AS section_id,
+            profiles.name,
+            profiles.crestlevel,
+            profiles.orientation,
+            profiles.dam,
+            profiles.damheight,
             (
-                CASE 
+                CASE
                     WHEN profiles.qcr_dist='gesloten' OR profiles.qcr_dist='close' OR profiles.qcr_dist='closed' THEN 'closed'
                     WHEN profiles.qcr_dist='open' THEN 'open'
                     WHEN profiles.qcr_dist='fragmentarisch' THEN 'open'
                     ELSE 'closed'
                 END
             ) AS qcr,
-            wind.windspeed, 
-            wind.sectormin, 
+            wind.windspeed,
+            wind.sectormin,
             wind.sectorsize,
             0 AS closing_situation
         FROM {schema}.profiles
@@ -279,12 +279,12 @@ def input_ci_postgresql_slopes(input_config: dict) -> pd.DataFrame:
     schema = input_config["schema"]
 
     query = f"""
-        SELECT 
-            profiles.sectionid AS section_id, 
-            slopes.slopetypeid, 
-            slopes.x, 
-            slopes.y, 
-            slopes.r, 
+        SELECT
+            profiles.sectionid AS section_id,
+            slopes.slopetypeid,
+            slopes.x,
+            slopes.y,
+            slopes.r,
             slopes.damheight
         FROM {schema}.slopes
         INNER JOIN {schema}.profiles ON profiles.id=slopes.profileid;
@@ -322,10 +322,10 @@ def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
     schema = input_config["schema"]
 
     query = f"""
-        SELECT 
-            sectionid AS section_id, 
-            direction, 
-            bedlevel, 
+        SELECT
+            sectionid AS section_id,
+            direction,
+            bedlevel,
             "fetch"
         FROM {schema}.bedlevelfetch;
     """
@@ -376,13 +376,13 @@ def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
         measureid = input_config["measureid"]
 
     query = f"""
-        SELECT 
-            sectionid AS section_id, 
-            failuremechanismid, 
-            measureid, 
-            hydraulicload AS waterlevels, 
-            failureprobability AS failure_probability, 
-            timedep, 
+        SELECT
+            sectionid AS section_id,
+            failuremechanismid,
+            measureid,
+            hydraulicload AS waterlevels,
+            failureprobability AS failure_probability,
+            timedep,
             degradatieid
         FROM {schema}.fragilitycurves
         INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
@@ -437,13 +437,13 @@ def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.Da
         measureid = input_config["measureid"]
 
     query = f"""
-        SELECT 
-            sectionid AS section_id, 
-            failuremechanismid, 
-            measureid, 
-            hydraulicload AS waterlevels, 
-            failureprobability AS failure_probability, 
-            timedep, 
+        SELECT
+            sectionid AS section_id,
+            failuremechanismid,
+            measureid,
+            hydraulicload AS waterlevels,
+            failureprobability AS failure_probability,
+            timedep,
             degradatieid
         FROM {schema}.fragilitycurves
         INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
@@ -498,13 +498,13 @@ def input_ci_postgresql_fragilitycurves_pipping(input_config: dict) -> pd.DataFr
         measureid = input_config["measureid"]
 
     query = f"""
-        SELECT 
-            sectionid AS section_id, 
-            failuremechanismid, 
-            measureid, 
-            hydraulicload AS waterlevels, 
-            failureprobability AS failure_probability, 
-            timedep, 
+        SELECT
+            sectionid AS section_id,
+            failuremechanismid,
+            measureid,
+            hydraulicload AS waterlevels,
+            failureprobability AS failure_probability,
+            timedep,
             degradatieid
         FROM {schema}.fragilitycurves
         INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid

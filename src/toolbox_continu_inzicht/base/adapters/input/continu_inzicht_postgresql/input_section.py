@@ -436,12 +436,12 @@ def input_ci_postgresql_section_expert_judgement_table(
 
     schema = input_config["schema"]
     query = f"""
-        SELECT 
-            sectionid AS section_id, 
+        SELECT
+            sectionid AS section_id,
             parameters.id AS parameter_id,
-            parameters.unit AS unit,	            
-            TO_TIMESTAMP(moments.calctime/1000) AS date_time,            
-            expertjudgement AS state_id, 		
+            parameters.unit AS unit,
+            TO_TIMESTAMP(moments.calctime/1000) AS date_time,
+            expertjudgement AS state_id,
             (
                 CASE
                 WHEN moments.id > 0 THEN 'verwacht'
@@ -449,7 +449,7 @@ def input_ci_postgresql_section_expert_judgement_table(
                 END
             ) AS value_type,
             expertjudgementrate AS failureprobability,
-            failuremechanism.id AS failuremechanism_id,	
+            failuremechanism.id AS failuremechanism_id,
             failuremechanism.name AS failuremechanism
         FROM {schema}.expertjudgement
         INNER JOIN {schema}.moments ON 1=1

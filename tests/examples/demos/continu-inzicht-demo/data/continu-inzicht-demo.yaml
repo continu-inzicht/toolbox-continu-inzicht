@@ -42,7 +42,7 @@ GlobalVariables:
         gh_onz_mu: 0.96 # default waarde
 
     FragilityCurvesOvertopping:
-        gh_onz_mu: 0.96 # default waarde        
+        gh_onz_mu: 0.96 # default waarde
 
 DataAdapter:
 
@@ -169,7 +169,7 @@ DataAdapter:
         type: ci_postgresql_section_to_data
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-        parameter_id: 102    
+        parameter_id: 102
 
     in_section_conditions:
         type: ci_postgresql_section_thresholds_from_conditions_table
@@ -199,7 +199,7 @@ DataAdapter:
     in_section_bedlevel_fetch:
         type: ci_postgresql_bedlevelfetch
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime"    
+        schema: "continuinzicht_demo_realtime"
 
     fragility_curve_overloop_en_overslag:
         type: ci_postgresql_fragilitycurves
@@ -222,20 +222,20 @@ DataAdapter:
     fragility_curve_overloop_en_overslag_langsconstructies:
         type: ci_postgresql_fragilitycurves
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime"        
+        schema: "continuinzicht_demo_realtime"
         failuremechanism: "HTKW"
 
     fragility_curve_stabiliteit_langsconstructies:
         type: ci_postgresql_fragilitycurves
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime"        
+        schema: "continuinzicht_demo_realtime"
         failuremechanism: "STKWI"
 
     fragility_curve_piping_langsconstructies:
         type: ci_postgresql_fragilitycurves
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime"        
-        failuremechanism: "PKW"        
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "PKW"
 
     out_section_fragility_curves:
         type: ci_postgresql_fragilitycurves_table
