@@ -18,7 +18,7 @@ from toolbox_continu_inzicht import FragilityCurve, DataAdapter, Config
 @dataclass(config={"arbitrary_types_allowed": True})
 class FragilityCurveOvertopping(FragilityCurve):
     """
-    Maakt één fragility curve voor golf overslag.
+    Maakt een enkele fragility curve voor golf overslag.
 
     Args:
         data_adapter (DataAdapter): DataAdapter object

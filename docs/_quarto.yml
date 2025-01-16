@@ -84,21 +84,21 @@ quartodoc:
        - FragilityCurve
     - title: Belastingen
       desc: Functies die belastingen inladen, classificeren of toekennen.
-      package: toolbox_continu_inzicht
+      package: toolbox_continu_inzicht.loads
       contents:
-       - loads.LoadsCIWhatIf
-       - loads.LoadsClassify
-       - loads.LoadsFews
-       - loads.get_fews_locations
-       - loads.get_fews_thresholds
-       - loads.LoadsMatroos
-       - loads.get_matroos_locations
-       - loads.LoadsWaterwebservicesRWS
-       - loads.get_rws_webservices_locations
-       - loads.LoadsToMoments
-       - loads.LoadsWaterinfo
-       - loads.get_waterinfo_locations
-       - loads.get_waterinfo_thresholds
+       - LoadsCIWhatIf
+       - LoadsClassify
+       - LoadsFews
+       - get_fews_locations
+       - get_fews_thresholds
+       - LoadsMatroos
+       - get_matroos_locations
+       - LoadsWaterwebservicesRWS
+       - get_rws_webservices_locations
+       - LoadsToMoments
+       - LoadsWaterinfo
+       - get_waterinfo_locations
+       - get_waterinfo_thresholds
     - title: Dijkvak
       desc: Functies die betrekking hebben op dijkvakken
       package: toolbox_continu_inzicht.sections
@@ -108,15 +108,20 @@ quartodoc:
        - SectionsTechnicalFailureprobability
        - SectionsMeasureFailureprobability
        - SectionsClassify
-    - title: Kwetsbaarheidscurve
-      desc: Functies voor het berekenen en aanpassen van kwetsbaarheidscurve
-      package: toolbox_continu_inzicht
+    - title: Fragility curves
+      desc: Functies voor het berekenen en aanpassen van Fragility curve
+      package: toolbox_continu_inzicht.fragility_curves
       contents:
-       - fragility_curves.FragilityCurveOvertopping
-       - fragility_curves.ShiftFragilityCurveOvertopping
-       - fragility_curves.ChangeCrestHeightFragilityCurveOvertopping
-          # - haal_waterstanden_op
-          # - calculate_fragility_curves
+       - FragilityCurveOvertopping
+       - FragilityCurvesOvertopping
+       - ShiftFragilityCurveOvertopping
+       - ChangeCrestHeightFragilityCurveOvertopping
+       - FragilityCurvePipingFixedWaterlevelSimple
+       - FragilityCurvesPiping
+       - CombineFragilityCurvesIndependent
+       - CombineFragilityCurvesDependent
+       - CombineFragilityCurvesWeightedSum
+
     - title: Continu Inzicht Adapters (invoer)
       desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
       package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql
