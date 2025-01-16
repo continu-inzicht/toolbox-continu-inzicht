@@ -18,7 +18,7 @@ def combine_independent(lst_fragility_curves, **kwargs):
 
 
 def combine_dependent(lst_fragility_curves, **kwargs):
-    """Combineer afhankelijk:  P(fail,comb|h) = max( P(fail,i|h))"""
+    """Combineer afhankelijk:  P(fail,comb|h) = MAX(P(fail,i|h))"""
     array_curves = np.vstack(
         [curve["failure_probability"].to_numpy() for curve in lst_fragility_curves]
     )
@@ -168,6 +168,12 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
             self.lst_fragility_curves.append(df_in)
 
         self.weights = self.data_adapter.input(input[-1])["weights"].to_numpy()
+
+        if len(self.lst_fragility_curves) != len(self.weights):
+            raise UserWarning(
+                f"De laatste van de lijst van inputs moet de gewichten bevatten {input[-1]}, \
+                de lengte van de gewichten ({len(self.weights)}) moet gelijk aan het aan het aantal fragility curves ({len(self.lst_fragility_curves)})"
+            )
 
         self.df_out = self.calculate_combined_curve()
         self.data_adapter.output(output, self.df_out)

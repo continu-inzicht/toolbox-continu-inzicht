@@ -460,8 +460,8 @@ def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.Da
     return df
 
 
-def input_ci_postgresql_fragilitycurves_pipping(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
+def input_ci_postgresql_fragilitycurves_piping(input_config: dict) -> pd.DataFrame:
+    """leest fragility curves data van postgresql database in , zet namen goed en filterd op piping."""
 
     keys = [
         "postgresql_user",
@@ -522,7 +522,7 @@ def input_ci_postgresql_fragilitycurves_pipping(input_config: dict) -> pd.DataFr
 
 
 def input_ci_postgresql_fragilitycurves_stability(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
+    """leest fragility curves data van postgresql database in , zet namen goed en filterd op piping."""
     input_config["table"] = "fragilitycurves"
     stability_id = 4
     if stability_id in input_config:
@@ -543,7 +543,7 @@ def input_ci_postgresql_fragilitycurves_stability(input_config: dict) -> pd.Data
     return df
 
 
-def input_ci_postgresql_probablistic_pipping(input_config: dict) -> pd.DataFrame:
+def input_ci_postgresql_probablistic_piping(input_config: dict) -> pd.DataFrame:
     """leest probablistic data van postgresql database in de probablistic piping tabel en hernoemt de kollomen."""
     db_to_continu_inzicht = {
         "sectionid": "section_id",
@@ -563,7 +563,7 @@ def input_ci_postgresql_probablistic_pipping(input_config: dict) -> pd.DataFrame
         "max": "Max",
         "stdev": "StDev",
     }
-    input_config["table"] = "probabilisticpipping"
+    input_config["table"] = "probabilisticpiping"
     df = input_postgresql_database(input_config)
     df.rename(columns=db_to_continu_inzicht, inplace=True)
     return df

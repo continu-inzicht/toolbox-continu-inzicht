@@ -143,7 +143,7 @@ def test_combine_fragility_curves_indep1_csv():
     )
     combine_fragility_curve.run(
         input=[
-            "fragility_curve_pipping_csv",
+            "fragility_curve_piping_csv",
             "fragility_curve_overtopping_csv",
         ],
         output="fragility_curves",
@@ -166,8 +166,8 @@ def test_combine_fragility_curves_indep2_csv():
     )
     combine_fragility_curve.run(
         input=[
-            "fragility_curve_pipping_csv",
-            "fragility_curve_pipping_csv",
+            "fragility_curve_piping_csv",
+            "fragility_curve_piping_csv",
         ],
         output="fragility_curves",
     )
@@ -187,7 +187,7 @@ def test_combine_fragility_curves_dep_csv():
     combine_fragility_curve = CombineFragilityCurvesDependent(data_adapter=data_adapter)
     combine_fragility_curve.run(
         input=[
-            "fragility_curve_pipping_csv",
+            "fragility_curve_piping_csv",
             "fragility_curve_overtopping_csv",
         ],
         output="fragility_curves",
@@ -210,7 +210,7 @@ def test_combine_fragility_curves_weighted_csv():
     )
     combine_fragility_curve.run(
         input=[
-            "fragility_curve_pipping_csv",
+            "fragility_curve_piping_csv",
             "fragility_curve_overtopping_csv",
             "weighting_factor_csv",
         ],
