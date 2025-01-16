@@ -35,6 +35,7 @@ def combine_weighted(lst_fragility_curves, weights=None):
         lst_curves.append(curve["failure_probability"].to_numpy() * w_i)
     array_curves = np.vstack(lst_curves)
     overschrijdingskans = array_curves.sum(axis=0)
+    overschrijdingskans = np.clip(overschrijdingskans, 0, 1)
     return overschrijdingskans
 
 
@@ -151,27 +152,22 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
         Elke fragility curve moet de volgende kolommen bevatten:
             - waterlevels: float
             - failure_probabilities: float
+
+        De laatste fragility curve in de input lijst bevat de gewichten.
+
+        Deze moet de volgende kolom bevatten:
+
+            - weights: float
+
+                per curve de gewichten
+
         """
 
         for key in input[:-1]:
             df_in = self.data_adapter.input(key)
             self.lst_fragility_curves.append(df_in)
 
-        # split the dataframes by section_id
-        lst_section_ids = []
-        for df in self.lst_df_in:
-            lst_section_ids.extend(df["section_id"].unique().tolist())
-
-        curves_per_section = []
-        for section_id in set(lst_section_ids):
-            lst_fragility_curves = [
-                df[df["section_id"] == section_id] for df in self.lst_df_in
-            ]
-            df_combined = self.calculate_combined_curve(
-                lst_fragility_curves, self.data_adapter
-            )
-            df_combined["section_id"] = section_id
-            curves_per_section.append(df_combined)
+        self.weights = self.data_adapter.input(input[-1])["weights"].to_numpy()
 
         if len(self.lst_fragility_curves) != len(self.weights):
             raise UserWarning(

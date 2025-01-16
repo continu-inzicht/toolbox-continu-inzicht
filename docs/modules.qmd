@@ -778,7 +778,6 @@ combine_fragility_curve.run(
 ```
 :::
 
-
 ## Bijstellen fragility curves {#sec-Bijstellen-fragility-curves}
 
 ### Verschuiven van een curve
