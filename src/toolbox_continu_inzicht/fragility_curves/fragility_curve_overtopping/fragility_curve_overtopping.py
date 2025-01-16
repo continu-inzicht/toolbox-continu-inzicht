@@ -145,7 +145,6 @@ class FragilityCurveOvertopping(FragilityCurve):
             # can be used to set options for the calculation
             options: dict = global_variables["FragilityCurveOvertopping"]
 
-        # voor nu default waardes uit de opties
         windspeed = profile_series["windspeed"]
         sectormin = profile_series["sectormin"]
         sectorsize = profile_series["sectorsize"]
@@ -271,20 +270,6 @@ class FragilityCurvesOvertopping(FragilityCurve):
     effect: float | None = None
     measure_id: int | None = None
 
-    # TODO: add, first think about what to do with ids
-    # input_schema_slopes = {
-    #     "slopetypeid": "int64",
-    #     "x": "float64",
-    #     "y": "float64",
-    #     "r": "float64",
-    # }
-
-    # input_schema_bed_levels = {
-    #     "direction": "float64",
-    #     "bedlevel": "float64",
-    #     "fetch": "float64",
-    # }
-
     def run(self, input: list[str], output: str) -> None:
         """
         Runt de berekening van de fragility curve voor golf overslag
@@ -406,12 +391,13 @@ class FragilityCurvesOvertopping(FragilityCurve):
                     input=["df_slopes", "df_profile", "df_bed_levels"], output="output"
                 )
 
-            df_fco = fragility_curve_overtopping.df_out
-            df_fco["section_id"] = section_id
+            df_fragility_curve_overtopping = fragility_curve_overtopping.df_out
+            df_fragility_curve_overtopping["section_id"] = section_id
+
             if len(self.df_out) == 0:
-                self.df_out = df_fco
+                self.df_out = df_fragility_curve_overtopping
             else:
-                self.df_out = pd.concat([self.df_out, df_fco])
+                self.df_out = pd.concat([self.df_out, df_fragility_curve_overtopping])
 
         self.df_out["failuremechanismid"] = 2  # GEKB: komt uit de
         if self.measure_id is not None:

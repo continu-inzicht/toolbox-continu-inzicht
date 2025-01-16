@@ -122,7 +122,7 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
             try:
                 df_profile.loc[k, "values"] = pd.to_numeric(df_profile.loc[k, "values"])
             except ValueError:
-                # leave str
+                # If values are not numeric, pass as we want to keep them strings
                 pass
         df_profile.loc["crestlevel"] += effect
         self.data_adapter.set_dataframe_adapter(

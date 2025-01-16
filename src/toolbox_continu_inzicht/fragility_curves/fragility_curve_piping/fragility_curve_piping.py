@@ -20,7 +20,6 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
     De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie.
     Deze functie berekent fragility curves voor uplift, heave, Sellmeijer, en de gecombineerde mechanismes.
     Voor het combineren van de mechanismes wordt het minimum van de kansen van de drie sub-mechanismes genomen,
-    dit is een simpelere manier van het combineren. Zie 'FragilityCurvePipingFixedWaterlevel' voor de andere methode van combineren.
     De gecombineerde fragility curve is de standaard output, de andere kunnen worden opgevraagd met de df_result_uplift, df_result_heave, en df_result_sellmeijer attributen.
 
     Args:
@@ -45,15 +44,6 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
     df_result_heave: Optional[pd.DataFrame] | None = None
     df_result_sellmeijer: Optional[pd.DataFrame] | None = None
     df_result_combined: Optional[pd.DataFrame] | None = None
-
-    # TODO: add, first think about what to do with ids
-    # input_prob_input = {
-    #  ...
-    # }
-
-    # input_waterlevels = {
-    #  ...
-    # }
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -94,8 +84,7 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
         self.df_prob_input = self.data_adapter.input(input[0])
         self.df_waterlevels = self.data_adapter.input(input[1])
 
-        # TODO: vanaf hier refactor naar een aparte functie zodat deze ook gebruikt kan worden in FragilityCurves
-        # sommige opties niet nodig maar kan wel gaan zeuren dus maak None
+        # sommige opties niet direct nodig maar de probabilistic_piping package heeft ze wel nodig dus maak None
         for col in ["Afknot_links", "Afknot_rechts"]:
             if col not in self.df_prob_input.columns:
                 self.df_prob_input[col] = None
@@ -104,7 +93,7 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
         progress: bool = False
         debug: bool = False
         if "FragilityCurvePipingFixedWaterlevelSimple" in global_variables:
-            # can be used to set options for the calculation
+            # neem opties over van de config
             options: dict = global_variables[
                 "FragilityCurvePipingFixedWaterlevelSimple"
             ]
@@ -127,7 +116,7 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
             )
         )
 
-        # turn results into dataframes for each mechanism
+        # zet de resultaten om in dataframes voor elk mechanisme
         df_names = [
             "df_result_uplift",
             "df_result_heave",
