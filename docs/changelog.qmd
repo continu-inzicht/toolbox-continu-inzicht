@@ -40,3 +40,14 @@ Deze inleesfuncties gebruiken allemaal de Aquo-standaard naam en code (WATHTE).
 - Classificeren van belastingen aan de hand van opgehaalde/opgegeven grenswaardes.
 - Toekennen van belastingen aan secties.
 - Aggregeren van tijdreeksen naar momenten of bij het getij naar maxima over de getijperiode.
+
+### Sprint 3:
+
+
+In sprint 3 is weer gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#45](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/45).
+
+De nadruk lag vooral op het toevoegen van fragility curves. Fragility curves kunnen worden gemaakt voor GEKB (golfoverslag) en STPH (piping). Ook kunnen ze afhankelijk, onafhankelijk en met een gewogen gemiddelde worden gecombineerd.
+
+Daarnaast zijn er een heel aantal data adapters toegevoegd en veel voorbeelden hoe je het kan linken aan een continu inzicht database, daar data op kan zetten en vervolgens gebruiken in functies.
+
+De `pre-commit` uitgebreid en toegevoegd aan de github actions, dit run je voor je een aanpassingen doorvoer met `pixi run pre-commit`.

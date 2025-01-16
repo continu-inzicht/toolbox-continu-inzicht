@@ -33,6 +33,7 @@ website:
       - title: "Voorbeelden"
         contents:
           - examples/notebooks/proof_of_concept.ipynb
+          - examples/notebooks/fragility_curve_overtopping.ipynb
 
       - title: "Modules"
         contents:

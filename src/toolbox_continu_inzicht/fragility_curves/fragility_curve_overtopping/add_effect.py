@@ -1,4 +1,3 @@
-import pandas as pd
 from toolbox_continu_inzicht import DataAdapter
 from toolbox_continu_inzicht.fragility_curves import FragilityCurveOvertopping
 
@@ -118,9 +117,10 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
         df_profile = self.data_adapter.input(input[1])
         if "parameters" in df_profile:
             df_profile.set_index("parameters", inplace=True)
+        # converteer naar numeriek indien mogelijk, dit komt doordat de kolom zowel strings als floats bevat
         for k in df_profile.index:
             try:
-                df_profile.loc[k, "values"] = pd.to_numeric(df_profile.loc[k, "values"])
+                df_profile.loc[k, "values"] = float(df_profile.loc[k, "values"])
             except ValueError:
                 # If values are not numeric, pass as we want to keep them strings
                 pass

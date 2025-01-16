@@ -134,9 +134,11 @@ class FragilityCurveOvertopping(FragilityCurve):
         if "parameters" in self.df_profile:
             self.df_profile.set_index("parameters", inplace=True)
         profile_series = self.df_profile["values"]
+        # converteer naar numeriek indien mogelijk, dit komt doordat de kolom zowel strings als floats bevat
+        # qcr kan string, float of tuple zijn
         for k in profile_series.index:
             try:
-                profile_series.at[k] = pd.to_numeric(profile_series.at[k])
+                profile_series.at[k] = float(profile_series.at[k])
             except ValueError:
                 pass
 
