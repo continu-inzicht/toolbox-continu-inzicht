@@ -15,7 +15,8 @@ from toolbox_continu_inzicht import FragilityCurve, DataAdapter, Config
 @dataclass(config={"arbitrary_types_allowed": True})
 class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
     """
-    Maakt één fragility curve voor piping met een gegeven waterstand en combineert deze volgens een simpele methode.
+    Maakt een enkele fragility curve voor piping met een gegeven waterstand.
+
     De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie.
     Deze functie berekent fragility curves voor uplift, heave, Sellmeijer, en de gecombineerde mechanismes.
     Voor het combineren van de mechanismes wordt het minimum van de kansen van de drie sub-mechanismes genomen,

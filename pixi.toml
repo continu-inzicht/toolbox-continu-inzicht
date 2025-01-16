@@ -26,8 +26,6 @@ quarto-check = { cmd = "quarto check all", depends-on = ["quartodoc-build"] }
 quarto-render = { cmd = "export QUARTO_PYTHON=python && quarto render docs --to html --execute", depends-on = [
     "quartodoc-build",
 ] }
-docs = { depends-on = ["build-julia-docs", "quarto-preview"] }
-
 # Lint
 pre-commit = "pre-commit run --all-files"
 lint = { depends-on = ["pre-commit"] }
@@ -65,7 +63,7 @@ pytest-xdist = "*"
 python = ">=3.9"
 python-dotenv = ">=1.0.1,<2"
 quarto = "*"
-quartodoc = "*"
+quartodoc = "<=0.9.0"
 rasterstats = "*"
 requests = "*"
 ruff = "*"
@@ -82,7 +80,7 @@ yaml = "*"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
-pydra-core = "==0.0.3"
+pydra-core = "==0.0.4"
 probabilistic-piping = "==0.0.5"
 #probabilistic_piping = { path = "../probabilistic_piping/src", editable = true }
 
