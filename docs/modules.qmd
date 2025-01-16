@@ -682,7 +682,7 @@ fragility_curve_piping_fixed_waterlevel.run(
 
 ## Combineren van fragility curves{#sec-Combineren-van-fragility-curves}
 
-Fragility curves kunnen op drie manieren worden gecombineerd: Afhankelijk, onafhankelijk of met een gewogen gemiddelde. 
+Fragility curves kunnen op drie manieren worden gecombineerd: Afhankelijk, onafhankelijk of met een gewogen gemiddelde.
 
 
 

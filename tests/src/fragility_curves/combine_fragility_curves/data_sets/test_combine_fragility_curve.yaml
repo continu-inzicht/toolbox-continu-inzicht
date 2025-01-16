@@ -17,11 +17,11 @@ DataAdapter:
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
-        
+
     weighting_factor_csv:
         type: csv
         file: "weighting_factor_combine.csv"
-        
+
     fragility_curve_pipping_csv:
         type: csv
         file: "fragility_curve_pipping.csv"
