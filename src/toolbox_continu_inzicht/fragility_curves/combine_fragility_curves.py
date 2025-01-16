@@ -35,6 +35,7 @@ def combine_weighted(lst_fragility_curves, weights=None):
         lst_curves.append(curve["failure_probability"].to_numpy() * w_i)
     array_curves = np.vstack(lst_curves)
     overschrijdingskans = array_curves.sum(axis=0)
+    overschrijdingskans = np.clip(overschrijdingskans, 0, 1)
     return overschrijdingskans
 
 
