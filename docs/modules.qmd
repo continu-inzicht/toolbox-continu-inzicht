@@ -628,11 +628,13 @@ fragility_curve_overtopping.run(
 :::
 
 ### Piping (STPH) {#sec-Bepalen-fragility-curves-STPH}
-Voor het bereken van fragility curves voor piping (STPH) wordt gebruik gemaakt van de python module [`probabilistic_piping`](https://pypi.org/project/pydra-core/). Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikbaar gemaakt op [github](https://github.com/HKV-products-services/probabilistic_piping). De documentatie van deze module is daar ook te vinden.
+Voor het bereken van fragility curves voor piping (STPH) wordt gebruik gemaakt van de python module [`probabilistic_piping`](https://pypi.org/project/probabilistic-piping/). Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikbaar gemaakt op [github](https://github.com/HKV-products-services/probabilistic_piping). De documentatie van deze module is daar ook te vinden.
+
+> **Disclaimer**: De uitvoer van `probabilistic-piping` geeft meer informatie over of een som in de berekening is gelukt, hier worden echter geen checks op gedaan. Het is aan de gebruiker om na te lopen of de curve die wordt gegenereerd daadwerkelijk logisch is.
 
 #### FragilityCurvePipingFixedWaterlevelSimple {#sec-Bepalen-fragility-curves-STPH-combined}
 
-De functie `FragilityCurvePipingFixedWaterlevelSimple` rekent met alle beschikbare grenstoestanden benoemd bij [`FragilityCurvePipingFixedWaterlevel`](#sec-Bepalen-fragility-curves-STPH-single) en geeft de curve gecombineerde terug. Het verschil zit in hoe de curves worden gecombineerd. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. Dit is een simplere manier vergeleken met `FragilityCurvePipingFixedWaterlevel`.
+De functie `FragilityCurvePipingFixedWaterlevelSimple` rekent met de drie sub-mechanismes uplift, heave, Sellmeijer en geeft een gecombineerde curve terug. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. Dit is een relatief simpele manier van het combineren van een curve, de curves van de sub-mechanismes zijn beschikbaar via de`df_result_uplift`, `df_result_heave`, en `df_result_sellmeijer` attributen.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -684,14 +686,15 @@ fragility_curve_piping_fixed_waterlevel.run(
 
 Fragility curves kunnen op drie manieren worden gecombineerd: Afhankelijk, onafhankelijk of met een gewogen gemiddelde. De tabel hieronder geeft hier een overzicht van.
 
-| Type             | Functie                           | Formule                                  |
-|------------------|-----------------------------------|------------------------------------------|
-|Afhankelijk       |`CombineFragilityCurvesIndependent`|$P(fail,comb|h) = 1 - PROD(1 - P(fail,i|h))$|
-|Onafhankelijk     |`CombineFragilityCurvesDependent`  |$P(fail,comb|h) = MAX( P(fail,i|h))$       |
-|Gewogen gemiddelde|`CombineFragilityCurvesWeightedSum`|$P(fail,comb|h) = SUM(w_i * P(fail,i|h))$   |
+| Type             | Functie                           | Formule                              |
+|------------------|-----------------------------------|--------------------------------------|
+|Afhankelijk       |`CombineFragilityCurvesIndependent`|$P(fail,comb|h)=1-PROD(1-P(fail,i|h))$|
+|Onafhankelijk     |`CombineFragilityCurvesDependent`  |$P(fail,comb|h)=MAX(P(fail,i|h))$     |
+|Gewogen gemiddelde|`CombineFragilityCurvesWeightedSum`|$P(fail,comb|h)=SUM(w_i*P(fail,i|h))$ |
 
 Alle drie de functies verwachten een lijst met namen van de fragility curves die gecombineerd moeten worden.
 Bij de gewogen gemiddelde functie moet de laatste waarde de gewichten zijn waarmee de fragility curves worden gecombineerd.
+De gewichten dataframe moet een kolom met 'weights' hebben, er is met opzet geen validatie of deze gewichten optellen tot 1 zodat de curve ook geschaald kan worden.
 
 ::: {.panel-tabset}
 ## Configuratie (on)afhankelijk
@@ -780,11 +783,12 @@ combine_fragility_curve.run(
 
 ## Bijstellen fragility curves {#sec-Bijstellen-fragility-curves}
 
+
 ### Verschuiven van een curve
 
-Voor het simpel weg vershuiven van een curve is voor alle type fragility curves de functie `Shift*` beschikbaar, `*` de naam van de functie is.
+Voor het simpel weg verschuiven van een curve is voor alle type fragility curves de functie `Shift*` beschikbaar, `*` de naam van de functie is.
 Zo schuift `ShiftFragilityCurveOvertopping` de curve van `FragilityCurveOvertopping` naar rechts met een gegeven effect.
-Belangrijk om hier te benoemen is dat de opties in GlobalVariables nogsteeds moeten verwijzen naar de originele functie, ook alle andere configuraties blijven hetzelfde.
+Belangrijk om hier te benoemen is dat de opties in GlobalVariables nog steeds moeten verwijzen naar de originele functie, ook alle andere configuraties blijven hetzelfde.
 In het voorbeeld hier onder wordt gebruik gemaakt van`FragilityCurveOvertopping` in de GlobalVariables, ook al wordt de `ShiftFragilityCurveOvertopping` functie aangeroepen.
 
 ::: {.panel-tabset}

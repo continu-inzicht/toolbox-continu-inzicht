@@ -43,6 +43,9 @@ def combine_weighted(lst_fragility_curves, weights=None):
 class CombineFragilityCurvesIndependent:
     """
     Combineer meerdere fragility curves onafhankelijk tot een enkele fragility curves.
+
+    Args:
+        data_adapter (DataAdapter): DataAdapter object
     """
 
     data_adapter: DataAdapter
@@ -110,6 +113,9 @@ class CombineFragilityCurvesIndependent:
 class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
     """
     Combineer meerdere fragility curves afhankelijk tot een enkele fragility curves.
+
+    Args:
+        data_adapter (DataAdapter): DataAdapter object
     """
 
     data_adapter: DataAdapter
@@ -124,6 +130,9 @@ class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
 class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
     """
     Combineer meerdere fragility curves met een gewogen som tot een enkele fragility curves.
+
+    Args:
+        data_adapter (DataAdapter): DataAdapter object
     """
 
     data_adapter: DataAdapter
