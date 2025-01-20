@@ -350,7 +350,6 @@ def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
         "postgresql_port",
         "database",
         "schema",
-        "failuremechanism",
     ]
 
     assert all(key in input_config for key in keys)
@@ -361,7 +360,6 @@ def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
     )
 
     schema = input_config["schema"]
-    failuremechanism = input_config["failuremechanism"]
 
     timedep = 0
     if "timedep" in input_config:
@@ -386,8 +384,12 @@ def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
             degradatieid
         FROM {schema}.fragilitycurves
         INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
-        WHERE failuremechanism.name='{failuremechanism}' AND measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid}
+        WHERE measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid}
     """
+
+    if "failuremechanism" in input_config:
+        failuremechanism = input_config["failuremechanism"]
+        query = f"{query} AND failuremechanism.name='{failuremechanism}'"
 
     # query uitvoeren op de database
     with engine.connect() as connection:

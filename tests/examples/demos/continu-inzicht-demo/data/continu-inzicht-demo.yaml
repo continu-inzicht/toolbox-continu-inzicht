@@ -241,3 +241,26 @@ DataAdapter:
         type: ci_postgresql_fragilitycurves_table
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
+
+    in_fragility_curve:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_sections:
+        type: ci_postgresql_from_sections
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+    
+    in_failuremechanisms:
+        type: ci_postgresql_failuremechanisms
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_measures:
+        type: ci_postgresql_measures
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    df_combined_curves:
+        type: "python"        
