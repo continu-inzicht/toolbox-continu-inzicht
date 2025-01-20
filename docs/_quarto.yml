@@ -15,7 +15,7 @@ website:
             - examples/notebooks/2.belastingen_inladen.ipynb
             - examples/notebooks/3.fragility_curve_overtopping.ipynb
       - text: "Modules"
-        file:  modules.qmd
+        file:  modules_index.qmd
       - text: "Python API"
         file: reference/index.qmd
       - text: "Overig"
@@ -41,7 +41,15 @@ website:
 
       - title: "Modules"
         contents:
-          - modules.qmd
+          - modules_index.qmd
+          - modules/architectuur.qmd
+          - modules/belastingen.qmd
+          - modules/bepalen_fragility_curves.qmd
+          - modules/bijstellen_fragility_curves.qmd
+          - modules/kansen_en_status_per_sectie.qmd
+          - modules/effect_statistiek_rekenregels_LBO2.qmd
+          - modules/inspectieresultaten.qmd
+          - modules/digitale_delta_API.qmd
 
       - title: "Python API"
         contents:

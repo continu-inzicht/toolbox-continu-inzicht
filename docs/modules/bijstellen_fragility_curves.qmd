@@ -1,0 +1,103 @@
+---
+title: "Bijstellen fragility curves"
+---
+
+### Verschuiven van een curve
+
+Voor het simpel weg verschuiven van een curve is voor alle type fragility curves de functie `Shift*` beschikbaar, `*` de naam van de functie is.
+Zo schuift `ShiftFragilityCurveOvertopping` de curve van `FragilityCurveOvertopping` naar rechts met een gegeven effect.
+Belangrijk om hier te benoemen is dat de opties in GlobalVariables nog steeds moeten verwijzen naar de originele functie, ook alle andere configuraties blijven hetzelfde.
+In het voorbeeld hier onder wordt gebruik gemaakt van`FragilityCurveOvertopping` in de GlobalVariables, ook al wordt de `ShiftFragilityCurveOvertopping` functie aangeroepen.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+    FragilityCurveOvertopping:
+        gh_onz_mu: 0.96
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes.csv"
+    profiles:
+        type: csv
+        file: "profiles.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_curves.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import ShiftFragilityCurveOvertopping
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+shifted_fragility_curve_overtopping = ShiftFragilityCurveOvertopping(data_adapter=data_adapter)
+shifted_fragility_curve_overtopping.run(
+    input=["slopes", "profiles", "bedlevel_fetch"],
+    output="fragility_curves",
+    effect=0.5
+)
+
+```
+:::
+
+### Aanpassen van de kruinhoogte
+
+Voor het aanpassen van de kruinhoogte bij een [GEKB](#sec-Bepalen-fragility-curves-GEKB) is de functie `ChangeCrestHeightFragilityCurveOvertopping` beschikbaar, hier kan als effect mee gegeven worden wat de verandering van kruinhoogte is. De zelfde berekening als bij `FragilityCurveOvertopping` wordt dan uitgevoerd, maar met de aangepaste kruin hoogte.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+    FragilityCurveOvertopping:
+        gh_onz_mu: 0.96 # default waarde
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes.csv"
+    profiles:
+        type: csv
+        file: "profiles.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_curves.csv"
+
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import ChangeCrestHeightFragilityCurveOvertopping
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+change_crest_fragility_curve_overtopping = ChangeCrestHeightFragilityCurveOvertopping(data_adapter=data_adapter)
+change_crest_fragility_curve_overtopping.run(
+    input=["slopes", "profiles", "bedlevel_fetch"],
+    output="fragility_curves",
+    effect=1
+)
+
+```
+:::
