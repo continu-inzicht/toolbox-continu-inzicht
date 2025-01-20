@@ -130,8 +130,11 @@ expected_result_weighted = [
 ]
 
 
-# %%
+# Note: Deze testen zijn handmatig gevalideerd met de sheet data_sets/manual_test_fragility_curve_combine.xlsx
+
+
 def test_combine_fragility_curves_indep1_csv():
+    """Test de CombineFragilityCurvesIndependent functie met 2 fragility curves: piping en overtopping"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"
@@ -155,6 +158,7 @@ def test_combine_fragility_curves_indep1_csv():
 
 
 def test_combine_fragility_curves_indep2_csv():
+    """Test de CombineFragilityCurvesIndependent functie met 2 dezelfde piping fragility curves"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"
@@ -178,6 +182,7 @@ def test_combine_fragility_curves_indep2_csv():
 
 
 def test_combine_fragility_curves_dep_csv():
+    """Test de CombineFragilityCurvesDependent functie met 2 fragility curves: piping en overtopping"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"
@@ -199,6 +204,7 @@ def test_combine_fragility_curves_dep_csv():
 
 
 def test_combine_fragility_curves_weighted_csv():
+    """Test de CombineFragilityCurvesWeightedSum functie met 2 fragility curves: piping en overtopping en de gewichten 60/40"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"

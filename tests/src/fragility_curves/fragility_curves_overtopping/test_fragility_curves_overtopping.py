@@ -1,8 +1,6 @@
 from pathlib import Path
 
 import numpy as np
-import pytest
-import os
 
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
@@ -11,11 +9,8 @@ from toolbox_continu_inzicht.fragility_curves import (
 )
 
 
-@pytest.mark.skipif(
-    os.getenv("GITHUB_ACTIONS") == "true",
-    reason="DLL's staan nog niet in de pypi package",
-)
 def test_fragility_curves_wave_overtopping_multiple():
+    """Test de functie FragilityCurvesOvertopping met meerdere profielen"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path / "test_fragility_curves_overtopping.yaml"

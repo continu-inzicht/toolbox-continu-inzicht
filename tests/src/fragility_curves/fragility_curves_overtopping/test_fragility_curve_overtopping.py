@@ -307,6 +307,7 @@ def test_fragility_curves_wave_overtopping_vary_standard_values():
 def test_fragility_curves_wave_overtopping_parametric(
     windspeed, sectormin, sectorsize, closing_situation, foreshore, qcr, expected
 ):
+    """Test de functie FragilityCurvesOvertopping met verschillende parameter combinaties"""
     config = Config(config_path=Path.cwd())
     data_adapter = DataAdapter(config=config)
     data_adapter.config.global_variables["FragilityCurveOvertopping"] = {}

@@ -10,7 +10,10 @@ website:
       - text: "Installeren"
         file:  install.qmd
       - text: "Voorbeelden"
-        file: examples/notebooks/proof_of_concept.ipynb
+        menu:
+            - examples/notebooks/1.proof_of_concept.ipynb
+            - examples/notebooks/2.belastingen_inladen.ipynb
+            - examples/notebooks/3.fragility_curve_overtopping.ipynb
       - text: "Modules"
         file:  modules.qmd
       - text: "Python API"
@@ -32,8 +35,9 @@ website:
 
       - title: "Voorbeelden"
         contents:
-          - examples/notebooks/proof_of_concept.ipynb
-          - examples/notebooks/fragility_curve_overtopping.ipynb
+          - examples/notebooks/1.proof_of_concept.ipynb
+          - examples/notebooks/2.belastingen_inladen.ipynb
+          - examples/notebooks/3.fragility_curve_overtopping.ipynb
 
       - title: "Modules"
         contents:
