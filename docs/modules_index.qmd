@@ -18,4 +18,3 @@ De ontwikkeling van de volgende modules is voorzien:
 6.  [Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans](modules/effect_statistiek_rekenregels_LBO2.qmd)
 7.  [Inspectieresultaten inlezen en weergeven](modules/inspectieresultaten.qmd)
 8.  [Resultaten ontsluiten via Digitale Delta API](modules/digitale_delta_API.qmd)
-

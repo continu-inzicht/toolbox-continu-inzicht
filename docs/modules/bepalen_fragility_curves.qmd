@@ -207,4 +207,3 @@ combine_fragility_curve.run(
 )
 ```
 :::
-
