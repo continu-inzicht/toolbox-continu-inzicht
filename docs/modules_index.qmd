@@ -11,8 +11,20 @@ De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorl
 De ontwikkeling van de volgende modules is voorzien:
 
 1.  [Basis architectuur Toolbox Continu Inzicht](modules/architectuur.qmd)
+
+    In de toolbox continu inzicht is een belangrijk uitgangspunt dat verschillende data formaten gebruikt kunnen worden, de functie zijn zo opgezet dat elk formaat als in of uitvoer kan dienen.
+
 2.  [Belastingen inlezen en classificeren](modules/belastingen.qmd)
+
+    Om inzicht te krijgen in de veiligheid van waterkeringen is het van belang om de belastingen op de waterkeringen in kaart te brengen.
+    Dit kunnen waterstanden op het buitenwater (zee, rivieren of meren) zijn, maar ook grondwaterstanden. Er zijn verschillende functies geïmplementeerd voor het inlezen, opslaan en classificeren van historische en voorspelde belastingen.
+
 3.  [Bepalen fragility curves](modules/bepalen_fragility_curves.qmd)
+
+    Fragility curves kunnen voor verschillende faalmechanismes worden berekend. In de toolbox wordt voor STPH (piping) en GEKB (golf overlag) functionaliteit aangeboden voor het afleiden van curves.
+
+In ontwikkeling:
+
 4.  [Bijstellen fragility curves](modules/bijstellen_fragility_curves.qmd) (beheerdersoordeel in voorbereiding)
 5.  [Conditionele kansen en status waterkering per sectie](modules/kansen_en_status_per_sectie.qmd)
 6.  [Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans](modules/effect_statistiek_rekenregels_LBO2.qmd)

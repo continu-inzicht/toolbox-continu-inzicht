@@ -377,7 +377,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyside6-6.8.1-py312h91f0f75_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pysocks-1.7.1-pyha55dd90_7.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-8.3.4-pyhd8ed1ab_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-asyncio-0.25.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-6.0.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-xdist-3.6.1-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.12.8-h9e4cc4f_1_cpython.conda
@@ -835,7 +834,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/pyproj-3.7.0-py312h9673cc4_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pysocks-1.7.1-pyha55dd90_7.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-8.3.4-pyhd8ed1ab_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-asyncio-0.25.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-6.0.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-xdist-3.6.1-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/python-3.12.8-h9ccd52b_1_cpython.conda
@@ -1225,7 +1223,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/pyside6-6.8.1-py312h2ee7485_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pysocks-1.7.1-pyh09c184e_7.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-8.3.4-pyhd8ed1ab_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-asyncio-0.25.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-6.0.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-xdist-3.6.1-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/python-3.12.8-h3f84c4b_1_cpython.conda
@@ -11705,18 +11702,6 @@ packages:
   - pkg:pypi/pytest?source=hash-mapping
   size: 259195
   timestamp: 1733217599806
-- conda: https://conda.anaconda.org/conda-forge/noarch/pytest-asyncio-0.25.2-pyhd8ed1ab_0.conda
-  sha256: 916b056a1841f39ce41ecdb348145b34bfa7763a787058e05b226e251a86a1c8
-  md5: 815e667054228f6efbd93676fd4f060d
-  depends:
-  - pytest >=8.2,<9
-  - python >=3.9
-  license: Apache-2.0
-  license_family: APACHE
-  purls:
-  - pkg:pypi/pytest-asyncio?source=hash-mapping
-  size: 37004
-  timestamp: 1736348105404
 - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-6.0.0-pyhd8ed1ab_1.conda
   sha256: 09acac1974e10a639415be4be326dd21fa6d66ca51a01fb71532263fba6dccf6
   md5: 79963c319d1be62c8fd3e34555816e01
