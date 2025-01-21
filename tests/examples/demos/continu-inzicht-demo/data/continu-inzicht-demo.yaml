@@ -251,7 +251,7 @@ DataAdapter:
         type: ci_postgresql_from_sections
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-    
+
     in_failuremechanisms:
         type: ci_postgresql_failuremechanisms
         database: "geoserver"
@@ -263,4 +263,4 @@ DataAdapter:
         schema: "continuinzicht_demo_realtime"
 
     df_combined_curves:
-        type: "python"        
+        type: "python"

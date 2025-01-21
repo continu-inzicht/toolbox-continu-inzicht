@@ -37,9 +37,9 @@ def input_ci_postgresql_failuremechanisms(input_config: dict) -> pd.DataFrame:
     # ophalen faalmechanismes
     with engine.connect() as connection:
         select_query = f"""
-            SELECT 
-              id, 
-              name 
+            SELECT
+              id,
+              name
             FROM {schema}.failuremechanism;
         """
         df = pd.read_sql_query(sql=sqlalchemy.text(select_query), con=connection)
@@ -81,10 +81,10 @@ def input_ci_postgresql_measures(input_config: dict) -> pd.DataFrame:
     # ophalen measures
     with engine.connect() as connection:
         select_query = f"""
-            SELECT 
-              id, 
-              name, 
-              description 
+            SELECT
+              id,
+              name,
+              description
             FROM {schema}.measures;
         """
         df = pd.read_sql_query(sql=sqlalchemy.text(select_query), con=connection)
