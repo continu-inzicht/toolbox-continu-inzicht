@@ -26,22 +26,29 @@ class FragilityCurveOvertopping(FragilityCurve):
 
     Options in config
     ------------------
+
     Onzekerheden: float
-        gh_onz_mu
+        - gh_onz_mu
             GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
-        gh_onz_sigma
+
+        - gh_onz_sigma
             GolfHoogte onzekerheid sigma: standaard afwijking waarde (standaard 0.27)
-        gp_onz_mu_tp
+
+        - gp_onz_mu_tp
             GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-        gp_onz_sigma_tp
+
+        - gp_onz_sigma_tp
             GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
-        gp_onz_mu_tspec
+
+        - gp_onz_mu_tspec
             GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-        gp_onz_sigma_tspec
+
+        - gp_onz_sigma_tspec
             GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
-        gh_onz_aantal
+
+        - gh_onz_aantal
             Aantal onzekerheden in de golfhoogte (standaard 7)
-        gp_onz_aantal
+        - gp_onz_aantal
             Aantal onzekerheden in de golfperiode (standaard 7)
 
     tp_tspec: float
@@ -51,11 +58,14 @@ class FragilityCurveOvertopping(FragilityCurve):
 
     lower_limit_coarse: float
         De ondergrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 4.0m onder de kruin)
+
     upper_limit_coarse: float
         De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 2.0m onder de kruin).
         Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.
+
     upper_limit_fine: float
         De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)
+
     hstap: float
         De fijne stapgrootte van de waterstanden waarvoor de fragiliteitscurve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.
 
@@ -224,7 +234,20 @@ class FragilityCurvesOvertopping(FragilityCurve):
     Maakt een set van fragility curve voor golf overslag voor een dijkvak.
 
     Args:
-        data_adapter (DataAdapter): DataAdapter object
+        data_adapter: DataAdapter
+            DataAdapter object
+        df_slopes: pd.DataFrame
+            DataFrame met helling data.
+        df_bed_levels: pd.DataFrame
+            DataFrame met bed level data.
+        df_out: pd.DataFrame
+            DataFrame met de resultaten van de berekening.
+        fragility_curve_function: FragilityCurve
+            FragilityCurve object
+        effect: float
+            Effect van de maatregel (niet gebruikt)
+        measure_id: int
+            Maatregel id (niet gebruikt)
 
     Options in config
     ------------------
