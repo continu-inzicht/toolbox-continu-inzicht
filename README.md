@@ -1,4 +1,4 @@
-# Continu Inzicht Toolbox <img align="right" src="/docs/assets/logo.png" height="32" alt='logo'></img>
+# Toolbox Continu Inzicht  <img align="right" src="/docs/assets/logo.png" height="32" alt='logo'></img>
 
 Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij het ontwikkelen van de toolbox is rekening gehouden met type interacties met de toolbox: het gebruiken van de toolbox en bijdragen. Op de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) is voor beide informatie beschikbaar.
 
@@ -25,26 +25,25 @@ We maken gebruik van [pixi](https://pixi.sh/latest/) om de conda environment te 
 
 Om Pixi te installeren run je:
 
-##### windows
+##### Windows - PowerShell
 
 ```powershell
 iwr -useb https://pixi.sh/install.ps1 | iex
 ```
 
-##### Linux/Mac
+##### Linux/Mac - bash
 
 ```bash
 curl -fsSL https://pixi.sh/install.sh | bash
 ```
 
-Hiermee installeer je het programma pixi.
+Hiermee installeer je het programma Pixi.
 
-#### Instaleer python omgeving met pixi
+#### Installeer Python-omgeving met pixi
 
-Met het `Pixi` commando in powershell kun je vervolgens de juiste python bestanden installeren:
+Met het `pixi` commando in powershell kun je vervolgens de juiste Python-bestanden installeren:
 
 ```bash
- cd ..../toolbox-continu-inzicht
  pixi install
 ```
 
