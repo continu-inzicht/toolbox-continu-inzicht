@@ -6,6 +6,93 @@ from toolbox_continu_inzicht.base.adapters.output.postgresql import (
 )
 
 
+def output_ci_postgresql_to_fragilitycurves(
+    output_config: dict, df: pd.DataFrame
+) -> None:
+    """
+    Schrijft voorgedefinieerde fragilitycurves naar Continu Inzicht database (tabel: fragilitycurves).
+
+    Yaml example:\n
+        type: ci_postgresql_to_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    Args:\n
+        * output_config (dict): configuratie opties
+        * df (DataFrame):\n
+        - sectionid: int64              : id van een sectie
+        - failuremechanismid: int64     : id van een scenario
+        - measureid: int64              : id van een maatregel
+        - hydraulicload: float64        : waarde van een hydraulische belasting (bijv. waterstand)
+        - failureprobability: float64   : conditionele faalkans
+        - timedep int64                 : tijdsafhankelijk?
+        - degradatieid int64            : rekening houden met degratie
+
+    **Opmerking:**\n
+    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+    - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+    - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+    - postgresql_port (str): poort van de Continu Inzicht databaseserver
+
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht
+    - schema (str): schema van de Continu Inzicht
+    - unit_conversion_factor (optioneel, float): conversiefactor om waarde om te zetten naar meters
+    """
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in output_config for key in keys)
+
+    schema = output_config["schema"]
+
+    if not df.empty:
+        if (
+            "sectionid" in df
+            and "failuremechanismid" in df
+            and "measureid" in df
+            and "hydraulicload" in df
+            and "failureprobability" in df
+            and "timedep" in df
+            and "degradatieid" in df
+        ):
+            query = []
+
+            query.append(f"TRUNCATE {schema}.fragilitycurves;")
+
+            for _, row in df.iterrows():
+                query.append(
+                    f"INSERT INTO {schema}.fragilitycurves(sectionid, failuremechanismid, measureid, hydraulicload, failureprobability, timedep, degradatieid) VALUES ({str(row['sectionid'])}, {str(row['failuremechanismid'])}, {str(row['measureid'])}, {str(row['hydraulicload'])}, {str(row['failureprobability'])}, {str(row['timedep'])}, {str(row['degradatieid'])});"
+                )
+
+            # maak verbinding object
+            engine = sqlalchemy.create_engine(
+                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+            )
+
+            query = " ".join(query)
+
+            with engine.connect() as connection:
+                connection.execute(sqlalchemy.text(str(query)))
+                connection.commit()  # commit the transaction
+
+            # verbinding opruimen
+            engine.dispose()
+        else:
+            raise UserWarning("Ontbrekende variabelen in dataframe!")
+
+    else:
+        raise UserWarning("Geen gegevens om op te slaan.")
+
+
 def output_ci_postgresql_fragilitycurves_table(
     output_config: dict, df: pd.DataFrame
 ) -> None:

@@ -25,11 +25,6 @@ DataAdapter:
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
 
-    calculation_end_config:
-        type: ci_postgresql_to_calculation_end
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-
     ci_from_loads:
         type: ci_postgresql_whatif_load
         database: "geoserver"
@@ -91,6 +86,16 @@ DataAdapter:
         schema: "continuinzicht_demo_whatif"
         parameter_id: 101
 
+    in_measure_fragilitycurves_table:
+        type: ci_postgresql_measure_fragilitycurves_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_section_load_from_data_table:
+        type: ci_postgresql_section_load_from_data_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+    
     out_section_technical_failure_probability_data:
         type: ci_postgresql_section_to_data
         database: "geoserver"
@@ -103,13 +108,19 @@ DataAdapter:
         schema: "continuinzicht_demo_whatif"
         parameter_id: 102
 
-    in_section_conditions:
-        type: ci_postgresql_section_thresholds_from_conditions_table
+    in_section_data_failure_probability:
+        type: ci_postgresql_section_failure_probability_from_data_table
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
 
-    in_section_data_failure_probability:
-        type: ci_postgresql_section_failure_probability_from_data_table
+    out_section_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        parameter_id: 5    
+
+    in_section_conditions:
+        type: ci_postgresql_section_thresholds_from_conditions_table
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
 
@@ -118,82 +129,10 @@ DataAdapter:
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
 
-    in_section_slopes:
-        type: ci_postgresql_slopes
+    calculation_end_config:
+        type: ci_postgresql_to_calculation_end
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
-
-    in_section_profiles:
-        type: ci_postgresql_profiles
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-
-    in_section_bedlevel_fetch:
-        type: ci_postgresql_bedlevelfetch
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-
-    fragility_curve_overloop_en_overslag:
-        type: ci_postgresql_fragilitycurves
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-        failuremechanism: "GEKB"
-
-    fragility_curve_opbarsten_en_piping:
-        type: ci_postgresql_fragilitycurves
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-        failuremechanism: "STPH"
-
-    fragility_curve_stabiliteit_binnenwaarts_dijken:
-        type: ci_postgresql_fragilitycurves
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-        failuremechanism: "STBI"
-
-    fragility_curve_overloop_en_overslag_langsconstructies:
-        type: ci_postgresql_fragilitycurves
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-        failuremechanism: "HTKW"
-
-    fragility_curve_stabiliteit_langsconstructies:
-        type: ci_postgresql_fragilitycurves
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-        failuremechanism: "STKWI"
-
-    fragility_curve_piping_langsconstructies:
-        type: ci_postgresql_fragilitycurves
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-        failuremechanism: "PKW"
-
-    out_section_fragility_curves:
-        type: ci_postgresql_fragilitycurves_table
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-
-    in_fragility_curve:
-        type: ci_postgresql_fragilitycurves
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-
-    in_sections:
-        type: ci_postgresql_from_sections
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-
-    in_failuremechanisms:
-        type: ci_postgresql_failuremechanisms
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-
-    in_measures:
-        type: ci_postgresql_measures
-        database: "geoserver"
-        schema: "continuinzicht_demo_whatif"
-
 
     df_moment_waterstanden:
         type: python

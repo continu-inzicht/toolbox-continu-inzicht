@@ -98,8 +98,9 @@ class LoadsClassify:
                 "hours",
             ]
         ]
+
         self.df_out = self.df_out[
-            (self.df_out["value"] < self.df_out["upper_boundary"])
+            (self.df_out["value"] <= self.df_out["upper_boundary"])
             & (self.df_out["value"] > self.df_out["lower_boundary"])
         ]
 
