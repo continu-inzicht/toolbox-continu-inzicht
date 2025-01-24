@@ -1,0 +1,78 @@
+GlobalVariables:
+    rootdir: "D:/Users/Thonus/mijnSoftware/Toolbox Continu Inzicht/toolbox-continu-inzicht/tests/examples/demos/continu-inzicht-demo/data"
+    calc_time: "1901-01-01"
+    moments: [-24,0,24,48] 
+
+DataAdapter: 
+
+    out_moments_table:   
+        type: ci_postgresql_to_moments
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif" 
+    
+    ci_from_scenario:
+        type: ci_postgresql_whatif_from_scenario
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif" 
+
+    out_simulation_table:
+        type: ci_postgresql_to_simulation
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif" 
+
+    calculation_start_config:
+        type: ci_postgresql_to_calculation_start
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+    
+    calculation_end_config:
+        type: ci_postgresql_to_calculation_end
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    ci_from_loads:
+        type: ci_postgresql_whatif_load
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"    
+ 
+    ci_to_data:
+        type: ci_postgresql_measuringstation_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        objecttype: "measuringstation"
+        unit_conversion_factor: 1  
+
+    in_measuringstation_data_table: 
+        type: ci_postgresql_measuringstation_data_table
+        database: "geoserver"        
+        schema: "continuinzicht_demo_whatif"    
+
+    in_measuringstation_conditions_table: 
+        type: ci_postgresql_from_conditions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"   
+
+    out_measuringstation_states_table:   
+        type: ci_postgresql_to_states
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"  
+        objecttype: "measuringstation"                    
+
+    in_section_table: 
+        type: ci_postgresql_from_sections
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif" 
+
+    in_sectionfractions_table: 
+        type: ci_postgresql_from_sectionfractions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"            
+
+    out_waterstanden_section_ci_postgresql: 
+        type: ci_postgresql_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        objecttype: "section"             
+
+    df_moment_waterstanden: 
+        type: python

@@ -1,7 +1,5 @@
 GlobalVariables:
-    rootdir: "D:/Users/Thonus/mijnSoftware/Toolbox Continu Inzicht/toolbox-continu-inzicht/tests/examples/demos/continu-inzicht-demo/data"
-    calc_time: "1901-01-01"
-    moments: [-24,0,24,48]
+    rootdir: "data"
 
 DataAdapter:
     default_options:
@@ -32,5 +30,50 @@ DataAdapter:
 
     out_sections_table:
         type: ci_postgresql_section
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+    
+    in_measuringstations_csv:
+        type: csv
+        path: "measuringstations.csv"
+
+    out_measuringstations_table:
+        type: ci_postgresql_measuringstation
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_conditions_csv:
+        type: csv
+        path: "conditions.csv"
+
+    out_conditions_table:
+        type: ci_postgresql_conditions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_sectionfractions_csv:
+        type: csv
+        path: "sectionfractions.csv"
+
+    out_sectionfractions_table:
+        type: ci_postgresql_sectionfractions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_scenarios_csv:
+        type: csv
+        path: "scenarios.csv"
+    
+    out_scenarios_table:
+        type: ci_postgresql_to_scenarios
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+    
+    in_loads_csv:
+        type: csv
+        path: "loads.csv"
+    
+    out_loads_table:
+        type: ci_postgresql_to_load
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
