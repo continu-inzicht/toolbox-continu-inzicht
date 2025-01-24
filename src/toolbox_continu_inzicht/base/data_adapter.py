@@ -120,7 +120,9 @@ class DataAdapter(PydanticBaseModel):
 
                 # Controleer of er data is opgehaald.
                 if len(df) == 0:
-                    raise UserWarning("Ophalen van gegevens heeft niets opgeleverd.")
+                    raise UserWarning(
+                        f"Ophalen van gegevens van {input} heeft niets opgeleverd."
+                    )
 
                 # Als schema is meegegeven, controleer of de data aan het schema voldoet.
                 if schema is not None:

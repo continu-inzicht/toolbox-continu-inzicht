@@ -38,11 +38,6 @@ def output_ci_postgresql_to_calculation_start(
     - schema (str): schema van de Continu Inzicht
     """
 
-    # TODO WEGHALEN
-    df.to_csv(
-        "d:/toolbox/adapters/calculation/output_ci_postgresql_to_calculation_start.csv"
-    )
-
     keys = [
         "postgresql_user",
         "postgresql_password",
@@ -63,7 +58,7 @@ def output_ci_postgresql_to_calculation_start(
 
             for _, row in df.iterrows():
                 query.append(
-                    f"UPDATE {schema}.moments SET calctime={str(row["calctime"])} WHERE id={str(row["moment_id"])};"
+                    f"UPDATE {schema}.moments SET calctime={str(row['calctime'])} WHERE id={str(row['moment_id'])};"
                 )
 
             # maak verbinding object
@@ -119,11 +114,6 @@ def output_ci_postgresql_to_calculation_end(
      - database (str): database van de Continu Inzicht
      - schema (str): schema van de Continu Inzicht
     """
-
-    # TODO WEGHALEN
-    df.to_csv(
-        "d:/toolbox/adapters/calculation/output_ci_postgresql_to_calculation_end.csv"
-    )
 
     keys = [
         "postgresql_user",

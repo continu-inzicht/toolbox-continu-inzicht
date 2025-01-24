@@ -6,12 +6,12 @@ import pandas as pd
 import sqlalchemy
 
 
-def input_ci_postgresql_whatif_scenario(input_config: dict) -> pd.DataFrame:
+def input_ci_postgresql_whatif_from_scenario(input_config: dict) -> pd.DataFrame:
     """
     Ophalen what-if scenario's uit een continu database (tabel: scenarios).
 
     Yaml example:\n
-        type: ci_postgresql_whatif_scenario
+        type: ci_postgresql_whatif_from_scenario
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
 
@@ -100,7 +100,7 @@ def input_ci_postgresql_whatif_load(input_config: dict) -> pd.DataFrame:
 
     Returns:\n
     df (DataFrame):\n
-    - measuringstation_id: int64        : id van het meetstation
+    - measurement_location_id: int64    : id van het meetstation
     - scenario_id: int64                : id van het scenario
     - datetime: float64                 : eerste datum/tijd van het scenario
     - value: float64                    : waarde van de belasting (bijvoorbeeld een waterstand)
@@ -126,10 +126,16 @@ def input_ci_postgresql_whatif_load(input_config: dict) -> pd.DataFrame:
     schema = input_config["schema"]
     query = f"""
         SELECT
-            waterlevels.measuringstationid AS measuringstation_id,
+            waterlevels.measuringstationid AS measurement_location_id,
             waterlevels.scenarioid AS scenario_id,
-            waterlevels.datetime AS date_time,
-            waterlevels.value,
+            TO_TIMESTAMP(waterlevels.datetime/1000) AS date_time,
+            waterlevels.value AS value,
+            (
+                CASE
+                    WHEN waterlevels.parameter > 1 THEN 'verwacht'
+                    ELSE 'meting'
+                END
+            ) AS value_type,
             waterlevels.parameter
         FROM {schema}.simulation AS simulation
         INNER JOIN {schema}.waterlevels AS waterlevels ON waterlevels.scenarioid=simulation.scenarioid;

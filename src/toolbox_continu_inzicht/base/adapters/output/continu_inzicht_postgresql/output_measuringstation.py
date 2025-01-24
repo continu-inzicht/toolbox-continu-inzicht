@@ -255,14 +255,14 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame) -> Non
     engine.dispose()
 
 
-def output_ci_postgresql_to_measuringstation(
+def output_ci_postgresql_measuringstation(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
     Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).
 
     Yaml example:\n
-        type: ci_postgresql_to_measuringstation
+        type: ci_postgresql_measuringstation
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
 
@@ -318,13 +318,13 @@ def output_ci_postgresql_to_measuringstation(
             area_geometry_rows = df[df["area_geometry"].isna()]
             for _, row in area_geometry_rows.iterrows():
                 query.append(
-                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide) VALUES ({str(row["id"])}, '{row["name"]}', '{row["code"]}', '{row["source"]}', '{str(row["geometry"])}', {str(row["tide"])});"
+                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide) VALUES ({str(row['id'])}, '{row['name']}', '{row['code']}', '{row['source']}', '{str(row['geometry'])}', {str(row['tide'])});"
                 )
 
             non_area_geometry_rows = df[df["area_geometry"].notna()]
             for _, row in non_area_geometry_rows.iterrows():
                 query.append(
-                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide, area_geometry)	VALUES ({str(row["id"])}, '{row["name"]}', '{row["code"]}', '{row["source"]}', '{str(row["geometry"])}', {str(row["tide"])}, '{str(row["area_geometry"])}');"
+                    f"INSERT INTO {schema}.measuringstations(id, name, code, source, geometry, tide, area_geometry)	VALUES ({str(row['id'])}, '{row['name']}', '{row['code']}', '{row['source']}', '{str(row['geometry'])}', {str(row['tide'])}, '{str(row['area_geometry'])}');"
                 )
 
             # maak verbinding object
@@ -347,73 +347,167 @@ def output_ci_postgresql_to_measuringstation(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-# def output_ci_postgresql_to_moments(output_config: dict, df: pd.DataFrame) -> None:
-#     """
-#     Schrijft moments naar Continu Inzicht database tabel moments
+def output_ci_postgresql_to_moments(output_config: dict, df: pd.DataFrame) -> None:
+    """
+    Schrijft moments naar Continu Inzicht database (tabel: moments)
 
-#     Yaml example:\n
-#         type: ci_postgresql_to_moments
-#         database: "geoserver"
-#         schema: "continuinzicht_demo_realtime"
+    Yaml example:\n
+        type: ci_postgresql_to_moments
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
 
-#     Args:\n
-#         * output_config (dict): configuratie opties
-#         * df (DataFrame):\n
-#         - id: int64
-#         - name; str
-#         - date_time: datetime64[ns, UTC]
-#         - value: float64
-#         - unit: str
-#         - parameter_id: int64
-#         - value_type: str
+    Args:\n
+        * output_config (dict): configuratie opties
+        * df (DataFrame):\n
+        - date_time: int64      : datum/tijd van het huidige moment
+        - calc_time: int64      : datum/tijd van eerst volgende rekenstap
+
+    **Opmerking:**\n
+    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+    - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+    - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+    - postgresql_port (str): poort van de Continu Inzicht databaseserver
+
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht
+    - schema (str): schema van de Continu Inzicht
+    """
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in output_config for key in keys)
+
+    schema = output_config["schema"]
+
+    if not df.empty:
+        if "date_time" in df and "calc_time" in df and "moment_id" in df:
+            df["datetime"] = df["date_time"].apply(epoch_from_datetime)
+            df["calctime"] = df["calc_time"].apply(epoch_from_datetime)
+            query = []
+
+            for _, row in df.iterrows():
+                query.append(
+                    f"UPDATE {schema}.moments SET datetime={str(row['datetime'])},calctime={str(row['calctime'])} WHERE id={str(row['moment_id'])};"
+                )
+
+            # maak verbinding object
+            engine = sqlalchemy.create_engine(
+                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+            )
+
+            query = " ".join(query)
+
+            with engine.connect() as connection:
+                connection.execute(sqlalchemy.text(str(query)))
+                connection.commit()  # commit the transaction
+
+            # verbinding opruimen
+            engine.dispose()
+        else:
+            raise UserWarning("Ontbrekende variabelen in dataframe!")
+
+    else:
+        raise UserWarning("Geen gegevens om op te slaan.")
 
 
-#     **Opmerking:**\n
-#     In de `.env` environment bestand moeten de volgende parameters staan:\n
-#     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
-#     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
-#     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
-#     - postgresql_port (str): poort van de Continu Inzicht databaseserver
+def output_ci_postgresql_conditions(output_config: dict, df: pd.DataFrame) -> None:
+    """
+    Schrijft voor condities van belastingen voor meetstations naar de Continu Inzicht database (tabel: conditions).
 
-#     In de 'yaml' config moeten de volgende parameters staan:\n
-#     - database (str): database van de Continu Inzicht
-#     - schema (str): schema van de Continu Inzicht
-#     """
+    Yaml example:\n
+        type: ci_postgresql_conditions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
 
-#     keys = [
-#         "postgresql_user",
-#         "postgresql_password",
-#         "postgresql_host",
-#         "postgresql_port",
-#         "database",
-#         "schema",
-#     ]
+    Args:\n
+        * output_config (dict): configuratie opties
+        * df (DataFrame):\n
+        - id: int64                 : id van de conditie
+        - stateid: int64            : id van de status van een conditie
+        - objectid: int64           : id van het object waartoe de conditie behoort (altijd in combinatie met objecttype)
+        - objecttype: str           : het type object waartoe de conditie behoort (bijv. een 'section' of 'measuringstation')
+        - upperboundary: float64    : de bovengrenswaarde van de status van een conditie (overgang van de betreffende status naar de volgende status)
+        - name: str                 : naam van de status van de conditie
+        - description: str          : omschrijving van de status van de conditie
+        - color: str                : HEX kleurcode van de kleur van de status van de conditie
+        - statevalue: float64       : middenwaarde van statusovergangen (specifiek voor objecttype 'sections')
 
-#     assert all(key in output_config for key in keys)
+    **Opmerking:**\n
+    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+    - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+    - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+    - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-#     schema = output_config["schema"]
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht
+    - schema (str): schema van de Continu Inzicht
+    """
 
-#     if not df.empty:
-#         if "date_time" in df and "calc_time" in df and "moment_id" in df:
-#             df["datetime"] = df["date_time"].apply(epoch_from_datetime)
-#             df["calctime"] = df["calc_time"].apply(epoch_from_datetime)
-#             query = []
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
 
-#             for _, row in df.iterrows():
-#                 query.append(
-#                     f"UPDATE {schema}.moments SET datetime={str(row["datetime"])},calctime={str(row["calctime"])} WHERE id={str(row["moment_id"])};"
-#                 )
+    assert all(key in output_config for key in keys)
 
-#             # maak verbinding object
-#             engine = sqlalchemy.create_engine(
-#                 f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
-#             )
+    schema = output_config["schema"]
 
-#             query = " ".join(query)
+    if not df.empty:
+        if (
+            "id" in df
+            and "stateid" in df
+            and "objectid" in df
+            and "objecttype" in df
+            and "upperboundary" in df
+            and "name" in df
+            and "description" in df
+            and "color" in df
+            and "statevalue" in df
+        ):
+            query = []
 
-#             with engine.connect() as connection:
-#                 connection.execute(sqlalchemy.text(str(query)))
-#                 connection.commit()  # commit the transaction
+            query.append(f"TRUNCATE {schema}.conditions;")
 
-#             # verbinding opruimen
-#             engine.dispose()
+            statevalue_rows = df[df["statevalue"].isna()]
+            for _, row in statevalue_rows.iterrows():
+                query.append(
+                    f"INSERT INTO {schema}.conditions(id, stateid, objectid, objecttype, upperboundary, name, description, color) VALUES ({str(row['id'])}, {str(row['stateid'])}, {str(row['objectid'])}, '{row['objecttype']}', {str(row['upperboundary'])}, '{str(row['name'])}', '{row['description']}', '{row['color']}');"
+                )
+
+            non_statevalue_rows = df[df["statevalue"].notna()]
+            for _, row in non_statevalue_rows.iterrows():
+                query.append(
+                    f"INSERT INTO {schema}.conditions(id, stateid, objectid, objecttype, upperboundary, name, description, color, statevalue) VALUES ({str(row['id'])}, {str(row['stateid'])}, {str(row['objectid'])}, '{row['objecttype']}', {str(row['upperboundary'])}, '{str(row['name'])}', '{row['description']}', '{row['color']}', {str(row['statevalue'])});"
+                )
+
+            # maak verbinding object
+            engine = sqlalchemy.create_engine(
+                f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
+            )
+
+            query = " ".join(query)
+
+            with engine.connect() as connection:
+                connection.execute(sqlalchemy.text(str(query)))
+                connection.commit()  # commit the transaction
+
+            # verbinding opruimen
+            engine.dispose()
+        else:
+            raise UserWarning("Ontbrekende variabelen in dataframe!")
+
+    else:
+        raise UserWarning("Geen gegevens om op te slaan.")
