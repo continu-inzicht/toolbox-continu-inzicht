@@ -32,7 +32,7 @@ DataAdapter:
         type: ci_postgresql_section
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
-    
+
     in_measuringstations_csv:
         type: csv
         path: "measuringstations.csv"
@@ -63,16 +63,16 @@ DataAdapter:
     in_scenarios_csv:
         type: csv
         path: "scenarios.csv"
-    
+
     out_scenarios_table:
         type: ci_postgresql_to_scenarios
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
-    
+
     in_loads_csv:
         type: csv
         path: "loads.csv"
-    
+
     out_loads_table:
         type: ci_postgresql_to_load
         database: "geoserver"

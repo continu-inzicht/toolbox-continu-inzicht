@@ -60,7 +60,7 @@ class LoadsToMoments:
 
         df_moments = self.df_in.set_index("date_time")
         lst_dfs = []
-
+        # TODO: In some case we might want the nearest moment rather than the exact moment
         dt_moments = [
             {"date_time": calc_time + timedelta(hours=moment), "hours": moment}
             for moment in moments
