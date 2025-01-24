@@ -8,7 +8,7 @@ GlobalVariables:
         MISSING_VALUE: 999
 
     LoadsMatroos:
-        website: "noos"
+        website: "vitaal"
         model: "fews_rmm_km"
         parameters: ["WATHTE"]
 
@@ -270,6 +270,10 @@ DataAdapter:
         type: ci_postgresql_measures
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
+
+    in_matroos_temp:
+        type: csv
+        file: matroos_temp.csv
 
     df_combined_curves:
         type: "python"

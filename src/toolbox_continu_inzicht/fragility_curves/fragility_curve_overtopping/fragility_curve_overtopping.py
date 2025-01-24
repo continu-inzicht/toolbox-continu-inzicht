@@ -365,6 +365,7 @@ class FragilityCurvesOvertopping(FragilityCurve):
         section_ids = self.df_profile.section_id.unique()
 
         global_variables = self.data_adapter.config.global_variables
+        options = {}
         if "FragilityCurvesOvertopping" in global_variables:
             # can be used to set options for the calculation
             options: dict = global_variables["FragilityCurvesOvertopping"]

@@ -88,6 +88,7 @@ class LoadsMatroos:
             # haal de locaties op die bij de bron horen
             gdf_locations = get_matroos_locations(source=options["model"])
             available_location_names = list(gdf_locations["measurement_location_code"])
+            # available_location_names += list(gdf_locations["measurement_location_id"])
 
             # maak een set van de namen en formateer ze zonder spaties en hoofdletters
             available_location_names = set(available_location_names)
