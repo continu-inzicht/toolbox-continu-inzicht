@@ -150,6 +150,8 @@ De gewichten dataframe moet een kolom met 'weights' hebben, er is met opzet geen
 |0.6       |
 |0.4       |
 
+Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden. Dit wordt gedaan op basis van de waterniveaus, en nog twee parameters: hoe ver voorbij de hoogste waarde `extend_past_max` (standaard waarde is 0.01) en met welke stap grootte `refine_step_size` (standaard waarde is 0.05)
+
 
 ::: {.panel-tabset}
 ## Configuratie (on)afhankelijk

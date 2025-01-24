@@ -46,6 +46,20 @@ class CombineFragilityCurvesIndependent:
 
     Args:
         data_adapter (DataAdapter): DataAdapter object
+
+    Options in config
+    ------------------
+    Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden.
+    Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
+    De volgende opties kunnen worden ingesteld:
+    - extend_past_max: float
+        Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves.
+        Default is 0.01
+
+    - refine_step_size: float
+        De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren.
+        Default is 0.05
+
     """
 
     data_adapter: DataAdapter
@@ -69,6 +83,7 @@ class CombineFragilityCurvesIndependent:
 
             Naam van de output data adapter.
 
+
         Notes:
         ------
         Elke fragility curve moet de volgende kolommen bevatten:
@@ -79,17 +94,27 @@ class CombineFragilityCurvesIndependent:
         for key in input:
             df_in = self.data_adapter.input(key)
             self.lst_fragility_curves.append(df_in)
-        self.df_out = self.calculate_combined_curve()
+
+        global_variables = self.data_adapter.config.global_variables
+        options = global_variables.get("CombineFragilityCurvesIndependent", {})
+        extend_past_max = options.get("extend_past_max", 0.01)
+        refine_step_size = options.get("refine_step_size", 0.05)
+
+        self.df_out = self.calculate_combined_curve(extend_past_max, refine_step_size)
         self.data_adapter.output(output, self.df_out)
 
-    def calculate_combined_curve(self):
+    def calculate_combined_curve(self, extend_past_max, refine_step_size):
         waterlevels_min = []
         waterlevels_max = []
         for df_in in self.lst_fragility_curves:
             waterlevels_min.append(df_in["waterlevels"].min())
             waterlevels_max.append(df_in["waterlevels"].max())
 
-        waterlevels = np.arange(min(waterlevels_min), max(waterlevels_max) + 0.01, 0.05)
+        waterlevels = np.arange(
+            min(waterlevels_min),
+            max(waterlevels_max) + extend_past_max,
+            refine_step_size,
+        )
 
         # interpolate fragility curves to the same waterlevels
         for index, fragility_curve in enumerate(self.lst_fragility_curves):
@@ -116,6 +141,20 @@ class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
 
     Args:
         data_adapter (DataAdapter): DataAdapter object
+
+    Options in config
+    ------------------
+    Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden.
+    Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
+    De volgende opties kunnen worden ingesteld:
+    - extend_past_max: float
+        Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves.
+        Default is 0.01
+
+    - refine_step_size: float
+        De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren.
+        Default is 0.05
+
     """
 
     data_adapter: DataAdapter
@@ -133,6 +172,20 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
 
     Args:
         data_adapter (DataAdapter): DataAdapter object
+
+    Options in config
+    ------------------
+    Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden.
+    Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
+    De volgende opties kunnen worden ingesteld:
+    - extend_past_max: float
+        Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves.
+        Default is 0.01
+
+    - refine_step_size: float
+        De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren.
+        Default is 0.05
+
     """
 
     data_adapter: DataAdapter
@@ -155,6 +208,7 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
         output: str
 
             Naam van de output data adapter.
+
 
         Notes:
         ------
@@ -184,5 +238,10 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
                 de lengte van de gewichten ({len(self.weights)}) moet gelijk aan het aan het aantal fragility curves ({len(self.lst_fragility_curves)})"
             )
 
-        self.df_out = self.calculate_combined_curve()
+        global_variables = self.data_adapter.config.global_variables
+        options = global_variables.get("CombineFragilityCurvesIndependent", {})
+        extend_past_max = options.get("extend_past_max", 0.01)
+        refine_step_size = options.get("refine_step_size", 0.05)
+
+        self.df_out = self.calculate_combined_curve(extend_past_max, refine_step_size)
         self.data_adapter.output(output, self.df_out)
