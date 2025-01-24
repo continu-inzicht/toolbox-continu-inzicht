@@ -114,14 +114,15 @@ def test_no_curve_run():
 
     try:
         # no curve invoerbestand
+        input_lst = ["in_section_fragilitycurves_nodata", "in_section_load"]
         sections_failureprobability.run(
-            input=["in_section_fragilitycurves_nodata", "in_section_load"],
+            input=input_lst,
             output="out_section_failureprobability",
         )
     except UserWarning as user_warning:
         warning_message = str(user_warning)
         assert warning_message.startswith(
-            "Ophalen van gegevens heeft niets opgeleverd."
+            f"Ophalen van gegevens van {input_lst[0]} heeft niets opgeleverd."
         )
 
     assert not os.path.exists(output_file)

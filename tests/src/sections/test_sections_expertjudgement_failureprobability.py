@@ -110,14 +110,15 @@ def test_no_data_run():
 
     try:
         # normale invoerbestanden
+        input_val = "in_section_expert_judgement_nodata"
         sections_failureprobability.run(
-            input="in_section_expert_judgement_nodata",
+            input=input_val,
             output="out_section_failureprobability",
         )
     except UserWarning as user_warning:
         warning_message = str(user_warning)
         assert warning_message.startswith(
-            "Ophalen van gegevens heeft niets opgeleverd."
+            f"Ophalen van gegevens van {input_val} heeft niets opgeleverd."
         )
 
     assert not os.path.exists(output_file)

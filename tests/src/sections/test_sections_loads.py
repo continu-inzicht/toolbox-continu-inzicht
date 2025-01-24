@@ -263,19 +263,20 @@ def test_empty_file_run():
             os.remove(output_file)
 
         # foute dijkvakken invoer
+        input_lst = [
+            "in_dijkvakken_leeg",
+            "in_waterstanden",
+            "in_koppeling_meetstation_dijkvak",
+        ]
         sections_loads.run(
-            input=[
-                "in_dijkvakken_leeg",
-                "in_waterstanden",
-                "in_koppeling_meetstation_dijkvak",
-            ],
+            input=input_lst,
             output="out_waterstanden_per_dijkvak",
         )
 
     except UserWarning as user_warning:
         warning_message = str(user_warning)
         assert warning_message.startswith(
-            "Ophalen van gegevens heeft niets opgeleverd."
+            f"Ophalen van gegevens van {input_lst[0]} heeft niets opgeleverd."
         )
 
     except Exception as exception:
