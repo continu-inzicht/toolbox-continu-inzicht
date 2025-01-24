@@ -2,7 +2,11 @@
 title: "Bepalen fragility curves"
 ---
 
-De continu inzicht toolbox heeft de functionaliteit om fragility curves voor verschillende faalmechanisme uit te rekenen. Deze sectie beschrijft de beschikbare functies per type faalmechanisme.
+De continu inzicht toolbox heeft de functionaliteit om fragility curves voor verschillende faalmechanisme uit te rekenen. Deze sectie beschrijft de beschikbare functies per type faalmechanisme. In Toolbox Continu Inzicht zijn 3 verschillende type fragility curves: GEKB, STPH en alle overige curves. Deze worden in het figuur hieronder weer gegeven. 
+
+![Overzicht_FragilityCurves_TBCI](../assets/Overzicht_FragilityCurves_TBCI.png)
+
+Golfoverslag Erosie Kruin en Binnentalud (GEKB) kunnen 'on-the-fly' worden berekend, afhankelijk van verschillende factoren kunnen deze worden aangepast. Voor SPTH kunnen curves vastgesteld worden met de beschikbare functionaliteit, maar dit moet vooraf plaatsvinden. Dit komt door een langere rekentijd en vanwege kwaliteitscontrole. Alle andere curves kunnen niet berekend worden binnen Toolbox Continu 
 
 ### Golfoverslag Erosie Kruin en Binnentalud (GEKB){#sec-Bepalen-fragility-curves-GEKB}
 
