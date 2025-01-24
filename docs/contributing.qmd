@@ -52,8 +52,8 @@ De onderstaande secties behandelen de stappen per geval.
     en [hier](https://help.github.com/articles/syncing-a-fork/));
 1. Voor [Visual Studio Code](https://code.visualstudio.com) staat er een voorbeeldconfiguratie.
 1. Installeer de benodigde python packages in een pixi omgeving met `pixi install`, volg de uitleg van de [pixi](https://pixi.sh/latest/). Pixi zorgt er voor dat iedereen dezelfde versies van python packages heeft.
-1. Zorg dat de format van je code correct is met `pixi run ruff check`.
-1. Zorg dat alle bestaande testen werken met `pixi run pytest`.
+1. Zorg dat de format van je code correct is met `pixi run pre-commit`.
+1. Zorg dat alle bestaande testen werken met `pixi run pytest`. Met `pixi run pytest-cov` wordt (lokaal) een html overzicht gegenereerd in de map tests/hidden_test_cov/index.html.
 1. Zorg dat alle documentatie automatisch genereert met `pixi run quarto-render`. [Quarto](https://quarto.org/docs/computations/python.html) is al onderdeel van de zojuist aangemaakte pixi omgeving.
 1. Voeg bij nieuwe functionaliteit altijd nieuwe tests toe.
 1. Update en voeg documentatie toe. Gebruik [Numpy Style Python

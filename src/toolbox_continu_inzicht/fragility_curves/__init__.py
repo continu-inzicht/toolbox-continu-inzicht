@@ -9,18 +9,17 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.add_ef
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_piping.fragility_curve_piping import (
     FragilityCurvesPiping,
     FragilityCurvePipingFixedWaterlevelSimple,
-    FragilityCurvePipingFixedWaterlevel,
 )
 
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_piping.add_effect import (
-    ShiftFragilityCurvePipingFixedWaterlevel,
     ShiftFragilityCurvePipingFixedWaterlevelSimple,
 )
 
 
 from toolbox_continu_inzicht.fragility_curves.combine_fragility_curves import (
-    CombineFragilityCurvesPerSection,
-    CombineFragilityCurves,
+    CombineFragilityCurvesIndependent,
+    CombineFragilityCurvesDependent,
+    CombineFragilityCurvesWeightedSum,
 )
 
 __all__ = [
@@ -30,10 +29,10 @@ __all__ = [
     "ChangeCrestHeightFragilityCurveOvertopping",
     "FragilityCurvesPiping",
     "FragilityCurvePipingFixedWaterlevelSimple",
-    "FragilityCurvePipingFixedWaterlevel",
     "ShiftFragilityCurvePipingFixedWaterlevel",
     "FragilityCurvePipingFixedWaterlevelSimple",
     "ShiftFragilityCurvePipingFixedWaterlevelSimple",
-    "CombineFragilityCurvesPerSection",
-    "CombineFragilityCurves",
+    "CombineFragilityCurvesIndependent",
+    "CombineFragilityCurvesDependent",
+    "CombineFragilityCurvesWeightedSum",
 ]

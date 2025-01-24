@@ -204,81 +204,327 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
 # overtopping:
 def input_ci_postgresql_profiles(input_config: dict) -> pd.DataFrame:
     """leest profile data van postgresql database in de profile tabel & zet namen goed."""
-    input_config["table"] = "profiles"
-    # hernoemen van de kolom section_id naar profile_id
 
-    df = input_postgresql_database(input_config)
-    df.rename(columns={"profileid": "section_id"}, inplace=True)
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    query = f"""
+        SELECT
+            profiles.sectionid AS section_id,
+            profiles.name,
+            profiles.crestlevel,
+            profiles.orientation,
+            profiles.dam,
+            profiles.damheight,
+            (
+                CASE
+                    WHEN profiles.qcr_dist='gesloten' OR profiles.qcr_dist='close' OR profiles.qcr_dist='closed' THEN 'closed'
+                    WHEN profiles.qcr_dist='open' THEN 'open'
+                    WHEN profiles.qcr_dist='fragmentarisch' THEN 'open'
+                    ELSE 'closed'
+                END
+            ) AS qcr,
+            wind.windspeed,
+            wind.sectormin,
+            wind.sectorsize,
+            0 AS closing_situation
+        FROM {schema}.profiles
+        CROSS JOIN {schema}.wind;
+    """
+
+    # qurey uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 
 def input_ci_postgresql_slopes(input_config: dict) -> pd.DataFrame:
     """leest slopes data van postgresql database in de slopes tabel  & zet namen goed."""
-    input_config["table"] = "slopes"
-    # hernoemen van de kolom section_id naar sectionid
 
-    df = input_postgresql_database(input_config)
-    df.rename(columns={"sectionid": "section_id"}, inplace=True)
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    query = f"""
+        SELECT
+            profiles.sectionid AS section_id,
+            slopes.slopetypeid,
+            slopes.x,
+            slopes.y,
+            slopes.r,
+            slopes.damheight
+        FROM {schema}.slopes
+        INNER JOIN {schema}.profiles ON profiles.id=slopes.profileid;
+    """
+
+    # qurey uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 
 def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
     """leest bedlevelfetch data van postgresql database in de bedlevelfetch tabel  & zet namen goed."""
-    input_config["table"] = "bedlevelfetch"
-    # hernoemen van de kolom section_id naar sectionid
-    df = input_postgresql_database(input_config)
-    df.rename(columns={"sectionid": "section_id"}, inplace=True)
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    query = f"""
+        SELECT
+            sectionid AS section_id,
+            direction,
+            bedlevel,
+            "fetch"
+        FROM {schema}.bedlevelfetch;
+    """
+
+    # qurey uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 
-# TODO: replace with better query as this is ineffecient: now get all the curves and then filter, better to filter on database level
+def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
+    """leest fragility curves data van postgresql database in."""
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    timedep = 0
+    if "timedep" in input_config:
+        timedep = input_config["timedep"]
+
+    degradatieid = 0
+    if "degradatieid" in input_config:
+        degradatieid = input_config["degradatieid"]
+
+    measureid = 0
+    if "measureid" in input_config:
+        measureid = input_config["measureid"]
+
+    query = f"""
+        SELECT
+            sectionid AS section_id,
+            failuremechanismid,
+            measureid,
+            hydraulicload AS waterlevels,
+            failureprobability AS failure_probability,
+            timedep,
+            degradatieid
+        FROM {schema}.fragilitycurves
+        INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
+        WHERE measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid}
+    """
+
+    if "failuremechanism" in input_config:
+        failuremechanism = input_config["failuremechanism"]
+        query = f"{query} AND failuremechanism.name='{failuremechanism}'"
+
+    # query uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
+    return df
+
+
 def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
-    overtopping_id = 2
-    if overtopping_id in input_config:
-        overtopping_id = input_config["overtopping_id"]
-    input_config["query"] = (
-        f"SELECT * FROM {input_config['schema']}.fragilitycurves WHERE failuremechanismid={overtopping_id}"
+    """leest fragility curves data van postgresql database in , zet namen goed en filterd op overtopping."""
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
     )
-    # hernoemen van de kolom section_id naar sectionid
-    df = input_postgresql_database(input_config)
-    df.rename(
-        columns={
-            "sectionid": "section_id",
-            "failureprobability": "failure_probability",
-            "hydraulicload": "waterlevels",
-        },
-        inplace=True,
-    )
-    # df = df[df["failuremechanismid"] == overtopping_id]
+
+    schema = input_config["schema"]
+
+    failuremechanism = "GEKB"
+    if failuremechanism in input_config:
+        failuremechanism = input_config["failuremechanism"]
+
+    timedep = 0
+    if "timedep" in input_config:
+        timedep = input_config["timedep"]
+
+    degradatieid = 0
+    if "degradatieid" in input_config:
+        degradatieid = input_config["degradatieid"]
+
+    measureid = 0
+    if "measureid" in input_config:
+        measureid = input_config["measureid"]
+
+    query = f"""
+        SELECT
+            sectionid AS section_id,
+            failuremechanismid,
+            measureid,
+            hydraulicload AS waterlevels,
+            failureprobability AS failure_probability,
+            timedep,
+            degradatieid
+        FROM {schema}.fragilitycurves
+        INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
+        WHERE failuremechanism.name='{failuremechanism}' AND measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid};
+    """
+
+    # query uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 
-def input_ci_postgresql_fragilitycurves_pipping(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
-    input_config["table"] = "fragilitycurves"
-    piping_id = 3
-    if piping_id in input_config:
-        piping_id = input_config["piping_id"]
-    input_config["query"] = (
-        f"SELECT * FROM {input_config['schema']}.fragilitycurves WHERE failuremechanismid={piping_id}"
+def input_ci_postgresql_fragilitycurves_piping(input_config: dict) -> pd.DataFrame:
+    """leest fragility curves data van postgresql database in , zet namen goed en filterd op piping."""
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
     )
-    # hernoemen van de kolom section_id naar sectionid
-    df = input_postgresql_database(input_config)
-    df.rename(
-        columns={
-            "sectionid": "section_id",
-            "failureprobability": "failure_probability",
-            "hydraulicload": "waterlevels",
-        },
-        inplace=True,
-    )
-    # df = df[df["failuremechanismid"] == piping_id]
+
+    schema = input_config["schema"]
+
+    failuremechanism = "STPH"
+    if failuremechanism in input_config:
+        failuremechanism = input_config["failuremechanism"]
+
+    timedep = 0
+    if "timedep" in input_config:
+        timedep = input_config["timedep"]
+
+    degradatieid = 0
+    if "degradatieid" in input_config:
+        degradatieid = input_config["degradatieid"]
+
+    measureid = 0
+    if "measureid" in input_config:
+        measureid = input_config["measureid"]
+
+    query = f"""
+        SELECT
+            sectionid AS section_id,
+            failuremechanismid,
+            measureid,
+            hydraulicload AS waterlevels,
+            failureprobability AS failure_probability,
+            timedep,
+            degradatieid
+        FROM {schema}.fragilitycurves
+        INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
+        WHERE failuremechanism.name='{failuremechanism}' AND measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid};
+    """
+
+    # query uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
 
 
 def input_ci_postgresql_fragilitycurves_stability(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in , zet namen goed en filterd op pipping."""
+    """leest fragility curves data van postgresql database in , zet namen goed en filterd op piping."""
     input_config["table"] = "fragilitycurves"
     stability_id = 4
     if stability_id in input_config:
@@ -296,5 +542,30 @@ def input_ci_postgresql_fragilitycurves_stability(input_config: dict) -> pd.Data
         },
         inplace=True,
     )
-    # df = df[df["failuremechanismid"] == stability_id]
+    return df
+
+
+def input_ci_postgresql_probablistic_piping(input_config: dict) -> pd.DataFrame:
+    """leest probablistic data van postgresql database in de probablistic piping tabel en hernoemt de kollomen."""
+    db_to_continu_inzicht = {
+        "sectionid": "section_id",
+        "scenarioid": "scenario_id",
+        "mechanism": "mechanism",
+        "naam": "Naam",
+        "waarde": "Waarde",
+        "kansverdeling": "Kansverdeling",
+        "verschuiving": "Verschuiving",
+        "mean": "Mean",
+        "spreiding": "Spreiding",
+        "spreidingstype": "Spreidingstype",
+        "afknotlinks": "Afknot_links",
+        "afknotrechts": "Afknot_rechts",
+        "min": "Min",
+        "step": "Step",
+        "max": "Max",
+        "stdev": "StDev",
+    }
+    input_config["table"] = "probabilisticpiping"
+    df = input_postgresql_database(input_config)
+    df.rename(columns=db_to_continu_inzicht, inplace=True)
     return df

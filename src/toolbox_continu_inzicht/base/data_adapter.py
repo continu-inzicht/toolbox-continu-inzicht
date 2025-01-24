@@ -78,6 +78,12 @@ class DataAdapter(PydanticBaseModel):
         """
         self.initialize_input_types()  # maak een dictionary van type: functie
 
+        suppress_userwarnings = False
+        if "suppress_userwarnings" in self.config.global_variables:
+            suppress_userwarnings = self.config.global_variables[
+                "suppress_userwarnings"
+            ]
+
         # initieer een leeg dataframe
         df = pd.DataFrame()
 
@@ -128,16 +134,19 @@ class DataAdapter(PydanticBaseModel):
                 if schema is not None:
                     status, message = validate_dataframe(df=df, schema=schema)
                     if status > 0:
-                        raise UserWarning(message)
+                        if not suppress_userwarnings:
+                            raise UserWarning(message)
 
             else:
                 # Adapter bestaat niet
-                message = f"Adapter van het type '{data_type}' niet gevonden."
-                raise UserWarning(message)
+                if not suppress_userwarnings:
+                    message = f"Adapter van het type '{data_type}' niet gevonden."
+                    raise UserWarning(message)
         else:
             # Adapter sleutel staat niet in het yaml-bestand
-            message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
-            raise UserWarning(message)
+            if not suppress_userwarnings:
+                message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
+                raise UserWarning(message)
 
         return df
 
@@ -217,18 +226,26 @@ class DataAdapter(PydanticBaseModel):
             Geeft aan wat te doen als de data adapter niet bestaat,
             bij raise krijg je een error, bij create wordt er een nieuwe data adapter aangemaakt.
         """
+        suppress_userwarnings = False
+        if "suppress_userwarnings" in self.config.global_variables:
+            suppress_userwarnings = self.config.global_variables[
+                "suppress_userwarnings"
+            ]
+
         if key in self.config.data_adapters:
             data_adapter_config = self.config.data_adapters[key]
             if data_adapter_config["type"] == "python":
                 data_adapter_config["dataframe_from_python"] = df
             else:
-                raise UserWarning(
-                    "Deze functionaliteit is voor data adapters van type `python`, "
-                )
+                if not suppress_userwarnings:
+                    raise UserWarning(
+                        "Deze functionaliteit is voor data adapters van type `python`, "
+                    )
         elif if_not_exist == "raise":
-            raise UserWarning(
-                f"Data adapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
-            )
+            if not suppress_userwarnings:
+                raise UserWarning(
+                    f"Data adapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
+                )
         elif if_not_exist == "create":
             self.config.data_adapters[key] = {
                 "type": "python",
@@ -236,6 +253,7 @@ class DataAdapter(PydanticBaseModel):
             }
 
         else:
-            raise UserWarning(
-                f"Data adapter `{key=}` niet gevonden, en {if_not_exist=} is ongeldig, moet `raise` of `create` zijn"
-            )
+            if not suppress_userwarnings:
+                raise UserWarning(
+                    f"Data adapter `{key=}` niet gevonden, en {if_not_exist=} is ongeldig, moet `raise` of `create` zijn"
+                )

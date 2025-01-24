@@ -10,14 +10,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# You need these permissions to publish to GitHub pages
-permissions:
-    contents: write
-    pages: write
-
 jobs:
-  build-deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
 
     steps:
       - name: Check out repository

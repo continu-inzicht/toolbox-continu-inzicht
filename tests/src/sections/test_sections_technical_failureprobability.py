@@ -20,6 +20,10 @@ def create_data_adapter(config_file: str) -> DataAdapter:
         type: csv
         path: "test_sections_technical_failureprobability_fragility_curves.csv"
 
+    in_section_fragilitycurves_nodata:
+        type: csv
+        path: "test_sections_technical_failureprobability_fragility_curves_nodata.csv"
+
     in_section_load:
         type: csv
         path: "test_sections_technical_failureprobability_load.csv"
@@ -84,3 +88,40 @@ def test_valid_run():
 
     assert df_output is not None
     assert len(df_output) == 36
+
+
+def test_no_curve_run():
+    """
+    Test of een valide invoer een normaal uitkomst geeft.
+    """
+
+    # Aanmaken adapter
+    data_adapter = create_data_adapter(
+        "test_sections_technical_failureprobability_config.yaml"
+    )
+
+    # Bepaal uitvoerbestand
+    output_file = get_output_file(data_adapter, "out_section_failureprobability")
+
+    # Oude gegevens verwijderen
+    if os.path.exists(output_file):
+        os.remove(output_file)
+
+    # Initialiseer SectionsTechnicalFailureprobability functie
+    sections_failureprobability = SectionsTechnicalFailureprobability(
+        data_adapter=data_adapter
+    )
+
+    try:
+        # no curve invoerbestand
+        sections_failureprobability.run(
+            input=["in_section_fragilitycurves_nodata", "in_section_load"],
+            output="out_section_failureprobability",
+        )
+    except UserWarning as user_warning:
+        warning_message = str(user_warning)
+        assert warning_message.startswith(
+            "Ophalen van gegevens heeft niets opgeleverd."
+        )
+
+    assert not os.path.exists(output_file)

@@ -27,7 +27,7 @@ def check_rootdir(global_variables: dict) -> None | UserWarning:
         condition2 = not (Path.cwd() / global_variables["rootdir"]).exists()
         if condition1 or condition2:
             raise UserWarning(
-                f"De rootdir map '{global_variables["rootdir"]}' bestaat niet"
+                f"De rootdir map '{global_variables['rootdir']}' bestaat niet"
             )
 
 

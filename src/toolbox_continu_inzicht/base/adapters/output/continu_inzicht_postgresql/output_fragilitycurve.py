@@ -13,6 +13,7 @@ def output_ci_postgresql_fragilitycurves_table(
     """Schrijft fragility curve data naar een postgresql database in de profile tabel & zet namen goed"""
     table = "fragilitycurves"
     schema = output_config["schema"]
+
     # hernoemen van de kolom section_id naar profile_id
     df.rename(
         columns={
@@ -42,13 +43,38 @@ def output_ci_postgresql_fragilitycurves_table(
         f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
     )
 
-    df.to_sql(
-        table,
-        con=engine,
-        schema=schema,
-        if_exists="append",
-        index=False,
-    )
+    # eerst bestaande curves verwijderen
+
+    # Haal de unieke combinaties van kolommen
+    unique_df = df[["sectionid", "failuremechanismid", "measureid"]].drop_duplicates()
+
+    if len(unique_df) > 0:
+        # Zet de unieke waarden om naar een lijst van tuples
+        unique_values = [tuple(x) for x in unique_df.to_numpy()]
+
+        # Maak een string van de unieke waarden voor de SQL-query
+        values_str = ", ".join([f"({v[0]}, {v[1]}, {v[2]})" for v in unique_values])
+
+        with engine.connect() as connection:
+            connection.execute(
+                sqlalchemy.text(f"""
+                    DELETE FROM {schema}.{table}
+                    WHERE (sectionid, failuremechanismid, measureid) IN ({values_str});
+                    """)
+            )
+            connection.commit()  # commit the transaction
+
+        # nu de nieuwe fragility curves toevoegen in de database
+        df.to_sql(
+            table,
+            con=engine,
+            schema=schema,
+            if_exists="append",
+            index=False,
+        )
+
+    else:
+        raise UserWarning("Geen gegevens om op te slaan.")
 
     # verbinding opruimen
     engine.dispose()
@@ -78,4 +104,32 @@ def output_ci_postgresql_bedlevelfetch(output_config: dict, df: pd.DataFrame) ->
     # hernoemen van de kolom section_id naar sectionid
     df = df.copy()
     df.rename(columns={"section_id": "sectionid"}, inplace=True)
+    output_postgresql_database(output_config, df)
+
+
+def output_ci_postgresql_probablistic_piping(
+    output_config: dict, df: pd.DataFrame
+) -> None:
+    """Schrijft probablistic data naar van postgresql database in de probablistic piping tabel & hernoemt de kollomen."""
+    continu_inzicht_to_db = {
+        "section_id": "sectionid",
+        "scenario_id": "scenarioid",
+        "mechanism": "mechanism",
+        "Naam": "naam",
+        "Waarde": "waarde",
+        "Kansverdeling": "kansverdeling",
+        "Verschuiving": "verschuiving",
+        "Mean": "mean",
+        "Spreiding": "spreiding",
+        "Spreidingstype": "spreidingstype",
+        "Afknot_links": "afknotlinks",
+        "Afknot_rechts": "afknotrechts",
+        "Min": "min",
+        "Step": "step",
+        "Max": "max",
+        "StDev": "stdev",
+    }
+    df = df.copy()
+    output_config["table"] = "probabilisticpiping"
+    df.rename(columns=continu_inzicht_to_db, inplace=True)
     output_postgresql_database(output_config, df)

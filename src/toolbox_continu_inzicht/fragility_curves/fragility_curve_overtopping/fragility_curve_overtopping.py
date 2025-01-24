@@ -18,7 +18,7 @@ from toolbox_continu_inzicht import FragilityCurve, DataAdapter, Config
 @dataclass(config={"arbitrary_types_allowed": True})
 class FragilityCurveOvertopping(FragilityCurve):
     """
-    Maakt één fragility curve voor golf overslag.
+    Maakt een enkele fragility curve voor golf overslag.
 
     Args:
         data_adapter (DataAdapter): DataAdapter object
@@ -26,22 +26,29 @@ class FragilityCurveOvertopping(FragilityCurve):
 
     Options in config
     ------------------
+
     Onzekerheden: float
-        gh_onz_mu
+        - gh_onz_mu
             GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
-        gh_onz_sigma
+
+        - gh_onz_sigma
             GolfHoogte onzekerheid sigma: standaard afwijking waarde (standaard 0.27)
-        gp_onz_mu_tp
+
+        - gp_onz_mu_tp
             GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-        gp_onz_sigma_tp
+
+        - gp_onz_sigma_tp
             GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
-        gp_onz_mu_tspec
+
+        - gp_onz_mu_tspec
             GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-        gp_onz_sigma_tspec
+
+        - gp_onz_sigma_tspec
             GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
-        gh_onz_aantal
+
+        - gh_onz_aantal
             Aantal onzekerheden in de golfhoogte (standaard 7)
-        gp_onz_aantal
+        - gp_onz_aantal
             Aantal onzekerheden in de golfperiode (standaard 7)
 
     tp_tspec: float
@@ -51,11 +58,14 @@ class FragilityCurveOvertopping(FragilityCurve):
 
     lower_limit_coarse: float
         De ondergrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 4.0m onder de kruin)
+
     upper_limit_coarse: float
         De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 2.0m onder de kruin).
         Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.
+
     upper_limit_fine: float
         De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)
+
     hstap: float
         De fijne stapgrootte van de waterstanden waarvoor de fragiliteitscurve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.
 
@@ -103,7 +113,7 @@ class FragilityCurveOvertopping(FragilityCurve):
                     - dam : int (0: geen dam or 1: dam)
                     - damheight : float (in meters)
                     - qcr : float (waarde in m^3/s)
-                        str (close | open)
+                        str (closed | open)
                         tuple (waarden van mu en sigma)
 
                [2] df_bed_levels (pd.DataFrame):
@@ -134,9 +144,11 @@ class FragilityCurveOvertopping(FragilityCurve):
         if "parameters" in self.df_profile:
             self.df_profile.set_index("parameters", inplace=True)
         profile_series = self.df_profile["values"]
+        # converteer naar numeriek indien mogelijk, dit komt doordat de kolom zowel strings als floats bevat
+        # qcr kan string, float of tuple zijn
         for k in profile_series.index:
             try:
-                profile_series.at[k] = pd.to_numeric(profile_series.at[k])
+                profile_series.at[k] = float(profile_series.at[k])
             except ValueError:
                 pass
 
@@ -145,7 +157,6 @@ class FragilityCurveOvertopping(FragilityCurve):
             # can be used to set options for the calculation
             options: dict = global_variables["FragilityCurveOvertopping"]
 
-        # voor nu default waardes uit de opties
         windspeed = profile_series["windspeed"]
         sectormin = profile_series["sectormin"]
         sectorsize = profile_series["sectorsize"]
@@ -223,7 +234,20 @@ class FragilityCurvesOvertopping(FragilityCurve):
     Maakt een set van fragility curve voor golf overslag voor een dijkvak.
 
     Args:
-        data_adapter (DataAdapter): DataAdapter object
+        data_adapter: DataAdapter
+            DataAdapter object
+        df_slopes: pd.DataFrame
+            DataFrame met helling data.
+        df_bed_levels: pd.DataFrame
+            DataFrame met bed level data.
+        df_out: pd.DataFrame
+            DataFrame met de resultaten van de berekening.
+        fragility_curve_function: FragilityCurve
+            FragilityCurve object
+        effect: float
+            Effect van de maatregel (niet gebruikt)
+        measure_id: int
+            Maatregel id (niet gebruikt)
 
     Options in config
     ------------------
@@ -270,20 +294,6 @@ class FragilityCurvesOvertopping(FragilityCurve):
     fragility_curve_function: FragilityCurve = FragilityCurveOvertopping
     effect: float | None = None
     measure_id: int | None = None
-
-    # TODO: add, first think about what to do with ids
-    # input_schema_slopes = {
-    #     "slopetypeid": "int64",
-    #     "x": "float64",
-    #     "y": "float64",
-    #     "r": "float64",
-    # }
-
-    # input_schema_bed_levels = {
-    #     "direction": "float64",
-    #     "bedlevel": "float64",
-    #     "fetch": "float64",
-    # }
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -406,12 +416,13 @@ class FragilityCurvesOvertopping(FragilityCurve):
                     input=["df_slopes", "df_profile", "df_bed_levels"], output="output"
                 )
 
-            df_fco = fragility_curve_overtopping.df_out
-            df_fco["section_id"] = section_id
+            df_fragility_curve_overtopping = fragility_curve_overtopping.df_out
+            df_fragility_curve_overtopping["section_id"] = section_id
+
             if len(self.df_out) == 0:
-                self.df_out = df_fco
+                self.df_out = df_fragility_curve_overtopping
             else:
-                self.df_out = pd.concat([self.df_out, df_fco])
+                self.df_out = pd.concat([self.df_out, df_fragility_curve_overtopping])
 
         self.df_out["failuremechanismid"] = 2  # GEKB: komt uit de
         if self.measure_id is not None:

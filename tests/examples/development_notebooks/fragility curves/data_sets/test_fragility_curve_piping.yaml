@@ -4,11 +4,7 @@ GlobalVariables:
 
     FragilityCurvePipingFixedWaterlevelSimple:
         debug: False
-        progress: True
-
-    FragilityCurvePipingFixedWaterlevel:
-        debug: False
-        progress: True
+        progress: False
 
 
 DataAdapter:

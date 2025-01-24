@@ -1,0 +1,23 @@
+GlobalVariables:
+    rootdir: "tests/src/sections/data_sets"
+    moments: [-24, 0, 24, 48]
+
+    SectionsExpertJudgementFailureprobability:
+        MISSING_VALUE: -9999.0
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    in_section_expert_judgement:
+        type: csv
+        path: "test_sections_expert_judgement.csv"
+
+    in_section_expert_judgement_nodata:
+        type: csv
+        path: "test_sections_expert_judgement_nodata.csv"
+
+    out_section_failureprobability:
+        type: csv
+        path: "hidden_sections_expert_judgement_failureprobability.csv"

@@ -51,7 +51,6 @@ class WaveOvertoppingCalculation:
         self.modelonzekerheid: CustomModelUncertainty = CustomModelUncertainty(
             standaard_model_onzekerheden
         )
-        # TODO: verwijder DEBUG properties
         self.qov = []
         self.kansen = []
 

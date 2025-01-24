@@ -86,16 +86,19 @@ class SectionsClassify:
             input[1], self.input_schema_failureprobability
         )
 
-        # Datum als string omzetten naar datetime object
-        if not pd.api.types.is_datetime64_any_dtype(
-            self.df_in_failureprobability["date_time"]
-        ):
-            self.df_in_failureprobability["date_time"] = pd.to_datetime(
+        if self.df_in_failureprobability is not None:
+            # Datum als string omzetten naar datetime object
+            if not pd.api.types.is_datetime64_any_dtype(
                 self.df_in_failureprobability["date_time"]
-            )
+            ):
+                self.df_in_failureprobability["date_time"] = pd.to_datetime(
+                    self.df_in_failureprobability["date_time"]
+                )
 
-        # uitvoer: belasting per dijkvak
-        self.df_out = self.df_in_failureprobability.copy()
+            # uitvoer: belasting per dijkvak
+            self.df_out = self.df_in_failureprobability.copy()
+        else:
+            raise ValueError("df_in_failureprobability is None")
 
         # Functie om de juiste threshold te vinden
         def find_threshold(value, thresholds):

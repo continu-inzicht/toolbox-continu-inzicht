@@ -7,8 +7,8 @@ DataAdapter:
         csv:
             sep: ","
     # used to quickly generate test data
-    fragility_curve_pipping:
-        type: ci_postgresql_fragilitycurves_pipping
+    fragility_curve_piping:
+        type: ci_postgresql_fragilitycurves_piping
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
@@ -17,10 +17,12 @@ DataAdapter:
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
-    # csv used for test
-    fragility_curve_pipping_csv:
+    weighting_factor_csv:
         type: csv
-        file: "fragility_curve_pipping.csv"
+        file: "weighting_factor_combine.csv"
+    fragility_curve_piping_csv:
+        type: csv
+        file: "fragility_curve_piping.csv"
 
     fragility_curve_overtopping_csv:
         type: csv

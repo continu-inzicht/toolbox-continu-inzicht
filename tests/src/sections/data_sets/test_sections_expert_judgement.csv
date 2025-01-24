@@ -1,0 +1,5 @@
+section_id,parameter_id,unit,date_time,state_id,value_type,failureprobability,failuremechanism
+717,102,-,2025-01-13 09:00:00+00:00,3,meting,0.06,COMB
+717,102,-,2025-01-14 09:00:00+00:00,3,meting,0.06,COMB
+717,102,-,2025-01-15 09:00:00+00:00,3,verwacht,0.06,COMB
+717,102,-,2025-01-16 09:00:00+00:00,3,verwacht,0.06,COMB

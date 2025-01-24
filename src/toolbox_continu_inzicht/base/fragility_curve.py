@@ -43,7 +43,7 @@ class FragilityCurve:
         op het oorspronkelijke waterstandsgrid"""
         if effect == 0.0:
             return None
-        # TODO: Log or not? ideally interpolate beta values
+        # For now okay, consider later: Log or not? ideally interpolate beta values
         self.df_out["failure_probability"] = np.maximum(
             0.0,
             np.minimum(
