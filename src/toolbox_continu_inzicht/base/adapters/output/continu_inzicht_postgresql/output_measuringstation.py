@@ -184,7 +184,7 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame) -> Non
         SELECT
             stateid AS stateid,
             objectid AS objectid,
-            upperboundary AS upper_boundary
+            upperboundary/100 AS upper_boundary
         FROM {schema}.conditions
         WHERE objecttype='{objecttype}'
         ORDER BY objectid, stateid;

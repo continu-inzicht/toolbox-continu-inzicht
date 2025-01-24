@@ -77,3 +77,12 @@ DataAdapter:
         type: ci_postgresql_to_load
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
+
+    in_fragilitycurves_csv:
+        type: csv
+        path: "fragilitycurves.csv"
+
+    out_fragilitycurves_table:
+        type: ci_postgresql_to_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"

@@ -244,8 +244,8 @@ def input_ci_postgresql_from_conditions(input_config: dict) -> pd.DataFrame:
         SELECT
             measuringstation.id AS measurement_location_id,
             measuringstation.code AS measurement_location_code,
-            LAG(condition.upperboundary, 1) OVER (PARTITION BY condition.objectid ORDER BY condition.stateid) AS lower_boundary,
-            condition.upperboundary AS upper_boundary,
+            LAG(condition.upperboundary/100, 1) OVER (PARTITION BY condition.objectid ORDER BY condition.stateid) AS lower_boundary,
+            condition.upperboundary/100 AS upper_boundary,
             condition.color AS color,
             condition.description AS label,
             parameter.unit AS unit
