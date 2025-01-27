@@ -1,0 +1,32 @@
+id,stateid,objectid,objecttype,upperboundary,name,description,color,statevalue
+2,1,0,section,0.001,veilig,veilig,#00cc00,0.00055
+3,2,0,section,0.01,let op,let op,#e2e100,0.0055
+4,3,0,section,0.1,gevaar,gevaar,#ff6600,0.055
+5,4,0,section,1,kritiek,kritiek,#ff0000,0.55
+29,1,5,measuringstation,720,Verlaagde waterstand,Verlaagde waterstand,#673327,
+30,2,5,measuringstation,1200,Normale waterstand,Normale waterstand,#39870C,
+31,3,5,measuringstation,1300,Licht verhoogd,Licht verhoogd,#CDDC39,
+32,4,5,measuringstation,1500,Verhoogde waterstand,Verhoogde waterstand,#FFDE12,
+33,5,5,measuringstation,1650,Hoogwater,Hoogwater,#E17000,
+34,6,5,measuringstation,10000,Extreem hoogwater,Extreem hoogwater,#D52B1E,
+75,1,15,measuringstation,-50,5XP1J,5 times a year,#daeef3,
+76,2,15,measuringstation,-35,1XP1J,1 times a year,#b6dde8,
+77,3,15,measuringstation,-25,1XP10J,1 times in 10 years,#4bacc6,
+78,4,15,measuringstation,-20,1XP100J,1 times in 100 years,#31849b,
+79,5,15,measuringstation,-15,1XP1000J,1 times in 1000 years,#002060,
+646,1,179,measuringstation,2056.693268,normaal,< 1 x per 40 jaar,#daeef3,
+647,2,179,measuringstation,2131.986046,verhoogd,< 1 x per 250 jaar,#b6dde8,
+648,3,179,measuringstation,10000,hoog water,> 1x per 250 jaar,#4bacc6,
+649,1,180,measuringstation,2056.693268,normaal,< 1 x per 40 jaar,#daeef3,
+650,2,180,measuringstation,2131.986046,verhoogd,< 1 x per 250 jaar,#b6dde8,
+651,3,180,measuringstation,10000,hoog water,> 1x per 250 jaar,#4bacc6,
+2760001,1,276,measuringstation,122,5XP1J,meer dan 5 x per jaar,#daeef3,
+2760002,2,276,measuringstation,155,1XP1J,1 x per jaar,#b6dde8,
+2760003,3,276,measuringstation,214,1XP10J,1 x per 10 jaar,#4bacc6,
+2760004,4,276,measuringstation,239,1XP100J,1 x per 100 jaar,#31849b,
+2760005,5,276,measuringstation,260,1XP1000J,1 x per 1000 jaar,#002060,
+2760006,1,273,measuringstation,122,5XP1J,meer dan 5 x per jaar,#daeef3,
+2760007,2,273,measuringstation,155,1XP1J,1 x per jaar,#b6dde8,
+2760008,3,273,measuringstation,214,1XP10J,1 x per 10 jaar,#4bacc6,
+2760009,4,273,measuringstation,239,1XP100J,1 x per 100 jaar,#31849b,
+2760010,5,273,measuringstation,260,1XP1000J,1 x per 1000 jaar,#002060,

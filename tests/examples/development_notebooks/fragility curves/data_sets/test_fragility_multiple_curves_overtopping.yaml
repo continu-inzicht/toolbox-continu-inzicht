@@ -1,0 +1,35 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+
+    FragilityCurveOvertopping:
+        gh_onz_mu: 0.96  # default waardes, kunnen worden overschreven
+        gh_onz_sigma: 0.27
+        gp_onz_mu_tp: 1.03
+        gp_onz_sigma_tp: 0.13
+        gp_onz_mu_tspec: 1.03
+        gp_onz_sigma_tspec: 0.13
+        gh_onz_aantal: 7
+        gp_onz_aantal: 7
+        tp_tspec: 1.1
+        lower_limit_coarse: 4.0
+        upper_limit_coarse: 2.0
+        upper_limit_fine: 1.0
+        hstap: 0.05
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes_multiple.csv"
+    profiles:
+        type: csv
+        file: "profiles_multiple.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch_multiple.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_curves_multiple.csv"

@@ -17,14 +17,14 @@ permissions:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
           path: continu_inzicht
-      
+
       - uses: prefix-dev/setup-pixi@v0.8.1
         with:
           manifest-path: continu_inzicht/pixi.toml
@@ -32,7 +32,7 @@ jobs:
 
       - name: Copy github secrets to environment variables files
         working-directory: continu_inzicht
-        run: | 
+        run: |
             touch .env
             echo host=${{ secrets.HOST }} >> .env
             echo database=${{ secrets.DATABASE }} >> .env

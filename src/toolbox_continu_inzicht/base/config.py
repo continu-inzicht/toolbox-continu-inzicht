@@ -18,18 +18,6 @@ class Config(PydanticBaseModel):
     config_path: Path
     global_variables: dict = {}
     data_adapters: dict = {}
-    # available_types: list[str] = [
-    #     "csv",
-    #     "python",
-    #     "csv_source",
-    #     "postgresql_database",
-    #     "netcdf",
-    #     "ci_postgresql_from_waterlevels",
-    #     "ci_postgresql_from_conditions",
-    #     "ci_postgresql_from_measuringstations",
-    #     "ci_postgresql_to_data",
-    #     "ci_postgresql_to_states",
-    # ]
 
     def lees_config(self):
         """Laad het gegeven pad in, zet de configuraties klaar in de Config class"""
@@ -79,6 +67,9 @@ class Config(PydanticBaseModel):
 
                     self.global_variables = configuration
 
+        self.init_data_adapters()
+
+    def init_data_adapters(self):
         # opties die in de DataAdapter worden mee gegeven
         # worden toegevoegd aan de adapters, mits de adapter zelf niet die waarde heeft
         if "default_options" in self.data_adapters:

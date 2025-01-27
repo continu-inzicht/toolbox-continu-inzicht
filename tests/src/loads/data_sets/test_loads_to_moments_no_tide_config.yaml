@@ -1,14 +1,14 @@
 GlobalVariables:
-    rootdir: "tests/src/loads/data_sets"  
-    moments: [-24,0,24,48] 
+    rootdir: "tests/src/loads/data_sets"
+    moments: [-24,0,24,48]
 
     LoadsToMoments:
         tide: False
 
 DataAdapter:
-    waterstanden: 
+    waterstanden:
         type: csv
         path: "hidden_waterstanden.csv"
-    maxima:   
+    maxima:
         type: csv
-        path: "hidden_waterstanden_loads_to_moments.csv"       
+        path: "hidden_waterstanden_loads_to_moments.csv"

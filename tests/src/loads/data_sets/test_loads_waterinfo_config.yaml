@@ -4,13 +4,13 @@ GlobalVariables:
     LoadsWaterinfo:
         parameters: ["waterhoogte"]
 
-DataAdapter: 
+DataAdapter:
     default_options:
         csv:
             sep: ","
-    locaties: 
+    locaties:
         type: csv
         path: "test_locations_waterinfo.csv"
-    waterstanden: 
+    waterstanden:
         type: csv
         path: "hidden_waterstanden_waterinfo.csv"

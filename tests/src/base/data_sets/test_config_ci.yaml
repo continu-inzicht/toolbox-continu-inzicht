@@ -6,30 +6,30 @@ DataAdapter:
         csv:
             sep: ","
 
-    ci_measuringstations: 
+    ci_measuringstations:
         type: ci_postgresql_from_measuringstations
         database: "citoolbox"
         schema: "citoolbox_schema"
         source: 'WaterInfo'
 
-    ci_waterlevels: 
+    ci_waterlevels:
         type: ci_postgresql_from_waterlevels
         database: "citoolbox"
         schema: "citoolbox_schema"
 
-    ci_conditions: 
+    ci_conditions:
         type: ci_postgresql_from_conditions
         database: "citoolbox"
         schema: "citoolbox_schema"
 
-    ci_data: 
-        type: ci_postgresql_to_data
+    ci_data:
+        type: ci_postgresql_measuringstation_to_data
         database: "citoolbox"
         schema: "citoolbox_schema"
         objecttype: "measuringstation"
 
-    ci_states:   
+    ci_states:
         type: ci_postgresql_to_states
         database: "citoolbox"
         schema: "citoolbox_schema"
-        objecttype: "measuringstation"        
+        objecttype: "measuringstation"

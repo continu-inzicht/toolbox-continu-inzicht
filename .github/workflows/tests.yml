@@ -10,29 +10,24 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# You need these permissions to publish to GitHub pages
-permissions:
-    contents: write
-    pages: write
-
 jobs:
-  build-deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
           path: continu_inzicht
-      
+
       - uses: prefix-dev/setup-pixi@v0.8.1
         with:
           manifest-path: continu_inzicht/pixi.toml
           pixi-version: "latest"
-        
+
       - name: Copy github secrets to environment variables files
         working-directory: continu_inzicht
-        run: | 
+        run: |
             touch .env
             echo host=${{ secrets.HOST }} >> .env
             echo database=${{ secrets.DATABASE }} >> .env
@@ -46,7 +41,7 @@ jobs:
         working-directory: continu_inzicht
         run: pixi run pytest --cov
 
-        # later maybe upload to a coverage site, e.g.: 
+        # later maybe upload to a coverage site, e.g.:
       #   run: pytest --cov --cov-report=xml
       #   shell: bash -l {0}
       # - name: Upload coverage reports to Codecov

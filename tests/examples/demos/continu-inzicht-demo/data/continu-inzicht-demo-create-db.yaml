@@ -1,0 +1,88 @@
+GlobalVariables:
+    rootdir: "data"
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    in_dikesystems_geojson:
+        type: shape
+        path: "dikesystems.geojson"
+
+    out_dikesystems_table:
+        type: ci_postgresql_dikesystem
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_segments_geojson:
+        type: shape
+        path: "segments.geojson"
+
+    out_segments_table:
+        type: ci_postgresql_segment
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_sections_geojson:
+        type: shape
+        path: "sections.geojson"
+
+    out_sections_table:
+        type: ci_postgresql_section
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_measuringstations_csv:
+        type: csv
+        path: "measuringstations.csv"
+
+    out_measuringstations_table:
+        type: ci_postgresql_measuringstation
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_conditions_csv:
+        type: csv
+        path: "conditions.csv"
+
+    out_conditions_table:
+        type: ci_postgresql_conditions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_sectionfractions_csv:
+        type: csv
+        path: "sectionfractions.csv"
+
+    out_sectionfractions_table:
+        type: ci_postgresql_sectionfractions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_scenarios_csv:
+        type: csv
+        path: "scenarios.csv"
+
+    out_scenarios_table:
+        type: ci_postgresql_to_scenarios
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_loads_csv:
+        type: csv
+        path: "loads.csv"
+
+    out_loads_table:
+        type: ci_postgresql_to_load
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_fragilitycurves_csv:
+        type: csv
+        path: "fragilitycurves.csv"
+
+    out_fragilitycurves_table:
+        type: ci_postgresql_to_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"

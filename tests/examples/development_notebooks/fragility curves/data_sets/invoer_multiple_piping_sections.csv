@@ -1,0 +1,161 @@
+section_id,scenario_id,mechanism,Naam,Waarde,Kansverdeling,Verschuiving,Mean,Spreiding,Spreidingstype,Afknot_links,Afknot_rechts,Min,Step,Max,StDev
+1,1,sellmeijer,D,4.44234,Lognormaal,0.0,9.0,0.5,Standaardafwijking,,,,,,0.5
+1,1,sellmeijer,D_cover,3.12096,Lognormaal,0.0,4.0,0.5,Standaardafwijking,,,,,,0.5
+1,1,sellmeijer,d_70,1.88016e-07,Lognormaal,0.0,0.000161,0.12,Variatiecoëfficiënt,,,,,,1.932e-05
+1,1,sellmeijer,eta,0.282277,Lognormaal,0.0,0.27,0.001,Standaardafwijking,,,,,,0.001
+1,1,sellmeijer,gamma_sat,13.4991,Lognormaal,10.0,17.0,0.05,Variatiecoëfficiënt,,,,,,0.8500000000000001
+1,1,sellmeijer,h_exit,0.0996889,Normaal,0.0,-1.5,0.1,Standaardafwijking,,,,,,0.1
+1,1,sellmeijer,i_ch,0.22333,Lognormaal,0.0,0.5,0.1,Standaardafwijking,,,,,,0.1
+1,1,sellmeijer,k,4.75458e-09,Lognormaal,0.0,0.00012,0.25,Variatiecoëfficiënt,,,,,,3e-05
+1,1,sellmeijer,L,88.0597,Lognormaal,0.0,115.8,0.0333,Variatiecoëfficiënt,,,,,,3.8561400000000003
+1,1,sellmeijer,m_p,0.996009,Normaal,0.0,1.0,0.08,Standaardafwijking,,,,,,0.08
+1,1,sellmeijer,m_u,0.994455,Normaal,0.0,1.0,0.1,Standaardafwijking,,,,,,0.1
+1,1,sellmeijer,r_exit,0.793916,Lognormaal,0.0,0.8,0.1,Variatiecoëfficiënt,,,,,,0.08000000000000002
+1,1,sellmeijer,theta,42.8826,Lognormaal,0.0,37.0,0.01,Standaardafwijking,,,,,,0.01
+1,1,sellmeijer,h,5,geen stochast,,,,Standaardafwijking,,,0.0,0.1,20.0,
+1,1,sellmeijer,d_70m,0.000208,geen stochast,,,,Standaardafwijking,,,,,,
+1,1,sellmeijer,g,9.81,geen stochast,,,,Standaardafwijking,,,,,,
+1,1,sellmeijer,gamma_water,10,geen stochast,,,,Standaardafwijking,,,,,,
+1,1,sellmeijer,r_c,0.3,geen stochast,,,,Standaardafwijking,,,,,,
+1,1,sellmeijer,v,1.33e-06,geen stochast,,,,Standaardafwijking,,,,,,
+1,1,sellmeijer,gamma_sp,16.19,geen stochast,,,,Standaardafwijking,,,,,,
+1,1,sellmeijer,t_norm,300,geen stochast,,,,Standaardafwijking,,,,,,
+1,1,sellmeijer,Rekentechniek,FORM AbdoRackwitz,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,FORM start,mean,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,MaximumAbsoluteError,0.01,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,MaximumRelativeError,0.01,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,MaximumResidualError,1e-05,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,MaximumConstraintError,0.01,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,MaximumIterationNumber,100,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,MaximumEvaluationNumber,1000000000,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,MaximumCoefficientOfVariation,0.1,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,BlockSize,1000,rekeninstelling,,,,,,,,,,
+1,1,sellmeijer,MaximumOuterSampling,1000,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,D,4.44234,Lognormaal,0.0,9.0,0.5,Standaardafwijking,,,,,,0.5
+2,1,sellmeijer,D_cover,3.12096,Lognormaal,0.0,4.0,0.5,Standaardafwijking,,,,,,0.5
+2,1,sellmeijer,d_70,1.88016e-07,Lognormaal,0.0,0.000161,0.12,Variatiecoëfficiënt,,,,,,1.932e-05
+2,1,sellmeijer,eta,0.282277,Lognormaal,0.0,0.27,0.001,Standaardafwijking,,,,,,0.001
+2,1,sellmeijer,gamma_sat,13.4991,Lognormaal,10.0,17.0,0.05,Variatiecoëfficiënt,,,,,,0.8500000000000001
+2,1,sellmeijer,h_exit,0.0996889,Normaal,0.0,-1.5,0.1,Standaardafwijking,,,,,,0.1
+2,1,sellmeijer,i_ch,0.22333,Lognormaal,0.0,0.5,0.1,Standaardafwijking,,,,,,0.1
+2,1,sellmeijer,k,4.75458e-09,Lognormaal,0.0,0.00012,0.25,Variatiecoëfficiënt,,,,,,3e-05
+2,1,sellmeijer,L,88.0597,Lognormaal,0.0,115.8,0.0333,Variatiecoëfficiënt,,,,,,3.8561400000000003
+2,1,sellmeijer,m_p,0.996009,Normaal,0.0,1.0,0.08,Standaardafwijking,,,,,,0.08
+2,1,sellmeijer,m_u,0.994455,Normaal,0.0,1.0,0.1,Standaardafwijking,,,,,,0.1
+2,1,sellmeijer,r_exit,0.793916,Lognormaal,0.0,0.8,0.1,Variatiecoëfficiënt,,,,,,0.08000000000000002
+2,1,sellmeijer,theta,42.8826,Lognormaal,0.0,37.0,0.01,Standaardafwijking,,,,,,0.01
+2,1,sellmeijer,h,5,geen stochast,,,,Standaardafwijking,,,0.0,0.1,20.0,
+2,1,sellmeijer,d_70m,0.000208,geen stochast,,,,Standaardafwijking,,,,,,
+2,1,sellmeijer,g,9.81,geen stochast,,,,Standaardafwijking,,,,,,
+2,1,sellmeijer,gamma_water,10,geen stochast,,,,Standaardafwijking,,,,,,
+2,1,sellmeijer,r_c,0.3,geen stochast,,,,Standaardafwijking,,,,,,
+2,1,sellmeijer,v,1.33e-06,geen stochast,,,,Standaardafwijking,,,,,,
+2,1,sellmeijer,gamma_sp,16.19,geen stochast,,,,Standaardafwijking,,,,,,
+2,1,sellmeijer,t_norm,300,geen stochast,,,,Standaardafwijking,,,,,,
+2,1,sellmeijer,Rekentechniek,FORM AbdoRackwitz,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,FORM start,mean,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,MaximumAbsoluteError,0.01,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,MaximumRelativeError,0.01,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,MaximumResidualError,1e-05,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,MaximumConstraintError,0.01,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,MaximumIterationNumber,100,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,MaximumEvaluationNumber,1000000000,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,MaximumCoefficientOfVariation,0.1,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,BlockSize,1000,rekeninstelling,,,,,,,,,,
+2,1,sellmeijer,MaximumOuterSampling,1000,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,D,4.44234,Lognormaal,0.0,9.0,0.5,Standaardafwijking,,,,,,0.5
+2,2,sellmeijer,D_cover,3.12096,Lognormaal,0.0,4.0,0.5,Standaardafwijking,,,,,,0.5
+2,2,sellmeijer,d_70,1.88016e-07,Lognormaal,0.0,0.000161,0.12,Variatiecoëfficiënt,,,,,,1.932e-05
+2,2,sellmeijer,eta,0.282277,Lognormaal,0.0,0.27,0.001,Standaardafwijking,,,,,,0.001
+2,2,sellmeijer,gamma_sat,13.4991,Lognormaal,10.0,17.0,0.05,Variatiecoëfficiënt,,,,,,0.8500000000000001
+2,2,sellmeijer,h_exit,0.0996889,Normaal,0.0,-1.5,0.1,Standaardafwijking,,,,,,0.1
+2,2,sellmeijer,i_ch,0.22333,Lognormaal,0.0,0.5,0.1,Standaardafwijking,,,,,,0.1
+2,2,sellmeijer,k,4.75458e-09,Lognormaal,0.0,0.00012,0.25,Variatiecoëfficiënt,,,,,,3e-05
+2,2,sellmeijer,L,88.0597,Lognormaal,0.0,115.8,0.0333,Variatiecoëfficiënt,,,,,,3.8561400000000003
+2,2,sellmeijer,m_p,0.996009,Normaal,0.0,1.0,0.08,Standaardafwijking,,,,,,0.08
+2,2,sellmeijer,m_u,0.994455,Normaal,0.0,1.0,0.1,Standaardafwijking,,,,,,0.1
+2,2,sellmeijer,r_exit,0.793916,Lognormaal,0.0,0.8,0.1,Variatiecoëfficiënt,,,,,,0.08000000000000002
+2,2,sellmeijer,theta,42.8826,Lognormaal,0.0,37.0,0.01,Standaardafwijking,,,,,,0.01
+2,2,sellmeijer,h,5,geen stochast,,,,Standaardafwijking,,,0.0,0.1,20.0,
+2,2,sellmeijer,d_70m,0.000208,geen stochast,,,,Standaardafwijking,,,,,,
+2,2,sellmeijer,g,9.81,geen stochast,,,,Standaardafwijking,,,,,,
+2,2,sellmeijer,gamma_water,10,geen stochast,,,,Standaardafwijking,,,,,,
+2,2,sellmeijer,r_c,0.3,geen stochast,,,,Standaardafwijking,,,,,,
+2,2,sellmeijer,v,1.33e-06,geen stochast,,,,Standaardafwijking,,,,,,
+2,2,sellmeijer,gamma_sp,16.19,geen stochast,,,,Standaardafwijking,,,,,,
+2,2,sellmeijer,t_norm,300,geen stochast,,,,Standaardafwijking,,,,,,
+2,2,sellmeijer,Rekentechniek,FORM AbdoRackwitz,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,FORM start,mean,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,MaximumAbsoluteError,0.01,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,MaximumRelativeError,0.01,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,MaximumResidualError,1e-05,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,MaximumConstraintError,0.01,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,MaximumIterationNumber,100,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,MaximumEvaluationNumber,1000000000,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,MaximumCoefficientOfVariation,0.1,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,BlockSize,1000,rekeninstelling,,,,,,,,,,
+2,2,sellmeijer,MaximumOuterSampling,1000,rekeninstelling,,,,,,,,,,
+2,3,heave,D,4.44234,Lognormaal,0.0,9.0,0.5,Standaardafwijking,,,,,,0.5
+2,3,heave,D_cover,3.12096,Lognormaal,0.0,4.0,0.5,Standaardafwijking,,,,,,0.5
+2,3,heave,d_70,1.88016e-07,Lognormaal,0.0,0.000161,0.12,Variatiecoëfficiënt,,,,,,1.932e-05
+2,3,heave,eta,0.282277,Lognormaal,0.0,0.27,0.001,Standaardafwijking,,,,,,0.001
+2,3,heave,gamma_sat,13.4991,Lognormaal,10.0,17.0,0.05,Variatiecoëfficiënt,,,,,,0.8500000000000001
+2,3,heave,h_exit,0.0996889,Normaal,0.0,-1.5,0.1,Standaardafwijking,,,,,,0.1
+2,3,heave,i_ch,0.22333,Lognormaal,0.0,0.5,0.1,Standaardafwijking,,,,,,0.1
+2,3,heave,k,4.75458e-09,Lognormaal,0.0,0.00012,0.25,Variatiecoëfficiënt,,,,,,3e-05
+2,3,heave,L,88.0597,Lognormaal,0.0,115.8,0.0333,Variatiecoëfficiënt,,,,,,3.8561400000000003
+2,3,heave,m_p,0.996009,Normaal,0.0,1.0,0.08,Standaardafwijking,,,,,,0.08
+2,3,heave,m_u,0.994455,Normaal,0.0,1.0,0.1,Standaardafwijking,,,,,,0.1
+2,3,heave,r_exit,0.793916,Lognormaal,0.0,0.8,0.1,Variatiecoëfficiënt,,,,,,0.08000000000000002
+2,3,heave,theta,42.8826,Lognormaal,0.0,37.0,0.01,Standaardafwijking,,,,,,0.01
+2,3,heave,h,5,geen stochast,,,,Standaardafwijking,,,0.0,0.1,20.0,
+2,3,heave,d_70m,0.000208,geen stochast,,,,Standaardafwijking,,,,,,
+2,3,heave,g,9.81,geen stochast,,,,Standaardafwijking,,,,,,
+2,3,heave,gamma_water,10,geen stochast,,,,Standaardafwijking,,,,,,
+2,3,heave,r_c,0.3,geen stochast,,,,Standaardafwijking,,,,,,
+2,3,heave,v,1.33e-06,geen stochast,,,,Standaardafwijking,,,,,,
+2,3,heave,gamma_sp,16.19,geen stochast,,,,Standaardafwijking,,,,,,
+2,3,heave,t_norm,300,geen stochast,,,,Standaardafwijking,,,,,,
+2,3,heave,Rekentechniek,FORM AbdoRackwitz,rekeninstelling,,,,,,,,,,
+2,3,heave,FORM start,mean,rekeninstelling,,,,,,,,,,
+2,3,heave,MaximumAbsoluteError,0.01,rekeninstelling,,,,,,,,,,
+2,3,heave,MaximumRelativeError,0.01,rekeninstelling,,,,,,,,,,
+2,3,heave,MaximumResidualError,1e-05,rekeninstelling,,,,,,,,,,
+2,3,heave,MaximumConstraintError,0.01,rekeninstelling,,,,,,,,,,
+2,3,heave,MaximumIterationNumber,100,rekeninstelling,,,,,,,,,,
+2,3,heave,MaximumEvaluationNumber,1000000000,rekeninstelling,,,,,,,,,,
+2,3,heave,MaximumCoefficientOfVariation,0.1,rekeninstelling,,,,,,,,,,
+2,3,heave,BlockSize,1000,rekeninstelling,,,,,,,,,,
+2,3,heave,MaximumOuterSampling,1000,rekeninstelling,,,,,,,,,,
+2,4,heave,D,4.44234,Lognormaal,0.0,9.0,0.5,Standaardafwijking,,,,,,0.5
+2,4,heave,D_cover,3.12096,Lognormaal,0.0,4.0,0.5,Standaardafwijking,,,,,,0.5
+2,4,heave,d_70,1.88016e-07,Lognormaal,0.0,0.000161,0.12,Variatiecoëfficiënt,,,,,,1.932e-05
+2,4,heave,eta,0.282277,Lognormaal,0.0,0.27,0.001,Standaardafwijking,,,,,,0.001
+2,4,heave,gamma_sat,13.4991,Lognormaal,10.0,17.0,0.05,Variatiecoëfficiënt,,,,,,0.8500000000000001
+2,4,heave,h_exit,0.0996889,Normaal,0.0,-1.5,0.1,Standaardafwijking,,,,,,0.1
+2,4,heave,i_ch,0.22333,Lognormaal,0.0,0.5,0.1,Standaardafwijking,,,,,,0.1
+2,4,heave,k,4.75458e-09,Lognormaal,0.0,0.00012,0.25,Variatiecoëfficiënt,,,,,,3e-05
+2,4,heave,L,88.0597,Lognormaal,0.0,115.8,0.0333,Variatiecoëfficiënt,,,,,,3.8561400000000003
+2,4,heave,m_p,0.996009,Normaal,0.0,1.0,0.08,Standaardafwijking,,,,,,0.08
+2,4,heave,m_u,0.994455,Normaal,0.0,1.0,0.1,Standaardafwijking,,,,,,0.1
+2,4,heave,r_exit,0.793916,Lognormaal,0.0,0.8,0.1,Variatiecoëfficiënt,,,,,,0.08000000000000002
+2,4,heave,theta,42.8826,Lognormaal,0.0,37.0,0.01,Standaardafwijking,,,,,,0.01
+2,4,heave,h,5,geen stochast,,,,Standaardafwijking,,,0.0,0.1,20.0,
+2,4,heave,d_70m,0.000208,geen stochast,,,,Standaardafwijking,,,,,,
+2,4,heave,g,9.81,geen stochast,,,,Standaardafwijking,,,,,,
+2,4,heave,gamma_water,10,geen stochast,,,,Standaardafwijking,,,,,,
+2,4,heave,r_c,0.3,geen stochast,,,,Standaardafwijking,,,,,,
+2,4,heave,v,1.33e-06,geen stochast,,,,Standaardafwijking,,,,,,
+2,4,heave,gamma_sp,16.19,geen stochast,,,,Standaardafwijking,,,,,,
+2,4,heave,t_norm,300,geen stochast,,,,Standaardafwijking,,,,,,
+2,4,heave,Rekentechniek,FORM AbdoRackwitz,rekeninstelling,,,,,,,,,,
+2,4,heave,FORM start,mean,rekeninstelling,,,,,,,,,,
+2,4,heave,MaximumAbsoluteError,0.01,rekeninstelling,,,,,,,,,,
+2,4,heave,MaximumRelativeError,0.01,rekeninstelling,,,,,,,,,,
+2,4,heave,MaximumResidualError,1e-05,rekeninstelling,,,,,,,,,,
+2,4,heave,MaximumConstraintError,0.01,rekeninstelling,,,,,,,,,,
+2,4,heave,MaximumIterationNumber,100,rekeninstelling,,,,,,,,,,
+2,4,heave,MaximumEvaluationNumber,1000000000,rekeninstelling,,,,,,,,,,
+2,4,heave,MaximumCoefficientOfVariation,0.1,rekeninstelling,,,,,,,,,,
+2,4,heave,BlockSize,1000,rekeninstelling,,,,,,,,,,
+2,4,heave,MaximumOuterSampling,1000,rekeninstelling,,,,,,,,,,

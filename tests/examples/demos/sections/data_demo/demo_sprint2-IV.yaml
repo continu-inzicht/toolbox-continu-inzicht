@@ -1,23 +1,23 @@
 GlobalVariables:
-    rootdir: "data_demo"  
+    rootdir: "data_demo"
     moments: [-24,0,24,48]
-    
-    SectionsLoads:
-        MISSING_VALUE: -9999.0 
 
-DataAdapter: 
+    SectionsLoads:
+        MISSING_VALUE: -9999.0
+
+DataAdapter:
     default_options:
         csv:
             sep: ","
-    Dijkvakken: 
+    Dijkvakken:
         type: csv
         path: "dijkvakken.csv"
-    Dijkvak_belastinglocatie: 
+    Dijkvak_belastinglocatie:
         type: csv
-        path: "dijkvak_belastinglocatie.csv"      
-    Waterstanden: 
+        path: "dijkvak_belastinglocatie.csv"
+    Waterstanden:
         type: csv
         path: "waterstanden_waterinfo.csv"
-    Waterstanden_per_dijkvak: 
+    Waterstanden_per_dijkvak:
         type: csv
-        path: "waterstanden_per_dijkvak.csv"  
+        path: "waterstanden_per_dijkvak.csv"

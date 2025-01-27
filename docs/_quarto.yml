@@ -10,14 +10,17 @@ website:
       - text: "Installeren"
         file:  install.qmd
       - text: "Voorbeelden"
-        file: examples/notebooks/proof_of_concept.ipynb
+        menu:
+            - examples/notebooks/1.proof_of_concept.ipynb
+            - examples/notebooks/2.belastingen_inladen.ipynb
+            - examples/notebooks/3.fragility_curve_overtopping.ipynb
       - text: "Modules"
-        file:  modules.qmd
+        file:  modules_index.qmd
       - text: "Python API"
         file: reference/index.qmd
       - text: "Overig"
         file: contact.qmd
-          
+
     right:
       - text: "Bijdragen"
         file: contributing.qmd
@@ -29,14 +32,24 @@ website:
       - title: "Installeren"
         contents:
           - install.qmd
-      
+
       - title: "Voorbeelden"
         contents:
-          - examples/notebooks/proof_of_concept.ipynb
-        
+          - examples/notebooks/1.proof_of_concept.ipynb
+          - examples/notebooks/2.belastingen_inladen.ipynb
+          - examples/notebooks/3.fragility_curve_overtopping.ipynb
+
       - title: "Modules"
         contents:
-          - modules.qmd
+          - modules_index.qmd
+          - modules/architectuur.qmd
+          - modules/belastingen.qmd
+          - modules/bepalen_fragility_curves.qmd
+          - modules/bijstellen_fragility_curves.qmd
+          - modules/kansen_en_status_per_sectie.qmd
+          - modules/effect_statistiek_rekenregels_LBO2.qmd
+          - modules/inspectieresultaten.qmd
+          - modules/digitale_delta_API.qmd
 
       - title: "Python API"
         contents:
@@ -47,7 +60,7 @@ website:
           - contact.qmd
           - tests.qmd
           - changelog.qmd
-        
+
       - title: "Bijdragen"
         contents:
           - contributing.qmd
@@ -56,17 +69,15 @@ website:
 format:
   html:
     theme: cosmo
-    css: styles.css
+    css: styles/styles.css
     toc: true
-
-
-
 
 quartodoc:
   style: pkgdown
   dir: reference
   title: API Reference
   package: toolbox_continu_inzicht
+  parser: numpy
   dynamic: True
   rewrite_all_pages: True
   options:
@@ -75,48 +86,66 @@ quartodoc:
     include_attributes: true
     include_classes: true
     include_functions: true
-  sections:  
+  sections:
     - title: Basis
-      desc: Lees & schrijf functionaliteit waar andere functies op verder bouwen
+      desc: Basis functionaliteit waar andere functies op verder bouwen
       package: toolbox_continu_inzicht
-      contents: 
-       - config
-       - data_adapter
+      contents:
+       - Config
+       - DataAdapter
        - proof_of_concept.example_module
+       - FragilityCurve
     - title: Belastingen
-      desc: Verschillende functies die belastingen inladen, classifiseren of toekennen. 
-      package: toolbox_continu_inzicht
-      contents: 
-       - loads.LoadsCIWhatIf
-       - loads.LoadsClassify
-       - loads.LoadsFews
-       - loads.get_fews_locations
-       - loads.get_fews_thresholds
-       - loads.LoadsMatroos
-       - loads.get_matroos_locations
-       - loads.LoadsWaterwebservicesRWS
-       - loads.get_rws_webservices_locations
-       - loads.LoadsToMoments
-       - loads.LoadsWaterinfo
-       - loads.get_waterinfo_locations
-       - loads.get_waterinfo_thresholds
+      desc: Functies die belastingen inladen, classificeren of toekennen.
+      package: toolbox_continu_inzicht.loads
+      contents:
+       - LoadsCIWhatIf
+       - LoadsClassify
+       - LoadsFews
+       - get_fews_locations
+       - get_fews_thresholds
+       - LoadsMatroos
+       - get_matroos_locations
+       - LoadsWaterwebservicesRWS
+       - get_rws_webservices_locations
+       - LoadsToMoments
+       - LoadsWaterinfo
+       - get_waterinfo_locations
+       - get_waterinfo_thresholds
+    - title: Dijkvak
+      desc: Functies die betrekking hebben op dijkvakken
+      package: toolbox_continu_inzicht.sections
+      contents:
+       - SectionsLoads
+       - SectionsFailureprobability
+       - SectionsTechnicalFailureprobability
+       - SectionsMeasureFailureprobability
+       - SectionsClassify
+    - title: Fragility curves
+      desc: Functies voor het berekenen en aanpassen van Fragility curve
+      package: toolbox_continu_inzicht.fragility_curves
+      contents:
+       - FragilityCurveOvertopping
+       - FragilityCurvesOvertopping
+       - ShiftFragilityCurveOvertopping
+       - ChangeCrestHeightFragilityCurveOvertopping
+       - FragilityCurvePipingFixedWaterlevelSimple
+       - FragilityCurvesPiping
+       - CombineFragilityCurvesIndependent
+       - CombineFragilityCurvesDependent
+       - CombineFragilityCurvesWeightedSum
 
-      #  - base
-    
-  
-          # - haal_waterstanden_op
-          # - calculate_fragility_curves
-          
-          
-  # # options:
-  #   include_inherited: true
-  #   include_empty: true
-  #   include_attributes: true
-  #   include_classes: true
-  #   include_functions: true
-  # # sections:
-  #   - title: Continu inzicht toolbox
-  #     desc: Toolbox voor continu inzicht
-  #     package: continu_inzicht_toolbox
-  #     content: 
-  #      - PlaceHolder
+    - title: Continu Inzicht Adapters (invoer)
+      desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
+      package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql
+      contents:
+       - input_measuringstation   # measuringstation
+       - input_section            # section
+       - input_fragilitycurve     # fragilitycurve
+    - title: Continu Inzicht Adapters (uitvoer)
+      desc: Uitvoer adapters voor Continu Inzicht meetstations/ dijkvak
+      package: toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql
+      contents:
+       - output_measuringstation  # measuringstation
+       - output_section           # section
+       - output_calculation       # calculation

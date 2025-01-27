@@ -5,13 +5,13 @@ GlobalVariables:
     LoadsWaterinfo:
         parameters: ["luchttemperatuur"]
 
-DataAdapter: 
+DataAdapter:
     default_options:
         csv:
             delimiter: ","
-    locaties: 
+    locaties:
         type: csv
         path: "test_locations_waterinfo_luchttemperatuur.csv"
-    waterstanden: 
+    waterstanden:
         type: csv
         path: "hidden_luchttemperatuur_waterinfo.csv"

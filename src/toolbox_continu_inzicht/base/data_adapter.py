@@ -77,46 +77,75 @@ class DataAdapter(PydanticBaseModel):
 
         """
         self.initialize_input_types()  # maak een dictionary van type: functie
-        # haal de input configuratie op van de functie
-        function_input_config = self.config.data_adapters[input]
-        # leid het data type af
-        data_type = function_input_config["type"]
 
-        check_rootdir(self.config.global_variables)
-        check_file_and_path(function_input_config, self.config.global_variables)
+        suppress_userwarnings = False
+        if "suppress_userwarnings" in self.config.global_variables:
+            suppress_userwarnings = self.config.global_variables[
+                "suppress_userwarnings"
+            ]
 
-        # uit het .env bestand halen we de extra waardes en laden deze in de config
-        # .env is een lokaal bestand waar wachtwoorden in kunnen worden opgeslagen, zie .evn.template
-        environmental_variables = {}
-        dotenv_path = None
-        if "dotenv_path" in self.config.global_variables:
-            dotenv_path = self.config.global_variables["dotenv_path"]
+        # initieer een leeg dataframe
+        df = pd.DataFrame()
 
-        if load_dotenv(dotenv_path=dotenv_path):
-            environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
+        # controleer of de adapter bestaat
+        if input in self.config.data_adapters:
+            # haal de input configuratie op van de functie
+            function_input_config = self.config.data_adapters[input]
+
+            # leid het data type af
+            data_type = function_input_config["type"]
+
+            check_rootdir(self.config.global_variables)
+            check_file_and_path(function_input_config, self.config.global_variables)
+
+            # uit het .env bestand halen we de extra waardes en laden deze in de config
+            # .env is een lokaal bestand waar wachtwoorden in kunnen worden opgeslagen, zie .evn.template
+            environmental_variables = {}
+            dotenv_path = None
+            if "dotenv_path" in self.config.global_variables:
+                dotenv_path = self.config.global_variables["dotenv_path"]
+
+            if load_dotenv(dotenv_path=dotenv_path):
+                environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
+            else:
+                warnings.warn(
+                    "Het bestand `.env` in niet aanwezig in de hoofdmap, code negeert deze melding.",
+                    UserWarning,
+                )
+
+            # in eerste instantie alleen beschikbaar voor de data adapters
+            function_input_config.update(environmental_variables)
+
+            # maar je wilt er  vanuit de functies ook bij kunnen
+            self.config.global_variables.update(environmental_variables)
+
+            # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
+            if data_type in self.input_types:
+                correspinding_function = self.input_types[data_type]
+                df = correspinding_function(function_input_config)
+
+                # Controleer of er data is opgehaald.
+                if len(df) == 0:
+                    raise UserWarning(
+                        f"Ophalen van gegevens van {input} heeft niets opgeleverd."
+                    )
+
+                # Als schema is meegegeven, controleer of de data aan het schema voldoet.
+                if schema is not None:
+                    status, message = validate_dataframe(df=df, schema=schema)
+                    if status > 0:
+                        if not suppress_userwarnings:
+                            raise UserWarning(message)
+
+            else:
+                # Adapter bestaat niet
+                if not suppress_userwarnings:
+                    message = f"Adapter van het type '{data_type}' niet gevonden."
+                    raise UserWarning(message)
         else:
-            warnings.warn(
-                "A `.env` file is not present in the root directory, continuing without",
-                UserWarning,
-            )
-
-        # in eerste instantie alleen beschikbaar voor de data adapters
-        function_input_config.update(environmental_variables)
-        # maar je wilt er  vanuit de functies ook bij kunnen
-        self.config.global_variables.update(environmental_variables)
-
-        # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
-        correspinding_function = self.input_types[data_type]
-        df = correspinding_function(function_input_config)
-
-        # Controleer of er data is opgehaald.
-        if len(df) == 0:
-            raise UserWarning("Geen data")
-
-        # Als schema is meegegeven, controleer of de data aan het schema voldoet.
-        if schema is not None:
-            status, message = validate_dataframe(df=df, schema=schema)
-            if status > 0:
+            # Adapter sleutel staat niet in het yaml-bestand
+            if not suppress_userwarnings:
+                message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
                 raise UserWarning(message)
 
         return df
@@ -197,18 +226,26 @@ class DataAdapter(PydanticBaseModel):
             Geeft aan wat te doen als de data adapter niet bestaat,
             bij raise krijg je een error, bij create wordt er een nieuwe data adapter aangemaakt.
         """
+        suppress_userwarnings = False
+        if "suppress_userwarnings" in self.config.global_variables:
+            suppress_userwarnings = self.config.global_variables[
+                "suppress_userwarnings"
+            ]
+
         if key in self.config.data_adapters:
             data_adapter_config = self.config.data_adapters[key]
             if data_adapter_config["type"] == "python":
                 data_adapter_config["dataframe_from_python"] = df
             else:
-                raise UserWarning(
-                    "Deze functionaliteit is voor data adapters van type `python`, "
-                )
+                if not suppress_userwarnings:
+                    raise UserWarning(
+                        "Deze functionaliteit is voor data adapters van type `python`, "
+                    )
         elif if_not_exist == "raise":
-            raise UserWarning(
-                f"Data adapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
-            )
+            if not suppress_userwarnings:
+                raise UserWarning(
+                    f"Data adapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
+                )
         elif if_not_exist == "create":
             self.config.data_adapters[key] = {
                 "type": "python",
@@ -216,6 +253,7 @@ class DataAdapter(PydanticBaseModel):
             }
 
         else:
-            raise UserWarning(
-                f"Data adapter `{key=}` niet gevonden, en {if_not_exist=} is ongeldig, moet `raise` of `create` zijn"
-            )
+            if not suppress_userwarnings:
+                raise UserWarning(
+                    f"Data adapter `{key=}` niet gevonden, en {if_not_exist=} is ongeldig, moet `raise` of `create` zijn"
+                )

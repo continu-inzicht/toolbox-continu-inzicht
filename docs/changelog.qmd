@@ -1,6 +1,6 @@
 # Changelog
 
-Alle noemenswaardige veranderingen worden hier bijgehouden. 
+Alle noemenswaardige veranderingen worden hier bijgehouden.
 Dit project gebruikt [Semantic Versioning](http://semver.org/).
 Het format is beschreven op [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
@@ -9,34 +9,49 @@ Het format is beschreven op [keepachangelog.com](https://keepachangelog.com/en/1
 ### Sprint 1
 
 - Werkende Quarto documentatie [#7](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/7)
-- Proof of concept met csv en database [#9](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/9) 
+- Proof of concept met csv en database [#9](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/9)
 - Voeg notebook toe om te laten zien hoe het werkt [#12](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/12)
 - Maak map structuur overzichtelijker [#19](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/19)
 
-### Sprint 2 
+### Sprint 2
 
-In sprint 2 is gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#36](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/36). 
+In sprint 2 is gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#36](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/36).
 
-Allereerst zijn er nog restpunten uit sprint 1 aangepast: 
+Allereerst zijn er nog restpunten uit sprint 1 aangepast:
 
-- het specificeren van `delimiter` deed het niet, dit moet `sep` zijn. Daarnaast worden nu alle opties die in de configuratie zijn gespecificeerd doorgegeven aan de data adapters. 
-- `path` is nu `file`, waarbij `file` altijd een bestand is in de `rootdir`. 'path' mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie. 
+- het specificeren van `delimiter` deed het niet, dit moet `sep` zijn. Daarnaast worden nu alle opties die in de configuratie zijn gespecificeerd doorgegeven aan de data adapters.
+- `path` is nu `file`, waarbij `file` altijd een bestand is in de `rootdir`. 'path' mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie.
 - `.env` bestand is niet meer verplicht, maar geeft wel een warning
 - `util` map aangemaakt voor generieke functies als tijd en post/get functies
-- `pytest.skipif` voor testen die alleen op het HKV-netwerk draaien door FEWS/postgreSQL verbindingen. 
+- `pytest.skipif` voor testen die alleen op het HKV-netwerk draaien door FEWS/postgreSQL verbindingen.
 - de keywords `input=..` en `output=..` worden nu alleen aan de `.run()` functie doorgegeven, niet aan de class zelf.
 
 Daarnaast zijn er toevoegingen gedaan ten behoeve van het inlezen van belastingen:
 
 - Inlezen en ophalen van locaties, parameters en grenswaardes(waar mogelijk) uit:
-  
+
     - (Noos/Vitaal) Matroos
     -  FEWS
     -  RWS waterinfo
     -  RWS waterwebservices
-  
-Deze inleesfuncties gebruiken allemaal de Aquo-standaard naam en code (WATHTE). 
 
-- Classificeren van belastingen aan de hand van opgehaalde/opgegeven grenswaardes. 
+Deze inleesfuncties gebruiken allemaal de Aquo-standaard naam en code (WATHTE).
+
+- Classificeren van belastingen aan de hand van opgehaalde/opgegeven grenswaardes.
 - Toekennen van belastingen aan secties.
 - Aggregeren van tijdreeksen naar momenten of bij het getij naar maxima over de getijperiode.
+
+### Sprint 3:
+
+### Inhoudelijk
+
+In sprint 3 is weer gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#45](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/45).
+
+De nadruk lag vooral op het toevoegen van fragility curves. Fragility curves kunnen worden gemaakt voor GEKB (golfoverslag) en STPH (piping). Ook kunnen ze afhankelijk, onafhankelijk en met een gewogen gemiddelde worden gecombineerd. Hiervoor zijn de packages respectievelijk [`pydra_core`](https://github.com/HKV-products-services/pydra_core) en [`probabilistic piping`](https://github.com/HKV-products-services/probabilistic_piping) gebruikt.
+
+Daarnaast zijn er een heel aantal data adapters toegevoegd en veel voorbeelden hoe je het kan linken aan een continu inzicht database, daar data op kan zetten en vervolgens gebruiken in functies.
+
+### Technisch/projectmatig
+
+De `pre-commit` uitgebreid en toegevoegd aan de github actions, dit run je voor je een aanpassingen doorvoer met `pixi run pre-commit`.
+De tests en publiceren van docs is nu in een windows action omgeving zodat de Dll's van `pydra_core` het doen, de pixi.lock is geupdate om nieuwe packages toe te laten.

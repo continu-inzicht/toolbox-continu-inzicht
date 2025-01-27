@@ -8,15 +8,15 @@ DataAdapter:
         database: 'citoolbox'
         schema: 'citoolbox_schema'
         csv:
-    
+
 		sep: ","
-    MyCSV_in: 
+    MyCSV_in:
         type: csv
         path: 'test_csv_in.csv'
-    MyCSV_out: 
+    MyCSV_out:
         type: csv
         path: 'test_csv_out.csv'
-    MyPostgresql: 
+    MyPostgresql:
         type: postgresql_database
         table: data_test
     MyNetCDF_in:

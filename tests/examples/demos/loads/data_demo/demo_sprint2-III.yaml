@@ -1,23 +1,23 @@
 GlobalVariables:
-    rootdir: "data_demo" 
-    moments: [-24,0,24,48]  
+    rootdir: "data_demo"
+    moments: [-24,0,24,48]
 
     LoadsMaxima:
-        tide: False   
+        tide: False
 
-DataAdapter: 
+DataAdapter:
     default_options:
         csv:
             sep: ","
-    Waterstanden_WaterInfo: 
+    Waterstanden_WaterInfo:
         type: csv
         path: "waterstanden_waterinfo.csv"
-    Waterstanden_WaterInfo_Maxima:   
+    Waterstanden_WaterInfo_Maxima:
         type: csv
-        path: "waterstanden_waterinfo_maxima.csv" 
-    WaterInfo_Klassengrenzen: 
+        path: "waterstanden_waterinfo_maxima.csv"
+    WaterInfo_Klassengrenzen:
         type: csv
-        path: "klassengrenzen.csv"    
-    Waterstanden_WaterInfo_Klassen: 
+        path: "klassengrenzen.csv"
+    Waterstanden_WaterInfo_Klassen:
         type: csv
-        path: "waterstanden_waterinfo_klassen.csv"    
+        path: "waterstanden_waterinfo_klassen.csv"

@@ -1,0 +1,27 @@
+GlobalVariables:
+    rootdir: "tests/src/sections/data_sets"
+    moments: [-24, 0, 24, 48]
+
+    SectionsTechnicalFailureprobability:
+        MISSING_VALUE: -9999.0
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    in_section_fragilitycurves:
+        type: csv
+        path: "test_sections_technical_failureprobability_fragility_curves.csv"
+
+    in_section_fragilitycurves_nodata:
+        type: csv
+        path: "test_sections_technical_failureprobability_fragility_curves_nodata.csv"
+
+    in_section_load:
+        type: csv
+        path: "test_sections_technical_failureprobability_load.csv"
+
+    out_section_failureprobability:
+        type: csv
+        path: "hidden_sections_technical_failureprobability.csv"

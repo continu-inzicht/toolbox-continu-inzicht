@@ -13,7 +13,9 @@ def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame:
     if parameter is not None:
         params["unit"] = parameter
 
-    status, geojson_data = fetch_data_get(url=url, params=params, mime_type="json")
+    status, geojson_data = fetch_data_get(
+        url=url, params=params, mime_type="json", timeout=30
+    )
 
     if status is None and geojson_data is not None:
         if "features" in geojson_data:
@@ -29,7 +31,7 @@ def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame:
         else:
             raise ConnectionError(f"No results in data, only:{geojson_data.keys()}")
     else:
-        raise ConnectionError("Connection failed")
+        raise ConnectionError("Connection failed:", status)
 
     return gdf
 

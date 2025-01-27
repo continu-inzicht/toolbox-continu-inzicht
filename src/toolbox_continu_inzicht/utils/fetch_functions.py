@@ -1,3 +1,4 @@
+import requests
 import httpx
 
 
@@ -25,31 +26,25 @@ def fetch_data_get(
     data = None
     result = None
 
-    if path_certificate is None:
-        path_certificate = False
+    try:
+        headers = {}
+        if mime_type == "json":
+            # Zet de 'Accept' header naar application/json
+            headers = {"Accept": "application/json"}
 
-    with httpx.Client(verify=path_certificate) as client:
-        try:
-            headers = {}
+        response = requests.get(url, headers=headers, params=params)
+
+        if response.status_code == 200:
             if mime_type == "json":
-                # Zet de 'Accept' header naar application/json
-                headers = {"Accept": "application/json"}
-
-            response = client.get(
-                url=url, params=params, timeout=timeout, headers=headers
-            )
-
-            if response.status_code == httpx.codes.OK:
-                if mime_type == "json":
-                    data = response.json()
-                else:
-                    data = response.text
+                data = response.json()
             else:
-                data = None
-                result = httpx.Response.text
+                data = response.text
+        else:
+            data = None
+            result = response.text
 
-        except httpx.RequestError as error:
-            result = error
+    except Exception as error:
+        result = error
 
     # Geef resultaat terug
     return result, data

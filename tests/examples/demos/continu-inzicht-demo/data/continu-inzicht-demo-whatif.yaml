@@ -1,0 +1,138 @@
+GlobalVariables:
+    rootdir: "data"
+    calc_time: "1901-01-01"
+    moments: [-24,0,24,48]
+
+DataAdapter:
+
+    out_moments_table:
+        type: ci_postgresql_to_moments
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    ci_from_scenario:
+        type: ci_postgresql_whatif_from_scenario
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    out_simulation_table:
+        type: ci_postgresql_to_simulation
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    calculation_start_config:
+        type: ci_postgresql_to_calculation_start
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    ci_from_loads:
+        type: ci_postgresql_whatif_load
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    ci_to_data:
+        type: ci_postgresql_measuringstation_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        objecttype: "measuringstation"
+        unit_conversion_factor: 1
+
+    in_measuringstation_data_table:
+        type: ci_postgresql_measuringstation_data_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_measuringstation_conditions_table:
+        type: ci_postgresql_from_conditions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    out_measuringstation_states_table:
+        type: ci_postgresql_to_states
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        objecttype: "measuringstation"
+
+    in_section_table:
+        type: ci_postgresql_from_sections
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_sectionfractions_table:
+        type: ci_postgresql_from_sectionfractions
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    out_waterstanden_section_ci_postgresql:
+        type: ci_postgresql_section_load_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        objecttype: "section"
+
+    in_fragilitycurves_table:
+        type: ci_postgresql_fragilitycurves_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        measureid: 0
+
+    in_section_load_from_data_table:
+        type: ci_postgresql_section_load_from_data_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    out_section_measure_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        parameter_id: 101
+
+    in_measure_fragilitycurves_table:
+        type: ci_postgresql_measure_fragilitycurves_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    in_section_load_from_data_table:
+        type: ci_postgresql_section_load_from_data_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    out_section_technical_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        parameter_id: 100
+
+    out_section_expert_judgement_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        parameter_id: 102
+
+    in_section_data_failure_probability:
+        type: ci_postgresql_section_failure_probability_from_data_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    out_section_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+        parameter_id: 5
+
+    in_section_conditions:
+        type: ci_postgresql_section_thresholds_from_conditions_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    out_section_states:
+        type: ci_postgresql_section_to_states
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    calculation_end_config:
+        type: ci_postgresql_to_calculation_end
+        database: "geoserver"
+        schema: "continuinzicht_demo_whatif"
+
+    df_moment_waterstanden:
+        type: python

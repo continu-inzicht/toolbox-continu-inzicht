@@ -27,7 +27,7 @@ class LoadsToMoments:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    def run(self, input: str, output: str):
+    def run(self, input: str, output: str) -> None:
         """
         Verwerkt de invoergegevens om momenten te berekenen en genereert het uitvoerdataframe.
 
@@ -60,7 +60,7 @@ class LoadsToMoments:
 
         df_moments = self.df_in.set_index("date_time")
         lst_dfs = []
-
+        # TODO: In some case we might want the nearest moment rather than the exact moment
         dt_moments = [
             {"date_time": calc_time + timedelta(hours=moment), "hours": moment}
             for moment in moments
@@ -126,6 +126,9 @@ class LoadsToMoments:
             # df_moment = df_moments[df_moments.index < moment["date_time"]].iloc[[0]]
 
         if not df_moment.empty:
-            df_moment["hours"] = moment["hours"]
+            # TODO: maak eleganter, test ga een warning 'setting on copy of a slice'
+            df_moment_hours = df_moment.copy()
+            df_moment_hours["hours"] = moment["hours"]
+            df_moment = df_moment_hours
 
         return df_moment

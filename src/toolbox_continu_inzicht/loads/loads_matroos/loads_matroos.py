@@ -88,6 +88,7 @@ class LoadsMatroos:
             # haal de locaties op die bij de bron horen
             gdf_locations = get_matroos_locations(source=options["model"])
             available_location_names = list(gdf_locations["measurement_location_code"])
+            # available_location_names += list(gdf_locations["measurement_location_id"])
 
             # maak een set van de namen en formateer ze zonder spaties en hoofdletters
             available_location_names = set(available_location_names)
@@ -127,7 +128,7 @@ class LoadsMatroos:
                 wanted_location_names,
             )
             status, json_data = fetch_data_get(
-                url=request_forecast_url, params={}, mime_type="json"
+                url=request_forecast_url, params={}, mime_type="json", timeout=120
             )
             if status is None and json_data is not None:
                 if "results" in json_data:

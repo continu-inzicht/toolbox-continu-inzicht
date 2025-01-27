@@ -13,7 +13,7 @@ De oude back-end kan met weinig aanpassingen worden vervangen door de nieuwe cod
 
 ## Losstaande modules
 
-Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi. 
+Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.
 
 ```python
 pip install toolbox_continu_inzicht
@@ -21,4 +21,4 @@ pip install toolbox_continu_inzicht
 
 ## Als ontwikkelaar
 
-Zie het document [CONTRIBUTING.md](https://github.com/continu-inzicht/toolbox-continu-inzicht) voor meer informatie. 
+Zie het document [CONTRIBUTING.md](https://github.com/continu-inzicht/toolbox-continu-inzicht) voor meer informatie.

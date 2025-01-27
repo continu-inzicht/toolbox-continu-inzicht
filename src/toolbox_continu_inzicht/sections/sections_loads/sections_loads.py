@@ -1,3 +1,7 @@
+"""
+Bepaal de belasting op een dijkvak
+"""
+
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
@@ -7,27 +11,64 @@ from typing import Optional
 @dataclass(config={"arbitrary_types_allowed": True})
 class SectionsLoads:
     """
-    Bepaal de belasting op een dijkvak
+    Bepaal de belasting op een dijkvak\n
+
+    ## Input schema's
+    **input_schema_sections (DataFrame): schema voor de lijst met dijkvakken\n
+    - id: int64                         : id van het dijkvak
+    - name: str                         : naam van de dijkvak
+
+    **input_schema_loads (DataFrame): schema voor belasting per moment per meetlocaties\n
+    - measurement_location_id: int64    : id van het meetstation
+    - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
+    - unit: str                         : eenheid van de belastingparameter
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : waarde van de tijdreeksitem
+    - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
+
+    **input_schema_section_fractions (DataFrame): schema voor koppeling van de maatgevende meetlocaties per dijkvak\n
+    - id: int64                         : id van de dijkvak
+    - idup: int64                       : id van bovenstrooms meetstation
+    - iddown: int64                     : id van benedenstrooms meetstation
+    - fractionup: float64               : fractie van bovenstrooms meetstation
+    - fractiondown: float64             : fractie van benedestrooms meetstation
+
+    ## Output schema
+    **df_out (DataFrame): uitvoer\n
+    - id: int64                         : id van het dijkvak
+    - name; str                         : naam van de dijkvak
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : waarde van de tijdreeksitem
+    - unit: str                         : eenheid van de belastingparameter
+    - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
+    - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
     """
 
     data_adapter: DataAdapter
+    """DataAdapter: De data adapter."""
 
     df_in_sections: Optional[pd.DataFrame] | None = None
-    df_in_loads: Optional[pd.DataFrame] | None = None
-    df_in_section_fractions: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
+    """DataFrame: lijst met dijkvakken."""
 
-    # Kolommen schema van de invoer data
+    df_in_loads: Optional[pd.DataFrame] | None = None
+    """DataFrame: belasting per moment per meetlocaties."""
+
+    df_in_section_fractions: Optional[pd.DataFrame] | None = None
+    """DataFrame: koppeling van de maatgevende meetlocaties per dijkvak ."""
+
+    df_out: Optional[pd.DataFrame] | None = None
+    """DataFrame: uitvoer."""
 
     # Lijst met dijkvakken
     input_schema_sections = {"id": "int64", "name": "object"}
+    """Schema voor de lijst met dijkvakken"""
 
     # belasting per moment per meetlocaties
     input_schema_loads = {
         "measurement_location_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
-        "date_time": "object",
+        "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
         "value_type": "object",
     }
@@ -41,18 +82,19 @@ class SectionsLoads:
     }
 
     def run(self, input: list[str], output: str) -> None:
-        """
-        Uitvoeren van het bepalen van de belasting op een dijkvak.
+        """Bepalen de belasting op een dijkvak.
 
-        Args:
-            input List(str): [0] lijst met dijkvakken
-                             [1] belasting per moment per meetlocaties
-                             [2] koppeling van de maatgevende meetlocaties per dijkvak
-            output (str): uitvoer sectie van het yaml-bestand:
-                          koppeling van de maatgevende meetlocaties per dijkvak
+        Parameters
+        ----------
+        input: list[str]
+            [0] lijst met dijkvakken
 
-        Returns:
-            Dataframe: Pandas dataframe
+            [1] belasting per moment per meetlocaties
+
+            [2] koppeling van de maatgevende meetlocaties per dijkvak
+
+        output: str
+            uitvoer sectie van het yaml-bestand: koppeling van de maatgevende meetlocaties per dijkvak
         """
         if not len(input) == 3:
             raise UserWarning("Input variabele moet 3 string waarden bevatten.")
@@ -69,6 +111,12 @@ class SectionsLoads:
         self.df_in_section_fractions = self.data_adapter.input(
             input[2], self.input_schema_section_fractions
         )
+
+        # Datum als string omzetten naar datetime object
+        if not pd.api.types.is_datetime64_any_dtype(self.df_in_loads["date_time"]):
+            self.df_in_loads["date_time"] = pd.to_datetime(
+                self.df_in_loads["date_time"]
+            )
 
         # uitvoer: belasting per dijkvak
         self.df_out = pd.DataFrame()
@@ -127,7 +175,12 @@ class SectionsLoads:
             + df_merged["value_down"] * df_merged["fractiondown"]
         )
 
-        self.df_out = df_merged[
+        # verwijder alle rijen waar geen data voor is gevonden
+        df_cleaned = df_merged.dropna(
+            subset=["id", "date_time", "value", "unit", "parameter_id", "value_type"]
+        )
+
+        self.df_out = df_cleaned[
             ["id", "name", "date_time", "value", "unit", "parameter_id", "value_type"]
         ]
         self.df_out.set_index(["id", "name", "date_time"], inplace=False)

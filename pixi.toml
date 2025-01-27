@@ -19,20 +19,18 @@ quartodoc-build = { cmd = "quartodoc build && rm objects.json", cwd = "docs" ,in
     ],outputs = [
     "docs/reference/"
     ]}
-quarto-preview = { cmd = "export QUARTO_PYTHON=python && quarto preview docs", depends_on = [
+quarto-preview = { cmd = "export QUARTO_PYTHON=python && quarto preview docs", depends-on = [
     "quartodoc-build",
 ] }
-quarto-check = { cmd = "quarto check all", depends_on = ["quartodoc-build"] }
-quarto-render = { cmd = "export QUARTO_PYTHON=python && quarto render docs --to html --execute", depends_on = [
+quarto-check = { cmd = "quarto check all", depends-on = ["quartodoc-build"] }
+quarto-render = { cmd = "export QUARTO_PYTHON=python && quarto render docs --to html --execute", depends-on = [
     "quartodoc-build",
 ] }
-docs = { depends_on = ["build-julia-docs", "quarto-preview"] }
-
 # Lint
 pre-commit = "pre-commit run --all-files"
-lint = { depends_on = ["pre-commit"] }
+lint = { depends-on = ["pre-commit"] }
 # Test
-
+pytest-cov = "pytest --cov --cov-report html:tests/hidden_test_cov"
 
 [feature.common.dependencies]
 bokeh = ">=3.0"
@@ -41,44 +39,49 @@ fiona = "*"
 geocube = "*"
 geopandas = "*"
 ipykernel = "*"
+ipywidgets = ">=8.1.5,<9"
+jupyter-cache = ">=1.0.0,<2"
 jupyterlab = "*"
 matplotlib = "*"
 mypy = "*"
+netcdf4 = ">=1.7.1,<2"
 openpyxl = "*"
+openturns = ">=1.23,<2"
 pandas = "*"
 pandas-stubs = "*"
 pandera = "*"
 pip = "*"
 pre-commit = "*"
+psycopg2 = "*"
 pyarrow = "*"
 pydantic = ">=2"
 pyogrio = "*"
 pytest = "*"
 pytest-cov = "*"
 pytest-xdist = "*"
-pytest-asyncio = "*"
 python = ">=3.9"
+python-dotenv = ">=1.0.1,<2"
 quarto = "*"
-quartodoc = "*"
+quartodoc = "<=0.9.0"
 rasterstats = "*"
 requests = "*"
 ruff = "*"
 shapely = ">=2"
+httpx = "<0.28.0"
+sqlalchemy = "*"
 tomli = "*"
 tomli-w = "*"
+tqdm = ">=4.67.1,<5"
 types-requests = "*"
+types-pyyaml = "*"
 xugrid = "*"
 yaml = "*"
-sqlalchemy = "*"
-types-pyyaml = "*"
-psycopg2 = "*"
-jupyter-cache = ">=1.0.0,<2"
-python-dotenv = ">=1.0.1,<2"
-netcdf4 = ">=1.7.1,<2"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
+pydra-core = "==0.0.7"
+probabilistic-piping = "==0.0.5"
+#probabilistic_piping = { path = "../probabilistic_piping/src", editable = true }
 
 [environments]
 default = { features = ["common"] }
-

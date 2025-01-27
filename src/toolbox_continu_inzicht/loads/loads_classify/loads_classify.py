@@ -38,7 +38,7 @@ class LoadsClassify:
         "hours": "int64",
     }
 
-    def run(self, input: list[str], output: str) -> pd.DataFrame:
+    def run(self, input: list[str], output: str) -> None:
         """
         De runner van de Loads Classify.
 
@@ -56,10 +56,15 @@ class LoadsClassify:
             raise UserWarning("Input variabele moet 2 string waarden bevatten.")
 
         # drempelwaarden per meetlocatie
-        # TODO we kunnen er toch niet vanuit gaan dat de eerste (nulde) input string de verwijzing naar deklassegrenzen is...?
+        # TODO we kunnen er toch niet vanuit gaan dat de eerste (nulde) input string de verwijzing naar de klassegrenzen is...?
         self.df_in_thresholds = self.data_adapter.input(
             input[0], self.input_schema_thresholds
         )
+
+        if len(self.df_in_thresholds) == 0:
+            raise UserWarning(
+                "Er zijn geen klassegrenzen beschikbaar voor de gegeven belastingen!"
+            )
 
         # belasting per moment per meetlocaties
         self.df_in_loads = self.data_adapter.input(input[1], self.input_schema_loads)
@@ -93,11 +98,10 @@ class LoadsClassify:
                 "hours",
             ]
         ]
+
         self.df_out = self.df_out[
-            (self.df_out["value"] < self.df_out["upper_boundary"])
+            (self.df_out["value"] <= self.df_out["upper_boundary"])
             & (self.df_out["value"] > self.df_out["lower_boundary"])
         ]
 
         self.data_adapter.output(output=output, df=self.df_out)
-
-        return self.df_out

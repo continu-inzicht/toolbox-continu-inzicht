@@ -27,14 +27,14 @@ class LoadsFews:
         "measurement_location_description": "object",
     }
 
-    def run(self, input: str, output: str) -> pd.DataFrame:
+    def run(self, input: str, output: str) -> None:
         """
         De runner van de Loads Fews.
 
         Args:
 
         Returns:
-            Dataframe: Pandas dataframe met opgehaalde gegevens uit FEWS.
+            None
         """
 
         self.df_in = self.data_adapter.input(input, self.input_schema)

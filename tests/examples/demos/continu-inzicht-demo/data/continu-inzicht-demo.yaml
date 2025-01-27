@@ -1,16 +1,16 @@
 GlobalVariables:
-    rootdir: "data"     
+    rootdir: "data"
     calc_time: "2024-11-19"
-    moments: [-24,0,24,48]     
+    moments: [-24,0,24,48]
 
-    LoadsWaterinfo:    
-            parameters: ["waterhoogte"]
-            MISSING_VALUE: 999
+    LoadsWaterinfo:
+        parameters: ["waterhoogte"]
+        MISSING_VALUE: 999
 
     LoadsMatroos:
-        website: "noos"
+        website: "vitaal"
         model: "fews_rmm_km"
-        parameters: ["WATHTE"]              
+        parameters: ["WATHTE"]
 
     LoadsFews:
         host: "https://fews.hhnk.nl"
@@ -18,10 +18,10 @@ GlobalVariables:
         region: "fewspiservice"
         version: "1.25"
         filter: ""
-        parameters: [ "WATHTE [m][NAP][OW]" ]    
-        uurdata: true,
-        addnearestmoments: true,
-        addmaxmoment: false       
+        parameters: [ "WATHTE [m][NAP][OW]" ]
+        uurdata: true
+        addnearestmoments: true
+        addmaxmoment: false
 
     LoadsFewsLimburg:
         host: "http://109.232.44.231"
@@ -29,28 +29,49 @@ GlobalVariables:
         region: "fewspiservice"
         version: "1.25"
         filter: "App_Maas"
-        parameters: [ "WATHTE" ]    
-        uurdata: true,
-        addnearestmoments: true,
-        addmaxmoment: false           
+        parameters: [ "WATHTE" ]
+        uurdata: true
+        addnearestmoments: true
+        addmaxmoment: false
 
-    LoadsWaterwebservicesRWS:        
+    LoadsWaterwebservicesRWS:
         parameters: ["WATHTE"]
-        MISSING_VALUE: -999           
+        MISSING_VALUE: -999
 
-DataAdapter: 
+    FragilityCurveOvertopping:
+        gh_onz_mu: 0.96 # default waardes, kunnen worden overschreven
+        gh_onz_sigma: 0.27
+        gp_onz_mu_tp: 1.03
+        gp_onz_sigma_tp: 0.13
+        gp_onz_mu_tspec: 1.03
+        gp_onz_sigma_tspec: 0.13
+        gh_onz_aantal: 7
+        gp_onz_aantal: 7
+        tp_tspec: 1.1
+        lower_limit_coarse: 4.0
+        upper_limit_coarse: 2.0
+        upper_limit_fine: 1.0
+        hstap: 0.05
 
-    default_options:
-        csv:
-            sep: ","
+DataAdapter:
 
-    in_measuringstation_waterinfo: 
+    calculation_start_config:
+        type: ci_postgresql_to_calculation_start
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    calculation_end_config:
+        type: ci_postgresql_to_calculation_end
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_measuringstation_waterinfo:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-        source: "waterinfo"        
+        source: "waterinfo"
 
-    in_measuringstation_matroos: 
+    in_measuringstation_matroos:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
@@ -60,68 +81,199 @@ DataAdapter:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-        source: "fews_hhnk"   
+        source: "fews_hhnk"
 
-    in_measuringstation_fews_limburg:          
+    in_measuringstation_fews_limburg:
         type: ci_postgresql_from_measuringstations
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-        source: "fews_limburg" 
+        source: "fews_limburg"
 
-    out_waterstanden_ci_postgresql_001: 
-        type: ci_postgresql_to_data
+    out_waterstanden_ci_postgresql_001:
+        type: ci_postgresql_measuringstation_to_data
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-        objecttype: "measuringstation"     
-        unit_conversion_factor: 0.01  
+        unit_conversion_factor: 0.01
 
-    out_waterstanden_ci_postgresql_1: 
-        type: ci_postgresql_to_data
+    out_waterstanden_ci_postgresql_1:
+        type: ci_postgresql_measuringstation_to_data
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-        objecttype: "measuringstation"     
-        unit_conversion_factor: 1           
+        unit_conversion_factor: 1
 
-    in_measuringstation_data_table: 
+    in_measuringstation_data_table:
         type: ci_postgresql_measuringstation_data_table
-        database: geoserver        
-        schema: continuinzicht_demo_realtime    
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
 
-    in_measuringstation_conditions_table: 
+    in_measuringstation_conditions_table:
         type: ci_postgresql_from_conditions
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime"   
+        schema: "continuinzicht_demo_realtime"
 
-    out_measuringstation_states_table:   
+    out_measuringstation_states_table:
         type: ci_postgresql_to_states
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime"  
-        objecttype: "measuringstation"                    
+        schema: "continuinzicht_demo_realtime"
+        objecttype: "measuringstation"
 
-    in_section_table: 
+    in_section_table:
         type: ci_postgresql_from_sections
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime" 
+        schema: "continuinzicht_demo_realtime"
 
-    in_sectionfractions_table: 
+    in_sectionfractions_table:
         type: ci_postgresql_from_sectionfractions
         database: "geoserver"
-        schema: "continuinzicht_demo_realtime"           
+        schema: "continuinzicht_demo_realtime"
 
-    out_moments_table:   
-        type: ci_postgresql_to_moments
-        database: "geoserver"
-        schema: "continuinzicht_demo_realtime"  
-
-    out_waterstanden_section_ci_postgresql: 
-        type: ci_postgresql_to_data
+    out_waterstanden_section_ci_postgresql:
+        type: ci_postgresql_section_load_to_data
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
-        objecttype: "section"             
 
-    df_moment_waterstanden: 
+    df_moment_waterstanden:
         type: python
 
-    waterstanden: 
+    in_fragilitycurves_table:
+        type: ci_postgresql_fragilitycurves_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        measureid: 0
+
+    in_measure_fragilitycurves_table:
+        type: ci_postgresql_measure_fragilitycurves_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_section_load_from_data_table:
+        type: ci_postgresql_section_load_from_data_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_expert_judgement_table:
+        type: ci_postgresql_section_expert_judgement_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    out_section_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        parameter_id: 5
+
+    out_section_technical_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        parameter_id: 100
+
+    out_section_measure_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        parameter_id: 101
+
+    out_section_expert_judgement_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        parameter_id: 102
+
+    in_section_conditions:
+        type: ci_postgresql_section_thresholds_from_conditions_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_section_data_failure_probability:
+        type: ci_postgresql_section_failure_probability_from_data_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    out_section_states:
+        type: ci_postgresql_section_to_states
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_section_slopes:
+        type: ci_postgresql_slopes
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_section_profiles:
+        type: ci_postgresql_profiles
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_section_bedlevel_fetch:
+        type: ci_postgresql_bedlevelfetch
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    fragility_curve_overloop_en_overslag:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "GEKB"
+
+    fragility_curve_opbarsten_en_piping:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "STPH"
+
+    fragility_curve_stabiliteit_binnenwaarts_dijken:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "STBI"
+
+    fragility_curve_overloop_en_overslag_langsconstructies:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "HTKW"
+
+    fragility_curve_stabiliteit_langsconstructies:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "STKWI"
+
+    fragility_curve_piping_langsconstructies:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+        failuremechanism: "PKW"
+
+    out_section_fragility_curves:
+        type: ci_postgresql_fragilitycurves_table
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_fragility_curve:
+        type: ci_postgresql_fragilitycurves
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_sections:
+        type: ci_postgresql_from_sections
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_failuremechanisms:
+        type: ci_postgresql_failuremechanisms
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_measures:
+        type: ci_postgresql_measures
+        database: "geoserver"
+        schema: "continuinzicht_demo_realtime"
+
+    in_matroos_temp:
         type: csv
-        path: "hidden_waterstanden_moments.csv"
+        file: matroos_temp.csv
+
+    df_combined_curves:
+        type: "python"

@@ -37,7 +37,7 @@ def test_dataadapter_ci_postgresql_from_waterlevels():
         "parameter_code": "object",
         "parameter_description": "object",
         "unit": "object",
-        "date_time": "object",
+        "date_time": "datetime64[ns, UTC]",
         "value": "float64",
         "value_type": "object",
     }
@@ -74,7 +74,7 @@ def test_dataadapter_ci_postgresql_from_measuringstations():
 
 
 @pytest.mark.skipif(
-    os.getenv("GITHUB_ACTIONS") == "true" and os.getenv("DEBUG_CI") != "true",
+    os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("DEBUG_CI") != "true",
     reason="Kan alleen lokaal getest worden",
 )
 def test_dataadapter_ci_postgresql_from_conditions():
@@ -153,7 +153,7 @@ def test_dataadapter_ci_postgresql_to_data():
             "unit": "unit",
             "date_time": datetime(2024, 10, 16, 15, 00).replace(tzinfo=timezone.utc),
             "value": 12.34,
-            "value_type": "gemeten",
+            "value_type": "meting",
         }
 
         records.append(record)
@@ -213,8 +213,8 @@ def test_dataadapter_ci_postgresql_to_states():
 
     with engine.connect() as connection:
         delete_query = f"""
-            DELETE 
-            FROM {schema}.states 
+            DELETE
+            FROM {schema}.states
             WHERE objecttype='measuringstation' AND objectid={dummy_object_id};
         """
         connection.execute(text(delete_query))
@@ -226,8 +226,8 @@ def test_dataadapter_ci_postgresql_to_states():
 
         # controleer of record in database staat
         select_query = f"""
-            SELECT 
-                moment.id AS momentid, 
+            SELECT
+                moment.id AS momentid,
                 TO_TIMESTAMP(moment.calctime/1000) AS date_time
             FROM {schema}.moments AS moment;
         """
@@ -254,8 +254,8 @@ def test_dataadapter_ci_postgresql_to_states():
 
         # controleer of record in database staat
         select_query = f"""
-            SELECT * 
-            FROM {schema}.states 
+            SELECT *
+            FROM {schema}.states
             WHERE objecttype='measuringstation' AND objectid={dummy_object_id};
         """
         df_from_db = pd.read_sql_query(sql=text(select_query), con=connection)
