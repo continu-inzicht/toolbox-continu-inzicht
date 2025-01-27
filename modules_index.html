@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Testprotocol – Toolbox continu inzicht</title>
+<title>Modules – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./modules_index.html"> 
+    <a class="nav-link active" href="./modules_index.html" aria-current="page"> 
 <span class="menu-text">Modules</span></a>
   </li>  
   <li class="nav-item">
@@ -123,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./contact.html" aria-current="page"> 
+    <a class="nav-link" href="./contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -148,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tests.html">Testprotocol</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modules_index.html">Modules</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -162,20 +162,56 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./contact.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Contact</span></a>
+  <a href="./modules_index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Modules</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tests.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Testprotocol</span></a>
+  <a href="./modules/architectuur.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basis architectuur Toolbox Continu Inzicht</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./changelog.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Changelog</span></a>
+  <a href="./modules/belastingen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Belastingen inlezen en classificeren</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/bepalen_fragility_curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bepalen fragility curves</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/bijstellen_fragility_curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bijstellen fragility curves</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/kansen_en_status_per_sectie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conditionele kansen en status waterkering per sectie</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/effect_statistiek_rekenregels_LBO2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/inspectieresultaten.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspectieresultaten inlezen en weergeven</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/digitale_delta_API.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Digitale Delta API</span></a>
   </div>
 </li>
     </ul>
@@ -191,7 +227,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Testprotocol</h1>
+<h1 class="title">Modules</h1>
 </div>
 
 
@@ -208,7 +244,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Elk ontwikkeld script wordt getest. Dit testprotocol bestaat uit unittesten en integratietesten. Met unittesten testen we of de individuele componenten van de broncode goed werken (bijv. als de gebruiker foutieve data opgeeft). Bij het maken van unittesten is het doel om een totale dekking van 80% te halen over de gehele code, dit kan gecontroleerd worden met <code>pytest -cov</code>. Bij sommige modules is dit het makkelijk om alle code te vatten in een test, in die gevallen is dit dan ook de bedoeling om dit te doen. Doordat de interactie met een postgresql database of FEWS REST-API niet makkelijk te verwerken is in een automatische test, is er per functie geen strikte eis. Om toch de interactie met componenten die beveiligd zijn en om de samenwerking tussen de verschillende scripts te controleren, worden integratietesten uitgevoerd. In de ontwikkelfase vinden deze integratietesten plaats aan het einde van de sprints door een deel van de project groep die niet de code actief heeft ontwikkeld. In de beheerfase zal het team dat de code blijft beheren deze integratie testen blijven uitvoeren.</p>
+<p>De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het inlezen van waterstanden uit FEWS. De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht">GitHub</a>. De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.</p>
+<p>De ontwikkeling van de volgende modules is voorzien:</p>
+<ol type="1">
+<li><p><a href="./modules/architectuur.html">Basis architectuur Toolbox Continu Inzicht</a></p>
+<p>In de toolbox continu inzicht is een belangrijk uitgangspunt dat verschillende data formaten gebruikt kunnen worden, de functie zijn zo opgezet dat elk formaat als in of uitvoer kan dienen.</p></li>
+<li><p><a href="./modules/belastingen.html">Belastingen inlezen en classificeren</a></p>
+<p>Om inzicht te krijgen in de veiligheid van waterkeringen is het van belang om de belastingen op de waterkeringen in kaart te brengen. Dit kunnen waterstanden op het buitenwater (zee, rivieren of meren) zijn, maar ook grondwaterstanden. Er zijn verschillende functies geïmplementeerd voor het inlezen, opslaan en classificeren van historische en voorspelde belastingen.</p></li>
+<li><p><a href="./modules/bepalen_fragility_curves.html">Bepalen fragility curves</a></p>
+<p>Fragility curves kunnen voor verschillende faalmechanismes worden berekend. In de toolbox wordt voor STPH (piping) en GEKB (golf overlag) functionaliteit aangeboden voor het afleiden van curves.</p></li>
+</ol>
+<p>In ontwikkeling:</p>
+<ol start="4" type="1">
+<li><a href="./modules/bijstellen_fragility_curves.html">Bijstellen fragility curves</a> (beheerdersoordeel in voorbereiding)</li>
+<li><a href="./modules/kansen_en_status_per_sectie.html">Conditionele kansen en status waterkering per sectie</a></li>
+<li><a href="./modules/effect_statistiek_rekenregels_LBO2.html">Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans</a></li>
+<li><a href="./modules/inspectieresultaten.html">Inspectieresultaten inlezen en weergeven</a></li>
+<li><a href="./modules/digitale_delta_API.html">Resultaten ontsluiten via Digitale Delta API</a></li>
+</ol>
 
 
 

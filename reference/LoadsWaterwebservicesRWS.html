@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Testprotocol – Toolbox continu inzicht</title>
+<title>loadswaterwebservicesrws – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,25 +20,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,17 +105,17 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles/styles.css">
 </head>
 
-<body class="nav-sidebar floating nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Toolbox continu inzicht</span>
     </a>
   </div>
@@ -92,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./install.html"> 
+    <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -101,35 +135,35 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
-    <a class="dropdown-item" href="./examples/notebooks/1.proof_of_concept.html">
+    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
  <span class="dropdown-text">Voorbeelden</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./examples/notebooks/2.belastingen_inladen.html">
+    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
  <span class="dropdown-text">Belastingen inladen</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./examples/notebooks/3.fragility_curve_overtopping.html">
+    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./modules_index.html"> 
+    <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./reference/index.html"> 
+    <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./contact.html" aria-current="page"> 
+    <a class="nav-link" href="../contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./contributing.html"> 
+    <a class="nav-link" href="../contributing.html"> 
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
@@ -143,74 +177,162 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tests.html">Testprotocol</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./contact.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Contact</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./tests.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Testprotocol</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./changelog.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Changelog</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS" id="toc-toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS">LoadsWaterwebservicesRWS</a>
+  <ul class="collapse">
+  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe" id="toc-toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe">create_dataframe</a></li>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list" id="toc-toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list">create_json_list</a></li>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run" id="toc-toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run">run</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Testprotocol</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
+<section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS" class="level1">
+<h1>LoadsWaterwebservicesRWS</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsWaterwebservicesRWS()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Belastinggegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/</p>
+<section id="attributes" class="level2 doc-section doc-section-attributes">
+<h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>De data adapter voor het ophalen en opslaan van gegevens. df_in: Optional[pd.DataFrame] | None = None Het invoerdataframe. df_out: Optional[pd.DataFrame] | None = None Het uitvoerdataframe.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe">create_dataframe</a></td>
+<td>Maakt een dataframe met waardes van de rws water webservices</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list">create_json_list</a></td>
+<td>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run">run</a></td>
+<td>De runner van de Belasting WaterwebservicesRWS.</td>
+</tr>
+</tbody>
+</table>
+<section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe">create_dataframe</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsWaterwebservicesRWS.create_dataframe(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    options</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    calc_time</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    lst_data</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    df_in</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Maakt een dataframe met waardes van de rws water webservices</p>
+<section id="parameters" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 57%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>options</td>
+<td>dict</td>
+<td>Een dictionary met opties uit de config</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>calc_time</td>
+<td>datetime</td>
+<td>De huidige tijd</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>lst_data</td>
+<td>list</td>
+<td>Een lijst met JSON data uit de post request</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns:</h4>
+<pre><code>pd.Dataframe
+    Pandas dataframe geschikt voor uitvoer</code></pre>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list">create_json_list</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsWaterwebservicesRWS.create_json_list(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    measurement</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    calc_time</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    global_variables</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    locations</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</p>
+<p>Args: calc_time: T0 in UTC global_variables: globale variable uit de invoer yaml locations: dataframe with locations wanted</p>
+<p>Returns: dict: lijst met parameters</p>
+</section>
+<section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run">run</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsWaterwebservicesRWS.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>De runner van de Belasting WaterwebservicesRWS.</p>
 
 
-</header>
-
-
-<p>Elk ontwikkeld script wordt getest. Dit testprotocol bestaat uit unittesten en integratietesten. Met unittesten testen we of de individuele componenten van de broncode goed werken (bijv. als de gebruiker foutieve data opgeeft). Bij het maken van unittesten is het doel om een totale dekking van 80% te halen over de gehele code, dit kan gecontroleerd worden met <code>pytest -cov</code>. Bij sommige modules is dit het makkelijk om alle code te vatten in een test, in die gevallen is dit dan ook de bedoeling om dit te doen. Doordat de interactie met een postgresql database of FEWS REST-API niet makkelijk te verwerken is in een automatische test, is er per functie geen strikte eis. Om toch de interactie met componenten die beveiligd zijn en om de samenwerking tussen de verschillende scripts te controleren, worden integratietesten uitgevoerd. In de ontwikkelfase vinden deze integratietesten plaats aan het einde van de sprints door een deel van de project groep die niet de code actief heeft ontwikkeld. In de beheerfase zal het team dat de code blijft beheren deze integratie testen blijven uitvoeren.</p>
-
-
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>proof_of_concept.example_module – Toolbox continu inzicht</title>
+<title>input_fragilitycurve – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -187,12 +187,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#toolbox_continu_inzicht.proof_of_concept.example_module" id="toc-toolbox_continu_inzicht.proof_of_concept.example_module" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.proof_of_concept.example_module">proof_of_concept.example_module</a>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve">input_fragilitycurve</a>
   <ul class="collapse">
-  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
   <ul class="collapse">
-  <li><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo" id="toc-toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo">ValuesDivideTwo</a></li>
-  <li><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo" id="toc-toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo">ValuesTimesTwo</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_bedlevelfetch" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_bedlevelfetch" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_bedlevelfetch">input_ci_postgresql_bedlevelfetch</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves">input_ci_postgresql_fragilitycurves</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_overtopping" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_overtopping" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_overtopping">input_ci_postgresql_fragilitycurves_overtopping</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_piping" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_piping" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_piping">input_ci_postgresql_fragilitycurves_piping</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_stability" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_stability" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_stability">input_ci_postgresql_fragilitycurves_stability</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_table" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_table" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_table">input_ci_postgresql_fragilitycurves_table</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_measure_fragilitycurves_table" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_measure_fragilitycurves_table" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_measure_fragilitycurves_table">input_ci_postgresql_measure_fragilitycurves_table</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_probablistic_piping" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_probablistic_piping" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_probablistic_piping">input_ci_postgresql_probablistic_piping</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_profiles" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_profiles" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_profiles">input_ci_postgresql_profiles</a></li>
+  <li><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_slopes" id="toc-toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_slopes" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_slopes">input_ci_postgresql_slopes</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -204,11 +212,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module" class="level1">
-<h1>proof_of_concept.example_module</h1>
-<p><code>proof_of_concept.example_module</code></p>
-<section id="classes" class="level2">
-<h2 class="anchored" data-anchor-id="classes">Classes</h2>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve" class="level1">
+<h1>input_fragilitycurve</h1>
+<p><code>base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve</code></p>
+<p>Data adapters voor het lezen van data uit de Continu Inzicht database</p>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -218,139 +227,185 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo">ValuesDivideTwo</a></td>
-<td>Voorbeeld class die laat zien hoe de arcitectuur werkt</td>
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_bedlevelfetch">input_ci_postgresql_bedlevelfetch</a></td>
+<td>leest bedlevelfetch data van postgresql database in de bedlevelfetch tabel &amp; zet namen goed.</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo">ValuesTimesTwo</a></td>
-<td>Voorbeeld class die laat zien hoe de arcitectuur werkt</td>
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves">input_ci_postgresql_fragilitycurves</a></td>
+<td>leest fragility curves data van postgresql database in.</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_overtopping">input_ci_postgresql_fragilitycurves_overtopping</a></td>
+<td>leest fragility curves data van postgresql database in , zet namen goed en filterd op overtopping.</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_piping">input_ci_postgresql_fragilitycurves_piping</a></td>
+<td>leest fragility curves data van postgresql database in , zet namen goed en filterd op piping.</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_stability">input_ci_postgresql_fragilitycurves_stability</a></td>
+<td>leest fragility curves data van postgresql database in , zet namen goed en filterd op piping.</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_table">input_ci_postgresql_fragilitycurves_table</a></td>
+<td>Ophalen fragilitycurves voor alle dijkvakken, faalmechanismes en opgegeven maatregel</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_measure_fragilitycurves_table">input_ci_postgresql_measure_fragilitycurves_table</a></td>
+<td>Ophalen fragilitycurves voor alle dijkvakken, faalmechanismes en maatregelen</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_probablistic_piping">input_ci_postgresql_probablistic_piping</a></td>
+<td>leest probablistic data van postgresql database in de probablistic piping tabel en hernoemt de kollomen.</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_profiles">input_ci_postgresql_profiles</a></td>
+<td>leest profile data van postgresql database in de profile tabel &amp; zet namen goed.</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_slopes">input_ci_postgresql_slopes</a></td>
+<td>leest slopes data van postgresql database in de slopes tabel &amp; zet namen goed.</td>
 </tr>
 </tbody>
 </table>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo">ValuesDivideTwo</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Voorbeeld class die laat zien hoe de arcitectuur werkt</p>
-<section id="attributes" class="level4">
-<h4 class="anchored" data-anchor-id="attributes">Attributes</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.data_adapter">data_adapter</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.df_in">df_in</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.df_out">df_out</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_bedlevelfetch" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_bedlevelfetch">input_ci_postgresql_bedlevelfetch</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_bedlevelfetch(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>leest bedlevelfetch data van postgresql database in de bedlevelfetch tabel &amp; zet namen goed.</p>
 </section>
-<section id="methods" class="level4">
-<h4 class="anchored" data-anchor-id="methods">Methods</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.divide_two">divide_two</a></td>
-<td>Vermenigvuldigd de meetstation waardes met 2 als voorbeeld</td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.run">run</a></td>
-<td>Runt de funcies en stuur de df terug</td>
-</tr>
-</tbody>
-</table>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.divide_two" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.divide_two">divide_two</h5>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo.divide_two(dataframe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Vermenigvuldigd de meetstation waardes met 2 als voorbeeld</p>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves">input_ci_postgresql_fragilitycurves</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>leest fragility curves data van postgresql database in.</p>
 </section>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.run" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.run">run</h5>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Runt de funcies en stuur de df terug</p>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_overtopping" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_overtopping">input_ci_postgresql_fragilitycurves_overtopping</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_overtopping(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>leest fragility curves data van postgresql database in , zet namen goed en filterd op overtopping.</p>
 </section>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_piping" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_piping">input_ci_postgresql_fragilitycurves_piping</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_piping(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>leest fragility curves data van postgresql database in , zet namen goed en filterd op piping.</p>
 </section>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_stability" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_stability">input_ci_postgresql_fragilitycurves_stability</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_stability(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>leest fragility curves data van postgresql database in , zet namen goed en filterd op piping.</p>
 </section>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo">ValuesTimesTwo</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Voorbeeld class die laat zien hoe de arcitectuur werkt</p>
-<p>Args: data_adapter: DataAdapter Leest</p>
-<section id="attributes-1" class="level4">
-<h4 class="anchored" data-anchor-id="attributes-1">Attributes</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.data_adapter">data_adapter</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.df_in">df_in</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.df_out">df_out</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_table" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_table">input_ci_postgresql_fragilitycurves_table</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_fragilitycurves_table(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ophalen fragilitycurves voor alle dijkvakken, faalmechanismes en opgegeven maatregel</p>
+<p>Yaml example:</p>
+<pre><code>type: ci_postgresql_fragilitycurves_table
+database: "geoserver"
+schema: "continuinzicht_demo_realtime"
+measureid: 0</code></pre>
+<p>Args:</p>
+<p>input_config (dict): configuratie opties</p>
+<p><strong>Opmerking:</strong></p>
+<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<ul>
+<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
+<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
+<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
+<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
+</ul>
+<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<ul>
+<li>database (str): database van de Continu Inzicht</li>
+<li>schema (str): schema van de Continu Inzicht</li>
+<li>measureid (int64, optioneel): maatregel id, bij geen waarde wordt geen maatregel (measureid=0) gebruikt</li>
+<li>timedep (int64, optioneel): tijdsafhankelijk 0=nee, 1=ja</li>
+<li>degradatieid (int64, optioneel): rekening houden met degradatie (nog net geimplementeerd)</li>
+</ul>
+<p>Returns:</p>
+<p>df (DataFrame):</p>
+<ul>
+<li>section_id: int64 : id van de dijkvak</li>
+<li>measure_id: int64 : id van de maatregel</li>
+<li>measure: str : naam van de maatregel</li>
+<li>failuremechanismid: int64 : id van het faalmechanisme</li>
+<li>failuremechanism: str : naam van het faalmechanisme</li>
+<li>hydraulicload: float64 : belasting van de tijdreeksitem</li>
+<li>failureprobability: float64 : faalkans van de tijdreeksitem</li>
+</ul>
 </section>
-<section id="methods-1" class="level4">
-<h4 class="anchored" data-anchor-id="methods-1">Methods</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.run">run</a></td>
-<td>Runt de funcies en stuur de df terug</td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.times_two">times_two</a></td>
-<td>Deelt de meetstation waardes door 2 als voorbeeld</td>
-</tr>
-</tbody>
-</table>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.run" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.run">run</h5>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Runt de funcies en stuur de df terug</p>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_measure_fragilitycurves_table" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_measure_fragilitycurves_table">input_ci_postgresql_measure_fragilitycurves_table</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_measure_fragilitycurves_table(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ophalen fragilitycurves voor alle dijkvakken, faalmechanismes en maatregelen</p>
+<p>Yaml example:</p>
+<pre><code>type: ci_postgresql_measure_fragilitycurves_table
+database: "geoserver"
+schema: "continuinzicht_demo_realtime"</code></pre>
+<p>Args:</p>
+<p>input_config (dict): configuratie opties</p>
+<p><strong>Opmerking:</strong></p>
+<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<ul>
+<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
+<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
+<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
+<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
+</ul>
+<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<ul>
+<li>database (str): database van de Continu Inzicht</li>
+<li>schema (str): schema van de Continu Inzicht</li>
+<li>timedep (int64, optioneel): tijdsafhankelijk 0=nee, 1=ja</li>
+<li>degradatieid (int64, optioneel): rekening houden met degradatie (nog net geimplementeerd)</li>
+</ul>
+<p>Returns:</p>
+<p>df (DataFrame):</p>
+<ul>
+<li>section_id: int64 : id van de dijkvak</li>
+<li>measure_id: int64 : id van de maatregel</li>
+<li>measure: str : naam van de maatregel</li>
+<li>failuremechanismid: int64 : id van het faalmechanisme</li>
+<li>failuremechanism: str : naam van het faalmechanisme</li>
+<li>hydraulicload: float64 : belasting van de tijdreeksitem</li>
+<li>failureprobability: float64 : faalkans van de tijdreeksitem</li>
+<li>successrate: float64 : kans op succes van de maatregel</li>
+</ul>
 </section>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.times_two" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.times_two">times_two</h5>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.times_two(dataframe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Deelt de meetstation waardes door 2 als voorbeeld</p>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_probablistic_piping" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_probablistic_piping">input_ci_postgresql_probablistic_piping</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_probablistic_piping(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>leest probablistic data van postgresql database in de probablistic piping tabel en hernoemt de kollomen.</p>
+</section>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_profiles" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_profiles">input_ci_postgresql_profiles</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_profiles(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>leest profile data van postgresql database in de profile tabel &amp; zet namen goed.</p>
+</section>
+<section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_slopes" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_slopes">input_ci_postgresql_slopes</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_fragilitycurve.input_ci_postgresql_slopes(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>leest slopes data van postgresql database in de slopes tabel &amp; zet namen goed.</p>
 
 
-</section>
-</section>
 </section>
 </section>
 </section>

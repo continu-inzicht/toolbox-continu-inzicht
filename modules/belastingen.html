@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Belastingen inlezen en classificeren – Toolbox continu inzicht</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Toolbox continu inzicht</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../install.html"> 
+<span class="menu-text">Installeren</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Voorbeelden</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
+ <span class="dropdown-text">Voorbeelden</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
+ <span class="dropdown-text">Belastingen inladen</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
+ <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="../modules_index.html" aria-current="page"> 
+<span class="menu-text">Modules</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/index.html"> 
+<span class="menu-text">Python API</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contact.html"> 
+<span class="menu-text">Overig</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../contributing.html"> 
+<span class="menu-text">Bijdragen</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../modules/belastingen.html">Belastingen inlezen en classificeren</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/architectuur.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basis architectuur Toolbox Continu Inzicht</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/belastingen.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Belastingen inlezen en classificeren</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/bepalen_fragility_curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bepalen fragility curves</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/bijstellen_fragility_curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bijstellen fragility curves</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/kansen_en_status_per_sectie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conditionele kansen en status waterkering per sectie</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/effect_statistiek_rekenregels_LBO2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/inspectieresultaten.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspectieresultaten inlezen en weergeven</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/digitale_delta_API.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Digitale Delta API</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#belastingen-inlezen" id="toc-belastingen-inlezen" class="nav-link active" data-scroll-target="#belastingen-inlezen">Belastingen inlezen</a></li>
+  <li><a href="#classificeren-van-belastingen" id="toc-classificeren-van-belastingen" class="nav-link" data-scroll-target="#classificeren-van-belastingen">Classificeren van belastingen</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Belastingen inlezen en classificeren</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Om inzicht te krijgen in de veiligheid van waterkeringen is het van belang om de belastingen op de waterkeringen in kaart te brengen. Dit kunnen waterstanden op het buitenwater (zee, rivieren of meren) zijn, maar ook grondwaterstanden. De belastingen worden eerst ingelezen uit verschillende databronnen en vervolgens geclassificeerd. De belastingen worden ingelezen voor verschillende momenten (bijv. gister, nu, morgen of overmorgen etc.), zodat naast metingen ook voorspellingen van belastingen worden ingelezen.</p>
+<section id="belastingen-inlezen" class="level3">
+<h3 class="anchored" data-anchor-id="belastingen-inlezen">Belastingen inlezen</h3>
+<p>De volgende databronnen worden op dit moment in de Toolbox Continu Inzicht ondersteund:</p>
+<ol type="1">
+<li>Delft-FEWS</li>
+<li>(Noos)Matroos</li>
+<li>RWS waterwebservices</li>
+<li>RWS waterinfo</li>
+</ol>
+<section id="delft-fews" class="level4">
+<h4 class="anchored" data-anchor-id="delft-fews">Delft-FEWS</h4>
+<p>Veel waterschappen gebruiken een <a href="https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen">Delft - Forecast Early Warning System (FEWS)</a> implementatie voor het beheren van verschillende interne en externe informatiebronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot een FEWS is complexer dan andere bronnen, waardoor het noodzakelijk is om extra parameters te definiëren in het configuratiebestand. De functie <code>get_fews_locations()</code> kan worden gebruikt om de beschikbare locaties te tonen.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span><span class="at"> </span><span class="er">&nbsp;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">LoadsFews</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">host</span><span class="kw">:</span><span class="at"> </span><span class="st">"https:**********"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">port</span><span class="kw">:</span><span class="at"> </span><span class="ot">****</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">region</span><span class="kw">:</span><span class="at"> </span><span class="st">"fewspiservice"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">"1.25"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">filter</span><span class="kw">:</span><span class="at"> </span><span class="st">"HKV_WV_1"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="fu">parameters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"WNSHDB1"</span><span class="kw">]</span><span class="at"> &nbsp;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; &nbsp; &nbsp;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">    ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="globalvariables" class="level5">
+<h5 class="anchored" data-anchor-id="globalvariables">GlobalVariables:</h5>
+<ul>
+<li>rootdir: Bestandslocatie van de invoer- en uitvoerbestanden</li>
+<li>moments: Momenten in uren waar gegevens voor opgehaald moet worden (bijv. -24, 0, +24, +48, +72 uur)</li>
+</ul>
+</section>
+<section id="loadsfews" class="level5">
+<h5 class="anchored" data-anchor-id="loadsfews">LoadsFews:</h5>
+<ul>
+<li>host: Fews PI REST url</li>
+<li>port: Fews PI REST poortnummer</li>
+<li>region: FEWS PI REST regionaam</li>
+<li>version: FEWS PI versienummer</li>
+<li>filter: Filternaam zoals deze in FEWS wordt gebruikt</li>
+<li>parameters: Parameternaam zoals deze in FEWS wordt gebruikt</li>
+</ul>
+</section>
+<section id="invoer-schema-locaties" class="level5">
+<h5 class="anchored" data-anchor-id="invoer-schema-locaties">Invoer schema locaties:</h5>
+<ul>
+<li>measurement_location_id (int): Meetlocatie id</li>
+<li>measurement_location_code (str): Meetlocatie code</li>
+<li>measurement_location_description (str): Meetlocatie omschrijving/naam</li>
+</ul>
+</section>
+<section id="uitvoer-schema" class="level5">
+<h5 class="anchored" data-anchor-id="uitvoer-schema">Uitvoer schema:</h5>
+<ul>
+<li>measurement_location_id (int): Meetlocatie id</li>
+<li>measurement_location_code (str): Meetlocatie code</li>
+<li>measurement_location_description (str): Meetlocatie omschrijving/naam</li>
+<li>parameter_id (int): Parameter id overeenkomstig Aquo-standaard</li>
+<li>parameter_code (str): Parameter code overeenkomstig Aquo-standaard</li>
+<li>parameter_description (str): Parameter omschrijving overeenkomstig Aquo-standaard</li>
+<li>unit (str): Eenheid van de waarde</li>
+<li>date_time (datetime): Datum en tijd van de waarde</li>
+<li>value (float): Waarde</li>
+<li>value_type (str): Type waarde: meting of verwachting</li>
+</ul>
+</section>
+</section>
+<section id="matroos" class="level4">
+<h4 class="anchored" data-anchor-id="matroos">Matroos</h4>
+<p>Matroos of <code>Multifunctional Access Tool for Operational Oceandata Services</code> is een webbased distributiesysteem van de operationele verwachtingen van waterstanden, stroming, debieten en golven, van onder meer het Watermanagementcentrum Nederland. Matroos is beschikbaar voor verschillende doelgroepen, waarvan er op dit moment drie relevant zijn voor de ontwikkeling van de Toolbox Continu Inzicht. De verschillende versies worden in de tabel hieronder toegelicht. Voor meer informatie verwijzen we naar de nieuwsbrief op <a href="https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf">iplo.nl</a>. In de Toolbox wordt nu alleen de series API gebruikt, dus volstaat NOOS.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>URL</th>
+<th>Type</th>
+<th>Inhoud</th>
+<th>Doelgroep</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://vitaal.matroos.rws.nl/">vitaal.matroos.rws.nl</a></td>
+<td>extern, vitaal</td>
+<td>21 dagen</td>
+<td>Kustwacht, Waterschappen</td>
+</tr>
+<tr class="even">
+<td><a href="https://matroos.rws.nl/">matroos.rws.nl</a></td>
+<td>extern</td>
+<td>Volledige historie</td>
+<td>Waterschappen, universiteiten, externe</td>
+</tr>
+<tr class="odd">
+<td><a href="https://noos.matroos.rws.nl/">noos.matroos.rws.nl</a></td>
+<td>extern, open</td>
+<td>Beperkte set; series:volledig; maps: 14 dagen</td>
+<td>NOOS internationaal, Open Data</td>
+</tr>
+</tbody>
+</table>
+<p>In Matroos zijn verschillende bronnen beschikbaar, met <code>get_matroos_sources()</code> kan een lijst van deze worden gegeneerd. De beschikbare locaties kunnen worden weergegeven met <code>get_matroos_locations()</code>, met mogelijkheid om te filteren op een bron en parameter.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    ...</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">LoadsMatroos</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">website</span><span class="kw">:</span><span class="at"> </span><span class="st">"noos"</span><span class="co"> # noos, vitaal of matroos</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">model</span><span class="kw">:</span><span class="at"> </span><span class="st">"observed"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">parameters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"WATHTE"</span><span class="kw">]</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">    ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Voor het gebruik van vitaal.matroos en matroos is een gebruikersnaam en wachtwoord nodig. Deze moeten in de environmental variables worden meegegeven (<code>.env</code> bestand).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vitaal_user</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vitaal_password</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># of</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">matroos_user</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">matroos_password</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="rws-waterwebservices" class="level4">
+<h4 class="anchored" data-anchor-id="rws-waterwebservices">RWS WaterWebservices</h4>
+<p>Via de RWS WaterWebservices zijn metingen en verwachtingen van o.a. waterstanden beschikbaar via de <a href="https://rijkswaterstaatdata.nl/waterdata/">WaterWebservices</a> API. Vooral langs de rivieren zijn veel meetpunten beschikbaar. Deze API is openbaar en vereist weinig configuratie. De <code>MISSING_VALUE</code> kan in de configuratie worden aangepast, maar staat al standaard ingesteld.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">LoadsWaterwebservicesRWS</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">parameters</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="st">"WATHTE"</span><span class="kw">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Beschikbare locaties kunnen worden weergegeven met <code>get_rws_webservices_locations()</code>.</p>
+</section>
+<section id="rws-waterinfo" class="level4">
+<h4 class="anchored" data-anchor-id="rws-waterinfo">RWS Waterinfo</h4>
+<p>Naast de RWS WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via <a href="https://waterinfo.rws.nl/">waterinfo.rws.nl</a>. Waterinfo is bedoeld als informatieportaal, en niet als API om data op te halen. Voordat de WaterWebservices API beschikbaar was, werd de Waterinfo-website gebruikt in verschillende Continu Inzicht systemen. Om de comptabiliteit met deze oudere Continu Inzicht systemen te behouden, is deze functie nu nog wel beschikbaar in de Toolbox Continu Inzicht. Wel is in de toekomst mogelijk dat door veranderingen aan de Waterinfo-website deze ondersteuning komt te vervallen.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">LoadsWaterinfo</span><span class="kw">:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">parameters</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"waterhoogte"</span><span class="kw">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Omdat data ophalen uit Waterinfo gevoeliger is, worden de verschillende parameters hieronder weergegeven.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Waterhoogte</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Windsnelheid</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Golfhoogte</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Watertemperatuur</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Luchttemperatuur</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false">Astronomisch getij</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false">Stroomsnelheid</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-8-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-8" role="tab" aria-controls="tabset-1-8" aria-selected="false">Debiet</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-9-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-9" role="tab" aria-controls="tabset-1-9" aria-selected="false">Chloride</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>omschrijving</th>
+<th>maptype</th>
+<th>periode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Waterhoogte in cm</td>
+<td>waterhoogte</td>
+<td>2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>omschrijving</th>
+<th>maptype</th>
+<th>periode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Windsnelheid in m/s</td>
+<td>wind</td>
+<td>2d terug: -48,48<br>6u terug: -6,3<br>9d terug: -216,48<br>28d terug: -672,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>omschrijving</th>
+<th>maptype</th>
+<th>periode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Golfhoogte in cm</td>
+<td>golfhoogte</td>
+<td>2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>omschrijving</th>
+<th>maptype</th>
+<th>periode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Watertemperatuur in °C</td>
+<td>watertemperatuur</td>
+<td>2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>omschrijving</th>
+<th>maptype</th>
+<th>periode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Luchttemperatuur in °C</td>
+<td>luchttemperatuur</td>
+<td>2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>omschrijving</th>
+<th>maptype</th>
+<th>periode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Astronomisch getij</td>
+<td>astronomische-getij</td>
+<td>2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit:-6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug:-672,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>omschrijving</th>
+<th>maptype</th>
+<th>periode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Stroomsnelheid in m/s</td>
+<td>stroming</td>
+<td>2d terug: -48,0<br>6u terug:-6,0<br>9d terug: -216,0<br>28d terug:-672,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-8" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-8-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>omschrijving</th>
+<th>maptype</th>
+<th>periode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Debiet in m3/s</td>
+<td>waterafvoer</td>
+<td>2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit:-216,48<br>28d terug:-672,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-9" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-9-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>omschrijving</th>
+<th>maptype</th>
+<th>periode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Chloride in mg/l</td>
+<td>zouten</td>
+<td>2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- |omschrijving|maptype|periode|
+|--|--|--|
+|Waterhoogte in cm|waterhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0|
+|Windsnelheid in m/s|wind|2d terug: -48,48<br>6u terug: -6,3<br>9d terug: -216,48<br>28d terug: -672,0| -48,48/-6,3/216,48/-672,0|
+|Golfhoogte in cm|golfhoogte|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug: -672,0|
+|Watertemperatuur in °C|watertemperatuur|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0|
+|Luchttemperatuur in °C|luchttemperatuur|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0|
+|Astronomisch getij|astronomische-getij|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit:-6,3<br>9d terug, 2d vooruit: -216,48<br>28d terug:-672,0|
+|Stroomsnelheid in m/s|stroming|2d terug: -48,0<br>6u terug:-6,0<br>9d terug: -216,0<br>28d terug:-672,0|
+|Debiet in m3/s|waterafvoer|2d terug, 2d vooruit: -48,48<br>6u terug, 3u vooruit: -6,3<br>9d terug, 2d vooruit:-216,48<br>28d terug:-672,0|
+|Chloride in mg/l|zouten|2d terug: -48,0<br>6u terug: -6,0<br>9d terug: -216,0<br>28d terug:-672,0|  -->
+<section id="invoer-schema-locaties-1" class="level5">
+<h5 class="anchored" data-anchor-id="invoer-schema-locaties-1">Invoer schema locaties:</h5>
+<ul>
+<li>measurement_location_id (int): Meetlocatie id</li>
+<li>measurement_location_code (str): Meetlocatie code</li>
+<li>measurement_location_description (str): Meetlocatie omschrijving/naam</li>
+</ul>
+</section>
+<section id="uitvoer-schema-1" class="level5">
+<h5 class="anchored" data-anchor-id="uitvoer-schema-1">Uitvoer schema:</h5>
+<ul>
+<li>measurement_location_id (int): Meetlocatie id</li>
+<li>measurement_location_code (str): Meetlocatie code</li>
+<li>measurement_location_description (str): Meetlocatie omschrijving/naam</li>
+<li>parameter_id (int): Parameter id overeenkomstig Aquo-standaard</li>
+<li>parameter_code (str): Parameter code overeenkomstig Aquo-standaard</li>
+<li>parameter_description (str): Parameter omschrijving overeenkomstig Aquo-standaard</li>
+<li>unit (str): Eenheid van de waarde</li>
+<li>date_time (datetime): Datum en tijd van de waarde</li>
+<li>value (float): Waarde</li>
+<li>value_type (str): Type waarde: meting of verwachting</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="classificeren-van-belastingen" class="level3">
+<h3 class="anchored" data-anchor-id="classificeren-van-belastingen">Classificeren van belastingen</h3>
+<p>De verschillende hierboven benoemde functies voor het inlezen van belastingen geven een tijdreeks terug op bepaalde punten. Deze kunnen omgezet worden naar moment, geclassificeerd met grenswaardes en toegekend aan dijkvakken.</p>
+<section id="tijdreeks-naar-momenten" class="level4">
+<h4 class="anchored" data-anchor-id="tijdreeks-naar-momenten">Tijdreeks naar momenten</h4>
+<p>De ingelezen tijdsreeks met belastingen wordt omgezet naar belastingen op specifieke momenten met <code>LoadsToMoments</code>.</p>
+<p>Voor gebieden waar het getij van invloed is, is een aanvullende configuratie nodig. Bij getij wordt de maximale belasting tijdens een getijdencyclus (+/-12.25 uur) bepaald. Zonder deze configuratie wordt de belasting exact op het vooraf gedefinieerde moment bepaald.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">LoadsToMoments</span><span class="kw">:</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">tide</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">waterstanden_waterinfo</span><span class="kw">:</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"waterstanden_waterinfo.csv"</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">waterstanden_waterinfo_maxima</span><span class="kw">:</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"waterstanden_waterinfo_maxima.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.loads <span class="im">import</span> LoadsToMoments</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>moments <span class="op">=</span> LoadsToMoments(data_adapter<span class="op">=</span>data_adapter)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>moments.run(<span class="bu">input</span><span class="op">=</span><span class="st">"waterstanden_waterinfo"</span>, output<span class="op">=</span><span class="st">"waterstanden_waterinfo_maxima"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="classificeren-van-belastingen-1" class="level4">
+<h4 class="anchored" data-anchor-id="classificeren-van-belastingen-1">Classificeren van belastingen</h4>
+<p>Met <code>LoadsClassify</code> kunnen met vooraf gedefinieerde grenswaardes de belastingen worden geclassificeerd, bijvoorbeeld als waterstand die 1 keer per 100 jaar voorkomt. Hierbij moeten de data-adapters van de grenswaardes en belastingen worden doorgegeven in een lijst. Hierbij is de volgorde van de lijst belangrijk: eerst grenswaardes en dan belastingen. De belastingen moeten voor het classificeren aangeleverd worden als momentwaardes.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_demo"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">LoadsMaxima</span><span class="kw">:</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">tide</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">waterstanden_waterinfo_maxima</span><span class="kw">:</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"waterstanden_waterinfo_maxima.csv"</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">waterinfo_klassengrenzen</span><span class="kw">:</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"klassengrenzen.csv"</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">waterstanden_waterinfo_klassen</span><span class="kw">:</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"waterstanden_waterinfo_klassen.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.loads <span class="im">import</span> LoadsClassify</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>classify <span class="op">=</span> LoadsClassify(data_adapter<span class="op">=</span>data_adapter)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>classify.run(</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"waterinfo_klassengrenzen"</span>, <span class="st">"waterstanden_waterinfo_maxima"</span>],</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"waterstanden_waterinfo_klassen"</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="toekennen-van-belastingen-aan-secties" class="level4">
+<h4 class="anchored" data-anchor-id="toekennen-van-belastingen-aan-secties">Toekennen van belastingen aan secties</h4>
+<p>De belastingen zijn nu beschikbaar op de meetlocaties van FEWS, Matroos, RWS Waterinfo of RWS WaterWebServices. De volgende stap is het vertalen van de belastingen in de meetpunten naar de secties (dijkvakken of kunstwerken) via <code>SectionsLoads</code>. Voor het toekennen van belastingen aan secties zijn drie databronnen nodig: de dijkvakken, de belastingen en een koppeling tussen dijkvakken en belastinglocaties. De drie data-adapters worden vervolgens doorgegeven als een lijst. Hierbij is de eerder genoemde volgorde van belang: dijkvakken, belastingen en koppeling dijkvakken en belastinglocaties. Als een sectie tussen twee meetpunten ligt, wordt een interpolatiealgoritme (bijv. 25% waarde in meetpunt 1 + 75% waarde in meetpunt 2) toegepast. Omdat dit lokaal kan verschillen hoe deze interpolatie wordt gemaakt, is er geen automatische script voor. De interpolatie moet dus vooraf gedefinieerd worden door de gebruiker en wordt meegegeven bij de koppeling tussen dijkvakken en belastinglocaties. Hierbij wordt gebruik gemaakt van <code>fractionup</code> en <code>fractiondown</code> om het gewicht van de bovenstroomse en benedenstroomse belastinglocatie te bepalen.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_demo"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">SectionsLoads</span><span class="kw">:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">MISSING_VALUE</span><span class="kw">:</span><span class="at"> </span><span class="fl">-9999.0</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dijkvakken</span><span class="kw">:</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"dijkvakken.csv"</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">waterstanden</span><span class="kw">:</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"waterstanden_waterinfo.csv"</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">koppeling_dijkvak_belastinglocatie</span><span class="kw">:</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"dijkvak_belastinglocatie.csv"</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">waterstanden_per_dijkvak</span><span class="kw">:</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"waterstanden_per_dijkvak.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.sections <span class="im">import</span> SectionsLoads</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>sections_loads <span class="op">=</span> SectionsLoads(data_adapter<span class="op">=</span>data_adapter)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>sections_loads.run(</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"dijkvakken"</span>, <span class="st">"waterstanden"</span>, <span class="st">"koppeling_dijkvak_belastinglocatie"</span>],</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"waterstanden_per_dijkvak"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

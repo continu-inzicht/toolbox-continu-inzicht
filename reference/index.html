@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,10 +35,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,7 +68,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -95,12 +95,27 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../examples/notebooks/proof_of_concept.html"> 
-<span class="menu-text">Voorbeelden</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Voorbeelden</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
+ <span class="dropdown-text">Voorbeelden</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
+ <span class="dropdown-text">Belastingen inladen</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
+ <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../modules.html"> 
+    <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
   </li>  
   <li class="nav-item">
@@ -165,12 +180,16 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#basis" id="toc-basis" class="nav-link" data-scroll-target="#basis">Basis</a></li>
   <li><a href="#belastingen" id="toc-belastingen" class="nav-link" data-scroll-target="#belastingen">Belastingen</a></li>
+  <li><a href="#dijkvak" id="toc-dijkvak" class="nav-link" data-scroll-target="#dijkvak">Dijkvak</a></li>
+  <li><a href="#fragility-curves" id="toc-fragility-curves" class="nav-link" data-scroll-target="#fragility-curves">Fragility curves</a></li>
+  <li><a href="#continu-inzicht-adapters-invoer" id="toc-continu-inzicht-adapters-invoer" class="nav-link" data-scroll-target="#continu-inzicht-adapters-invoer">Continu Inzicht Adapters (invoer)</a></li>
+  <li><a href="#continu-inzicht-adapters-uitvoer" id="toc-continu-inzicht-adapters-uitvoer" class="nav-link" data-scroll-target="#continu-inzicht-adapters-uitvoer">Continu Inzicht Adapters (uitvoer)</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
@@ -179,80 +198,196 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="doc doc-index">API Reference</h1>
 <section id="basis" class="level2">
 <h2 class="anchored" data-anchor-id="basis">Basis</h2>
-<p>Lees &amp; schrijf functionaliteit waar andere functies op verder bouwen</p>
+<p>Basis functionaliteit waar andere functies op verder bouwen</p>
 <table class="caption-top table">
 <tbody>
 <tr class="odd">
-<td><a href="../reference/config.html#toolbox_continu_inzicht.config">config</a></td>
-<td></td>
+<td><a href="../reference/Config.html#toolbox_continu_inzicht.Config">Config</a></td>
+<td>Basis functie om de configuratie in te laden.</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/data_adapter.html#toolbox_continu_inzicht.data_adapter">data_adapter</a></td>
-<td></td>
+<td><a href="../reference/DataAdapter.html#toolbox_continu_inzicht.DataAdapter">DataAdapter</a></td>
+<td>Basis DataAdapter</td>
 </tr>
 <tr class="odd">
 <td><a href="../reference/proof_of_concept.example_module.html#toolbox_continu_inzicht.proof_of_concept.example_module">proof_of_concept.example_module</a></td>
 <td></td>
+</tr>
+<tr class="even">
+<td><a href="../reference/FragilityCurve.html#toolbox_continu_inzicht.FragilityCurve">FragilityCurve</a></td>
+<td>Class met een aantal gemakkelijke methoden om fragility curves</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="belastingen" class="level2">
 <h2 class="anchored" data-anchor-id="belastingen">Belastingen</h2>
-<p>Verschillende functies die belastingen inladen, classifiseren of toekennen.</p>
+<p>Functies die belastingen inladen, classificeren of toekennen.</p>
 <table class="caption-top table">
 <tbody>
 <tr class="odd">
-<td><a href="../reference/loads.LoadsCIWhatIf.html#toolbox_continu_inzicht.loads.LoadsCIWhatIf">loads.LoadsCIWhatIf</a></td>
+<td><a href="../reference/LoadsCIWhatIf.html#toolbox_continu_inzicht.loads.LoadsCIWhatIf">LoadsCIWhatIf</a></td>
 <td>Met deze functie worden belasting opgehaald en weggeschreven.</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/loads.LoadsClassify.html#toolbox_continu_inzicht.loads.LoadsClassify">loads.LoadsClassify</a></td>
+<td><a href="../reference/LoadsClassify.html#toolbox_continu_inzicht.loads.LoadsClassify">LoadsClassify</a></td>
 <td>Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd.</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/loads.LoadsFews.html#toolbox_continu_inzicht.loads.LoadsFews">loads.LoadsFews</a></td>
+<td><a href="../reference/LoadsFews.html#toolbox_continu_inzicht.loads.LoadsFews">LoadsFews</a></td>
 <td>Met deze functie worden gegevens uit de opgegeven FEWS omgeving opgehaald via REST.</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/loads.get_fews_locations.html#toolbox_continu_inzicht.loads.get_fews_locations">loads.get_fews_locations</a></td>
+<td><a href="../reference/get_fews_locations.html#toolbox_continu_inzicht.loads.get_fews_locations">get_fews_locations</a></td>
 <td>Haal voor Fews de locaties op voor de opgegegeven parameters.</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/loads.get_fews_thresholds.html#toolbox_continu_inzicht.loads.get_fews_thresholds">loads.get_fews_thresholds</a></td>
+<td><a href="../reference/get_fews_thresholds.html#toolbox_continu_inzicht.loads.get_fews_thresholds">get_fews_thresholds</a></td>
 <td>Haal voor Fews de thresholds op voor de opgegegeven parameter en locatie.</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/loads.LoadsMatroos.html#toolbox_continu_inzicht.loads.LoadsMatroos">loads.LoadsMatroos</a></td>
+<td><a href="../reference/LoadsMatroos.html#toolbox_continu_inzicht.loads.LoadsMatroos">LoadsMatroos</a></td>
 <td>De LoadsMatroos klasse haalt belastinggegevens op van de Rijkswaterstaat Waterwebservices.</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/loads.get_matroos_locations.html#toolbox_continu_inzicht.loads.get_matroos_locations">loads.get_matroos_locations</a></td>
+<td><a href="../reference/get_matroos_locations.html#toolbox_continu_inzicht.loads.get_matroos_locations">get_matroos_locations</a></td>
 <td>Haal alle matroos locaties op, indien gewenst ook bron en parameter.</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/loads.LoadsWaterwebservicesRWS.html#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS">loads.LoadsWaterwebservicesRWS</a></td>
+<td><a href="../reference/LoadsWaterwebservicesRWS.html#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS">LoadsWaterwebservicesRWS</a></td>
 <td>Belastinggegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/loads.get_rws_webservices_locations.html#toolbox_continu_inzicht.loads.get_rws_webservices_locations">loads.get_rws_webservices_locations</a></td>
+<td><a href="../reference/get_rws_webservices_locations.html#toolbox_continu_inzicht.loads.get_rws_webservices_locations">get_rws_webservices_locations</a></td>
 <td>Haal locaties op die bekend zijn bij de RWS webservice.</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/loads.LoadsToMoments.html#toolbox_continu_inzicht.loads.LoadsToMoments">loads.LoadsToMoments</a></td>
+<td><a href="../reference/LoadsToMoments.html#toolbox_continu_inzicht.loads.LoadsToMoments">LoadsToMoments</a></td>
 <td>Met deze klasse kunnen waterstandsgegevens worden omgezet naar bepaalde momenten.</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/loads.LoadsWaterinfo.html#toolbox_continu_inzicht.loads.LoadsWaterinfo">loads.LoadsWaterinfo</a></td>
+<td><a href="../reference/LoadsWaterinfo.html#toolbox_continu_inzicht.loads.LoadsWaterinfo">LoadsWaterinfo</a></td>
 <td>Belastinggegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/loads.get_waterinfo_locations.html#toolbox_continu_inzicht.loads.get_waterinfo_locations">loads.get_waterinfo_locations</a></td>
+<td><a href="../reference/get_waterinfo_locations.html#toolbox_continu_inzicht.loads.get_waterinfo_locations">get_waterinfo_locations</a></td>
 <td>Haal voor Waterinfo de locaties op voor de opgegegeven parameter.</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/loads.get_waterinfo_thresholds.html#toolbox_continu_inzicht.loads.get_waterinfo_thresholds">loads.get_waterinfo_thresholds</a></td>
+<td><a href="../reference/get_waterinfo_thresholds.html#toolbox_continu_inzicht.loads.get_waterinfo_thresholds">get_waterinfo_thresholds</a></td>
 <td>Haal voor Waterinfo de thresholds op voor de opgegegeven parameter.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dijkvak" class="level2">
+<h2 class="anchored" data-anchor-id="dijkvak">Dijkvak</h2>
+<p>Functies die betrekking hebben op dijkvakken</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><a href="../reference/SectionsLoads.html#toolbox_continu_inzicht.sections.SectionsLoads">SectionsLoads</a></td>
+<td>Bepaal de belasting op een dijkvak</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/SectionsFailureprobability.html#toolbox_continu_inzicht.sections.SectionsFailureprobability">SectionsFailureprobability</a></td>
+<td>Bepaal de faalkans van een dijkvak</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/SectionsTechnicalFailureprobability.html#toolbox_continu_inzicht.sections.SectionsTechnicalFailureprobability">SectionsTechnicalFailureprobability</a></td>
+<td>Bepaal de technische faalkans van een dijkvak</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/SectionsMeasureFailureprobability.html#toolbox_continu_inzicht.sections.SectionsMeasureFailureprobability">SectionsMeasureFailureprobability</a></td>
+<td>Bepaal de faalkans door een maatregel van een dijkvak</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/SectionsClassify.html#toolbox_continu_inzicht.sections.SectionsClassify">SectionsClassify</a></td>
+<td>Bepaal de status van een dijkvak</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fragility-curves" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-curves">Fragility curves</h2>
+<p>Functies voor het berekenen en aanpassen van Fragility curve</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><a href="../reference/FragilityCurveOvertopping.html#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping">FragilityCurveOvertopping</a></td>
+<td>Maakt een enkele fragility curve voor golf overslag.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/FragilityCurvesOvertopping.html#toolbox_continu_inzicht.fragility_curves.FragilityCurvesOvertopping">FragilityCurvesOvertopping</a></td>
+<td>Maakt een set van fragility curve voor golf overslag voor een dijkvak.</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/ShiftFragilityCurveOvertopping.html#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping">ShiftFragilityCurveOvertopping</a></td>
+<td>Verschuift de fragility curve met een gegeven effect</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/ChangeCrestHeightFragilityCurveOvertopping.html#toolbox_continu_inzicht.fragility_curves.ChangeCrestHeightFragilityCurveOvertopping">ChangeCrestHeightFragilityCurveOvertopping</a></td>
+<td>Verschuift de kruin hoogte met het gegeven effect en berekent de fragility curve</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/FragilityCurvePipingFixedWaterlevelSimple.html#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingFixedWaterlevelSimple">FragilityCurvePipingFixedWaterlevelSimple</a></td>
+<td>Maakt een enkele fragility curve voor piping met een gegeven waterstand.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/FragilityCurvesPiping.html#toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping">FragilityCurvesPiping</a></td>
+<td>Maakt een set van fragility curves voor piping voor een dijkvak.</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/CombineFragilityCurvesIndependent.html#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesIndependent">CombineFragilityCurvesIndependent</a></td>
+<td>Combineer meerdere fragility curves onafhankelijk tot een enkele fragility curves.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/CombineFragilityCurvesDependent.html#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent">CombineFragilityCurvesDependent</a></td>
+<td>Combineer meerdere fragility curves afhankelijk tot een enkele fragility curves.</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/CombineFragilityCurvesWeightedSum.html#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesWeightedSum">CombineFragilityCurvesWeightedSum</a></td>
+<td>Combineer meerdere fragility curves met een gewogen som tot een enkele fragility curves.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="continu-inzicht-adapters-invoer" class="level2">
+<h2 class="anchored" data-anchor-id="continu-inzicht-adapters-invoer">Continu Inzicht Adapters (invoer)</h2>
+<p>Invoer adapters voor Continu Inzicht meetstations/ dijkvak</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><a href="../reference/input_measuringstation.html#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_measuringstation">input_measuringstation</a></td>
+<td>Data adapters voor het lezen van data uit de Continu Inzicht database</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/input_section.html#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section">input_section</a></td>
+<td>Data adapters voor het lezen van data uit de Continu Inzicht database</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/input_fragilitycurve.html#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_fragilitycurve">input_fragilitycurve</a></td>
+<td>Data adapters voor het lezen van data uit de Continu Inzicht database</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="continu-inzicht-adapters-uitvoer" class="level2">
+<h2 class="anchored" data-anchor-id="continu-inzicht-adapters-uitvoer">Continu Inzicht Adapters (uitvoer)</h2>
+<p>Uitvoer adapters voor Continu Inzicht meetstations/ dijkvak</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><a href="../reference/output_measuringstation.html#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation">output_measuringstation</a></td>
+<td>Data adapters voor het schrijven naar de Continu Inzicht database</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/output_section.html#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section">output_section</a></td>
+<td>Data adapters voor het schrijven naar de Continu Inzicht database</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/output_calculation.html#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_calculation">output_calculation</a></td>
+<td>Data adapters voor het schrijven naar de Continu Inzicht database</td>
 </tr>
 </tbody>
 </table>
@@ -344,8 +479,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -456,7 +589,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
