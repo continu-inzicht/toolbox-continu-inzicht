@@ -1,4 +1,5 @@
-__version__ = "0.0.2"
+__version__ = "0.0.3"
+# in alpha release zijn de versie gelijk aan de sprint nummers.
 
 # Hier alleen base functies
 from toolbox_continu_inzicht.base import config

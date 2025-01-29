@@ -10,6 +10,14 @@ De toolbox kan _(straks)_ geïnstalleerd worden met:
 pip install toolbox-continu-inzicht
 ```
 
+Tijdens het ontwikkelen is de package nog niet beschikbaar op PyPi, we raden aan om `Pixi` te gebruiken. Als je dat toch niet wilt kan je wel met pip installeren vanaf github met de volgende commandos:
+
+```bash
+pip install -e "git+https://github.com/continu-inzicht/toolbox-continu-inzicht@main#egg=toolbox_continu_inzicht&subdirectory=src"
+pip install pydra_core
+pip install probabilistic_piping
+```
+
 onder het kopje [instaleren](https://continu-inzicht.github.io/toolbox-continu-inzicht/install.html) op de wiki vindt je meer informatie.
 Zie het kopje [modules](https://continu-inzicht.github.io/toolbox-continu-inzicht/modules.html) voor beschrijving van hoe je verschillende bouwstenen van de toolbox continu inzicht kan benutten, of bekijk het [voorbeeld](https://continu-inzicht.github.io/toolbox-continu-inzicht/examples/notebooks/proof_of_concept.html).
 
