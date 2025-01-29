@@ -384,7 +384,7 @@ def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
             degradatieid
         FROM {schema}.fragilitycurves
         INNER JOIN {schema}.failuremechanism ON failuremechanism.id=fragilitycurves.failuremechanismid
-        WHERE measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid}
+        WHERE measureid={measureid} AND timedep={timedep} AND degradatieid={degradatieid} AND NOT failuremechanism.name = 'COMB'
     """
 
     if "failuremechanism" in input_config:
