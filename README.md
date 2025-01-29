@@ -14,8 +14,6 @@ Tijdens het ontwikkelen is de package nog niet beschikbaar op PyPi, we raden aan
 
 ```bash
 pip install -e "git+https://github.com/continu-inzicht/toolbox-continu-inzicht@main#egg=toolbox_continu_inzicht&subdirectory=src"
-pip install pydra_core
-pip install probabilistic_piping
 ```
 
 onder het kopje [instaleren](https://continu-inzicht.github.io/toolbox-continu-inzicht/install.html) op de wiki vindt je meer informatie.

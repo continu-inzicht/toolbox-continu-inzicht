@@ -13358,12 +13358,14 @@ packages:
   timestamp: 1736962345843
 - pypi: src
   name: toolbox-continu-inzicht
-  version: 0.0.2
-  sha256: 4aaedbe2857d1c178931aaf99889562e0d6db6344f7f7609985404371f9e9af2
+  version: 0.0.3
+  sha256: 42325ca6031d9279c482ae1ac56e80cfd33515b14ec9a5c64b809954c2838387
   requires_dist:
   - geopandas
   - numpy
   - pandas
+  - probabilistic-piping
+  - pydra-core
   - shapely
   requires_python: '>=3.10'
   editable: true
