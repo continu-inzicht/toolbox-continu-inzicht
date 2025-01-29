@@ -3,13 +3,21 @@ repos:
     rev: v5.0.0
     hooks:
       - id: check-added-large-files
+        stages: [commit]
       - id: check-ast
+        stages: [commit]
       - id: check-case-conflict
+        stages: [commit]
       - id: check-merge-conflict
+        stages: [commit]
       - id: debug-statements
+        stages: [commit]
       - id: end-of-file-fixer
+        stages: [commit]
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
+        stages: [commit]
+
   # - repo: https://github.com/adrienverge/yamllint
   #   rev: "v1.35.1"
   #   hooks:
@@ -20,9 +28,14 @@ repos:
       - id: ruff
         types_or: [python, pyi, jupyter]
         args: [--fix, --exit-non-zero-on-fix]
+        stages: [commit]
       - id: ruff-format
         types_or: [python, pyi, jupyter]
+        stages: [commit]
+
   - repo: https://github.com/kynan/nbstripout
     rev: 0.8.1
     hooks:
     - id: nbstripout
+    stages: [commit]
+
