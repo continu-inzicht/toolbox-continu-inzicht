@@ -13359,7 +13359,7 @@ packages:
 - pypi: src
   name: toolbox-continu-inzicht
   version: 0.0.3
-  sha256: 42325ca6031d9279c482ae1ac56e80cfd33515b14ec9a5c64b809954c2838387
+  sha256: 653aafe00a3ce63f3c7decfb1679e392882c7c80babafb27b97968579699bbd8
   requires_dist:
   - geopandas
   - numpy
