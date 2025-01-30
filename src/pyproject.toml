@@ -19,7 +19,15 @@ authors = [
 license = { text = "GPL-3.0-or-later" }
 
 requires-python = ">=3.10"
-dependencies = ["geopandas", "numpy", "pandas", "shapely"]
+dependencies = [
+    "geopandas",
+    "numpy",
+    "pandas",
+    "shapely",
+    "pydra_core",
+    "probabilistic_piping",
+]
+
 dynamic = ["version"]
 
 [tool.hatch.version]
@@ -27,7 +35,6 @@ path = "toolbox_continu_inzicht/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["toolbox_continu_inzicht"]
-
 
 [project.urls]
 Documentation = "https://continu-inzicht.github.io/toolbox_continu_inzicht/"
