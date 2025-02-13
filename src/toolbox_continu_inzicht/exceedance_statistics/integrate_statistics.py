@@ -1,14 +1,15 @@
+from typing import Optional
+
 import numpy as np
 import pandas as pd
-from typing import Optional
 from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.adapters.validate_dataframe import validate_dataframe
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 from toolbox_continu_inzicht.base.exceedance_frequency_curve import (
     ExceedanceFrequencyCurve,
 )
-
-from toolbox_continu_inzicht.base.adapters.validate_dataframe import validate_dataframe
+from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -103,11 +104,20 @@ class IntegrateStatisticsPerSection:
             fragility_curve_waterlevels.max(),
         )
 
-        new_range_waterlevel = np.linspace(
-            min_waterlevel,
-            max_waterlevel + extend_past_max,
-            int((max_waterlevel - min_waterlevel) / refine_step_size + 1),
+        # Create a water level range with the given stepsize from
+        # min_waterlevel to at least max_waterlevel. The resulting range might
+        # in some cases go slightly over the max_waterlevel.
+        new_range_waterlevel = np.arange(
+            min_waterlevel, max_waterlevel + refine_step_size, refine_step_size
         )
+        # The arange can result in stepsize with floating point errors.
+        # Therefore, round the waterlevels to the accuracy of the step_size.
+        # Do this by finding the first significant digit of the stepsize,
+        # and add 3 more decimals to be safe (and to account for a stepsize
+        # such as 0.9999).
+        decimals = int(np.ceil(-np.log10(refine_step_size))) + 3
+        new_range_waterlevel = new_range_waterlevel.round(decimals)
+
         exceedance_frequency_curve.refine(new_range_waterlevel)
         fragility_curve.refine(new_range_waterlevel)
 
