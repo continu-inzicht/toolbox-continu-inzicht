@@ -8,6 +8,8 @@ from toolbox_continu_inzicht.base.exceedance_frequency_curve import (
     ExceedanceFrequencyCurve,
 )
 
+from toolbox_continu_inzicht.base.adapters.validate_dataframe import validate_dataframe
+
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class IntegrateStatisticsPerSection:
@@ -57,6 +59,8 @@ class IntegrateStatisticsPerSection:
                [1] df_fragility_curve (pd.DataFrame):
                     DataFrame met df_fragility_curve data.
                     Moet de volgende kolommen bevatten:
+                    - waterlevels: float
+                    - failure_probabilities: float
         """
         self.df_exceedance_frequency = self.data_adapter.input(input[0])
         self.df_fragility_curve = self.data_adapter.input(input[1])
@@ -117,26 +121,82 @@ class IntegrateStatisticsPerSection:
 
 
 class IntegrateStatistics(IntegrateStatisticsPerSection):
-    """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor een heel gebied"""
+    """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor reeks aan secties"""
 
     def run(self, input: list, output: str):
+        """Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve
+        Parameters
+        ----------
+        input: list[str]
+               [0] df_exceedance_frequency (pd.DataFrame),
+               [1] df_fragility_curve (pd.DataFrame),
+        output: str
+            output df
+
+        Notes:
+        ------
+        input: list[str]
+
+               [0] df_exceedance_frequency (pd.DataFrame)
+                    DataFrame met waterstand overschrijdingsfrequentie statistiek.
+                    Moet de volgende kolommen bevatten:
+                    - waterlevels : float
+                    - probability_exceedance : float
+
+               [1] df_fragility_curve (pd.DataFrame):
+                    DataFrame met df_fragility_curve data.
+                    Moet de volgende kolommen bevatten:
+                    - waterlevels: float
+                    - failure_probabilities: float"""
         self.df_exceedance_frequency = self.data_adapter.input(input[0])
-        self.df_fragility_curves = self.data_adapter.input(input[1])
+        self.df_fragility_curve = self.data_adapter.input(input[1])
 
-        # TODO: filter per section and combine back to one df
-        self.calculate_integration()
+        exceedance_frequency_curve = ExceedanceFrequencyCurve(self.data_adapter)
+        exceedance_frequency_curve.load(input[0])
 
+        global_variables = self.data_adapter.config.global_variables
+        options = global_variables.get("IntegrateStatisticsPerSection", {})
+        extend_past_max = options.get("extend_past_max", 0.01)
+        refine_step_size = options.get("refine_step_size", 0.05)
+
+        fragility_curve_multi_section = self.data_adapter.input(input[1])
+
+        # fragility_curve = FragilityCurve(self.data_adapter)
+        # fragility_curve.load(input[1])
+        records = {}
+        for section_id in fragility_curve_multi_section["section_id"].unique():
+            df_fc = fragility_curve_multi_section[section_id]
+            status, message = validate_dataframe(
+                df=df_fc, schema=FragilityCurve.fragility_curve_schema
+            )
+            if status > 0:
+                raise UserWarning(message)
+            fragility_curve = FragilityCurve(self.data_adapter)
+            fragility_curve.df_out = df_fc
+            records[section_id] = self.calculate_integration(
+                exceedance_frequency_curve,
+                fragility_curve,
+                refine_step_size,
+                extend_past_max,
+            )
+        self.df_out = pd.DataFrame(records)
         self.data_adapter.output(output, self.df_out)
 
 
 def _integrate_midpoint(
     waterlevel_grid, fragility_curve_grid, exceedance_frequency_grid
 ):
-    """Voor de bepaling van de integraal passen we de midpoint rule toe,
+    """
+    Voor de bepaling van de integraal passen we de midpoint rule toe,
     dichtheid van frequentie is midden van verschil tussen twee ov.freq. waarden
-    N.B. De stapgrootte van de waterstand dh valt weg in de formule.
+
+    N.B. De stapgrootte van de waterstand dh valt weg in de formule:
+
     (2*dh/2) * cond_faalkans(h) * (ov.freq.(h-dh)-ov.freq.(h+dh)) / (2*dh)
-    prob_fail_grid[i] = fragility_curve_grid[i] * (exceedance_frequency_grid[i-1] - exceedance_frequency_grid[i+1])/2"""
+
+    prob_fail_grid[i] = fragility_curve_grid[i] * (exceedance_frequency_grid[i-1] - exceedance_frequency_grid[i+1])/2
+
+    """
     prob_fail_grid = np.zeros(len(waterlevel_grid))
     prob_fail_grid[1:-1] = (
         exceedance_frequency_grid[0:-2] - exceedance_frequency_grid[2:]
