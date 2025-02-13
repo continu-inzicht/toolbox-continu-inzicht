@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data"
+    rootdir: "data_sets"
     moments: [-24,0,24,48]
 
     IntegrateStatisticsPerSection:
@@ -21,4 +21,4 @@ DataAdapter:
 
     result:
         type: csv
-        file: "result.csv"
+        file: "hidden_result.csv"
