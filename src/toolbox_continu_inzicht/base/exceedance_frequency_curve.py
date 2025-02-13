@@ -1,9 +1,10 @@
 from abc import abstractmethod
-from pydantic.dataclasses import dataclass
-import numpy as np
-from toolbox_continu_inzicht import DataAdapter
 from typing import Optional
+
 import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht import DataAdapter
 from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
 
 
@@ -30,51 +31,28 @@ class ExceedanceFrequencyCurve:
         pass
 
     def as_array(self):
-        """Geeft curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst"""
+        """Geef curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst"""
         arr = self.df_out[["waterlevels", "probability_exceedance"]].to_numpy()
         return arr
 
     def load(self, input: str):
-        """Laad een fragility curve in"""
+        """Laad een overschrijdingsfrequentielijn in"""
         self.df_out = self.data_adapter.input(
             input, schema=self.exceedance_frequency_curve_schema
         )
 
-    def shift(self, effect):
-        """Schuift de waterstanden van de overschrijdingsfrequentiecurve op  en interpoleer de faalkansen
-        op het oorspronkelijke waterstandsgrid"""
-        if effect == 0.0:
-            return None
-        # For now okay, consider later: Log or not? ideally interpolate beta values
-        self.df_out["probability_exceedance"] = np.maximum(
-            0.0,
-            np.minimum(
-                1.0,
-                log_interpolate_1d(
-                    self.df_out["waterlevels"].to_numpy(),
-                    self.df_out["waterlevels"].to_numpy() + effect,
-                    self.df_out["probability_exceedance"].to_numpy(),
-                ),
-            ),
-        )
-
     def refine(self, waterlevels):
-        """Interpolleer de fragility curve op de gegeven waterstanden"""
+        """Interpoleer de overschrijdingsfrequentielijn op de gegeven waterstanden"""
         df_new = pd.DataFrame(
             {
                 "waterlevels": waterlevels,
-                "probability_exceedance": 0.0,
-            }
-        )
-        df_new["probability_exceedance"] = np.maximum(
-            0.0,
-            np.minimum(
-                1.0,
-                log_interpolate_1d(
+                "probability_exceedance": log_interpolate_1d(
                     waterlevels,
                     self.df_out["waterlevels"].to_numpy(),
                     self.df_out["probability_exceedance"].to_numpy(),
+                    ll=1e-20,
+                    clip01=True,
                 ),
-            ),
+            }
         )
         self.df_out = df_new
