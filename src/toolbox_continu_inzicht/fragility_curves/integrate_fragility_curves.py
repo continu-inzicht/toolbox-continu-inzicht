@@ -115,17 +115,25 @@ class IntegrateFragilityCurve:
         exceedance_frequency_curve.refine(new_range_waterlevel)
         fragility_curve.refine(new_range_waterlevel)
 
-        result = _integrate_midpoint(
+        integrated_probability = _integrate_midpoint(
             new_range_waterlevel,
             fragility_curve.as_array()[:, 1],
             exceedance_frequency_curve.as_array()[:, 1],
         )
 
-        return pd.DataFrame([result.sum()], columns=["result"])
+        return pd.DataFrame(
+            list(zip(new_range_waterlevel, integrated_probability)),
+            columns=["waterlevels", "probability_contribution"],
+        )
 
 
 class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
     """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor reeks aan secties"""
+
+    data_adapter: DataAdapter
+    df_exceedance_frequency: Optional[pd.DataFrame] | None = None
+    df_fragility_curve: Optional[pd.DataFrame] | None = None
+    df_out: Optional[pd.DataFrame] | None = None
 
     def run(self, input: list, output: str):
         """Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve
@@ -164,8 +172,6 @@ class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
 
         fragility_curve_multi_section = self.data_adapter.input(input[1])
 
-        # fragility_curve = FragilityCurve(self.data_adapter)
-        # fragility_curve.load(input[1])
         results = []
         for section_id in fragility_curve_multi_section["section_id"].unique():
             df_fc = fragility_curve_multi_section.query("`section_id` == @section_id")
@@ -181,11 +187,10 @@ class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
                 fragility_curve,
                 refine_step_size,
             )
-            result.set_index(pd.Index([section_id]), inplace=True)
+            result["section_id"] = section_id
             results.append(result)
 
         self.df_out = pd.concat(results)
-        self.df_out.index.name = "section_id"
         self.data_adapter.output(output, self.df_out)
 
 

@@ -15,7 +15,7 @@ DataAdapter:
         path: 'test_csv_in.csv'
     MyCSV_out:
         type: csv
-        path: 'test_csv_out.csv'
+        path: 'hidden_test_csv_out.csv'
     MyPostgresql:
         type: postgresql_database
         table: data_test
