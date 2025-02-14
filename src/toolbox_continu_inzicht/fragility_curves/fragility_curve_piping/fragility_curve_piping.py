@@ -260,6 +260,7 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
 
 # Dit is nu nog heel traag: in de toekomst kijken of we dit met cache kunnen versnellen?
 @dataclass(config={"arbitrary_types_allowed": True})
+# class FragilityCurvePipingMultiple:
 class FragilityCurvesPiping:
     """
     Maakt een set van fragility curves voor piping voor een dijkvak.

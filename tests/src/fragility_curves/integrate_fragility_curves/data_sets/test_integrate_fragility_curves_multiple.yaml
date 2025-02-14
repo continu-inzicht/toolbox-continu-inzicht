@@ -1,0 +1,24 @@
+GlobalVariables:
+    rootdir: "tests/src/fragility_curves/integrate_fragility_curves/data_sets"
+    moments: [-24,0,24,48]
+
+    IntegrateFragilityCurve:
+        refine_step_size: 0.2
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    fragility_curve_multi_csv:
+        type: csv
+        file: "fragility_multiple_curves_piping.csv"
+
+    exceedance_curve_csv:
+        type: csv
+        file: "single_exceedance_curve.csv"
+
+    # adding hidden_ means that it will be ignored by git in the repo
+    result:
+        type: csv
+        file: "hidden_result_multi.csv"

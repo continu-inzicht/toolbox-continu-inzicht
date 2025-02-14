@@ -4,8 +4,6 @@ GlobalVariables:
 
     FragilityCurvesPiping:
         combination_type: minimum_probabilities
-        # debug: True
-        # progress: True
 
 
 DataAdapter:
@@ -17,16 +15,13 @@ DataAdapter:
         type: excel
         file: "invoer_multiple_piping_sections.xlsx"
     probabilistic_db:
-        type: ci_postgresql_probablistic_pipping
-        database: "geoserver"
+        type: ci_postgresql_probablistic_piping
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
+
     waterlevels:
         type: csv
         file: "waterlevels.csv"
     fragility_curves:
-        type: ci_postgresql_fragilitycurves_table
-        database: "geoserver"
-        schema: "continuinzicht_demo_realtime"
-    fragility_curves_csv:
         type: csv
         file: "fragility_multiple_curves_piping.csv"

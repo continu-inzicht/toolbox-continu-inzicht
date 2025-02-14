@@ -13,7 +13,7 @@ def output_ci_postgresql_to_simulation(output_config: dict, df: pd.DataFrame) ->
 
     Yaml example:\n
         type: ci_postgresql_to_simulation
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n

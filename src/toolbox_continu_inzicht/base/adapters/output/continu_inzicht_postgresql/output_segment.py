@@ -12,7 +12,7 @@ def output_ci_postgresql_segment(output_config: dict, df: pd.DataFrame) -> None:
 
     Yaml example:\n
         type: ci_postgresql_segment
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n

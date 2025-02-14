@@ -17,7 +17,7 @@ def input_ci_postgresql_measure_fragilitycurves_table(
 
     Yaml example:\n
         type: ci_postgresql_measure_fragilitycurves_table
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -111,7 +111,7 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
 
     Yaml example:\n
         type: ci_postgresql_fragilitycurves_table
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
         measureid: 0
 

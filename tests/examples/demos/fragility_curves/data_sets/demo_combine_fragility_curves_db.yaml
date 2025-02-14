@@ -10,17 +10,17 @@ DataAdapter:
 
     fragility_curve_piping:
         type: ci_postgresql_fragilitycurves_piping
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     fragility_curve_overtopping:
         type: ci_postgresql_fragilitycurves_overtopping
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     fragility_curves:
         type: ci_postgresql_fragilitycurves_table
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     fragility_curves_csv:
