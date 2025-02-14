@@ -17,7 +17,6 @@ from toolbox_continu_inzicht import base
 from toolbox_continu_inzicht import loads
 from toolbox_continu_inzicht import sections
 from toolbox_continu_inzicht import fragility_curves
-from toolbox_continu_inzicht import exceedance_statistics
 from toolbox_continu_inzicht import proof_of_concept
 
 
@@ -35,5 +34,4 @@ __all__ = [
     "base",
     "sections",
     "fragility_curves",
-    "exceedance_statistics",
 ]

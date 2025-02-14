@@ -21,6 +21,10 @@ from toolbox_continu_inzicht.fragility_curves.combine_fragility_curves import (
     CombineFragilityCurvesDependent,
     CombineFragilityCurvesWeightedSum,
 )
+from toolbox_continu_inzicht.fragility_curves.integrate_fragility_curves import (
+    IntegrateFragilityCurve,
+    IntegrateFragilityCurveMultiple,
+)
 
 __all__ = [
     "FragilityCurveOvertopping",
@@ -35,4 +39,6 @@ __all__ = [
     "CombineFragilityCurvesIndependent",
     "CombineFragilityCurvesDependent",
     "CombineFragilityCurvesWeightedSum",
+    "IntegrateFragilityCurve",
+    "IntegrateFragilityCurveMultiple",
 ]

@@ -2,7 +2,7 @@ GlobalVariables:
     rootdir: "data_sets"
     moments: [-24,0,24,48]
 
-    IntegrateStatisticsPerSection:
+    IntegrateFragilityCurve:
         refine_step_size: 0.05
 
 DataAdapter:
@@ -10,15 +10,14 @@ DataAdapter:
         csv:
             sep: ","
 
-    fragility_curve_multi_csv:
+    fragility_curve_csv:
         type: csv
-        file: "fragility_multiple_curves_piping.csv"
+        file: "single_fragility_curve_piping.csv"
 
     exceedance_curve_csv:
         type: csv
         file: "single_exceedance_curve.csv"
 
-    # adding hidden_ means that it will be ignored by git in the repo
     result:
         type: csv
-        file: "hidden_result_multi.csv"
+        file: "hidden_result.csv"

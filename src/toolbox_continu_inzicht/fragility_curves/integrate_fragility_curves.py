@@ -13,8 +13,7 @@ from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-# IntegrateFragilityCurve
-class IntegrateStatisticsPerSection:
+class IntegrateFragilityCurve:
     """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve
 
 
@@ -70,7 +69,7 @@ class IntegrateStatisticsPerSection:
         fragility_curve.load(input[1])
 
         global_variables = self.data_adapter.config.global_variables
-        options = global_variables.get("IntegrateStatisticsPerSection", {})
+        options = global_variables.get("IntegrateFragilityCurve", {})
         refine_step_size = options.get("refine_step_size", 0.05)
 
         self.df_out = self.calculate_integration(
@@ -125,8 +124,7 @@ class IntegrateStatisticsPerSection:
         return pd.DataFrame([result.sum()], columns=["result"])
 
 
-# class IntegrateFragilityCurveMultiple
-class IntegrateStatistics(IntegrateStatisticsPerSection):
+class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
     """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor reeks aan secties"""
 
     def run(self, input: list, output: str):
@@ -161,7 +159,7 @@ class IntegrateStatistics(IntegrateStatisticsPerSection):
         exceedance_frequency_curve.load(input[0])
 
         global_variables = self.data_adapter.config.global_variables
-        options = global_variables.get("IntegrateStatisticsPerSection", {})
+        options = global_variables.get("IntegrateFragilityCurveMultiple", {})
         refine_step_size = options.get("refine_step_size", 0.05)
 
         fragility_curve_multi_section = self.data_adapter.input(input[1])

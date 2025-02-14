@@ -1,8 +1,8 @@
 GlobalVariables:
-    rootdir: "data_sets"
+    rootdir: "tests/src/fragility_curves/integrate_fragility_curves/data_sets"
     moments: [-24,0,24,48]
 
-    IntegrateStatisticsPerSection:
+    IntegrateFragilityCurve:
         refine_step_size: 0.05
 
 DataAdapter:
