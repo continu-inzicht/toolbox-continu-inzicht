@@ -219,6 +219,8 @@ class FragilityCurvePipingMultiple:
                 )
 
                 # maak een placeholder dataadapter aan, dit zorgt dat je de modules ook los kan aanroepen
+                # dit is lelijk, ik heb er nu voor een tweede keer naar gekeken en ik kan het niet mooier maken...
+                # functionaliteit is mooier dan mooie code imo
                 temp_config = Config(config_path=Path.cwd())
                 temp_data_adapter = DataAdapter(config=temp_config)
 

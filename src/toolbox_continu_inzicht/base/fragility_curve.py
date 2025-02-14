@@ -17,8 +17,8 @@ class FragilityCurve:
     """
 
     data_adapter: DataAdapter
-    waterlevels: Optional[np.ndarray] = None
-    failure_probability: Optional[np.ndarray] = None
+    waterlevels: Optional[np.ndarray] | None = None
+    failure_probability: Optional[np.ndarray] | None = None
     fragility_curve_schema = {
         "waterlevels": float,
         "failure_probability": float,
