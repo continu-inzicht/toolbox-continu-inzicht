@@ -10,14 +10,15 @@ DataAdapter:
         csv:
             sep: ","
 
-    fragility_curve_csv:
+    fragility_curve_multi_csv:
         type: csv
-        file: "single_fragility_curve_piping.csv"
+        file: "fragility_multiple_curves_piping.csv"
 
     exceedance_curve_csv:
         type: csv
         file: "single_exceedance_curve.csv"
 
+    # adding hidden_ means that it will be ignored by git in the repo
     result:
         type: csv
-        file: "hidden_result.csv"
+        file: "hidden_result_multi.csv"

@@ -22,9 +22,6 @@ class IntegrateStatisticsPerSection:
     Bij het combineren van de fragility curves met overschrijdingsfrequentielijn moeten de waterstanden van de curves op elkaar afgestemd worden.
     Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
     De volgende opties kunnen worden ingesteld:
-    - extend_past_max: float
-        Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves.
-        Default is 0.01
 
     - refine_step_size: float
         De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren.
@@ -73,14 +70,12 @@ class IntegrateStatisticsPerSection:
 
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("IntegrateStatisticsPerSection", {})
-        extend_past_max = options.get("extend_past_max", 0.01)
         refine_step_size = options.get("refine_step_size", 0.05)
 
         self.df_out = self.calculate_integration(
             exceedance_frequency_curve,
             fragility_curve,
             refine_step_size,
-            extend_past_max,
         )
         self.data_adapter.output(output, self.df_out)
 
@@ -89,8 +84,7 @@ class IntegrateStatisticsPerSection:
         exceedance_frequency_curve: ExceedanceFrequencyCurve,
         fragility_curve: FragilityCurve,
         refine_step_size: float,
-        extend_past_max: float,
-    ):
+    ) -> pd.DataFrame:
         exceedance_frequency_curve_waterlevels = exceedance_frequency_curve.as_array()[
             :, 0
         ]
@@ -166,16 +160,15 @@ class IntegrateStatistics(IntegrateStatisticsPerSection):
 
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("IntegrateStatisticsPerSection", {})
-        extend_past_max = options.get("extend_past_max", 0.01)
         refine_step_size = options.get("refine_step_size", 0.05)
 
         fragility_curve_multi_section = self.data_adapter.input(input[1])
 
         # fragility_curve = FragilityCurve(self.data_adapter)
         # fragility_curve.load(input[1])
-        records = {}
+        results = []
         for section_id in fragility_curve_multi_section["section_id"].unique():
-            df_fc = fragility_curve_multi_section[section_id]
+            df_fc = fragility_curve_multi_section.query("`section_id` == @section_id")
             status, message = validate_dataframe(
                 df=df_fc, schema=FragilityCurve.fragility_curve_schema
             )
@@ -183,13 +176,16 @@ class IntegrateStatistics(IntegrateStatisticsPerSection):
                 raise UserWarning(message)
             fragility_curve = FragilityCurve(self.data_adapter)
             fragility_curve.df_out = df_fc
-            records[section_id] = self.calculate_integration(
+            result = self.calculate_integration(
                 exceedance_frequency_curve,
                 fragility_curve,
                 refine_step_size,
-                extend_past_max,
             )
-        self.df_out = pd.DataFrame(records)
+            result.set_index(pd.Index([section_id]), inplace=True)
+            results.append(result)
+
+        self.df_out = pd.concat(results)
+        self.df_out.index.name = "section_id"
         self.data_adapter.output(output, self.df_out)
 
 

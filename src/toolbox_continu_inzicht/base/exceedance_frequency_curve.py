@@ -17,6 +17,7 @@ class ExceedanceFrequencyCurve:
 
     data_adapter: DataAdapter
     df_out: Optional[pd.DataFrame] | None = None
+    lower_limit: float = 1e-20
 
     exceedance_frequency_curve_schema = {
         "waterlevels": float,
@@ -50,7 +51,7 @@ class ExceedanceFrequencyCurve:
                     waterlevels,
                     self.df_out["waterlevels"].to_numpy(),
                     self.df_out["probability_exceedance"].to_numpy(),
-                    ll=1e-20,
+                    ll=self.lower_limit,
                     clip01=True,
                 ),
             }

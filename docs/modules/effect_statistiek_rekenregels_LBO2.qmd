@@ -2,4 +2,48 @@
 title: "Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans"
 ---
 
-In ontwikkeling.
+De module zorgplicht is conceptueel anders dan de functionaliteit voor real-time en what-if. De gebruiker kan het effect van veranderingen in overschrijdingsfrequentie statistiek of rekenregels in kaart brengen.
+Hiervoor is in de Toolbox Continu Inzicht functionaliteit toegevoegd voor het integreren van overschrijdingsfrequentie met een fragility curve om hiervan de jaarlijkse faalkans te berekenen.
+
+### Jaarlijkse faalkans
+Voor het berekenen van de geïntegreerde faalkans zijn twee opties. Dit kan per vak per mechanisme met de functie de functie `IntegrateStatisticsPerSection` of dit voor een reeks aan vakken en mechanismes met de functie `IntegrateStatistics`. Qua configuratie is `IntegrateStatistics`, de functie loopt alleen nog extra de kolommen `section_id` en `mechanism_id` langs om voor alle fragility curves de geïntegreerde kans te berekenen.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+
+    IntegrateStatisticsPerSection:
+        refine_step_size: 0.05
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    fragility_curve_csv:
+        type: csv
+        file: "single_fragility_curve.csv"
+    exceedance_curve_csv:
+        type: csv
+        file: "single_exceedance_curve.csv"
+    result:
+        type: csv
+        file: "result.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.exceedance_statistics import IntegrateStatistics
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+integrate_statistics_per_section = IntegrateStatistics(data_adapter=data_adapter)
+integrate_statistics_per_section.run(
+    input=["exceedance_curve_csv", "fragility_curve_multi_csv"], output="result"
+)
+
+```
+:::

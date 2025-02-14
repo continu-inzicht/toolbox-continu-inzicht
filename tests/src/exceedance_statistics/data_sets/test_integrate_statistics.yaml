@@ -3,7 +3,6 @@ GlobalVariables:
     moments: [-24,0,24,48]
 
     IntegrateStatisticsPerSection:
-        extend_past_max: 0.01
         refine_step_size: 0.05
 
 DataAdapter:
