@@ -16,7 +16,7 @@ DataAdapter:
         file: "invoer_multiple_piping_sections.xlsx"
     probabilistic_db:
         type: ci_postgresql_probablistic_piping
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     waterlevels:

@@ -16,7 +16,7 @@ def output_ci_postgresql_measuringstation_to_data(
 
     Yaml example:\n
         type: ci_postgresql_measuringstation_to_data
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
         unit_conversion_factor: 0.01
 
@@ -136,7 +136,7 @@ def output_ci_postgresql_to_states(output_config: dict, df: pd.DataFrame) -> Non
 
     Yaml example:\n
         type: ci_postgresql_to_states
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -263,7 +263,7 @@ def output_ci_postgresql_measuringstation(
 
     Yaml example:\n
         type: ci_postgresql_measuringstation
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
@@ -353,7 +353,7 @@ def output_ci_postgresql_to_moments(output_config: dict, df: pd.DataFrame) -> No
 
     Yaml example:\n
         type: ci_postgresql_to_moments
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
@@ -424,7 +424,7 @@ def output_ci_postgresql_conditions(output_config: dict, df: pd.DataFrame) -> No
 
     Yaml example:\n
         type: ci_postgresql_conditions
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n

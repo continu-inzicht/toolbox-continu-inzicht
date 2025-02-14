@@ -13,6 +13,7 @@ from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
+# IntegrateFragilityCurve
 class IntegrateStatisticsPerSection:
     """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve
 
@@ -124,6 +125,7 @@ class IntegrateStatisticsPerSection:
         return pd.DataFrame([result.sum()], columns=["result"])
 
 
+# class IntegrateFragilityCurveMultiple
 class IntegrateStatistics(IntegrateStatisticsPerSection):
     """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor reeks aan secties"""
 

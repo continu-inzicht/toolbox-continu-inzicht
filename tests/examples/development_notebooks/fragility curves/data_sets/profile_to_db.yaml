@@ -18,29 +18,29 @@ DataAdapter:
 
     slopes_db:
         type: ci_postgresql_slopes
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
     profiles_db:
         type: ci_postgresql_profiles
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
     bedlevel_fetch_db:
         type: ci_postgresql_bedlevelfetch
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     slopes_db_in:
         type: postgresql_database
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
         table: "slopes"
     profiles_db_in:
         type: postgresql_database
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
         table: "profiles"
     bedlevel_fetch_db_in:
         type: postgresql_database
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
         table: "bedlevelfetch"

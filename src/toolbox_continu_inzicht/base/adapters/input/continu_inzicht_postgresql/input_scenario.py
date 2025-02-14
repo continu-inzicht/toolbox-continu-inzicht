@@ -12,7 +12,7 @@ def input_ci_postgresql_whatif_from_scenario(input_config: dict) -> pd.DataFrame
 
     Yaml example:\n
         type: ci_postgresql_whatif_from_scenario
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
@@ -81,7 +81,7 @@ def input_ci_postgresql_whatif_load(input_config: dict) -> pd.DataFrame:
 
     Yaml example:\n
         type: ci_postgresql_whatif_load
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n

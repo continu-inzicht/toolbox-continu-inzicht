@@ -17,8 +17,9 @@ class FragilityCurve:
     """
 
     data_adapter: DataAdapter
+    # refactor to store numpy instead of pandas
     df_out: Optional[pd.DataFrame] | None = None
-
+    lower_limit = 1e-20
     fragility_curve_schema = {
         "waterlevels": float,
         "failure_probability": float,
@@ -66,7 +67,7 @@ class FragilityCurve:
                     waterlevels,
                     self.df_out["waterlevels"].to_numpy(),
                     self.df_out["failure_probability"].to_numpy(),
-                    ll=1e-20,
+                    ll=self.lower_limit,
                     clip01=True,
                 ),
             }

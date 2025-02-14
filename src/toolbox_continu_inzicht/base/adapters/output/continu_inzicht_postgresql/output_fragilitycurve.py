@@ -14,7 +14,7 @@ def output_ci_postgresql_to_fragilitycurves(
 
     Yaml example:\n
         type: ci_postgresql_to_fragilitycurves
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
