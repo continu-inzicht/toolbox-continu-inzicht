@@ -118,9 +118,10 @@ class CombineFragilityCurvesIndependent:
 
         # interpolate fragility curves to the same waterlevels
         for index, fragility_curve in enumerate(self.lst_fragility_curves):
-            fc = FragilityCurve(data_adapter=self.data_adapter, df_out=fragility_curve)
+            fc = FragilityCurve(data_adapter=self.data_adapter)
+            fc.from_dataframe(fragility_curve)
             fc.refine(waterlevels)
-            self.lst_fragility_curves[index] = fc.df_out
+            self.lst_fragility_curves[index] = fc.as_dataframe()
 
         overschrijdingskans = self.combine_func(
             self.lst_fragility_curves, weights=self.weights

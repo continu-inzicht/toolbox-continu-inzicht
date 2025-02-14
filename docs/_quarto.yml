@@ -126,11 +126,11 @@ quartodoc:
       package: toolbox_continu_inzicht.fragility_curves
       contents:
        - FragilityCurveOvertopping
-       - FragilityCurvesOvertopping
+       - FragilityCurveOvertoppingMultiple
        - ShiftFragilityCurveOvertopping
        - ChangeCrestHeightFragilityCurveOvertopping
-       - FragilityCurvePipingFixedWaterlevelSimple
-       - FragilityCurvesPiping
+       - FragilityCurvePipingFixedWaterlevel
+       - FragilityCurvePipingMultiple
        - CombineFragilityCurvesIndependent
        - CombineFragilityCurvesDependent
        - CombineFragilityCurvesWeightedSum

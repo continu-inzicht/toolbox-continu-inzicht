@@ -2,7 +2,7 @@ GlobalVariables:
     rootdir: "data_sets"
     moments: [-24,0,24,48]
 
-    FragilityCurvesPiping:
+    FragilityCurvePipingMultiple:
         combination_type: minimum_probabilities
         # debug: True
         # progress: True

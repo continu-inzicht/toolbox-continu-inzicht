@@ -5,19 +5,19 @@ import numpy as np
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.fragility_curves import (
-    FragilityCurvesOvertopping,
+    FragilityCurveOvertoppingMultiple,
 )
 
 
 def test_fragility_curves_wave_overtopping_multiple():
-    """Test de functie FragilityCurvesOvertopping met meerdere profielen"""
+    """Test de functie FragilityCurveOvertoppingMultiple met meerdere profielen"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path / "test_fragility_curves_overtopping.yaml"
     )
     config.lees_config()
     data_adapter = DataAdapter(config=config)
-    wave_overtopping_fragility_curve = FragilityCurvesOvertopping(
+    wave_overtopping_fragility_curve = FragilityCurveOvertoppingMultiple(
         data_adapter=data_adapter
     )
     wave_overtopping_fragility_curve.run(
@@ -29,9 +29,7 @@ def test_fragility_curves_wave_overtopping_multiple():
         output="fragility_curves",
     )
 
-    result = np.array(
-        wave_overtopping_fragility_curve.df_out.failure_probability.to_list()
-    )[41:59]
+    result = wave_overtopping_fragility_curve.df_out.failure_probability[41:59]
     expected = [
         6.784028389491124e-06,
         1.619272152012685e-05,

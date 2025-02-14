@@ -113,7 +113,7 @@ def test_ShiftFragilityCurveOvertopping():
     output_val = "fragility_curves"
     FCO = FragilityCurveOvertopping(data_adapter=data_adapter)
     FCO.run(input=input_val, output=output_val)
-    fco_df = FCO.df_out
+    fco_df = FCO.as_dataframe()
 
     SFCC = ShiftFragilityCurveOvertopping(data_adapter=data_adapter)
 
@@ -122,7 +122,7 @@ def test_ShiftFragilityCurveOvertopping():
         output=output_val,
         effect=0.5,
     )
-    sfcc_df = SFCC.df_out
+    sfcc_df = SFCC.as_dataframe()
 
     fco_df.set_index("waterlevels", inplace=True)
     sfcc_df.set_index("waterlevels", inplace=True)
@@ -145,7 +145,7 @@ def test_ChangeCrestHeightFragilityCurveOvertopping():
     fragility_curve_overtopping = FragilityCurveOvertopping(data_adapter=data_adapter)
     fragility_curve_overtopping.run(input=input_val, output=output_val)
     result_fragility_curve_overtopping = (
-        fragility_curve_overtopping.df_out["failure_probability"].iloc[50:57].to_list()
+        fragility_curve_overtopping.failure_probability[50:57]
     )
 
     change_crest_height_fragility_curve_overtopping = (
@@ -158,9 +158,7 @@ def test_ChangeCrestHeightFragilityCurveOvertopping():
         effect=2.5,
     )
     result_change_crest_height_fragility_curve_overtopping = (
-        change_crest_height_fragility_curve_overtopping.df_out["failure_probability"]
-        .iloc[50:57]
-        .to_list()
+        change_crest_height_fragility_curve_overtopping.failure_probability[50:57]
     )
     ## check that the centre of the fragility curve has changed
     assert (

@@ -17,13 +17,13 @@ class FragilityCurve:
     """
 
     data_adapter: DataAdapter
-    # refactor to store numpy instead of pandas
-    df_out: Optional[pd.DataFrame] | None = None
-    lower_limit = 1e-20
+    waterlevels: Optional[np.ndarray] = None
+    failure_probability: Optional[np.ndarray] = None
     fragility_curve_schema = {
         "waterlevels": float,
         "failure_probability": float,
     }
+    lower_limit = 1e-20
 
     def run(self, *args, **kwargs):
         self.calculate_fragility_curve(*args, **kwargs)
@@ -34,12 +34,31 @@ class FragilityCurve:
 
     def as_array(self):
         """Geef curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst"""
-        arr = self.df_out[["waterlevels", "failure_probability"]].to_numpy()
-        return arr
+        return np.vstack(
+            [
+                self.waterlevels,
+                self.failure_probability,
+            ]
+        ).T
+
+    def as_dataframe(self):
+        """Geef curve terug als pandas dataframe"""
+        return pd.DataFrame(
+            {
+                "waterlevels": self.waterlevels,
+                "failure_probability": self.failure_probability,
+            }
+        )
+
+    def from_dataframe(self, df):
+        """Zet een dataframe om naar een fragility curve"""
+        self.waterlevels = df["waterlevels"].to_numpy()
+        self.failure_probability = df["failure_probability"].to_numpy()
 
     def load(self, input: str):
         """Laad een fragility curve in"""
-        self.df_out = self.data_adapter.input(input, schema=self.fragility_curve_schema)
+        df_in = self.data_adapter.input(input, schema=self.fragility_curve_schema)
+        self.from_dataframe(df_in)
 
     def shift(self, effect):
         """Schuif een fragility curve op
@@ -51,28 +70,22 @@ class FragilityCurve:
         if effect == 0.0:
             return None
         # For now okay, consider later: Log or not? ideally interpolate beta values
-        x = self.df_out["waterlevels"].to_numpy()
-        fp = self.df_out["failure_probability"].to_numpy()
+        x = self.waterlevels
+        fp = self.failure_probability
         xp = x + effect
-        self.df_out["failure_probability"] = log_interpolate_1d(
-            x, xp, fp, ll=1e-20, clip01=True
-        )
+        self.failure_probability = log_interpolate_1d(x, xp, fp, ll=1e-20, clip01=True)
 
     def refine(self, waterlevels):
         """Interpoleer de fragility curve op de gegeven waterstanden"""
-        df_new = pd.DataFrame(
-            {
-                "waterlevels": waterlevels,
-                "failure_probability": log_interpolate_1d(
-                    waterlevels,
-                    self.df_out["waterlevels"].to_numpy(),
-                    self.df_out["failure_probability"].to_numpy(),
-                    ll=self.lower_limit,
-                    clip01=True,
-                ),
-            }
+        refined_failure_probability = log_interpolate_1d(
+            waterlevels,
+            self.waterlevels,
+            self.failure_probability,
+            ll=self.lower_limit,
+            clip01=True,
         )
-        self.df_out = df_new
+        self.waterlevels = waterlevels
+        self.failure_probability = refined_failure_probability
 
     def reliability_update(self, update_level, trust_factor=1):
         """Voer een versimpelde reliability updating uit
@@ -84,8 +97,8 @@ class FragilityCurve:
         trust_factor : int, optional
             _description_, by default 1
         """
-        wl_grid = self.df_out["waterlevels"].to_numpy()
-        fp_grid = self.df_out["failure_probability"].to_numpy()
+        wl_grid = self.waterlevels
+        fp_grid = self.failure_probability
 
         sel_update = wl_grid < update_level
         wl_steps = np.diff(wl_grid[sel_update])
@@ -94,4 +107,4 @@ class FragilityCurve:
 
         fp_grid[sel_update] = (1 - trust_factor) * fp_grid[sel_update]
         fp_grid[~sel_update] = (fp_grid[~sel_update] - F_update) / (1 - F_update)
-        self.df_out["failure_probability"] = fp_grid
+        self.failure_probability = fp_grid

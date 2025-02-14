@@ -181,7 +181,7 @@ class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
             if status > 0:
                 raise UserWarning(message)
             fragility_curve = FragilityCurve(self.data_adapter)
-            fragility_curve.df_out = df_fc
+            fragility_curve.from_dataframe(df_fc)
             result = self.calculate_integration(
                 exceedance_frequency_curve,
                 fragility_curve,

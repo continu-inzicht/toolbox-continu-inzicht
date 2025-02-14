@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from pydantic.dataclasses import dataclass
 from typing import Optional
@@ -74,7 +75,14 @@ class FragilityCurveOvertopping(FragilityCurve):
     data_adapter: DataAdapter
     df_slopes: Optional[pd.DataFrame] | None = None
     df_bed_levels: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
+    data_adapter: DataAdapter
+    waterlevels: Optional[np.ndarray] = None
+    failure_probability: Optional[np.ndarray] = None
+    fragility_curve_schema = {
+        "waterlevels": float,
+        "failure_probability": float,
+    }
+    lower_limit = 1e-20
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -221,15 +229,14 @@ class FragilityCurveOvertopping(FragilityCurve):
             options=options,
         )
 
-        self.df_out = pd.DataFrame(
-            {"waterlevels": niveaus, "failure_probability": ovkansqcr}
-        )
+        self.waterlevels = niveaus
+        self.failure_probability = ovkansqcr
 
-        self.data_adapter.output(output=output, df=self.df_out)
+        self.data_adapter.output(output=output, df=self.as_dataframe())
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurvesOvertopping(FragilityCurve):
+class FragilityCurveOvertoppingMultiple:
     """
     Maakt een set van fragility curve voor golf overslag voor een dijkvak.
 
@@ -240,8 +247,10 @@ class FragilityCurvesOvertopping(FragilityCurve):
             DataFrame met helling data.
         df_bed_levels: pd.DataFrame
             DataFrame met bed level data.
-        df_out: pd.DataFrame
-            DataFrame met de resultaten van de berekening.
+        waterlevels: np.array
+            array met de resultaten van de berekening.
+        failure_probability: np.array
+            array met de resultaten van de berekening.
         fragility_curve_function: FragilityCurve
             FragilityCurve object
         effect: float
@@ -290,6 +299,7 @@ class FragilityCurvesOvertopping(FragilityCurve):
     df_slopes: Optional[pd.DataFrame] | None = None
     df_bed_levels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
+    lower_limit = 1e-20
 
     fragility_curve_function: FragilityCurve = FragilityCurveOvertopping
     effect: float | None = None
@@ -365,10 +375,7 @@ class FragilityCurvesOvertopping(FragilityCurve):
         section_ids = self.df_profile.section_id.unique()
 
         global_variables = self.data_adapter.config.global_variables
-        options = {}
-        if "FragilityCurvesOvertopping" in global_variables:
-            # can be used to set options for the calculation
-            options: dict = global_variables["FragilityCurvesOvertopping"]
+        options = global_variables.get("FragilityCurveOvertoppingMultiple", {})
 
         self.df_out: pd.DataFrame = pd.DataFrame(
             columns=["section_id", "waterlevels", "failure_probability"]
@@ -417,7 +424,7 @@ class FragilityCurvesOvertopping(FragilityCurve):
                     input=["df_slopes", "df_profile", "df_bed_levels"], output="output"
                 )
 
-            df_fragility_curve_overtopping = fragility_curve_overtopping.df_out
+            df_fragility_curve_overtopping = fragility_curve_overtopping.as_dataframe()
             df_fragility_curve_overtopping["section_id"] = section_id
 
             if len(self.df_out) == 0:

@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 from toolbox_continu_inzicht.base.data_adapter import Config, DataAdapter
 from toolbox_continu_inzicht.fragility_curves import (
-    FragilityCurvePipingFixedWaterlevelSimple,
-    FragilityCurvesPiping,
+    FragilityCurvePipingFixedWaterlevel,
+    FragilityCurvePipingMultiple,
 )
 
 
@@ -38,7 +38,7 @@ def test_fragility_curve_piping_simple():
     config.lees_config()
     data_adapter = DataAdapter(config=config)
 
-    fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevelSimple(
+    fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevel(
         data_adapter=data_adapter
     )
     fragility_curve_piping_fixed_waterlevel.run(
@@ -75,7 +75,7 @@ def test_fragility_curve_piping_multiple_sections():
     config.lees_config()
     data_adapter = DataAdapter(config=config)
 
-    fragility_curve_piping = FragilityCurvesPiping(data_adapter=data_adapter)
+    fragility_curve_piping = FragilityCurvePipingMultiple(data_adapter=data_adapter)
     fragility_curve_piping.run(
         input=["probabilistic_input", "waterlevels"], output="fragility_curves"
     )
