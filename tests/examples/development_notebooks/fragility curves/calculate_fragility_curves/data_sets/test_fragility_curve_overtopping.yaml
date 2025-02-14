@@ -32,4 +32,4 @@ DataAdapter:
         file: "bedlevelfetch_11.csv"
     fragility_curves:
         type: csv
-        file: "fragility_curves_5.csv"
+        file: "hidden_fragility_curves_5.csv"
