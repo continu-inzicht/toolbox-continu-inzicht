@@ -1,6 +1,6 @@
 [project]
 name = "toolbox-continu-inzicht"
-version = "0.0.1"
+version = "0.0.4"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen."
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64", "osx-64"]
@@ -33,23 +33,19 @@ lint = { depends-on = ["pre-commit"] }
 pytest-cov = "pytest --cov --cov-report html:tests/hidden_test_cov"
 
 [feature.common.dependencies]
-bokeh = ">=3.0"
 contextily = "*"
 fiona = "*"
-geocube = "*"
 geopandas = "*"
 ipykernel = "*"
 ipywidgets = ">=8.1.5,<9"
 jupyter-cache = ">=1.0.0,<2"
 jupyterlab = "*"
 matplotlib = "*"
-mypy = "*"
 netcdf4 = ">=1.7.1,<2"
 openpyxl = "*"
 openturns = ">=1.23,<2"
 pandas = "*"
 pandas-stubs = "*"
-pandera = "*"
 pip = "*"
 pre-commit = "*"
 psycopg2 = "*"
@@ -63,7 +59,6 @@ python = ">=3.9"
 python-dotenv = ">=1.0.1,<2"
 quarto = "*"
 quartodoc = "<=0.9.0"
-rasterstats = "*"
 requests = "*"
 ruff = "*"
 shapely = ">=2"
@@ -76,12 +71,12 @@ types-requests = "*"
 types-pyyaml = "*"
 xugrid = "*"
 yaml = "*"
+grayskull = "*"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
 pydra-core = "==0.0.7"
 probabilistic-piping = "==0.0.5"
-#probabilistic_piping = { path = "../probabilistic_piping/src", editable = true }
 
 [environments]
 default = { features = ["common"] }

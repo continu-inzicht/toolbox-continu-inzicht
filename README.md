@@ -69,3 +69,9 @@ Of selecteer de juiste python instantie: `...\.pixi\envs\default\python.exe` in 
 #### Afhankelijkheden
 
 Voor het berekenen van fragility curves worden twee packages gebruikt: [Pydra-core](https://github.com/HKV-products-services/pydra_core) voor GEKB en [probabilistic-piping](https://github.com/HKV-products-services/probabilistic_piping) voor STPH. Deze worden los ontwikkeld door HKV.
+
+## License
+
+Copyright (c) 2024 - 2025, HKV lijn in Water
+
+GPL 3.0 or later
