@@ -106,7 +106,7 @@ def output_ci_postgresql_fragilitycurves_table(
         columns={
             "section_id": "sectionid",
             "failure_probability": "failureprobability",
-            "waterlevels": "hydraulicload",
+            "hydraulicload": "hydraulicload",
         },
         inplace=True,
     )

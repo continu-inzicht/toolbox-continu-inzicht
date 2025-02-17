@@ -20,7 +20,7 @@ class ExceedanceFrequencyCurve:
     lower_limit: float = 1e-20
 
     exceedance_frequency_curve_schema = {
-        "waterlevels": float,
+        "hydraulicload": float,
         "probability_exceedance": float,
     }
 
@@ -33,7 +33,7 @@ class ExceedanceFrequencyCurve:
 
     def as_array(self):
         """Geef curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst"""
-        arr = self.df_out[["waterlevels", "probability_exceedance"]].to_numpy()
+        arr = self.df_out[["hydraulicload", "probability_exceedance"]].to_numpy()
         return arr
 
     def load(self, input: str):
@@ -42,14 +42,14 @@ class ExceedanceFrequencyCurve:
             input, schema=self.exceedance_frequency_curve_schema
         )
 
-    def refine(self, waterlevels):
+    def refine(self, hydraulicload):
         """Interpoleer de overschrijdingsfrequentielijn op de gegeven waterstanden"""
         df_new = pd.DataFrame(
             {
-                "waterlevels": waterlevels,
+                "hydraulicload": hydraulicload,
                 "probability_exceedance": log_interpolate_1d(
-                    waterlevels,
-                    self.df_out["waterlevels"].to_numpy(),
+                    hydraulicload,
+                    self.df_out["hydraulicload"].to_numpy(),
                     self.df_out["probability_exceedance"].to_numpy(),
                     ll=self.lower_limit,
                     clip01=True,

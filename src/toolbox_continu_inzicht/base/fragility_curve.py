@@ -17,10 +17,10 @@ class FragilityCurve:
     """
 
     data_adapter: DataAdapter
-    waterlevels: Optional[np.ndarray] | None = None
+    hydraulicload: Optional[np.ndarray] | None = None
     failure_probability: Optional[np.ndarray] | None = None
     fragility_curve_schema = {
-        "waterlevels": float,
+        "hydraulicload": float,
         "failure_probability": float,
     }
     lower_limit = 1e-20
@@ -36,7 +36,7 @@ class FragilityCurve:
         """Geef curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst"""
         return np.vstack(
             [
-                self.waterlevels,
+                self.hydraulicload,
                 self.failure_probability,
             ]
         ).T
@@ -45,14 +45,14 @@ class FragilityCurve:
         """Geef curve terug als pandas dataframe"""
         return pd.DataFrame(
             {
-                "waterlevels": self.waterlevels,
+                "hydraulicload": self.hydraulicload,
                 "failure_probability": self.failure_probability,
             }
         )
 
     def from_dataframe(self, df):
         """Zet een dataframe om naar een fragility curve"""
-        self.waterlevels = df["waterlevels"].to_numpy()
+        self.hydraulicload = df["hydraulicload"].to_numpy()
         self.failure_probability = df["failure_probability"].to_numpy()
 
     def load(self, input: str):
@@ -63,28 +63,28 @@ class FragilityCurve:
     def shift(self, effect):
         """Schuif een fragility curve op
 
-        Schuift de waterstanden van de fragility curve op (voor bijvoorbeeld
+        Schuift de belasting van de fragility curve op (voor bijvoorbeeld
         een noodmaatregel), en interpoleer de faalkansen op het oorspronkelijke
         waterstandsgrid
         """
         if effect == 0.0:
             return None
         # For now okay, consider later: Log or not? ideally interpolate beta values
-        x = self.waterlevels
+        x = self.hydraulicload
         fp = self.failure_probability
         xp = x + effect
         self.failure_probability = log_interpolate_1d(x, xp, fp, ll=1e-20, clip01=True)
 
-    def refine(self, waterlevels):
+    def refine(self, new_hydraulicload):
         """Interpoleer de fragility curve op de gegeven waterstanden"""
         refined_failure_probability = log_interpolate_1d(
-            waterlevels,
-            self.waterlevels,
+            new_hydraulicload,
+            self.hydraulicload,
             self.failure_probability,
             ll=self.lower_limit,
             clip01=True,
         )
-        self.waterlevels = waterlevels
+        self.hydraulicload = new_hydraulicload
         self.failure_probability = refined_failure_probability
 
     def reliability_update(self, update_level, trust_factor=1):
@@ -97,7 +97,7 @@ class FragilityCurve:
         trust_factor : int, optional
             _description_, by default 1
         """
-        wl_grid = self.waterlevels
+        wl_grid = self.hydraulicload
         fp_grid = self.failure_probability
 
         sel_update = wl_grid < update_level

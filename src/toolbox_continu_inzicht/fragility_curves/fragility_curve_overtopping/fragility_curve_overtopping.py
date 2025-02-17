@@ -76,10 +76,10 @@ class FragilityCurveOvertopping(FragilityCurve):
     df_slopes: Optional[pd.DataFrame] | None = None
     df_bed_levels: Optional[pd.DataFrame] | None = None
     data_adapter: DataAdapter
-    waterlevels: Optional[np.ndarray] = None
+    hydraulicload: Optional[np.ndarray] = None
     failure_probability: Optional[np.ndarray] = None
     fragility_curve_schema = {
-        "waterlevels": float,
+        "hydraulicload": float,
         "failure_probability": float,
     }
     lower_limit = 1e-20
@@ -229,7 +229,7 @@ class FragilityCurveOvertopping(FragilityCurve):
             options=options,
         )
 
-        self.waterlevels = niveaus
+        self.hydraulicload = niveaus
         self.failure_probability = ovkansqcr
 
         self.data_adapter.output(output=output, df=self.as_dataframe())
@@ -247,7 +247,7 @@ class FragilityCurveOvertoppingMultiple:
             DataFrame met helling data.
         df_bed_levels: pd.DataFrame
             DataFrame met bed level data.
-        waterlevels: np.array
+        hydraulicload: np.array
             array met de resultaten van de berekening.
         failure_probability: np.array
             array met de resultaten van de berekening.
@@ -378,7 +378,7 @@ class FragilityCurveOvertoppingMultiple:
         options = global_variables.get("FragilityCurveOvertoppingMultiple", {})
 
         self.df_out: pd.DataFrame = pd.DataFrame(
-            columns=["section_id", "waterlevels", "failure_probability"]
+            columns=["section_id", "hydraulicload", "failure_probability"]
         )
         for section_id in section_ids:
             df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]

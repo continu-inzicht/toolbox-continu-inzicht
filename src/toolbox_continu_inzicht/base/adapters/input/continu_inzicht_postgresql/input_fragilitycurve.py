@@ -378,7 +378,7 @@ def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
             sectionid AS section_id,
             failuremechanismid,
             measureid,
-            hydraulicload AS waterlevels,
+            hydraulicload,
             failureprobability AS failure_probability,
             timedep,
             degradatieid
@@ -443,7 +443,7 @@ def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.Da
             sectionid AS section_id,
             failuremechanismid,
             measureid,
-            hydraulicload AS waterlevels,
+            hydraulicload,
             failureprobability AS failure_probability,
             timedep,
             degradatieid
@@ -504,7 +504,7 @@ def input_ci_postgresql_fragilitycurves_piping(input_config: dict) -> pd.DataFra
             sectionid AS section_id,
             failuremechanismid,
             measureid,
-            hydraulicload AS waterlevels,
+            hydraulicload,
             failureprobability AS failure_probability,
             timedep,
             degradatieid
@@ -538,7 +538,7 @@ def input_ci_postgresql_fragilitycurves_stability(input_config: dict) -> pd.Data
         columns={
             "sectionid": "section_id",
             "failureprobability": "failure_probability",
-            "hydraulicload": "waterlevels",
+            "hydraulicload": "hydraulicload",
         },
         inplace=True,
     )

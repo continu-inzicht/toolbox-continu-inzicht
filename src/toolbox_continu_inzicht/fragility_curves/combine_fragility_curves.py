@@ -87,7 +87,7 @@ class CombineFragilityCurvesIndependent:
         Notes:
         ------
         Elke fragility curve moet de volgende kolommen bevatten:
-            - waterlevels: float
+            - hydraulicload: float
             - failure_probabilities: float
         """
 
@@ -104,23 +104,23 @@ class CombineFragilityCurvesIndependent:
         self.data_adapter.output(output, self.df_out)
 
     def calculate_combined_curve(self, extend_past_max, refine_step_size):
-        waterlevels_min = []
-        waterlevels_max = []
+        hydraulicload_min = []
+        hydraulicload_max = []
         for df_in in self.lst_fragility_curves:
-            waterlevels_min.append(df_in["waterlevels"].min())
-            waterlevels_max.append(df_in["waterlevels"].max())
+            hydraulicload_min.append(df_in["hydraulicload"].min())
+            hydraulicload_max.append(df_in["hydraulicload"].max())
 
-        waterlevels = np.arange(
-            min(waterlevels_min),
-            max(waterlevels_max) + extend_past_max,
+        hydraulicload = np.arange(
+            min(hydraulicload_min),
+            max(hydraulicload_max) + extend_past_max,
             refine_step_size,
         )
 
-        # interpolate fragility curves to the same waterlevels
+        # interpolate fragility curves to the same hydraulicload
         for index, fragility_curve in enumerate(self.lst_fragility_curves):
             fc = FragilityCurve(data_adapter=self.data_adapter)
             fc.from_dataframe(fragility_curve)
-            fc.refine(waterlevels)
+            fc.refine(hydraulicload)
             self.lst_fragility_curves[index] = fc.as_dataframe()
 
         overschrijdingskans = self.combine_func(
@@ -128,7 +128,7 @@ class CombineFragilityCurvesIndependent:
         )
         return pd.DataFrame(
             {
-                "waterlevels": waterlevels,
+                "hydraulicload": hydraulicload,
                 "failure_probability": overschrijdingskans,
                 "failuremechanismid": 1,
             }
@@ -214,7 +214,7 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
         Notes:
         ------
         Elke fragility curve moet de volgende kolommen bevatten:
-            - waterlevels: float
+            - hydraulicload: float
             - failure_probabilities: float
 
         De laatste fragility curve in de input lijst bevat de gewichten.

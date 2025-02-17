@@ -17,7 +17,7 @@ class ShiftFragilityCurvePipingFixedWaterlevel(FragilityCurvePipingFixedWaterlev
         ----------
         input: list[str]
                [0] df_slopes (pd.DataFrame),
-               [1] df_waterlevels (pd.DataFrame),
+               [1] df_hydraulicload (pd.DataFrame),
 
         output: str
             Fragility curve (pd.DataFrame)
@@ -33,10 +33,10 @@ class ShiftFragilityCurvePipingFixedWaterlevel(FragilityCurvePipingFixedWaterlev
                     Zie de documentatie van probabilistic_piping.probabilistic_fixedwl.ProbPipingFixedWaterlevelSimple voor meer informatie.
 
 
-               [1] df_waterlevels (pd.DataFrame):
+               [1] df_hydraulicload (pd.DataFrame):
                     DataFrame met waterlevel data.
                     Moet de volgende kolommen bevatten:
-                    - waterlevels : float
+                    - hydraulicload : float
 
         """
         self.calculate_fragility_curve(input, output)

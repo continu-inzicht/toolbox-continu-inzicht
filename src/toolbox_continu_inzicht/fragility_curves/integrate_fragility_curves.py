@@ -51,13 +51,13 @@ class IntegrateFragilityCurve:
                [0] df_exceedance_frequency (pd.DataFrame)
                     DataFrame met waterstand overschrijdingsfrequentie statistiek.
                     Moet de volgende kolommen bevatten:
-                    - waterlevels : float
+                    - hydraulicload : float
                     - probability_exceedance : float
 
                [1] df_fragility_curve (pd.DataFrame):
                     DataFrame met df_fragility_curve data.
                     Moet de volgende kolommen bevatten:
-                    - waterlevels: float
+                    - hydraulicload: float
                     - failure_probabilities: float
         """
         self.df_exceedance_frequency = self.data_adapter.input(input[0])
@@ -85,17 +85,17 @@ class IntegrateFragilityCurve:
         fragility_curve: FragilityCurve,
         refine_step_size: float,
     ) -> pd.DataFrame:
-        exceedance_frequency_curve_waterlevels = exceedance_frequency_curve.as_array()[
-            :, 0
-        ]
-        fragility_curve_waterlevels = fragility_curve.as_array()[:, 0]
+        exceedance_frequency_curve_hydraulicload = (
+            exceedance_frequency_curve.as_array()[:, 0]
+        )
+        fragility_curve_hydraulicload = fragility_curve.as_array()[:, 0]
         min_waterlevel = min(
-            exceedance_frequency_curve_waterlevels.min(),
-            fragility_curve_waterlevels.min(),
+            exceedance_frequency_curve_hydraulicload.min(),
+            fragility_curve_hydraulicload.min(),
         )
         max_waterlevel = max(
-            exceedance_frequency_curve_waterlevels.max(),
-            fragility_curve_waterlevels.max(),
+            exceedance_frequency_curve_hydraulicload.max(),
+            fragility_curve_hydraulicload.max(),
         )
 
         # Create a water level range with the given stepsize from
@@ -105,7 +105,7 @@ class IntegrateFragilityCurve:
             min_waterlevel, max_waterlevel + refine_step_size, refine_step_size
         )
         # The arange can result in stepsize with floating point errors.
-        # Therefore, round the waterlevels to the accuracy of the step_size.
+        # Therefore, round the hydraulicload to the accuracy of the step_size.
         # Do this by finding the first significant digit of the stepsize,
         # and add 3 more decimals to be safe (and to account for a stepsize
         # such as 0.9999).
@@ -123,7 +123,7 @@ class IntegrateFragilityCurve:
 
         return pd.DataFrame(
             list(zip(new_range_waterlevel, integrated_probability)),
-            columns=["waterlevels", "probability_contribution"],
+            columns=["hydraulicload", "probability_contribution"],
         )
 
 
@@ -152,13 +152,13 @@ class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
                [0] df_exceedance_frequency (pd.DataFrame)
                     DataFrame met waterstand overschrijdingsfrequentie statistiek.
                     Moet de volgende kolommen bevatten:
-                    - waterlevels : float
+                    - hydraulicload : float
                     - probability_exceedance : float
 
                [1] df_fragility_curve (pd.DataFrame):
                     DataFrame met df_fragility_curve data.
                     Moet de volgende kolommen bevatten:
-                    - waterlevels: float
+                    - hydraulicload: float
                     - failure_probabilities: float"""
         self.df_exceedance_frequency = self.data_adapter.input(input[0])
         self.df_fragility_curve = self.data_adapter.input(input[1])

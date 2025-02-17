@@ -250,6 +250,8 @@ class WaveOvertoppingCalculation:
         # Leidt golfcondities af voor de richting
         cl_rnd = np.round(crestlevel / hstap) * hstap  # crest level rounded
         # refine grid around crest level
+        # `waterlevels` is eigenlijk hydraulicload, gekozen om hier te laten omdat bij een GEKB curve
+        # je altijd een waterstand hebt.
         waterlevels = np.r_[
             np.arange(
                 cl_rnd - lower_limit_coarse, cl_rnd - upper_limit_coarse, hstap * 2

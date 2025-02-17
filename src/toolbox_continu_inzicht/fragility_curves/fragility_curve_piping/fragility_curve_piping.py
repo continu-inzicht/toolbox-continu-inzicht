@@ -35,7 +35,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
 
     data_adapter: DataAdapter
     df_prob_input: Optional[pd.DataFrame] | None = None
-    df_waterlevels: Optional[pd.DataFrame] | None = None
+    df_hydraulicload: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
     df_result_uplift: Optional[pd.DataFrame] | None = None
@@ -51,7 +51,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
         ----------
         input: list[str]
                [0] df_prob_input (pd.DataFrame),
-               [1] df_waterlevels (pd.DataFrame),
+               [1] df_hydraulicload (pd.DataFrame),
 
         output: str
             Fragility curve (pd.DataFrame)
@@ -67,10 +67,10 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
                     Zie de documentatie van probabilistic_piping.probabilistic_fixedwl.ProbPipingFixedWaterlevelSimple voor meer informatie.
 
 
-               [1] df_waterlevels (pd.DataFrame):
+               [1] df_hydraulicload (pd.DataFrame):
                     DataFrame met waterlevel data.
                     Moet de volgende kolommen bevatten:
-                    - waterlevels : float
+                    - hydraulicload : float
 
         """
         self.calculate_fragility_curve(input, output)
@@ -80,7 +80,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
         Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
         """
         self.df_prob_input = self.data_adapter.input(input[0])
-        self.df_waterlevels = self.data_adapter.input(input[1])
+        self.df_hydraulicload = self.data_adapter.input(input[1])
 
         # sommige opties niet direct nodig maar de probabilistic_piping package heeft ze wel nodig dus maak None
         for col in ["Afknot_links", "Afknot_rechts"]:
@@ -108,7 +108,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
         settings, result_uplift, result_heave, result_Sellmeijer, result_combined = (
             prob_piping_fixed_waterlevel_simple.fixed_waterlevel_fragilitycurve(
                 prob_input=prob_input,
-                hlist=self.df_waterlevels["waterlevels"].to_numpy(),
+                hlist=self.df_hydraulicload["hydraulicload"].to_numpy(),
             )
         )
 
@@ -126,7 +126,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
                 name,
                 pd.DataFrame(
                     data=[(res.h, res.prob_cond) for res in result.results],
-                    columns=["waterlevels", "failure_probability"],
+                    columns=["hydraulicload", "failure_probability"],
                 ),
             )
         self.df_out = self.df_result_combined
@@ -150,7 +150,7 @@ class FragilityCurvePipingMultiple:
     data_adapter: DataAdapter
 
     df_prob_input: Optional[pd.DataFrame] | None = None
-    df_waterlevels: Optional[pd.DataFrame] | None = None
+    df_hydraulicload: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
     fragility_curve_function_simple: FragilityCurve = (
@@ -165,7 +165,7 @@ class FragilityCurvePipingMultiple:
         ----------
         input: list[str]
                [0] df_prob_input (pd.DataFrame),
-               [1] df_waterlevels (pd.DataFrame),
+               [1] df_hydraulicload (pd.DataFrame),
 
         output: str
             Fragility curves (pd.DataFrame)
@@ -181,14 +181,14 @@ class FragilityCurvePipingMultiple:
                     Zie de documentatie van probabilistic_piping.probabilistic_fixedwl.ProbPipingFixedWaterlevel voor meer informatie.
 
 
-               [1] df_waterlevels (pd.DataFrame):
+               [1] df_hydraulicload (pd.DataFrame):
                     DataFrame met waterlevel data.
                     Moet de volgende kolommen bevatten:
-                    - waterlevels : float
+                    - hydraulicload : float
 
         """
         self.df_prob_input = self.data_adapter.input(input[0])
-        self.df_waterlevels = self.data_adapter.input(input[1])
+        self.df_hydraulicload = self.data_adapter.input(input[1])
 
         global_variables = self.data_adapter.config.global_variables
         if "FragilityCurvePipingMultiple" in global_variables:
@@ -228,7 +228,7 @@ class FragilityCurvePipingMultiple:
                     "df_prob", df_prob_scenario, if_not_exist="create"
                 )
                 temp_data_adapter.set_dataframe_adapter(
-                    "waterlevels", self.df_waterlevels, if_not_exist="create"
+                    "hydraulicload", self.df_hydraulicload, if_not_exist="create"
                 )
                 temp_data_adapter.set_dataframe_adapter(
                     "output", pd.DataFrame(), if_not_exist="create"
@@ -242,7 +242,7 @@ class FragilityCurvePipingMultiple:
                     data_adapter=temp_data_adapter
                 )
 
-                fragility_curve.run(input=["df_prob", "waterlevels"], output="output")
+                fragility_curve.run(input=["df_prob", "hydraulicload"], output="output")
                 df_fc = fragility_curve.df_out
                 df_fc["section_id"] = section_id
                 df_fc["scenario_id"] = scenario_id

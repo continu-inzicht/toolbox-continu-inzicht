@@ -111,28 +111,38 @@ def test_ShiftFragilityCurveOvertopping():
     data_adapter = setup_data_adapter()
     input_val = ["slopes", "profiles", "bed_levels"]
     output_val = "fragility_curves"
-    FCO = FragilityCurveOvertopping(data_adapter=data_adapter)
-    FCO.run(input=input_val, output=output_val)
-    fco_df = FCO.as_dataframe()
+    fragility_curve_overtopping = FragilityCurveOvertopping(data_adapter=data_adapter)
+    fragility_curve_overtopping.run(input=input_val, output=output_val)
+    fragility_curve_overtopping_df = fragility_curve_overtopping.as_dataframe()
 
-    SFCC = ShiftFragilityCurveOvertopping(data_adapter=data_adapter)
+    shift_fragility_curve_overtopping = ShiftFragilityCurveOvertopping(
+        data_adapter=data_adapter
+    )
 
-    SFCC.run(
+    shift_fragility_curve_overtopping.run(
         input=input_val,
         output=output_val,
         effect=0.5,
     )
-    sfcc_df = SFCC.as_dataframe()
+    shift_fragility_curve_overtopping_df = (
+        shift_fragility_curve_overtopping.as_dataframe()
+    )
 
-    fco_df.set_index("waterlevels", inplace=True)
-    sfcc_df.set_index("waterlevels", inplace=True)
+    fragility_curve_overtopping_df.set_index("hydraulicload", inplace=True)
+    shift_fragility_curve_overtopping_df.set_index("hydraulicload", inplace=True)
 
-    df_combined = pd.concat([fco_df, sfcc_df], axis=1)
-    df_combined.columns = ["fco", "sfcc"]
+    df_combined = pd.concat(
+        [fragility_curve_overtopping_df, shift_fragility_curve_overtopping_df], axis=1
+    )
+    df_combined.columns = [
+        "fragility_curve_overtopping",
+        "shift_fragility_curve_overtopping",
+    ]
     # check that the centre of the fragility curve has changed
     assert (
         ~np.isclose(
-            df_combined["fco"].to_list()[41:59], df_combined["sfcc"].to_list()[41:59]
+            df_combined["fragility_curve_overtopping"].to_list()[41:59],
+            df_combined["shift_fragility_curve_overtopping"].to_list()[41:59],
         )
     ).all()
 

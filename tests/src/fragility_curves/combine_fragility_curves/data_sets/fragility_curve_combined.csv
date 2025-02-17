@@ -1,4 +1,4 @@
-,waterlevels,failure_probability,failuremechanismid
+,hydraulicload,failure_probability,failuremechanismid
 0,0.0,9.999999999998942e-21,1
 1,0.05,9.999999999998942e-21,1
 2,0.1,9.999999999998942e-21,1
