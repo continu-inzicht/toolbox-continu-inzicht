@@ -1,5 +1,4 @@
 # Continu Inzicht Toolbox <img align="right" src="https://github.com/continu-inzicht/toolbox-continu-inzicht/raw/main/docs/assets/logo.png" height="40" alt='logo'></img>
-# Continu Inzicht Toolbox <img align="right" src="https://github.com/continu-inzicht/toolbox-continu-inzicht/raw/main/docs/assets/logo.png" height="40" alt='logo'></img>
 
 Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij het ontwikkelen van de toolbox is rekening gehouden met type interacties met de toolbox: het gebruiken van de toolbox en bijdragen. Op de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) is voor beide informatie beschikbaar.
 
@@ -11,8 +10,13 @@ De toolbox kan geïnstalleerd worden met:
 pip install toolbox-continu-inzicht
 ```
 
-Onder het kopje [instaleren](https://continu-inzicht.github.io/toolbox-continu-inzicht/install.html) op de wiki vindt je meer informatie.
-Zie het kopje [modules](https://continu-inzicht.github.io/toolbox-continu-inzicht/modules.html) voor beschrijving van hoe je verschillende bouwstenen van de toolbox continu inzicht kan benutten, of bekijk het [voorbeeld](https://continu-inzicht.github.io/toolbox-continu-inzicht/examples/notebooks/proof_of_concept.html).
+Het gebruik van een conda environment wordt sterk aanbevolen, hiervoor kan je gebruik maken van het volgende commando:
+
+```bash
+conda env create --file=https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/f3b55e9a01ad5111090451024bb50388ac2a6695/src/requirements.yaml
+```
+
+Onder het kopje [instaleren](https://continu-inzicht.github.io/toolbox-continu-inzicht/install.html) op de wiki vindt je meer informatie. Zie het kopje [modules](https://continu-inzicht.github.io/toolbox-continu-inzicht/modules.html) voor beschrijving van hoe je verschillende bouwstenen van de toolbox continu inzicht kan benutten, of bekijk het [voorbeeld](https://continu-inzicht.github.io/toolbox-continu-inzicht/examples/notebooks/proof_of_concept.html).
 
 ## Afhankelijkheden
 
