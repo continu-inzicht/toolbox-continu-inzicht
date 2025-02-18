@@ -196,6 +196,22 @@ class DataAdapter(PydanticBaseModel):
         """
         self.config.global_variables[key] = value
 
+    def get_global_variable(self, key: str) -> Any:
+        """
+        Functie voor het ophalen van global variable.
+
+        Parameters:
+        -----------
+        key: str
+            naam van de waarde om op te overschrijven
+
+        Returns:
+        --------
+        value: Any
+            Global variable value
+        """
+        return self.config.global_variables[key]
+
     def set_dataframe_adapter(
         self, key: str, df: pd.DataFrame, if_not_exist: str = "raise"
     ) -> None:

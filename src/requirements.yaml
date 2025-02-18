@@ -2,7 +2,6 @@ name: Toolbox_continu_inzicht
 channels:
   - conda-forge
 dependencies:
-  - fiona
   - geopandas
   - matplotlib
   - netcdf4>=1.7.1
