@@ -26,4 +26,4 @@ Voor het berekenen van fragility curves worden twee packages gebruikt: [Pydra-co
 
 Copyright (c) 2024 - 2025, HKV lijn in Water
 
-GPL 3.0 or later
+[GPL 3.0 or later](https://github.com/continu-inzicht/toolbox-continu-inzicht/blob/main/LICENSE)

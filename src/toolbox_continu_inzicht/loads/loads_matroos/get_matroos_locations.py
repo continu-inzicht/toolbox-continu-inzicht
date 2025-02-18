@@ -1,5 +1,6 @@
 import geopandas as gpd
 import pandas as pd
+import folium
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 
 
@@ -36,7 +37,26 @@ def get_matroos_locations(source=None, parameter=None) -> gpd.GeoDataFrame:
     return gdf
 
 
-def get_matroos_models() -> pd.DataFrame:
+def get_matroos_locations_map(source=None, parameter=None) -> folium.Map:
+    """Haal alle matroos locaties op en maak een folium map."""
+    df_location = get_matroos_locations(source=source, parameter=parameter)
+    # Create a map centered at a specific location
+    m = folium.Map(
+        location=[df_location.geometry.y.mean(), df_location.geometry.x.mean()],
+        zoom_start=10,
+    )
+
+    # Add markers to the map
+    for _, row in df_location.iterrows():
+        popup_text = f"ID: {row['measurement_location_id']}<br>Code: {row['measurement_location_code']}"
+        folium.Marker(
+            location=[row.geometry.y, row.geometry.x], popup=popup_text
+        ).add_to(m)
+
+    return m
+
+
+def get_matroos_sources() -> pd.DataFrame:
     """Haalt alle matroos bronnen op"""
     url = "https://noos.matroos.rws.nl/timeseries/search/get_sources.php?"
     params = {"format": "dd_default_2.0.0"}

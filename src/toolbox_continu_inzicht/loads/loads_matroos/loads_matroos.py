@@ -6,7 +6,7 @@ from typing import Optional
 
 from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
     get_matroos_locations,
-    get_matroos_models,
+    get_matroos_sources,
 )
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
@@ -71,7 +71,7 @@ class LoadsMatroos:
                 f"Input data 'measurement_location_code' ontbreekt in kollomen {self.df_in.columns}"
             )
         else:
-            df_sources = get_matroos_models()
+            df_sources = get_matroos_sources()
             # maak een lijst met alle parameter namen, noos herhekend ook een heleboel aliases
             list_aliases = []
             for alias in list(df_sources["source_label"]):
@@ -176,16 +176,24 @@ class LoadsMatroos:
         dataframe = pd.DataFrame()
         records = []
         # loop over de lijst met data heen
-        for serie in json_data["results"]:
+        for index, serie in enumerate(json_data["results"]):
             # hier zit ook coordinaten in
             measurement_location_name = serie["location"]["properties"]["locationName"]
             measurement_location_code = (
                 measurement_location_name  # .lower().replace(" ", "")
             )
-            measurement_location_id = df_in[
-                df_in["measurement_location_code"].apply(lambda x: str(x))
-                == str(measurement_location_code)
-            ].iloc[0]["measurement_location_id"]
+
+            # here we lookup the location id in the input dataframe
+            str_location_codes = df_in["measurement_location_code"].apply(
+                lambda x: str(x)
+            )
+            df_location = df_in[str_location_codes == str(measurement_location_code)]
+            # check if we indeed found one:
+            if len(df_location) == 1:
+                measurement_location_id = df_location.iloc[0]["measurement_location_id"]
+            else:
+                # otherwise, map the series to the input dataframe as backup
+                measurement_location_id = df_in.iloc[index]["measurement_location_id"]
 
             # we krijgen water height, maar we willen waterlevel
             parameter_matroos = serie["observationType"]["quantityName"]

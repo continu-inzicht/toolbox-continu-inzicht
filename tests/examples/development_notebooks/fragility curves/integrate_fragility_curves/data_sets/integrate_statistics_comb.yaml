@@ -5,7 +5,14 @@ GlobalVariables:
     FragilityCurveOvertoppingMultiple:
         gh_onz_mu: 0.96 # default waarde
 
+    IntegrateFragilityCurve:
+        refine_step_size: 0.2
+
 DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
     slopes:
         type: ci_postgresql_slopes
         database: "continuinzicht"
@@ -26,6 +33,14 @@ DataAdapter:
         database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
-    fragility_curves_csv:
+    fragility_curves_combined_csv:
         type: csv
-        file: "hidden_test.csv"
+        file: "hidden_fragility_curves_combined.csv"
+
+    exceedance_curve_csv:
+        type: csv
+        file: "single_exceedance_curve_adj.csv"
+
+    result:
+        type: csv
+        file: "hidden_result.csv"

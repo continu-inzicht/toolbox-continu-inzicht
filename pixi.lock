@@ -13367,7 +13367,7 @@ packages:
 - pypi: src
   name: toolbox-continu-inzicht
   version: 0.0.4
-  sha256: ee6531dcbffef96135ea44afa73fdbff4377311c3c7b818b49b33186dfd0f027
+  sha256: fb0dd1cc3f5ca21285d29b3ab383edcf7f8a3fd7600b45a8eb9ea8507037e63c
   requires_dist:
   - fiona
   - geopandas
@@ -13390,7 +13390,7 @@ packages:
   - sqlalchemy
   - tqdm>=4.67.1
   - xarray
-  requires_python: '>=3.9,<3.13'
+  requires_python: '>=3.9'
   editable: true
 - conda: https://conda.anaconda.org/conda-forge/noarch/toolz-1.0.0-pyhd8ed1ab_1.conda
   sha256: eda38f423c33c2eaeca49ed946a8d3bf466cc3364970e083a65eb2fd85258d87
