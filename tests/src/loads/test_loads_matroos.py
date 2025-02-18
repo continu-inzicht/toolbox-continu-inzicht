@@ -580,7 +580,11 @@ def test_LoadsMatroos_data_frame():
     }
 
     df_out = LoadsMatroos.create_dataframe(
-        options=options, df_in=df_in, calc_time=calc_time, json_data=json_data
+        options=options,
+        df_in=df_in,
+        calc_time=calc_time,
+        json_data=json_data,
+        global_variables={},
     )
     assert len(df_out) == 349
     columns_names = [

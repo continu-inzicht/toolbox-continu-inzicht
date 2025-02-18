@@ -14,6 +14,22 @@ class FragilityCurve:
     """
     Class met een aantal gemakkelijke methoden om fragility curves
     op te slaan en aan te passen
+
+    Parameters
+    ----------
+    data_adapter: DataAdapter
+                    DataAdapter object om data in te laden
+    hydraulicload: Optional[np.ndarray] | None
+                    Array met de belastingen
+    failure_probability: Optional[np.ndarray] | None
+                    Array met de faalkansen
+    fragility_curve_schema: dict
+                    Schema waaraan de fragility curve moet voldoen:
+                        hydraulicload: float
+                        failure_probability: float
+    lower_limit: float
+                    Ondergrens voor de faalkans, standaard 1e-20
+
     """
 
     data_adapter: DataAdapter

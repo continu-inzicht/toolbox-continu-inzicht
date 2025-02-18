@@ -11,7 +11,7 @@ class Config(PydanticBaseModel):
     Parameters
     ----------
     config_path: Path
-                 Pad naar een  `.yaml` bestand waarin per functie staat beschreven wat de in/ouput bestanden zijn
+                 Pad naar een  `.yaml` bestand waarin per functie staat beschreven wat de in/output bestanden zijn
 
     """
 
@@ -36,7 +36,7 @@ class Config(PydanticBaseModel):
                 case "DataAdapter":
                     self.data_adapters = configuration
                 case "GlobalVariables":
-                    # add a central calculating time in case not specified
+                    # voeg een centrale berekeningstijd toe als deze niet is gespecificeerd
                     if "calc_time" not in configuration:
                         dt_now = datetime.now(timezone.utc)
                         t_now = datetime(
@@ -80,7 +80,7 @@ class Config(PydanticBaseModel):
                 input_type = self.data_adapters[adapter]["type"]
                 if input_type in default_options:
                     for key in default_options[input_type]:
-                        # alleen nieuwe opties toeveogen als die er niet al zijn
+                        # alleen nieuwe opties toevoegen als die er niet al zijn
                         if key not in self.data_adapters[adapter]:
                             self.data_adapters[adapter][key] = default_options[
                                 input_type

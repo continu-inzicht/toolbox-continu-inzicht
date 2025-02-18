@@ -34,8 +34,8 @@ class LoadsCIWhatIf:
         # output: belasting voor alle meetstations
         self.df_out = self.df_in.copy()
         calc_time = self.data_adapter.config.global_variables["calc_time"]
-        # TODO: dupliceer calc_time laatste waarde zodat de lijn in de viewer mooi doorloopt
-        verwachting = self.df_out[(self.df_out["date_time"] > calc_time)].index
+        # dupliceer calc_time laatste waarde zodat de lijn in de viewer mooi doorloopt
+        verwachting = self.df_out[(self.df_out["date_time"] >= calc_time)].index
         meting = self.df_out[(self.df_out["date_time"] <= calc_time)].index
         self.df_out.loc[verwachting, "value_type"] = "verwachting"
         self.df_out.loc[meting, "value_type"] = "meting"

@@ -4,7 +4,6 @@ import pandas as pd
 
 from scipy.stats import lognorm
 
-# TODO: shorten imports to be more user friendly
 import pydra_core
 import pydra_core.location
 from pydra_core.location.model.statistics.stochastics.model_uncertainty import (
@@ -241,7 +240,6 @@ class WaveOvertoppingCalculation:
         Tuple[np.ndarray, np.ndarray]
             Een tuple met de niveaus en overloopkansen.
         """
-        # TODO: configurabele defaults?
         # Set default values
         hstap = options.get("hstap", 0.05)
         lower_limit_coarse = options.get("lower_limit_coarse", 4)

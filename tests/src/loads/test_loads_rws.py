@@ -34,7 +34,7 @@ def test_test_BelastingWaterwebservicesRWS_create_dataframe():
         0,
         0,
     ).replace(tzinfo=timezone.utc)
-    # TODO move to a dataset file
+    # TODO move to a dataset file later: See TBCI-158
     lst_data = [
         {
             "WaarnemingenLijst": [
@@ -5018,7 +5018,11 @@ def test_test_BelastingWaterwebservicesRWS_create_dataframe():
     ]
 
     df_out = LoadsWaterwebservicesRWS.create_dataframe(
-        options=options, calc_time=calc_time, lst_data=lst_data, df_in=df_in
+        options=options,
+        calc_time=calc_time,
+        lst_data=lst_data,
+        df_in=df_in,
+        global_variables={},
     )
 
     assert len(df_out) == 437

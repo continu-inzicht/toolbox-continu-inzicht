@@ -78,12 +78,6 @@ class DataAdapter(PydanticBaseModel):
         """
         self.initialize_input_types()  # maak een dictionary van type: functie
 
-        suppress_userwarnings = False
-        if "suppress_userwarnings" in self.config.global_variables:
-            suppress_userwarnings = self.config.global_variables[
-                "suppress_userwarnings"
-            ]
-
         # initieer een leeg dataframe
         df = pd.DataFrame()
 
@@ -134,19 +128,16 @@ class DataAdapter(PydanticBaseModel):
                 if schema is not None:
                     status, message = validate_dataframe(df=df, schema=schema)
                     if status > 0:
-                        if not suppress_userwarnings:
-                            raise UserWarning(message)
+                        raise UserWarning(message)
 
             else:
                 # Adapter bestaat niet
-                if not suppress_userwarnings:
-                    message = f"Adapter van het type '{data_type}' niet gevonden."
-                    raise UserWarning(message)
+                message = f"Adapter van het type '{data_type}' niet gevonden."
+                raise UserWarning(message)
         else:
             # Adapter sleutel staat niet in het yaml-bestand
-            if not suppress_userwarnings:
-                message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
-                raise UserWarning(message)
+            message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
+            raise UserWarning(message)
 
         return df
 
@@ -164,7 +155,6 @@ class DataAdapter(PydanticBaseModel):
 
         """
 
-        # TODO: kan dit eleganters?
         self.initialize_output_types()  # maak een dictionary van type: functie
         # haal de input configuratie op van de functie
         functie_output_config = self.config.data_adapters[output]
@@ -185,7 +175,7 @@ class DataAdapter(PydanticBaseModel):
                 "A `.env` file is not present in the root directory, continuing without",
                 UserWarning,
             )
-
+        # voeg alle environmental variables toe aan de functie output config
         functie_output_config.update(environmental_variables)
 
         # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
@@ -194,7 +184,7 @@ class DataAdapter(PydanticBaseModel):
 
     def set_global_variable(self, key: str, value: Any):
         """
-        Functie voor het dynamisch overschrijven van global variablen.
+        Functie voor het dynamisch overschrijven van global variable.
 
         Parameters:
         -----------
@@ -206,7 +196,6 @@ class DataAdapter(PydanticBaseModel):
         """
         self.config.global_variables[key] = value
 
-    # TODO: support voor geodataframe in de toekomst?
     def set_dataframe_adapter(
         self, key: str, df: pd.DataFrame, if_not_exist: str = "raise"
     ) -> None:
@@ -226,26 +215,19 @@ class DataAdapter(PydanticBaseModel):
             Geeft aan wat te doen als de data adapter niet bestaat,
             bij raise krijg je een error, bij create wordt er een nieuwe data adapter aangemaakt.
         """
-        suppress_userwarnings = False
-        if "suppress_userwarnings" in self.config.global_variables:
-            suppress_userwarnings = self.config.global_variables[
-                "suppress_userwarnings"
-            ]
 
         if key in self.config.data_adapters:
             data_adapter_config = self.config.data_adapters[key]
             if data_adapter_config["type"] == "python":
                 data_adapter_config["dataframe_from_python"] = df
             else:
-                if not suppress_userwarnings:
-                    raise UserWarning(
-                        "Deze functionaliteit is voor data adapters van type `python`, "
-                    )
-        elif if_not_exist == "raise":
-            if not suppress_userwarnings:
                 raise UserWarning(
-                    f"Data adapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
+                    "Deze functionaliteit is voor data adapters van type `python`, "
                 )
+        elif if_not_exist == "raise":
+            raise UserWarning(
+                f"Data adapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
+            )
         elif if_not_exist == "create":
             self.config.data_adapters[key] = {
                 "type": "python",
@@ -253,7 +235,6 @@ class DataAdapter(PydanticBaseModel):
             }
 
         else:
-            if not suppress_userwarnings:
-                raise UserWarning(
-                    f"Data adapter `{key=}` niet gevonden, en {if_not_exist=} is ongeldig, moet `raise` of `create` zijn"
-                )
+            raise UserWarning(
+                f"Data adapter `{key=}` niet gevonden, en {if_not_exist=} is ongeldig, moet `raise` of `create` zijn"
+            )

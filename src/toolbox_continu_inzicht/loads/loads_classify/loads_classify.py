@@ -56,7 +56,6 @@ class LoadsClassify:
             raise UserWarning("Input variabele moet 2 string waarden bevatten.")
 
         # drempelwaarden per meetlocatie
-        # TODO we kunnen er toch niet vanuit gaan dat de eerste (nulde) input string de verwijzing naar de klassegrenzen is...?
         self.df_in_thresholds = self.data_adapter.input(
             input[0], self.input_schema_thresholds
         )

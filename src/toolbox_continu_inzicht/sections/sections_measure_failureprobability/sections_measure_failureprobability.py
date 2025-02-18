@@ -167,7 +167,7 @@ class SectionsMeasureFailureprobability:
             filtered_df_values["measure_id"] = measure_id
 
             # Vervang kleine positieve waarde door een 0
-            # TODO RW is het nodig om de kans terug te zetten naar 0.0?
+            # TODO is het nodig om de kans terug te zetten naar 0.0?: Zie TBCI-157
             # filtered_df_values['failureprobability'] = filtered_df_values['failureprobability'].replace(small_positive_value, 0.0)
 
             # Voeg de gefilterde DataFrame toe aan de hoofd DataFrame

@@ -98,7 +98,7 @@ class LoadsWaterinfo:
             if type(options["parameters"]) is list and len(options["parameters"]) > 0:
                 datatype = options["parameters"][0]
 
-        maptype_schema = self.get_maptype(datatype)
+        maptype_schema = self.get_maptype(datatype, global_variables)
         if maptype_schema is not None:
             # bepaal welke range opgehaald moet worden
             observedhours_moments = options["moments"][0]
@@ -241,8 +241,7 @@ class LoadsWaterinfo:
 
         return dataframe
 
-    # TODO: Hier zitten nu aquo parameters in, maar die moeten eigenlijk uit base.aquo.read_aquo komen
-    def get_maptype(self, maptype: str):
+    def get_maptype(self, maptype: str, global_variables: dict) -> dict:
         """
         bepaal welke schema gebruikt moet worden voor het ophalen van de belasting
 
@@ -263,8 +262,6 @@ class LoadsWaterinfo:
         waterinfo_series = [
             {
                 "maptype": "waterhoogte",
-                # "parameter_id": 4724,
-                # "parameter_code": "WATHTE",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -274,8 +271,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "wind",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_WIND",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -285,8 +280,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "golfhoogte",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_GOLFHOOGTE",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -296,8 +289,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "watertemperatuur",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_WATERTEMPERATUUR",
                 "values": [
                     {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
@@ -307,8 +298,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "luchttemperatuur",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_LUCHTTEMPERATUUR",
                 "values": [
                     {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
@@ -318,8 +307,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "astronomische-getij",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_ASTRONOMISCHE-GETIJ",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -329,8 +316,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "stroming",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_STROMING",
                 "values": [
                     {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
@@ -340,8 +325,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "waterafvoer",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_WATERAFVOER",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -351,8 +334,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "zouten",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_ZOUTEN",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,0"},
@@ -364,13 +345,13 @@ class LoadsWaterinfo:
 
         for item in waterinfo_series:
             if item["maptype"] == maptype:
-                parameter_code, aquo_grootheid_dict = read_aquo(maptype)
+                parameter_code, aquo_grootheid_dict = read_aquo(
+                    maptype, global_variables
+                )
                 item["parameter_code"] = parameter_code
                 item["parameter_id"] = aquo_grootheid_dict["id"]
 
                 return item
-
-        return None
 
     def get_value_by_observedhours(
         self, maptype_schema: dict, observedhours_moments: int

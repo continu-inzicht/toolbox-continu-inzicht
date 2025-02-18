@@ -27,6 +27,15 @@ class LoadsToMoments:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
+    input_schema_loads = {
+        "measurement_location_id": "int64",
+        "parameter_id": "int64",
+        "unit": "object",
+        "date_time": "object",
+        "value": "float64",
+        "value_type": "object",
+    }
+
     def run(self, input: str, output: str) -> None:
         """
         Verwerkt de invoergegevens om momenten te berekenen en genereert het uitvoerdataframe.
@@ -38,18 +47,12 @@ class LoadsToMoments:
             None
         """
 
-        self.df_in = self.data_adapter.input(input)
-        # TODO add validate schema
+        self.df_in = self.data_adapter.input(input, schema=self.input_schema_loads)
         global_variables = self.data_adapter.config.global_variables
         moments = global_variables["moments"]
 
-        # TODO: er kunnen meerdere opties zijn voor LoadsToMoments
-        if "LoadsToMoments" in global_variables:
-            options = global_variables["LoadsToMoments"]
-            tide = options["tide"]
-        else:
-            tide = False
-
+        options = global_variables.get("LoadsToMoments", {})
+        tide = options.get("tide", False)
         calc_time = global_variables["calc_time"]
 
         is_datetime = ptypes.is_datetime64_any_dtype(self.df_in["date_time"])
@@ -60,7 +63,7 @@ class LoadsToMoments:
 
         df_moments = self.df_in.set_index("date_time")
         lst_dfs = []
-        # TODO: In some case we might want the nearest moment rather than the exact moment
+        # TODO: In sommige gevallen willen we de meest dichtstbijzijnde waarde: zie TBCI-155
         dt_moments = [
             {"date_time": calc_time + timedelta(hours=moment), "hours": moment}
             for moment in moments
@@ -122,11 +125,7 @@ class LoadsToMoments:
             if not df_filter.empty:
                 df_moment = df_filter.iloc[[-1]]
 
-            ## evntueel ook een optie:
-            # df_moment = df_moments[df_moments.index < moment["date_time"]].iloc[[0]]
-
         if not df_moment.empty:
-            # TODO: maak eleganter, test ga een warning 'setting on copy of a slice'
             df_moment_hours = df_moment.copy()
             df_moment_hours["hours"] = moment["hours"]
             df_moment = df_moment_hours

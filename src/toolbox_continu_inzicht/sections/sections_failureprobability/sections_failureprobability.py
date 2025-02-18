@@ -54,7 +54,6 @@ class SectionsFailureprobability:
     def run(self, input: str, output: str) -> None:
         """
         Uitvoeren van het bepalen van de faalkans van een dijkvak.
-        TODO RW aanpassen
 
         Parameters:
         ----------

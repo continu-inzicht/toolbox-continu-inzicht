@@ -12,7 +12,24 @@ from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
 class ExceedanceFrequencyCurve:
     """
     Class met een aantal gemakkelijke methoden om overschrijdingsfrequentiecurves
-    op te slaan en aan te passen
+    op te slaan en aan te passen.
+
+    Parameters
+    ----------
+    data_adapter: DataAdapter
+                  DataAdapter object om data in te laden
+
+    df_out: Optional[pd.DataFrame] | None
+            DataFrame met de overschrijdingsfrequentiecurve
+
+    lower_limit: float
+            Ondergrens voor de overschrijdingsfrequentie, standaard 1e-20
+
+    exceedance_frequency_curve_schema: dict
+            Schema waaraan de overschrijdingsfrequentiecurve moet voldoen:
+                hydraulicload: float
+                probability_exceedance: float
+
     """
 
     data_adapter: DataAdapter

@@ -77,7 +77,7 @@ class LoadsMatroos:
             for alias in list(df_sources["source_label"]):
                 list_aliases.extend(alias.split(";"))
 
-            # TODO geef melding van unknown_source als ophalen van waterstanden niet goed gaat.
+            # geef melding van unknown_source als ophalen van waterstanden niet goed gaat.
             unknown_source: str = ""
             if options["model"] not in list_aliases:
                 unknown_source = options["model"]
@@ -116,7 +116,7 @@ class LoadsMatroos:
         lst_dfs = []
         # maak een url aan
         for parameter in options["parameters"]:
-            parameter_code, aquo_grootheid_dict = read_aquo(parameter)
+            parameter_code, aquo_grootheid_dict = read_aquo(parameter, global_variables)
             aquo_parameter = matroos_aquo_synoniem[
                 aquo_grootheid_dict["label_en"]
             ]  # "WATHTE -> waterlevel"
@@ -133,9 +133,10 @@ class LoadsMatroos:
             if status is None and json_data is not None:
                 if "results" in json_data:
                     lst_dfs.append(
-                        self.create_dataframe(options, self.df_in, calc_time, json_data)
+                        self.create_dataframe(
+                            options, self.df_in, calc_time, json_data, global_variables
+                        )
                     )
-                    # TODO voeg de id uit de input to aan het resultaat en schrijf die weg
                 else:
                     raise ConnectionError(
                         f"No results in data, only: {json_data.keys()}"
@@ -153,7 +154,11 @@ class LoadsMatroos:
 
     @staticmethod
     def create_dataframe(
-        options: dict, df_in: pd.DataFrame, calc_time: datetime, json_data: list
+        options: dict,
+        df_in: pd.DataFrame,
+        calc_time: datetime,
+        json_data: list,
+        global_variables: dict,
     ) -> pd.DataFrame:
         """
         Maakt een dataframe met waardes van de rws water webservices
@@ -198,7 +203,9 @@ class LoadsMatroos:
             # we krijgen water height, maar we willen waterlevel
             parameter_matroos = serie["observationType"]["quantityName"]
             # "waterlevel -> WATHTE", code matching WATHTE
-            parameter_code, aquo_grootheid_dict = read_aquo(parameter_matroos)
+            parameter_code, aquo_grootheid_dict = read_aquo(
+                parameter_matroos, global_variables
+            )
             parameter_id = aquo_grootheid_dict["id"]
             # process per lijst en stop het in een record
             for event in serie["events"]:

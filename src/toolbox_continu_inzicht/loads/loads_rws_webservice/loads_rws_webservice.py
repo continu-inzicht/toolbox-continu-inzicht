@@ -11,9 +11,6 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.base.aquo import read_aquo
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
-# aquo_id_dict = {"WATHTE": 4724}
-# RWS_webservices_verwacht = {"WATHTEVERWACHT": "WATHTE"}
-
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsWaterwebservicesRWS:
@@ -80,7 +77,7 @@ class LoadsWaterwebservicesRWS:
         # zet tijd goed
         calc_time = global_variables["calc_time"]
 
-        # TODO DIT GAAT VERANDEREN
+        # TODO: DIT GAAT VERANDEREN - zie TBCI-154
         # https://rijkswaterstaatdata.nl/projecten/beta-waterwebservices/#:~:text=00.000%2B01%3A00%22%7D%7D-,Voorbeelden,-Een%20aantal%20specifieke
         # Verwachte waterstand over een uur
         # Elke 6 uur worden er waterstanden voorspeld op basis van het weer.
@@ -121,7 +118,11 @@ class LoadsWaterwebservicesRWS:
             )
 
         self.df_out = self.create_dataframe(
-            options, calc_time, lst_observations, self.df_in
+            options,
+            calc_time,
+            lst_observations,
+            self.df_in,
+            global_variables,
         )
 
         if not self.df_out.empty:
@@ -141,7 +142,11 @@ class LoadsWaterwebservicesRWS:
 
     @staticmethod
     def create_dataframe(
-        options: dict, calc_time: datetime, lst_data: list, df_in: pd.DataFrame
+        options: dict,
+        calc_time: datetime,
+        lst_data: list,
+        df_in: pd.DataFrame,
+        global_variables: dict,
     ) -> pd.DataFrame:
         """Maakt een dataframe met waardes van de rws water webservices
 
@@ -179,7 +184,9 @@ class LoadsWaterwebservicesRWS:
                 unit = serie["AquoMetadata"]["Eenheid"]["Code"]
                 # de read_aquo functie geeft zelf de juiste naam terug
                 # is WATHTEVERWACHT niks, dus zet de code terug
-                parameter_code, aquo_grootheid_dict = read_aquo(parameter_code)
+                parameter_code, aquo_grootheid_dict = read_aquo(
+                    parameter_code, global_variables
+                )
                 parameter_id = aquo_grootheid_dict["id"]
                 # process per lijst en stop het in een record
                 for event in serie["MetingenLijst"]:
