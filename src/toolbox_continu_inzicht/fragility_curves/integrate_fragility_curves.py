@@ -16,16 +16,25 @@ from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 class IntegrateFragilityCurve:
     """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve
 
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        Adapter for handling data input and output operations.
+    df_exceedance_frequency: Optional[pd.DataFrame] | None
+        DataFrame containing exceedance frequency data.
+    df_fragility_curve: Optional[pd.DataFrame] | None
+        DataFrame containing fragility curve data.
+    df_out: Optional[pd.DataFrame] | None
+        Output DataFrame containing the integrated fragility curve.
 
-    Options in config
-    ------------------
+
+    Notes
+    -----
     Bij het combineren van de fragility curves met overschrijdingsfrequentielijn moeten de waterstanden van de curves op elkaar afgestemd worden.
     Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
     De volgende opties kunnen worden ingesteld:
 
-    - refine_step_size: float
-        De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren.
-        Default is 0.05
+    1. refine_step_size: De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.
     """
 
     data_adapter: DataAdapter
@@ -33,32 +42,27 @@ class IntegrateFragilityCurve:
     df_fragility_curve: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    def run(self, input: list, output: str):
+    def run(self, input: list[str], output: str):
         """Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve
 
         Parameters
         ----------
         input: list[str]
-               [0] df_exceedance_frequency (pd.DataFrame),
-               [1] df_fragility_curve (pd.DataFrame),
+            Lijst van data adapters met exceedance_frequency en fragility_curve
         output: str
-            output df
+            Data adapter voor de output
 
-        Notes:
-        ------
-        input: list[str]
+        Notes
+        -----
+        exceedance_frequency bevat een hydraulische belasting met overschrijdingsfrequentie statistiek, beide floats:
 
-               [0] df_exceedance_frequency (pd.DataFrame)
-                    DataFrame met waterstand overschrijdingsfrequentie statistiek.
-                    Moet de volgende kolommen bevatten:
-                    - hydraulicload : float
-                    - probability_exceedance : float
+        1. hydraulicload, hydralische belastingen
+        1. probability_exceedance, reek van overschrijdingsfrequenties
 
-               [1] df_fragility_curve (pd.DataFrame):
-                    DataFrame met df_fragility_curve data.
-                    Moet de volgende kolommen bevatten:
-                    - hydraulicload: float
-                    - failure_probabilities: float
+        fragility_curve bevat een hydraulische belasting met conditionele faalkansen, beide floats:
+
+        1. hydraulicload, hydralische belastingen
+        1. failure_probabilities, conditionele faalkansen
         """
         self.df_exceedance_frequency = self.data_adapter.input(input[0])
         self.df_fragility_curve = self.data_adapter.input(input[1])
@@ -128,38 +132,64 @@ class IntegrateFragilityCurve:
 
 
 class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
-    """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor reeks aan secties"""
+    """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor reeks aan secties
+
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        Adapter for handling data input and output operations.
+    df_exceedance_frequency: Optional[pd.DataFrame] | None
+        DataFrame containing exceedance frequency data.
+    df_fragility_curve: Optional[pd.DataFrame] | None
+        DataFrame containing fragility curve data.
+    df_out: Optional[pd.DataFrame] | None
+        Output DataFrame containing the integrated fragility curve.
+
+
+    Notes
+    -----
+    Bij het combineren van de fragility curves met overschrijdingsfrequentielijn moeten de waterstanden van de curves op elkaar afgestemd worden.
+    Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
+    De volgende opties kunnen worden ingesteld:
+
+    1. refine_step_size: De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.
+    """
 
     data_adapter: DataAdapter
     df_exceedance_frequency: Optional[pd.DataFrame] | None = None
     df_fragility_curve: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    def run(self, input: list, output: str):
-        """Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve
+    def run(self, input: list[str], output: str):
+        """
+        Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve voor verschillende vakken
+
         Parameters
         ----------
         input: list[str]
-               [0] df_exceedance_frequency (pd.DataFrame),
-               [1] df_fragility_curve (pd.DataFrame),
+            Lijst van data adapters met exceedance_frequency en fragility_curve
         output: str
-            output df
+            Data adapter voor de output
 
-        Notes:
+        Notes
+        -----
+        exceedance_frequency bevat een hydraulische belasting met overschrijdingsfrequentie statistiek, beide floats:
+
+        1. hydraulicload, hydralische belastingen
+        1. probability_exceedance, reek van overschrijdingsfrequenties
+
+        fragility_curve bevat een hydraulische belasting met conditionele faalkansen, beide floats:
+
+        1. hydraulicload, hydralische belastingen
+        1. failure_probabilities, conditionele faalkansen
+
+        Raises
         ------
-        input: list[str]
+        UserWarning
+            Als de input dataframes niet voldoen aan de verwachte schema's.
 
-               [0] df_exceedance_frequency (pd.DataFrame)
-                    DataFrame met waterstand overschrijdingsfrequentie statistiek.
-                    Moet de volgende kolommen bevatten:
-                    - hydraulicload : float
-                    - probability_exceedance : float
+        """
 
-               [1] df_fragility_curve (pd.DataFrame):
-                    DataFrame met df_fragility_curve data.
-                    Moet de volgende kolommen bevatten:
-                    - hydraulicload: float
-                    - failure_probabilities: float"""
         self.df_exceedance_frequency = self.data_adapter.input(input[0])
         self.df_fragility_curve = self.data_adapter.input(input[1])
 

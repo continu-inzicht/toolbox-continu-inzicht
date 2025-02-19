@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Optional
+from typing import Optional, ClassVar
 
 import numpy as np
 import pandas as pd
@@ -15,31 +15,28 @@ class FragilityCurve:
     Class met een aantal gemakkelijke methoden om fragility curves
     op te slaan en aan te passen
 
-    Parameters
+    Attributes
     ----------
     data_adapter: DataAdapter
-                    DataAdapter object om data in te laden
+        DataAdapter object om data in te laden
     hydraulicload: Optional[np.ndarray] | None
-                    Array met de belastingen
+        Array met de belastingen
     failure_probability: Optional[np.ndarray] | None
-                    Array met de faalkansen
-    fragility_curve_schema: dict
-                    Schema waaraan de fragility curve moet voldoen:
-                        hydraulicload: float
-                        failure_probability: float
+        Array met de faalkansen
     lower_limit: float
-                    Ondergrens voor de faalkans, standaard 1e-20
-
+        Ondergrens voor de faalkans, standaard 1e-20
+    fragility_curve_schema: ClassVar[dict[str, str]]
+        Schema waaraan de fragility curve moet voldoen:{hydraulicload: float, failure_probability: float}
     """
 
     data_adapter: DataAdapter
     hydraulicload: Optional[np.ndarray] | None = None
     failure_probability: Optional[np.ndarray] | None = None
-    fragility_curve_schema = {
-        "hydraulicload": float,
-        "failure_probability": float,
+    lower_limit: float = 1e-20
+    fragility_curve_schema: ClassVar[dict[str, str]] = {
+        "hydraulicload": "float",
+        "failure_probability": "float",
     }
-    lower_limit = 1e-20
 
     def run(self, *args, **kwargs):
         self.calculate_fragility_curve(*args, **kwargs)
@@ -103,15 +100,17 @@ class FragilityCurve:
         self.hydraulicload = new_hydraulicload
         self.failure_probability = refined_failure_probability
 
-    def reliability_update(self, update_level, trust_factor=1):
+    def reliability_update(
+        self, update_level: int | float, trust_factor: int | float = 1
+    ):
         """Voer een versimpelde reliability updating uit
 
         Parameters
         ----------
-        update_level : _type_
-            _description_
-        trust_factor : int, optional
-            _description_, by default 1
+        update_level : int | float
+            hydraulic load level to which the fragility curve is updated
+        trust_factor : int | float, optional
+            by default 1
         """
         wl_grid = self.hydraulicload
         fp_grid = self.failure_probability

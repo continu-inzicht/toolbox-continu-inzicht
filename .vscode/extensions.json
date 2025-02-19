@@ -2,7 +2,11 @@
     "recommendations": [
         "ms-python.python",
         "charliermarsh.ruff",
-        "njpwerner.autodocstring",
-        "quarto.quarto"
+        "quarto.quarto",
+        "streetsidesoftware.code-spell-checker",
+        "streetsidesoftware.code-spell-checker-dutch",
+        "davidanson.vscode-markdownlint",
+        "redhat.vscode-yaml",
+        "ms-toolsai.jupyter"
     ]
 }

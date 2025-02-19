@@ -43,6 +43,14 @@ class LoadsWaterinfo:
             Naam van de dataadapter met invoergegevens.
         output: str
             Naam van de dataadapter om uitvoergegevens op te slaan.
+
+        Raises
+        ------
+        UserWarning
+            Wanneer de belasting niet kan worden opgehaald.
+            Wanneer moments niet aanwezig in global_variables (config)
+            Wanneer de opgegeven parameter(s) komen niet voor in Waterinfo.
+            Wanneer de opgegeven locatie niet voorkomt in Waterinfo
         """
 
         # Haal opties en dataframe van de config

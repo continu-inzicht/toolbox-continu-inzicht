@@ -14,47 +14,39 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
         Parameters
         ----------
         input: list[str]
-               [0] df_slopes (pd.DataFrame),
-               [1] df_profile (pd.DataFrame),
-               [2] df_bed_levels (pd.DataFrame)
+            Lijst namen van de input dataadapters: slopes, profile en bed_levels
         output: str
-            Fragility curve output
+            Naam van de dataadapter Fragility curve output
         effect: float
             Verschuiving van de fragility curve
 
-        Notes:
-        ------
-        input: list[str]
+        Notes
+        -----
+        Deze input volgorde is wat specifiek, vandaar de extra details.
+        Waar geen type is opgegeven moet het type float zijn.
+        De eerste (slopes) data adapter moet de volgende kolommen bevatten:
 
-               [0] df_slopes (pd.DataFrame)
+        1. x, x-coördinaat
+        1. y, y-coördinaat
+        1. r, roughness
+        1. slopetypeid, id de helling type (int, 1: dike or 2: slope)
 
-                    DataFrame met helling data.
-                    Moet de volgende kolommen bevatten:
-                    - x : float
-                    - y : float
-                    - r : float
-                    - slopetypeid : int (1: dike or 2: slope)
+        De tweede (profile) data adapter met profiel data moet de volgende kolommen bevatten:
 
-               [1] df_profile (pd.DataFrame):
-                    DataFrame met profiel data.
-                    Moet de volgende kolommen bevatten:
-                    - windspeed : float
-                    - sectormin : float
-                    - sectorsize : float
-                    - orientation : float (in graden)
-                    - crestlevel : float (in meters)
-                    - dam : int (0: geen dam or 1: dam)
-                    - damheight : float (in meters)
-                    - qcr : float (waarde in m^3/s)
-                        str (close | open)
-                        tuple (waarden van mu en sigma)
+        1. windspeed, windsnelheid
+        1. sectormin, de minimale sectorhoek.
+        1. sectorsize, de grootte van de sectorhoek.
+        1. orientation, orientatie van het profiel in graden
+        1. crestlevel, kruinhoogte in meters
+        1. dam, wel of geen dam (int, 0: geen dam or 1: dam)
+        1. damheight, dam hoogte in meters
+        1. qcr, mag een van 3 zijn: een waarde in m^3/s (float), open of niet (str: close | open) of de waarden van mu en sigma (tuple).
 
-               [2] df_bed_levels (pd.DataFrame):
-                    DataFrame met bed level data.
-                    Moet de volgende kolommen bevatten:
-                    - direction : float
-                    - bedlevel : float
-                    - fetch : float
+        De derde (Bedlevelfetch) data adapter met bodem data moet de volgende kolommen bevatten:
+
+        1. direction, windrichtingen
+        1. bedlevel, bodem profielen
+        1. fetch, lengte van fetch in meters
         """
         self.calculate_fragility_curve(input, output)
         self.shift(effect)
@@ -72,47 +64,39 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
         Parameters
         ----------
         input: list[str]
-               [0] df_slopes (pd.DataFrame),
-               [1] df_profile (pd.DataFrame),
-               [2] df_bed_levels (pd.DataFrame)
+            Lijst namen van de input dataadapters: slopes, profile en bed_levels
         output: str
-            Fragility curve output
+            Naam van de dataadapter Fragility curve output
         effect: float
-            Verschuiving van de kruinhoogte (in meters)
+            Verschuiving van de fragility curve
 
-        Notes:
-        ------
-        input: list[str]
+        Notes
+        -----
+        Deze input volgorde is wat specifiek, vandaar de extra details.
+        Waar geen type is opgegeven moet het type float zijn.
+        De eerste (slopes) data adapter moet de volgende kolommen bevatten:
 
-               [0] df_slopes (pd.DataFrame)
+        1. x, x-coördinaat
+        1. y, y-coördinaat
+        1. r, roughness
+        1. slopetypeid, id de helling type (int, 1: dike or 2: slope)
 
-                    DataFrame met helling data.
-                    Moet de volgende kolommen bevatten:
-                    - x : float
-                    - y : float
-                    - r : float
-                    - slopetypeid : int (1: dike or 2: slope)
+        De tweede (profile) data adapter met profiel data moet de volgende kolommen bevatten:
 
-               [1] df_profile (pd.DataFrame):
-                    DataFrame met profiel data.
-                    Moet de volgende kolommen bevatten:
-                    - windspeed : float
-                    - sectormin : float
-                    - sectorsize : float
-                    - orientation : float (in graden)
-                    - crestlevel : float (in meters)
-                    - dam : int (0: geen dam or 1: dam)
-                    - damheight : float (in meters)
-                    - qcr : float (waarde in m^3/s)
-                        str (close | open)
-                        tuple (waarden van mu en sigma)
+        1. windspeed, windsnelheid
+        1. sectormin, de minimale sectorhoek.
+        1. sectorsize, de grootte van de sectorhoek.
+        1. orientation, orientatie van het profiel in graden
+        1. crestlevel, kruinhoogte in meters
+        1. dam, wel of geen dam (int, 0: geen dam or 1: dam)
+        1. damheight, dam hoogte in meters
+        1. qcr, mag een van 3 zijn: een waarde in m^3/s (float), open of niet (str: close | open) of de waarden van mu en sigma (tuple).
 
-               [2] df_bed_levels (pd.DataFrame):
-                    DataFrame met bed level data.
-                    Moet de volgende kolommen bevatten:
-                    - direction : float
-                    - bedlevel : float
-                    - fetch : float
+        De derde (Bedlevelfetch) data adapter met bodem data moet de volgende kolommen bevatten:
+
+        1. direction, windrichtingen
+        1. bedlevel, bodem profielen
+        1. fetch, lengte van fetch in meters
         """
         df_profile = self.data_adapter.input(input[1])
         if "parameters" in df_profile:

@@ -20,17 +20,31 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
     Voor het combineren van de mechanismes wordt het minimum van de kansen van de drie sub-mechanismes genomen,
     De gecombineerde fragility curve is de standaard output, de andere kunnen worden opgevraagd met de df_result_uplift, df_result_heave, en df_result_sellmeijer attributen.
 
-    Args:
-        data_adapter (DataAdapter): DataAdapter object
+    Attributes
+    ----------
+    data_adapter : DataAdapter
+        Adapter for handling data input and output operations.
+    df_prob_input : Optional[pd.DataFrame] | None
+        DataFrame containing probabilistic input data.
+    df_hydraulicload : Optional[pd.DataFrame] | None
+        DataFrame containing hydraulic load data.
+    df_out : Optional[pd.DataFrame] | None
+        Output DataFrame containing the final fragility curve.
+    df_result_uplift : Optional[pd.DataFrame] | None
+        DataFrame containing the uplift mechanism results.
+    df_result_heave : Optional[pd.DataFrame] | None
+        DataFrame containing the heave mechanism results.
+    df_result_sellmeijer : Optional[pd.DataFrame] | None
+        DataFrame containing the Sellmeijer mechanism results.
+    df_result_combined : Optional[pd.DataFrame] | None
+        DataFrame containing the combined mechanism results.
 
+    Notes
+    -----
+    De volgende bool opties kunnen worden ingesteld in de global_variables van de config:
 
-    Options in config
-    ------------------
-    progress: bool
-        Standaard is False
-
-    debug: bool
-        Standaard is False
+    1. progress, Standaard is False
+    1. debug, Standaard is False
     """
 
     data_adapter: DataAdapter
@@ -50,27 +64,16 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
         Parameters
         ----------
         input: list[str]
-               [0] df_prob_input (pd.DataFrame),
-               [1] df_hydraulicload (pd.DataFrame),
-
+            Lijst namen van de input dataadapters: prob_input, hydraulicload
         output: str
-            Fragility curve (pd.DataFrame)
+            Naam van de dataadapter Fragility curve output
 
         Notes
-        ------
-        input: list[str]
+        -----
+        Zie de documentatie van probabilistic_piping.probabilistic_fixedwl.ProbPipingFixedWaterlevelSimple voor meer informatie.
 
-               [0] df_prob_input (pd.DataFrame)
-
-                    DataFrame met data voor de probabilistische berekening.
-                    De benodigde kolommen zijn afhankelijk van de probabilistische berekening.
-                    Zie de documentatie van probabilistic_piping.probabilistic_fixedwl.ProbPipingFixedWaterlevelSimple voor meer informatie.
-
-
-               [1] df_hydraulicload (pd.DataFrame):
-                    DataFrame met waterlevel data.
-                    Moet de volgende kolommen bevatten:
-                    - hydraulicload : float
+        1. prob_input is afhankelijk van de probabilistische berekening die je wilt uitvoeren, zie externe documentatie.
+        1. De hydraulicload data adapter geeft de waterlevel data door, deze moet de kolom hydraulicload bevatten met floats.
 
         """
         self.calculate_fragility_curve(input, output)
@@ -78,6 +81,15 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
     def calculate_fragility_curve(self, input: list[str], output: str) -> None:
         """
         Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
+        Extra calculate functies is om overerving makkelijker te maken voor effecten.
+
+        Parameters
+        ----------
+        input: list[str]
+            Lijst namen van de input dataadapters: prob_input, hydraulicload
+        output: str
+            Naam van de dataadapter Fragility curve output
+
         """
         self.df_prob_input = self.data_adapter.input(input[0])
         self.df_hydraulicload = self.data_adapter.input(input[1])
@@ -142,8 +154,26 @@ class FragilityCurvePipingMultiple:
 
     Deze functie berekent één gecombineerde  fragility curves voor mechanismes: uplift, heave, Sellmeijer.
 
-    Args:
-        data_adapter (DataAdapter): DataAdapter object
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        DataAdapter object
+    df_prob_input: Optional[pd.DataFrame] | None
+        DataFrame met input voor de probabilistische berekening.
+    df_hydraulicload: Optional[pd.DataFrame] | None
+        DataFrame met waterlevel data.
+    df_out: Optional[pd.DataFrame] | None
+        DataFrame met de output van de fragility curve.
+    fragility_curve_function_simple: FragilityCurve
+        Functie die de fragility curve berekent.
+        Standaard is de FragilityCurvePipingFixedWaterlevel.
+
+    Notes
+    -----
+    De volgende bool opties kunnen worden ingesteld in de global_variables van de config:
+
+    1. progress, Standaard is False
+    1. debug, Standaard is False
 
     """
 
@@ -159,32 +189,21 @@ class FragilityCurvePipingMultiple:
 
     def run(self, input: list[str], output: str) -> None:
         """
-        Runt de berekening van de fragility curves voor piping
+        Runt de berekening van de fragility curves voor piping voor verschillende vakken
 
         Parameters
         ----------
         input: list[str]
-               [0] df_prob_input (pd.DataFrame),
-               [1] df_hydraulicload (pd.DataFrame),
-
+            Lijst namen van de input dataadapters: prob_input, hydraulicload
         output: str
-            Fragility curves (pd.DataFrame)
+            Naam van de dataadapter Fragility curve output
 
         Notes
-        ------
-        input: list[str]
+        -----
+        Zie de documentatie van probabilistic_piping.probabilistic_fixedwl.ProbPipingFixedWaterlevelSimple voor meer informatie.
 
-               [0] df_prob_input (pd.DataFrame)
-
-                    DataFrame met data voor de probabilistische berekening.
-                    De benodigde kolommen zijn afhankelijk van de probabilistische berekening.
-                    Zie de documentatie van probabilistic_piping.probabilistic_fixedwl.ProbPipingFixedWaterlevel voor meer informatie.
-
-
-               [1] df_hydraulicload (pd.DataFrame):
-                    DataFrame met waterlevel data.
-                    Moet de volgende kolommen bevatten:
-                    - hydraulicload : float
+        1. prob_input is afhankelijk van de probabilistische berekening die je wilt uitvoeren, zie externe documentatie.
+        1. De hydraulicload data adapter geeft de waterlevel data door, deze moet de kolom hydraulicload bevatten met floats.
 
         """
         self.df_prob_input = self.data_adapter.input(input[0])

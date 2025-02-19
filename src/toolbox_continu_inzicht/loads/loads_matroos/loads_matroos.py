@@ -15,20 +15,45 @@ from toolbox_continu_inzicht.base.aquo import read_aquo
 
 # dit is functie specifiek omdat waterlevel niet in de aquo standaard zit
 matroos_aquo_synoniem = {"water height": "waterlevel"}
+"""
+De LoadsMatroos klasse haalt belastinggegevens op van de Rijkswaterstaat Waterwebservices.
+
+Args:
+    data_adapter: DataAdapter
+        De data adapter voor het ophalen en opslaan van gegevens.
+    df_in: Optional[pd.DataFrame] | None = None
+        Het invoerdataframe.
+    df_out: Optional[pd.DataFrame] | None = None
+        Het uitvoerdataframe.
+"""
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsMatroos:
     """
-    De LoadsMatroos klasse haalt belastinggegevens op van de Rijkswaterstaat Waterwebservices.
-
-    Args:
-        data_adapter: DataAdapter
-            De data adapter voor het ophalen en opslaan van gegevens.
-        df_in: Optional[pd.DataFrame] | None = None
-            Het invoerdataframe.
-        df_out: Optional[pd.DataFrame] | None = None
-            Het uitvoerdataframe.
+    Attributes
+        Data adapter object for input and output data.
+    df_in: Optional[pd.DataFrame] | None
+        Input dataframe containing measurement location codes.
+    df_out: Optional[pd.DataFrame] | None
+        Output dataframe containing processed data.
+    url_retrieve_series_noos: str
+        URL for retrieving series from Noos server.
+    url_retrieve_series_matroos: str
+        URL for retrieving series from Matroos server.
+    url_retrieve_series_vitaal: str
+        URL for retrieving series from Vitaal server.
+    Methods
+    run(input: str, output: str) -> None:
+        Executes the function to fetch and process data for the matroos-toolbox.
+    format_location_names(location_names: list[str]) -> list[str]:
+        Formats a list of location names by removing spaces and converting to lowercase.
+    create_dataframe(
+        Creates a dataframe with values from the RWS water webservices.
+    generate_url(
+        parameter,
+        location_names
+        Generates the required URL to make a request to the Noos server.
     """
 
     data_adapter: DataAdapter
@@ -50,6 +75,17 @@ class LoadsMatroos:
             Naam van de dataadapter met invoergegevens.
         output: str
             Naam van de dataadapter om uitvoergegevens op te slaan.
+
+        Raises
+        ------
+        UserWarning
+            Als de 'LoadsMatroos' sectie niet aanwezig is in de global_variables (config).
+            Als de 'measurement_location_code' ontbreekt in de inputdata.
+            Als het gegeven model niet wordt herkend.
+            Als de locaties niet worden gevonden.
+        ConnectionError
+            Als er geen resultaten in de data zitten.
+            Als de verbinding mislukt.
         """
 
         # haal opties en dataframe van de config
@@ -167,16 +203,19 @@ class LoadsMatroos:
         ----------
         options: dict
             Een dictionary met opties uit de config
+        df_in: pd.DataFrame
+            Het invoerdataframe
         calc_time: datetime
             De huidige tijd
         json_data: list
-            Een lijst met JSON data
+            Een lijst met ogehaalde JSON data
+        global_variables: dict
+            Een dictionary met globale variabelen
 
-
-        Returns:
-        --------
-            pd.Dataframe
-                Pandas dataframe geschikt voor uitvoer
+        Returns
+        -------
+        dataframe: pd.Dataframe
+            Pandas dataframe met de voor uitvoer
         """
         dataframe = pd.DataFrame()
         records = []
@@ -243,7 +282,12 @@ class LoadsMatroos:
         return dataframe
 
     def generate_url(
-        self, calc_time, options, global_variables, parameter, location_names
+        self,
+        calc_time: datetime,
+        options: dict,
+        global_variables: dict,
+        parameter: str,
+        location_names: set[str],
     ) -> str:
         """
         Geeft de benodigde URL terug om het verzoek naar de Noos-server te maken
@@ -258,13 +302,21 @@ class LoadsMatroos:
             Globale variabelen die nodig zijn om de URL te genereren
         parameter: str
             Eenheid van de parameter waarvoor gegevens worden opgehaald
-        location_names: list
-            Lijst van locatienamen waarvoor gegevens worden opgehaald
+        location_names: set[str]
+            Set van locatienamen waarvoor gegevens worden opgehaald
 
         Returns
         -------
-            str
-                De gegenereerde URL voor het verzoek aan de Noos-server
+        url: str
+            De gegenereerde URL voor het verzoek aan de Noos-server
+
+
+        Raises
+        ------
+        UserWarning
+            Als de 'website' niet is opgegeven in de opties
+            Als de 'website' niet overeenkomt met de opties 'noos', 'matroos' of 'vitaal'
+            Als de 'website' 'matroos' of 'vitaal' is en de gebruiker geen gebruikersnaam en wachtwoord heeft opgegeven
         """
         if "website" not in options:
             raise UserWarning(

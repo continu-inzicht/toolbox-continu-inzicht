@@ -5,20 +5,44 @@ Bepaal de belasting op een dijkvak
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
-from typing import Optional
+from typing import ClassVar, Optional
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class SectionsLoads:
     """
-    Bepaal de belasting op een dijkvak\n
+    Bepaal de belasting op een dijkvak
 
-    ## Input schema's
-    **input_schema_sections (DataFrame): schema voor de lijst met dijkvakken\n
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        DataAdapter: De data adapter.
+    df_in_sections: Optional[pd.DataFrame] | None
+        DataFrame: lijst met dijkvakken.
+    df_in_loads: Optional[pd.DataFrame] | None
+        DataFrame: belasting per moment per meetlocaties.
+    df_in_section_fractions: Optional[pd.DataFrame] | None
+        DataFrame: koppeling van de maatgevende meetlocaties per dijkvak .
+    df_out: Optional[pd.DataFrame] | None
+        DataFrame: uitvoer.
+    input_schema_sections: ClassVar[dict[str, str]]
+        Schema voor de lijst met dijkvakken.
+    input_schema_loads: ClassVar[dict[str, str]]
+        Schema voor belasting per moment per meetlocaties.
+    input_schema_section_fractions: ClassVar[dict[str, str]]
+        Schema voor koppeling van de maatgevende meetlocaties per dijkvak door middel van verhoudingen.
+
+    Notes
+    -----
+    *Input schema's*
+
+    **input_schema_sections**: schema voor de lijst met dijkvakken
+
     - id: int64                         : id van het dijkvak
     - name: str                         : naam van de dijkvak
 
-    **input_schema_loads (DataFrame): schema voor belasting per moment per meetlocaties\n
+    **input_schema_loads**: schema voor belasting per moment per meetlocaties
+
     - measurement_location_id: int64    : id van het meetstation
     - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
     - unit: str                         : eenheid van de belastingparameter
@@ -26,15 +50,19 @@ class SectionsLoads:
     - value: float64                    : waarde van de tijdreeksitem
     - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
 
-    **input_schema_section_fractions (DataFrame): schema voor koppeling van de maatgevende meetlocaties per dijkvak\n
+    **input_schema_section_fractions**: schema voor koppeling van de maatgevende meetlocaties per dijkvak
+
     - id: int64                         : id van de dijkvak
     - idup: int64                       : id van bovenstrooms meetstation
     - iddown: int64                     : id van benedenstrooms meetstation
     - fractionup: float64               : fractie van bovenstrooms meetstation
     - fractiondown: float64             : fractie van benedestrooms meetstation
 
-    ## Output schema
-    **df_out (DataFrame): uitvoer\n
+
+    *Output schema*
+
+    **df_out (DataFrame): uitvoer
+
     - id: int64                         : id van het dijkvak
     - name; str                         : naam van de dijkvak
     - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
@@ -45,26 +73,17 @@ class SectionsLoads:
     """
 
     data_adapter: DataAdapter
-    """DataAdapter: De data adapter."""
-
     df_in_sections: Optional[pd.DataFrame] | None = None
-    """DataFrame: lijst met dijkvakken."""
-
     df_in_loads: Optional[pd.DataFrame] | None = None
-    """DataFrame: belasting per moment per meetlocaties."""
-
     df_in_section_fractions: Optional[pd.DataFrame] | None = None
-    """DataFrame: koppeling van de maatgevende meetlocaties per dijkvak ."""
-
     df_out: Optional[pd.DataFrame] | None = None
-    """DataFrame: uitvoer."""
 
     # Lijst met dijkvakken
-    input_schema_sections = {"id": "int64", "name": "object"}
+    input_schema_sections: ClassVar[dict[str, str]] = {"id": "int64", "name": "object"}
     """Schema voor de lijst met dijkvakken"""
 
     # belasting per moment per meetlocaties
-    input_schema_loads = {
+    input_schema_loads: ClassVar[dict[str, str]] = {
         "measurement_location_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
@@ -74,7 +93,7 @@ class SectionsLoads:
     }
 
     # koppeling van de maatgevende meetlocaties per dijkvak
-    input_schema_section_fractions = {
+    input_schema_section_fractions: ClassVar[dict[str, str]] = {
         "idup": "int64",
         "iddown": "int64",
         "fractionup": "float64",
@@ -87,14 +106,14 @@ class SectionsLoads:
         Parameters
         ----------
         input: list[str]
-            [0] lijst met dijkvakken
-
-            [1] belasting per moment per meetlocaties
-
-            [2] koppeling van de maatgevende meetlocaties per dijkvak
-
+            lijst van data adapters met: dijkvakken, belasting per moment per meetlocaties en koppeling van de maatgevende meetlocaties per dijkvak
         output: str
-            uitvoer sectie van het yaml-bestand: koppeling van de maatgevende meetlocaties per dijkvak
+            Data adapter voor koppeling van de maatgevende meetlocaties per dijkvak
+
+        Raises
+        ------
+        UserWarning
+            Als de input variabele niet 3 string waarden bevat.
         """
         if not len(input) == 3:
             raise UserWarning("Input variabele moet 3 string waarden bevatten.")

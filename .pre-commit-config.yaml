@@ -15,6 +15,11 @@ repos:
   #   rev: "v1.35.1"
   #   hooks:
   #     - id: yamllint
+  - repo: https://github.com/jsh9/pydoclint
+    rev: 0.6.2
+    hooks:
+      - id: pydoclint
+        args: [--style=numpy, --check-return-types=False]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.9.1
     hooks:

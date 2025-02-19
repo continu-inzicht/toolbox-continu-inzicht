@@ -19,12 +19,15 @@ class LoadsWaterwebservicesRWS:
 
     Attributes
     ----------
-        data_adapter: DataAdapter
-            De data adapter voor het ophalen en opslaan van gegevens.
-        df_in: Optional[pd.DataFrame] | None = None
-            Het invoerdataframe.
-        df_out: Optional[pd.DataFrame] | None = None
-            Het uitvoerdataframe.
+    data_adapter: DataAdapter
+        De data adapter voor het ophalen en opslaan van gegevens.
+    df_in: Optional[pd.DataFrame] | None
+        Het invoerdataframe.
+    df_out: Optional[pd.DataFrame] | None
+        Het uitvoerdataframe.
+    url_retrieve_observations: str
+        De url voor het ophalen van waarnemingen.
+
     """
 
     data_adapter: DataAdapter
@@ -37,6 +40,21 @@ class LoadsWaterwebservicesRWS:
     def run(self, input: str, output: str) -> None:
         """
         De runner van de Belasting WaterwebservicesRWS.
+
+        Parameters
+        ----------
+        input: str
+            De naam van de invoerdataadapter.
+        output: str
+            De naam van de uitvoerdataadapter.
+
+        Raises
+        ------
+        UserWarning
+            Wanneer de inputdata niet de kolom 'measurement_location_id' bevat.
+            Wanneer de inputdata geen 'measurement_location_code' bevat.
+            Wanneer de 'measurement_location_code' geen getal is.
+            Wanneer de 'LoadsWaterwebservicesRWS' sectie niet aanwezig is in global_variables (config).
         """
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
@@ -158,11 +176,15 @@ class LoadsWaterwebservicesRWS:
             De huidige tijd
         lst_data: list
             Een lijst met JSON data uit de post request
+        df_in: pd.DataFrame
+            Het invoerdataframe
+        global_variables: dict
+            De globale variabelen uit de config
 
-        Returns:
-        --------
-            pd.Dataframe
-                Pandas dataframe geschikt voor uitvoer
+        Returns
+        -------
+        dataframe: pd.Dataframe
+            Pandas dataframe geschikt voor uitvoer
         """
         dataframe = pd.DataFrame()
         records = []

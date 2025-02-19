@@ -13,19 +13,29 @@ def _interpolate_1d(x, xp, fp):
     return f
 
 
-def interpolate_1d(x, xp, fp, ll=1e-20, clip01=False):
+def interpolate_1d(
+    x: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float = 1e-20,
+    clip01: bool = False,
+) -> np.ndarray:
     """
     Interpolate an array along the given axis.
     Similar to np.interp, but with extrapolation outside range.
 
     Parameters
     ----------
-    x : np.array
+    x : np.ndarray
         Array with positions to interpolate at
-    xp : np.array
+    xp : np.ndarray
         Array with positions of known values
-    fp : np.array
+    fp : np.ndarray
         Array with values as known positions to interpolate between
+    ll : float
+        Lower limit for values in fp
+    clip01 : bool
+        Clip values between 0 and 1
 
     Returns
     -------
@@ -42,8 +52,33 @@ def interpolate_1d(x, xp, fp, ll=1e-20, clip01=False):
     return f
 
 
-def log_interpolate_1d(x, xp, fp, ll=1e-20, clip01=False):
-    """Similar to interpolate_1d, but interpolates in log-space"""
+def log_interpolate_1d(
+    x: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float = 1e-20,
+    clip01: bool = False,
+) -> np.ndarray:
+    """Similar to interpolate_1d, but interpolates in log-space
+
+    Parameters
+    ----------
+    x : np.ndarray
+        Array with positions to interpolate at
+    xp : np.ndarray
+        Array with positions of known values
+    fp : np.ndarray
+        Array with values as known positions to interpolate between
+    ll : float
+        Lower limit for values in fp
+    clip01 : bool
+        Clip values between 0 and 1
+
+    Returns
+    -------
+    np.array
+        interpolated array
+    """
     if ll > 0:
         fp[fp < ll] = ll
 
@@ -54,8 +89,33 @@ def log_interpolate_1d(x, xp, fp, ll=1e-20, clip01=False):
     return f
 
 
-def beta_interpolate_1d(x, xp, fp, ll=1e-20, clip01=False):
-    """Similar to interpolate_1d, but interpolates in beta-space"""
+def beta_interpolate_1d(
+    x: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float = 1e-20,
+    clip01: bool = False,
+) -> np.ndarray:
+    """Similar to interpolate_1d, but interpolates in beta-space
+
+    Parameters
+    ----------
+    x : np.ndarray
+        Array with positions to interpolate at
+    xp : np.ndarray
+        Array with positions of known values
+    fp : np.ndarray
+        Array with values as known positions to interpolate between
+    ll : float
+        Lower limit for values in fp
+    clip01 : bool
+        Clip values between 0 and 1
+
+    Returns
+    -------
+    np.array
+        interpolated array
+    """
     if ll > 0:
         fp[fp < ll] = ll
 

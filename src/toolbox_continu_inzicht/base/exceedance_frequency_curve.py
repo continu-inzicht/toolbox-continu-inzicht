@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Optional
+from typing import ClassVar, Optional
 
 import pandas as pd
 from pydantic.dataclasses import dataclass
@@ -14,29 +14,22 @@ class ExceedanceFrequencyCurve:
     Class met een aantal gemakkelijke methoden om overschrijdingsfrequentiecurves
     op te slaan en aan te passen.
 
-    Parameters
+    Attributes
     ----------
     data_adapter: DataAdapter
-                  DataAdapter object om data in te laden
-
+        DataAdapter object om data in te laden
     df_out: Optional[pd.DataFrame] | None
-            DataFrame met de overschrijdingsfrequentiecurve
-
+        DataFrame met de overschrijdingsfrequentiecurve
     lower_limit: float
-            Ondergrens voor de overschrijdingsfrequentie, standaard 1e-20
-
-    exceedance_frequency_curve_schema: dict
-            Schema waaraan de overschrijdingsfrequentiecurve moet voldoen:
-                hydraulicload: float
-                probability_exceedance: float
-
+        Ondergrens voor de overschrijdingsfrequentie, standaard 1e-20
+    exceedance_frequency_curve_schema: ClassVar[dict[str, str]]
+        Schema waaraan de overschrijdingsfrequentiecurve moet voldoen: {hydraulicload: float, probability_exceedance: float}
     """
 
     data_adapter: DataAdapter
     df_out: Optional[pd.DataFrame] | None = None
     lower_limit: float = 1e-20
-
-    exceedance_frequency_curve_schema = {
+    exceedance_frequency_curve_schema: ClassVar[dict[str, str]] = {
         "hydraulicload": float,
         "probability_exceedance": float,
     }

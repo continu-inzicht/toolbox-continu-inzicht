@@ -8,10 +8,14 @@ from datetime import datetime, timezone
 class Config(PydanticBaseModel):
     """Basis functie om de configuratie in te laden.
 
-    Parameters
+    Attributes
     ----------
     config_path: Path
-                 Pad naar een  `.yaml` bestand waarin per functie staat beschreven wat de in/output bestanden zijn
+        Pad naar een  `.yaml` bestand waarin per functie staat beschreven wat de in/output bestanden zijn
+    global_variables: dict
+        Globale variabelen die in de configuratie kunnen worden opgegeven
+    data_adapters: dict
+        Data adapters die in de configuratie kunnen worden op
 
     """
 

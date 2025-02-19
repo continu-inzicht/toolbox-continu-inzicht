@@ -2,7 +2,7 @@ from dataclasses import field
 import numpy as np
 from pydantic.dataclasses import dataclass
 import pandas as pd
-from typing import Optional, Callable
+from typing import ClassVar, Optional, Callable
 
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
@@ -44,55 +44,55 @@ class CombineFragilityCurvesIndependent:
     """
     Combineer meerdere fragility curves onafhankelijk tot een enkele fragility curves.
 
-    Args:
-        data_adapter (DataAdapter): DataAdapter object
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        DataAdapter object
+    lst_fragility_curves: list[pd.DataFrame]
+        Lijst van fragility curves die worden gecombineerd
+    df_out: Optional[pd.DataFrame] | None
+        DataFrame met de gecombineerde fragility curve
+    combine_func: Callable
+        Functie die wordt gebruikt om de fragility curves te combineren
+    weights: None
+        Alleen van toepassing bij de weighted sum methode, hier None
+    fragility_curve_schema: ClassVar[dict[str, str]]
+        Schema waaraan de fragility curve moet voldoen: hydraulicload: float, failure_probability: float
 
-    Options in config
-    ------------------
+    Notes
+    -----
     Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden.
     Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
-    De volgende opties kunnen worden ingesteld:
-    - extend_past_max: float
-        Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves.
-        Default is 0.01
+    De volgende opties kunnen via de config worden ingesteld:
 
-    - refine_step_size: float
-        De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren.
-        Default is 0.05
-
+    1. extend_past_max. Hoe ver de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves. Default is 0.01.
+    2. refine_step_size. De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.
     """
 
     data_adapter: DataAdapter
-
     lst_fragility_curves: list[pd.DataFrame] = field(default_factory=list)
     df_out: Optional[pd.DataFrame] | None = None
     combine_func: Callable = combine_independent
-    weights = None
+    weights: None = None
+    fragility_curve_schema: ClassVar[dict[str, str]] = {
+        "hydraulicload": "float",
+        "failure_probability": "float",
+    }
 
     def run(self, input: list[str], output: str) -> None:
         """
-
+        Combineert meerdere fragility curves
 
         Parameters
         ----------
         input: list[str]
-
             Lijst van namen van de data adapters met fragility curves.
-
         output: str
-
             Naam van de output data adapter.
-
-
-        Notes:
-        ------
-        Elke fragility curve moet de volgende kolommen bevatten:
-            - hydraulicload: float
-            - failure_probabilities: float
         """
 
         for key in input:
-            df_in = self.data_adapter.input(key)
+            df_in = self.data_adapter.input(key, self.fragility_curve_schema)
             self.lst_fragility_curves.append(df_in)
 
         global_variables = self.data_adapter.config.global_variables
@@ -140,22 +140,29 @@ class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
     """
     Combineer meerdere fragility curves afhankelijk tot een enkele fragility curves.
 
-    Args:
-        data_adapter (DataAdapter): DataAdapter object
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        DataAdapter object
+    lst_fragility_curves: list[pd.DataFrame]
+        Lijst van fragility curves die worden gecombineerd
+    df_out: Optional[pd.DataFrame] | None
+        DataFrame met de gecombineerde fragility curve
+    combine_func: Callable
+        Functie die wordt gebruikt om de fragility curves te combineren
+    weights: None
+        Alleen van toepassing bij de weighted sum methode, hier None
+    fragility_curve_schema: ClassVar[dict[str, str]]
+        Schema waaraan de fragility curve moet voldoen: hydraulicload: float, failure_probability: float
 
-    Options in config
-    ------------------
+    Notes
+    -----
     Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden.
     Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
-    De volgende opties kunnen worden ingesteld:
-    - extend_past_max: float
-        Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves.
-        Default is 0.01
+    De volgende opties kunnen via de config worden ingesteld:
 
-    - refine_step_size: float
-        De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren.
-        Default is 0.05
-
+    1. extend_past_max, Hoe ver de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves. Default is 0.01.
+    2. refine_step_size, De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.
     """
 
     data_adapter: DataAdapter
@@ -163,7 +170,11 @@ class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
     lst_fragility_curves: list[pd.DataFrame] = field(default_factory=list)
     df_out: Optional[pd.DataFrame] | None = None
     combine_func: Callable = combine_dependent
-    weights = None
+    weights: None = None
+    fragility_curve_schema: ClassVar[dict[str, str]] = {
+        "hydraulicload": "float",
+        "failure_probability": "float",
+    }
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -171,22 +182,29 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
     """
     Combineer meerdere fragility curves met een gewogen som tot een enkele fragility curves.
 
-    Args:
-        data_adapter (DataAdapter): DataAdapter object
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        DataAdapter object
+    lst_fragility_curves: list[pd.DataFrame]
+        Lijst van fragility curves die worden gecombineerd
+    df_out: Optional[pd.DataFrame] | None
+        DataFrame met de gecombineerde fragility curve
+    combine_func: Callable
+        Functie die wordt gebruikt om de fragility curves te combineren
+    weights: list[float] | None
+        Gewichten voor de weighted sum methode, in de zelfde volgorde als de lijst van fragility curves
+    fragility_curve_schema: ClassVar[dict[str, str]]
+        Schema waaraan de fragility curve moet voldoen: hydraulicload: float, failure_probability: float
 
-    Options in config
-    ------------------
+    Notes
+    -----
     Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden.
     Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
-    De volgende opties kunnen worden ingesteld:
-    - extend_past_max: float
-        Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves.
-        Default is 0.01
+    De volgende opties kunnen via de config worden ingesteld:
 
-    - refine_step_size: float
-        De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren.
-        Default is 0.05
-
+    1. extend_past_max. Hoe ver de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves. Default is 0.01.
+    2. refine_step_size. De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.
     """
 
     data_adapter: DataAdapter
@@ -195,40 +213,31 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
     df_out: Optional[pd.DataFrame] | None = None
     combine_func: Callable = combine_weighted
     weights: list[float] | None = None
+    fragility_curve_schema: ClassVar[dict[str, str]] = {
+        "hydraulicload": "float",
+        "failure_probability": "float",
+    }
 
     def run(self, input: list[str], output: str):
         """
+        Combineert meerdere fragility curves onafhankelijk
 
         Parameters
         ----------
         input: list[str]
-
             Lijst van namen van de data adapters met fragility curves.
             De laatste lijst hiervan in de gewichten.
-
         output: str
-
             Naam van de output data adapter.
 
-
-        Notes:
+        Raises
         ------
-        Elke fragility curve moet de volgende kolommen bevatten:
-            - hydraulicload: float
-            - failure_probabilities: float
-
-        De laatste fragility curve in de input lijst bevat de gewichten.
-
-        Deze moet de volgende kolom bevatten:
-
-            - weights: float
-
-                per curve de gewichten
-
+        UserWarning
+            Als de lengte van de gewichten niet gelijk is aan het aantal fragility curves, de laatste waarde van de input lijst moet de gewichten bevatten.
         """
 
         for key in input[:-1]:
-            df_in = self.data_adapter.input(key)
+            df_in = self.data_adapter.input(key, self.fragility_curve_schema)
             self.lst_fragility_curves.append(df_in)
 
         self.weights = self.data_adapter.input(input[-1])["weights"].to_numpy()

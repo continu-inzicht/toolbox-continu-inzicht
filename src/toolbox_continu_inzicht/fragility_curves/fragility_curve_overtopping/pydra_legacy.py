@@ -3,10 +3,11 @@ pydra_legacy.py: functions from old pydra version
 bretschneider: function to calculate wave conditions with Bretschneider.
 """
 
+from typing import Tuple
 import numpy as np
 
 
-def bretschneider(d, fe, u):
+def bretschneider(d: float, fe: float, u: float) -> Tuple[float, float]:
     """
     Bereken golfcondities met Bretschneider.
     Gebaseerd op "subroutine Bretschneider" in Hydra-NL, geprogrammeerd door
@@ -91,7 +92,7 @@ qcr_table = {
 }
 
 
-def _get_mu_sigma(EX, SDX):
+def _get_mu_sigma(EX: float, SDX: float) -> Tuple[float, float]:
     """
     Get mu and sigma of the normal distribution of the
     underlying log-normal distribution.
@@ -106,6 +107,13 @@ def _get_mu_sigma(EX, SDX):
         Expectancy of the log-normal distribution
     SDX : float
         Standard deviation of the log-normal distribution
+
+    Returns
+    -------
+    mu2 : float
+        Expectancy of the underlying normal distribution
+    sigma2 : float
+        Standard deviation of the underlying normal distribution
     """
     # Variatiecoëfficiënt:
     Vx = SDX / EX
@@ -119,7 +127,7 @@ def _get_mu_sigma(EX, SDX):
     return mu2, sigma2
 
 
-def get_qcr_dist(Hs, grass_quality):
+def get_qcr_dist(Hs: float, grass_quality: str) -> Tuple[float, float]:
     """
     Get distribution for critical overtopping discharge
     based on significant wave height
@@ -130,6 +138,18 @@ def get_qcr_dist(Hs, grass_quality):
         Significant wave height
     grass_quality : str
         Grass quality (open or closed)
+
+    Raises
+    ------
+    ValueError
+        If grass quality is not understood, must be "open" or "closed"
+
+    Returns
+    -------
+    Mu : float
+        Expectancy of the distribution
+    Sigma : float
+        Standard deviation of the distribution
     """
     if isinstance(grass_quality, tuple):
         mu, sigma = grass_quality
