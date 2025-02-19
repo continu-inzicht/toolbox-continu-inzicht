@@ -52,12 +52,14 @@ De onderstaande secties behandelen de stappen per geval.
     en [hier](https://help.github.com/articles/syncing-a-fork/));
 1. Voor [Visual Studio Code](https://code.visualstudio.com) staat er een voorbeeldconfiguratie.
 1. Installeer de benodigde python packages in een pixi omgeving met `pixi install`, volg de uitleg van de [pixi](https://pixi.sh/latest/). Pixi zorgt er voor dat iedereen dezelfde versies van python packages heeft.
-1. Zorg dat de format van je code correct is met `pixi run pre-commit`. Door het installeren van pre-commit met de volgende commando: [`pre-commit install --hook-type pre-commit --hook-type pre-push`](https://stackoverflow.com/questions/63820683/with-pre-commit-how-to-use-some-hooks-before-commit-and-others-before-push) runt deze lokaal automatisch met `git commit` actie.
+1. Zorg dat de format van je code correct is met `pixi run pre-commit`.
+[`Pre-commit`](https://pre-commit.com/) haalt opmaak fouten uit je code en zorgt voor een fijne manier van samenwerken.
+Hier onder vallen een aantal zaken als spaties, haakjes etc, maar ook docstrings. Door het installeren van pre-commit met de volgende commando: [`pre-commit install --hook-type pre-commit --hook-type pre-push`](https://stackoverflow.com/questions/63820683/with-pre-commit-how-to-use-some-hooks-before-commit-and-others-before-push) runt deze lokaal automatisch met `git commit` actie.
 1. Zorg dat alle bestaande testen werken met `pixi run pytest`. Met `pixi run pytest-cov` wordt (lokaal) een html overzicht gegenereerd in de map tests/hidden_test_cov/index.html.
 1. Zorg dat alle documentatie automatisch genereert met `pixi run quarto-render`. [Quarto](https://quarto.org/docs/computations/python.html) is al onderdeel van de zojuist aangemaakte pixi omgeving.
 1. Voeg bij nieuwe functionaliteit altijd nieuwe tests toe.
 1. Update en voeg documentatie toe. Gebruik [Numpy Style Python
-    docstrings](https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes). Zorg dat je code leesbaar en begrijpelijk is voor anderen.
+    docstrings](https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes). Zorg dat je code leesbaar en begrijpelijk is voor anderen. De [`pydoclint`](https://github.com/jsh9/pydoclint) checkt de doctring format voor je.
 1. [Push](http://rogerdudler.github.io/git-guide/) je branch.
     naar (jouw fork van) de toolbox continu inzicht repo op GitHub;
 1. Maak een pull request aan, bijvoorbeeld volgens

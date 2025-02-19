@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from pydantic.dataclasses import dataclass
 from typing import Optional
@@ -19,63 +18,51 @@ from toolbox_continu_inzicht import FragilityCurve, DataAdapter, Config
 @dataclass(config={"arbitrary_types_allowed": True})
 class FragilityCurveOvertopping(FragilityCurve):
     """
-       Maakt een enkele fragility curve voor golf overslag.
+    Maakt een enkele fragility curve voor golf overslag.
 
     Attributes
-       ----------
-       data_adapter: DataAdapter
-           DataAdapter object
-       df_slopes: Optional[pd.DataFrame] | None
-           DataFrame met helling data.
-       df_bed_levels: Optional[pd.DataFrame] | None
-           DataFrame met bed level data.
-       df_out: Optional[pd.DataFrame] | None
-           DataFrame met de resultaten van de berekening.
-       lower_limit: float
-           Ondergrens voor de overschrijdingsfrequentie, standaard 1e-20
-       fragility_curve_function: FragilityCurve
-           FragilityCurve object
-       effect: float | None
-           Effect van de maatregel (niet gebruikt)
-       measure_id: int | None
-           Maatregel id (niet gebruikt)
+    ----------
+    data_adapter: DataAdapter
+        DataAdapter object
+    df_slopes: Optional[pd.DataFrame] | None
+        DataFrame met helling data.
+    df_profile: Optional[pd.DataFrame] | None
+        DataFrame met profiel data.
+    df_bed_levels: Optional[pd.DataFrame] | None
+        DataFrame met bed level data.
+    df_out: Optional[pd.DataFrame] | None
+        DataFrame met de resultaten van de berekening.
 
-       Notes
-       -----
-       Via de configuratie kunnen de volgende opties worden ingesteld, deze zijn float ten zij anders aangegeven.
-       Onzekerheden:
+    Notes
+    -----
+    Via de configuratie kunnen de volgende opties worden ingesteld, deze zijn float ten zij anders aangegeven.
+    Onzekerheden:
 
-       1. gh_onz_mu, GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
-       1. gh_onz_sigma, GolfHoogte onzekerheid sigma: standaard afwijking waarde (standaard 0.27)
-       1. gp_onz_mu_tp, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-       1. gp_onz_sigma_tp, GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
-       1. gp_onz_mu_tspec, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-       1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
-       1. gh_onz_aantal, Aantal onzekerheden in de golfhoogte (standaard 7)
-       1. gp_onz_aantal, Aantal onzekerheden in de golfperiode (standaard 7)
+    1. gh_onz_mu, GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
+    1. gh_onz_sigma, GolfHoogte onzekerheid sigma: standaard afwijking waarde (standaard 0.27)
+    1. gp_onz_mu_tp, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
+    1. gp_onz_sigma_tp, GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+    1. gp_onz_mu_tspec, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
+    1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+    1. gh_onz_aantal, Aantal onzekerheden in de golfhoogte (standaard 7)
+    1. gp_onz_aantal, Aantal onzekerheden in de golfperiode (standaard 7)
 
-       tp_tspec, de verhouding tussen de piek periode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
+    tp_tspec, de verhouding tussen de piek periode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
 
-       De waterniveaus waarmee probablistisch gerekend wordt is verdeelt in twee delen: grof en fijn.
+    De waterniveaus waarmee probablistisch gerekend wordt is verdeelt in twee delen: grof en fijn.
 
-       1. lower_limit_coarse, De ondergrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 4.0m onder de kruin)
-       1. upper_limit_coarse, De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 2.0m onder de kruin). Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.
-       1. upper_limit_fine, De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)
-       1. hstap, De fijne stapgrootte van de waterstanden waarvoor de fragiliteitscurve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.
+    1. lower_limit_coarse, De ondergrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 4.0m onder de kruin)
+    1. upper_limit_coarse, De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 2.0m onder de kruin). Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.
+    1. upper_limit_fine, De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)
+    1. hstap, De fijne stapgrootte van de waterstanden waarvoor de fragiliteitscurve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.
 
     """
 
     data_adapter: DataAdapter
     df_slopes: Optional[pd.DataFrame] | None = None
+    df_profile: Optional[pd.DataFrame] | None = None
     df_bed_levels: Optional[pd.DataFrame] | None = None
-    data_adapter: DataAdapter
-    hydraulicload: Optional[np.ndarray] = None
-    failure_probability: Optional[np.ndarray] = None
-    fragility_curve_schema = {
-        "hydraulicload": float,
-        "failure_probability": float,
-    }
-    lower_limit = 1e-20
+    df_out: Optional[pd.DataFrame] | None = None
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -240,8 +227,6 @@ class FragilityCurveOvertoppingMultiple:
         DataFrame met bed level data.
     df_out: Optional[pd.DataFrame] | None
         DataFrame met de resultaten van de berekening.
-    lower_limit: float
-        Ondergrens voor de overschrijdingsfrequentie, standaard 1e-20
     fragility_curve_function: FragilityCurve
         FragilityCurve object
     effect: float | None
@@ -279,7 +264,6 @@ class FragilityCurveOvertoppingMultiple:
     df_slopes: Optional[pd.DataFrame] | None = None
     df_bed_levels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
-    lower_limit: float = 1e-20
 
     fragility_curve_function: FragilityCurve = FragilityCurveOvertopping
     effect: float | None = None

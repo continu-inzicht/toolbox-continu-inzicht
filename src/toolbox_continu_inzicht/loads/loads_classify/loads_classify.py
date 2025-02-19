@@ -9,6 +9,20 @@ class LoadsClassify:
     """
     Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd.
 
+    Notes
+    -----
+
+    **Input schema's**
+
+    *input_schema_loads*: schema voor belasting per moment per meetlocaties
+
+    - measurement_location_id: int64    : id van het meetstation
+    - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
+    - unit: str                         : eenheid van de belastingparameter
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : waarde van de tijdreeksitem
+    - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
+
     """
 
     data_adapter: DataAdapter
@@ -17,6 +31,7 @@ class LoadsClassify:
     df_in_loads: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
+    # TODO: add to docstring
     # Lijst met drempelwaarden per meetlocatie
     input_schema_thresholds = {
         "measurement_location_id": "int64",

@@ -19,6 +19,11 @@ quartodoc-build = { cmd = "quartodoc build && rm objects.json", cwd = "docs" ,in
     ],outputs = [
     "docs/reference/"
     ]}
+
+quartodoc-build-force = { cmd = "quartodoc build && rm objects.json", cwd = "docs" ,inputs = [
+    "docs/_quarto.yml",
+    "src/continu_inzicht_toolbox",
+] }
 quarto-preview = { cmd = "export QUARTO_PYTHON=python && quarto preview docs", depends-on = [
     "quartodoc-build",
 ] }

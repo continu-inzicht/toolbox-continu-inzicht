@@ -2,7 +2,7 @@ from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
 import pandas.api.types as ptypes
-from typing import Optional
+from typing import ClassVar, Optional
 from datetime import datetime, timedelta
 
 
@@ -12,13 +12,17 @@ class LoadsToMoments:
     Met deze klasse kunnen waterstandsgegevens worden omgezet naar bepaalde momenten.
     Deze klasse bevat een methode genaamd 'run' die de waterstandsgegevens verwerkt en de resulterende momenten opslaat in een dataframe.
 
-    Attributes:
-        data_adapter (DataAdapter): Een object van de klasse DataAdapter.
-        df_in (Optional[pd.DataFrame] | None): Het invoerdataframe met waterstandsgegevens. Standaard is dit None.
-        df_out (Optional[pd.DataFrame] | None): Het uitvoerdataframe met de resulterende momenten. Standaard is dit None.
-    Methods:
-        run(input: str, output: str): Verwerkt de waterstandsgegevens en slaat de resulterende momenten op in het uitvoerdataframe.
-        get_moment_from_dataframe(moment, df_moments): Haalt het moment op uit het gegeven dataframe met waterstandsgegevens.
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        Een object van de klasse DataAdapter.
+    df_in: Optional[pd.DataFrame] | None
+        Het invoerdataframe met waterstandsgegevens. Standaard is dit None.
+    df_out: Optional[pd.DataFrame] | None
+        Het uitvoerdataframe met de resulterende momenten. Standaard is dit None.
+
+    input_schema_loads: ClassVar[dict[str, str]]
+        Het schema van het invoerdataframe met waterstandsgegevens.
 
     """
 
@@ -27,7 +31,7 @@ class LoadsToMoments:
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    input_schema_loads = {
+    input_schema_loads: ClassVar[dict[str, str]] = {
         "measurement_location_id": "int64",
         "parameter_id": "int64",
         "unit": "object",

@@ -34,14 +34,14 @@ class SectionsLoads:
 
     Notes
     -----
-    *Input schema's*
+    **Input schema's**
 
-    **input_schema_sections**: schema voor de lijst met dijkvakken
+    *input_schema_sections*: schema voor de lijst met dijkvakken
 
     - id: int64                         : id van het dijkvak
     - name: str                         : naam van de dijkvak
 
-    **input_schema_loads**: schema voor belasting per moment per meetlocaties
+    *input_schema_loads*: schema voor belasting per moment per meetlocaties
 
     - measurement_location_id: int64    : id van het meetstation
     - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
@@ -50,7 +50,7 @@ class SectionsLoads:
     - value: float64                    : waarde van de tijdreeksitem
     - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
 
-    **input_schema_section_fractions**: schema voor koppeling van de maatgevende meetlocaties per dijkvak
+    *input_schema_section_fractions*: schema voor koppeling van de maatgevende meetlocaties per dijkvak
 
     - id: int64                         : id van de dijkvak
     - idup: int64                       : id van bovenstrooms meetstation
@@ -59,9 +59,9 @@ class SectionsLoads:
     - fractiondown: float64             : fractie van benedestrooms meetstation
 
 
-    *Output schema*
+    **Output schema**
 
-    **df_out (DataFrame): uitvoer
+    *df_out (DataFrame)*: uitvoer
 
     - id: int64                         : id van het dijkvak
     - name; str                         : naam van de dijkvak
