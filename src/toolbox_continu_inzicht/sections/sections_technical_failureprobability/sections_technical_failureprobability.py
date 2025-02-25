@@ -5,7 +5,7 @@ Bepaal de technische faalkans van een dijkvak
 from pydantic.dataclasses import dataclass
 from scipy.interpolate import interp1d
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from typing import Optional
+from typing import ClassVar, Optional
 
 import numpy as np
 import pandas as pd
@@ -15,6 +15,21 @@ import pandas as pd
 class SectionsTechnicalFailureprobability:
     """
     Bepaal de technische faalkans van een dijkvak
+
+    Attributes
+    ----------
+    data_adapter : DataAdapter
+        DataAdapter object voor het verwerken van gegevens.
+    df_in_section_loads : Optional[pd.DataFrame] | None
+        Invoer DataFrame met belasting per dijkvak. Standaardwaarde is None.
+    df_in_fragility_curves : Optional[pd.DataFrame] | None
+        Invoer DataFrame met fragiliteitscurves per dijkvak. Standaardwaarde is None.
+    df_out : Optional[pd.DataFrame] | None
+        Uitvoer DataFrame met faalkansen per dijkvak. Standaardwaarde is None.
+    input_schema_fragility_curves : ClassVar[dict[str, str]]
+        Schema voor de invoer van fragiliteitscurves per dijkvak.
+    input_schema_loads : ClassVar[dict[str, str]]
+        Schema voor de invoer van belasting per dijkvak.
 
     Notes
     -----
@@ -59,16 +74,11 @@ class SectionsTechnicalFailureprobability:
     data_adapter: DataAdapter
 
     df_in_section_loads: Optional[pd.DataFrame] | None = None
-    """DataFrame: tijdreeks met belasting op de dijkvak."""
-
     df_in_fragility_curves: Optional[pd.DataFrame] | None = None
-    """DataFrame: fragility curves voor de dijkvak."""
-
     df_out: Optional[pd.DataFrame] | None = None
-    """DataFrame: uitvoer."""
 
     # fragility curve per dijkvak
-    input_schema_fragility_curves = {
+    input_schema_fragility_curves: ClassVar[dict[str, str]] = {
         "section_id": "int64",
         "failuremechanism": "object",
         "hydraulicload": "float64",
@@ -76,7 +86,7 @@ class SectionsTechnicalFailureprobability:
     }
 
     # belasting per moment per dijkvak
-    input_schema_loads = {
+    input_schema_loads: ClassVar[dict[str, str]] = {
         "section_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
@@ -89,11 +99,21 @@ class SectionsTechnicalFailureprobability:
         """
         Uitvoeren van het bepalen van de faalkans van een dijkvak.
 
-        Args:\n
-            input (list[str]): Lijst met namen van configuratie:
-                [0] tijdreeks met belasting op de dijkvak
-                [1] fragility curves voor de dijkvak
-            output (str): uitvoer sectie van het yaml-bestand.
+        Parameters
+        ----------
+        input : list[str]
+            Lijst met namen van data adapters (2) voor tijdreeks met belasting op de dijkvak en fragility curves voor de dijkvak
+        output : str
+            Uitvoer data adapter naam.
+
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        UserWarning
+            Als de lengte van de input variabele niet gelijk is aan 2.
         """
 
         if not len(input) == 2:

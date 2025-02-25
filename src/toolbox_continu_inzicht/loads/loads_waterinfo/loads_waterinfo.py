@@ -2,7 +2,7 @@ from datetime import timedelta
 from zoneinfo import ZoneInfo
 
 from pydantic.dataclasses import dataclass
-from typing import Optional
+from typing import Any, ClassVar, Optional
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
 from toolbox_continu_inzicht.utils.datetime_functions import (
@@ -16,7 +16,25 @@ from toolbox_continu_inzicht.base.aquo import read_aquo
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsWaterinfo:
     """
-    Belastinggegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte
+    Belastinggegevens ophalen van Rijkswaterstaat Waterinfo
+
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        De data adapter voor het ophalen en opslaan van gegevens.
+    df_in: Optional[pd.DataFrame] | None
+        Dataframe met meetlocaties.
+    df_out: Optional[pd.DataFrame] | None
+        Dataframe met belastinggegevens.
+    url: str
+        De url van de Waterinfo API.
+
+    input_waterinfo_schema: ClassVar[dict[str, str]]
+        Het schema van de invoer data meetlocaties.
+
+    Notes
+    -----
+    Hiervoor wordt de url gebruikt: https://waterinfo.rws.nl/#/publiek/waterhoogte
     """
 
     data_adapter: DataAdapter
@@ -27,7 +45,7 @@ class LoadsWaterinfo:
     url: str = "https://waterinfo.rws.nl/api/chart/get"
 
     # Kolommen schema van de invoer data meetlocaties
-    input_schema = {
+    input_waterinfo_schema: ClassVar[dict[str, str]] = {
         "measurement_location_id": "int64",
         "measurement_location_code": "object",
         "measurement_location_description": "object",
@@ -79,7 +97,7 @@ class LoadsWaterinfo:
                 options["MISSING_VALUE"] = -999
 
         # Dit zijn de meetlocaties vanuit invoer
-        self.df_in = self.data_adapter.input(input, self.input_schema)
+        self.df_in = self.data_adapter.input(input, self.input_waterinfo_schema)
 
         self.df_out = pd.DataFrame()
 
@@ -167,29 +185,40 @@ class LoadsWaterinfo:
         options: dict,
         maptype_schema: dict,
         measuringstation: dict,
-        json_data: dict,
+        json_data: dict[str, Any],
     ) -> pd.DataFrame:
         """Maak een pandas dataframe van de opgehaalde data uit Waterinfo
 
-        Args:
-            options (dict): options opgegeven in de yaml
-            maptype_schema (dict): gegevens van de maptype
-            measuringstation (dict): gegevens van het meetstation
-            json_data (str): JSON data met opgehaalde belasting data
+        Parameters
+        ----------
+        options : dict
+            Opties opgegeven in de yaml.
+        maptype_schema : dict
+            Gegevens van de maptype.
+        measuringstation : dict
+            Gegevens van het meetstation.
+        json_data : dict[str, Any]
+            JSON data met opgehaalde belasting data.
 
-        Returns:
-            Dataframe: Pandas dataframe geschikt voor uitvoer:
-            definition:
-                - Meetlocatie id (measurement_location_id)
-                - Meetlocatie code (measurement_location_code)
-                - Meetlocatie omschrijving/naam (measurement_location_description)
-                - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id)
-                - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code)
-                - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description)
-                - Eenheid (unit)
-                - Datum en tijd (date_time)
-                - Waarde (value)
-                - Type waarde: meting of verwachting (value_type)
+        Returns
+        -------
+        pd.DataFrame
+            Pandas dataframe geschikt voor uitvoer.
+
+        Notes
+        -----
+        Het dataframe bevat de volgende kolommen:
+
+        - Meetlocatie id (measurement_location_id)
+        - Meetlocatie code (measurement_location_code)
+        - Meetlocatie omschrijving/naam (measurement_location_description)
+        - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id)
+        - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code)
+        - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description)
+        - Eenheid (unit)
+        - Datum en tijd (date_time)
+        - Waarde (value)
+        - Type waarde: meting of verwachting (value_type)
         """
         dataframe = pd.DataFrame()
 
@@ -251,21 +280,29 @@ class LoadsWaterinfo:
 
     def get_maptype(self, maptype: str, global_variables: dict) -> dict:
         """
-        bepaal welke schema gebruikt moet worden voor het ophalen van de belasting
+        Bepaalt welk schema moet worden gebruikt voor het ophalen van de belasting.
 
-        Args:
-            maptype (str): maptypes:
-                - waterhoogte,
-                - wind,
-                - golfhoogte,
-                - watertemperatuur,
-                - luchttemperatuur,
-                - astronomische-getij,
-                - waterafvoer,
-                - zouten
+        Parameters
+        ----------
+        maptype : str
+            Het type kaart:
 
-        returns:
-            de query van de range als string. voorbeeld: -48,0
+            - waterhoogte,
+            - wind,
+            - golfhoogte,
+            - watertemperatuur,
+            - luchttemperatuur,
+            - astronomische-getij,
+            - waterafvoer,
+            - zouten
+
+        global_variables : dict
+            De globale variabelen van de configuratie.
+
+        Returns
+        -------
+        str
+            De query van het bereik als een string. Bijvoorbeeld: -48,0
         """
         waterinfo_series = [
             {

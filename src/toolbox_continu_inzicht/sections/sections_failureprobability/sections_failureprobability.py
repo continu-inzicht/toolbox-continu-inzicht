@@ -4,7 +4,7 @@ Bepaal de faalkans van een dijkvak
 
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from typing import Optional
+from typing import ClassVar, Optional
 
 import pandas as pd
 
@@ -14,8 +14,24 @@ class SectionsFailureprobability:
     """
     Bepaal de faalkans van een dijkvak
 
-    ## Input schema's
-    **input_schema_failureprobability (DataFrame): schema voor de lijst met dijkvakken\n
+    Attributes
+    ----------
+    data_adapter : DataAdapter
+        DataAdapter object voor het verwerken van gegevens.
+    df_in_failureprobability : Optional[pd.DataFrame] | None
+        Invoer DataFrame met faalkans per dijkvak. Standaardwaarde is None.
+    df_out : Optional[pd.DataFrame] | None
+        Uitvoer DataFrame met faalkans per dijkvak. Standaardwaarde is None.
+    input_schema_failureprobability : ClassVar[dict[str, str]]
+        Schema voor de invoer van de faalkans per dijkvak.
+
+    Notes
+    -----
+
+    **Input schema's**
+
+    *input_schema_failureprobability*: schema voor de lijst met dijkvakken
+
     - section_id: int64                 : id van de dijkvak
     - failuremechanism_id: int64        : id van het faalmechanisme
     - value_parameter_id: int64         : id van de belastingparameter (1,2,3,4)
@@ -23,8 +39,10 @@ class SectionsFailureprobability:
     - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
     - value: float64                    : belasting van de tijdreeksitem
 
-    ## Output schema
-    **df_out (DataFrame): uitvoer\n
+    **Output schema**
+
+    *df_out*: uitvoer
+
     - section_id: int64                 : id van het dijkvak
     - failuremechanism_id: int64        : id van het faalmechanisme
     - value_parameter_id: int64         : id van de belastingparameter (1,2,3,4)
@@ -34,15 +52,11 @@ class SectionsFailureprobability:
     """
 
     data_adapter: DataAdapter
-
     df_in_failureprobability: Optional[pd.DataFrame] | None = None
-    """DataFrame: lijst met faalkansen op een dijkvak voor verschillende faalmechanisms en maatregelen."""
-
     df_out: Optional[pd.DataFrame] | None = None
-    """DataFrame: uitvoer."""
 
     # faalkans per moment per dijkvak
-    input_schema_failureprobability = {
+    input_schema_failureprobability: ClassVar[dict[str, str]] = {
         "section_id": "int64",
         "failuremechanism_id": "int64",
         "value_parameter_id": "int64",
@@ -57,10 +71,11 @@ class SectionsFailureprobability:
 
         Parameters:
         ----------
-        input: (str) Faalkans per dijkvak
+        input: str
+            Naam van de data adapter van Faalkans per dijkvak
         output: str
 
-            uitvoer sectie van het yaml-bestand: koppeling van de maatgevende meetlocaties per dijkvak
+            uitvoer data adapter: koppeling van de maatgevende meetlocaties per dijkvak
             Dataframe: Pandas dataframe geschikt voor uitvoer:
                 - Meetlocatie id (measurement_location_id)
                 - Meetlocatie code (measurement_location_code)

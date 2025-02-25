@@ -4,7 +4,7 @@ Bepaal de status van een dijkvak
 
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from typing import Optional
+from typing import ClassVar, Optional
 
 import pandas as pd
 
@@ -14,19 +14,43 @@ class SectionsClassify:
     """
     Bepaal de status van een dijkvak
 
-    ## Input schema's
-    **input_schema_thresholds (DataFrame): schema voor klassegrenzen per dijkvak\n
+    Attributes
+    ----------
+    data_adapter : DataAdapter
+        De data adapter die wordt gebruikt om de data in te laden en op te slaan.
+    df_in_thresholds : Optional[pd.DataFrame] | None
+        Dataframe met klassegrenzen per dijkvak.
+    df_in_failureprobability : Optional[pd.DataFrame] | None
+        Dataframe met faalkans per moment per dijkvak.
+    df_out : Optional[pd.DataFrame] | None
+        Dataframe met geclassificeerde faalkansen per dijkvak.
+    input_schema_thresholds : ClassVar[dict[str, str]]
+        Schema voor klassegrenzen per dijkvak.
+    input_schema_failureprobability : ClassVar[dict[str, str]]
+        Schema voor faalkans per moment per dijkvak.
+
+
+    Notes
+    -----
+
+    **Input schema's**
+
+    *input_schema_thresholds*: schema voor klassegrenzen per dijkvak
+
     - lower_boundary: float64           : ondergrens van de klassegrens
     - upper_boundary: float64           : bovengrens van de klassegrens
     - state_id: int64                   : id van de klassegrens
 
-    **input_schema_failureprobability (DataFrame): schema voor faalkans per moment per dijkvak\n
+    *input_schema_failureprobability**: schema voor faalkans per moment per dijkvak
+
     - section_id: int64                 : id van het dijkvak
     - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
     - value: float64                    : faalkans van de tijdreeksitem
 
-    ## Output schema
-    **df_out (DataFrame): uitvoer\n
+    **Output schema**
+
+    *Output format*: uitvoer
+
     - failureprobability_id: in64       : id van de dijkvak/faalmechanisme/maatregel combinatie
     - section_id: int64                 : id van het dijkvak
     - value_parameter_id                : id van de belasting parameter (1,2,3,4)
@@ -48,14 +72,14 @@ class SectionsClassify:
     df_out: Optional[pd.DataFrame] | None = None
 
     # klassegrenzen per dijkvak
-    input_schema_thresholds = {
+    input_schema_thresholds: ClassVar[dict[str, str]] = {
         "lower_boundary": "float64",
         "upper_boundary": "float64",
         "state_id": "int",
     }
 
     # faalkans per moment per dijkvak
-    input_schema_failureprobability = {
+    input_schema_failureprobability: ClassVar[dict[str, str]] = {
         "section_id": "int64",
         "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
@@ -65,11 +89,20 @@ class SectionsClassify:
         """
         Bepaal de status van een dijkvak
 
-        Args:
-            input List(str): [0] klassegrenzen
-                             [1] faalkans per dijkvak
-            output (str): uitvoer sectie van het yaml-bestand:
-                          koppeling van de maatgevende meetlocaties per dijkvak
+        Parameters
+        ----------
+        input : list[str]
+            Lijst van data adapters met klassegrenzen en faalkans per dijkvak
+        output : str
+            koppeling van de maatgevende meetlocaties per dijkvak
+
+        Raises
+        ------
+        UserWarning
+            Als de input variabele niet 2 string waarden bevat. (klassegrenzen/faalkans per dijkvak)
+        ValueError
+            Als df_in_failureprobability is None
+
         """
         if not len(input) == 2:
             raise UserWarning(
