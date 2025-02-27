@@ -3,7 +3,7 @@ from toolbox_continu_inzicht.base.adapters.data_adapter_utils import get_kwargs
 
 
 def input_csv(input_config: dict) -> pd.DataFrame:
-    """Laat een csv bestand in gegeven een pad
+    """Laadt een CSV-bestand in gegeven een pad
 
     Returns:
     --------
@@ -18,7 +18,7 @@ def input_csv(input_config: dict) -> pd.DataFrame:
 
 
 def input_csv_source(input_config: dict) -> pd.DataFrame:
-    """Laat een csv bestand in gegeven een pad en filter op een waarde
+    """Laadt een CSV-bestand in gegeven een pad en filter op een waarde
 
     Returns:
     --------
@@ -36,6 +36,6 @@ def input_csv_source(input_config: dict) -> pd.DataFrame:
         filtered_df = df.query(filter)
         df = filtered_df
     else:
-        raise UserWarning("Kolom 'source' is niet aanwezig in het CSV bestand.")
+        raise UserWarning("De kolom 'source' is niet aanwezig in het CSV-bestand.")
 
     return df

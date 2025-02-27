@@ -1,5 +1,5 @@
 """
-Functionality to load functions from a package or a directory
+Functionaliteit om funcites van een package of directory te laden
 """
 
 from pathlib import Path
@@ -14,7 +14,7 @@ def get_functions_from_package(package: object, remove_prefix: str) -> dict:
     """
     Haalt alle functies en routines op uit een gegeven package.
 
-    Deze functie gebruikt de inspect module om alle leden van het opgegeven
+    Deze functie gebruikt de inspect-module om alle leden van het opgegeven
     package te doorlopen en voegt alle functies en routines toe aan een
     dictionary. De dictionary bevat de namen van de functies en routines als
     sleutels en de functie- of routine-objecten als waarden.
@@ -43,14 +43,14 @@ def get_functions_from_package(package: object, remove_prefix: str) -> dict:
                     if signatuur.parameters is not None:
                         if signatuur.parameters is not None:
                             parameter_items: ItemsView = signatuur.parameters.items()
-                            # check whether input functions:
+                            # controle of de input functioneert:
                             if len(parameter_items) == 1 and remove_prefix == "input_":
                                 for _, parameter in parameter_items:
                                     add_item = (
                                         str(parameter) == "input_config: dict"
                                         or str(parameter) == "input_config"
                                     )
-                            # check whether output function
+                            # controle of de output functioneert:
                             if len(parameter_items) == 2 and remove_prefix == "output_":
                                 items = []
                                 for _, parameter in parameter_items:
@@ -76,7 +76,7 @@ def load_module_from_file(module_name, module_path) -> object | None:
     """
     Laadt een module dynamisch vanaf een opgegeven bestandspad.
 
-    Deze functie gebruikt de importlib.util module om een module specificatie
+    Deze functie gebruikt de importlib.util-module om een modulespecificatie
     te verkrijgen van een bestandspad en laadt vervolgens de module in het
     sys.modules woordenboek. Als de module succesvol wordt geladen, wordt
     deze geretourneerd.
