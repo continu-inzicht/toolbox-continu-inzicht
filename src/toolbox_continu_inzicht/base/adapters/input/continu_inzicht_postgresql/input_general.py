@@ -4,7 +4,7 @@ import sqlalchemy
 
 def input_ci_postgresql_failuremechanisms(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen lijst met faalmechanismes uit de Continu Inzicht database
+    Haalt lijst met faalmechanismes op uit de Continu Inzicht database
 
     Faalmechanismes:
         code: naam
@@ -52,7 +52,7 @@ def input_ci_postgresql_failuremechanisms(input_config: dict) -> pd.DataFrame:
 
 def input_ci_postgresql_measures(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen lijst met maatregelen uit de Continu Inzicht database
+    Haalt lijst met maatregelen op uit de Continu Inzicht database
 
     maatregelen:
         id, name,         description
@@ -78,7 +78,7 @@ def input_ci_postgresql_measures(input_config: dict) -> pd.DataFrame:
 
     schema = input_config["schema"]
 
-    # ophalen measures
+    # ophalen maatregelen
     with engine.connect() as connection:
         select_query = f"""
             SELECT

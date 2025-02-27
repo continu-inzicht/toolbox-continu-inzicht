@@ -1,5 +1,5 @@
 """
-Data adapters voor het lezen van data uit de Continu Inzicht database
+DataAdapters voor het lezen van data uit de Continu Inzicht database
 """
 
 import pandas as pd
@@ -8,9 +8,9 @@ import sqlalchemy
 
 def input_ci_postgresql_measuringstation_data_table(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen tijdreeks van belasting per meetstation uit een Continu Inzicht database.
+    Haalt tijdreeks van belasting per meetstation op uit een Continu Inzicht database.
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_measuringstation_data_table
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
@@ -19,13 +19,13 @@ def input_ci_postgresql_measuringstation_data_table(input_config: dict) -> pd.Da
     input_config (dict): configuratie opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
+    In de 'yaml'-config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
 
@@ -38,9 +38,9 @@ def input_ci_postgresql_measuringstation_data_table(input_config: dict) -> pd.Da
     - parameter_code: str                   : code van de parameter
     - parameter_description: str            : omschrijving van de parameter
     - unit: str                             : unit van de parameter
-    - date_time: datetime64                 : datum/ tijd van de tijdreeksitem
-    - value: float64                        : waarde van de tijdreeksitem
-    - value_type: str                       : type waarde van de tijdreeksitem (meting of verwacht)
+    - date_time: datetime64                 : datum/ tijd van het tijdreeksitem
+    - value: float64                        : waarde van het tijdreeksitem
+    - value_type: str                       : type waarde van het tijdreeksitem (meting of verwacht)
     """
 
     keys = [
@@ -83,7 +83,7 @@ def input_ci_postgresql_measuringstation_data_table(input_config: dict) -> pd.Da
         WHERE data.objecttype='measuringstation' AND data.calculating=True;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -95,9 +95,9 @@ def input_ci_postgresql_measuringstation_data_table(input_config: dict) -> pd.Da
 
 def input_ci_postgresql_from_waterlevels(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen belasting uit een Continu Inzicht database voor het WhatIf scenario (tabel: waterstanden).
+    Haalt belasting op uit de Continu Inzicht database voor het WhatIf scenario (tabel: waterstanden).
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_from_waterlevels
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
@@ -106,7 +106,7 @@ def input_ci_postgresql_from_waterlevels(input_config: dict) -> pd.DataFrame:
     input_config (dict): configuratie opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
@@ -179,7 +179,7 @@ def input_ci_postgresql_from_waterlevels(input_config: dict) -> pd.DataFrame:
             waterlevel.datetime <= simulation.datetime + moment.end_diff;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -191,24 +191,24 @@ def input_ci_postgresql_from_waterlevels(input_config: dict) -> pd.DataFrame:
 
 def input_ci_postgresql_from_conditions(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen klassegrenzen uit een Continu Inzicht database.
+    Haalt klassegrenzen op uit een Continu Inzicht database.
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_from_conditions
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
+    In de 'yaml'-config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
 
@@ -256,7 +256,7 @@ def input_ci_postgresql_from_conditions(input_config: dict) -> pd.DataFrame:
         ORDER BY condition.objectid,condition.stateid;;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -268,7 +268,7 @@ def input_ci_postgresql_from_conditions(input_config: dict) -> pd.DataFrame:
 
 def input_ci_postgresql_from_measuringstations(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen meetstations uit een continu database.
+    Haalt meetstations op uit een continu database.
 
     Yaml example:\n
         type: ci_postgresql_from_measuringstations
@@ -277,10 +277,10 @@ def input_ci_postgresql_from_measuringstations(input_config: dict) -> pd.DataFra
         source: "waterinfo"
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
@@ -289,7 +289,7 @@ def input_ci_postgresql_from_measuringstations(input_config: dict) -> pd.DataFra
     In de 'yaml' config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
-    - source (str): source (veld) waar de meetstation aan gekoppeld zijn.
+    - source (str): source (veld) waar de meetstations aan gekoppeld zijn.
 
     Returns:\n
     df (DataFrame):\n
@@ -328,7 +328,7 @@ def input_ci_postgresql_from_measuringstations(input_config: dict) -> pd.DataFra
         WHERE source='{source}';
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 

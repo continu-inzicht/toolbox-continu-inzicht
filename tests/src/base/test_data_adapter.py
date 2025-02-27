@@ -150,7 +150,7 @@ def test_DataAdapter_invalid_name():
     data_adapter = DataAdapter(config=config)
     delen_twee = ValuesDivideTwo(data_adapter=data_adapter)
     input_df = delen_twee.df_in
-    error = "Data adapter `key='wrong_name_data_adapter'` niet gevonden, en if_not_exist='wrong_input_str' is ongeldig, moet `raise` of `create` zijn"
+    error = "DataAdapter `key='wrong_name_data_adapter'` niet gevonden en if_not_exist='wrong_input_str' is ongeldig, dit moet `raise` of `create` zijn"
     with pytest.raises(UserWarning, match=error):
         data_adapter.set_dataframe_adapter(
             key="wrong_name_data_adapter", df=input_df, if_not_exist="wrong_input_str"
