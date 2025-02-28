@@ -5,12 +5,12 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 def get_fews_locations(
     host: str, port: int, region: str, filter_id: str
 ) -> pd.DataFrame:
-    """Haal voor Fews de locaties op voor de opgegegeven parameters.
+    """Haal voor FEWS de locaties op voor de opgegegeven parameters.
 
     Args:
-        host (str): Fews server host url
-        port (int): port waar de rest service draait
-        region (str): in fews gedefinieerde region
+        host (str): FEWS server host URL
+        port (int): port waar de REST-service draait
+        region (str): in FEWS gedefinieerde region
         filter_id (str): filter van de locaties
 
     Returns:
@@ -19,7 +19,7 @@ def get_fews_locations(
 
     dataframe: pd.DataFrame = pd.DataFrame()
 
-    # Genereer de url voor het ophalen van de locaties.
+    # Genereer de URL voor het ophalen van de locaties.
     parameters = {
         "filterId": filter_id,
         "showAttributes": False,

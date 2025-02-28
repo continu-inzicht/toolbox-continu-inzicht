@@ -20,7 +20,7 @@ def test_dataadapter_ci_postgresql_from_waterlevels():
     """
     Deze test haalt waterstanden op uit een Continu Inzicht database
     Het formaat moet voldoen aan het uitvoerformaat van functies die data ophalen
-    van bijvoorbeeld Fews, matroos e.d.
+    van bijvoorbeeld FEWS, matroos e.d.
     """
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_sets_path / "test_config_ci.yaml")
@@ -54,7 +54,7 @@ def test_dataadapter_ci_postgresql_from_measuringstations():
     """
     Deze test haalt meetstations op uit een Continu Inzicht database
     Het formaat moet voldoen aan het invoerformaat van functies die data ophalen
-    van bijvoorbeeld Fews, matroos e.d.
+    van bijvoorbeeld FEWS, matroos e.d.
     """
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_sets_path / "test_config_ci.yaml")

@@ -29,7 +29,7 @@ class LoadsFews:
 
     def run(self, input: str, output: str) -> None:
         """
-        De runner van de Loads Fews.
+        De runner van de Loads FEWS.
 
         Args:
 
@@ -43,7 +43,9 @@ class LoadsFews:
         calc_time = global_variables["calc_time"]
 
         if "LoadsFews" not in global_variables:
-            raise UserWarning("LoadsFews niet in ")
+            raise UserWarning(
+                "LoadsFews niet in "
+            )  # FIXME: Incomplete print-statement?
 
         options = global_variables["LoadsFews"]
 
@@ -95,7 +97,7 @@ class LoadsFews:
 
     def create_url(self, options: dict) -> str:
         """
-        Maak een rest url voor FEWS
+        Maak een REST-URL voor FEWS
 
         Args:
             options (_type_): Options uit de invoer yaml

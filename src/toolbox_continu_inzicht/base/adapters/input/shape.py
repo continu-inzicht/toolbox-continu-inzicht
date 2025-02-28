@@ -3,7 +3,7 @@ from toolbox_continu_inzicht.base.adapters.data_adapter_utils import get_kwargs
 
 
 def input_shape(input_config: dict) -> gpd.GeoDataFrame:
-    """Laat een geo informatie bestand (bijv. shape, geosjon) in gegeven een pad
+    """Laadt een geo-informatiebestand (bijv. shape, geosjon) in gegeven een pad
 
     Returns:
     --------

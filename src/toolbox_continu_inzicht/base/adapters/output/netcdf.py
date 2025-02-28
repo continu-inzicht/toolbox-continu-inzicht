@@ -4,13 +4,13 @@ from toolbox_continu_inzicht.base.adapters.data_adapter_utils import get_kwargs
 
 
 def output_netcdf(output_config: dict, df: pd.DataFrame):
-    """schrijft een netCDF bestand in gegeven een pad
+    """Schrijft een NetCDF-bestand in gegeven een pad
 
     Notes:
     ------
-    Gebruikt hiervoor eerst de xarray.from_dataframe om een xarray dataset te maken
-    vervolgens xarray to_netcdf om het bestand te genereren.
-    Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.
+    Gebruikt hiervoor eerst de xarray.from_dataframe om een xarray-dataset te maken
+    Gebruikt vervolgens xarray.to_netcdf om het bestand te genereren.
+    Opties om dit aan te passen kunnen worden meegegeven in het configuratiebestand.
 
     Returns:
     --------

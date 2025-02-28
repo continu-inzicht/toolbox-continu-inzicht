@@ -3,9 +3,9 @@ import sqlalchemy
 
 
 def input_postgresql_database(input_config: dict) -> pd.DataFrame:
-    """Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.
+    """Schrijft data naar een PostgreSQL-database gegeven het pad naar een credential-bestand.
 
-    Parametes:
+    Parameters:
     ----------
     input_config: dict
                  in
@@ -13,7 +13,7 @@ def input_postgresql_database(input_config: dict) -> pd.DataFrame:
 
     Notes:
     ------
-    In de `.env` environment bestand moet staan:
+    In het `.env` environmentbestand moet staan:
     postgresql_user: str
     postgresql_password: str
     postgresql_host: str
@@ -46,7 +46,7 @@ def input_postgresql_database(input_config: dict) -> pd.DataFrame:
     query = ""
 
     if "query" in input_config:
-        # bepaal eventueel de tabelnaam voor het vervangen in de query string
+        # bepaal eventueel de tabelnaam voor het vervangen in de query-string
         if "table" in input_config:
             table = input_config["table"]
 
@@ -60,10 +60,10 @@ def input_postgresql_database(input_config: dict) -> pd.DataFrame:
         query = f"SELECT * FROM {input_config['schema']}.{input_config['table']};"
     else:
         raise UserWarning(
-            "De parameter 'table' en/ of 'query' zijn niet in de DataAdapter gedefinieerd."
+            "De parameter(s) 'table' en/of 'query' zijn niet in de DataAdapter gedefinieerd."
         )
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 

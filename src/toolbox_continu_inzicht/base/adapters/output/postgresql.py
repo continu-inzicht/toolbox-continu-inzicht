@@ -3,23 +3,23 @@ import sqlalchemy
 
 
 def output_postgresql_database(output_config: dict, df: pd.DataFrame):
-    """Schrijft data naar een postgresql database gegeven het pad naar een credential bestand.
+    """Schrijft data naar een PostgreSQL-database gegeven het pad naar een credentialbestand.
 
     Parametes:
     ----------
     df: pd.Dataframe
-        dataframe met data om weg te schrijven
+        DataFrame met data om weg te schrijven
     opties: dict
-            dictionary met extra opties waar onder:
+            dictionary met extra opties waaronder:
                 schema: str
-                        naam van het schema in de postgresql database
+                        naam van het schema in de PostgreSQL-database
                 table: str
-                    naam van de tabel in de postgresql database
+                    naam van de tabel in de PostgreSQL-database
 
 
     Notes:
     ------
-    In het credential bestand moet staan:
+    In het credentialbestand moet staan:
     postgresql_user: str
     postgresql_password: str
     postgresql_host: str
@@ -35,7 +35,7 @@ def output_postgresql_database(output_config: dict, df: pd.DataFrame):
     table = output_config["table"]
     schema = output_config["schema"]
 
-    # check all required variables are availible from the .env file
+    # controleer of alle benodigde variabelen beschikbaar zijn in het .env-bestand
     keys = [
         "postgresql_user",
         "postgresql_password",

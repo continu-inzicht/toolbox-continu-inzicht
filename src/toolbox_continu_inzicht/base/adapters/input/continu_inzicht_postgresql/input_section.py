@@ -1,5 +1,5 @@
 """
-Data adapters voor het lezen van data uit de Continu Inzicht database
+DataAdapters voor het lezen van data uit de Continu Inzicht database
 """
 
 import pandas as pd
@@ -8,31 +8,31 @@ import sqlalchemy
 
 def input_ci_postgresql_from_sections(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen section data uit de Continu Inzicht database.
+    Haalt sectie data op uit de Continu Inzicht database.
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_from_sections
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
+    In de 'yaml'-config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
 
     Returns:\n
     df (DataFrame):\n
-    - id: int64             : id van de dijkvak
-    - name: str             : naam van de dijkvak
+    - id: int64             : id van het dijkvak
+    - name: str             : naam van het dijkvak
     """
 
     keys = [
@@ -60,7 +60,7 @@ def input_ci_postgresql_from_sections(input_config: dict) -> pd.DataFrame:
         FROM {schema}.sections;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -72,30 +72,30 @@ def input_ci_postgresql_from_sections(input_config: dict) -> pd.DataFrame:
 
 def input_ci_postgresql_from_sectionfractions(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen sections fractions uit een continu database.
+    Haalt sectiefracties uit een continu database.
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_from_sectionfractions
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
+    In de 'yaml'-config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
 
     Returns:\n
     df (DataFrame):\n
-    - id: int64             : id van de dijkvak
+    - id: int64             : id van het dijkvak
     - idup: int64           : id van bovenstrooms meetstation
     - iddown: int64         : id van benedestrooms meetstation
     - fractionup: float64   : fractie van bovenstrooms meetstation
@@ -130,7 +130,7 @@ def input_ci_postgresql_from_sectionfractions(input_config: dict) -> pd.DataFram
         FROM {schema}.sectionfractions;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -144,9 +144,9 @@ def input_ci_postgresql_section_load_from_data_table(
     input_config: dict,
 ) -> pd.DataFrame:
     """
-    Ophalen tijdreeks van belasting per dijkvak
+    Haalt tijdreeks van belasting per dijkvak op
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_section_load_from_data_table
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
@@ -155,7 +155,7 @@ def input_ci_postgresql_section_load_from_data_table(
     input_config (dict): configuratie opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
@@ -167,12 +167,12 @@ def input_ci_postgresql_section_load_from_data_table(
 
     Returns:\n
     df (DataFrame):\n
-    - section_id: int64     : id van de dijkvak
+    - section_id: int64     : id van het dijkvak
     - parameter_id: int64   : id van de parameter
     - unit: str             : unit van de parameter
-    - date_time: datetime64 : datum/ tijd van de tijdreeksitem
-    - value: float64        : waarde van de tijdreeksitem
-    - value_type: str       : type waarde van de tijdreeksitem (meting of verwacht)
+    - date_time: datetime64 : datum/ tijd van het tijdreeksitem
+    - value: float64        : waarde van het tijdreeksitem
+    - value_type: str       : type waarde van het tijdreeksitem (meting of verwacht)
     """
 
     keys = [
@@ -209,7 +209,7 @@ def input_ci_postgresql_section_load_from_data_table(
         WHERE data.objecttype='section' AND data.calculating={calculating};
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -223,40 +223,40 @@ def input_ci_postgresql_section_failure_probability_from_data_table(
     input_config: dict,
 ) -> pd.DataFrame:
     """
-    Ophalen faalkansen per dijkvak per moment
+    Haalt faalkansen per dijkvak per moment op
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_section_failure_probability_from_data_table
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
+    In de 'yaml'-config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
 
     Returns:\n
     df (DataFrame):\n
-    - failureprobability_id: in64   : id van de dijkvak/faalmechanisme/maatregel combinatie
-    - section_id: int64             : id van de dijkvak
-    - value_parameter_id: int64     : id van de belasting parameter (1/2/3/4)
+    - failureprobability_id: in64   : id van de dijkvak/faalmechanisme/maatregel-combinatie
+    - section_id: int64             : id van het dijkvak
+    - value_parameter_id: int64     : id van de belastingparameter (1/2/3/4)
     - failuremechanism_id: int64    : id van het faalmechanisme
     - failuremechanism: str         : naam van het faalmechanisme
     - measures_id: int64            : id van de maatregel
     - measure: str                  : naam van de maatregel
-    - parameter_id: int64           : id van de faalkans parameter (5/100/101/102)
+    - parameter_id: int64           : id van de faalkansparameter (5/100/101/102)
     - unit: int64                   : unit van de belasting
-    - date_time: datetime64         : datum/ tijd van de tijdreeksitem
-    - value: float                  : waarde van de tijdreeksitem
+    - date_time: datetime64         : datum/ tijd van het tijdreeksitem
+    - value: float                  : waarde van het tijdreeksitem
     """
 
     keys = [
@@ -297,7 +297,7 @@ def input_ci_postgresql_section_failure_probability_from_data_table(
         WHERE data.objecttype='failureprobability' AND data.calculating=true;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -311,24 +311,24 @@ def input_ci_postgresql_section_thresholds_from_conditions_table(
     input_config: dict,
 ) -> pd.DataFrame:
     """
-    Ophalen klassegrenzen (faalkans) van een dijkvak uit een continu database.
+    Haalt klassegrenzen (faalkans) van een dijkvak op uit de continu database.
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_section_thresholds_from_conditions_table
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
+    In de 'yaml'-config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
 
@@ -373,7 +373,7 @@ def input_ci_postgresql_section_thresholds_from_conditions_table(
         ORDER BY condition.objectid,condition.stateid;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -387,24 +387,24 @@ def input_ci_postgresql_section_expert_judgement_table(
     input_config: dict,
 ) -> pd.DataFrame:
     """
-    Ophalen klassegrenzen (faalkans) van een dijkvak uit een continu database.
+    Haalt klassegrenzen (faalkans) van een dijkvak op uit de continu database.
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_section_thresholds_from_conditions_table
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
+    In de 'yaml'-config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
 
@@ -458,7 +458,7 @@ def input_ci_postgresql_section_expert_judgement_table(
         WHERE NOT expertjudgement IS NULL AND expertjudgement > 0;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 

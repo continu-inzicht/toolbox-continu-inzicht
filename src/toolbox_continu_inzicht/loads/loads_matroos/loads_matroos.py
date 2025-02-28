@@ -114,7 +114,7 @@ class LoadsMatroos:
         calc_time = global_variables["calc_time"]
 
         lst_dfs = []
-        # maak een url aan
+        # maak een URL aan
         for parameter in options["parameters"]:
             parameter_code, aquo_grootheid_dict = read_aquo(parameter)
             aquo_parameter = matroos_aquo_synoniem[

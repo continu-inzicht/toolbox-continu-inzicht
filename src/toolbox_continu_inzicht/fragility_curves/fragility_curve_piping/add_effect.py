@@ -7,7 +7,7 @@ from toolbox_continu_inzicht.fragility_curves import (
 class ShiftFragilityCurvePipingFixedWaterlevelSimple(
     FragilityCurvePipingFixedWaterlevelSimple
 ):
-    """Verschuift de fragility curve voor piping met een constante water niveau (simple) met een gegeven effect"""
+    """Verschuift de fragility curve voor piping met een constant waterniveau (simple) met een gegeven effect"""
 
     data_adapter: DataAdapter
 
@@ -36,7 +36,7 @@ class ShiftFragilityCurvePipingFixedWaterlevelSimple(
 
 
                [1] df_waterlevels (pd.DataFrame):
-                    DataFrame met waterlevel data.
+                    DataFrame met water level data.
                     Moet de volgende kolommen bevatten:
                     - waterlevels : float
 

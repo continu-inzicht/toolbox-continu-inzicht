@@ -18,7 +18,7 @@ allias_dict = {
 
 
 def read_aquo(allias: str) -> tuple[str, dict]:
-    """Leest de aquo grootheid uit de aquo_grootheid.json file
+    """Leest de Aquo-grootheid uit de aquo_grootheid.json file
     geeft een tuple van de bijbehoordende code en een dict met benodigde informatie terug."""
     path = Path(__file__).parent / "aquo_meta_data" / "aquo_grootheid.json"
     aquo_grootheid_dict = json.load(open(path))

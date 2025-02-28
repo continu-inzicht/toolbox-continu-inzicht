@@ -10,13 +10,13 @@ def fetch_data_get(
     path_certificate: str = None,
 ):
     """
-    Haal data op van gegeven url.
+    Haal data op van gegeven URL.
 
     Args:
-        url (str): url adres
-        params (dict): lijst met url parameters.
-        mime_type (str, optional): mime type. Standaard waarde is is "text".
-        timeout (float, optional): tijd voordat de verbinding verbroken wordt (in seconden). Standaard waarde is 10.0 seconden.
+        url (str): URL-adres
+        params (dict): lijst met URL-parameters.
+        mime_type (str, optional): mime type. Standaardwaarde is "text".
+        timeout (float, optional): tijd voordat de verbinding verbroken wordt (in seconden). Standaardwaarde is 10.0 seconden.
         path_certificate (str, optional): locatie naar een pem-bestand
 
     Returns:
@@ -54,13 +54,13 @@ def fetch_data_post(
     url: str, json: dict, mime_type: str = "text", timeout: float = 60.0
 ):
     """
-    Haal data op van gegeven url d.m.v. post.
+    Haal data op van gegeven URL d.m.v. POST-request.
 
     Args:
-        url (str): url adres
-        params (dict): lijst met url parameters.
-        mime_type (str, optional): mime type. Standaard waarde is is "text".
-        timeout (float, optional): tijd voordat de verbinding verbroken wordt (in seconden). Standaard waarde is 10.0 seconden.
+        url (str): URL-adres
+        params (dict): lijst met URL-parameters.
+        mime_type (str, optional): mime type. Standaardwaarde is "text".
+        timeout (float, optional): tijd voordat de verbinding verbroken wordt (in seconden). Standaardwaarde is 10.0 seconden.
 
     Returns:
         status: status code van de http post request

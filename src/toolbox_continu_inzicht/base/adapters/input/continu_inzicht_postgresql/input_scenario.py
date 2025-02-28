@@ -1,5 +1,5 @@
 """
-Data adapters voor het lezen van data uit de Continu Inzicht database
+DataAdapters voor het lezen van data uit de Continu Inzicht database
 """
 
 import pandas as pd
@@ -8,24 +8,24 @@ import sqlalchemy
 
 def input_ci_postgresql_whatif_from_scenario(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen what-if scenario's uit een continu database (tabel: scenarios).
+    Haalt what-if scenario's op uit de continu database (tabel: scenarios).
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_whatif_from_scenario
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
+    In de 'yaml'-config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
 
@@ -65,7 +65,7 @@ def input_ci_postgresql_whatif_from_scenario(input_config: dict) -> pd.DataFrame
         FROM {schema}.scenarios;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -77,24 +77,24 @@ def input_ci_postgresql_whatif_from_scenario(input_config: dict) -> pd.DataFrame
 
 def input_ci_postgresql_whatif_load(input_config: dict) -> pd.DataFrame:
     """
-    Ophalen belastingen voor een what-if scenario uit een continu database (tabel: waterlevels).
+    Haalt belastingen op voor een what-if scenario uit de continu database (tabel: waterlevels).
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_whatif_load
         database: "geoserver"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
+    In de 'yaml'-config moeten de volgende parameters staan:\n
     - database (str): database van de Continu Inzicht
     - schema (str): schema van de Continu Inzicht
 
@@ -141,7 +141,7 @@ def input_ci_postgresql_whatif_load(input_config: dict) -> pd.DataFrame:
         INNER JOIN {schema}.waterlevels AS waterlevels ON waterlevels.scenarioid=simulation.scenarioid;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 

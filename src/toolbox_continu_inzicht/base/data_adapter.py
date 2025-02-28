@@ -38,12 +38,12 @@ class DataAdapter(PydanticBaseModel):
                     plugin_path, remove_prefix=prefix
                 )
             )
-        # interne input functies laden
+        # interne inputfuncties laden
         self.input_types.update(
             get_functions_from_package(input_package, remove_prefix="input_")
         )
 
-        # combineer alle functions (externe functies overschrijven input functions)
+        # combineer alle functies (externe functies overschrijven inputfuncties)
         self.input_types.update(externe_functies)
 
     def initialize_output_types(self):
@@ -56,24 +56,24 @@ class DataAdapter(PydanticBaseModel):
                     plugin_path, remove_prefix=prefix
                 )
             )
-        # interne input functies laden
+        # interne inputfuncties laden
         self.output_types.update(
             get_functions_from_package(output_package, remove_prefix="output_")
         )
 
-        # combineer alle functions (externe functies overschrijven input functions)
+        # combineer alle functies (externe functies overschrijven inputfuncties)
         self.output_types.update(externe_functies)
 
     def input(self, input: str, schema: Optional[Dict] = None) -> pd.DataFrame:
-        """Gegeven het config, stuurt de juiste input waarde aan
+        """Gegeven de config, stuurt de juiste inputwaarde aan
 
         Parameters:
         -----------
         input: str
-               Naam van de data adapter die gebruikt wordt.
+               Naam van de DataAdapter die gebruikt wordt.
 
         opties: dict
-                  extra informatie die ook naar de functie moet om het bestand te lezen
+                  Extra informatie die ook naar de functie moet om het bestand te lezen.
 
         """
         self.initialize_input_types()  # maak een dictionary van type: functie
@@ -89,16 +89,16 @@ class DataAdapter(PydanticBaseModel):
 
         # controleer of de adapter bestaat
         if input in self.config.data_adapters:
-            # haal de input configuratie op van de functie
+            # haal de inputconfiguratie op van de functie
             function_input_config = self.config.data_adapters[input]
 
-            # leid het data type af
+            # leidt het datatype af
             data_type = function_input_config["type"]
 
             check_rootdir(self.config.global_variables)
             check_file_and_path(function_input_config, self.config.global_variables)
 
-            # uit het .env bestand halen we de extra waardes en laden deze in de config
+            # uit het .env-bestand halen we de extra waardes en laden deze in de config
             # .env is een lokaal bestand waar wachtwoorden in kunnen worden opgeslagen, zie .evn.template
             environmental_variables = {}
             dotenv_path = None
@@ -109,17 +109,17 @@ class DataAdapter(PydanticBaseModel):
                 environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
             else:
                 warnings.warn(
-                    "Het bestand `.env` in niet aanwezig in de hoofdmap, code negeert deze melding.",
+                    "Het bestand `.env` is niet aanwezig in de hoofdmap, code negeert deze melding.",
                     UserWarning,
                 )
 
-            # in eerste instantie alleen beschikbaar voor de data adapters
+            # In eerste instantie alleen beschikbaar voor de DataAdapters
             function_input_config.update(environmental_variables)
 
-            # maar je wilt er  vanuit de functies ook bij kunnen
+            # Maar je wilt er vanuit de functies ook bij kunnen
             self.config.global_variables.update(environmental_variables)
 
-            # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
+            # Roep de bijbehorende functie bij het datatype aan en geef het inputpad mee.
             if data_type in self.input_types:
                 correspinding_function = self.input_types[data_type]
                 df = correspinding_function(function_input_config)
@@ -143,7 +143,7 @@ class DataAdapter(PydanticBaseModel):
                     message = f"Adapter van het type '{data_type}' niet gevonden."
                     raise UserWarning(message)
         else:
-            # Adapter sleutel staat niet in het yaml-bestand
+            # Adaptersleutel staat niet in het YAML-bestand
             if not suppress_userwarnings:
                 message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
                 raise UserWarning(message)
@@ -151,80 +151,80 @@ class DataAdapter(PydanticBaseModel):
         return df
 
     def output(self, output: str, df: pd.DataFrame) -> None:
-        """Gegeven het config, stuurt de juiste input waarde aan
+        """Gegeven de config, stuurt de juiste inputwaarde aan
 
         Parameters:
         -----------
-        output: name of the data adapter to use
+        output: Naam van de DataAdapter die gebruikt moet worden.
         df: pd.Dataframe
-            pandas dataframe om weg te schrijven
+            pandas DataFrame om weg te schrijven.
 
         opties: dict
-                extra informatie die ook naar de functie moet om het bestand te schrijven
+                Extra informatie die ook naar de functie moet om het bestand te schrijven.
 
         """
 
-        # TODO: kan dit eleganters?
+        # TODO: kan dit eleganter?
         self.initialize_output_types()  # maak een dictionary van type: functie
-        # haal de input configuratie op van de functie
+        # haal de inputconfiguratie op van de functie
         functie_output_config = self.config.data_adapters[output]
 
-        # leid het data type af
+        # leidt het datatype af
         data_type = functie_output_config["type"]
 
-        # check of de rootdir bestaat
+        # Check of de rootdir bestaat
         check_rootdir(self.config.global_variables)
         check_file_and_path(functie_output_config, self.config.global_variables)
 
-        # uit het .env bestand halen we de extra waardes en laden deze in de config
+        # Uit het .env-bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
         if load_dotenv():
             environmental_variables = dict(dotenv_values())
         else:
             warnings.warn(
-                "A `.env` file is not present in the root directory, continuing without",
+                "Het bestand `.env` is niet aanwezig in de hoofdmap, code negeert deze melding.",
                 UserWarning,
             )
 
         functie_output_config.update(environmental_variables)
 
-        # roep de bijbehorende functie bij het data type aan en geef het input pad mee.
+        # Roep de bijbehorende functie bij het datatype aan en geef het inputpad mee.
         bijbehorende_functie = self.output_types[data_type]
         bijbehorende_functie(functie_output_config, df)
 
     def set_global_variable(self, key: str, value: Any):
         """
-        Functie voor het dynamisch overschrijven van global variablen.
+        Functie voor het dynamisch overschrijven van global variabelen.
 
         Parameters:
         -----------
         key: str
-            naam van de waarde om te overschrijven
+            Naam van de waarde om te overschrijven.
 
         value: Any
-            Object om mee te geven
+            Object om mee te geven.
         """
         self.config.global_variables[key] = value
 
-    # TODO: support voor geodataframe in de toekomst?
+    # TODO: support voor GeoDataFrame in de toekomst?
     def set_dataframe_adapter(
         self, key: str, df: pd.DataFrame, if_not_exist: str = "raise"
     ) -> None:
         """
-        Functie om een dataframe mee te geven aan een data adapter met `type: python`.
-        Let er zelf op dat de kollom namen en datatypes overeen komen met de beoogde functie.
+        Functie om een DataFrame mee te geven aan een DataAdapter met `type: python`.
+        Let er zelf op dat de kolomnamen en datatypes overeenkomen met de beoogde functie.
 
         Parameters:
         -----------
         key: str
-            naam van de data adapter zoals opgegeven in de configuratie yaml
+            Naam van de DataAdapter zoals opgegeven in de configuratie-YAML
 
         df: pd.Dataframe
             Object om mee te geven
 
         if_not_exist: str[raise, create]
-            Geeft aan wat te doen als de data adapter niet bestaat,
-            bij raise krijg je een error, bij create wordt er een nieuwe data adapter aangemaakt.
+            Geeft aan wat te doen als de DataAdapter niet bestaat,
+            bij raise krijg je een error, bij create wordt er een nieuwe DataAdapter aangemaakt.
         """
         suppress_userwarnings = False
         if "suppress_userwarnings" in self.config.global_variables:
@@ -239,12 +239,12 @@ class DataAdapter(PydanticBaseModel):
             else:
                 if not suppress_userwarnings:
                     raise UserWarning(
-                        "Deze functionaliteit is voor data adapters van type `python`, "
+                        "Deze functionaliteit is voor DataAdapters van type `python`, "
                     )
         elif if_not_exist == "raise":
             if not suppress_userwarnings:
                 raise UserWarning(
-                    f"Data adapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
+                    f"DataAdapter `{key}` niet gevonden, zorg dat deze goed in het configbestand staat met type `python`"
                 )
         elif if_not_exist == "create":
             self.config.data_adapters[key] = {
@@ -255,5 +255,5 @@ class DataAdapter(PydanticBaseModel):
         else:
             if not suppress_userwarnings:
                 raise UserWarning(
-                    f"Data adapter `{key=}` niet gevonden, en {if_not_exist=} is ongeldig, moet `raise` of `create` zijn"
+                    f"DataAdapter `{key=}` niet gevonden en {if_not_exist=} is ongeldig, dit moet `raise` of `create` zijn"
                 )

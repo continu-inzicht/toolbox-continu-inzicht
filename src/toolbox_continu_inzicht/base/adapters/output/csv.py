@@ -3,12 +3,12 @@ from toolbox_continu_inzicht.base.adapters.data_adapter_utils import get_kwargs
 
 
 def output_csv(output_config: dict, df: pd.DataFrame):
-    """schrijft een csv bestand in gegeven een pad
+    """Schrijft een CSV-bestand in gegeven een pad
 
     Notes:
     ------
     Gebruikt hiervoor de pandas.DataFrame.to_csv
-    Opties om dit aan te passen kunnen worden mee gegeven in het configuratie bestand.
+    Opties om dit aan te passen kunnen worden meegegeven in het configuratiebestand.
 
     Returns:
     --------

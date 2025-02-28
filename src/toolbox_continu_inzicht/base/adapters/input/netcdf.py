@@ -1,14 +1,15 @@
 import pandas as pd
 import xarray as xr
+
 from toolbox_continu_inzicht.base.adapters.data_adapter_utils import get_kwargs
 
 
 def input_netcdf(input_config: dict) -> pd.DataFrame:
-    """Laat een netcdf bestand in gegeven een pad
+    """Laadt een NetCDF-bestand in gegeven een pad
 
     Notes:
     --------
-    Lees het netCDF bestand met xarray in en converteer de dataset naar
+    Lees het NetCDF-bestand met xarray in en converteer de dataset naar
     een pandas dataframe.
 
     Returns:

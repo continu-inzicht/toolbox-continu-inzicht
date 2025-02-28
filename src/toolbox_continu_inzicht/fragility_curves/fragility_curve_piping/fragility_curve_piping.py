@@ -79,7 +79,7 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
 
     def calculate_fragility_curve(self, input: list[str], output: str) -> None:
         """
-        Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
+        Berekent de fragility curve op basis van de opgegeven input en slaat het resultaat op in het opgegeven outputbestand.
         """
         self.df_prob_input = self.data_adapter.input(input[0])
         self.df_waterlevels = self.data_adapter.input(input[1])
@@ -116,7 +116,7 @@ class FragilityCurvePipingFixedWaterlevelSimple(FragilityCurve):
             )
         )
 
-        # zet de resultaten om in dataframes voor elk mechanisme
+        # zet de resultaten om in DataFrames voor elk mechanisme
         df_names = [
             "df_result_uplift",
             "df_result_heave",
@@ -265,7 +265,7 @@ class FragilityCurvesPiping:
     Maakt een set van fragility curves voor piping voor een dijkvak.
     De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie.
 
-    Deze functie berekent één gecombineerde  fragility curves voor mechanismes: uplift, heave, Sellmeijer.
+    Deze functie berekent één gecombineerde fragility curve voor de mechanismes uplift, heave en Sellmeijer.
 
     Args:
         data_adapter (DataAdapter): DataAdapter object
@@ -327,23 +327,23 @@ class FragilityCurvesPiping:
                 "failure_probability",
             ]
         )
-        # loop over all sections
+        # loop over alle secties
         for section_id in self.df_prob_input.section_id.unique():
             df_prob_section = self.df_prob_input[
                 self.df_prob_input.section_id == section_id
             ]
-            # loop over all scenarios in the section
+            # loop over alle scenario's in de sectie
             for scenario_id in df_prob_section.scenario_id.unique():
                 df_prob_scenario = df_prob_section[
                     df_prob_section.scenario_id == scenario_id
                 ].copy()
-                # loop over all mechanisms
+                # loop over alle mechanismes
                 df_prob_scenario.set_index("Naam", inplace=True)
                 df_prob_scenario.drop(
                     columns=["section_id", "scenario_id", "mechanism"], inplace=True
                 )
 
-                # maak een placeholder dataadapter aan, dit zorgt dat je de modules ook los kan aanroepen
+                # maak een placeholder DataAdapter aan, dit zorgt dat je de modules ook los kan aanroepen
                 temp_config = Config(config_path=Path.cwd())
                 temp_data_adapter = DataAdapter(config=temp_config)
 

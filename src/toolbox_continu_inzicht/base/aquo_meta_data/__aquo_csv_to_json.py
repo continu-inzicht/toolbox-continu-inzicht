@@ -1,4 +1,4 @@
-"""Script voor het omzetten van aquo grootheden csv naar json formaat"""
+"""Script voor het omzetten van Aquo-grootheden CSV- naar JSON-formaat"""
 
 if __name__ == "__main__":
     import pandas as pd

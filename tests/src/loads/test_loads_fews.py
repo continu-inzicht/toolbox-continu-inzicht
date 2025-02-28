@@ -9,7 +9,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.loads import LoadsFews
 
 
-@pytest.mark.skip(reason="Eerst een Fews rest service definieren")
+@pytest.mark.skip(reason="Eerst een FEWS REST service definiëren")
 def test_run():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_sets_path / "test_loads_fews_config.yaml")
