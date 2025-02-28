@@ -279,3 +279,8 @@ DataAdapter:
 
     df_combined_curves:
         type: "python"
+
+    in_ci_status:
+        type: ci_postgresql_calc_status        
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"             
