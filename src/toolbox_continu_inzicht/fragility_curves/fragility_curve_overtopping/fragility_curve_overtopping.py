@@ -32,19 +32,19 @@ class FragilityCurveOvertopping(FragilityCurve):
             GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
 
         - gh_onz_sigma
-            GolfHoogte onzekerheid sigma: standaard afwijking waarde (standaard 0.27)
+            GolfHoogte onzekerheid sigma: standaardafwijking waarde (standaard 0.27)
 
         - gp_onz_mu_tp
             GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
 
         - gp_onz_sigma_tp
-            GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+            GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
 
         - gp_onz_mu_tspec
             GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
 
         - gp_onz_sigma_tspec
-            GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+            GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
 
         - gh_onz_aantal
             Aantal onzekerheden in de golfhoogte (standaard 7)
@@ -255,15 +255,15 @@ class FragilityCurvesOvertopping(FragilityCurve):
         gh_onz_mu
             GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
         gh_onz_sigma
-            GolfHoogte onzekerheid sigma: standaard afwijking waarde (standaard 0.27)
+            GolfHoogte onzekerheid sigma: standaardafwijking waarde (standaard 0.27)
         gp_onz_mu_tp
             GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
         gp_onz_sigma_tp
-            GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+            GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
         gp_onz_mu_tspec
             GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
         gp_onz_sigma_tspec
-            GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+            GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
         gh_onz_aantal
             Aantal onzekerheden in de golfhoogte (standaard 7)
         gp_onz_aantal

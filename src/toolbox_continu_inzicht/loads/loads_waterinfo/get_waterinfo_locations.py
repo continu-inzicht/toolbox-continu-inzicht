@@ -12,7 +12,7 @@ def get_waterinfo_locations(parameter_id: str = "waterhoogte") -> pd.DataFrame:
         Dataframe: Pandas dataframe met locaties
     """
 
-    # url voor ophalen van waterinfo geojson
+    # URL voor ophalen van waterinfo geojson
     url: str = "https://waterinfo.rws.nl/api/point/latestmeasurement"
 
     params: dict = {"parameterId": parameter_id}

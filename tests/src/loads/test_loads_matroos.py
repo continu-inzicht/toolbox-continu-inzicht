@@ -38,7 +38,7 @@ def test_LoadsMatroos_no_website():
 
 
 def test_LoadsMatroos_create_url_vitaal():
-    """Test het aanmaken van een url voor het ophalen van vitaal.rws.nl data"""
+    """Test het aanmaken van een URL voor het ophalen van vitaal.rws.nl data"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     c = Config(config_path=test_data_sets_path / "test_loads_matroos_noos_config.yaml")
     c.lees_config()
@@ -72,7 +72,7 @@ def test_LoadsMatroos_create_url_vitaal():
 
 
 def test_LoadsMatroos_create_url_matroos():
-    """Test het aanmaken van een url voor het ophalen van matroos.rws.nl data"""
+    """Test het aanmaken van een URL voor het ophalen van matroos.rws.nl data"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     c = Config(config_path=test_data_sets_path / "test_loads_matroos_noos_config.yaml")
     c.lees_config()
@@ -106,7 +106,7 @@ def test_LoadsMatroos_create_url_matroos():
 
 
 def test_LoadsMatroos_create_url_noos():
-    """Test het aanmaken van een url voor het ophalen van noos.matroos data"""
+    """Test het aanmaken van een URL voor het ophalen van noos.matroos data"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     c = Config(config_path=test_data_sets_path / "test_loads_matroos_noos_config.yaml")
     c.lees_config()
