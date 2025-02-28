@@ -68,11 +68,11 @@ class LoadsClassify:
     }
 
     # belasting per moment per meetlocaties
-    input_schema_loads: ClassVar[dict[str, str]] = {
+    input_schema_loads: ClassVar[dict[str, str | list[str]]] = {
         "measurement_location_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
-        "date_time": "object",
+        "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
         "value_type": "object",
         "hours": "int64",
