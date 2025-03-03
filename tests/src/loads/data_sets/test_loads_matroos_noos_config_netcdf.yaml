@@ -2,18 +2,23 @@ GlobalVariables:
     rootdir: "tests/src/loads/data_sets"
     moments: [-24,0,24,48]
 
-    LoadsMatroos:
+    LoadsMatroosNetCDF:
         website: "noos" # only test noos as vital and matroos require passwords
-        model: "dnmi_oper"
+        model: "fews_rmm_km"
         parameters: ["WATHTE"]
 
 DataAdapter:
     default_options:
         csv:
             sep: ","
-    BelastingLocaties:
-        type: csv
-        path: "test_loads_matroos.csv"
+    BelastingLocaties_fews_rmm_km:
+        type: csv_source
+        path: "test_loads_matroos_netcdf.csv"
+        filter: "fews_rmm_km"
+    BelastingLocaties_observed:
+        type: csv_source
+        path: "test_loads_matroos_netcdf.csv"
+        filter: "observed"
     Waterstanden:
         type: csv
         path: "hidden_waterstanden.csv"

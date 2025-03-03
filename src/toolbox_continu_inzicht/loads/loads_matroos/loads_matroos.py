@@ -3,6 +3,9 @@ import warnings
 from pydantic.dataclasses import dataclass
 import pandas as pd
 from typing import Optional
+from pathlib import Path
+import tempfile
+import xarray as xr
 
 from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
     get_matroos_locations,
@@ -15,23 +18,21 @@ from toolbox_continu_inzicht.base.aquo import read_aquo
 
 # dit is functie specifiek omdat waterlevel niet in de aquo standaard zit
 matroos_aquo_synoniem = {"water height": "waterlevel"}
-"""
-De LoadsMatroos klasse haalt belastinggegevens op van de Rijkswaterstaat Waterwebservices.
-
-Args:
-    data_adapter: DataAdapter
-        De data adapter voor het ophalen en opslaan van gegevens.
-    df_in: Optional[pd.DataFrame] | None = None
-        Het invoerdataframe.
-    df_out: Optional[pd.DataFrame] | None = None
-        Het uitvoerdataframe.
-"""
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsMatroos:
     """
+    Haalt matroos tijdserie informatie op uit de Noos, Matroos of Vitaal server.
+
+    De Matroos informatie is beschikbaar op de volgende websites:
+    https://noos.matroos.rws.nl/maps1d/
+    Met de functie get_matroos_sources() kan je de beschikbare bronnen ophalen.
+    Met de functie get_matroos_locations(source='...') kan je de bijbehorende beschikbare locaties ophalen.
+
     Attributes
+    ----------
+    data_adapter: DataAdapter
         Data adapter object for input and output data.
     df_in: Optional[pd.DataFrame] | None
         Input dataframe containing measurement location codes.
@@ -43,17 +44,6 @@ class LoadsMatroos:
         URL for retrieving series from Matroos server.
     url_retrieve_series_vitaal: str
         URL for retrieving series from Vitaal server.
-    Methods
-    run(input: str, output: str) -> None:
-        Executes the function to fetch and process data for the matroos-toolbox.
-    format_location_names(location_names: list[str]) -> list[str]:
-        Formats a list of location names by removing spaces and converting to lowercase.
-    create_dataframe(
-        Creates a dataframe with values from the RWS water webservices.
-    generate_url(
-        parameter,
-        location_names
-        Generates the required URL to make a request to the Noos server.
     """
 
     data_adapter: DataAdapter
@@ -67,7 +57,7 @@ class LoadsMatroos:
 
     def run(self, input: str, output: str) -> None:
         """
-        Voert de functie uit om gegevens op te halen en te verwerken voor de matroos-toolbox.
+        Voert de functie uit om gegevens op te halen en te verwerken voor matroos gegevens.
 
         Parameters
         ----------
@@ -101,13 +91,74 @@ class LoadsMatroos:
 
         self.df_in = self.data_adapter.input(input)
 
+        wanted_location_names = self.get_matroos_available_locations(
+            self.df_in, options, endpoint_model="timeseries"
+        )
+
+        # zet tijd goed
+        calc_time = global_variables["calc_time"]
+
+        lst_dfs = []
+        # maak een url aan
+        for parameter in options["parameters"]:
+            parameter_code, aquo_grootheid_dict = read_aquo(parameter, global_variables)
+            aquo_parameter = matroos_aquo_synoniem[
+                aquo_grootheid_dict["label_en"]
+            ]  # "WATHTE -> waterlevel"
+            request_forecast_url = self.generate_url(
+                options,
+                global_variables,
+            )
+
+            moments = global_variables["moments"]
+            tstart = (calc_time + timedelta(hours=int(moments[0]))).strftime(
+                "%Y%m%d%H%M"
+            )
+            tend = (calc_time + timedelta(hours=int(moments[-1]))).strftime(
+                "%Y%m%d%H%M"
+            )
+            source = options["model"]
+            # Multiple locations can be specified by separating them with a semicolon ';'.
+            location_names_str = ";".join(wanted_location_names)
+            params = {
+                "loc": location_names_str,
+                "source": source,
+                "unit": aquo_parameter,
+                "tstart": tstart,
+                "tend": tend,
+                "format": "dd_2.0.0",
+                "timezone": "GMT",
+                "zip": "0",
+            }
+            status, json_data = fetch_data_get(
+                url=request_forecast_url, params=params, mime_type="json", timeout=120
+            )
+            if status is None and json_data is not None:
+                if "results" in json_data:
+                    lst_dfs.append(
+                        self.create_dataframe(
+                            options, self.df_in, calc_time, json_data, global_variables
+                        )
+                    )
+                else:
+                    raise ConnectionError(
+                        f"No results in data, only: {json_data.keys()}"
+                    )
+            else:
+                raise ConnectionError(f"Connection failed:{status}")
+
+        self.df_out = pd.concat(lst_dfs, axis=0)
+        self.data_adapter.output(output, self.df_out)
+
+    @staticmethod
+    def get_matroos_available_locations(df_in, options, endpoint_model) -> pd.DataFrame:
         # doe een data type check
-        if "measurement_location_code" not in self.df_in.columns:
+        if "measurement_location_code" not in df_in.columns:
             raise UserWarning(
-                f"Input data 'measurement_location_code' ontbreekt in kollomen {self.df_in.columns}"
+                f"Input data 'measurement_location_code' ontbreekt in kollomen {df_in.columns}"
             )
         else:
-            df_sources = get_matroos_sources()
+            df_sources = get_matroos_sources(endpoint=endpoint_model)
             # maak een lijst met alle parameter namen, noos herhekend ook een heleboel aliases
             list_aliases = []
             for alias in list(df_sources["source_label"]):
@@ -130,9 +181,7 @@ class LoadsMatroos:
             available_location_names = set(available_location_names)
 
             # herhaal formateren voor de gegeven locatie namen
-            supplied_location_names = list(
-                self.df_in["measurement_location_code"].values
-            )
+            supplied_location_names = list(df_in["measurement_location_code"].values)
 
             # die je wilt ophalen is het overlap tussen de twee
             wanted_location_names = available_location_names.intersection(
@@ -146,42 +195,7 @@ class LoadsMatroos:
                 )
                 warnings.warn(f"location {locations_not_found}")
 
-        # zet tijd goed
-        calc_time = global_variables["calc_time"]
-
-        lst_dfs = []
-        # maak een url aan
-        for parameter in options["parameters"]:
-            parameter_code, aquo_grootheid_dict = read_aquo(parameter, global_variables)
-            aquo_parameter = matroos_aquo_synoniem[
-                aquo_grootheid_dict["label_en"]
-            ]  # "WATHTE -> waterlevel"
-            request_forecast_url = self.generate_url(
-                calc_time,
-                options,
-                global_variables,
-                aquo_parameter,
-                wanted_location_names,
-            )
-            status, json_data = fetch_data_get(
-                url=request_forecast_url, params={}, mime_type="json", timeout=120
-            )
-            if status is None and json_data is not None:
-                if "results" in json_data:
-                    lst_dfs.append(
-                        self.create_dataframe(
-                            options, self.df_in, calc_time, json_data, global_variables
-                        )
-                    )
-                else:
-                    raise ConnectionError(
-                        f"No results in data, only: {json_data.keys()}"
-                    )
-            else:
-                raise ConnectionError(f"Connection failed:{status}")
-
-        self.df_out = pd.concat(lst_dfs, axis=0)
-        self.data_adapter.output(output, self.df_out)
+            return wanted_location_names
 
     @staticmethod
     def format_location_names(location_names: list[str]) -> list[str]:
@@ -283,27 +297,18 @@ class LoadsMatroos:
 
     def generate_url(
         self,
-        calc_time: datetime,
         options: dict,
         global_variables: dict,
-        parameter: str,
-        location_names: set[str],
     ) -> str:
         """
         Geeft de benodigde URL terug om het verzoek naar de Noos-server te maken
 
         Parameters
         ----------
-        calc_time: datetime
-            Huidige tijd, wordt gebruikt om de meest recente voorspelling op te halen
         options: dict
             Opties die door de gebruiker zijn opgegeven, in dit geval is 'source' het belangrijkst
         global_variables: dict
             Globale variabelen die nodig zijn om de URL te genereren
-        parameter: str
-            Eenheid van de parameter waarvoor gegevens worden opgehaald
-        location_names: set[str]
-            Set van locatienamen waarvoor gegevens worden opgehaald
 
         Returns
         -------
@@ -361,21 +366,144 @@ class LoadsMatroos:
                         + self.url_retrieve_series_vitaal
                     )
 
-        moments = global_variables["moments"]
-        tstart = (calc_time + timedelta(hours=int(moments[0]))).strftime("%Y%m%d%H%M")
-        tend = (calc_time + timedelta(hours=int(moments[-1]))).strftime("%Y%m%d%H%M")
-        source = options["model"]
-        # Multiple locations can be specified by separating them with a semicolon ';'.
-        location_names_str = ";".join(location_names)
-        url = (
-            base_url
-            + f"loc={location_names_str}&"
-            + f"source={source}&"
-            + f"unit={parameter}&"
-            + f"tstart={tstart}&"
-            + f"tend={tend}&"
-            + "format=dd_2.0.0&"
-            + "timezone=GMT&"
-            + "zip=0&"
+        return base_url
+
+
+@dataclass(config={"arbitrary_types_allowed": True})
+class LoadsMatroosNetCDF(LoadsMatroos):
+    """
+    Haal de Matroos informatie op uit de maps1d database.
+
+    De Matroos informatie is beschikbaar op de volgende websites:
+    https://noos.matroos.rws.nl/maps1d/
+    Met de functie get_matroos_sources(endpoint='maps1d') kan je de beschikbare bronnen ophalen.
+    Met de functie get_matroos_locations(source='bron') kan je de bijbehorende beschikbare locaties ophalen.
+
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        Data adapter object for input and output data.
+    df_in: Optional[pd.DataFrame] | None
+        Input dataframe containing measurement location codes.
+    df_out: Optional[pd.DataFrame] | None
+        Output dataframe containing processed data.
+    url_retrieve_series_noos: str
+        URL for retrieving series from Noos server.
+    url_retrieve_series_matroos: str
+        URL for retrieving series from Matroos server.
+    url_retrieve_series_vitaal: str
+        URL for retrieving series from Vitaal server.
+    """
+
+    data_adapter: DataAdapter
+
+    df_in: Optional[pd.DataFrame] | None = None
+    df_out: Optional[pd.DataFrame] | None = None
+
+    url_retrieve_series_noos: str = "noos.matroos.rws.nl/direct/get_netcdf.php?"
+    url_retrieve_series_matroos: str = "matroos.rws.nl/direct/get_netcdf.php?"
+    url_retrieve_series_vitaal: str = "vitaal.matroos.rws.nl/direct/get_netcdf.php?"
+
+    def run(self, input: str, output: str) -> None:
+        """
+        Voert de functie uit om gegevens op te halen en te verwerken voor de matroos-toolbox.
+
+        Parameters
+        ----------
+        input: str
+            Naam van de dataadapter met invoergegevens.
+        output: str
+            Naam van de dataadapter om uitvoergegevens op te slaan.
+
+        Raises
+        ------
+        UserWarning
+            Als de 'LoadsMatroos' sectie niet aanwezig is in de global_variables (config).
+            Als de 'measurement_location_code' ontbreekt in de inputdata.
+            Als het gegeven model niet wordt herkend.
+            Als de locaties niet worden gevonden.
+        ConnectionError
+            Als er geen resultaten in de data zitten.
+            Als de verbinding mislukt.
+        """
+
+        # haal opties en dataframe van de config
+        global_variables = self.data_adapter.config.global_variables
+        if "LoadsMatroosNetCDF" not in global_variables:
+            raise UserWarning(
+                "LoadsMatroosNetCDF sectie niet aanwezig in global_variables (config)"
+            )
+
+        options = global_variables["LoadsMatroosNetCDF"]
+        if "MISSING_VALUE" not in options:
+            options["MISSING_VALUE"] = -999
+
+        self.df_in = self.data_adapter.input(input)
+
+        wanted_location_names = self.get_matroos_available_locations(
+            self.df_in,
+            options,
+            endpoint_model="maps1d",  # netcdf uses a different endpoint to timeseries
         )
-        return url
+
+        # zet tijd goed
+        # TODO: zet dit later wel goed om alleen tijden rond calc_time te pakken
+        # calc_time = global_variables["calc_time"]
+
+        lst_dfs = []
+        # maak een url aan
+        for parameter in options["parameters"]:
+            parameter_code, aquo_grootheid_dict = read_aquo(parameter, global_variables)
+            aquo_parameter = matroos_aquo_synoniem[
+                aquo_grootheid_dict["label_en"]
+            ]  # "WATHTE -> waterlevel"
+            request_forecast_url = self.generate_url(
+                options,
+                global_variables,
+            )
+            params = {
+                "database": "maps1d",
+                "source": options["model"],
+                "zip": "0",
+            }
+            status, response = fetch_data_get(
+                url=request_forecast_url, params=params, mime_type="NETCDF", timeout=120
+            )
+            if "is not available in database" in response.text:
+                raise UserWarning(
+                    f"{response.text}, check available sources with `get_matroos_sources(endpoint='maps1d')`"
+                )
+            if status is None and response is not None:
+                # sla tijdelijk op
+                temp_dir = tempfile.TemporaryDirectory()
+                temp_dir_path = Path(temp_dir.name)
+                file_path = temp_dir_path / f"Matroos_{options['model']}.nc"
+                with open(file_path, "wb") as file:
+                    file.write(response.content)
+
+                ds = xr.open_dataset(file_path)
+                # Aanname: Maar 1 analysis time (tot nu toe)
+                ds_0 = ds.isel(analysis_time=0).compute()
+                # maak een koppeling tussen station number and names
+                ds_0["nodenames"] = ds_0["nodenames"].astype("str")
+                station_name_dict = (
+                    ds_0["nodenames"].to_dataframe()["nodenames"].to_dict()
+                )
+                name_station_dict = {v: k for k, v in station_name_dict.items()}
+                if aquo_parameter in ds_0.variables:
+                    for location in wanted_location_names:
+                        df = ds_0.sel(stations=name_station_dict[location])[
+                            aquo_parameter
+                        ].to_dataframe()
+
+                        lst_dfs.append(df)
+                else:
+                    raise UserWarning(
+                        f"{parameter=} not found for {options['model']}, only {ds_0.data_vars.keys()}"
+                    )
+                ds.close()
+            else:
+                raise ConnectionError(f"Connection failed:{status}")
+
+        self.df_out = pd.concat(lst_dfs, axis=0)
+        self.data_adapter.output(output, self.df_out)
