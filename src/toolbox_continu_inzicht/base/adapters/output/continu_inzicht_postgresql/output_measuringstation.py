@@ -387,8 +387,9 @@ def output_ci_postgresql_to_moments(output_config: dict, df: pd.DataFrame) -> No
 
     schema = output_config["schema"]
 
+    expected_columns = ["date_time", "calc_time", "moment_id"]
     if not df.empty:
-        if "date_time" in df and "calc_time" in df and "moment_id" in df:
+        if set(expected_columns).issubset(df.columns):
             df["datetime"] = df["date_time"].apply(epoch_from_datetime)
             df["calctime"] = df["calc_time"].apply(epoch_from_datetime)
             query = []
@@ -412,7 +413,9 @@ def output_ci_postgresql_to_moments(output_config: dict, df: pd.DataFrame) -> No
             # verbinding opruimen
             engine.dispose()
         else:
-            raise UserWarning("Ontbrekende variabelen in dataframe!")
+            raise UserWarning(
+                f"Ontbrekende variabelen: {set(expected_columns).difference(df.columns)} in dataframe!"
+            )
 
     else:
         raise UserWarning("Geen gegevens om op te slaan.")
@@ -465,20 +468,20 @@ def output_ci_postgresql_conditions(output_config: dict, df: pd.DataFrame) -> No
 
     schema = output_config["schema"]
 
+    expected_columns = [
+        "id",
+        "stateid",
+        "objectid",
+        "objecttype",
+        "upperboundary",
+        "name",
+        "description",
+        "color",
+        "statevalue",
+    ]
     if not df.empty:
-        if (
-            "id" in df
-            and "stateid" in df
-            and "objectid" in df
-            and "objecttype" in df
-            and "upperboundary" in df
-            and "name" in df
-            and "description" in df
-            and "color" in df
-            and "statevalue" in df
-        ):
+        if set(expected_columns).issubset(df.columns):
             query = []
-
             query.append(f"TRUNCATE {schema}.conditions;")
 
             statevalue_rows = df[df["statevalue"].isna()]
@@ -507,7 +510,9 @@ def output_ci_postgresql_conditions(output_config: dict, df: pd.DataFrame) -> No
             # verbinding opruimen
             engine.dispose()
         else:
-            raise UserWarning("Ontbrekende variabelen in dataframe!")
+            raise UserWarning(
+                f"Ontbrekende variabelen: {set(expected_columns).difference(df.columns)} in dataframe!"
+            )
 
     else:
         raise UserWarning("Geen gegevens om op te slaan.")
