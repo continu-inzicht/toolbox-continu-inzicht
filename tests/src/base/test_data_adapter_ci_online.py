@@ -60,7 +60,7 @@ class TestOutputCiPostgresql(unittest.TestCase):
         INSERT INTO continuinzicht_demo_realtime.conditions(id, stateid, objectid, objecttype, upperboundary, name, description, color, statevalue) VALUES (1, type1, 38383, 'measuringstation', 0.0, 'test_wit', 'test1', '#000000', condition1);
         INSERT INTO continuinzicht_demo_realtime.conditions(id, stateid, objectid, objecttype, upperboundary, name, description, color, statevalue) VALUES (2, type2, 9121, 'measuringstation', 1.0, 'test_zwart', 'test2', '#ffffff', condition2);"""
         self.assertEqual(
-            sql_command.strip(), expected_query.strip().replace("\n        ", "")
+            sql_command.strip(), expected_query.strip().replace("\n       ", "")
         )
 
     @mock.patch("sqlalchemy.create_engine")
