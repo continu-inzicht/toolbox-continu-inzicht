@@ -1,5 +1,6 @@
 import unittest
 import pandas as pd
+
 from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation import (
     output_ci_postgresql_measuringstation_to_data,
     output_ci_postgresql_to_states,
@@ -9,7 +10,7 @@ from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.out
 )
 import unittest.mock as mock
 
-# still to add:
+# nog toe te voegen:
 (output_ci_postgresql_measuringstation,)
 (output_ci_postgresql_to_moments,)
 
@@ -17,14 +18,12 @@ import unittest.mock as mock
 class TestOutputCiPostgresql(unittest.TestCase):
     @mock.patch("sqlalchemy.create_engine")
     def test_output_ci_postgresql_measuringstation_to_data(self, mock_create_engine):
-        """Tests the produced query for output_ci_postgresql_measuringstation_to_data with mocking."""
-        # Mock the engine and connection
+        """Test de geproduceerde query voor output_ci_postgresql_measuringstation_to_data met behulp van mocking."""
         mock_engine = mock.MagicMock()
         mock_connection = mock.MagicMock()
         mock_create_engine.return_value = mock_engine
         mock_engine.connect.return_value.__enter__.return_value = mock_connection
 
-        # Mock the DataFrame
         data = {
             "measurement_location_id": [1, 2],
             "date_time": pd.to_datetime(["2023-01-01", "2023-01-02"], utc=True),
@@ -33,7 +32,6 @@ class TestOutputCiPostgresql(unittest.TestCase):
         }
         df = pd.DataFrame(data)
 
-        # Mock the output_config
         output_config = {
             "postgresql_user": "user",
             "postgresql_password": "password",
@@ -44,10 +42,7 @@ class TestOutputCiPostgresql(unittest.TestCase):
             "unit_conversion_factor": 0.01,
         }
 
-        # Call the function
         output_ci_postgresql_measuringstation_to_data(output_config, df)
-
-        # Assertions
         mock_create_engine.assert_called_once_with(
             "postgresql://user:password@localhost:5432/continuinzicht"
         )
@@ -57,7 +52,7 @@ class TestOutputCiPostgresql(unittest.TestCase):
         mock_connection.commit.assert_called_once()
         mock_engine.dispose.assert_called_once()
 
-        # Check the SQL command executed
+        # Controleer de uitgevoerde SQL-opdracht
         args, kwargs = mock_connection.execute.call_args
         sql_command = args[0].text
         expected_query = """DELETE FROM continuinzicht_demo_realtime.data
@@ -67,7 +62,7 @@ class TestOutputCiPostgresql(unittest.TestCase):
         self.assertEqual(sql_command.strip(), expected_query.strip())
 
     def output_ci_postgresql_to_states_mocking(self, sql, con):
-        sql, con  # do nothing for now
+        sql, con  # voor nu niets doen
         return pd.DataFrame(
             {
                 "stateid": ["state1", "state2"],
@@ -78,14 +73,12 @@ class TestOutputCiPostgresql(unittest.TestCase):
 
     @mock.patch("sqlalchemy.create_engine")
     def test_output_ci_postgresql_to_states(self, mock_create_engine):
-        """Tests the produced query for output_ci_postgresql_to_states with mocking."""
-        # Mock the engine and connection
+        """Test de geproduceerde query voor output_ci_postgresql_to_states met behulp van mocking."""
         mock_engine = mock.MagicMock()
         mock_connection = mock.MagicMock()
         mock_create_engine.return_value = mock_engine
         mock_engine.connect.return_value.__enter__.return_value = mock_connection
 
-        # Mock the DataFrame
         data = {
             "measurement_location_id": [1, 2],
             "date_time": pd.to_datetime(["2023-01-01", "2023-01-02"], utc=True),
@@ -95,7 +88,6 @@ class TestOutputCiPostgresql(unittest.TestCase):
             "upper_boundary": [0.0, 1.0],
         }
         df = pd.DataFrame(data)
-        # Mock the output_config
         output_config = {
             "postgresql_user": "user",
             "postgresql_password": "password",
@@ -106,14 +98,12 @@ class TestOutputCiPostgresql(unittest.TestCase):
             "unit_conversion_factor": 0.01,
         }
 
-        # this has an extra request
+        # dit heeft een extra database interactie, mock die ook
         with mock.patch(
             "pandas.read_sql_query", self.output_ci_postgresql_to_states_mocking
         ):
-            # Call the function
             output_ci_postgresql_to_states(output_config, df)
 
-        # Assertions
         mock_create_engine.assert_called_once_with(
             "postgresql://user:password@localhost:5432/continuinzicht"
         )
@@ -123,7 +113,7 @@ class TestOutputCiPostgresql(unittest.TestCase):
         mock_connection.commit.assert_called_once()
         mock_engine.dispose.assert_called_once()
 
-        # Check the SQL command executed
+        # Controleer de uitgevoerde SQL-opdracht
         args, kwargs = mock_connection.execute.call_args
         sql_command = args[0].text
         expected_query = """DELETE FROM continuinzicht_demo_realtime.states
@@ -134,13 +124,12 @@ class TestOutputCiPostgresql(unittest.TestCase):
 
     @mock.patch("sqlalchemy.create_engine")
     def test_output_ci_postgresql_conditions(self, mock_create_engine):
-        # Mock the engine and connection
         mock_engine = mock.MagicMock()
         mock_connection = mock.MagicMock()
         mock_create_engine.return_value = mock_engine
         mock_engine.connect.return_value.__enter__.return_value = mock_connection
 
-        # Mock the DataFrame
+        # Mock de DataFrame
         data = {
             "objecttype": ["measuringstation", "measuringstation"],
             "objectid": [38383, 9121],
@@ -154,7 +143,7 @@ class TestOutputCiPostgresql(unittest.TestCase):
         }
         df = pd.DataFrame(data)
 
-        # Mock the output_config
+        # Mock de output_config
         output_config = {
             "postgresql_user": "user",
             "postgresql_password": "password",
@@ -164,10 +153,8 @@ class TestOutputCiPostgresql(unittest.TestCase):
             "schema": "continuinzicht_demo_realtime",
         }
 
-        # Call the function
         output_ci_postgresql_conditions(output_config, df)
 
-        # Assertions
         mock_create_engine.assert_called_once_with(
             "postgresql://user:password@localhost:5432/continuinzicht"
         )
@@ -177,7 +164,7 @@ class TestOutputCiPostgresql(unittest.TestCase):
         mock_connection.commit.assert_called_once()
         mock_engine.dispose.assert_called_once()
 
-        # Check the SQL command executed
+        # Controleer de uitgevoerde SQL-opdracht
         args, kwargs = mock_connection.execute.call_args
         sql_command = args[0].text
         expected_query = """TRUNCATE continuinzicht_demo_realtime.conditions;
