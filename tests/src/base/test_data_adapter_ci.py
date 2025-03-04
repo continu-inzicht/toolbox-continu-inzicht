@@ -305,4 +305,4 @@ def test_dataadapter_ci_postgresql_calc_status():
         df_in = None
 
     assert df_in is not None
-    assert 1 == 2
+    # assert 1 == 2
