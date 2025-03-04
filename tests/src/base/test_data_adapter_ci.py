@@ -239,9 +239,9 @@ def test_dataadapter_ci_postgresql_to_states():
                     "measurement_location_id": dummy_object_id,
                     "hours": row["momentid"],
                     "date_time": row["date_time"],
-                    "value": -25.0,
-                    "lower_boundary": -10.0,
-                    "upper_boundary": -45.0,
+                    "value": -25.0 / 100,
+                    "lower_boundary": -10.0 / 100,
+                    "upper_boundary": -45.0 / 100,
                     "color": "#39870C",
                     "label": "Normaal (-92 tot 200cm)",
                 }
@@ -269,3 +269,40 @@ def test_dataadapter_ci_postgresql_to_states():
 
     # dispose connection
     engine.dispose()
+
+
+# @pytest.mark.skipif(
+#     os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("DEBUG_CI") != "true",
+#     reason="Kan alleen lokaal getest worden",
+# )
+def test_dataadapter_ci_postgresql_calc_status():
+    """
+    Deze test haalt drempelwaarden van meetstation op uit een Continu Inzicht database
+    Het formaat moet voldoen aan het invoerformaat van functies die belasting
+    classificeren
+    """
+    try:
+        test_data_sets_path = Path(__file__).parent / "data_sets"
+        config = Config(config_path=test_data_sets_path / "test_config_ci.yaml")
+        config.lees_config()
+
+        data_adapter = DataAdapter(config=config)
+
+        input_string = "ci_status"
+        # schema = {
+        #     "measurement_location_id": "int64",
+        #     "lower_boundary": "float64",
+        #     "upper_boundary": "float64",
+        #     "color": "object",
+        #     "label": "object",
+        #     "unit": "object",
+        # }
+
+        df_in = data_adapter.input(input=input_string)
+
+    except Exception as e:
+        print(e)
+        df_in = None
+
+    assert df_in is not None
+    assert 1 == 2
