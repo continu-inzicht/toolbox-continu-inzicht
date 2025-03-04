@@ -129,7 +129,7 @@ def input_ci_postgresql_calc_status(input_config: dict) -> pd.DataFrame:
     with engine.connect() as connection:
         select_query = f"""
             SELECT
-                (SELECT COUNT(calculating)>0 FROM {schema}.data WHERE calculating=true) AS is_calculating,  
+                (SELECT COUNT(calculating)>0 FROM {schema}.data WHERE calculating=true) AS is_calculating,
                 (SELECT value  FROM {schema}.attributes WHERE name='wind') IS NOT NULL AS wind_changed,
                 (SELECT value  FROM {schema}.attributes WHERE name='scenario') IS NOT NULL AS scenario_changed,
                 (SELECT value  FROM {schema}.attributes WHERE name='degradation') IS NOT NULL AS degradation_changed,

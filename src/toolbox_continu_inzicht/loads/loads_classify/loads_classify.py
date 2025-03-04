@@ -21,7 +21,7 @@ class LoadsClassify:
         Dataframe met geclassificeerde waterstanden voor opgegeven momenten.
     input_schema_thresholds : ClassVar[dict[str, str]]
         Schema voor drempelwaarden per meetlocatie.
-    input_schema_loads : ClassVar[dict[str, str]]
+    input_schema_loads : ClassVar[dict[str, str | list[str]]]
         Schema voor belasting per moment per meetlocaties.
 
     Notes

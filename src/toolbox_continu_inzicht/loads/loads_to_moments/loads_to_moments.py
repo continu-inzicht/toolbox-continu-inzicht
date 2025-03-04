@@ -21,7 +21,7 @@ class LoadsToMoments:
     df_out: Optional[pd.DataFrame] | None
         Het uitvoerdataframe met de resulterende momenten. Standaard is dit None.
 
-    input_schema_loads: ClassVar[dict[str, str]]
+    input_schema_loads: ClassVar[dict[str, str | list[str]]]
         Het schema van het invoerdataframe met waterstandsgegevens.
 
     """
