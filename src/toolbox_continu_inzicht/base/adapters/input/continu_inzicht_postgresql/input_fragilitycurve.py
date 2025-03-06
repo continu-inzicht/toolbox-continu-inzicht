@@ -1,5 +1,5 @@
 """
-Data adapters voor het lezen van data uit de Continu Inzicht database
+DataAdapters voor het lezen van data uit de Continu Inzicht database
 """
 
 import pandas as pd
@@ -24,27 +24,27 @@ def input_ci_postgresql_measure_fragilitycurves_table(
     input_config (dict): configuratie opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
-    In de 'yaml' config moeten de volgende parameters staan:\n
-    - database (str): database van de Continu Inzicht
-    - schema (str): schema van de Continu Inzicht
+    In de 'yaml'-config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht database
+    - schema (str): schema van de Continu Inzicht database
     - timedep (int64, optioneel): tijdsafhankelijk 0=nee, 1=ja
-    - degradatieid (int64, optioneel): rekening houden met degradatie (nog net geimplementeerd)
+    - degradatieid (int64, optioneel): rekening houden met degradatie (nog net geïmplementeerd)
 
     Returns:\n
     df (DataFrame):\n
-    - section_id: int64             : id van de dijkvak
+    - section_id: int64             : id van het dijkvak
     - measure_id: int64             : id van de maatregel
     - measure: str                  : naam van de maatregel
     - failuremechanismid: int64     : id van het faalmechanisme
     - failuremechanism: str         : naam van het faalmechanisme
-    - hydraulicload: float64        : belasting van de tijdreeksitem
-    - failureprobability: float64   : faalkans van de tijdreeksitem
+    - hydraulicload: float64        : belasting van het tijdreeksitem
+    - failureprobability: float64   : faalkans van het tijdreeksitem
     - successrate: float64          : kans op succes van de maatregel
     """
 
@@ -109,25 +109,25 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
     """
     Ophalen fragilitycurves voor alle dijkvakken, faalmechanismes en opgegeven maatregel
 
-    Yaml example:\n
+    YAML voorbeeld:\n
         type: ci_postgresql_fragilitycurves_table
         database: "geoserver"
         schema: "continuinzicht_demo_realtime"
         measureid: 0
 
     Args:\n
-    input_config (dict): configuratie opties
+    input_config (dict): configuratie-opties
 
     **Opmerking:**\n
-    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
     - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
     - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
     - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
     - postgresql_port (str): poort van de Continu Inzicht databaseserver
 
     In de 'yaml' config moeten de volgende parameters staan:\n
-    - database (str): database van de Continu Inzicht
-    - schema (str): schema van de Continu Inzicht
+    - database (str): database van de Continu Inzicht database
+    - schema (str): schema van de Continu Inzicht database
     - measureid (int64, optioneel): maatregel id, bij geen waarde wordt geen maatregel
       (measureid=0) gebruikt
     - timedep (int64, optioneel): tijdsafhankelijk 0=nee, 1=ja
@@ -135,13 +135,13 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
 
     Returns:\n
     df (DataFrame):\n
-    - section_id: int64             : id van de dijkvak
+    - section_id: int64             : id van het dijkvak
     - measure_id: int64             : id van de maatregel
     - measure: str                  : naam van de maatregel
     - failuremechanismid: int64     : id van het faalmechanisme
     - failuremechanism: str         : naam van het faalmechanisme
-    - hydraulicload: float64        : belasting van de tijdreeksitem
-    - failureprobability: float64   : faalkans van de tijdreeksitem
+    - hydraulicload: float64        : belasting van het tijdreeksitem
+    - failureprobability: float64   : faalkans van het tijdreeksitem
     """
 
     keys = [
@@ -203,7 +203,7 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
 
 # overtopping:
 def input_ci_postgresql_profiles(input_config: dict) -> pd.DataFrame:
-    """leest profile data van postgresql database in de profile tabel & zet namen goed."""
+    """Leest profieldata van PostgreSQL-database in de profieltabel en zet namen goed."""
 
     keys = [
         "postgresql_user",
@@ -247,7 +247,7 @@ def input_ci_postgresql_profiles(input_config: dict) -> pd.DataFrame:
         CROSS JOIN {schema}.wind;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -258,7 +258,7 @@ def input_ci_postgresql_profiles(input_config: dict) -> pd.DataFrame:
 
 
 def input_ci_postgresql_slopes(input_config: dict) -> pd.DataFrame:
-    """leest slopes data van postgresql database in de slopes tabel  & zet namen goed."""
+    """leest hellingsdata van PostgreSQL-database in de hellingstabel en zet namen goed."""
 
     keys = [
         "postgresql_user",
@@ -301,7 +301,7 @@ def input_ci_postgresql_slopes(input_config: dict) -> pd.DataFrame:
 
 
 def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
-    """leest bedlevelfetch data van postgresql database in de bedlevelfetch tabel  & zet namen goed."""
+    """Leest bedlevelfetch data van PostgreSQL-database in de bedlevelfetch tabel en zet namen goed."""
 
     keys = [
         "postgresql_user",
@@ -330,7 +330,7 @@ def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
         FROM {schema}.bedlevelfetch;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -341,7 +341,7 @@ def input_ci_postgresql_bedlevelfetch(input_config: dict) -> pd.DataFrame:
 
 
 def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in."""
+    """Leest fragility curves data van PostgreSQL-database in."""
 
     keys = [
         "postgresql_user",
@@ -402,7 +402,7 @@ def input_ci_postgresql_fragilitycurves(input_config: dict) -> pd.DataFrame:
 
 
 def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in , zet namen goed en filterd op overtopping."""
+    """Leest fragility curves data van PostgreSQL-database in, zet namen goed en filtert op overtopping."""
 
     keys = [
         "postgresql_user",
@@ -463,7 +463,7 @@ def input_ci_postgresql_fragilitycurves_overtopping(input_config: dict) -> pd.Da
 
 
 def input_ci_postgresql_fragilitycurves_piping(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in , zet namen goed en filterd op piping."""
+    """Leest fragility curves data van PostgreSQL-database in, zet namen goed en filtert op piping."""
 
     keys = [
         "postgresql_user",
@@ -524,7 +524,7 @@ def input_ci_postgresql_fragilitycurves_piping(input_config: dict) -> pd.DataFra
 
 
 def input_ci_postgresql_fragilitycurves_stability(input_config: dict) -> pd.DataFrame:
-    """leest fragility curves data van postgresql database in , zet namen goed en filterd op piping."""
+    """Leest fragility curves data van PostgreSQL-database in, zet namen goed en filtert op piping."""
     input_config["table"] = "fragilitycurves"
     stability_id = 4
     if stability_id in input_config:
@@ -546,7 +546,7 @@ def input_ci_postgresql_fragilitycurves_stability(input_config: dict) -> pd.Data
 
 
 def input_ci_postgresql_probablistic_piping(input_config: dict) -> pd.DataFrame:
-    """leest probablistic data van postgresql database in de probablistic piping tabel en hernoemt de kollomen."""
+    """Leest probablistic data van PostgreSQL-database in de probablistic piping tabel en hernoemt de kolomen."""
     db_to_continu_inzicht = {
         "sectionid": "section_id",
         "scenarioid": "scenario_id",

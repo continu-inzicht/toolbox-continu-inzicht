@@ -9,7 +9,7 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
 
     def run(self, input: list[str], output: str, effect: float) -> None:
         """
-        Runt de berekening van de fragility curve voor golf overslag & shift de curve met een gegeven effect
+        Runt de berekening van de fragility curve voor golfoverslag & shift de curve met een gegeven effect
 
         Parameters
         ----------
@@ -28,7 +28,7 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
 
                [0] df_slopes (pd.DataFrame)
 
-                    DataFrame met helling data.
+                    DataFrame met hellingsdata.
                     Moet de volgende kolommen bevatten:
                     - x : float
                     - y : float
@@ -36,7 +36,7 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
                     - slopetypeid : int (1: dike or 2: slope)
 
                [1] df_profile (pd.DataFrame):
-                    DataFrame met profiel data.
+                    DataFrame met profieldata.
                     Moet de volgende kolommen bevatten:
                     - windspeed : float
                     - sectormin : float
@@ -61,13 +61,13 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
 
 
 class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
-    """Verschuift de kruin hoogte met het gegeven effect en berekent de fragility curve"""
+    """Verschuift de kruinhoogte met het gegeven effect en berekent de fragility curve"""
 
     data_adapter: DataAdapter
 
     def run(self, input: list[str], output: str, effect: float) -> None:
         """
-        Runt de berekening van de fragility curve voor golf overslag & past de kruinhoogte aan met een gegeven effect
+        Runt de berekening van de fragility curve voor golfoverslag & past de kruinhoogte aan met een gegeven effect
 
         Parameters
         ----------
@@ -86,7 +86,7 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
 
                [0] df_slopes (pd.DataFrame)
 
-                    DataFrame met helling data.
+                    DataFrame met hellingsdata.
                     Moet de volgende kolommen bevatten:
                     - x : float
                     - y : float
@@ -94,7 +94,7 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
                     - slopetypeid : int (1: dike or 2: slope)
 
                [1] df_profile (pd.DataFrame):
-                    DataFrame met profiel data.
+                    DataFrame met profieldata.
                     Moet de volgende kolommen bevatten:
                     - windspeed : float
                     - sectormin : float
@@ -122,7 +122,7 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
             try:
                 df_profile.loc[k, "values"] = float(df_profile.loc[k, "values"])
             except ValueError:
-                # If values are not numeric, pass as we want to keep them strings
+                # Sla waarden over als deze niet numeriek zijn, omdat ze behouden moeten blijven als string
                 pass
         df_profile.loc["crestlevel"] += effect
         self.data_adapter.set_dataframe_adapter(
