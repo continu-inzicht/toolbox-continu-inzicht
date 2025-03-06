@@ -252,5 +252,5 @@ class DataAdapter(PydanticBaseModel):
 
         else:
             raise UserWarning(
-                f"DataAdapter `{key=}` niet gevonden, en {if_not_exist=} is ongeldig, moet `raise` of `create` zijn"
+                f"DataAdapter `{key=}` niet gevonden en {if_not_exist=} is ongeldig, dit moet `raise` of `create` zijn"
             )
