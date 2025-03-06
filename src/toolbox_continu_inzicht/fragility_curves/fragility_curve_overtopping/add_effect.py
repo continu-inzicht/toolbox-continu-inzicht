@@ -9,12 +9,12 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
 
     def run(self, input: list[str], output: str, effect: float) -> None:
         """
-        Runt de berekening van de fragility curve voor golf overslag & shift de curve met een gegeven effect
+        Runt de berekening van de fragility curve voor golfoverslag & shift de curve met een gegeven effect
 
         Parameters
         ----------
         input: list[str]
-            Lijst namen van de input dataadapters: slopes, profile en bed_levels
+            Lijst namen van de input data adapters: slopes, profile en bed_levels
         output: str
             Naam van de dataadapter Fragility curve output
         effect: float
@@ -31,7 +31,7 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
         1. r, roughness
         1. slopetypeid, id de helling type (int, 1: dike or 2: slope)
 
-        De tweede (profile) data adapter met profiel data moet de volgende kolommen bevatten:
+        De tweede (profile) data adapter met profieldata moet de volgende kolommen bevatten:
 
         1. windspeed, windsnelheid
         1. sectormin, de minimale sectorhoek.
@@ -53,13 +53,13 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
 
 
 class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
-    """Verschuift de kruin hoogte met het gegeven effect en berekent de fragility curve"""
+    """Verschuift de kruinhoogte met het gegeven effect en berekent de fragility curve"""
 
     data_adapter: DataAdapter
 
     def run(self, input: list[str], output: str, effect: float) -> None:
         """
-        Runt de berekening van de fragility curve voor golf overslag & past de kruinhoogte aan met een gegeven effect
+        Runt de berekening van de fragility curve voor golfoverslag & past de kruinhoogte aan met een gegeven effect
 
         Parameters
         ----------
@@ -81,7 +81,7 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
         1. r, roughness
         1. slopetypeid, id de helling type (int, 1: dike or 2: slope)
 
-        De tweede (profile) data adapter met profiel data moet de volgende kolommen bevatten:
+        De tweede (profile) data adapter met profieldata moet de volgende kolommen bevatten:
 
         1. windspeed, windsnelheid
         1. sectormin, de minimale sectorhoek.
@@ -106,7 +106,7 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
             try:
                 df_profile.loc[k, "values"] = float(df_profile.loc[k, "values"])
             except ValueError:
-                # If values are not numeric, pass as we want to keep them strings
+                # Sla waarden over als deze niet numeriek zijn, omdat ze behouden moeten blijven als string
                 pass
         df_profile.loc["crestlevel"] += effect
         self.data_adapter.set_dataframe_adapter(

@@ -42,7 +42,7 @@ def combine_weighted(lst_fragility_curves, weights=None):
 @dataclass(config={"arbitrary_types_allowed": True})
 class CombineFragilityCurvesIndependent:
     """
-    Combineer meerdere fragility curves onafhankelijk tot een enkele fragility curves.
+    Combineer meerdere fragility curves onafhankelijk tot een enkele fragility curve.
 
     Attributes
     ----------
@@ -65,7 +65,7 @@ class CombineFragilityCurvesIndependent:
     Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
     De volgende opties kunnen via de config worden ingesteld:
 
-    1. extend_past_max. Hoe ver de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves. Default is 0.01.
+    1. extend_past_max. Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de inputcurves. Default is 0.01.
     2. refine_step_size. De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.
     """
 
@@ -86,9 +86,9 @@ class CombineFragilityCurvesIndependent:
         Parameters
         ----------
         input: list[str]
-            Lijst van namen van de data adapters met fragility curves.
+            Lijst van namen van de DataAdapters met fragility curves.
         output: str
-            Naam van de output data adapter.
+            Naam van de output DataAdapter.
         """
 
         for key in input:
@@ -116,7 +116,7 @@ class CombineFragilityCurvesIndependent:
             refine_step_size,
         )
 
-        # interpolate fragility curves to the same hydraulicload
+        # Interpoleer fragility curves naar dezelfde hydraulicload
         for index, fragility_curve in enumerate(self.lst_fragility_curves):
             fc = FragilityCurve(data_adapter=self.data_adapter)
             fc.from_dataframe(fragility_curve)
@@ -161,7 +161,7 @@ class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
     Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
     De volgende opties kunnen via de config worden ingesteld:
 
-    1. extend_past_max, Hoe ver de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves. Default is 0.01.
+    1. extend_past_max, Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de inputcurves. Default is 0.01.
     2. refine_step_size, De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.
     """
 
@@ -180,7 +180,7 @@ class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
 @dataclass(config={"arbitrary_types_allowed": True})
 class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
     """
-    Combineer meerdere fragility curves met een gewogen som tot een enkele fragility curves.
+    Combineer meerdere fragility curves met een gewogen som tot een enkele fragility curve.
 
     Attributes
     ----------
@@ -203,7 +203,7 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
     Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
     De volgende opties kunnen via de config worden ingesteld:
 
-    1. extend_past_max. Hoe ver de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves. Default is 0.01.
+    1. extend_past_max. Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de inputcurves. Default is 0.01.
     2. refine_step_size. De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.
     """
 
@@ -225,10 +225,10 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
         Parameters
         ----------
         input: list[str]
-            Lijst van namen van de data adapters met fragility curves.
+            Lijst van namen van de DataAdapters met fragility curves.
             De laatste lijst hiervan in de gewichten.
         output: str
-            Naam van de output data adapter.
+            Naam van de output DataAdapter.
 
         Raises
         ------
@@ -245,7 +245,7 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
         if len(self.lst_fragility_curves) != len(self.weights):
             raise UserWarning(
                 f"De laatste van de lijst van inputs moet de gewichten bevatten {input[-1]}, \
-                de lengte van de gewichten ({len(self.weights)}) moet gelijk aan het aan het aantal fragility curves ({len(self.lst_fragility_curves)})"
+                de lengte van de gewichten ({len(self.weights)}) moet gelijk zijn aan het aantal fragility curves ({len(self.lst_fragility_curves)})"
             )
 
         global_variables = self.data_adapter.config.global_variables

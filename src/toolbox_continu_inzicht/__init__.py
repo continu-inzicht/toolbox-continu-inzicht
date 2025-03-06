@@ -13,25 +13,26 @@ from toolbox_continu_inzicht.base import fragility_curve
 from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 
 # hier de hoofd modules, sub modules in de mapjes zelf
-from toolbox_continu_inzicht import base
-from toolbox_continu_inzicht import loads
-from toolbox_continu_inzicht import sections
-from toolbox_continu_inzicht import fragility_curves
-from toolbox_continu_inzicht import proof_of_concept
+from toolbox_continu_inzicht import (
+    base,
+    loads,
+    sections,
+    fragility_curves,
+    proof_of_concept,
+)
 
 
 __all__ = [
     "__version__",
     "config",
-    "data_adapter",
     "Config",
+    "data_adapter",
     "DataAdapter",
     "fragility_curve",
     "FragilityCurve",
+    "base",
     "loads",
     "sections",
-    "proof_of_concept",
-    "base",
-    "sections",
     "fragility_curves",
+    "proof_of_concept",
 ]

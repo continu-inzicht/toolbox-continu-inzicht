@@ -124,7 +124,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
             )
         )
 
-        # zet de resultaten om in dataframes voor elk mechanisme
+        # zet de resultaten om in DataFrames voor elk mechanisme
         df_names = [
             "df_result_uplift",
             "df_result_heave",
@@ -152,7 +152,7 @@ class FragilityCurvePipingMultiple:
     Maakt een set van fragility curves voor piping voor een dijkvak.
     De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie.
 
-    Deze functie berekent één gecombineerde  fragility curves voor mechanismes: uplift, heave, Sellmeijer.
+    Deze functie berekent één gecombineerde fragility curve voor de mechanismes uplift, heave en Sellmeijer.
 
     Attributes
     ----------
@@ -221,17 +221,17 @@ class FragilityCurvePipingMultiple:
                 "failure_probability",
             ]
         )
-        # loop over all sections
+        # loop over alle secties
         for section_id in self.df_prob_input.section_id.unique():
             df_prob_section = self.df_prob_input[
                 self.df_prob_input.section_id == section_id
             ]
-            # loop over all scenarios in the section
+            # loop over alle scenario's in de sectie
             for scenario_id in df_prob_section.scenario_id.unique():
                 df_prob_scenario = df_prob_section[
                     df_prob_section.scenario_id == scenario_id
                 ].copy()
-                # loop over all mechanisms
+                # loop over alle mechanismes
                 df_prob_scenario.set_index("Naam", inplace=True)
                 df_prob_scenario.drop(
                     columns=["section_id", "scenario_id", "mechanism"], inplace=True

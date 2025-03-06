@@ -18,15 +18,15 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.pydra_
 
 class WaveOvertoppingCalculation:
     """
-    Variant op de Pydra berekening die gebruikt wordt om on-the-fly
-    fragility curves te berekenen voor Continu inzicht rivierenland
+    Variant op de Pydra-berekening die gebruikt wordt om on-the-fly
+    fragility curves te berekenen voor Continu Inzicht Rivierenland
     """
 
     def __init__(self, profile, options):
         self.profile: pydra_core.Profile = profile
-        # Stel standaardonzekerheden voor bretschneider in
+        # Stel standaardonzekerheden voor Bretschneider in
         standaard_model_onzekerheden = {}
-        # gh =  golf hoogte onzerherheid mu/sigma/aantal;
+        # gh =  golfhoogte onzekerheid mu/sigma/aantal;
 
         standaard_model_onzekerheden["gh_onz_mu"] = 0.96
         standaard_model_onzekerheden["gh_onz_sigma"] = 0.27
@@ -42,7 +42,7 @@ class WaveOvertoppingCalculation:
 
         standaard_model_onzekerheden["closing_situation"] = profile.closing_situation
 
-        # overwrite default values with user input
+        # Overschrijf standaardwaarden met gebruikersinput
         for onzekerheid in standaard_model_onzekerheden:
             if onzekerheid in options:
                 standaard_model_onzekerheden[onzekerheid] = options[onzekerheid]
@@ -69,7 +69,7 @@ class WaveOvertoppingCalculation:
         options: Dict[str, Any],
     ) -> Tuple[List[float], List[float]]:
         """
-        Bereken de overloopcurve voor overtopping.
+        Berekent de overloopcurve voor overtopping.
         Parameters:
         -----------
         cls : class
@@ -122,7 +122,7 @@ class WaveOvertoppingCalculation:
         basis_profiel.closing_situation = (
             closing_situation  # niet zo netjes maar het werkt
         )
-        # Maak een berekening object met het basis profiel aan (WaveOvertoppingCalculation)
+        # Maak een berekeningobject met het basisprofiel aan (WaveOvertoppingCalculation)
         berekening_basis = cls(basis_profiel, options)
         t_tspec = 1.1
         if "tp_tspec" in options:
@@ -137,7 +137,7 @@ class WaveOvertoppingCalculation:
             fetch,
             t_tspec,
         )
-        # Calculate fragility curve
+        # Bereken fragility curve
         niveaus, ovkansqcr = berekening.bereken_fc_cond(
             richting=windrichtingen[ir],
             windsnelheid=windspeed,
@@ -185,7 +185,7 @@ class WaveOvertoppingCalculation:
         hss, tps = bretschneider(
             d=level - bedlevels, fe=fetches, u=np.ones_like(bedlevels) * windspeed
         )
-        # bereken overslagdebieten
+        # Bereken overslagdebieten
         qov = []
         for r, hs, tp in zip(richtingen, hss, tps):
             qov.append(
@@ -212,7 +212,7 @@ class WaveOvertoppingCalculation:
         options: Dict[str, Any],
     ) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Bereken de overloopcurve voor overtopping.
+        Berekent de overloopcurve voor overtopping.
 
         Parameters:
         -----------
@@ -229,7 +229,7 @@ class WaveOvertoppingCalculation:
         t_tspec : float
             De spectrale golfperiode.
         crestlevel : float
-            Het kruinhoogte.
+            De kruinhoogte.
         closing_situation : object
             De sluitsituatie.
         options : Dict[str, Any]
@@ -240,14 +240,14 @@ class WaveOvertoppingCalculation:
         Tuple[np.ndarray, np.ndarray]
             Een tuple met de niveaus en overloopkansen.
         """
-        # Set default values
+        # Stel standaardwaarden in
         hstap = options.get("hstap", 0.05)
         lower_limit_coarse = options.get("lower_limit_coarse", 4)
         upper_limit_coarse = options.get("upper_limit_coarse", 2)
         upper_limit_fine = options.get("upper_limit_fine", 1.01)
         # Leidt golfcondities af voor de richting
         cl_rnd = np.round(crestlevel / hstap) * hstap  # crest level rounded
-        # refine grid around crest level
+        # Verfijn het raster rond crest level
         # `waterlevels` is eigenlijk hydraulicload, gekozen om hier te laten omdat bij een GEKB curve
         # je altijd een waterstand hebt.
         waterlevels = np.r_[
@@ -323,7 +323,7 @@ class CustomModelUncertainty(ModelUncertainty):
     Attributen
     ----------
     model_uncertainties : dict
-        Een dictionary met modelonzekerheden
+        Een dictionary met modelonzekerheden.
     """
 
     model_uncertainties = {}
@@ -351,7 +351,7 @@ class CustomModelUncertainty(ModelUncertainty):
         mu.loc[2, "mean"] = standaard_model_onzekerheden["gp_onz_mu_tspec"]
         mu.loc[2, "stdev"] = standaard_model_onzekerheden["gp_onz_sigma_tspec"]
 
-        # ensure the index is same for all points to match original implementation
+        # Zorg ervoor dat de index voor alle punten hetzelfde is, zodat deze overeenkomt met de oorspronkelijke implementatie
         mu.index = [0, 0, 0]
         mu.index.name = "HRDLocationId"
 

@@ -1,6 +1,6 @@
 """
-pydra_legacy.py: functions from old pydra version
-bretschneider: function to calculate wave conditions with Bretschneider.
+pydra_legacy.py: functies uit een oude Pydra-versie.
+bretschneider: functie om de golfcondities met Bretschneider te berekenen.
 """
 
 from typing import Tuple
@@ -9,7 +9,7 @@ import numpy as np
 
 def bretschneider(d: float, fe: float, u: float) -> Tuple[float, float]:
     """
-    Bereken golfcondities met Bretschneider.
+    Berekent golfcondities met Bretschneider.
     Gebaseerd op "subroutine Bretschneider" in Hydra-NL, geprogrammeerd door
     Matthijs Duits
 
@@ -74,8 +74,8 @@ def bretschneider(d: float, fe: float, u: float) -> Tuple[float, float]:
         return hs_arr, tp_arr
 
 
-# Likely is in the newer version, but more difficult to access
-# Create table with parameters
+# Waarschijnlijk in de nieuwere versie, maar moeilijker toegankelijk
+# Creëer tabel met parameters
 qcr_table = {
     ("closed", "EX", 1): 225.0,
     ("closed", "EX", 2): 100.0,
@@ -94,26 +94,26 @@ qcr_table = {
 
 def _get_mu_sigma(EX: float, SDX: float) -> Tuple[float, float]:
     """
-    Get mu and sigma of the normal distribution of the
-    underlying log-normal distribution.
-    - EX and SDX are the expectancy or standard deviation of the lognormal distribution
-    - mu2 en sigma2 are the expectancy or standard deviation of the underlying normal
-    distribution (the usual parameters of the log-normal distribution)
+    Verkrijg mu en sigma voor de normaalverdeling van de
+    onderliggende log-normal verdeling.
+    - EX en SDX zijn de verwachting of standaard deviatie van de log-normaal verdeling
+    - mu2 en sigma2 zijn de verwachting of standaard deviatie van de onderliggende normaalverdeling
+    (de gebruikelijke parameters van de log-normaal verdeling)
     http://stackoverflow.com/questions/41464753/generate-random-numbers-from-lognormal-distribution-in-python
 
     Parameters
     ----------
     EX : float
-        Expectancy of the log-normal distribution
+        Verwachting van de log-normaal verdeling
     SDX : float
-        Standard deviation of the log-normal distribution
+        Standaardverdeling van de log-normaal verdeling
 
     Returns
     -------
     mu2 : float
-        Expectancy of the underlying normal distribution
+        Verwachting van de onderliggende normal verdeling
     sigma2 : float
-        Standard deviation of the underlying normal distribution
+         Standaardverdeling van de onderliggende normal verdeling
     """
     # Variatiecoëfficiënt:
     Vx = SDX / EX
@@ -129,37 +129,37 @@ def _get_mu_sigma(EX: float, SDX: float) -> Tuple[float, float]:
 
 def get_qcr_dist(Hs: float, grass_quality: str) -> Tuple[float, float]:
     """
-    Get distribution for critical overtopping discharge
-    based on significant wave height
+    Verkrijg de verdeling voor de kritieke overtopping afvoer
+    gebaseerd op significante golfhoogte
 
     Parameters
     ----------
     Hs : float
-        Significant wave height
+        Significante golfhoogte
     grass_quality : str
-        Grass quality (open or closed)
+        Graskwaliteit (open of gesloten)
 
     Raises
     ------
     ValueError
-        If grass quality is not understood, must be "open" or "closed"
+        Als Graskwaliteit niet klopt, moet be "open" of  "closed" zijn.
 
     Returns
     -------
     Mu : float
-        Expectancy of the distribution
+        Verwachting van de verdeling
     Sigma : float
-        Standard deviation of the distribution
+        Standaardverdeling van de verdeling
     """
     if isinstance(grass_quality, tuple):
         mu, sigma = grass_quality
     else:
         if grass_quality not in ["open", "closed"]:
             raise ValueError(
-                f'Grass quality "{grass_quality}" not understood. Choose from "open" and "closed".'
+                f'Graskwaliteit "{grass_quality}" niet begrepen. Kies tussen "open" en "closed".'
             )
 
-        # Get wave height class
+        # Verkrijg de golfhoogteklasse
         if Hs < 1.0:
             hs_class = 1
         elif Hs < 2.0:
@@ -167,7 +167,7 @@ def get_qcr_dist(Hs: float, grass_quality: str) -> Tuple[float, float]:
         else:
             hs_class = 3
 
-        # Get parameters
+        # Verkrijg parameters
         a = qcr_table[(grass_quality, "EX", hs_class)]
         b = qcr_table[(grass_quality, "SDX", hs_class)]
 

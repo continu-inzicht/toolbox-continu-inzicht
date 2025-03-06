@@ -10,12 +10,12 @@ def get_fews_thresholds(
     parameter_id: str,
     location_id: str,
 ) -> pd.DataFrame:
-    """Haal voor Fews de thresholds op voor de opgegegeven parameter en locatie.
+    """Haal voor FEWS de thresholds op voor de opgegegeven parameter en locatie.
 
     Args:
-        host (str): fews server host url
-        port (int): port waar de restservice draait
-        region (str): in fews gedefinieerde region
+        host (str): FEWS server host URL
+        port (int): port waar de REST-service draait
+        region (str): in FEWS gedefinieerde region
         filter_id (str): filter van de timeserie
         parameter_id (str): parameter van de timeserie
         locatie_id (str): locatie van de timeserie
@@ -24,7 +24,7 @@ def get_fews_thresholds(
         Dataframe: Pandas dataframe met thresholds
     """
 
-    # Genereer de url, geen data dus alleen header en thresholds aan.
+    # Genereer de URL, geen data dus alleen header en thresholds aan.
     parameters = {
         "filterId": filter_id,
         "locationIds": location_id,

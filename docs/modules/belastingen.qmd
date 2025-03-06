@@ -49,8 +49,8 @@ DataAdapter:
 
 
 ##### LoadsFews:
-- host: Fews PI REST url
-- port: Fews PI REST poortnummer
+- host: FEWS PI REST URL
+- port: FEWS PI REST poortnummer
 - region: FEWS PI REST regionaam
 - version: FEWS PI versienummer
 - filter: Filternaam zoals deze in FEWS wordt gebruikt

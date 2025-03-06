@@ -6,12 +6,12 @@ from datetime import datetime, timezone
 
 
 class Config(PydanticBaseModel):
-    """Basis functie om de configuratie in te laden.
+    """Basisfunctie om de configuratie in te laden.
 
     Attributes
     ----------
     config_path: Path
-        Pad naar een  `.yaml` bestand waarin per functie staat beschreven wat de in/output bestanden zijn
+        Pad naar een `.yaml`-bestand waarin per functie staat beschreven wat de input- en outputbestanden zijn.
     global_variables: dict
         Globale variabelen die in de configuratie kunnen worden opgegeven
     data_adapters: dict
@@ -24,15 +24,15 @@ class Config(PydanticBaseModel):
     data_adapters: dict = {}
 
     def lees_config(self):
-        """Laad het gegeven pad in, zet de configuraties klaar in de Config class"""
+        """Laadt het gegeven pad in, zet de configuraties klaar in de Config class."""
 
         with self.config_path.open() as fin:
             try:
                 data = yaml.safe_load(fin)
             except ScannerError:
                 raise UserWarning(
-                    f"Het yaml configuratie bestand '{self.config_path}' kan niet worden gelezen."
-                    + "Controleer dat spatie worden gebruikt inplaats van tabs."
+                    f"Het YAML-configuratiebestand '{self.config_path}' kan niet worden gelezen."
+                    + "Controleer of spaties worden gebruikt in plaats van tabs."
                 )
 
         for header, configuration in data.items():
@@ -40,7 +40,7 @@ class Config(PydanticBaseModel):
                 case "DataAdapter":
                     self.data_adapters = configuration
                 case "GlobalVariables":
-                    # voeg een centrale berekeningstijd toe als deze niet is gespecificeerd
+                    # Voeg een centrale rekentijd toe als deze niet is gespecificeerd
                     if "calc_time" not in configuration:
                         dt_now = datetime.now(timezone.utc)
                         t_now = datetime(
@@ -74,7 +74,7 @@ class Config(PydanticBaseModel):
         self.init_data_adapters()
 
     def init_data_adapters(self):
-        # opties die in de DataAdapter worden mee gegeven
+        # Opties die in de DataAdapter worden meegegeven
         # worden toegevoegd aan de adapters, mits de adapter zelf niet die waarde heeft
         if "default_options" in self.data_adapters:
             default_options = self.data_adapters["default_options"]

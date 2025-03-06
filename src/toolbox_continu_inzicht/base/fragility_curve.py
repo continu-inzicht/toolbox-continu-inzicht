@@ -46,7 +46,7 @@ class FragilityCurve:
         pass
 
     def as_array(self):
-        """Geef curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst"""
+        """Geef curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst"""
         return np.vstack(
             [
                 self.hydraulicload,
@@ -69,7 +69,7 @@ class FragilityCurve:
         self.failure_probability = df["failure_probability"].to_numpy()
 
     def load(self, input: str):
-        """Laad een fragility curve in"""
+        """Laadt een fragility curve in"""
         df_in = self.data_adapter.input(input, schema=self.fragility_curve_schema)
         self.from_dataframe(df_in)
 
@@ -89,7 +89,7 @@ class FragilityCurve:
         self.failure_probability = log_interpolate_1d(x, xp, fp, ll=1e-20, clip01=True)
 
     def refine(self, new_hydraulicload):
-        """Interpoleer de fragility curve op de gegeven waterstanden"""
+        """Interpoleert de fragility curve op de gegeven waterstanden"""
         refined_failure_probability = log_interpolate_1d(
             new_hydraulicload,
             self.hydraulicload,
