@@ -135,10 +135,6 @@ class DataAdapter(PydanticBaseModel):
                 message = f"Adapter van het type '{data_type}' niet gevonden."
         else:
             # Adaptersleutel staat niet in het YAML-bestand
-            if not suppress_userwarnings:
-                message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
-        else:
-            # Adaptersleutel staat niet in het YAML-bestand
             message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
             raise UserWarning(message)
 

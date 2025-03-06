@@ -107,7 +107,7 @@ def _get_mu_sigma(EX: float, SDX: float) -> Tuple[float, float]:
         Verwachting van de log-normaal verdeling
     SDX : float
         Standaardverdeling van de log-normaal verdeling
-        
+
     Returns
     -------
     mu2 : float

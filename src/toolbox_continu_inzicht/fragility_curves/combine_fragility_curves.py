@@ -212,7 +212,7 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
     Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden.
     Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden.
     De volgende opties kunnen via de config worden ingesteld:
-    
+
     1. extend_past_max. Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de inputcurves. Default is 0.01.
     2. refine_step_size. De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.
     """

@@ -69,7 +69,7 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
             Naam van de dataadapter Fragility curve output
         effect: float
             Verschuiving van de fragility curve
-            
+
         Notes
         -----
         Deze input volgorde is wat specifiek, vandaar de extra details.
