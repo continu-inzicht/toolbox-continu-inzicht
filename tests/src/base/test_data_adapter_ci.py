@@ -271,10 +271,10 @@ def test_dataadapter_ci_postgresql_to_states():
     engine.dispose()
 
 
-# @pytest.mark.skipif(
-#     os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("DEBUG_CI") != "true",
-#     reason="Kan alleen lokaal getest worden",
-# )
+@pytest.mark.skipif(
+    os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("DEBUG_CI") != "true",
+    reason="Kan alleen lokaal getest worden",
+)
 def test_dataadapter_ci_postgresql_calc_status():
     """
     Deze test haalt drempelwaarden van meetstation op uit een Continu Inzicht database

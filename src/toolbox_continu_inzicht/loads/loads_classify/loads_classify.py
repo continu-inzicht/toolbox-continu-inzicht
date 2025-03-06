@@ -88,9 +88,6 @@ class LoadsClassify:
             Lijst met namen van de data adapter voor de drempelwaarde en belasting per meetlocatie.
         output: str
             Data adapter voor output van de koppeling van de maatgevende meetlocaties per dijkvak
-
-        Returns:
-            Dataframe: Pandas dataframe met geclassificeerde waterstanden voor opgegeven momenten.
         """
 
         if not len(input) == 2:
