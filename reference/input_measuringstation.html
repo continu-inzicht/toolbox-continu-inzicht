@@ -209,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_measuringstation" class="level1">
 <h1>input_measuringstation</h1>
 <p><code>base.adapters.input.continu_inzicht_postgresql.input_measuringstation</code></p>
-<p>Data adapters voor het lezen van data uit de Continu Inzicht database</p>
+<p>DataAdapters voor het lezen van data uit de Continu Inzicht database</p>
 <section id="functions" class="level2">
 <h2 class="anchored" data-anchor-id="functions">Functions</h2>
 <table class="caption-top table">
@@ -222,19 +222,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_measuringstation.input_ci_postgresql_from_conditions">input_ci_postgresql_from_conditions</a></td>
-<td>Ophalen klassegrenzen uit een Continu Inzicht database.</td>
+<td>Haalt klassegrenzen op uit een Continu Inzicht database.</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_measuringstation.input_ci_postgresql_from_measuringstations">input_ci_postgresql_from_measuringstations</a></td>
-<td>Ophalen meetstations uit een continu database.</td>
+<td>Haalt meetstations op uit een continu database.</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_measuringstation.input_ci_postgresql_from_waterlevels">input_ci_postgresql_from_waterlevels</a></td>
-<td>Ophalen belasting uit een Continu Inzicht database voor het WhatIf scenario (tabel: waterstanden).</td>
+<td>Haalt belasting op uit de Continu Inzicht database voor het WhatIf scenario (tabel: waterstanden).</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_measuringstation.input_ci_postgresql_measuringstation_data_table">input_ci_postgresql_measuringstation_data_table</a></td>
-<td>Ophalen tijdreeks van belasting per meetstation uit een Continu Inzicht database.</td>
+<td>Haalt tijdreeks van belasting per meetstation op uit een Continu Inzicht database.</td>
 </tr>
 </tbody>
 </table>
@@ -243,22 +243,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_measuringstation.input_ci_postgresql_from_conditions(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen klassegrenzen uit een Continu Inzicht database.</p>
-<p>Yaml example:</p>
+<p>Haalt klassegrenzen op uit een Continu Inzicht database.</p>
+<p>YAML voorbeeld:</p>
 <pre><code>type: ci_postgresql_from_conditions
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Args:</p>
-<p>input_config (dict): configuratie opties</p>
+<p>input_config (dict): configuratie-opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
 <li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
 <li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
 </ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<p>In de ‘yaml’-config moeten de volgende parameters staan:</p>
 <ul>
 <li>database (str): database van de Continu Inzicht</li>
 <li>schema (str): schema van de Continu Inzicht</li>
@@ -280,16 +280,16 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_measuringstation.input_ci_postgresql_from_measuringstations(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen meetstations uit een continu database.</p>
+<p>Haalt meetstations op uit een continu database.</p>
 <p>Yaml example:</p>
 <pre><code>type: ci_postgresql_from_measuringstations
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"
 source: "waterinfo"</code></pre>
 <p>Args:</p>
-<p>input_config (dict): configuratie opties</p>
+<p>input_config (dict): configuratie-opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
@@ -300,7 +300,7 @@ source: "waterinfo"</code></pre>
 <ul>
 <li>database (str): database van de Continu Inzicht</li>
 <li>schema (str): schema van de Continu Inzicht</li>
-<li>source (str): source (veld) waar de meetstation aan gekoppeld zijn.</li>
+<li>source (str): source (veld) waar de meetstations aan gekoppeld zijn.</li>
 </ul>
 <p>Returns:</p>
 <p>df (DataFrame):</p>
@@ -315,15 +315,15 @@ source: "waterinfo"</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_measuringstation.input_ci_postgresql_from_waterlevels(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen belasting uit een Continu Inzicht database voor het WhatIf scenario (tabel: waterstanden).</p>
-<p>Yaml example:</p>
+<p>Haalt belasting op uit de Continu Inzicht database voor het WhatIf scenario (tabel: waterstanden).</p>
+<p>YAML voorbeeld:</p>
 <pre><code>type: ci_postgresql_from_waterlevels
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Args:</p>
 <p>input_config (dict): configuratie opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
@@ -355,22 +355,22 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_measuringstation.input_ci_postgresql_measuringstation_data_table(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen tijdreeks van belasting per meetstation uit een Continu Inzicht database.</p>
-<p>Yaml example:</p>
+<p>Haalt tijdreeks van belasting per meetstation op uit een Continu Inzicht database.</p>
+<p>YAML voorbeeld:</p>
 <pre><code>type: ci_postgresql_measuringstation_data_table
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Args:</p>
 <p>input_config (dict): configuratie opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
 <li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
 <li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
 </ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<p>In de ‘yaml’-config moeten de volgende parameters staan:</p>
 <ul>
 <li>database (str): database van de Continu Inzicht</li>
 <li>schema (str): schema van de Continu Inzicht</li>
@@ -385,9 +385,9 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <li>parameter_code: str : code van de parameter</li>
 <li>parameter_description: str : omschrijving van de parameter</li>
 <li>unit: str : unit van de parameter</li>
-<li>date_time: datetime64 : datum/ tijd van de tijdreeksitem</li>
-<li>value: float64 : waarde van de tijdreeksitem</li>
-<li>value_type: str : type waarde van de tijdreeksitem (meting of verwacht)</li>
+<li>date_time: datetime64 : datum/ tijd van het tijdreeksitem</li>
+<li>value: float64 : waarde van het tijdreeksitem</li>
+<li>value_type: str : type waarde van het tijdreeksitem (meting of verwacht)</li>
 </ul>
 
 

@@ -189,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping" id="toc-toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping">FragilityCurveOvertopping</a>
   <ul class="collapse">
-  <li><a href="#options-in-config" id="toc-options-in-config" class="nav-link" data-scroll-target="#options-in-config">Options in config</a></li>
+  <li><a href="#opties-in-config" id="toc-opties-in-config" class="nav-link" data-scroll-target="#opties-in-config">Opties in config</a></li>
   <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
@@ -215,34 +215,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurveOvertopping()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Maakt een enkele fragility curve voor golf overslag.</p>
 <p>Args: data_adapter (DataAdapter): DataAdapter object</p>
-<section id="options-in-config" class="level2 doc-section doc-section-options-in-config">
-<h2 class="doc-section doc-section-options-in-config anchored" data-anchor-id="options-in-config">Options in config</h2>
+<section id="opties-in-config" class="level2 doc-section doc-section-opties-in-config">
+<h2 class="doc-section doc-section-opties-in-config anchored" data-anchor-id="opties-in-config">Opties in config</h2>
 <p>Onzekerheden: float - gh_onz_mu GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)</p>
 <pre><code>- gh_onz_sigma
-    GolfHoogte onzekerheid sigma: standaard afwijking waarde (standaard 0.27)
+    GolfHoogte onzekerheid sigma: standaardafwijking waarde (standaard 0.27)
 
 - gp_onz_mu_tp
     GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
 
 - gp_onz_sigma_tp
-    GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+    GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
 
 - gp_onz_mu_tspec
     GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
 
 - gp_onz_sigma_tspec
-    GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+    GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
 
 - gh_onz_aantal
     Aantal onzekerheden in de golfhoogte (standaard 7)
 - gp_onz_aantal
     Aantal onzekerheden in de golfperiode (standaard 7)</code></pre>
-<p>tp_tspec: float de verhouding tussen de piek periode van de golf (<code>$T_p$</code>) en de spectrale golfperiode (<code>$Tm_{-1,0}$</code>) (standaard 1.1).</p>
-<p>De waterniveaus waarmee probablistisch gerekend wordt is verdeelt in twee delen: grof en fijn.</p>
-<p>lower_limit_coarse: float De ondergrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 4.0m onder de kruin)</p>
-<p>upper_limit_coarse: float De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in grove stappen (standaard 2.0m onder de kruin). Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.</p>
-<p>upper_limit_fine: float De bovengrens van de waterstanden waarvoor de fragiliteitscurve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)</p>
-<p>hstap: float De fijne stapgrootte van de waterstanden waarvoor de fragiliteitscurve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.</p>
+<p>tp_tspec: float De verhouding tussen de piekperiode van de golf (<code>$T_p$</code>) en de spectrale golfperiode (<code>$Tm_{-1,0}$</code>) (standaard 1.1).</p>
+<p>De waterniveaus waarmee probablistisch gerekend wordt is verdeeld in twee delen: grof en fijn.</p>
+<p>lower_limit_coarse: float De ondergrens van de waterstanden waarvoor de fragility curve wordt berekend in grove stappen (standaard 4.0m onder de kruin)</p>
+<p>upper_limit_coarse: float De bovengrens van de waterstanden waarvoor de fragility curve wordt berekend in grove stappen (standaard 2.0m onder de kruin). Er is geen lower_limit_fine, omdat deze altijd gelijk is aan upper_limit_coarse.</p>
+<p>upper_limit_fine: float De bovengrens van de waterstanden waarvoor de fragility curve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)</p>
+<p>hstap: float De fijne stapgrootte van de waterstanden waarvoor de fragility curve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.</p>
 </section>
 <section id="attributes" class="level2">
 <h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
@@ -289,34 +289,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.as_array">as_array</a></td>
-<td>Geeft curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst</td>
+<td>Geeft curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.calculate_fragility_curve">calculate_fragility_curve</a></td>
-<td>Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</td>
+<td>Berekent de fragility curve op basis van de opgegeven input en slaat het resultaat op in het opgegeven outputbestand.</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.load">load</a></td>
-<td>Laad een fragility curve in</td>
+<td>Laadt een fragility curve in</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.refine">refine</a></td>
-<td>Interpolleer de fragility curve op de gegeven waterstanden</td>
+<td>Interpoleert de fragility curve op de gegeven waterstanden</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.run">run</a></td>
-<td>Runt de berekening van de fragility curve voor golf overslag</td>
+<td>Runt de berekening van de fragility curve voor golfoverslag</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.shift">shift</a></td>
-<td>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleer de faalkansen</td>
+<td>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleert de faalkansen</td>
 </tr>
 </tbody>
 </table>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.as_array" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.as_array">as_array</h3>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurveOvertopping.as_array()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Geeft curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst</p>
+<p>Geeft curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.calculate_fragility_curve" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.calculate_fragility_curve">calculate_fragility_curve</h3>
@@ -324,22 +324,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    output</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand. Parameters: input (list[str]): Een lijst met de bestandsnamen van de inputbestanden. output (str): De bestandsnaam waarin het resultaat moet worden opgeslagen. Returns: None</p>
+<p>Berekent de fragility curve op basis van de opgegeven input en slaat het resultaat op in het opgegeven outputbestand. Parameters: input (list[str]): Een lijst met de bestandsnamen van de inputbestanden. output (str): De bestandsnaam waarin het resultaat moet worden opgeslagen. Returns: None</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.load" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.load">load</h3>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurveOvertopping.load(<span class="bu">input</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Laad een fragility curve in</p>
+<p>Laadt een fragility curve in</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.refine" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.refine">refine</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurveOvertopping.refine(waterlevels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Interpolleer de fragility curve op de gegeven waterstanden</p>
+<p>Interpoleert de fragility curve op de gegeven waterstanden</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.run" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.run">run</h3>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurveOvertopping.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Runt de berekening van de fragility curve voor golf overslag</p>
+<p>Runt de berekening van de fragility curve voor golfoverslag</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>input: list[str]</p>
 <pre><code>   [0] df_slopes (pd.DataFrame)
 
-        DataFrame met helling data.
+        DataFrame met hellingsdata.
         Moet de volgende kolommen bevatten:
         - x : float
         - y : float
@@ -386,7 +386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         - slopetypeid : int (1: dike or 2: slope)
 
    [1] df_profile (pd.DataFrame):
-        DataFrame met profiel data.
+        DataFrame met profieldata.
         Moet de volgende kolommen bevatten:
         - windspeed : float
         - sectormin : float
@@ -410,7 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.shift" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertopping.shift">shift</h3>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurveOvertopping.shift(effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleer de faalkansen op het oorspronkelijke waterstandsgrid</p>
+<p>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleert de faalkansen op het oorspronkelijke waterstandsgrid</p>
 
 
 </section>

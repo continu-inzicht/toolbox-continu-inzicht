@@ -212,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>FragilityCurvesPiping</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvesPiping()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Maakt een set van fragility curves voor piping voor een dijkvak. De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie.</p>
-<p>Deze functie berekent ��n gecombineerde fragility curves voor mechanismes: uplift, heave, Sellmeijer.</p>
+<p>Deze functie berekent ��n gecombineerde fragility curve voor de mechanismes uplift, heave en Sellmeijer.</p>
 <p>Args: data_adapter (DataAdapter): DataAdapter object</p>
 <section id="attributes" class="level2">
 <h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
@@ -331,19 +331,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.as_array">as_array</a></td>
-<td>Geeft curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst</td>
+<td>Geeft curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.calculate_fragility_curve">calculate_fragility_curve</a></td>
-<td>Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</td>
+<td>Berekent de fragility curve op basis van de opgegeven input en slaat het resultaat op in het opgegeven outputbestand.</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.load">load</a></td>
-<td>Laad een fragility curve in</td>
+<td>Laadt een fragility curve in</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.refine">refine</a></td>
-<td>Interpolleer de fragility curve op de gegeven waterstanden</td>
+<td>Interpoleert de fragility curve op de gegeven waterstanden</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.run">run</a></td>
@@ -351,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.shift">shift</a></td>
-<td>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleer de faalkansen</td>
+<td>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleert de faalkansen</td>
 </tr>
 </tbody>
 </table>
@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.as_array">as_array</h5>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.as_array(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Geeft curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst</p>
+<p>Geeft curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.calculate_fragility_curve" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.calculate_fragility_curve">calculate_fragility_curve</h5>
@@ -367,21 +367,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    output</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</p>
+<p>Berekent de fragility curve op basis van de opgegeven input en slaat het resultaat op in het opgegeven outputbestand.</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.load" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.load">load</h5>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.load(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Laad een fragility curve in</p>
+<p>Laadt een fragility curve in</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.refine" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.refine">refine</h5>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.refine(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    waterlevels</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Interpolleer de fragility curve op de gegeven waterstanden</p>
+<p>Interpoleert de fragility curve op de gegeven waterstanden</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.run" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.run">run</h5>
@@ -444,7 +444,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvesPiping.fragility_curve_function_simple.shift(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    effect</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleer de faalkansen op het oorspronkelijke waterstandsgrid</p>
+<p>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleert de faalkansen op het oorspronkelijke waterstandsgrid</p>
 </section>
 </section>
 </section>

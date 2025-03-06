@@ -210,11 +210,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesIndependent" class="level1">
 <h1>CombineFragilityCurvesIndependent</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.CombineFragilityCurvesIndependent()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Combineer meerdere fragility curves onafhankelijk tot een enkele fragility curves.</p>
+<p>Combineer meerdere fragility curves onafhankelijk tot een enkele fragility curve.</p>
 <p>Args: data_adapter (DataAdapter): DataAdapter object</p>
 <section id="options-in-config" class="level2 doc-section doc-section-options-in-config">
 <h2 class="doc-section doc-section-options-in-config anchored" data-anchor-id="options-in-config">Options in config</h2>
-<p>Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden. Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden. De volgende opties kunnen worden ingesteld: - extend_past_max: float Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de input curves. Default is 0.01</p>
+<p>Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden. Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden. De volgende opties kunnen worden ingesteld: - extend_past_max: float Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de inputcurves. Default is 0.01</p>
 <ul>
 <li>refine_step_size: float De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05</li>
 </ul>
@@ -295,9 +295,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table">
 <colgroup>
 <col style="width: 8%">
-<col style="width: 13%">
+<col style="width: 14%">
 <col style="width: 64%">
-<col style="width: 12%">
+<col style="width: 13%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -311,13 +311,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>input</td>
 <td>list[str]</td>
-<td>Lijst van namen van de data adapters met fragility curves.</td>
+<td>Lijst van namen van de DataAdapters met fragility curves.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td>output</td>
 <td>str</td>
-<td>Naam van de output data adapter.</td>
+<td>Naam van de output DataAdapter.</td>
 <td><em>required</em></td>
 </tr>
 </tbody>

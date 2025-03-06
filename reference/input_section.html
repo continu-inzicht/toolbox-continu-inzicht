@@ -211,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section" class="level1">
 <h1>input_section</h1>
 <p><code>base.adapters.input.continu_inzicht_postgresql.input_section</code></p>
-<p>Data adapters voor het lezen van data uit de Continu Inzicht database</p>
+<p>DataAdapters voor het lezen van data uit de Continu Inzicht database</p>
 <section id="functions" class="level2">
 <h2 class="anchored" data-anchor-id="functions">Functions</h2>
 <table class="caption-top table">
@@ -224,27 +224,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section.input_ci_postgresql_from_sectionfractions">input_ci_postgresql_from_sectionfractions</a></td>
-<td>Ophalen sections fractions uit een continu database.</td>
+<td>Haalt sectiefracties uit een continu database.</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section.input_ci_postgresql_from_sections">input_ci_postgresql_from_sections</a></td>
-<td>Ophalen section data uit de Continu Inzicht database.</td>
+<td>Haalt sectie data op uit de Continu Inzicht database.</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_expert_judgement_table">input_ci_postgresql_section_expert_judgement_table</a></td>
-<td>Ophalen klassegrenzen (faalkans) van een dijkvak uit een continu database.</td>
+<td>Haalt klassegrenzen (faalkans) van een dijkvak op uit de continu database.</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_failure_probability_from_data_table">input_ci_postgresql_section_failure_probability_from_data_table</a></td>
-<td>Ophalen faalkansen per dijkvak per moment</td>
+<td>Haalt faalkansen per dijkvak per moment op</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_load_from_data_table">input_ci_postgresql_section_load_from_data_table</a></td>
-<td>Ophalen tijdreeks van belasting per dijkvak</td>
+<td>Haalt tijdreeks van belasting per dijkvak op</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_thresholds_from_conditions_table">input_ci_postgresql_section_thresholds_from_conditions_table</a></td>
-<td>Ophalen klassegrenzen (faalkans) van een dijkvak uit een continu database.</td>
+<td>Haalt klassegrenzen (faalkans) van een dijkvak op uit de continu database.</td>
 </tr>
 </tbody>
 </table>
@@ -253,22 +253,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_section.input_ci_postgresql_from_sectionfractions(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen sections fractions uit een continu database.</p>
-<p>Yaml example:</p>
+<p>Haalt sectiefracties uit een continu database.</p>
+<p>YAML voorbeeld:</p>
 <pre><code>type: ci_postgresql_from_sectionfractions
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Args:</p>
-<p>input_config (dict): configuratie opties</p>
+<p>input_config (dict): configuratie-opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
 <li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
 <li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
 </ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<p>In de ‘yaml’-config moeten de volgende parameters staan:</p>
 <ul>
 <li>database (str): database van de Continu Inzicht</li>
 <li>schema (str): schema van de Continu Inzicht</li>
@@ -276,7 +276,7 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Returns:</p>
 <p>df (DataFrame):</p>
 <ul>
-<li>id: int64 : id van de dijkvak</li>
+<li>id: int64 : id van het dijkvak</li>
 <li>idup: int64 : id van bovenstrooms meetstation</li>
 <li>iddown: int64 : id van benedestrooms meetstation</li>
 <li>fractionup: float64 : fractie van bovenstrooms meetstation</li>
@@ -288,22 +288,22 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_section.input_ci_postgresql_from_sections(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen section data uit de Continu Inzicht database.</p>
-<p>Yaml example:</p>
+<p>Haalt sectie data op uit de Continu Inzicht database.</p>
+<p>YAML voorbeeld:</p>
 <pre><code>type: ci_postgresql_from_sections
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Args:</p>
-<p>input_config (dict): configuratie opties</p>
+<p>input_config (dict): configuratie-opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
 <li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
 <li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
 </ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<p>In de ‘yaml’-config moeten de volgende parameters staan:</p>
 <ul>
 <li>database (str): database van de Continu Inzicht</li>
 <li>schema (str): schema van de Continu Inzicht</li>
@@ -311,8 +311,8 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Returns:</p>
 <p>df (DataFrame):</p>
 <ul>
-<li>id: int64 : id van de dijkvak</li>
-<li>name: str : naam van de dijkvak</li>
+<li>id: int64 : id van het dijkvak</li>
+<li>name: str : naam van het dijkvak</li>
 </ul>
 </section>
 <section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_expert_judgement_table" class="level3">
@@ -320,22 +320,22 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_expert_judgement_table(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen klassegrenzen (faalkans) van een dijkvak uit een continu database.</p>
-<p>Yaml example:</p>
+<p>Haalt klassegrenzen (faalkans) van een dijkvak op uit de continu database.</p>
+<p>YAML voorbeeld:</p>
 <pre><code>type: ci_postgresql_section_thresholds_from_conditions_table
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Args:</p>
-<p>input_config (dict): configuratie opties</p>
+<p>input_config (dict): configuratie-opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
 <li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
 <li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
 </ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<p>In de ‘yaml’-config moeten de volgende parameters staan:</p>
 <ul>
 <li>database (str): database van de Continu Inzicht</li>
 <li>schema (str): schema van de Continu Inzicht</li>
@@ -356,22 +356,22 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_failure_probability_from_data_table(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen faalkansen per dijkvak per moment</p>
-<p>Yaml example:</p>
+<p>Haalt faalkansen per dijkvak per moment op</p>
+<p>YAML voorbeeld:</p>
 <pre><code>type: ci_postgresql_section_failure_probability_from_data_table
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Args:</p>
-<p>input_config (dict): configuratie opties</p>
+<p>input_config (dict): configuratie-opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
 <li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
 <li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
 </ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<p>In de ‘yaml’-config moeten de volgende parameters staan:</p>
 <ul>
 <li>database (str): database van de Continu Inzicht</li>
 <li>schema (str): schema van de Continu Inzicht</li>
@@ -379,17 +379,17 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Returns:</p>
 <p>df (DataFrame):</p>
 <ul>
-<li>failureprobability_id: in64 : id van de dijkvak/faalmechanisme/maatregel combinatie</li>
-<li>section_id: int64 : id van de dijkvak</li>
-<li>value_parameter_id: int64 : id van de belasting parameter (1/2/3/4)</li>
+<li>failureprobability_id: in64 : id van de dijkvak/faalmechanisme/maatregel-combinatie</li>
+<li>section_id: int64 : id van het dijkvak</li>
+<li>value_parameter_id: int64 : id van de belastingparameter (1/2/3/4)</li>
 <li>failuremechanism_id: int64 : id van het faalmechanisme</li>
 <li>failuremechanism: str : naam van het faalmechanisme</li>
 <li>measures_id: int64 : id van de maatregel</li>
 <li>measure: str : naam van de maatregel</li>
-<li>parameter_id: int64 : id van de faalkans parameter (5/100/101/102)</li>
+<li>parameter_id: int64 : id van de faalkansparameter (5/100/101/102)</li>
 <li>unit: int64 : unit van de belasting</li>
-<li>date_time: datetime64 : datum/ tijd van de tijdreeksitem</li>
-<li>value: float : waarde van de tijdreeksitem</li>
+<li>date_time: datetime64 : datum/ tijd van het tijdreeksitem</li>
+<li>value: float : waarde van het tijdreeksitem</li>
 </ul>
 </section>
 <section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_load_from_data_table" class="level3">
@@ -397,15 +397,15 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_load_from_data_table(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen tijdreeks van belasting per dijkvak</p>
-<p>Yaml example:</p>
+<p>Haalt tijdreeks van belasting per dijkvak op</p>
+<p>YAML voorbeeld:</p>
 <pre><code>type: ci_postgresql_section_load_from_data_table
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Args:</p>
 <p>input_config (dict): configuratie opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
@@ -420,12 +420,12 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Returns:</p>
 <p>df (DataFrame):</p>
 <ul>
-<li>section_id: int64 : id van de dijkvak</li>
+<li>section_id: int64 : id van het dijkvak</li>
 <li>parameter_id: int64 : id van de parameter</li>
 <li>unit: str : unit van de parameter</li>
-<li>date_time: datetime64 : datum/ tijd van de tijdreeksitem</li>
-<li>value: float64 : waarde van de tijdreeksitem</li>
-<li>value_type: str : type waarde van de tijdreeksitem (meting of verwacht)</li>
+<li>date_time: datetime64 : datum/ tijd van het tijdreeksitem</li>
+<li>value: float64 : waarde van het tijdreeksitem</li>
+<li>value_type: str : type waarde van het tijdreeksitem (meting of verwacht)</li>
 </ul>
 </section>
 <section id="toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_thresholds_from_conditions_table" class="level3">
@@ -433,22 +433,22 @@ schema: "continuinzicht_demo_realtime"</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>base.adapters.<span class="bu">input</span>.continu_inzicht_postgresql.input_section.input_ci_postgresql_section_thresholds_from_conditions_table(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    input_config</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Ophalen klassegrenzen (faalkans) van een dijkvak uit een continu database.</p>
-<p>Yaml example:</p>
+<p>Haalt klassegrenzen (faalkans) van een dijkvak op uit de continu database.</p>
+<p>YAML voorbeeld:</p>
 <pre><code>type: ci_postgresql_section_thresholds_from_conditions_table
 database: "geoserver"
 schema: "continuinzicht_demo_realtime"</code></pre>
 <p>Args:</p>
-<p>input_config (dict): configuratie opties</p>
+<p>input_config (dict): configuratie-opties</p>
 <p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>In het <code>.env</code>-bestand moeten de volgende parameters staan:</p>
 <ul>
 <li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
 <li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
 <li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
 <li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
 </ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<p>In de ‘yaml’-config moeten de volgende parameters staan:</p>
 <ul>
 <li>database (str): database van de Continu Inzicht</li>
 <li>schema (str): schema van de Continu Inzicht</li>
