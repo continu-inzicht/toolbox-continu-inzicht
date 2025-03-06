@@ -35,7 +35,7 @@ quarto-render = { cmd = "export QUARTO_PYTHON=python && quarto render docs --to 
 pre-commit = "pre-commit run --all-files"
 lint = { depends-on = ["pre-commit"] }
 # Test
-pytest-cov = "pytest --cov --cov-report html:tests/hidden_test_cov"
+pytest-cov = "pytest --cov --cov-report=xml --benchmark-save=ci-run"
 
 [feature.common.dependencies]
 contextily = "*"
@@ -58,6 +58,7 @@ pyarrow = "*"
 pydantic = ">=2"
 pyogrio = "*"
 pytest = "*"
+pytest-benchmark = "*"
 pytest-cov = "*"
 pytest-xdist = "*"
 python = ">=3.9"
