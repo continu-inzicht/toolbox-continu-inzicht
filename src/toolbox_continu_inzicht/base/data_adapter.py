@@ -133,7 +133,10 @@ class DataAdapter(PydanticBaseModel):
             else:
                 # Adapter bestaat niet
                 message = f"Adapter van het type '{data_type}' niet gevonden."
-                raise UserWarning(message)
+        else:
+            # Adaptersleutel staat niet in het YAML-bestand
+            if not suppress_userwarnings:
+                message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
         else:
             # Adaptersleutel staat niet in het YAML-bestand
             message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
@@ -154,7 +157,6 @@ class DataAdapter(PydanticBaseModel):
                 Extra informatie die ook naar de functie moet om het bestand te schrijven.
 
         """
-
         self.initialize_output_types()  # maak een dictionary van type: functie
         # haal de inputconfiguratie op van de functie
         functie_output_config = self.config.data_adapters[output]

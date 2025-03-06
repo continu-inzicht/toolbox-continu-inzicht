@@ -89,7 +89,6 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
             Lijst namen van de input dataadapters: prob_input, hydraulicload
         output: str
             Naam van de dataadapter Fragility curve output
-
         """
         self.df_prob_input = self.data_adapter.input(input[0])
         self.df_hydraulicload = self.data_adapter.input(input[1])

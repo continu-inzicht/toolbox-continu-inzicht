@@ -69,7 +69,7 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
             Naam van de dataadapter Fragility curve output
         effect: float
             Verschuiving van de fragility curve
-
+            
         Notes
         -----
         Deze input volgorde is wat specifiek, vandaar de extra details.
@@ -97,6 +97,7 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
         1. direction, windrichtingen
         1. bedlevel, bodem profielen
         1. fetch, lengte van fetch in meters
+
         """
         df_profile = self.data_adapter.input(input[1])
         if "parameters" in df_profile:

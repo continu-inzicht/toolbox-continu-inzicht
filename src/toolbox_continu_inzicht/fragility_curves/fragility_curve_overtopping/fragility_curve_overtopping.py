@@ -19,7 +19,6 @@ from toolbox_continu_inzicht import FragilityCurve, DataAdapter, Config
 class FragilityCurveOvertopping(FragilityCurve):
     """
     Maakt een enkele fragility curve voor golf overslag.
-
     Attributes
     ----------
     data_adapter: DataAdapter
@@ -216,7 +215,7 @@ class FragilityCurveOvertopping(FragilityCurve):
 class FragilityCurveOvertoppingMultiple:
     """
     Maakt een set van fragility curves voor golfoverslag voor een dijkvak.
-
+    
     Attributes
     ----------
     data_adapter: DataAdapter
@@ -271,12 +270,13 @@ class FragilityCurveOvertoppingMultiple:
 
     def run(self, input: list[str], output: str) -> None:
         """
+        Runt de berekening van de fragility curve voor golfoverslag
+        
         Parameters
         ----------
         input: list[str]
             Lijst namen van de input dataadapters: slopes, profile en bed_levels
         output: str
-            Naam van de dataadapter Fragility curve output
         """
         self.calculate_fragility_curve(input, output)
 

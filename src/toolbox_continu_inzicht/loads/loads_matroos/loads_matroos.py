@@ -194,7 +194,7 @@ class LoadsMatroos:
                     wanted_location_names
                 )
                 warnings.warn(f"location {locations_not_found}")
-
+                
             return wanted_location_names
 
     @staticmethod

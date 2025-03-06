@@ -77,9 +77,7 @@ class FragilityCurve:
         self.from_dataframe(df_in)
 
     def shift(self, effect: float):
-        """Schuif een fragility curve op
-
-        Schuift de belasting van de fragility curve op (voor bijvoorbeeld
+        """Schuift de belasting van de fragility curve op (voor bijvoorbeeld
         een noodmaatregel), en interpoleer de faalkansen op het oorspronkelijke
         waterstandsgrid
         """
