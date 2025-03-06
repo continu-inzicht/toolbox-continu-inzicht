@@ -1,4 +1,7 @@
 # Continu Inzicht Toolbox <img align="right" src="https://github.com/continu-inzicht/toolbox-continu-inzicht/raw/main/docs/assets/logo.png" height="40" alt='logo'></img>
+[![Run Pytest](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/tests.yml)
+[![Render and Publish Docs](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/quarto-docs.yml/badge.svg)](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/quarto-docs.yml)
+[![Pre-commit](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/pre-commit.yml)
 
 Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij het ontwikkelen van de toolbox is rekening gehouden met type interacties met de toolbox: het gebruiken van de toolbox en bijdragen. Op de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) is voor beide informatie beschikbaar.
 
