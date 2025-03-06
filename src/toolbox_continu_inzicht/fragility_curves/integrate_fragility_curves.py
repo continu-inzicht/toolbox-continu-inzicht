@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Callable, Optional
 
 import numpy as np
 import pandas as pd
@@ -10,6 +10,7 @@ from toolbox_continu_inzicht.base.exceedance_frequency_curve import (
     ExceedanceFrequencyCurve,
 )
 from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
+from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -26,7 +27,8 @@ class IntegrateFragilityCurve:
         DataFrame containing fragility curve data.
     df_out: Optional[pd.DataFrame] | None
         Output DataFrame containing the integrated fragility curve.
-
+    interp_func: Callable
+        Functie waarmee geinterpoleerd wordt
 
     Notes
     -----
@@ -41,6 +43,7 @@ class IntegrateFragilityCurve:
     df_exceedance_frequency: Optional[pd.DataFrame] | None = None
     df_fragility_curve: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
+    interp_func: Callable = log_interpolate_1d
 
     def run(self, input: list[str], output: str):
         """Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve
@@ -70,6 +73,7 @@ class IntegrateFragilityCurve:
         exceedance_frequency_curve = ExceedanceFrequencyCurve(self.data_adapter)
         exceedance_frequency_curve.load(input[0])
         fragility_curve = FragilityCurve(self.data_adapter)
+        fragility_curve.interp_func = self.interp_func
         fragility_curve.load(input[1])
 
         global_variables = self.data_adapter.config.global_variables
@@ -144,7 +148,8 @@ class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
         DataFrame containing fragility curve data.
     df_out: Optional[pd.DataFrame] | None
         Output DataFrame containing the integrated fragility curve.
-
+    interp_func: Callable
+        Functie waarmee geinterpoleerd wordt
 
     Notes
     -----
@@ -159,6 +164,7 @@ class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
     df_exceedance_frequency: Optional[pd.DataFrame] | None = None
     df_fragility_curve: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
+    interp_func: Callable = log_interpolate_1d
 
     def run(self, input: list[str], output: str):
         """
@@ -211,6 +217,7 @@ class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
             if status > 0:
                 raise UserWarning(message)
             fragility_curve = FragilityCurve(self.data_adapter)
+            fragility_curve.interp_func = self.interp_func
             fragility_curve.from_dataframe(df_fc)
             result = self.calculate_integration(
                 exceedance_frequency_curve,

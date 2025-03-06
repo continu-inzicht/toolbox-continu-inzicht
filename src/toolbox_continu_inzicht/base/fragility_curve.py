@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Optional, ClassVar
+from typing import Callable, ClassVar, Optional
 
 import numpy as np
 import pandas as pd
@@ -25,6 +25,8 @@ class FragilityCurve:
         Array met de faalkansen
     lower_limit: float
         Ondergrens voor de faalkans, standaard 1e-20
+    interp_func: Callable
+        Functie waarmee geinterpoleerd wordt
     fragility_curve_schema: ClassVar[dict[str, str]]
         Schema waaraan de fragility curve moet voldoen:{hydraulicload: float, failure_probability: float}
     """
@@ -33,6 +35,7 @@ class FragilityCurve:
     hydraulicload: Optional[np.ndarray] | None = None
     failure_probability: Optional[np.ndarray] | None = None
     lower_limit: float = 1e-20
+    interp_func: Callable = log_interpolate_1d
     fragility_curve_schema: ClassVar[dict[str, str]] = {
         "hydraulicload": "float",
         "failure_probability": "float",
@@ -63,7 +66,7 @@ class FragilityCurve:
             }
         )
 
-    def from_dataframe(self, df):
+    def from_dataframe(self, df: pd.DataFrame):
         """Zet een dataframe om naar een fragility curve"""
         self.hydraulicload = df["hydraulicload"].to_numpy()
         self.failure_probability = df["failure_probability"].to_numpy()
@@ -73,7 +76,7 @@ class FragilityCurve:
         df_in = self.data_adapter.input(input, schema=self.fragility_curve_schema)
         self.from_dataframe(df_in)
 
-    def shift(self, effect):
+    def shift(self, effect: float):
         """Schuif een fragility curve op
 
         Schuift de belasting van de fragility curve op (voor bijvoorbeeld
@@ -86,11 +89,11 @@ class FragilityCurve:
         x = self.hydraulicload
         fp = self.failure_probability
         xp = x + effect
-        self.failure_probability = log_interpolate_1d(x, xp, fp, ll=1e-20, clip01=True)
+        self.failure_probability = self.interp_func(x, xp, fp, ll=1e-20, clip01=True)
 
-    def refine(self, new_hydraulicload):
+    def refine(self, new_hydraulicload: np.ndarray | list[float] | float):
         """Interpoleer de fragility curve op de gegeven waterstanden"""
-        refined_failure_probability = log_interpolate_1d(
+        refined_failure_probability = self.interp_func(
             new_hydraulicload,
             self.hydraulicload,
             self.failure_probability,

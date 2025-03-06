@@ -6,6 +6,7 @@ from typing import ClassVar, Optional, Callable
 
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
+from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
 
 
 def combine_independent(lst_fragility_curves, **kwargs):
@@ -58,6 +59,8 @@ class CombineFragilityCurvesIndependent:
         Alleen van toepassing bij de weighted sum methode, hier None
     fragility_curve_schema: ClassVar[dict[str, str]]
         Schema waaraan de fragility curve moet voldoen: hydraulicload: float, failure_probability: float
+    interp_func: Callable
+        Functie waarmee geinterpoleerd wordt in FragilityCurve
 
     Notes
     -----
@@ -78,6 +81,7 @@ class CombineFragilityCurvesIndependent:
         "hydraulicload": "float",
         "failure_probability": "float",
     }
+    interp_func: Callable = log_interpolate_1d
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -103,7 +107,7 @@ class CombineFragilityCurvesIndependent:
         self.df_out = self.calculate_combined_curve(extend_past_max, refine_step_size)
         self.data_adapter.output(output, self.df_out)
 
-    def calculate_combined_curve(self, extend_past_max, refine_step_size):
+    def calculate_combined_curve(self, extend_past_max: float, refine_step_size: float):
         hydraulicload_min = []
         hydraulicload_max = []
         for df_in in self.lst_fragility_curves:
@@ -119,6 +123,7 @@ class CombineFragilityCurvesIndependent:
         # interpolate fragility curves to the same hydraulicload
         for index, fragility_curve in enumerate(self.lst_fragility_curves):
             fc = FragilityCurve(data_adapter=self.data_adapter)
+            fc.interp_func = self.interp_func
             fc.from_dataframe(fragility_curve)
             fc.refine(hydraulicload)
             self.lst_fragility_curves[index] = fc.as_dataframe()
@@ -154,6 +159,8 @@ class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
         Alleen van toepassing bij de weighted sum methode, hier None
     fragility_curve_schema: ClassVar[dict[str, str]]
         Schema waaraan de fragility curve moet voldoen: hydraulicload: float, failure_probability: float
+    interp_func: Callable
+        Functie waarmee geinterpoleerd wordt in FragilityCurve
 
     Notes
     -----
@@ -175,6 +182,7 @@ class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
+    interp_func: Callable = log_interpolate_1d
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -196,6 +204,8 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
         Gewichten voor de weighted sum methode, in de zelfde volgorde als de lijst van fragility curves
     fragility_curve_schema: ClassVar[dict[str, str]]
         Schema waaraan de fragility curve moet voldoen: hydraulicload: float, failure_probability: float
+    interp_func: Callable
+        Functie waarmee geinterpoleerd wordt in FragilityCurve
 
     Notes
     -----
@@ -217,6 +227,7 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
+    interp_func: Callable = log_interpolate_1d
 
     def run(self, input: list[str], output: str):
         """
