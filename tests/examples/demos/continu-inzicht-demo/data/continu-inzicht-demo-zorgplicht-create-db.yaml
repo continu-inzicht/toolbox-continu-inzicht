@@ -24,7 +24,7 @@ DataAdapter:
         type: ci_postgresql_zorgplicht_conditions
         database: "continuinzicht"
         schema: "continuinzicht_demo_zorgplicht"
-        truncate: True        
+        truncate: True
 
     in_sections_geojson:
         type: shape
@@ -43,7 +43,7 @@ DataAdapter:
     out_hydraulicload_locations_table:
         type: ci_postgresql_zorgplicht_hydraulicload_locations
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
+        schema: "continuinzicht_demo_zorgplicht"
         truncate: True
 
     in_statistics_csv:
@@ -53,8 +53,8 @@ DataAdapter:
     out_statistics_table:
         type: ci_postgresql_zorgplicht_statistics
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
-        truncate: True         
+        schema: "continuinzicht_demo_zorgplicht"
+        truncate: True
 
     in_variants_csv:
         type: csv
@@ -63,8 +63,8 @@ DataAdapter:
     out_variants_table:
         type: ci_postgresql_zorgplicht_variants
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
-        truncate: True        
+        schema: "continuinzicht_demo_zorgplicht"
+        truncate: True
 
     in_fragilitycurves_csv:
         type: csv
@@ -73,8 +73,8 @@ DataAdapter:
     out_fragilitycurves_table:
         type: ci_postgresql_zorgplicht_fragilitycurves
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
-        truncate: True  
+        schema: "continuinzicht_demo_zorgplicht"
+        truncate: True
         insert_id: True
 
     in_expertjudgements_csv:
@@ -84,8 +84,8 @@ DataAdapter:
     out_expertjudgements_table:
         type: ci_postgresql_zorgplicht_expertjudgements
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
-        truncate: True  
+        schema: "continuinzicht_demo_zorgplicht"
+        truncate: True
 
     in_test_fragilitycurves_data_csv:
         type: csv
@@ -93,30 +93,30 @@ DataAdapter:
 
     in_test_statistics_data_csv:
         type: csv
-        path: "zorgplicht_test_statistics_data.csv"        
+        path: "zorgplicht_test_statistics_data.csv"
 
     out_result_csv:
         type: csv
-        path: "hidden_result.csv"    
+        path: "hidden_result.csv"
 
-    df_integrate_fragility_curve:      
+    df_integrate_fragility_curve:
         type: python
 
     out_fragilitycurves_intergrate_data:
         type: ci_postgresql_zorgplicht_fragilitycurves_intergrate_data
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
-        truncate: False           
+        schema: "continuinzicht_demo_zorgplicht"
+        truncate: False
 
     in_sections:
         type: ci_postgresql_zorgplicht_sections
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"  
+        schema: "continuinzicht_demo_zorgplicht"
 
     in_failuremechanisms:
         type: ci_postgresql_zorgplicht_failuremechanisms
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht" 
+        schema: "continuinzicht_demo_zorgplicht"
 
     in_variants:
         type: ci_postgresql_zorgplicht_variants
@@ -126,22 +126,22 @@ DataAdapter:
     in_expertjudgements:
         type: ci_postgresql_zorgplicht_expertjudgements
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"      
+        schema: "continuinzicht_demo_zorgplicht"
 
     in_hydraulicload_locations:
         type: ci_postgresql_zorgplicht_hydraulicload_locations
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"          
+        schema: "continuinzicht_demo_zorgplicht"
 
     in_calculate_list:
         type: ci_postgresql_zorgplicht_calculate_list
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"                       
+        schema: "continuinzicht_demo_zorgplicht"
 
     in_fragilitycurves_data:
         type: ci_postgresql_zorgplicht_fragilitycurves_data
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"  
+        schema: "continuinzicht_demo_zorgplicht"
         section_id: 1
         failuremechanism_id: 1
         fragilitycurves_id: 1
@@ -149,31 +149,30 @@ DataAdapter:
     in_statistics_data:
         type: ci_postgresql_zorgplicht_statistics_data
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"  
+        schema: "continuinzicht_demo_zorgplicht"
         statistics_id: 1
         hydraulicload_location_id: 1
 
     out_fragilitycurves_new:
         type: ci_postgresql_zorgplicht_fragilitycurves
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
-        truncate: False     
+        schema: "continuinzicht_demo_zorgplicht"
+        truncate: False
 
     out_fragilitycurves_simple:
         type: ci_postgresql_zorgplicht_fragilitycurves_simple
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
+        schema: "continuinzicht_demo_zorgplicht"
 
     out_fragilitycurves_intergrate_new:
         type: ci_postgresql_zorgplicht_fragilitycurves_intergrate
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
-        truncate: False      
-        insert_id: False      
+        schema: "continuinzicht_demo_zorgplicht"
+        truncate: False
+        insert_id: False
 
     out_expertjudgements_new:
         type: ci_postgresql_zorgplicht_expertjudgements
         database: "continuinzicht"
-        schema: "continuinzicht_demo_zorgplicht"    
-        truncate: False          
-  
+        schema: "continuinzicht_demo_zorgplicht"
+        truncate: False

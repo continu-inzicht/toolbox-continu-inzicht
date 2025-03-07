@@ -54,8 +54,8 @@ def output_ci_postgresql_zorgplicht_failuremechanism(
                 connection.execute(sqlalchemy.text(str(query)))
                 connection.commit()
 
-                query = f"""                    
-                    SELECT SETVAL('{schema}.failuremechanism_id_seq', (SELECT MAX(id) FROM {schema}.failuremechanism));	                    
+                query = f"""
+                    SELECT SETVAL('{schema}.failuremechanism_id_seq', (SELECT MAX(id) FROM {schema}.failuremechanism));
                 """
 
                 connection.execute(sqlalchemy.text(str(query)))
@@ -111,12 +111,12 @@ def output_ci_postgresql_zorgplicht_conditions(
             for _, row in df.iterrows():
                 query.append(
                     f"""
-                    INSERT INTO {schema}.conditions(id, name, description, upper_boundary, color) 
+                    INSERT INTO {schema}.conditions(id, name, description, upper_boundary, color)
                     VALUES (
-                        {str(row["id"])}, 
+                        {str(row["id"])},
                         '{row["name"]}',
                         '{row["description"]}',
-                        {str(row["upper_boundary"])}, 
+                        {str(row["upper_boundary"])},
                         '{row["color"]}'
                     );
                     """
@@ -214,12 +214,12 @@ def output_ci_postgresql_zorgplicht_section(
             for _, row in df.iterrows():
                 query.append(
                     f"""
-                        INSERT INTO {schema}.sections(id, name, hydraulicload_location_id, overleefde_belasting, geometry) 
+                        INSERT INTO {schema}.sections(id, name, hydraulicload_location_id, overleefde_belasting, geometry)
                         VALUES (
-                            {str(row["id"])}, 
-                            '{str(row["name"])}', 
-                            {str(row["hydraulicload_location_id"])}, 
-                            {str(row["overleefde_belasting"])}, 
+                            {str(row["id"])},
+                            '{str(row["name"])}',
+                            {str(row["hydraulicload_location_id"])},
+                            {str(row["overleefde_belasting"])},
                             '{str(row["geometry"])}'
                         );
                     """
@@ -236,8 +236,8 @@ def output_ci_postgresql_zorgplicht_section(
                 connection.execute(sqlalchemy.text(str(query)))
                 connection.commit()
 
-                query = f"""                                        	                    
-                    SELECT SETVAL('{schema}.sections_id_seq', (SELECT MAX(id) FROM {schema}.sections));	
+                query = f"""
+                    SELECT SETVAL('{schema}.sections_id_seq', (SELECT MAX(id) FROM {schema}.sections));
                 """
 
                 connection.execute(sqlalchemy.text(str(query)))
@@ -322,8 +322,8 @@ def output_ci_postgresql_zorgplicht_hydraulicload_locations(
                 connection.execute(sqlalchemy.text(str(query)))
                 connection.commit()
 
-                query = f"""                    
-                    SELECT SETVAL('{schema}.hydraulicload_locations_id_seq', (SELECT MAX(id) FROM {schema}.hydraulicload_locations));	                    
+                query = f"""
+                    SELECT SETVAL('{schema}.hydraulicload_locations_id_seq', (SELECT MAX(id) FROM {schema}.hydraulicload_locations));
                 """
 
                 connection.execute(sqlalchemy.text(str(query)))
@@ -401,10 +401,10 @@ def output_ci_postgresql_zorgplicht_statistics(
             for _, row in df_statistics_data.iterrows():
                 query.append(
                     f"""
-                    INSERT INTO {schema}.statistics_data(statistics_id, hydraulicload_location_id, hydraulicload, probability_exceedance) 
-                    VALUES 
+                    INSERT INTO {schema}.statistics_data(statistics_id, hydraulicload_location_id, hydraulicload, probability_exceedance)
+                    VALUES
                     (
-                        {str(row["statistics_id"])}, 
+                        {str(row["statistics_id"])},
                         {row["hydraulicload_location_id"]},
                         {str(row["hydraulicload"])},
                         {str(row["probability_exceedance"])}
@@ -423,8 +423,8 @@ def output_ci_postgresql_zorgplicht_statistics(
                 connection.execute(sqlalchemy.text(str(query)))
                 connection.commit()
 
-                query = f"""                    
-                    SELECT SETVAL('{schema}.statistics_id_seq', (SELECT MAX(id) FROM {schema}.statistics));	                   
+                query = f"""
+                    SELECT SETVAL('{schema}.statistics_id_seq', (SELECT MAX(id) FROM {schema}.statistics));
                 """
 
                 connection.execute(sqlalchemy.text(str(query)))
@@ -488,7 +488,7 @@ def output_ci_postgresql_zorgplicht_variants(
                 connection.commit()
 
                 query = f"""
-                    SELECT SETVAL('{schema}.variants_id_seq', (SELECT MAX(id) FROM {schema}.variants));	
+                    SELECT SETVAL('{schema}.variants_id_seq', (SELECT MAX(id) FROM {schema}.variants));
                 """
 
                 connection.execute(sqlalchemy.text(str(query)))
@@ -602,10 +602,10 @@ def output_ci_postgresql_zorgplicht_fragilitycurves(
             for _, row in df_statistics_data.iterrows():
                 query.append(
                     f"""
-                    INSERT INTO {schema}.fragilitycurves_data(fragilitycurves_id, section_id, failuremechanism_id, hydraulicload, failure_probability) 
-                    VALUES 
+                    INSERT INTO {schema}.fragilitycurves_data(fragilitycurves_id, section_id, failuremechanism_id, hydraulicload, failure_probability)
+                    VALUES
                     (
-                        {str(row["fragilitycurves_id"])}, 
+                        {str(row["fragilitycurves_id"])},
                         {row["section_id"]},
                         {row["failuremechanism_id"]},
                         {str(row["hydraulicload"])},
@@ -621,7 +621,7 @@ def output_ci_postgresql_zorgplicht_fragilitycurves(
                 connection.commit()
 
                 query = f"""
-                    SELECT SETVAL('{schema}.fragilitycurves_id_seq', (SELECT MAX(id) FROM {schema}.fragilitycurves));	                    
+                    SELECT SETVAL('{schema}.fragilitycurves_id_seq', (SELECT MAX(id) FROM {schema}.fragilitycurves));
                 """
 
                 connection.execute(sqlalchemy.text(str(query)))
@@ -727,9 +727,9 @@ def output_ci_postgresql_zorgplicht_expertjudgements(
                 if "id" in df:
                     query.append(
                         f"""
-                        INSERT INTO {schema}.expertjudgements(id, name, variant_id, fragilitycurves_base_id, fragilitycurves_id) 
+                        INSERT INTO {schema}.expertjudgements(id, name, variant_id, fragilitycurves_base_id, fragilitycurves_id)
                         VALUES (
-                            {str(row["id"])}, 
+                            {str(row["id"])},
                             '{row["name"]}',
                             {str(row["variant_id"])},
                             {str(row["fragilitycurves_base_id"])},
@@ -740,8 +740,8 @@ def output_ci_postgresql_zorgplicht_expertjudgements(
                 else:
                     query.append(
                         f"""
-                        INSERT INTO {schema}.expertjudgements(name, variant_id, fragilitycurves_base_id, fragilitycurves_id) 
-                        VALUES (                            
+                        INSERT INTO {schema}.expertjudgements(name, variant_id, fragilitycurves_base_id, fragilitycurves_id)
+                        VALUES (
                             '{row["name"]}',
                             {str(row["variant_id"])},
                             {str(row["fragilitycurves_base_id"])},
@@ -762,7 +762,7 @@ def output_ci_postgresql_zorgplicht_expertjudgements(
                 connection.commit()
 
                 query = f"""
-                    SELECT SETVAL('{schema}.expertjudgements_id_seq', (SELECT MAX(id) FROM {schema}.expertjudgements));	
+                    SELECT SETVAL('{schema}.expertjudgements_id_seq', (SELECT MAX(id) FROM {schema}.expertjudgements));
                 """
 
                 connection.execute(sqlalchemy.text(str(query)))
@@ -821,9 +821,9 @@ def output_ci_postgresql_zorgplicht_fragilitycurves_intergrate(
                     f"""
                     INSERT INTO {schema}.fragilitycurves_intergrate(expertjudgement_id, section_id, failuremechanism_id, load_limit, probability_contribution_reductionfactor)
                     VALUES (
-                        {str(row["expertjudgement_id"])},                         
-                        {str(row["section_id"])},  
-                        {str(row["failuremechanism_id"])},  
+                        {str(row["expertjudgement_id"])},
+                        {str(row["section_id"])},
+                        {str(row["failuremechanism_id"])},
                         {str(row["load_limit"])},
                         {str(row["probability_contribution_reductionfactor"])}
                     );
@@ -842,7 +842,7 @@ def output_ci_postgresql_zorgplicht_fragilitycurves_intergrate(
                 connection.commit()
 
                 query = f"""
-                    SELECT SETVAL('{schema}.fragilitycurves_intergrate_id_seq', (SELECT MAX(id) FROM {schema}.fragilitycurves_intergrate));	
+                    SELECT SETVAL('{schema}.fragilitycurves_intergrate_id_seq', (SELECT MAX(id) FROM {schema}.fragilitycurves_intergrate));
                 """
 
                 connection.execute(sqlalchemy.text(str(query)))
@@ -897,9 +897,9 @@ def output_ci_postgresql_zorgplicht_fragilitycurves_intergrate_data(
             for _, row in df.iterrows():
                 query.append(
                     f"""
-                    INSERT INTO {schema}.fragilitycurves_intergrate_data(intergrate_id, hydraulicload, probability_contribution) 
+                    INSERT INTO {schema}.fragilitycurves_intergrate_data(intergrate_id, hydraulicload, probability_contribution)
                     VALUES (
-                        {str(row["intergrate_id"])},                         
+                        {str(row["intergrate_id"])},
                         {str(row["hydraulicload"])},
                         {str(row["probability_contribution"])}
                     );

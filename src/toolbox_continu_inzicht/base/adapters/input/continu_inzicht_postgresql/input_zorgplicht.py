@@ -54,11 +54,11 @@ def input_ci_postgresql_zorgplicht_variants(input_config: dict) -> pd.DataFrame:
     schema = input_config["schema"]
 
     query = f"""
-        SELECT 
-            id AS id, 
-            name AS name, 
-            hydraulicload_location_id AS hydraulicload_location_id, 
-            overleefde_belasting AS overleefde_belasting        
+        SELECT
+            id AS id,
+            name AS name,
+            hydraulicload_location_id AS hydraulicload_location_id,
+            overleefde_belasting AS overleefde_belasting
         FROM {schema}.sections;
     """
 
@@ -120,11 +120,11 @@ def input_ci_postgresql_zorgplicht_sections(input_config: dict) -> pd.DataFrame:
     schema = input_config["schema"]
 
     query = f"""
-        SELECT 
-            id AS id, 
-            name AS name, 
-            hydraulicload_location_id AS hydraulicload_location_id, 
-            overleefde_belasting AS overleefde_belasting        
+        SELECT
+            id AS id,
+            name AS name,
+            hydraulicload_location_id AS hydraulicload_location_id,
+            overleefde_belasting AS overleefde_belasting
         FROM {schema}.sections;
     """
 
@@ -194,46 +194,46 @@ def input_ci_postgresql_zorgplicht_calculate_list(input_config: dict) -> pd.Data
             fragilitycurves_data_base.failuremechanism_id AS failuremechanism_id,
             expertjudgement.id AS expertjudgement_id,
             expertjudgement.fragilitycurves_id AS fragilitycurves_id,
-            expertjudgement.fragilitycurves_base_id AS fragilitycurves_base_id,            
+            expertjudgement.fragilitycurves_base_id AS fragilitycurves_base_id,
             section.id AS section_id,
             section.hydraulicload_location_id AS hydraulicload_location_id,
             intergrate IS NOT NULL AS has_intergrate,
             intergrate_data IS NOT NULL AS has_intergrate_data,
             intergrate.id AS intergrate_id,
-            intergrate.load_limit AS load_limit, 
+            intergrate.load_limit AS load_limit,
             intergrate.probability_contribution_reductionfactor AS probability_contribution_reductionfactor
         FROM {schema}.expertjudgements AS expertjudgement
         INNER JOIN {schema}.sections AS section ON 1=1
         INNER JOIN {schema}.variants AS variant ON variant.id=expertjudgement.variant_id
         INNER JOIN {schema}.statistics AS statistic ON statistic.id=variant.statistics_id
         LEFT JOIN (
-                SELECT DISTINCT 
-                    fragilitycurves_data_base.fragilitycurves_id, 
-                    fragilitycurves_data_base.section_id, 
+                SELECT DISTINCT
+                    fragilitycurves_data_base.fragilitycurves_id,
+                    fragilitycurves_data_base.section_id,
                     fragilitycurves_data_base.failuremechanism_id
                 FROM {schema}.fragilitycurves_data AS fragilitycurves_data_base
-        ) AS fragilitycurves_data_base ON 
-            fragilitycurves_data_base.section_id=section.id AND 
+        ) AS fragilitycurves_data_base ON
+            fragilitycurves_data_base.section_id=section.id AND
             fragilitycurves_data_base.fragilitycurves_id=expertjudgement.fragilitycurves_base_id
         LEFT JOIN (
-                SELECT DISTINCT 
-                    fragilitycurves_data.fragilitycurves_id, 
-                    fragilitycurves_data.section_id, 
+                SELECT DISTINCT
+                    fragilitycurves_data.fragilitycurves_id,
+                    fragilitycurves_data.section_id,
                     fragilitycurves_data.failuremechanism_id
                 FROM {schema}.fragilitycurves_data AS fragilitycurves_data
-        ) AS fragilitycurves_data ON 
-            fragilitycurves_data.section_id=section.id AND 
-            fragilitycurves_data.fragilitycurves_id=expertjudgement.fragilitycurves_id            
-        LEFT JOIN {schema}.fragilitycurves_intergrate AS intergrate ON 
+        ) AS fragilitycurves_data ON
+            fragilitycurves_data.section_id=section.id AND
+            fragilitycurves_data.fragilitycurves_id=expertjudgement.fragilitycurves_id
+        LEFT JOIN {schema}.fragilitycurves_intergrate AS intergrate ON
             intergrate.expertjudgement_id=expertjudgement.id AND
             intergrate.failuremechanism_id=fragilitycurves_data_base.failuremechanism_id AND
             intergrate.section_id=section.id
         LEFT JOIN (
-                SELECT DISTINCT 
+                SELECT DISTINCT
                     intergrate_data.intergrate_id
                 FROM continuinzicht_demo_zorgplicht.fragilitycurves_intergrate_data AS intergrate_data
-        ) AS intergrate_data ON 
-            intergrate_data.intergrate_id=intergrate.id             
+        ) AS intergrate_data ON
+            intergrate_data.intergrate_id=intergrate.id
         ORDER BY variant.id,failuremechanism_id, expertjudgement.id, section.id;
     """
 
@@ -306,13 +306,13 @@ def input_ci_postgresql_zorgplicht_fragilitycurves_data(
     fragilitycurves_id = input_config["fragilitycurves_id"]
 
     query = f"""
-        SELECT 
-            hydraulicload, 
+        SELECT
+            hydraulicload,
             failure_probability
         FROM {schema}.fragilitycurves_data
-        WHERE 
-            fragilitycurves_id={fragilitycurves_id} AND 
-            section_id={section_id} AND 
+        WHERE
+            fragilitycurves_id={fragilitycurves_id} AND
+            section_id={section_id} AND
             failuremechanism_id={failuremechanism_id}
         ORDER BY hydraulicload;
     """
@@ -383,11 +383,11 @@ def input_ci_postgresql_zorgplicht_statistics_data(
     hydraulicload_location_id = input_config["hydraulicload_location_id"]
 
     query = f"""
-        SELECT 
+        SELECT
             probability_exceedance,
-            hydraulicload            
+            hydraulicload
         FROM {schema}.statistics_data
-        WHERE 	
+        WHERE
             statistics_id={statistics_id} AND
             hydraulicload_location_id={hydraulicload_location_id}
         ORDER BY hydraulicload;
