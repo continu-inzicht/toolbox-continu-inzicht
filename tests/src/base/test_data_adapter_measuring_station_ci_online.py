@@ -1,4 +1,5 @@
 import unittest
+import warnings
 import pandas as pd
 
 from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation import (
@@ -42,6 +43,11 @@ class TestOutputCiPostgresql(unittest.TestCase):
             "unit_conversion_factor": 0.01,
         }
 
+        warnings.filterwarnings(
+            "ignore",
+            category=UserWarning,
+            message=".*pandas only supports SQLAlchemy connectable.*",
+        )
         output_ci_postgresql_measuringstation_to_data(output_config, df)
         mock_create_engine.assert_called_once_with(
             "postgresql://user:password@localhost:5432/continuinzicht"
@@ -97,7 +103,11 @@ class TestOutputCiPostgresql(unittest.TestCase):
             "schema": "continuinzicht_demo_realtime",
             "unit_conversion_factor": 0.01,
         }
-
+        warnings.filterwarnings(
+            "ignore",
+            category=UserWarning,
+            message=".*pandas only supports SQLAlchemy connectable.*",
+        )
         # dit heeft een extra database interactie, mock die ook
         with mock.patch(
             "pandas.read_sql_query", self.output_ci_postgresql_to_states_mocking

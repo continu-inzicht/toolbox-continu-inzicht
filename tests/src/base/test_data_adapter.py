@@ -1,4 +1,5 @@
 from pathlib import Path
+import warnings
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.proof_of_concept import ValuesTimesTwo, ValuesDivideTwo
@@ -37,7 +38,11 @@ def test_DataAdapter_netCDF_keer():
     config.lees_config()
 
     data_adapter = DataAdapter(config=config)
-
+    warnings.filterwarnings(
+        "ignore",
+        category=RuntimeWarning,
+        message=".*numpy.ndarray size changed, may indicate binary incompatibility.*",
+    )
     keer_twee = ValuesTimesTwo(data_adapter=data_adapter)
     keer_twee.run(input="MyNetCDF_in", output="MyNetCDF_out")
 

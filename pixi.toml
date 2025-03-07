@@ -36,6 +36,7 @@ pre-commit = "pre-commit run --all-files"
 lint = { depends-on = ["pre-commit"] }
 # Test
 pytest-cov = "pytest --cov --cov-report=xml --benchmark-save=ci-run"
+pytest-cov-html = "pytest --cov --cov-report=html"
 
 [feature.common.dependencies]
 contextily = "*"
