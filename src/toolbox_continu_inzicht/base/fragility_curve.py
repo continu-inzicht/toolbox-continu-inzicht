@@ -1,5 +1,6 @@
 from abc import abstractmethod
 from typing import Callable, ClassVar, Optional
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -118,9 +119,15 @@ class FragilityCurve:
 
         sel_update = wl_grid < update_level
         wl_steps = np.diff(wl_grid[sel_update])
-        wl_steps = np.hstack([wl_steps[0], wl_steps])
-        F_update = trust_factor * (fp_grid[sel_update] * wl_steps).sum()
+        if len(wl_steps) == 0:
+            warnings.warn(
+                "Geen waardes om aan te passen, originele curve blijft geldig",
+                UserWarning,
+            )
+        else:
+            wl_steps = np.hstack([wl_steps[0], wl_steps])
+            F_update = trust_factor * (fp_grid[sel_update] * wl_steps).sum()
 
-        fp_grid[sel_update] = (1 - trust_factor) * fp_grid[sel_update]
-        fp_grid[~sel_update] = (fp_grid[~sel_update] - F_update) / (1 - F_update)
-        self.failure_probability = fp_grid
+            fp_grid[sel_update] = (1 - trust_factor) * fp_grid[sel_update]
+            fp_grid[~sel_update] = (fp_grid[~sel_update] - F_update) / (1 - F_update)
+            self.failure_probability = fp_grid
