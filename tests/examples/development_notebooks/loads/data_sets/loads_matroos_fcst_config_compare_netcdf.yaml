@@ -1,0 +1,25 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+
+    LoadsMatroos:
+        website: "vitaal"
+        model: "fews_rmm_km"
+        parameters: ["WATHTE"]
+        MISSING_VALUE: 999
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    BelastingLocaties_fews_rmm_km:
+        type: csv_source
+        path: "test_loads_matroos_netcdf.csv"
+        filter: "fews_rmm_km"
+    BelastingLocaties_observed:
+        type: csv_source
+        path: "test_loads_matroos_netcdf.csv"
+        filter: "observed"
+    Waterstanden:
+        type: csv
+        path: "hidden_waterstanden.csv"

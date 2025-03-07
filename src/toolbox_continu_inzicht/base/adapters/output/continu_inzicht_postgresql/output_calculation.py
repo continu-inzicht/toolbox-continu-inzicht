@@ -17,7 +17,7 @@ def output_ci_postgresql_to_calculation_start(
 
     Yaml example:\n
         type: ci_postgresql_to_calculation_start
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -96,7 +96,7 @@ def output_ci_postgresql_to_calculation_end(
 
     Yaml example:\n
          type: ci_postgresql_to_calculation_end
-         database: "geoserver"
+         database: "continuinzicht"
          schema: "continuinzicht_demo_realtime"
 
      Args:\n

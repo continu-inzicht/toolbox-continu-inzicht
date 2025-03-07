@@ -12,7 +12,7 @@ def output_ci_postgresql_to_scenarios(output_config: dict, df: pd.DataFrame) -> 
 
     Yaml example:\n
         type: ci_postgresql_to_scenarios
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
@@ -87,7 +87,7 @@ def output_ci_postgresql_to_load(output_config: dict, df: pd.DataFrame):
 
     Yaml example:\n
         type: ci_postgresql_to_load
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n

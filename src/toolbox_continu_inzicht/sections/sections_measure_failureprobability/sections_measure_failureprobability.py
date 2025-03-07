@@ -5,7 +5,7 @@ Bepaal de faalkans door een maatregel van een dijkvak
 from pydantic.dataclasses import dataclass
 from scipy.interpolate import interp1d
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from typing import Optional
+from typing import ClassVar, Optional
 
 import numpy as np
 import pandas as pd
@@ -16,51 +16,70 @@ class SectionsMeasureFailureprobability:
     """
     Bepaal de faalkans door een maatregel van een dijkvak
 
-    ## Input schema's
-    **input_schema_fragility_curves (DataFrame):\n
-    - section_id: int64                 : id van het dijkvak
-    - measure_id: int64                 : id van de maatregel
-    - measure: str                      : naam van de maatregel
-    - failuremechanismid: int64         : id van het faalmechanisme
-    - failuremechanism: str             : code van het faalmechanisme
-    - hydraulicload: float64            : belasting
-    - failureprobability: float64       : faalkans
-    - successrate: float64              : slagingskans van de maatregel
+    Attributes
+    ----------
+    data_adapter : DataAdapter
+        De data adapter voor het in- en uitvoeren van gegevens.
+    df_in_section_loads : Optional[pd.DataFrame] | None
+        DataFrame: Tijdreeks met belasting op het dijkvak.
+    df_in_fragility_curves : Optional[pd.DataFrame] | None
+        DataFrame: Fragility curves voor het dijkvak.
+    df_out : Optional[pd.DataFrame] | None
+        DataFrame: Uitvoer.
+    input_schema_fragility_curves : ClassVar[dict[str, str]]
+        Het invoerschema voor de fragility curves per dijkvak.
+    input_schema_loads : ClassVar[dict[str, str | list[str]]]
+        Het invoerschema voor de belasting per moment per dijkvak
 
-    **input_schema_loads (DataFrame):\n
-    - section_id: int64                 : id van het dijkvak
+    Notes
+    -----
+
+    **Input schema's**
+
+    *input_schema_sections*: schema voor de lijst met dijkvakken
+
+    - id: int64                         : id van het dijkvak
+    - name: str                         : naam van de dijkvak
+
+    *input_schema_loads*: schema voor belasting per moment per meetlocaties
+
+    - measurement_location_id: int64    : id van het meetstation
     - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
     - unit: str                         : eenheid van de belastingparameter
     - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
-    - value: float64                    : belasting van de tijdreeksitem
+    - value: float64                    : waarde van de tijdreeksitem
     - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
 
-    ## Output schema
-    **df_out (DataFrame): uitvoer\n
-    - section_id: int64                 : id van het dijkvak
-    - parameter_id: int64               : id van de faalkans parameter (5,100,101,102)
-    - unit: str                         : eenheid van de belastingparameter
+    *input_schema_section_fractions*: schema voor koppeling van de maatgevende meetlocaties per dijkvak
+
+    - id: int64                         : id van de dijkvak
+    - idup: int64                       : id van bovenstrooms meetstation
+    - iddown: int64                     : id van benedenstrooms meetstation
+    - fractionup: float64               : fractie van bovenstrooms meetstation
+    - fractiondown: float64             : fractie van benedestrooms meetstation
+
+
+    **Output schema**
+
+    *df_out (DataFrame)*: uitvoer
+
+    - id: int64                         : id van het dijkvak
+    - name; str                         : naam van de dijkvak
     - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
-    - value: float64                    : belasting van de tijdreeksitem
+    - value: float64                    : waarde van de tijdreeksitem
+    - unit: str                         : eenheid van de belastingparameter
+    - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
     - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
-    - failureprobability float64        : faalkans bepaald voor de tijdreeksitem
-    - failuremechanism: str             : code van het faalmechanisme
-    - measure_id: int                   : id van de maatregel
     """
 
     data_adapter: DataAdapter
 
     df_in_section_loads: Optional[pd.DataFrame] | None = None
-    """DataFrame: tijdreeks met belasting op de dijkvak."""
-
     df_in_fragility_curves: Optional[pd.DataFrame] | None = None
-    """DataFrame: fragility curves voor de dijkvak."""
-
     df_out: Optional[pd.DataFrame] | None = None
-    """DataFrame: uitvoer."""
 
     # fragility curve per dijkvak
-    input_schema_fragility_curves = {
+    input_schema_fragility_curves: ClassVar[dict[str, str]] = {
         "section_id": "int64",
         "measure_id": "int64",
         "failuremechanism": "object",
@@ -69,7 +88,7 @@ class SectionsMeasureFailureprobability:
     }
 
     # belasting per moment per dijkvak
-    input_schema_loads = {
+    input_schema_loads: ClassVar[dict[str, str | list[str]]] = {
         "section_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
@@ -82,11 +101,21 @@ class SectionsMeasureFailureprobability:
         """
         Uitvoeren van het bepalen van de faalkans van een dijkvak met maatregel.
 
-        Args:\n
-            input (list[str]): Lijst met namen van configuratie:
-                [0] tijdreeks met belasting op de dijkvak
-                [1] fragility curves voor de dijkvak
-            output (str): uitvoer sectie van het yaml-bestand.
+        Parameters
+        ----------
+        input : list[str]
+            Lijst met namen van data adapters voor tijd reeks met belasting op het dijkvak en fragility curves voor het dijkvak.
+        output : str
+            Uitvoer data adapter voor de faalkans van een dijkvak met maatregel.
+
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        UserWarning
+            Als de lengte van de input niet gelijk is aan 2.
         """
 
         if not len(input) == 2:
@@ -167,7 +196,7 @@ class SectionsMeasureFailureprobability:
             filtered_df_values["measure_id"] = measure_id
 
             # Vervang kleine positieve waarde door een 0
-            # TODO RW is het nodig om de kans terug te zetten naar 0.0?
+            # TODO is het nodig om de kans terug te zetten naar 0.0?: Zie TBCI-157
             # filtered_df_values['failureprobability'] = filtered_df_values['failureprobability'].replace(small_positive_value, 0.0)
 
             # Voeg de gefilterde DataFrame toe aan de hoofd DataFrame

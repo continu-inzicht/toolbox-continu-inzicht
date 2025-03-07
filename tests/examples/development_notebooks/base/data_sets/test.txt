@@ -1,0 +1,1 @@
+text to showcase the use of an custom adapter.

@@ -14,9 +14,8 @@ In het voorbeeld hier onder wordt gebruik gemaakt van`FragilityCurveOvertopping`
 ```yaml
 GlobalVariables:
     rootdir: "data_sets"
-
+    # default waardes, kunnen worden overschreven
     FragilityCurveOvertopping:
-        # default waardes, kunnen worden overschreven
         gh_onz_mu: 0.96
         gh_onz_sigma: 0.27
         gp_onz_mu_tp: 1.03
@@ -76,8 +75,8 @@ Voor het aanpassen van de kruinhoogte bij een [GEKB](#sec-Bepalen-fragility-curv
 GlobalVariables:
     rootdir: "data_sets"
 
+    # default waardes, kunnen worden overschreven
     FragilityCurveOvertopping:
-        # default waardes, kunnen worden overschreven
         gh_onz_mu: 0.96
         gh_onz_sigma: 0.27
         gp_onz_mu_tp: 1.03

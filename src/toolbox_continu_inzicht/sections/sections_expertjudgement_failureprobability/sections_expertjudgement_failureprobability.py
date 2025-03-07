@@ -4,7 +4,7 @@ Bepaal de technische faalkans van een dijkvak
 
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from typing import Optional
+from typing import ClassVar, Optional
 
 import pandas as pd
 
@@ -14,8 +14,25 @@ class SectionsExpertJudgementFailureprobability:
     """
     Bepaal de beheerdersoordeel faalkans van een dijkvak
 
-    ## Input schema's
-    **input_schema_fragility_curves (DataFrame): schema voor fragility curves voor de dijkvak\n
+
+    Attributes
+    ----------
+    data_adapter : DataAdapter
+        De data adapter die wordt gebruikt om de data in te laden en op te slaan.
+    df_in_section_expertjudgement : Optional[pd.DataFrame] | None
+        Dataframe met beheerdersoordeel voor de dijkvak.
+    df_out : Optional[pd.DataFrame] | None
+        Dataframe met faalkans van een dijkvak.
+    input_beheerdersoordeel_schema:  ClassVar[dict[str, str | list[str]]]
+        Schema voor beheerdersoordeel voor de dijkvak.
+
+
+    Notes
+    -----
+    **Input schema's**
+
+    *input_schema_fragility_curves*: schema voor fragility curves voor de dijkvak
+
     - section_id: int64                 : id van het dijkvak
     - parameter_id: int64               : id van de faalkans parameter (5,100,101,102)
     - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
@@ -23,8 +40,9 @@ class SectionsExpertJudgementFailureprobability:
     - failureprobability: float64       : faalkans bepaald voor de tijdreeksitem
     - failuremechanism: str             : code van het faalmechanisme
 
-    ## Output schema
-    **df_out (DataFrame): uitvoer\n
+    **Output schema**
+    *df_out*: uitvoer
+
     - section_id: int64                 : id van het dijkvak
     - parameter_id: int64               : id van de faalkans parameter (5,100,101,102)
     - unit: str                         : eenheid van de belastingparameter
@@ -37,13 +55,10 @@ class SectionsExpertJudgementFailureprobability:
     data_adapter: DataAdapter
 
     df_in_section_expertjudgement: Optional[pd.DataFrame] | None = None
-    """DataFrame: beheerdersoordeel voor de dijkvak."""
-
     df_out: Optional[pd.DataFrame] | None = None
-    """DataFrame: uitvoer."""
 
     # Beheerdersoordeel per dijkvak
-    input_schema = {
+    input_beheerdersoordeel_schema: ClassVar[dict[str, str | list[str]]] = {
         "section_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
@@ -58,12 +73,15 @@ class SectionsExpertJudgementFailureprobability:
         """
         Uitvoeren van het bepalen van de faalkans van een dijkvak.
 
-        Args:\n
-            input str: lijst met beheerderoordelen
-            output (str): uitvoer sectie van het yaml-bestand.
+        Parameters
+        ----------
+        input: str
+            lijst met beheerderoordelen
+        output: str
+            uitvoer sectie van het yaml-bestand.
         """
 
-        self.df_in = self.data_adapter.input(input, self.input_schema)
+        self.df_in = self.data_adapter.input(input, self.input_beheerdersoordeel_schema)
 
         # Datum als string omzetten naar datetime object
         if not pd.api.types.is_datetime64_any_dtype(self.df_in["date_time"]):

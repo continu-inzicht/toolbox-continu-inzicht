@@ -1,6 +1,8 @@
 GlobalVariables:
     rootdir: "data_demo"
     moments: [-24,0,24,48]
+    aquo_allias:
+        WATHTE [m][NAP][OW]: "WATHTE"
 
     LoadsWaterinfo:
         parameters: ["waterhoogte"]
@@ -28,37 +30,37 @@ GlobalVariables:
 DataAdapter:
     BelastingLocaties_WaterInfo:
         type: ci_postgresql_from_measuringstations
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
         source: "WaterInfo"
     Waterstanden_WaterInfo:
         type: ci_postgresql_measuringstation_to_data
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
     BelastingLocaties_FEWS:
         type: ci_postgresql_from_measuringstations
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
         source: "FEWS"
     Waterstanden_FEWS:
         type: ci_postgresql_measuringstation_to_data
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
     BelastingLocaties_Matroos:
         type: ci_postgresql_from_measuringstations
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
         source: "NOOS Matroos"
     Waterstanden_Matroos:
         type: ci_postgresql_measuringstation_to_data
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
     BelastingLocaties_Waterwebservices_RWS:
         type: ci_postgresql_from_measuringstations
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
         source: "RWS Waterwebservices"
     Waterstanden_Waterwebservices_RWS:
         type: ci_postgresql_measuringstation_to_data
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"

@@ -1,0 +1,6 @@
+id,name,description,upper_boundary,color
+1,grote kansafname,grote kansafname,0,#228B22
+2,klein kansafname,klein kansafname,0.2,#DC143C
+3,gelijk,gelijk,0.4,#87CEEB
+4,klein kanstoename,klein kanstoename,0.6,#FFD700
+5,grote kanstoename,grote kanstoename,0.8,#F4E5D8

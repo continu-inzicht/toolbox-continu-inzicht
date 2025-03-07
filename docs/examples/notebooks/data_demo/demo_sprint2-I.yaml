@@ -1,6 +1,8 @@
 GlobalVariables:
     rootdir: "data_demo"
     moments: [-24,0,24,48]
+    aquo_allias:
+        WATHTE [m][NAP][OW]: "WATHTE"
 
     LoadsWaterinfo:
         parameters: ["waterhoogte"]

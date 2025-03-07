@@ -2,30 +2,30 @@ GlobalVariables:
     rootdir: "data_sets"
     moments: [-24,0,24,48]
 
-    FragilityCurvesOvertopping:
+    FragilityCurveOvertoppingMultiple:
         gh_onz_mu: 0.96 # default waarde
 
 DataAdapter:
     slopes:
         type: ci_postgresql_slopes
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     profiles:
         type: ci_postgresql_profiles
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     bedlevel:
         type: ci_postgresql_bedlevelfetch
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     fragility_curves:
         type: ci_postgresql_fragilitycurves_table
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     fragility_curves_csv:
         type: csv
-        file: "test.csv"
+        file: "hidden_test.csv"

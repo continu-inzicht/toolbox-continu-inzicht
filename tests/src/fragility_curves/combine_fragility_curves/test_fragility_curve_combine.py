@@ -1,14 +1,14 @@
 from pathlib import Path
 
 import numpy as np
-
+import pandas as pd
+import pytest
 
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-
 from toolbox_continu_inzicht.fragility_curves import (
-    CombineFragilityCurvesIndependent,
     CombineFragilityCurvesDependent,
+    CombineFragilityCurvesIndependent,
     CombineFragilityCurvesWeightedSum,
 )
 
@@ -226,3 +226,55 @@ def test_combine_fragility_curves_weighted_csv():
     assert np.isclose(
         result.iloc[280:316]["failure_probability"], expected_result_weighted
     ).all()
+
+
+@pytest.mark.performance
+def test_combine_fragility_curves_largeset_csv(benchmark):
+    """Test de CombineFragilityCurvesIndependent met een grote dataset"""
+
+    def perf_test():
+        test_data_sets_path = Path(__file__).parent / "data_sets"
+        df_large = pd.read_csv(test_data_sets_path / "fragilitycurves_largeset.csv")
+
+        config = Config(
+            config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"
+        )
+        config.lees_config()
+        data_adapter = DataAdapter(config=config)
+
+        usecols = ["hydraulicload", "failure_probability"]
+        results = []
+        for measureid, mgroup in df_large.groupby("measureid"):
+            for sectionid, sgroup in mgroup.groupby("sectionid"):
+                input_keys = []
+                df_combi_check = None
+                for fmid, fgroup in sgroup.groupby("failuremechanismid"):
+                    if fmid == 1:
+                        df_combi_check = fgroup[usecols].copy()
+                    else:
+                        input_key = f"fmid{fmid}"
+                        data_adapter.set_dataframe_adapter(
+                            input_key,
+                            fgroup[usecols].copy(),
+                            if_not_exist="create",
+                        )
+                        input_keys.append(input_key)
+
+                combine_fc = CombineFragilityCurvesIndependent(
+                    data_adapter=data_adapter
+                )
+                combine_fc.run(input=input_keys, output="fragility_curves")
+                df_combi = combine_fc.df_out[usecols].copy()
+                results.append(
+                    np.isclose(
+                        df_combi.to_numpy(),
+                        df_combi_check.to_numpy(),
+                        atol=1e-8,
+                        rtol=1e-2,
+                    ).all()
+                )
+
+        return results
+
+    results = benchmark(perf_test)
+    assert all(results)

@@ -1,0 +1,46 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+
+    FragilityCurveOvertoppingMultiple:
+        gh_onz_mu: 0.96 # default waarde
+
+    IntegrateFragilityCurve:
+        refine_step_size: 0.2
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    slopes:
+        type: ci_postgresql_slopes
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    profiles:
+        type: ci_postgresql_profiles
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    bedlevel:
+        type: ci_postgresql_bedlevelfetch
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    fragility_curves:
+        type: ci_postgresql_fragilitycurves_table
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    fragility_curves_combined_csv:
+        type: csv
+        file: "hidden_fragility_curves_combined.csv"
+
+    exceedance_curve_csv:
+        type: csv
+        file: "single_exceedance_curve_adj.csv"
+
+    result:
+        type: csv
+        file: "hidden_result.csv"

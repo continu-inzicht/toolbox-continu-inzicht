@@ -12,7 +12,7 @@ def input_ci_postgresql_measuringstation_data_table(input_config: dict) -> pd.Da
 
     YAML voorbeeld:\n
         type: ci_postgresql_measuringstation_data_table
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -99,7 +99,7 @@ def input_ci_postgresql_from_waterlevels(input_config: dict) -> pd.DataFrame:
 
     YAML voorbeeld:\n
         type: ci_postgresql_from_waterlevels
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -195,7 +195,7 @@ def input_ci_postgresql_from_conditions(input_config: dict) -> pd.DataFrame:
 
     YAML voorbeeld:\n
         type: ci_postgresql_from_conditions
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -272,7 +272,7 @@ def input_ci_postgresql_from_measuringstations(input_config: dict) -> pd.DataFra
 
     Yaml example:\n
         type: ci_postgresql_from_measuringstations
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
         source: "waterinfo"
 

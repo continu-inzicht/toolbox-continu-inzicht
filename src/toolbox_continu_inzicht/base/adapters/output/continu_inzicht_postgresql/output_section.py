@@ -19,7 +19,7 @@ def output_ci_postgresql_section_load_to_data(
 
     Yaml example:\n
         type: ci_postgresql_section_load_to_data
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
         unit_conversion_factor: 0.01
 
@@ -524,7 +524,7 @@ def output_ci_postgresql_section(output_config: dict, df: pd.DataFrame) -> None:
 
     Yaml example:\n
         type: ci_postgresql_section
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
@@ -599,7 +599,7 @@ def output_ci_postgresql_sectionfractions(
 
     Yaml example:\n
         type: ci_postgresql_sectionfractions
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n

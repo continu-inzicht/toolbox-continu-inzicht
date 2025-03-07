@@ -7,25 +7,41 @@ name = "toolbox_continu_inzicht"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen"
 readme = "README.md"
 authors = [
-    { name = "David Haasnoot", email = "d.haasnoots@hkv.nl" },
-    { name = "Guy Dupuits", email = "dupuits@hkv.nl" },
+    { name = "David Haasnoot", email = "d.haasnoot@hkv.nl" },
     { name = "Jerom Aerts", email = "j.aerts@hkv.nl" },
-    { name = "Rolf Waterman", email = "r.watermans@hkv.nl" },
+    { name = "David Haasnoot", email = "d.haasnoot@hkv.nl" },
+    { name = "Guy Dupuits", email = "dupuits@hkv.nl" },
     { name = "Bart Thonus", email = "b.thonus@hkv.nl" },
+    { name = "Rolf Waterman", email = "r.watermans@hkv.nl" },
     { name = "Marit Zethof", email = "m.zethof@hkv.nl" },
 
 ]
 
 license = { text = "GPL-3.0-or-later" }
 
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 dependencies = [
-    "geopandas",
-    "numpy",
-    "pandas",
-    "shapely",
-    "pydra_core",
-    "probabilistic_piping",
+                "fiona",
+                "geopandas",
+                "matplotlib",
+                "netcdf4>=1.7.1",
+                "openpyxl",
+                "openturns>=1.23",
+                "pandas",
+                "psycopg2",
+                "pyarrow",
+                "pydantic>=2",
+                "pyogrio",
+                "python-dotenv>=1.0.1",
+                "requests",
+                "shapely",
+                "httpx",
+                "sqlalchemy",
+                "tqdm>=4.67.1",
+                "probabilistic_piping",
+                "pydra_core",
+                "pyyaml",
+                "xarray",
 ]
 
 dynamic = ["version"]

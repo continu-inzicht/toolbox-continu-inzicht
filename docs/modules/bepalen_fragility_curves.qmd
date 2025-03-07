@@ -19,9 +19,8 @@ Een fragility curve kan berekend door de functie `FragilityCurveOvertopping` aan
 ```yaml
 GlobalVariables:
     rootdir: "data_sets"
-
+    # default waardes, kunnen worden overschreven
     FragilityCurveOvertopping:
-        # default waardes, kunnen worden overschreven
         gh_onz_mu: 0.96
         gh_onz_sigma: 0.27
         gp_onz_mu_tp: 1.03
@@ -81,9 +80,9 @@ Voor het bereken van fragility curves voor piping (STPH) wordt gebruik gemaakt v
 ></span>
 >```
 
-#### FragilityCurvePipingFixedWaterlevelSimple {#sec-Bepalen-fragility-curves-STPH-combined}
+#### FragilityCurvePipingFixedWaterlevel {#sec-Bepalen-fragility-curves-STPH-combined}
 
-De functie `FragilityCurvePipingFixedWaterlevelSimple` rekent met de drie sub-mechanismes uplift, heave, Sellmeijer en geeft een gecombineerde curve terug. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. De curves van de sub-mechanismes zijn beschikbaar via de`df_result_uplift`, `df_result_heave`, en `df_result_sellmeijer` attributen.
+De functie `FragilityCurvePipingFixedWaterlevel` rekent met de drie sub-mechanismes uplift, heave, Sellmeijer en geeft een gecombineerde curve terug. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. De curves van de sub-mechanismes zijn beschikbaar via de`df_result_uplift`, `df_result_heave`, en `df_result_sellmeijer` attributen.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -91,7 +90,7 @@ De functie `FragilityCurvePipingFixedWaterlevelSimple` rekent met de drie sub-me
 GlobalVariables:
     rootdir: "data_sets"
 
-    FragilityCurvePipingFixedWaterlevelSimple:
+    FragilityCurvePipingFixedWaterlevel:
         debug: False
         progress: True
 
@@ -117,12 +116,12 @@ DataAdapter:
 ## Code
 ```python
 from toolbox_continu_inzicht import Config, DataAdapter
-from toolbox_continu_inzicht.fragility_curves import FragilityCurvePipingFixedWaterlevelSimple
+from toolbox_continu_inzicht.fragility_curves import FragilityCurvePipingFixedWaterlevel
 
 config = Config(config_path="config.yaml")
 config.lees_config()
 data_adapter = DataAdapter(config=config)
-fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevelSimple(data_adapter=data_adapter)
+fragility_curve_piping_fixed_waterlevel = FragilityCurvePipingFixedWaterlevel(data_adapter=data_adapter)
 fragility_curve_piping_fixed_waterlevel.run(
     input=["probabilistic_input", "waterlevels"],
     output="fragility_curves",

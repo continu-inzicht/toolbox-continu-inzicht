@@ -1,0 +1,22 @@
+name: Toolbox_continu_inzicht
+channels:
+  - conda-forge
+dependencies:
+  - geopandas
+  - matplotlib
+  - netcdf4>=1.7.1
+  - openpyxl
+  - openturns>=1.23
+  - pandas
+  - psycopg2
+  - pyarrow
+  - pydantic>=2
+  - pyogrio
+  - python-dotenv>=1.0.1
+  - requests
+  - shapely
+  - httpx
+  - sqlalchemy
+  - tqdm>=4.67.1
+  - pyyaml
+  - xarray

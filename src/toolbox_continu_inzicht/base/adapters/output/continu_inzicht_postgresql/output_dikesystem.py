@@ -12,7 +12,7 @@ def output_ci_postgresql_dikesystem(output_config: dict, df: pd.DataFrame) -> No
 
     Yaml example:\n
         type: ci_postgresql_dikesystem
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     Args:\n

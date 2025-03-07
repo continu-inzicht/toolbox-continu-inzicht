@@ -2,7 +2,7 @@ GlobalVariables:
     rootdir: "tests/src/fragility_curves/fragility_curves_overtopping/data_sets"
     moments: [-24,0,24,48]
 
-    FragilityCurvesOvertopping:
+    FragilityCurveOvertoppingMultiple:
         gh_onz_mu: 0.96 # default waarde
 
 DataAdapter:

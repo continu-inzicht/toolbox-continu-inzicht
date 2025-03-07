@@ -3,10 +3,11 @@ pydra_legacy.py: functies uit een oude Pydra-versie.
 bretschneider: functie om de golfcondities met Bretschneider te berekenen.
 """
 
+from typing import Tuple
 import numpy as np
 
 
-def bretschneider(d, fe, u):
+def bretschneider(d: float, fe: float, u: float) -> Tuple[float, float]:
     """
     Berekent golfcondities met Bretschneider.
     Gebaseerd op "subroutine Bretschneider" in Hydra-NL, geprogrammeerd door
@@ -91,7 +92,7 @@ qcr_table = {
 }
 
 
-def _get_mu_sigma(EX, SDX):
+def _get_mu_sigma(EX: float, SDX: float) -> Tuple[float, float]:
     """
     Verkrijg mu en sigma voor de normaalverdeling van de
     onderliggende log-normal verdeling.
@@ -106,6 +107,13 @@ def _get_mu_sigma(EX, SDX):
         Verwachting van de log-normaal verdeling
     SDX : float
         Standaardverdeling van de log-normaal verdeling
+
+    Returns
+    -------
+    mu2 : float
+        Verwachting van de onderliggende normal verdeling
+    sigma2 : float
+         Standaardverdeling van de onderliggende normal verdeling
     """
     # Variatiecoëfficiënt:
     Vx = SDX / EX
@@ -119,7 +127,7 @@ def _get_mu_sigma(EX, SDX):
     return mu2, sigma2
 
 
-def get_qcr_dist(Hs, grass_quality):
+def get_qcr_dist(Hs: float, grass_quality: str) -> Tuple[float, float]:
     """
     Verkrijg de verdeling voor de kritieke overtopping afvoer
     gebaseerd op significante golfhoogte
@@ -130,6 +138,18 @@ def get_qcr_dist(Hs, grass_quality):
         Significante golfhoogte
     grass_quality : str
         Graskwaliteit (open of gesloten)
+
+    Raises
+    ------
+    ValueError
+        Als Graskwaliteit niet klopt, moet be "open" of  "closed" zijn.
+
+    Returns
+    -------
+    Mu : float
+        Verwachting van de verdeling
+    Sigma : float
+        Standaardverdeling van de verdeling
     """
     if isinstance(grass_quality, tuple):
         mu, sigma = grass_quality

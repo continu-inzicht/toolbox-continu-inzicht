@@ -14,6 +14,7 @@ website:
             - examples/notebooks/1.proof_of_concept.ipynb
             - examples/notebooks/2.belastingen_inladen.ipynb
             - examples/notebooks/3.fragility_curve_overtopping.ipynb
+            - examples/notebooks/4.adjust_integrated_statistics.ipynb
       - text: "Modules"
         file:  modules_index.qmd
       - text: "Python API"
@@ -38,6 +39,7 @@ website:
           - examples/notebooks/1.proof_of_concept.ipynb
           - examples/notebooks/2.belastingen_inladen.ipynb
           - examples/notebooks/3.fragility_curve_overtopping.ipynb
+          - examples/notebooks/4.adjust_integrated_statistics
 
       - title: "Modules"
         contents:
@@ -71,6 +73,7 @@ format:
     theme: cosmo
     css: styles/styles.css
     toc: true
+    encoding: 'ISO-8859-1'
 
 quartodoc:
   style: pkgdown
@@ -126,14 +129,16 @@ quartodoc:
       package: toolbox_continu_inzicht.fragility_curves
       contents:
        - FragilityCurveOvertopping
-       - FragilityCurvesOvertopping
+       - FragilityCurveOvertoppingMultiple
        - ShiftFragilityCurveOvertopping
        - ChangeCrestHeightFragilityCurveOvertopping
-       - FragilityCurvePipingFixedWaterlevelSimple
-       - FragilityCurvesPiping
+       - FragilityCurvePipingFixedWaterlevel
+       - FragilityCurvePipingMultiple
        - CombineFragilityCurvesIndependent
        - CombineFragilityCurvesDependent
        - CombineFragilityCurvesWeightedSum
+       - IntegrateFragilityCurve
+       - IntegrateFragilityCurveMultiple
 
     - title: Continu Inzicht Adapters (invoer)
       desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak

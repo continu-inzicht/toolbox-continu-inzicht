@@ -169,7 +169,11 @@ def test_create_dataframe():
     }
 
     df_out = fews.create_dataframe(
-        options=options, calc_time=calc_time, json_data=json_data, locations=locations
+        options=options,
+        calc_time=calc_time,
+        json_data=json_data,
+        locations=locations,
+        global_variables={"aquo_allias": {"WNSHDB1": "WATHTE"}},
     )
     assert df_out is not None
     assert len(df_out) == 1

@@ -4,7 +4,6 @@ import pandas as pd
 
 from scipy.stats import lognorm
 
-# TODO: shorten imports to be more user friendly
 import pydra_core
 import pydra_core.location
 from pydra_core.location.model.statistics.stochastics.model_uncertainty import (
@@ -241,7 +240,6 @@ class WaveOvertoppingCalculation:
         Tuple[np.ndarray, np.ndarray]
             Een tuple met de niveaus en overloopkansen.
         """
-        # TODO: configurabele defaults?
         # Stel standaardwaarden in
         hstap = options.get("hstap", 0.05)
         lower_limit_coarse = options.get("lower_limit_coarse", 4)
@@ -250,6 +248,8 @@ class WaveOvertoppingCalculation:
         # Leidt golfcondities af voor de richting
         cl_rnd = np.round(crestlevel / hstap) * hstap  # crest level rounded
         # Verfijn het raster rond crest level
+        # `waterlevels` is eigenlijk hydraulicload, gekozen om hier te laten omdat bij een GEKB curve
+        # je altijd een waterstand hebt.
         waterlevels = np.r_[
             np.arange(
                 cl_rnd - lower_limit_coarse, cl_rnd - upper_limit_coarse, hstap * 2

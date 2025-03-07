@@ -23,7 +23,7 @@ def test_LoadsMatroos_noos():
 
 
 def test_LoadsMatroos_no_website():
-    """Tests of als we geen website mee geven bij het ophalen van belasing data van de matroos, ook een error krijgen"""
+    """Tests of als we geen website mee geven bij het ophalen van belasting data van de matroos, ook een error krijgen"""
     test_data_sets_path = Path(__file__).parent / "data_sets"
     c = Config(
         config_path=test_data_sets_path / "test_loads_matroos_no_website_config.yaml"
@@ -45,14 +45,6 @@ def test_LoadsMatroos_create_url_vitaal():
     data = DataAdapter(config=c)
 
     matroos = LoadsMatroos(data_adapter=data)
-    calc_time = datetime(
-        2024,
-        10,
-        22,
-        16,
-        0,
-        0,
-    ).replace(tzinfo=timezone.utc)
 
     options = {"website": "vitaal", "model": "observed", "parameters": ["WATHTE"]}
     global_variables = {
@@ -61,13 +53,10 @@ def test_LoadsMatroos_create_url_vitaal():
         "vitaal_password": "test_vitaal_password",
     }
     url = matroos.generate_url(
-        calc_time=calc_time,
         options=options,
         global_variables=global_variables,
-        parameter="waterlevel",
-        location_names=["hoekvanholland"],
     )
-    expected_output = "https://test_vitaal_user:test_vitaal_password@vitaal.matroos.rws.nl/direct/get_series.php?loc=hoekvanholland&source=observed&unit=waterlevel&tstart=202410211600&tend=202410241600&format=dd_2.0.0&timezone=GMT&zip=0&"
+    expected_output = "https://test_vitaal_user:test_vitaal_password@vitaal.matroos.rws.nl/direct/get_series.php?"
     assert url == expected_output
 
 
@@ -79,14 +68,6 @@ def test_LoadsMatroos_create_url_matroos():
     data = DataAdapter(config=c)
 
     matroos = LoadsMatroos(data_adapter=data)
-    calc_time = datetime(
-        2024,
-        10,
-        22,
-        16,
-        0,
-        0,
-    ).replace(tzinfo=timezone.utc)
 
     options = {"website": "matroos", "model": "observed", "parameters": ["WATHTE"]}
     global_variables = {
@@ -95,13 +76,10 @@ def test_LoadsMatroos_create_url_matroos():
         "matroos_password": "test_matroos_password",
     }
     url = matroos.generate_url(
-        calc_time=calc_time,
         options=options,
         global_variables=global_variables,
-        parameter="waterlevel",
-        location_names=["hoekvanholland"],
     )
-    expected_output = "https://test_matroos_user:test_matroos_password@matroos.rws.nl/direct/get_series.php?loc=hoekvanholland&source=observed&unit=waterlevel&tstart=202410211600&tend=202410241600&format=dd_2.0.0&timezone=GMT&zip=0&"
+    expected_output = "https://test_matroos_user:test_matroos_password@matroos.rws.nl/direct/get_series.php?"
     assert url == expected_output
 
 
@@ -113,25 +91,14 @@ def test_LoadsMatroos_create_url_noos():
     data = DataAdapter(config=c)
 
     matroos = LoadsMatroos(data_adapter=data)
-    calc_time = datetime(
-        2024,
-        10,
-        22,
-        16,
-        0,
-        0,
-    ).replace(tzinfo=timezone.utc)
 
     options = {"website": "noos", "model": "observed", "parameters": ["WATHTE"]}
     global_variables = {"moments": [-24, 0, 24, 48]}
     url = matroos.generate_url(
-        calc_time=calc_time,
         options=options,
         global_variables=global_variables,
-        parameter="waterlevel",
-        location_names=["hoekvanholland"],
     )
-    expected_output = "https://noos.matroos.rws.nl/direct/get_series.php?loc=hoekvanholland&source=observed&unit=waterlevel&tstart=202410211600&tend=202410241600&format=dd_2.0.0&timezone=GMT&zip=0&"
+    expected_output = "https://noos.matroos.rws.nl/direct/get_series.php?"
     assert url == expected_output
 
 
@@ -580,7 +547,11 @@ def test_LoadsMatroos_data_frame():
     }
 
     df_out = LoadsMatroos.create_dataframe(
-        options=options, df_in=df_in, calc_time=calc_time, json_data=json_data
+        options=options,
+        df_in=df_in,
+        calc_time=calc_time,
+        json_data=json_data,
+        global_variables={},
     )
     assert len(df_out) == 349
     columns_names = [

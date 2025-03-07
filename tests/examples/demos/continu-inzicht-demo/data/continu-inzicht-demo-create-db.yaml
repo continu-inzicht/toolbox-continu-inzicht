@@ -12,7 +12,7 @@ DataAdapter:
 
     out_dikesystems_table:
         type: ci_postgresql_dikesystem
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     in_segments_geojson:
@@ -21,7 +21,7 @@ DataAdapter:
 
     out_segments_table:
         type: ci_postgresql_segment
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     in_sections_geojson:
@@ -30,7 +30,7 @@ DataAdapter:
 
     out_sections_table:
         type: ci_postgresql_section
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     in_measuringstations_csv:
@@ -39,7 +39,7 @@ DataAdapter:
 
     out_measuringstations_table:
         type: ci_postgresql_measuringstation
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     in_conditions_csv:
@@ -48,7 +48,7 @@ DataAdapter:
 
     out_conditions_table:
         type: ci_postgresql_conditions
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     in_sectionfractions_csv:
@@ -57,7 +57,7 @@ DataAdapter:
 
     out_sectionfractions_table:
         type: ci_postgresql_sectionfractions
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     in_scenarios_csv:
@@ -66,7 +66,7 @@ DataAdapter:
 
     out_scenarios_table:
         type: ci_postgresql_to_scenarios
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     in_loads_csv:
@@ -75,7 +75,7 @@ DataAdapter:
 
     out_loads_table:
         type: ci_postgresql_to_load
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"
 
     in_fragilitycurves_csv:
@@ -84,5 +84,5 @@ DataAdapter:
 
     out_fragilitycurves_table:
         type: ci_postgresql_to_fragilitycurves
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_whatif"

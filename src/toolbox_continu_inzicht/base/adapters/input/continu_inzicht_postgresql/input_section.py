@@ -12,7 +12,7 @@ def input_ci_postgresql_from_sections(input_config: dict) -> pd.DataFrame:
 
     YAML voorbeeld:\n
         type: ci_postgresql_from_sections
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -76,7 +76,7 @@ def input_ci_postgresql_from_sectionfractions(input_config: dict) -> pd.DataFram
 
     YAML voorbeeld:\n
         type: ci_postgresql_from_sectionfractions
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -148,7 +148,7 @@ def input_ci_postgresql_section_load_from_data_table(
 
     YAML voorbeeld:\n
         type: ci_postgresql_section_load_from_data_table
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -227,7 +227,7 @@ def input_ci_postgresql_section_failure_probability_from_data_table(
 
     YAML voorbeeld:\n
         type: ci_postgresql_section_failure_probability_from_data_table
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -315,7 +315,7 @@ def input_ci_postgresql_section_thresholds_from_conditions_table(
 
     YAML voorbeeld:\n
         type: ci_postgresql_section_thresholds_from_conditions_table
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n
@@ -391,7 +391,7 @@ def input_ci_postgresql_section_expert_judgement_table(
 
     YAML voorbeeld:\n
         type: ci_postgresql_section_thresholds_from_conditions_table
-        database: "geoserver"
+        database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
     Args:\n

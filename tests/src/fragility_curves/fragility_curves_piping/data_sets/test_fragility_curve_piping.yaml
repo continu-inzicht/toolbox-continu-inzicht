@@ -2,7 +2,7 @@ GlobalVariables:
     rootdir: "tests/src/fragility_curves/fragility_curves_piping/data_sets"
     moments: [-24,0,24,48]
 
-    FragilityCurvePipingFixedWaterlevelSimple:
+    FragilityCurvePipingFixedWaterlevel:
         debug: False
         progress: False
 

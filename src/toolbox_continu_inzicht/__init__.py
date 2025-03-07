@@ -1,7 +1,7 @@
 ## Voeg later dynamische setuptools toe
 # import pkg_resources  # part of setuptools
 # __version__ = pkg_resources.get_distribution("toolbox_continu_inzicht").version
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 # in alpha release zijn de versie gelijk aan de sprint nummers.
 
 # Hier alleen base functies
