@@ -274,7 +274,8 @@ class LoadsMatroos:
                     # matroos is in meters
                     # https://publicwiki.deltares.nl/display/NETCDF/Matroos+Standard+names
                     value = float(event["value"])
-                    value_cm = value * 100
+                    if parameter_code == "WATHTE":
+                        value = value * 100
                 else:
                     value = options["MISSING_VALUE"]
 
@@ -286,7 +287,7 @@ class LoadsMatroos:
                     "parameter_code": parameter_code,
                     "date_time": utc_dt,
                     "unit": "cm",
-                    "value": value_cm,
+                    "value": value,
                     "value_type": value_type,
                 }
                 records.append(record)
@@ -387,6 +388,8 @@ class LoadsMatroosNetCDF(LoadsMatroos):
         Input dataframe containing measurement location codes.
     df_out: Optional[pd.DataFrame] | None
         Output dataframe containing processed data.
+    ds_in: Optional[xr.Dataset] | None
+        Input xarray dataset containing forecast data from matroos.
     url_retrieve_series_noos: str
         URL for retrieving series from Noos server.
     url_retrieve_series_matroos: str
@@ -399,6 +402,7 @@ class LoadsMatroosNetCDF(LoadsMatroos):
 
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
+    ds_in: Optional[xr.Dataset] | None = None
 
     url_retrieve_series_noos: str = "noos.matroos.rws.nl/direct/get_netcdf.php?"
     url_retrieve_series_matroos: str = "matroos.rws.nl/direct/get_netcdf.php?"
@@ -439,6 +443,9 @@ class LoadsMatroosNetCDF(LoadsMatroos):
             options["MISSING_VALUE"] = -999
 
         self.df_in = self.data_adapter.input(input)
+        map_location_to_id = self.df_in.set_index("measurement_location_code")[
+            "measurement_location_id"
+        ].to_dict()
 
         wanted_location_names = self.get_matroos_available_locations(
             self.df_in,
@@ -495,6 +502,34 @@ class LoadsMatroosNetCDF(LoadsMatroos):
                         df = ds_0.sel(stations=name_station_dict[location])[
                             aquo_parameter
                         ].to_dataframe()
+                        df.drop(
+                            columns=["analysis_time", "lat", "lon", "y", "x", "z"],
+                            inplace=True,
+                        )
+                        df["measurement_location_code"] = location
+                        df["measurement_location_id"] = map_location_to_id[location]
+                        df["measurement_location_description"] = location
+                        df["parameter_id"] = aquo_grootheid_dict["id"]
+                        df["parameter_code"] = parameter_code
+                        df["unit"] = "cm"
+                        # Voor nu alleen verwachtingen
+                        df["value_type"] = "verwachting"
+                        df.rename(columns={aquo_parameter: "value"}, inplace=True)
+                        df.index.name = "date_time"
+                        df.reset_index(drop=False, inplace=True)
+                        df = df[
+                            [
+                                "measurement_location_id",
+                                "measurement_location_code",
+                                "measurement_location_description",
+                                "parameter_id",
+                                "parameter_code",
+                                "date_time",
+                                "unit",
+                                "value",
+                                "value_type",
+                            ]
+                        ]
 
                         lst_dfs.append(df)
                 else:
