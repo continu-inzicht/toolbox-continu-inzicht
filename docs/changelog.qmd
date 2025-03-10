@@ -43,7 +43,7 @@ Deze inleesfuncties gebruiken allemaal de Aquo-standaard naam en code (WATHTE).
 
 ### Sprint 3:
 
-### Inhoudelijk
+#### Inhoudelijk
 
 In sprint 3 is weer gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#45](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/45).
 
@@ -51,7 +51,28 @@ De nadruk lag vooral op het toevoegen van fragility curves. Fragility curves kun
 
 Daarnaast zijn er een heel aantal data adapters toegevoegd en veel voorbeelden hoe je het kan linken aan een continu inzicht database, daar data op kan zetten en vervolgens gebruiken in functies.
 
-### Technisch/projectmatig
+#### Technisch/projectmatig
 
 De `pre-commit` uitgebreid en toegevoegd aan de github actions, dit run je voor je een aanpassingen doorvoer met `pixi run pre-commit`.
 De tests en publiceren van docs is nu in een windows action omgeving zodat de Dll's van `pydra_core` het doen, de pixi.lock is geupdate om nieuwe packages toe te laten.
+
+
+### Sprint 4:
+
+#### Inhoudelijk
+
+Alle aanpassingen zijn te vinden in pull request [#54](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/54)
+
+Waar in sprint 3 een groot deel van het werk lag in 'nieuwe' inhoud, was dit wat beperkter in sprint 4. Er zijn toevoegingen gedaan aan de FragilityCurve base class waarmee het nu ook mogelijk is om met een overschrijdingsfrequentie lijn de conditionele kans te integreren. Hiermee kunnen verschillende varianten (combinatie van fragility curve en overschrijdingsfrequentie) worden vergeleken.
+
+Wel is veel werk verricht om een het integreren van de curve mooi weer te geven in de viewer. Hier is ook aan een fast-api implementatie gewerkt.
+
+#### Technisch/projectmatig
+
+Publiceren op [PyPi](https://pypi.org/project/toolbox-continu-inzicht/) is nu mogelijk en gaat volledig automatisch via github actions, dit run je door een tag aan te maken op de github.
+
+Daarnaast checkt de `pre-commit` nu ook op [docstring](https://github.com/jsh9/pydoclint) format zodat het netter in de 'API reference' komt in de documentatie. Hierdoor zijn een hele hoop docstrings aangepast.
+
+Het verschil tussen waterlevel(s) en hydaulicload(s) aangepakt, we voeren nu overal `hydaulicload`.
+
+Matroos was al beschikbaar, maar maakte gebruik van de [timeseries](https://noos.matroos.rws.nl/timeseries/) endpoint. Omdat timeseries de vertaling naar reeks al op de server van matroos doet, kan dit wat traag zijn. Om dit op te lossen is na contact met het beheer van Matroos ook de [maps1d](https://noos.matroos.rws.nl/maps1d/) endpoint toegevoegd, deze leest de 'ruwe' NetCDF bestanden in en vertaald ze naar een tijdreeks die in de toolbox kan worden gebruikt.
