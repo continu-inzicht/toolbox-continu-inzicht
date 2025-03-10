@@ -99,7 +99,7 @@ class SectionsMeasureFailureprobability:
 
     def run(self, input: list[str], output: str) -> None:
         """
-        Uitvoeren van het bepalen van de faalkans van een dijkvak met maatregel.
+        Bepalen faalkans van een dijkvak met maatregel.
 
         Parameters
         ----------

@@ -1,5 +1,5 @@
 ---
-title: "Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans"
+title: "Zorgplicht: effect nieuwe statistiek en rekenregels op de faalkans"
 ---
 
 De module zorgplicht is conceptueel anders dan de functionaliteit voor real-time en what-if. De gebruiker kan het effect van veranderingen in overschrijdingsfrequentie statistiek of rekenregels in kaart brengen.

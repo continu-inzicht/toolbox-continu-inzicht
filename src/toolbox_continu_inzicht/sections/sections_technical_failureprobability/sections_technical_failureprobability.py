@@ -97,7 +97,7 @@ class SectionsTechnicalFailureprobability:
 
     def run(self, input: list[str], output: str) -> None:
         """
-        Uitvoeren van het bepalen van de faalkans van een dijkvak.
+        Bepalen faalkans van een dijkvak.
 
         Parameters
         ----------
