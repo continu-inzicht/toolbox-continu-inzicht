@@ -6,6 +6,11 @@ DataAdapter:
         csv:
             sep: ","
 
+    reset_database:
+        type: none
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_zorgplicht"
+
     in_failuremechanism_csv:
         type: csv
         path: "zorgplicht_failuremechanism.csv"
