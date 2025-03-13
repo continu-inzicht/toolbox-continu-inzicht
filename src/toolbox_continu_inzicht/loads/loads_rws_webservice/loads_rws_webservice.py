@@ -15,7 +15,11 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsWaterwebservicesRWS:
     """
-    Belastinggegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/
+    Belastinggegevens ophalen van rijkswaterstaat waterwebservices
+
+    Notes
+    -----
+    Link: https://waterwebservices.rijkswaterstaat.nl/
 
     Attributes
     ----------

@@ -4,16 +4,16 @@ Alle noemenswaardige veranderingen worden hier bijgehouden.
 Dit project gebruikt [Semantic Versioning](http://semver.org/).
 Het format is beschreven op [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
-## [Ongeplubliceerd]
+## Development
 
-### Sprint 1
+### Sprint 1 [Ongeplubliceerd]
 
 - Werkende Quarto documentatie [#7](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/7)
 - Proof of concept met csv en database [#9](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/9)
 - Voeg notebook toe om te laten zien hoe het werkt [#12](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/12)
 - Maak map structuur overzichtelijker [#19](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/19)
 
-### Sprint 2
+### Sprint 2 [Ongeplubliceerd]
 
 In sprint 2 is gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#36](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/36).
 
@@ -41,7 +41,7 @@ Deze inleesfuncties gebruiken allemaal de Aquo-standaard naam en code (WATHTE).
 - Toekennen van belastingen aan secties.
 - Aggregeren van tijdreeksen naar momenten of bij het getij naar maxima over de getijperiode.
 
-### Sprint 3:
+### Sprint 3 [Ongeplubliceerd]
 
 #### Inhoudelijk
 
@@ -57,7 +57,7 @@ De `pre-commit` uitgebreid en toegevoegd aan de github actions, dit run je voor 
 De tests en publiceren van docs is nu in een windows action omgeving zodat de Dll's van `pydra_core` het doen, de pixi.lock is geupdate om nieuwe packages toe te laten.
 
 
-### Sprint 4:
+### Sprint 4 [[0.1.0](https://pypi.org/project/toolbox-continu-inzicht/0.1.0/)]
 
 #### Inhoudelijk
 
