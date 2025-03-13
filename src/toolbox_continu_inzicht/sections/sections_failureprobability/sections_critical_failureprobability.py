@@ -10,9 +10,9 @@ import pandas as pd
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class SectionsFailureprobability:
+class SectionsCriticalFailureprobability:
     """
-    Bepaal de faalkans van een dijkvak
+    Bepaal de maatgevende faalkans van een dijkvak gegeven de technische faalkans, maatregel en beheerdersoordeel.
 
     Attributes
     ----------

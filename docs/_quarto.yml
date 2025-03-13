@@ -120,7 +120,7 @@ quartodoc:
       package: toolbox_continu_inzicht.sections
       contents:
        - SectionsLoads
-       - SectionsFailureprobability
+       - SectionsCriticalFailureprobability
        - SectionsTechnicalFailureprobability
        - SectionsMeasureFailureprobability
        - SectionsClassify

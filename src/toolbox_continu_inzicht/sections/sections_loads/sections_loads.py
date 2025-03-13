@@ -11,7 +11,7 @@ from typing import ClassVar, Optional
 @dataclass(config={"arbitrary_types_allowed": True})
 class SectionsLoads:
     """
-    Bepaal de belasting op een dijkvak
+    Bepaal de belasting op een dijkvak gegeven een belasting
 
     Attributes
     ----------

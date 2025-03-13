@@ -12,7 +12,7 @@ import pandas as pd
 @dataclass(config={"arbitrary_types_allowed": True})
 class SectionsClassify:
     """
-    Bepaal de status van een dijkvak
+    Bepaal de status van een dijkvak gegeven de faalkans en grenswaardes.
 
     Attributes
     ----------
@@ -35,9 +35,9 @@ class SectionsClassify:
 
     **Input schema's**
 
-    *input_schema_thresholds*: schema voor klassegrenzen per dijkvak
+    *input_schema_thresholds*: schema voor grenswaardes per dijkvak
 
-    - lower_boundary: float64           : ondergrens van de klassegrens
+    - lower_boundary: float64           : ondergrens van de klasses
     - upper_boundary: float64           : bovengrens van de klassegrens
     - state_id: int64                   : id van de klassegrens
 

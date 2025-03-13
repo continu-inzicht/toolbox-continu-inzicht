@@ -159,12 +159,12 @@ DataAdapter:
 ## Code
 ```python
 from toolbox_continu_inzicht import Config, DataAdapter
-from toolbox_continu_inzicht.sections import SectionsFailureprobability
+from toolbox_continu_inzicht.sections import SectionsCriticalFailureprobability
 
 config = Config(config_path="config.yaml")
 config.lees_config()
 data_adapter = DataAdapter(config=config)
-sections_failureprobability = SectionsFailureprobability(data_adapter=data_adapter)
+sections_failureprobability = SectionsCriticalFailureprobability(data_adapter=data_adapter)
 sections_failureprobability.run(
         input="in_section_data_failure_probability",
         output="out_section_failure_probability_data",
