@@ -166,13 +166,18 @@ class DataAdapter(PydanticBaseModel):
 
         # Uit het .env-bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
-        if load_dotenv():
-            environmental_variables = dict(dotenv_values())
+        dotenv_path = None
+        if "dotenv_path" in self.config.global_variables:
+            dotenv_path = self.config.global_variables["dotenv_path"]
+
+        if load_dotenv(dotenv_path=dotenv_path):
+            environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
         else:
             warnings.warn(
                 "Het bestand `.env` is niet aanwezig in de hoofdmap, code negeert deze melding.",
                 UserWarning,
             )
+
         # voeg alle environmental variables toe aan de functie output config
         functie_output_config.update(environmental_variables)
 
