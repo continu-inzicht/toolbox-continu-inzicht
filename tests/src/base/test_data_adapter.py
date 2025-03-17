@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 import warnings
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
@@ -160,3 +161,16 @@ def test_DataAdapter_invalid_name():
         data_adapter.set_dataframe_adapter(
             key="wrong_name_data_adapter", df=input_df, if_not_exist="wrong_input_str"
         )
+
+
+def test_env_path():
+    """Test voor een custom env locatie"""
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    os.environ["dotenv_path"] = str(test_data_sets_path / "dummy.env")
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
+
+    data_adapter = DataAdapter(config=config)
+    data_adapter.input("MyCSV_in")
+
+    assert config.global_variables["DUMMY_VARIABLE"] == "DUMMY_VALUE"
