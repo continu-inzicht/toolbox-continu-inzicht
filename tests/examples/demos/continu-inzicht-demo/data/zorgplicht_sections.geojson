@@ -11,7 +11,7 @@
         {
             "type": "Feature",
             "properties": {
-                "id": 27,                
+                "id": 27,
                 "name": "48-1_5",
                 "hydraulicload_location_id": 5,
                 "overleefde_belasting": 9999.0
@@ -317,7 +317,7 @@
         {
             "type": "Feature",
             "properties": {
-                "id": 34002031,                
+                "id": 34002031,
                 "name": "34-2_31",
                 "hydraulicload_location_id": 276,
                 "overleefde_belasting": 9999.0
