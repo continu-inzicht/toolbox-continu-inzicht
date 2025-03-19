@@ -1,6 +1,6 @@
 {
     "type": "FeatureCollection",
-    "name": "zorgplicht_hydraulicload_locations",
+    "name": "stations",
     "crs": {
         "type": "name",
         "properties": {
@@ -11,28 +11,56 @@
         {
             "type": "Feature",
             "properties": {
-                "id": 15,
-                "name": "MPN-N-24"
+                "id": 1,
+                "name": "west punt"
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    4.83006900115972,
-                    52.5371871900456
+                    5.2640585774387656,
+                    52.440823715565237
                 ]
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "id": 276,
-                "name": "Hollandsch Diep km 994"
+                "id": 2,
+                "name": "noord punt"
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    4.484339,
-                    51.69043
+                    5.6880946161407122,
+                    52.595851176777309
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": 3,
+                "name": "oost punt"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.6837765302068828,
+                    52.403957208990185
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": 4,
+                "name": "noordoost punt"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.8478637956923611,
+                    52.497117241553944
                 ]
             }
         },
@@ -40,55 +68,13 @@
             "type": "Feature",
             "properties": {
                 "id": 5,
-                "name": "Lobith"
+                "name": "zuid punt"
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    6.103599694590405,
-                    51.85035850727388
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "id": 179,
-                "name": "Maas km 80.00"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    5.982,
-                    51.203
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "id": 273,
-                "name": "Hollandsch Diep km 993"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    4.4999065186444,
-                    51.690262394682
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "id": 180,
-                "name": "Maas km 00.00"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    5.99524999901254,
-                    51.23027999991809
+                    5.296876030535862,
+                    52.312184007916571
                 ]
             }
         }
