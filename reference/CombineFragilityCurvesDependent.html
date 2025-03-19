@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
@@ -145,6 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -189,12 +193,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent" id="toc-toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent">CombineFragilityCurvesDependent</a>
   <ul class="collapse">
-  <li><a href="#options-in-config" id="toc-options-in-config" class="nav-link" data-scroll-target="#options-in-config">Options in config</a></li>
   <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
   <li><a href="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.calculate_combined_curve" id="toc-toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.calculate_combined_curve" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.calculate_combined_curve">calculate_combined_curve</a></li>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.combine_func" id="toc-toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.combine_func" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.combine_func">combine_func</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.interp_func" id="toc-toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.interp_func" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.interp_func">interp_func</a></li>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.run" id="toc-toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.run">run</a></li>
   </ul></li>
   </ul></li>
@@ -211,42 +216,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>CombineFragilityCurvesDependent</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.CombineFragilityCurvesDependent()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Combineer meerdere fragility curves afhankelijk tot een enkele fragility curves.</p>
-<p>Args: data_adapter (DataAdapter): DataAdapter object</p>
-<section id="options-in-config" class="level2 doc-section doc-section-options-in-config">
-<h2 class="doc-section doc-section-options-in-config anchored" data-anchor-id="options-in-config">Options in config</h2>
-<p>Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden. Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden. De volgende opties kunnen worden ingesteld: - extend_past_max: float Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de inputcurves. Default is 0.01</p>
-<ul>
-<li>refine_step_size: float De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05</li>
-</ul>
-</section>
-<section id="attributes" class="level2">
-<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
+<section id="attributes" class="level2 doc-section doc-section-attributes">
+<h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 62%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.fragility_curves.combine_fragility_curves.CombineFragilityCurvesDependent.data_adapter">data_adapter</a></td>
-<td></td>
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>DataAdapter object</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.df_out">df_out</a></td>
-<td></td>
+<td>lst_fragility_curves</td>
+<td>list[pd.DataFrame]</td>
+<td>Lijst van fragility curves die worden gecombineerd</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.fragility_curves.combine_fragility_curves.CombineFragilityCurvesDependent.lst_fragility_curves">lst_fragility_curves</a></td>
-<td></td>
+<td>df_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>DataFrame met de gecombineerde fragility curve</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.weights">weights</a></td>
-<td></td>
+<td>combine_func</td>
+<td>Callable</td>
+<td>Functie die wordt gebruikt om de fragility curves te combineren</td>
+</tr>
+<tr class="odd">
+<td>weights</td>
+<td>None</td>
+<td>Alleen van toepassing bij de weighted sum methode, hier None</td>
+</tr>
+<tr class="even">
+<td>fragility_curve_schema</td>
+<td>ClassVar[dict[str, str]]</td>
+<td>Schema waaraan de fragility curve moet voldoen: hydraulicload: float, failure_probability: float</td>
+</tr>
+<tr class="odd">
+<td>interp_func</td>
+<td>Callable</td>
+<td>Functie waarmee geinterpoleerd wordt in FragilityCurve</td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="notes" class="level2 doc-section doc-section-notes">
+<h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
+<p>Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden. Dit gebeurt door de waterstanden van de curves te interpoleren naar een nieuwe set waterstanden. De volgende opties kunnen via de config worden ingesteld:</p>
+<ol type="1">
+<li>extend_past_max, Hoever de nieuwe waterstanden verder gaan dan de maximale waterstanden van de inputcurves. Default is 0.01.</li>
+<li>refine_step_size, De stapgrootte van de waterstanden die gebruikt wordt bij het herschalen van de kansen voor het combineren. Default is 0.05.</li>
+</ol>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
@@ -267,8 +297,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Combineer afhankelijk: P(fail,comb|h) = MAX(P(fail,i|h))</td>
 </tr>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.interp_func">interp_func</a></td>
+<td>Similar to interpolate_1d, but interpolates in log-space</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.run">run</a></td>
-<td></td>
+<td>Combineert meerdere fragility curves</td>
 </tr>
 </tbody>
 </table>
@@ -287,11 +321,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Combineer afhankelijk: P(fail,comb|h) = MAX(P(fail,i|h))</p>
 </section>
-<section id="toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.run" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.run">run</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.CombineFragilityCurvesDependent.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.interp_func" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.interp_func">interp_func</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.CombineFragilityCurvesDependent.interp_func(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    x</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    xp</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    fp</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    ll<span class="op">=</span><span class="fl">1e-20</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    clip01<span class="op">=</span><span class="va">False</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Similar to interpolate_1d, but interpolates in log-space</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 65%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>x</td>
+<td>np.ndarray</td>
+<td>Array with positions to interpolate at</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>xp</td>
+<td>np.ndarray</td>
+<td>Array with positions of known values</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>fp</td>
+<td>np.ndarray</td>
+<td>Array with values as known positions to interpolate between</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>ll</td>
+<td>float</td>
+<td>Lower limit for values in fp</td>
+<td><code>1e-20</code></td>
+</tr>
+<tr class="odd">
+<td>clip01</td>
+<td>bool</td>
+<td>Clip values between 0 and 1</td>
+<td><code>False</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>np.array</td>
+<td>interpolated array</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesDependent.run">run</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.CombineFragilityCurvesDependent.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Combineert meerdere fragility curves</p>
+<section id="parameters-1" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 8%">
@@ -322,10 +438,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</section>
-<section id="notes" class="level4 doc-section doc-section-notes">
-<h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes:</h4>
-<p>Elke fragility curve moet de volgende kolommen bevatten: - waterlevels: float - failure_probabilities: float</p>
 
 
 </section>

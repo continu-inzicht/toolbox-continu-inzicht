@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
@@ -145,6 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -193,9 +197,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
   <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_array" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_array" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_array">as_array</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_dataframe" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_dataframe">as_dataframe</a></li>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve">calculate_fragility_curve</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.from_dataframe" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.from_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.from_dataframe">from_dataframe</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.interp_func" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.interp_func" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.interp_func">interp_func</a></li>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.load" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.load" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.load">load</a></li>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.refine" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.refine" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.refine">refine</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.reliability_update" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.reliability_update" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.reliability_update">reliability_update</a></li>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run">run</a></li>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.shift" id="toc-toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.shift" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.shift">shift</a></li>
   </ul></li>
@@ -229,19 +237,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.df_bed_levels">df_bed_levels</a></td>
-<td></td>
+<td>The type of the None singleton.</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.df_out">df_out</a></td>
-<td></td>
+<td>The type of the None singleton.</td>
 </tr>
 <tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.df_profile">df_profile</a></td>
+<td>The type of the None singleton.</td>
+</tr>
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.df_slopes">df_slopes</a></td>
-<td></td>
+<td>The type of the None singleton.</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.failure_probability">failure_probability</a></td>
+<td>The type of the None singleton.</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.fragility_curve_schema">fragility_curve_schema</a></td>
 <td>dict() -&gt; new empty dictionary</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.hydraulicload">hydraulicload</a></td>
+<td>The type of the None singleton.</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.lower_limit">lower_limit</a></td>
+<td>Convert a string or number to a floating-point number, if possible.</td>
 </tr>
 </tbody>
 </table>
@@ -258,19 +282,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_array">as_array</a></td>
-<td>Geeft curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</td>
+<td>Geef curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve">calculate_fragility_curve</a></td>
-<td>Berekent de fragility curve op basis van de opgegeven input en slaat het resultaat op in het opgegeven outputbestand.</td>
+<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_dataframe">as_dataframe</a></td>
+<td>Geef curve terug als pandas dataframe</td>
 </tr>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve">calculate_fragility_curve</a></td>
+<td>Bereken de fragility scurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.from_dataframe">from_dataframe</a></td>
+<td>Zet een dataframe om naar een fragility curve</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.interp_func">interp_func</a></td>
+<td>Similar to interpolate_1d, but interpolates in log-space</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.load">load</a></td>
 <td>Laadt een fragility curve in</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.refine">refine</a></td>
 <td>Interpoleert de fragility curve op de gegeven waterstanden</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.reliability_update">reliability_update</a></td>
+<td>Voer een versimpelde reliability updating uit</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run">run</a></td>
@@ -278,45 +318,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.shift">shift</a></td>
-<td>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleert de faalkansen</td>
+<td>Schuift de belasting van de fragility curve op (voor bijvoorbeeld</td>
 </tr>
 </tbody>
 </table>
 <section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_array" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_array">as_array</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.as_array()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Geeft curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</p>
+<p>Geef curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.as_dataframe">as_dataframe</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.as_dataframe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Geef curve terug als pandas dataframe</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve">calculate_fragility_curve</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    output</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Berekent de fragility curve op basis van de opgegeven input en slaat het resultaat op in het opgegeven outputbestand. Parameters: input (list[str]): Een lijst met de bestandsnamen van de inputbestanden. output (str): De bestandsnaam waarin het resultaat moet worden opgeslagen. Returns: None</p>
-</section>
-<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.load" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.load">load</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.load(<span class="bu">input</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Laadt een fragility curve in</p>
-</section>
-<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.refine" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.refine">refine</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.refine(waterlevels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Interpoleert de fragility curve op de gegeven waterstanden</p>
-</section>
-<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run">run</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.run(<span class="bu">input</span>, output, effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Runt de berekening van de fragility curve voor golfoverslag &amp; shift de curve met een gegeven effect</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    output</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Bereken de fragility scurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 5%">
-<col style="width: 9%">
-<col style="width: 75%">
-<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 12%">
+<col style="width: 67%">
+<col style="width: 11%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -330,13 +360,207 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>input</td>
 <td>list[str]</td>
-<td>[0] df_slopes (pd.DataFrame), [1] df_profile (pd.DataFrame), [2] df_bed_levels (pd.DataFrame)</td>
+<td>Lijst namen van de input dataadapters: slopes, profile en bed_levels</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td>output</td>
 <td>str</td>
-<td>Fragility curve output</td>
+<td>Naam van de dataadapter Fragility curve output</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="raises" class="level4 doc-section doc-section-raises">
+<h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises">Raises</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>UserWarning</td>
+<td>Slopes should have a slopetypeid of 1 or 2</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.from_dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.from_dataframe">from_dataframe</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.from_dataframe(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Zet een dataframe om naar een fragility curve</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.interp_func" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.interp_func">interp_func</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.interp_func(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    x</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    xp</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    fp</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    ll<span class="op">=</span><span class="fl">1e-20</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    clip01<span class="op">=</span><span class="va">False</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Similar to interpolate_1d, but interpolates in log-space</p>
+<section id="parameters-1" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 65%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>x</td>
+<td>np.ndarray</td>
+<td>Array with positions to interpolate at</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>xp</td>
+<td>np.ndarray</td>
+<td>Array with positions of known values</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>fp</td>
+<td>np.ndarray</td>
+<td>Array with values as known positions to interpolate between</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>ll</td>
+<td>float</td>
+<td>Lower limit for values in fp</td>
+<td><code>1e-20</code></td>
+</tr>
+<tr class="odd">
+<td>clip01</td>
+<td>bool</td>
+<td>Clip values between 0 and 1</td>
+<td><code>False</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>np.array</td>
+<td>interpolated array</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.load" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.load">load</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.load(<span class="bu">input</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Laadt een fragility curve in</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.refine" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.refine">refine</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.refine(new_hydraulicload)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Interpoleert de fragility curve op de gegeven waterstanden</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.reliability_update" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.reliability_update">reliability_update</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.reliability_update(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    update_level</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    trust_factor<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Voer een versimpelde reliability updating uit</p>
+<section id="parameters-2" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 60%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>update_level</td>
+<td>int | float</td>
+<td>hydraulic load level to which the fragility curve is updated</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>trust_factor</td>
+<td>int | float</td>
+<td>by default 1</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run">run</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.run(<span class="bu">input</span>, output, effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Runt de berekening van de fragility curve voor golfoverslag &amp; shift de curve met een gegeven effect</p>
+<section id="parameters-3" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-3">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 12%">
+<col style="width: 68%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>input</td>
+<td>list[str]</td>
+<td>Lijst namen van de input data adapters: slopes, profile en bed_levels</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>output</td>
+<td>str</td>
+<td>Naam van de dataadapter Fragility curve output</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
@@ -349,43 +573,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </section>
 <section id="notes" class="level4 doc-section doc-section-notes">
-<h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes:</h4>
-<p>input: list[str]</p>
-<pre><code>   [0] df_slopes (pd.DataFrame)
-
-        DataFrame met hellingsdata.
-        Moet de volgende kolommen bevatten:
-        - x : float
-        - y : float
-        - r : float
-        - slopetypeid : int (1: dike or 2: slope)
-
-   [1] df_profile (pd.DataFrame):
-        DataFrame met profieldata.
-        Moet de volgende kolommen bevatten:
-        - windspeed : float
-        - sectormin : float
-        - sectorsize : float
-        - orientation : float (in graden)
-        - crestlevel : float (in meters)
-        - dam : int (0: geen dam or 1: dam)
-        - damheight : float (in meters)
-        - qcr : float (waarde in m^3/s)
-            str (close | open)
-            tuple (waarden van mu en sigma)
-
-   [2] df_bed_levels (pd.DataFrame):
-        DataFrame met bed level data.
-        Moet de volgende kolommen bevatten:
-        - direction : float
-        - bedlevel : float
-        - fetch : float</code></pre>
+<h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h4>
+<p>Deze input volgorde is wat specifiek, vandaar de extra details. Waar geen type is opgegeven moet het type float zijn. De eerste (slopes) data adapter moet de volgende kolommen bevatten:</p>
+<ol type="1">
+<li>x, x-co�rdinaat</li>
+<li>y, y-co�rdinaat</li>
+<li>r, roughness</li>
+<li>slopetypeid, id de helling type (int, 1: dike or 2: slope)</li>
+</ol>
+<p>De tweede (profile) data adapter met profieldata moet de volgende kolommen bevatten:</p>
+<ol type="1">
+<li>windspeed, windsnelheid</li>
+<li>sectormin, de minimale sectorhoek.</li>
+<li>sectorsize, de grootte van de sectorhoek.</li>
+<li>orientation, orientatie van het profiel in graden</li>
+<li>crestlevel, kruinhoogte in meters</li>
+<li>dam, wel of geen dam (int, 0: geen dam or 1: dam)</li>
+<li>damheight, dam hoogte in meters</li>
+<li>qcr, mag een van 3 zijn: een waarde in m^3/s (float), open of niet (str: close | open) of de waarden van mu en sigma (tuple).</li>
+</ol>
+<p>De derde (Bedlevelfetch) data adapter met bodem data moet de volgende kolommen bevatten:</p>
+<ol type="1">
+<li>direction, windrichtingen</li>
+<li>bedlevel, bodem profielen</li>
+<li>fetch, lengte van fetch in meters</li>
+</ol>
 </section>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.shift" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.shift">shift</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.shift(effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleert de faalkansen op het oorspronkelijke waterstandsgrid</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.shift(effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Schuift de belasting van de fragility curve op (voor bijvoorbeeld een noodmaatregel), en interpoleer de faalkansen op het oorspronkelijke waterstandsgrid</p>
 
 
 </section>

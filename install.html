@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="./examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./examples/notebooks/2.belastingen_inladen.html">
@@ -145,6 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="./examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -240,13 +244,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="losstaande-modules" class="level2">
 <h2 class="anchored" data-anchor-id="losstaande-modules">Losstaande modules</h2>
 <p>Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install toolbox_continu_inzicht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install toolbox<span class="op">-</span>continu<span class="op">-</span>inzicht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Vanwege het aantal afhankelijkheden is het aan te raden om een nieuwe conda environment te gebruiken. Hiervoor kan gebruik gemaakt worden van de <code>requirements.yaml</code> in de source map op GitHub. Met het volgende conda commando kan deze worden geïnstalleerd.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--file</span><span class="op">=</span>https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/f3b55e9a01ad5111090451024bb50388ac2a6695/src/requirements.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="als-ontwikkelaar" class="level2">
 <h2 class="anchored" data-anchor-id="als-ontwikkelaar">Als ontwikkelaar</h2>
-<p>Zie het document <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht">CONTRIBUTING.md</a> voor meer informatie.</p>
+<p>We maken gebruik van <a href="https://pixi.sh/latest/">pixi</a> om de conda environment te beheren en delen, dit kent een wat steilere leer curve en wordt daarom vooral aan ontwikkelaar aangeboden.</p>
+<section id="windows" class="level5">
+<h5 class="anchored" data-anchor-id="windows">windows</h5>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iwr</span> <span class="op">-</span>useb https<span class="op">://</span>pixi<span class="op">.</span><span class="fu">sh</span><span class="op">/</span>install<span class="op">.</span><span class="fu">ps1</span> <span class="op">|</span> <span class="fu">iex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="linux" class="level5">
+<h5 class="anchored" data-anchor-id="linux">Linux</h5>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="instaleer-python-packages-met-pixi" class="level4">
+<h4 class="anchored" data-anchor-id="instaleer-python-packages-met-pixi">Instaleer python packages met pixi</h4>
+<p>Met het <code>Pixi</code> commando in powershell kun je vervolgens de juiste python bestanden installeren:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="bu">cd</span> ..../toolbox-continu-inzicht</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">pixi</span> install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Dit kan even duren, Pixi gebruikt het <code>pixi.lock</code> bestand op de juiste packages te laden en zet deze in de <code>.pixi</code> map.</p>
+<p>Zie het document <a href="https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html">‘contributing’</a> voor meer informatie.</p>
 
 
+</section>
 </section>
 </section>
 

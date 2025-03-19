@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,7 +35,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -102,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="./examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./examples/notebooks/2.belastingen_inladen.html">
@@ -111,6 +111,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -190,13 +194,12 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#changelog" id="toc-changelog" class="nav-link active" data-scroll-target="#changelog">Changelog</a>
   <ul class="collapse">
-  <li><a href="#ongeplubliceerd" id="toc-ongeplubliceerd" class="nav-link" data-scroll-target="#ongeplubliceerd">[Ongeplubliceerd]</a>
+  <li><a href="#development" id="toc-development" class="nav-link" data-scroll-target="#development">Development</a>
   <ul class="collapse">
-  <li><a href="#sprint-1" id="toc-sprint-1" class="nav-link" data-scroll-target="#sprint-1">Sprint 1</a></li>
-  <li><a href="#sprint-2" id="toc-sprint-2" class="nav-link" data-scroll-target="#sprint-2">Sprint 2</a></li>
-  <li><a href="#sprint-3" id="toc-sprint-3" class="nav-link" data-scroll-target="#sprint-3">Sprint 3:</a></li>
-  <li><a href="#inhoudelijk" id="toc-inhoudelijk" class="nav-link" data-scroll-target="#inhoudelijk">Inhoudelijk</a></li>
-  <li><a href="#technischprojectmatig" id="toc-technischprojectmatig" class="nav-link" data-scroll-target="#technischprojectmatig">Technisch/projectmatig</a></li>
+  <li><a href="#sprint-1-ongeplubliceerd" id="toc-sprint-1-ongeplubliceerd" class="nav-link" data-scroll-target="#sprint-1-ongeplubliceerd">Sprint 1 [Ongeplubliceerd]</a></li>
+  <li><a href="#sprint-2-ongeplubliceerd" id="toc-sprint-2-ongeplubliceerd" class="nav-link" data-scroll-target="#sprint-2-ongeplubliceerd">Sprint 2 [Ongeplubliceerd]</a></li>
+  <li><a href="#sprint-3-ongeplubliceerd" id="toc-sprint-3-ongeplubliceerd" class="nav-link" data-scroll-target="#sprint-3-ongeplubliceerd">Sprint 3 [Ongeplubliceerd]</a></li>
+  <li><a href="#sprint-4-0.1.0" id="toc-sprint-4-0.1.0" class="nav-link" data-scroll-target="#sprint-4-0.1.0">Sprint 4 [0.1.0]</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -211,10 +214,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="changelog" class="level1">
 <h1>Changelog</h1>
 <p>Alle noemenswaardige veranderingen worden hier bijgehouden. Dit project gebruikt <a href="http://semver.org/">Semantic Versioning</a>. Het format is beschreven op <a href="https://keepachangelog.com/en/1.0.0/">keepachangelog.com</a>.</p>
-<section id="ongeplubliceerd" class="level2">
-<h2 class="anchored" data-anchor-id="ongeplubliceerd">[Ongeplubliceerd]</h2>
-<section id="sprint-1" class="level3">
-<h3 class="anchored" data-anchor-id="sprint-1">Sprint 1</h3>
+<section id="development" class="level2">
+<h2 class="anchored" data-anchor-id="development">Development</h2>
+<section id="sprint-1-ongeplubliceerd" class="level3">
+<h3 class="anchored" data-anchor-id="sprint-1-ongeplubliceerd">Sprint 1 [Ongeplubliceerd]</h3>
 <ul>
 <li>Werkende Quarto documentatie <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/7">#7</a></li>
 <li>Proof of concept met csv en database <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/9">#9</a></li>
@@ -222,8 +225,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Maak map structuur overzichtelijker <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/19">#19</a></li>
 </ul>
 </section>
-<section id="sprint-2" class="level3">
-<h3 class="anchored" data-anchor-id="sprint-2">Sprint 2</h3>
+<section id="sprint-2-ongeplubliceerd" class="level3">
+<h3 class="anchored" data-anchor-id="sprint-2-ongeplubliceerd">Sprint 2 [Ongeplubliceerd]</h3>
 <p>In sprint 2 is gebruikt gemaakt van aparte ‘feature branches’ met een grote pull request naar main <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/36">#36</a>.</p>
 <p>Allereerst zijn er nog restpunten uit sprint 1 aangepast:</p>
 <ul>
@@ -251,20 +254,36 @@ ul.task-list li input[type="checkbox"] {
 <li>Aggregeren van tijdreeksen naar momenten of bij het getij naar maxima over de getijperiode.</li>
 </ul>
 </section>
-<section id="sprint-3" class="level3">
-<h3 class="anchored" data-anchor-id="sprint-3">Sprint 3:</h3>
-</section>
-<section id="inhoudelijk" class="level3">
-<h3 class="anchored" data-anchor-id="inhoudelijk">Inhoudelijk</h3>
+<section id="sprint-3-ongeplubliceerd" class="level3">
+<h3 class="anchored" data-anchor-id="sprint-3-ongeplubliceerd">Sprint 3 [Ongeplubliceerd]</h3>
+<section id="inhoudelijk" class="level4">
+<h4 class="anchored" data-anchor-id="inhoudelijk">Inhoudelijk</h4>
 <p>In sprint 3 is weer gebruikt gemaakt van aparte ‘feature branches’ met een grote pull request naar main <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/45">#45</a>.</p>
 <p>De nadruk lag vooral op het toevoegen van fragility curves. Fragility curves kunnen worden gemaakt voor GEKB (golfoverslag) en STPH (piping). Ook kunnen ze afhankelijk, onafhankelijk en met een gewogen gemiddelde worden gecombineerd. Hiervoor zijn de packages respectievelijk <a href="https://github.com/HKV-products-services/pydra_core"><code>pydra_core</code></a> en <a href="https://github.com/HKV-products-services/probabilistic_piping"><code>probabilistic piping</code></a> gebruikt.</p>
 <p>Daarnaast zijn er een heel aantal data adapters toegevoegd en veel voorbeelden hoe je het kan linken aan een continu inzicht database, daar data op kan zetten en vervolgens gebruiken in functies.</p>
 </section>
-<section id="technischprojectmatig" class="level3">
-<h3 class="anchored" data-anchor-id="technischprojectmatig">Technisch/projectmatig</h3>
+<section id="technischprojectmatig" class="level4">
+<h4 class="anchored" data-anchor-id="technischprojectmatig">Technisch/projectmatig</h4>
 <p>De <code>pre-commit</code> uitgebreid en toegevoegd aan de github actions, dit run je voor je een aanpassingen doorvoer met <code>pixi run pre-commit</code>. De tests en publiceren van docs is nu in een windows action omgeving zodat de Dll’s van <code>pydra_core</code> het doen, de pixi.lock is geupdate om nieuwe packages toe te laten.</p>
+</section>
+</section>
+<section id="sprint-4-0.1.0" class="level3">
+<h3 class="anchored" data-anchor-id="sprint-4-0.1.0">Sprint 4 [<a href="https://pypi.org/project/toolbox-continu-inzicht/0.1.0/">0.1.0</a>]</h3>
+<section id="inhoudelijk-1" class="level4">
+<h4 class="anchored" data-anchor-id="inhoudelijk-1">Inhoudelijk</h4>
+<p>Alle aanpassingen zijn te vinden in pull request <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/54">#54</a></p>
+<p>Waar in sprint 3 een groot deel van het werk lag in ‘nieuwe’ inhoud, was dit wat beperkter in sprint 4. Er zijn toevoegingen gedaan aan de FragilityCurve base class waarmee het nu ook mogelijk is om met een overschrijdingsfrequentie lijn de conditionele kans te integreren. Hiermee kunnen verschillende varianten (combinatie van fragility curve en overschrijdingsfrequentie) worden vergeleken.</p>
+<p>Wel is veel werk verricht om een het integreren van de curve mooi weer te geven in de viewer. Hier is ook aan een fast-api implementatie gewerkt.</p>
+</section>
+<section id="technischprojectmatig-1" class="level4">
+<h4 class="anchored" data-anchor-id="technischprojectmatig-1">Technisch/projectmatig</h4>
+<p>Publiceren op <a href="https://pypi.org/project/toolbox-continu-inzicht/">PyPi</a> is nu mogelijk en gaat volledig automatisch via github actions, dit run je door een tag aan te maken op de github.</p>
+<p>Daarnaast checkt de <code>pre-commit</code> nu ook op <a href="https://github.com/jsh9/pydoclint">docstring</a> format zodat het netter in de ‘API reference’ komt in de documentatie. Hierdoor zijn een hele hoop docstrings aangepast.</p>
+<p>Het verschil tussen waterlevel(s) en hydaulicload(s) aangepakt, we voeren nu overal <code>hydaulicload</code>.</p>
+<p>Matroos was al beschikbaar, maar maakte gebruik van de <a href="https://noos.matroos.rws.nl/timeseries/">timeseries</a> endpoint. Omdat timeseries de vertaling naar reeks al op de server van matroos doet, kan dit wat traag zijn. Om dit op te lossen is na contact met het beheer van Matroos ook de <a href="https://noos.matroos.rws.nl/maps1d/">maps1d</a> endpoint toegevoegd, deze leest de ‘ruwe’ NetCDF bestanden in en vertaald ze naar een tijdreeks die in de toolbox kan worden gebruikt.</p>
 
 
+</section>
 </section>
 </section>
 </section>

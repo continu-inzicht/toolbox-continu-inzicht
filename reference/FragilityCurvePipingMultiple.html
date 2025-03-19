@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>loadswaterwebservicesrws – Toolbox continu inzicht</title>
+<title>fragilitycurvepipingmultiple – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -191,15 +191,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS" id="toc-toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS">LoadsWaterwebservicesRWS</a>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple" id="toc-toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple">FragilityCurvePipingMultiple</a>
   <ul class="collapse">
-  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
   <ul class="collapse">
-  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe" id="toc-toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe">create_dataframe</a></li>
-  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list" id="toc-toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list">create_json_list</a></li>
-  <li><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run" id="toc-toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run">run</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple" id="toc-toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple">fragility_curve_function_simple</a></li>
+  </ul></li>
+  <li><a href="#methods-1" id="toc-methods-1" class="nav-link" data-scroll-target="#methods-1">Methods</a>
+  <ul class="collapse">
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run" id="toc-toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run">run</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -211,21 +213,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS" class="level1">
-<h1>LoadsWaterwebservicesRWS</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsWaterwebservicesRWS()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Belastinggegevens ophalen van rijkswaterstaat waterwebservices</p>
-<section id="notes" class="level2 doc-section doc-section-notes">
-<h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
-<p>Link: https://waterwebservices.rijkswaterstaat.nl/</p>
-</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple" class="level1">
+<h1>FragilityCurvePipingMultiple</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Maakt een set van fragility curves voor piping voor een dijkvak. De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie.</p>
+<p>Deze functie berekent ��n gecombineerde fragility curve voor de mechanismes uplift, heave en Sellmeijer.</p>
 <section id="attributes" class="level2 doc-section doc-section-attributes">
 <h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 28%">
-<col style="width: 49%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 58%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -238,28 +237,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>data_adapter</td>
 <td>DataAdapter</td>
-<td>De data adapter voor het ophalen en opslaan van gegevens.</td>
+<td>DataAdapter object</td>
 </tr>
 <tr class="even">
-<td>df_in</td>
+<td>df_prob_input</td>
 <td>Optional[pd.DataFrame] | None</td>
-<td>Het invoerdataframe.</td>
+<td>DataFrame met input voor de probabilistische berekening.</td>
 </tr>
 <tr class="odd">
-<td>df_out</td>
+<td>df_hydraulicload</td>
 <td>Optional[pd.DataFrame] | None</td>
-<td>Het uitvoerdataframe.</td>
+<td>DataFrame met waterlevel data.</td>
 </tr>
 <tr class="even">
-<td>url_retrieve_observations</td>
-<td>str</td>
-<td>De url voor het ophalen van waarnemingen.</td>
+<td>df_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>DataFrame met de output van de fragility curve.</td>
+</tr>
+<tr class="odd">
+<td>fragility_curve_function_simple</td>
+<td>FragilityCurve</td>
+<td>Functie die de fragility curve berekent. Standaard is de FragilityCurvePipingFixedWaterlevel.</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="methods" class="level2">
-<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<section id="notes" class="level2 doc-section doc-section-notes">
+<h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
+<p>De volgende bool opties kunnen worden ingesteld in de global_variables van de config:</p>
+<ol type="1">
+<li>progress, Standaard is False</li>
+<li>debug, Standaard is False</li>
+</ol>
+</section>
+<section id="classes" class="level2">
+<h2 class="anchored" data-anchor-id="classes">Classes</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -269,119 +281,163 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe">create_dataframe</a></td>
-<td>Maakt een dataframe met waardes van de rws water webservices</td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list">create_json_list</a></td>
-<td>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run">run</a></td>
-<td>De runner van de Belasting WaterwebservicesRWS.</td>
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple">fragility_curve_function_simple</a></td>
+<td>Maakt een enkele fragility curve voor piping met een gegeven waterstand.</td>
 </tr>
 </tbody>
 </table>
-<section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_dataframe">create_dataframe</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsWaterwebservicesRWS.create_dataframe(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    options</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    calc_time</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    lst_data</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    df_in</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    global_variables</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Maakt een dataframe met waardes van de rws water webservices</p>
-<section id="parameters" class="level4 doc-section doc-section-parameters">
-<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple">fragility_curve_function_simple</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Maakt een enkele fragility curve voor piping met een gegeven waterstand.</p>
+<p>De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie. Deze functie berekent fragility curves voor uplift, heave, Sellmeijer, en de gecombineerde mechanismes. Voor het combineren van de mechanismes wordt het minimum van de kansen van de drie sub-mechanismes genomen, De gecombineerde fragility curve is de standaard output, de andere kunnen worden opgevraagd met de df_result_uplift, df_result_heave, en df_result_sellmeijer attributen.</p>
+<section id="attributes-1" class="level4 doc-section doc-section-attributes">
+<h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-1">Attributes</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 15%">
+<col style="width: 19%">
+<col style="width: 30%">
 <col style="width: 50%">
-<col style="width: 13%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
 <th>Type</th>
 <th>Description</th>
-<th>Default</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>options</td>
-<td>dict</td>
-<td>Een dictionary met opties uit de config</td>
-<td><em>required</em></td>
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>Adapter for handling data input and output operations.</td>
 </tr>
 <tr class="even">
-<td>calc_time</td>
-<td>datetime</td>
-<td>De huidige tijd</td>
-<td><em>required</em></td>
+<td>df_prob_input</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>DataFrame containing probabilistic input data.</td>
 </tr>
 <tr class="odd">
-<td>lst_data</td>
-<td>list</td>
-<td>Een lijst met JSON data uit de post request</td>
-<td><em>required</em></td>
+<td>df_hydraulicload</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>DataFrame containing hydraulic load data.</td>
 </tr>
 <tr class="even">
-<td>df_in</td>
-<td>pd.DataFrame</td>
-<td>Het invoerdataframe</td>
-<td><em>required</em></td>
+<td>df_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Output DataFrame containing the final fragility curve.</td>
 </tr>
 <tr class="odd">
-<td>global_variables</td>
-<td>dict</td>
-<td>De globale variabelen uit de config</td>
-<td><em>required</em></td>
+<td>df_result_uplift</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>DataFrame containing the uplift mechanism results.</td>
+</tr>
+<tr class="even">
+<td>df_result_heave</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>DataFrame containing the heave mechanism results.</td>
+</tr>
+<tr class="odd">
+<td>df_result_sellmeijer</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>DataFrame containing the Sellmeijer mechanism results.</td>
+</tr>
+<tr class="even">
+<td>df_result_combined</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>DataFrame containing the combined mechanism results.</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="returns" class="level4 doc-section doc-section-returns">
-<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<section id="notes-1" class="level4 doc-section doc-section-notes">
+<h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes-1">Notes</h4>
+<p>De volgende bool opties kunnen worden ingesteld in de global_variables van de config:</p>
+<ol type="1">
+<li>progress, Standaard is False</li>
+<li>debug, Standaard is False</li>
+</ol>
+</section>
+<section id="methods" class="level4">
+<h4 class="anchored" data-anchor-id="methods">Methods</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Name</th>
-<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>dataframe</td>
-<td>pd.Dataframe</td>
-<td>Pandas dataframe geschikt voor uitvoer</td>
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.as_array">as_array</a></td>
+<td>Geef curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.as_dataframe">as_dataframe</a></td>
+<td>Geef curve terug als pandas dataframe</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.calculate_fragility_curve">calculate_fragility_curve</a></td>
+<td>Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.from_dataframe">from_dataframe</a></td>
+<td>Zet een dataframe om naar een fragility curve</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.interp_func">interp_func</a></td>
+<td>Similar to interpolate_1d, but interpolates in log-space</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.load">load</a></td>
+<td>Laadt een fragility curve in</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.refine">refine</a></td>
+<td>Interpoleert de fragility curve op de gegeven waterstanden</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.reliability_update">reliability_update</a></td>
+<td>Voer een versimpelde reliability updating uit</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.run">run</a></td>
+<td>Runt de berekening van de fragility curve voor piping</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.shift">shift</a></td>
+<td>Schuift de belasting van de fragility curve op (voor bijvoorbeeld</td>
 </tr>
 </tbody>
 </table>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.as_array" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.as_array">as_array</h5>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.as_array(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Geef curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst</p>
 </section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.as_dataframe" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.as_dataframe">as_dataframe</h5>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.as_dataframe(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Geef curve terug als pandas dataframe</p>
 </section>
-<section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.create_json_list">create_json_list</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsWaterwebservicesRWS.create_json_list(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    measurement</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    calc_time</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    global_variables</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    locations</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</p>
-<p>Args: calc_time: T0 in UTC global_variables: globale variable uit de invoer yaml locations: dataframe with locations wanted</p>
-<p>Returns: dict: lijst met parameters</p>
-</section>
-<section id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS.run">run</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsWaterwebservicesRWS.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>De runner van de Belasting WaterwebservicesRWS.</p>
-<section id="parameters-1" class="level4 doc-section doc-section-parameters">
-<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.calculate_fragility_curve" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.calculate_fragility_curve">calculate_fragility_curve</h5>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.calculate_fragility_curve(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    output</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand. Extra calculate functies is om overerving makkelijker te maken voor effecten.</p>
+<section id="parameters" class="level6 doc-section doc-section-parameters">
+<h6 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h6>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 66%">
+<col style="width: 12%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
@@ -393,27 +449,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>input</td>
-<td>str</td>
-<td>De naam van de invoerdataadapter.</td>
+<td>list[str]</td>
+<td>Lijst namen van de input dataadapters: prob_input, hydraulicload</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td>output</td>
 <td>str</td>
-<td>De naam van de uitvoerdataadapter.</td>
+<td>Naam van de dataadapter Fragility curve output</td>
 <td><em>required</em></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="raises" class="level4 doc-section doc-section-raises">
-<h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises">Raises</h4>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.from_dataframe" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.from_dataframe">from_dataframe</h5>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.from_dataframe(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Zet een dataframe om naar een fragility curve</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.interp_func" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.interp_func">interp_func</h5>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.interp_func(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    x</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    xp</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    fp</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    ll<span class="op">=</span><span class="fl">1e-20</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    clip01<span class="op">=</span><span class="va">False</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Similar to interpolate_1d, but interpolates in log-space</p>
+<section id="parameters-1" class="level6 doc-section doc-section-parameters">
+<h6 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h6>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 2%">
-<col style="width: 4%">
-<col style="width: 92%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 65%">
+<col style="width: 12%">
 </colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>x</td>
+<td>np.ndarray</td>
+<td>Array with positions to interpolate at</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>xp</td>
+<td>np.ndarray</td>
+<td>Array with positions of known values</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>fp</td>
+<td>np.ndarray</td>
+<td>Array with values as known positions to interpolate between</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>ll</td>
+<td>float</td>
+<td>Lower limit for values in fp</td>
+<td><code>1e-20</code></td>
+</tr>
+<tr class="odd">
+<td>clip01</td>
+<td>bool</td>
+<td>Clip values between 0 and 1</td>
+<td><code>False</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level6 doc-section doc-section-returns">
+<h6 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h6>
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Name</th>
@@ -424,11 +544,187 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td></td>
-<td>UserWarning</td>
-<td>Wanneer de inputdata niet de kolom ‘measurement_location_id’ bevat. Wanneer de inputdata geen ‘measurement_location_code’ bevat. Wanneer de ‘measurement_location_code’ geen getal is. Wanneer de ‘LoadsWaterwebservicesRWS’ sectie niet aanwezig is in global_variables (config).</td>
+<td>np.array</td>
+<td>interpolated array</td>
 </tr>
 </tbody>
 </table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.load" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.load">load</h5>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.load(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Laadt een fragility curve in</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.refine" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.refine">refine</h5>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.refine(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    new_hydraulicload</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Interpoleert de fragility curve op de gegeven waterstanden</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.reliability_update" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.reliability_update">reliability_update</h5>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.reliability_update(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    update_level</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    trust_factor<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Voer een versimpelde reliability updating uit</p>
+<section id="parameters-2" class="level6 doc-section doc-section-parameters">
+<h6 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h6>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 60%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>update_level</td>
+<td>int | float</td>
+<td>hydraulic load level to which the fragility curve is updated</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>trust_factor</td>
+<td>int | float</td>
+<td>by default 1</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.run" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.run">run</h5>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.run(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    output</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Runt de berekening van de fragility curve voor piping</p>
+<section id="parameters-3" class="level6 doc-section doc-section-parameters">
+<h6 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-3">Parameters</h6>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 66%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>input</td>
+<td>list[str]</td>
+<td>Lijst namen van de input dataadapters: prob_input, hydraulicload</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>output</td>
+<td>str</td>
+<td>Naam van de dataadapter Fragility curve output</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notes-2" class="level6 doc-section doc-section-notes">
+<h6 class="doc-section doc-section-notes anchored" data-anchor-id="notes-2">Notes</h6>
+<p>Zie de documentatie van probabilistic_piping.probabilistic_fixedwl.ProbPipingFixedWaterlevelSimple voor meer informatie.</p>
+<ol type="1">
+<li>prob_input is afhankelijk van de probabilistische berekening die je wilt uitvoeren, zie externe documentatie.</li>
+<li>De hydraulicload data adapter geeft de waterlevel data door, deze moet de kolom hydraulicload bevatten met floats.</li>
+</ol>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.shift" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.shift">shift</h5>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.shift(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    effect</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Schuift de belasting van de fragility curve op (voor bijvoorbeeld een noodmaatregel), en interpoleer de faalkansen op het oorspronkelijke waterstandsgrid</p>
+</section>
+</section>
+</section>
+</section>
+<section id="methods-1" class="level2">
+<h2 class="anchored" data-anchor-id="methods-1">Methods</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run">run</a></td>
+<td>Runt de berekening van de fragility curves voor piping voor verschillende vakken</td>
+</tr>
+</tbody>
+</table>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run">run</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Runt de berekening van de fragility curves voor piping voor verschillende vakken</p>
+<section id="parameters-4" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-4">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 66%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>input</td>
+<td>list[str]</td>
+<td>Lijst namen van de input dataadapters: prob_input, hydraulicload</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>output</td>
+<td>str</td>
+<td>Naam van de dataadapter Fragility curve output</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notes-3" class="level4 doc-section doc-section-notes">
+<h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes-3">Notes</h4>
+<p>Zie de documentatie van probabilistic_piping.probabilistic_fixedwl.ProbPipingFixedWaterlevelSimple voor meer informatie.</p>
+<ol type="1">
+<li>prob_input is afhankelijk van de probabilistische berekening die je wilt uitvoeren, zie externe documentatie.</li>
+<li>De hydraulicload data adapter geeft de waterlevel data door, deze moet de kolom hydraulicload bevatten met floats.</li>
+</ol>
 
 
 </section>

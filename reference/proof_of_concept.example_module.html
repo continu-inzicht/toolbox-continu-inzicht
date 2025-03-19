@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
@@ -145,6 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -219,39 +223,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo">ValuesDivideTwo</a></td>
-<td>Voorbeeld class die laat zien hoe de arcitectuur werkt</td>
+<td>Voorbeeld class die laat zien hoe de architectuur werkt door waardes delen door twee te doen</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo">ValuesTimesTwo</a></td>
-<td>Voorbeeld class die laat zien hoe de arcitectuur werkt</td>
+<td>Voorbeeld class die laat zien hoe de architectuur werkt door waardes keer twee te doen</td>
 </tr>
 </tbody>
 </table>
 <section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo">ValuesDivideTwo</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Voorbeeld class die laat zien hoe de arcitectuur werkt</p>
-<section id="attributes" class="level4">
-<h4 class="anchored" data-anchor-id="attributes">Attributes</h4>
+<p>Voorbeeld class die laat zien hoe de architectuur werkt door waardes delen door twee te doen</p>
+<section id="attributes" class="level4 doc-section doc-section-attributes">
+<h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h4>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 35%">
+<col style="width: 49%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.data_adapter">data_adapter</a></td>
-<td></td>
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>De data adapter die de input en output regelt</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.df_in">df_in</a></td>
-<td></td>
+<td>df_in</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>De input data</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.df_out">df_out</a></td>
-<td></td>
+<td>df_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>De output data</td>
+</tr>
+<tr class="even">
+<td>input_schema</td>
+<td>ClassVar[dict[str, str]]</td>
+<td>De input schema</td>
 </tr>
 </tbody>
 </table>
@@ -291,29 +309,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo">ValuesTimesTwo</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Voorbeeld class die laat zien hoe de arcitectuur werkt</p>
-<p>Args: data_adapter: DataAdapter Leest</p>
-<section id="attributes-1" class="level4">
-<h4 class="anchored" data-anchor-id="attributes-1">Attributes</h4>
+<p>Voorbeeld class die laat zien hoe de architectuur werkt door waardes keer twee te doen</p>
+<section id="attributes-1" class="level4 doc-section doc-section-attributes">
+<h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-1">Attributes</h4>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 35%">
+<col style="width: 49%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.data_adapter">data_adapter</a></td>
-<td></td>
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>De data adapter die de input en output regelt</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.df_in">df_in</a></td>
-<td></td>
+<td>df_in</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>De input data</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.df_out">df_out</a></td>
-<td></td>
+<td>df_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>De output data</td>
+</tr>
+<tr class="even">
+<td>input_schema</td>
+<td>ClassVar[dict[str, str]]</td>
+<td>De input schema</td>
 </tr>
 </tbody>
 </table>

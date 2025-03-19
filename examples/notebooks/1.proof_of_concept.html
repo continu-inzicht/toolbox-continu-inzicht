@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Voorbeelden – Toolbox continu inzicht</title>
+<title>Architectuur voorbeeld – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -139,7 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="../../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../examples/notebooks/2.belastingen_inladen.html">
@@ -148,6 +148,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../../examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -185,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/1.proof_of_concept.html">Voorbeelden</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/1.proof_of_concept.html">Architectuur voorbeeld</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -200,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/1.proof_of_concept.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Voorbeelden</span></a>
+ <span class="menu-text">Architectuur voorbeeld</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -215,6 +219,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Fragility Curve Overtopping</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/4.adjust_integrated_statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aanpassen van geïntegreerde fragility curves</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -225,8 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#architectuur-voorbeeld" id="toc-architectuur-voorbeeld" class="nav-link active" data-scroll-target="#architectuur-voorbeeld">Architectuur voorbeeld</a></li>
-  <li><a href="#importeer-de-benodigde-functies" id="toc-importeer-de-benodigde-functies" class="nav-link" data-scroll-target="#importeer-de-benodigde-functies">importeer de benodigde functies</a>
+  <li><a href="#importeer-de-benodigde-functies" id="toc-importeer-de-benodigde-functies" class="nav-link active" data-scroll-target="#importeer-de-benodigde-functies">importeer de benodigde functies</a>
   <ul class="collapse">
   <li><a href="#voorbeeld-met-csv" id="toc-voorbeeld-met-csv" class="nav-link" data-scroll-target="#voorbeeld-met-csv">Voorbeeld met CSV</a></li>
   </ul></li>
@@ -238,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Voorbeelden</h1>
+<h1 class="title">Architectuur voorbeeld</h1>
 </div>
 
 
@@ -256,9 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Hieronder wordt één voorbeeld gegeven van hoe de architectuur werkt. In de linker balk zijn nog een aantal voorbeelden te vinden. <br> Er zullen later nog meer voorbeelden aan toegevoegd worden. <br> Meer voorbeelden met de juiste data en configuratie bestanden zijn te vinden op github onder <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/tests/">toolbox-continu-inzicht/tests/</a>.</p>
-<section id="architectuur-voorbeeld" class="level1">
-<h1>Architectuur voorbeeld</h1>
-<p>Om de architectuur weer te geven wordt een simple voorbeeld gegeven door een reeks keer twee en gedeelddoor te doen.</p>
+<p>Om de architectuur weer te geven wordt een simple voorbeeld gegeven met de <code>proof_of_concept</code> functie, deze doet niks anders dan vermenigvuldigen en delen maar dit geeft wel de werking van de opzet weer.</p>
 <p>De opbouw van de code is hier onder weergegeven: <img src="https://github.com/continu-inzicht/toolbox-continu-inzicht/blob/main/docs/assets/opbouw_code.png?raw=true" class="img-fluid" alt="opbouw_code"></p>
 <p>Een voorbeeld senario is het inladen van CSV en wegschrijven naar csv:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -268,7 +275,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p>Aan de voorkant ziet dat er zo uit:</p>
-</section>
 <section id="importeer-de-benodigde-functies" class="level1">
 <h1>importeer de benodigde functies</h1>
 <div id="cell-4" class="cell" data-execution_count="1">
@@ -276,8 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="voorbeeld-met-csv" class="level2">
 <h2 class="anchored" data-anchor-id="voorbeeld-met-csv">Voorbeeld met CSV</h2>
-<p>Lees de configuratie in:</p>
-<p>Dit leest een configuratie bestand <code>test_config.yaml</code> in:</p>
+<p>Het uitgangspunt van een architectuur is dat de verschillende functies werken met verschillende data formaten. Om dit mogelijk te maken wordt gebruik gemaakt van data adapters. Deze lezen data die de functie in gaat en schrijven het vervolgens weg. Om duidelijk te maken in welk formaat je weg wilt schrijven of wilt inlezen wordt gebruik gemaakt van een configuratie bestand. Dit is een <code>.yaml</code> bestand, hieronder wordt een voorbeeld gegeven hoe je dit zou opzetten met het configuratie bestand <code>test_config.yaml</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -298,26 +303,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">table</span><span class="kw">:</span><span class="at"> data</span></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-6" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"data_sets/test_config.yaml"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>c.lees_config()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Een configuratie bestand heeft een aantal verplichtingen: het moet <code>GlobalVariables</code> bevatten met een <code>root_dir</code> en minimaal een <code>DataAdapter</code>.In sommige gevallen kan je ook met één DataAdapter uit de voeten, je gebruik dan dezelfde om te lezen en schrijven. Een heel aantal data adapters worden standaard ondersteund, onder het kopje modules in de documentatie vindt je hier meer informatie over.</p>
+<p>Onder <code>GlobalVariables</code> zijn onder andere attributen van functies te vinden, maar ook informatie die in meerdere functies benodigd is zoals de huidige berekening tijd (<code>calc_time</code>) of de tijden waarvoor voorspellingen worden berekend (<code>moments</code>). Ook hierover staat meer in de documentatie onder modules .</p>
+<p>De configuratie kunnen we inlezen:</p>
+<div id="cell-7" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"data_sets/test_config.yaml"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Zet de data adapter klaar en geef deze de configuratie mee</p>
-<div id="cell-8" class="cell" data-execution_count="3">
+<p>En de config mee geven aan de data adapter die we gebruiken</p>
+<div id="cell-9" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> DataAdapter</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> DataAdapter(config<span class="op">=</span>c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Run de module met CSV</p>
-<div id="cell-10" class="cell" data-execution_count="4">
+<p>De data adapter geef je vervolgens mee bij het aanmaken van een functie</p>
+<div id="cell-11" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.proof_of_concept <span class="im">import</span> ValuesTimesTwo</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>keer_twee <span class="op">=</span> ValuesTimesTwo(data_adapter<span class="op">=</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>keer_twee <span class="op">=</span> ValuesTimesTwo(data_adapter<span class="op">=</span>data_adapter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="5">
+<p>En vervolgens run je de module met een input en een output data adapter, dit bied flexibiliteit in welke in en uitvoer bestanden je gebruikt</p>
+<div id="cell-13" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>keer_twee.run(<span class="bu">input</span><span class="op">=</span><span class="st">"my_csv_in"</span>, output<span class="op">=</span><span class="st">"my_csv_out"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="6">
+<div id="cell-14" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>keer_twee.df_in</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
@@ -381,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="7">
+<div id="cell-15" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>keer_twee.df_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>

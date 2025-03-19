@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
@@ -145,6 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -209,28 +213,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>LoadsToMoments</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsToMoments()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Met deze klasse kunnen waterstandsgegevens worden omgezet naar bepaalde momenten. Deze klasse bevat een methode genaamd ‘run’ die de waterstandsgegevens verwerkt en de resulterende momenten opslaat in een dataframe.</p>
-<p>Attributes: data_adapter (DataAdapter): Een object van de klasse DataAdapter. df_in (Optional[pd.DataFrame] | None): Het invoerdataframe met waterstandsgegevens. Standaard is dit None. df_out (Optional[pd.DataFrame] | None): Het uitvoerdataframe met de resulterende momenten. Standaard is dit None. Methods: run(input: str, output: str): Verwerkt de waterstandsgegevens en slaat de resulterende momenten op in het uitvoerdataframe. get_moment_from_dataframe(moment, df_moments): Haalt het moment op uit het gegeven dataframe met waterstandsgegevens.</p>
-<section id="attributes" class="level2">
-<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
+<section id="attributes" class="level2 doc-section doc-section-attributes">
+<h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 32%">
+<col style="width: 53%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.loads_to_moments.loads_to_moments.LoadsToMoments.data_adapter">data_adapter</a></td>
-<td></td>
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>Een object van de klasse DataAdapter.</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsToMoments.df_in">df_in</a></td>
-<td></td>
+<td>df_in</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Het invoerdataframe met waterstandsgegevens. Standaard is dit None.</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsToMoments.df_out">df_out</a></td>
-<td></td>
+<td>df_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Het uitvoerdataframe met de resulterende momenten. Standaard is dit None.</td>
+</tr>
+<tr class="even">
+<td>input_schema_loads</td>
+<td>ClassVar[dict[str, str | list[str]]]</td>
+<td>Het schema van het invoerdataframe met waterstandsgegevens.</td>
 </tr>
 </tbody>
 </table>

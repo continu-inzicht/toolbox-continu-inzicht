@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,7 +35,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -102,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="./examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./examples/notebooks/2.belastingen_inladen.html">
@@ -111,6 +111,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -198,8 +202,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modules/effect_statistiek_rekenregels_LBO2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans</span></a>
+  <a href="./modules/zorgplicht.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zorgplicht: effect nieuwe statistiek en rekenregels op de faalkans</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -253,15 +257,14 @@ ul.task-list li input[type="checkbox"] {
 <p>Om inzicht te krijgen in de veiligheid van waterkeringen is het van belang om de belastingen op de waterkeringen in kaart te brengen. Dit kunnen waterstanden op het buitenwater (zee, rivieren of meren) zijn, maar ook grondwaterstanden. Er zijn verschillende functies geïmplementeerd voor het inlezen, opslaan en classificeren van historische en voorspelde belastingen.</p></li>
 <li><p><a href="./modules/bepalen_fragility_curves.html">Bepalen fragility curves</a></p>
 <p>Fragility curves kunnen voor verschillende faalmechanismes worden berekend. In de toolbox wordt voor STPH (piping) en GEKB (golf overlag) functionaliteit aangeboden voor het afleiden van curves.</p></li>
+<li><p><a href="./modules/bijstellen_fragility_curves.html">Bijstellen fragility curves</a></p>
+<p>In sommige gevallen is het nodig om de fragility curve aan te passen vanwege een verandering ten opzichten van de voor berekende curve. Denk aan het verhogen van de kruin of verbeteren van de stabiliteit. De fragility curve kan dan worden verschoven of een nieuwe GEKB curve kan worden berekend met de aangepaste kruinhoogte.</p></li>
+<li><p><a href="./modules/kansen_en_status_per_sectie.html">Conditionele kansen en status waterkering per sectie</a></p>
+<p>De ingelezen belasting in combinatie met de berekende fragility curves kunnen worden vertaald naar een kans per sectie op het huidige moment en over een aantal uur.</p></li>
+<li><p><a href="./modules/zorgplicht.html">Zorgplicht: effect nieuwe statistiek en rekenregels op de faalkans</a></p>
+<p>Een fragility curve omschrijft de kans gegeven een waterstand, belangrijk is om ook mee te nemen dat de waterstanden een kans van optreden hebben. Door het combineren van een overschrijdingsfrequentie lijn met een fragility curve kan een geïntegreerde kans worden berekend. Hiermee kunnen veranderingen in de overschrijdingsfrequentie, bijvoorbeeld door klimaat verandering, worden vergeleken met de huidige situatie.</p></li>
 </ol>
-<p>In ontwikkeling:</p>
-<ol start="4" type="1">
-<li><a href="./modules/bijstellen_fragility_curves.html">Bijstellen fragility curves</a> (beheerdersoordeel in voorbereiding)</li>
-<li><a href="./modules/kansen_en_status_per_sectie.html">Conditionele kansen en status waterkering per sectie</a></li>
-<li><a href="./modules/effect_statistiek_rekenregels_LBO2.html">Zorgplicht LBO2: effect nieuwe statistiek en rekenregels op de faalkans</a></li>
-<li><a href="./modules/inspectieresultaten.html">Inspectieresultaten inlezen en weergeven</a></li>
-<li><a href="./modules/digitale_delta_API.html">Resultaten ontsluiten via Digitale Delta API</a></li>
-</ol>
+<p>In ontwikkeling: 7. <a href="./modules/inspectieresultaten.html">Inspectieresultaten inlezen en weergeven</a> 8. <a href="./modules/digitale_delta_API.html">Resultaten ontsluiten via Digitale Delta API</a></p>
 
 
 

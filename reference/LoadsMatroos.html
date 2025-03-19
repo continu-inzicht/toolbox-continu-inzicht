@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
@@ -145,6 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -195,6 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.create_dataframe" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.create_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.create_dataframe">create_dataframe</a></li>
   <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.format_location_names" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.format_location_names" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.format_location_names">format_location_names</a></li>
   <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.generate_url" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.generate_url" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.generate_url">generate_url</a></li>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.get_matroos_available_locations" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.get_matroos_available_locations" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.get_matroos_available_locations">get_matroos_available_locations</a></li>
   <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.run" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.run">run</a></li>
   </ul></li>
   </ul></li>
@@ -210,41 +215,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="toolbox_continu_inzicht.loads.LoadsMatroos" class="level1">
 <h1>LoadsMatroos</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>De LoadsMatroos klasse haalt belastinggegevens op van de Rijkswaterstaat Waterwebservices.</p>
-<p>Args: data_adapter: DataAdapter De data adapter voor het ophalen en opslaan van gegevens. df_in: Optional[pd.DataFrame] | None = None Het invoerdataframe. df_out: Optional[pd.DataFrame] | None = None Het uitvoerdataframe.</p>
-<section id="attributes" class="level2">
-<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
+<p>Haalt matroos tijdserie informatie op uit de Noos, Matroos of Vitaal server.</p>
+<p>De Matroos informatie is beschikbaar op de volgende websites: https://noos.matroos.rws.nl/maps1d/ Met de functie get_matroos_sources() kan je de beschikbare bronnen ophalen. Met de functie get_matroos_locations(source=‘…’) kan je de bijbehorende beschikbare locaties ophalen.</p>
+<section id="attributes" class="level2 doc-section doc-section-attributes">
+<h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 28%">
+<col style="width: 47%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.loads_matroos.loads_matroos.LoadsMatroos.data_adapter">data_adapter</a></td>
-<td></td>
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>Data adapter object for input and output data.</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.df_in">df_in</a></td>
-<td></td>
+<td>df_in</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Input dataframe containing measurement location codes.</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.df_out">df_out</a></td>
-<td></td>
+<td>df_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Output dataframe containing processed data.</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.url_retrieve_series_matroos">url_retrieve_series_matroos</a></td>
-<td>str(object=’’) -&gt; str</td>
+<td>url_retrieve_series_noos</td>
+<td>str</td>
+<td>URL for retrieving series from Noos server.</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.url_retrieve_series_noos">url_retrieve_series_noos</a></td>
-<td>str(object=’’) -&gt; str</td>
+<td>url_retrieve_series_matroos</td>
+<td>str</td>
+<td>URL for retrieving series from Matroos server.</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.url_retrieve_series_vitaal">url_retrieve_series_vitaal</a></td>
-<td>str(object=’’) -&gt; str</td>
+<td>url_retrieve_series_vitaal</td>
+<td>str</td>
+<td>URL for retrieving series from Vitaal server.</td>
 </tr>
 </tbody>
 </table>
@@ -272,23 +289,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Geeft de benodigde URL terug om het verzoek naar de Noos-server te maken</td>
 </tr>
 <tr class="even">
+<td><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.get_matroos_available_locations">get_matroos_available_locations</a></td>
+<td></td>
+</tr>
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.run">run</a></td>
-<td>Voert de functie uit om gegevens op te halen en te verwerken voor de matroos-toolbox.</td>
+<td>Voert de functie uit om gegevens op te halen en te verwerken voor matroos gegevens.</td>
 </tr>
 </tbody>
 </table>
 <section id="toolbox_continu_inzicht.loads.LoadsMatroos.create_dataframe" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsMatroos.create_dataframe">create_dataframe</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.create_dataframe(options, df_in, calc_time, json_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.create_dataframe(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    options</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    df_in</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    calc_time</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    json_data</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    global_variables</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Maakt een dataframe met waardes van de rws water webservices</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 13%">
-<col style="width: 55%">
+<col style="width: 21%">
 <col style="width: 16%">
+<col style="width: 48%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -306,40 +333,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><em>required</em></td>
 </tr>
 <tr class="even">
+<td>df_in</td>
+<td>pd.DataFrame</td>
+<td>Het invoerdataframe</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
 <td>calc_time</td>
 <td>datetime</td>
 <td>De huidige tijd</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>json_data</td>
 <td>list</td>
-<td>Een lijst met JSON data</td>
+<td>Een lijst met ogehaalde JSON data</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>global_variables</td>
+<td>dict</td>
+<td>Een dictionary met globale variabelen</td>
 <td><em>required</em></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="returns" class="level4 doc-section doc-section-returns">
-<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns:</h4>
-<pre><code>pd.Dataframe
-    Pandas dataframe geschikt voor uitvoer</code></pre>
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>dataframe</td>
+<td>pd.Dataframe</td>
+<td>Pandas dataframe met de voor uitvoer</td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsMatroos.format_location_names" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsMatroos.format_location_names">format_location_names</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.format_location_names(location_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.format_location_names(location_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Neemt een lijst met locatienamen en verwijdert spaties en maakt ze allemaal in kleine letters</p>
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsMatroos.generate_url" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsMatroos.generate_url">generate_url</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.generate_url(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    calc_time</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    options</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    global_variables</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    parameter</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    location_names</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.generate_url(options, global_variables)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Geeft de benodigde URL terug om het verzoek naar de Noos-server te maken</p>
 <section id="parameters-1" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
@@ -360,33 +407,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td>calc_time</td>
-<td></td>
-<td>Huidige tijd, wordt gebruikt om de meest recente voorspelling op te halen</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
 <td>options</td>
-<td></td>
+<td>dict</td>
 <td>Opties die door de gebruiker zijn opgegeven, in dit geval is ‘source’ het belangrijkst</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
-<td>global_variables</td>
-<td></td>
-<td>Globale variabelen die nodig zijn om de URL te genereren</td>
-<td><em>required</em></td>
-</tr>
 <tr class="even">
-<td>parameter</td>
-<td></td>
-<td>Eenheid van de parameter waarvoor gegevens worden opgehaald</td>
-<td><em>required</em></td>
-</tr>
-<tr class="odd">
-<td>location_names</td>
-<td></td>
-<td>Lijst van locatienamen waarvoor gegevens worden opgehaald</td>
+<td>global_variables</td>
+<td>dict</td>
+<td>Globale variabelen die nodig zijn om de URL te genereren</td>
 <td><em>required</em></td>
 </tr>
 </tbody>
@@ -409,18 +438,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td></td>
+<td>url</td>
 <td>str</td>
 <td>De gegenereerde URL voor het verzoek aan de Noos-server</td>
 </tr>
 </tbody>
 </table>
 </section>
+<section id="raises" class="level4 doc-section doc-section-raises">
+<h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises">Raises</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 91%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>UserWarning</td>
+<td>Als de ‘website’ niet is opgegeven in de opties Als de ‘website’ niet overeenkomt met de opties ‘noos’, ‘matroos’ of ‘vitaal’ Als de ‘website’ ‘matroos’ of ‘vitaal’ is en de gebruiker geen gebruikersnaam en wachtwoord heeft opgegeven</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.loads.LoadsMatroos.get_matroos_available_locations" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsMatroos.get_matroos_available_locations">get_matroos_available_locations</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.get_matroos_available_locations(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    df_in</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    options</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    endpoint_model</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsMatroos.run" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsMatroos.run">run</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Voert de functie uit om gegevens op te halen en te verwerken voor de matroos-toolbox.</p>
+<p>Voert de functie uit om gegevens op te halen en te verwerken voor matroos gegevens.</p>
 <section id="parameters-2" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h4>
 <table class="caption-top table">
@@ -450,6 +511,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>str</td>
 <td>Naam van de dataadapter om uitvoergegevens op te slaan.</td>
 <td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="raises-1" class="level4 doc-section doc-section-raises">
+<h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises-1">Raises</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 89%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>UserWarning</td>
+<td>Als de ‘LoadsMatroos’ sectie niet aanwezig is in de global_variables (config). Als de ‘measurement_location_code’ ontbreekt in de inputdata. Als het gegeven model niet wordt herkend. Als de locaties niet worden gevonden.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>ConnectionError</td>
+<td>Als er geen resultaten in de data zitten. Als de verbinding mislukt.</td>
 </tr>
 </tbody>
 </table>

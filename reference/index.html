@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,7 +35,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -102,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
@@ -111,6 +111,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -247,7 +251,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><a href="../reference/LoadsMatroos.html#toolbox_continu_inzicht.loads.LoadsMatroos">LoadsMatroos</a></td>
-<td>De LoadsMatroos klasse haalt belastinggegevens op van de Rijkswaterstaat Waterwebservices.</td>
+<td>Haalt matroos tijdserie informatie op uit de Noos, Matroos of Vitaal server.</td>
 </tr>
 <tr class="odd">
 <td><a href="../reference/get_matroos_locations.html#toolbox_continu_inzicht.loads.get_matroos_locations">get_matroos_locations</a></td>
@@ -255,7 +259,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><a href="../reference/LoadsWaterwebservicesRWS.html#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS">LoadsWaterwebservicesRWS</a></td>
-<td>Belastinggegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/</td>
+<td>Belastinggegevens ophalen van rijkswaterstaat waterwebservices</td>
 </tr>
 <tr class="odd">
 <td><a href="../reference/get_rws_webservices_locations.html#toolbox_continu_inzicht.loads.get_rws_webservices_locations">get_rws_webservices_locations</a></td>
@@ -267,7 +271,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><a href="../reference/LoadsWaterinfo.html#toolbox_continu_inzicht.loads.LoadsWaterinfo">LoadsWaterinfo</a></td>
-<td>Belastinggegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte</td>
+<td>Belastinggegevens ophalen van Rijkswaterstaat Waterinfo</td>
 </tr>
 <tr class="even">
 <td><a href="../reference/get_waterinfo_locations.html#toolbox_continu_inzicht.loads.get_waterinfo_locations">get_waterinfo_locations</a></td>
@@ -287,11 +291,11 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><a href="../reference/SectionsLoads.html#toolbox_continu_inzicht.sections.SectionsLoads">SectionsLoads</a></td>
-<td>Bepaal de belasting op een dijkvak</td>
+<td>Bepaal de belasting op een dijkvak gegeven een belasting</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/SectionsFailureprobability.html#toolbox_continu_inzicht.sections.SectionsFailureprobability">SectionsFailureprobability</a></td>
-<td>Bepaal de faalkans van een dijkvak</td>
+<td><a href="../reference/SectionsCriticalFailureprobability.html#toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability">SectionsCriticalFailureprobability</a></td>
+<td>Bepaal de maatgevende faalkans van een dijkvak gegeven de technische faalkans, maatregel en beheerdersoordeel.</td>
 </tr>
 <tr class="odd">
 <td><a href="../reference/SectionsTechnicalFailureprobability.html#toolbox_continu_inzicht.sections.SectionsTechnicalFailureprobability">SectionsTechnicalFailureprobability</a></td>
@@ -303,7 +307,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><a href="../reference/SectionsClassify.html#toolbox_continu_inzicht.sections.SectionsClassify">SectionsClassify</a></td>
-<td>Bepaal de status van een dijkvak</td>
+<td>Bepaal de status van een dijkvak gegeven de faalkans en grenswaardes.</td>
 </tr>
 </tbody>
 </table>
@@ -318,7 +322,7 @@ ul.task-list li input[type="checkbox"] {
 <td>Maakt een enkele fragility curve voor golf overslag.</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/FragilityCurvesOvertopping.html#toolbox_continu_inzicht.fragility_curves.FragilityCurvesOvertopping">FragilityCurvesOvertopping</a></td>
+<td><a href="../reference/FragilityCurveOvertoppingMultiple.html#toolbox_continu_inzicht.fragility_curves.FragilityCurveOvertoppingMultiple">FragilityCurveOvertoppingMultiple</a></td>
 <td>Maakt een set van fragility curves voor golfoverslag voor een dijkvak.</td>
 </tr>
 <tr class="odd">
@@ -330,11 +334,11 @@ ul.task-list li input[type="checkbox"] {
 <td>Verschuift de kruinhoogte met het gegeven effect en berekent de fragility curve</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/FragilityCurvePipingFixedWaterlevelSimple.html#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingFixedWaterlevelSimple">FragilityCurvePipingFixedWaterlevelSimple</a></td>
+<td><a href="../reference/FragilityCurvePipingFixedWaterlevel.html#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingFixedWaterlevel">FragilityCurvePipingFixedWaterlevel</a></td>
 <td>Maakt een enkele fragility curve voor piping met een gegeven waterstand.</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/FragilityCurvesPiping.html#toolbox_continu_inzicht.fragility_curves.FragilityCurvesPiping">FragilityCurvesPiping</a></td>
+<td><a href="../reference/FragilityCurvePipingMultiple.html#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple">FragilityCurvePipingMultiple</a></td>
 <td>Maakt een set van fragility curves voor piping voor een dijkvak.</td>
 </tr>
 <tr class="odd">
@@ -348,6 +352,14 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td><a href="../reference/CombineFragilityCurvesWeightedSum.html#toolbox_continu_inzicht.fragility_curves.CombineFragilityCurvesWeightedSum">CombineFragilityCurvesWeightedSum</a></td>
 <td>Combineer meerdere fragility curves met een gewogen som tot een enkele fragility curve.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/IntegrateFragilityCurve.html#toolbox_continu_inzicht.fragility_curves.IntegrateFragilityCurve">IntegrateFragilityCurve</a></td>
+<td>Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/IntegrateFragilityCurveMultiple.html#toolbox_continu_inzicht.fragility_curves.IntegrateFragilityCurveMultiple">IntegrateFragilityCurveMultiple</a></td>
+<td>Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor reeks aan secties</td>
 </tr>
 </tbody>
 </table>

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.41">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>sectionsfailureprobability – Toolbox continu inzicht</title>
+<title>sectionscriticalfailureprobability – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
         <li>
     <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Voorbeelden</span></a>
+ <span class="dropdown-text">Architectuur voorbeeld</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
@@ -145,6 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
  <span class="dropdown-text">Fragility Curve Overtopping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
+ <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
   </li>  
     </ul>
   </li>
@@ -187,14 +191,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#toolbox_continu_inzicht.sections.SectionsFailureprobability" id="toc-toolbox_continu_inzicht.sections.SectionsFailureprobability" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.sections.SectionsFailureprobability">SectionsFailureprobability</a>
+  <li><a href="#toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability" id="toc-toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability">SectionsCriticalFailureprobability</a>
   <ul class="collapse">
-  <li><a href="#input-schemas" id="toc-input-schemas" class="nav-link" data-scroll-target="#input-schemas">Input schema’s</a></li>
-  <li><a href="#output-schema" id="toc-output-schema" class="nav-link" data-scroll-target="#output-schema">Output schema</a></li>
   <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="#toolbox_continu_inzicht.sections.SectionsFailureprobability.run" id="toc-toolbox_continu_inzicht.sections.SectionsFailureprobability.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.sections.SectionsFailureprobability.run">run</a></li>
+  <li><a href="#toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability.run" id="toc-toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability.run">run</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -206,13 +209,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="toolbox_continu_inzicht.sections.SectionsFailureprobability" class="level1">
-<h1>SectionsFailureprobability</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sections.SectionsFailureprobability()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Bepaal de faalkans van een dijkvak</p>
-<section id="input-schemas" class="level2">
-<h2 class="anchored" data-anchor-id="input-schemas">Input schema’s</h2>
-<p>**input_schema_failureprobability (DataFrame): schema voor de lijst met dijkvakken</p>
+<section id="toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability" class="level1">
+<h1>SectionsCriticalFailureprobability</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sections.SectionsCriticalFailureprobability()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Bepaal de maatgevende faalkans van een dijkvak gegeven de technische faalkans, maatregel en beheerdersoordeel.</p>
+<section id="attributes" class="level2 doc-section doc-section-attributes">
+<h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>DataAdapter object voor het verwerken van gegevens.</td>
+</tr>
+<tr class="even">
+<td>df_in_failureprobability</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Invoer DataFrame met faalkans per dijkvak. Standaardwaarde is None.</td>
+</tr>
+<tr class="odd">
+<td>df_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Uitvoer DataFrame met faalkans per dijkvak. Standaardwaarde is None.</td>
+</tr>
+<tr class="even">
+<td>input_schema_failureprobability</td>
+<td>ClassVar[dict[str, str]]</td>
+<td>Schema voor de invoer van de faalkans per dijkvak.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notes" class="level2 doc-section doc-section-notes">
+<h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
+<p><strong>Input schema’s</strong></p>
+<p><em>input_schema_failureprobability</em>: schema voor de lijst met dijkvakken</p>
 <ul>
 <li>section_id: int64 : id van de dijkvak</li>
 <li>failuremechanism_id: int64 : id van het faalmechanisme</li>
@@ -221,10 +264,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>date_time: datetime64[ns, UTC] : datum/ tijd van de tijdreeksitem</li>
 <li>value: float64 : belasting van de tijdreeksitem</li>
 </ul>
-</section>
-<section id="output-schema" class="level2">
-<h2 class="anchored" data-anchor-id="output-schema">Output schema</h2>
-<p>**df_out (DataFrame): uitvoer</p>
+<p><strong>Output schema</strong></p>
+<p><em>df_out</em>: uitvoer</p>
 <ul>
 <li>section_id: int64 : id van het dijkvak</li>
 <li>failuremechanism_id: int64 : id van het faalmechanisme</li>
@@ -233,35 +274,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>date_time: datetime64[ns, UTC] : datum/ tijd van de tijdreeksitem</li>
 <li>failureprobability: float64 : faalkans van de tijdreeksitem</li>
 </ul>
-</section>
-<section id="attributes" class="level2">
-<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.sections.sections_failureprobability.sections_failureprobability.SectionsFailureprobability.data_adapter">data_adapter</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.sections.SectionsFailureprobability.df_in_failureprobability">df_in_failureprobability</a></td>
-<td>DataFrame: lijst met faalkansen op een dijkvak voor verschillende faalmechanisms en maatregelen.</td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.sections.SectionsFailureprobability.df_out">df_out</a></td>
-<td>DataFrame: uitvoer.</td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.sections.SectionsFailureprobability.input_schema_failureprobability">input_schema_failureprobability</a></td>
-<td>dict() -&gt; new empty dictionary</td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
@@ -274,19 +286,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.sections.SectionsFailureprobability.run">run</a></td>
+<td><a href="#toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability.run">run</a></td>
 <td>Uitvoeren van het bepalen van de faalkans van een dijkvak.</td>
 </tr>
 </tbody>
 </table>
-<section id="toolbox_continu_inzicht.sections.SectionsFailureprobability.run" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.sections.SectionsFailureprobability.run">run</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sections.SectionsFailureprobability.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Uitvoeren van het bepalen van de faalkans van een dijkvak. TODO RW aanpassen</p>
+<section id="toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.sections.SectionsCriticalFailureprobability.run">run</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sections.SectionsCriticalFailureprobability.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Uitvoeren van het bepalen van de faalkans van een dijkvak.</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters:</h4>
-<p>input: (str) Faalkans per dijkvak output: str</p>
-<pre><code>uitvoer sectie van het yaml-bestand: koppeling van de maatgevende meetlocaties per dijkvak
+<p>input: str Naam van de data adapter van Faalkans per dijkvak output: str</p>
+<pre><code>uitvoer data adapter: koppeling van de maatgevende meetlocaties per dijkvak
 Dataframe: Pandas dataframe geschikt voor uitvoer:
     - Meetlocatie id (measurement_location_id)
     - Meetlocatie code (measurement_location_code)
