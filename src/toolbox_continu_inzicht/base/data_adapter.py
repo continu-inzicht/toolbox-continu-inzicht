@@ -1,5 +1,6 @@
 from pydantic import BaseModel as PydanticBaseModel
 import pandas as pd
+import os
 
 import warnings
 from typing import Any, Optional, Dict
@@ -78,12 +79,6 @@ class DataAdapter(PydanticBaseModel):
         """
         self.initialize_input_types()  # maak een dictionary van type: functie
 
-        suppress_userwarnings = False
-        if "suppress_userwarnings" in self.config.global_variables:
-            suppress_userwarnings = self.config.global_variables[
-                "suppress_userwarnings"
-            ]
-
         # initieer een leeg dataframe
         df = pd.DataFrame()
 
@@ -104,6 +99,8 @@ class DataAdapter(PydanticBaseModel):
             dotenv_path = None
             if "dotenv_path" in self.config.global_variables:
                 dotenv_path = self.config.global_variables["dotenv_path"]
+            elif "dotenv_path" in os.environ:
+                dotenv_path = os.environ["dotenv_path"]
 
             if load_dotenv(dotenv_path=dotenv_path):
                 environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
@@ -134,19 +131,15 @@ class DataAdapter(PydanticBaseModel):
                 if schema is not None:
                     status, message = validate_dataframe(df=df, schema=schema)
                     if status > 0:
-                        if not suppress_userwarnings:
-                            raise UserWarning(message)
+                        raise UserWarning(message)
 
             else:
                 # Adapter bestaat niet
-                if not suppress_userwarnings:
-                    message = f"Adapter van het type '{data_type}' niet gevonden."
-                    raise UserWarning(message)
+                message = f"Adapter van het type '{data_type}' niet gevonden."
         else:
             # Adaptersleutel staat niet in het YAML-bestand
-            if not suppress_userwarnings:
-                message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
-                raise UserWarning(message)
+            message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
+            raise UserWarning(message)
 
         return df
 
@@ -163,8 +156,6 @@ class DataAdapter(PydanticBaseModel):
                 Extra informatie die ook naar de functie moet om het bestand te schrijven.
 
         """
-
-        # TODO: kan dit eleganter?
         self.initialize_output_types()  # maak een dictionary van type: functie
         # haal de inputconfiguratie op van de functie
         functie_output_config = self.config.data_adapters[output]
@@ -178,14 +169,21 @@ class DataAdapter(PydanticBaseModel):
 
         # Uit het .env-bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
-        if load_dotenv():
-            environmental_variables = dict(dotenv_values())
+        dotenv_path = None
+        if "dotenv_path" in self.config.global_variables:
+            dotenv_path = self.config.global_variables["dotenv_path"]
+        elif "dotenv_path" in os.environ:
+            dotenv_path = os.environ["dotenv_path"]
+
+        if load_dotenv(dotenv_path=dotenv_path):
+            environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
         else:
             warnings.warn(
                 "Het bestand `.env` is niet aanwezig in de hoofdmap, code negeert deze melding.",
                 UserWarning,
             )
 
+        # voeg alle environmental variables toe aan de functie output config
         functie_output_config.update(environmental_variables)
 
         # Roep de bijbehorende functie bij het datatype aan en geef het inputpad mee.
@@ -206,7 +204,22 @@ class DataAdapter(PydanticBaseModel):
         """
         self.config.global_variables[key] = value
 
-    # TODO: support voor GeoDataFrame in de toekomst?
+    def get_global_variable(self, key: str) -> Any:
+        """
+        Functie voor het ophalen van global variable.
+
+        Parameters:
+        -----------
+        key: str
+            naam van de waarde om op te overschrijven
+
+        Returns:
+        --------
+        value: Any
+            Global variable value
+        """
+        return self.config.global_variables[key]
+
     def set_dataframe_adapter(
         self, key: str, df: pd.DataFrame, if_not_exist: str = "raise"
     ) -> None:
@@ -226,26 +239,19 @@ class DataAdapter(PydanticBaseModel):
             Geeft aan wat te doen als de DataAdapter niet bestaat,
             bij raise krijg je een error, bij create wordt er een nieuwe DataAdapter aangemaakt.
         """
-        suppress_userwarnings = False
-        if "suppress_userwarnings" in self.config.global_variables:
-            suppress_userwarnings = self.config.global_variables[
-                "suppress_userwarnings"
-            ]
 
         if key in self.config.data_adapters:
             data_adapter_config = self.config.data_adapters[key]
             if data_adapter_config["type"] == "python":
                 data_adapter_config["dataframe_from_python"] = df
             else:
-                if not suppress_userwarnings:
-                    raise UserWarning(
-                        "Deze functionaliteit is voor DataAdapters van type `python`, "
-                    )
-        elif if_not_exist == "raise":
-            if not suppress_userwarnings:
                 raise UserWarning(
-                    f"DataAdapter `{key}` niet gevonden, zorg dat deze goed in het configbestand staat met type `python`"
+                    "Deze functionaliteit is voor DataAdapters van type `python`, "
                 )
+        elif if_not_exist == "raise":
+            raise UserWarning(
+                f"DataAdapter `{key}` niet gevonden, zorg dat deze goed in het config bestand staat met type `python`"
+            )
         elif if_not_exist == "create":
             self.config.data_adapters[key] = {
                 "type": "python",
@@ -253,7 +259,6 @@ class DataAdapter(PydanticBaseModel):
             }
 
         else:
-            if not suppress_userwarnings:
-                raise UserWarning(
-                    f"DataAdapter `{key=}` niet gevonden en {if_not_exist=} is ongeldig, dit moet `raise` of `create` zijn"
-                )
+            raise UserWarning(
+                f"DataAdapter `{key=}` niet gevonden en {if_not_exist=} is ongeldig, dit moet `raise` of `create` zijn"
+            )

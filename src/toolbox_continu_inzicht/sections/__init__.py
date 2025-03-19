@@ -4,16 +4,16 @@ from toolbox_continu_inzicht.sections.sections_loads.sections_loads import Secti
 from toolbox_continu_inzicht.sections.sections_classify.sections_classify import (
     SectionsClassify,
 )
-from toolbox_continu_inzicht.sections.sections_failureprobability.sections_failureprobability import (
-    SectionsFailureprobability,
+from toolbox_continu_inzicht.sections.sections_failureprobability.sections_critical_failureprobability import (
+    SectionsCriticalFailureprobability,
 )
-from toolbox_continu_inzicht.sections.sections_technical_failureprobability.sections_technical_failureprobability import (
+from toolbox_continu_inzicht.sections.sections_failureprobability.sections_technical_failureprobability import (
     SectionsTechnicalFailureprobability,
 )
-from toolbox_continu_inzicht.sections.sections_measure_failureprobability.sections_measure_failureprobability import (
+from toolbox_continu_inzicht.sections.sections_failureprobability.sections_measure_failureprobability import (
     SectionsMeasureFailureprobability,
 )
-from toolbox_continu_inzicht.sections.sections_expertjudgement_failureprobability.sections_expertjudgement_failureprobability import (
+from toolbox_continu_inzicht.sections.sections_failureprobability.sections_expertjudgement_failureprobability import (
     SectionsExpertJudgementFailureprobability,
 )
 
@@ -21,7 +21,7 @@ from toolbox_continu_inzicht.sections.sections_expertjudgement_failureprobabilit
 __all__ = [
     "SectionsLoads",
     "SectionsClassify",
-    "SectionsFailureprobability",
+    "SectionsCriticalFailureprobability",
     "SectionsTechnicalFailureprobability",
     "SectionsMeasureFailureprobability",
     "SectionsExpertJudgementFailureprobability",

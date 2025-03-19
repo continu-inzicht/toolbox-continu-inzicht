@@ -4,7 +4,7 @@ GlobalVariables:
 
     LoadsMatroos:
         website: "noos" # only test noos as vital and matroos require passwords
-        model: "bma2_95"
+        model: "dnmi_oper"
         parameters: ["WATHTE"]
 
 DataAdapter:

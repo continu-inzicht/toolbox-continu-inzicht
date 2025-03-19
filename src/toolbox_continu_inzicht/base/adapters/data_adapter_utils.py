@@ -80,6 +80,8 @@ def check_plugin_path(global_variables: dict, prefix: str) -> None | Path:
         plugin_path = Path(global_variables[f"{prefix}plugin_path"])
         if plugin_path.is_dir():
             return plugin_path
+        elif (global_variables["rootdir"] / plugin_path).is_dir():
+            return (global_variables["rootdir"] / plugin_path).is_dir()
         else:
             raise UserWarning(
                 f"Global Variable `plugin_path` niet gevonden: {global_variables[f'{prefix}plugin_path']}"

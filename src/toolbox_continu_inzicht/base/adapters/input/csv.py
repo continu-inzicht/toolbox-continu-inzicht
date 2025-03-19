@@ -24,11 +24,7 @@ def input_csv_source(input_config: dict) -> pd.DataFrame:
     --------
     pd.Dataframe
     """
-    path = input_config["abs_path"]
-
-    kwargs = get_kwargs(pd.read_csv, input_config)
-
-    df = pd.read_csv(path, **kwargs)
+    df = input_csv(input_config)
 
     if "source" in df.columns:
         filter_parameter = input_config["filter"]

@@ -2,7 +2,7 @@ from datetime import timedelta
 from zoneinfo import ZoneInfo
 
 from pydantic.dataclasses import dataclass
-from typing import Optional
+from typing import Any, ClassVar, Optional
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
 from toolbox_continu_inzicht.utils.datetime_functions import (
@@ -16,7 +16,25 @@ from toolbox_continu_inzicht.base.aquo import read_aquo
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsWaterinfo:
     """
-    Belastinggegevens ophalen van rijkswaterstaat Waterinfo https://waterinfo.rws.nl/#/publiek/waterhoogte
+    Belastinggegevens ophalen van Rijkswaterstaat Waterinfo
+
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        De data adapter voor het ophalen en opslaan van gegevens.
+    df_in: Optional[pd.DataFrame] | None
+        Dataframe met meetlocaties.
+    df_out: Optional[pd.DataFrame] | None
+        Dataframe met belastinggegevens.
+    url: str
+        De url van de Waterinfo API.
+
+    input_waterinfo_schema: ClassVar[dict[str, str]]
+        Het schema van de invoer data meetlocaties.
+
+    Notes
+    -----
+    Hiervoor wordt de url gebruikt: https://waterinfo.rws.nl/#/publiek/waterhoogte
     """
 
     data_adapter: DataAdapter
@@ -27,7 +45,7 @@ class LoadsWaterinfo:
     url: str = "https://waterinfo.rws.nl/api/chart/get"
 
     # Kolommen schema van de invoer data meetlocaties
-    input_schema = {
+    input_waterinfo_schema: ClassVar[dict[str, str]] = {
         "measurement_location_id": "int64",
         "measurement_location_code": "object",
         "measurement_location_description": "object",
@@ -43,6 +61,14 @@ class LoadsWaterinfo:
             Naam van de dataadapter met invoergegevens.
         output: str
             Naam van de dataadapter om uitvoergegevens op te slaan.
+
+        Raises
+        ------
+        UserWarning
+            Wanneer de belasting niet kan worden opgehaald.
+            Wanneer moments niet aanwezig in global_variables (config)
+            Wanneer de opgegeven parameter(s) komen niet voor in Waterinfo.
+            Wanneer de opgegeven locatie niet voorkomt in Waterinfo
         """
 
         # Haal opties en dataframe van de config
@@ -71,7 +97,7 @@ class LoadsWaterinfo:
                 options["MISSING_VALUE"] = -999
 
         # Dit zijn de meetlocaties vanuit invoer
-        self.df_in = self.data_adapter.input(input, self.input_schema)
+        self.df_in = self.data_adapter.input(input, self.input_waterinfo_schema)
 
         self.df_out = pd.DataFrame()
 
@@ -98,7 +124,7 @@ class LoadsWaterinfo:
             if type(options["parameters"]) is list and len(options["parameters"]) > 0:
                 datatype = options["parameters"][0]
 
-        maptype_schema = self.get_maptype(datatype)
+        maptype_schema = self.get_maptype(datatype, global_variables)
         if maptype_schema is not None:
             # bepaal welke range opgehaald moet worden
             observedhours_moments = options["moments"][0]
@@ -159,29 +185,40 @@ class LoadsWaterinfo:
         options: dict,
         maptype_schema: dict,
         measuringstation: dict,
-        json_data: dict,
+        json_data: dict[str, Any],
     ) -> pd.DataFrame:
         """Maak een pandas dataframe van de opgehaalde data uit Waterinfo
 
-        Args:
-            options (dict): options opgegeven in de yaml
-            maptype_schema (dict): gegevens van de maptype
-            measuringstation (dict): gegevens van het meetstation
-            json_data (str): JSON data met opgehaalde belasting data
+        Parameters
+        ----------
+        options : dict
+            Opties opgegeven in de yaml.
+        maptype_schema : dict
+            Gegevens van de maptype.
+        measuringstation : dict
+            Gegevens van het meetstation.
+        json_data : dict[str, Any]
+            JSON data met opgehaalde belasting data.
 
-        Returns:
-            Dataframe: Pandas dataframe geschikt voor uitvoer:
-            definition:
-                - Meetlocatie id (measurement_location_id)
-                - Meetlocatie code (measurement_location_code)
-                - Meetlocatie omschrijving/naam (measurement_location_description)
-                - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id)
-                - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code)
-                - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description)
-                - Eenheid (unit)
-                - Datum en tijd (date_time)
-                - Waarde (value)
-                - Type waarde: meting of verwachting (value_type)
+        Returns
+        -------
+        pd.DataFrame
+            Pandas dataframe geschikt voor uitvoer.
+
+        Notes
+        -----
+        Het dataframe bevat de volgende kolommen:
+
+        - Meetlocatie id (measurement_location_id)
+        - Meetlocatie code (measurement_location_code)
+        - Meetlocatie omschrijving/naam (measurement_location_description)
+        - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id)
+        - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code)
+        - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description)
+        - Eenheid (unit)
+        - Datum en tijd (date_time)
+        - Waarde (value)
+        - Type waarde: meting of verwachting (value_type)
         """
         dataframe = pd.DataFrame()
 
@@ -241,30 +278,35 @@ class LoadsWaterinfo:
 
         return dataframe
 
-    # TODO: Hier zitten nu aquo parameters in, maar die moeten eigenlijk uit base.aquo.read_aquo komen
-    def get_maptype(self, maptype: str):
+    def get_maptype(self, maptype: str, global_variables: dict) -> dict:
         """
-        bepaal welke schema gebruikt moet worden voor het ophalen van de belasting
+        Bepaalt welk schema moet worden gebruikt voor het ophalen van de belasting.
 
-        Args:
-            maptype (str): maptypes:
-                - waterhoogte,
-                - wind,
-                - golfhoogte,
-                - watertemperatuur,
-                - luchttemperatuur,
-                - astronomische-getij,
-                - waterafvoer,
-                - zouten
+        Parameters
+        ----------
+        maptype : str
+            Het type kaart:
 
-        returns:
-            de query van de range als string. voorbeeld: -48,0
+            - waterhoogte,
+            - wind,
+            - golfhoogte,
+            - watertemperatuur,
+            - luchttemperatuur,
+            - astronomische-getij,
+            - waterafvoer,
+            - zouten
+
+        global_variables : dict
+            De globale variabelen van de configuratie.
+
+        Returns
+        -------
+        str
+            De query van het bereik als een string. Bijvoorbeeld: -48,0
         """
         waterinfo_series = [
             {
                 "maptype": "waterhoogte",
-                # "parameter_id": 4724,
-                # "parameter_code": "WATHTE",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -274,8 +316,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "wind",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_WIND",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -285,8 +325,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "golfhoogte",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_GOLFHOOGTE",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -296,8 +334,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "watertemperatuur",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_WATERTEMPERATUUR",
                 "values": [
                     {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
@@ -307,8 +343,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "luchttemperatuur",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_LUCHTTEMPERATUUR",
                 "values": [
                     {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
@@ -318,8 +352,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "astronomische-getij",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_ASTRONOMISCHE-GETIJ",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -329,8 +361,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "stroming",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_STROMING",
                 "values": [
                     {"observedhours": 48, "predictionhours": 0, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 0, "query": "-6,0"},
@@ -340,8 +370,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "waterafvoer",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_WATERAFVOER",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,48"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,3"},
@@ -351,8 +379,6 @@ class LoadsWaterinfo:
             },
             {
                 "maptype": "zouten",
-                # "parameter_id": -9999,
-                # "parameter_code": "P_ZOUTEN",
                 "values": [
                     {"observedhours": 48, "predictionhours": 48, "query": "-48,0"},
                     {"observedhours": 6, "predictionhours": 3, "query": "-6,0"},
@@ -364,13 +390,13 @@ class LoadsWaterinfo:
 
         for item in waterinfo_series:
             if item["maptype"] == maptype:
-                parameter_code, aquo_grootheid_dict = read_aquo(maptype)
+                parameter_code, aquo_grootheid_dict = read_aquo(
+                    maptype, global_variables
+                )
                 item["parameter_code"] = parameter_code
                 item["parameter_id"] = aquo_grootheid_dict["id"]
 
                 return item
-
-        return None
 
     def get_value_by_observedhours(
         self, maptype_schema: dict, observedhours_moments: int

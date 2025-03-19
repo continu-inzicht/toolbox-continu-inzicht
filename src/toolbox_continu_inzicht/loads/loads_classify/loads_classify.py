@@ -1,13 +1,53 @@
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
-from typing import Optional
+from typing import ClassVar, Optional
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsClassify:
     """
     Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd.
+
+    Attributes
+    ----------
+    data_adapter : DataAdapter
+        De data adapter die wordt gebruikt om de data in te laden en op te slaan.
+    df_in_thresholds : Optional[pd.DataFrame] | None
+        Dataframe met drempelwaarden per meetlocatie.
+    df_in_loads : Optional[pd.DataFrame] | None
+        Dataframe met belasting per moment per meetlocaties.
+    df_out : Optional[pd.DataFrame] | None
+        Dataframe met geclassificeerde waterstanden voor opgegeven momenten.
+    input_schema_thresholds : ClassVar[dict[str, str]]
+        Schema voor drempelwaarden per meetlocatie.
+    input_schema_loads : ClassVar[dict[str, str | list[str]]]
+        Schema voor belasting per moment per meetlocaties.
+
+    Notes
+    -----
+
+    **Input schema's**
+
+    *input_schema_thresholds*: schema voor drempelwaarden per meetlocatie
+
+    - measurement_location_id: int64    : id van het meetstation
+    - lower_boundary: float64           : ondergrens van de drempelwaarde
+    - upper_boundary: float64           : bovengrens van de drempelwaarde
+    - color: str                        : kleurcode voor de drempelwaarde
+    - label: str                        : label voor de drempelwaarde
+    - unit: str                         : eenheid van de drempelwaarde
+
+
+    *input_schema_loads*: schema voor belasting per moment per meetlocaties
+
+    - measurement_location_id: int64    : id van het meetstation
+    - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
+    - unit: str                         : eenheid van de belastingparameter
+    - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - value: float64                    : waarde van de tijdreeksitem
+    - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
+
 
     """
 
@@ -18,7 +58,7 @@ class LoadsClassify:
     df_out: Optional[pd.DataFrame] | None = None
 
     # Lijst met drempelwaarden per meetlocatie
-    input_schema_thresholds = {
+    input_schema_thresholds: ClassVar[dict[str, str]] = {
         "measurement_location_id": "int64",
         "lower_boundary": "float64",
         "upper_boundary": "float64",
@@ -28,11 +68,11 @@ class LoadsClassify:
     }
 
     # belasting per moment per meetlocaties
-    input_schema_loads = {
+    input_schema_loads: ClassVar[dict[str, str | list[str]]] = {
         "measurement_location_id": "int64",
         "parameter_id": "int64",
         "unit": "object",
-        "date_time": "object",
+        "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
         "value_type": "object",
         "hours": "int64",
@@ -42,21 +82,18 @@ class LoadsClassify:
         """
         De runner van de Loads Classify.
 
-        Args:
-            input List(str): [0] lijst met drempelwaarden per meetlocatie
-                             [1] belasting per moment per meetlocaties
-            output (str):    uitvoer sectie van het yaml-bestand:
-                             koppeling van de maatgevende meetlocaties per dijkvak
-
-        Returns:
-            Dataframe: Pandas dataframe met geclassificeerde waterstanden voor opgegeven momenten.
+        parameters
+        ----------
+        input: list[str]
+            Lijst met namen van de data adapter voor de drempelwaarde en belasting per meetlocatie.
+        output: str
+            Data adapter voor output van de koppeling van de maatgevende meetlocaties per dijkvak
         """
 
         if not len(input) == 2:
             raise UserWarning("Input variabele moet 2 string waarden bevatten.")
 
         # drempelwaarden per meetlocatie
-        # TODO we kunnen er toch niet vanuit gaan dat de eerste (nulde) input string de verwijzing naar de klassegrenzen is...?
         self.df_in_thresholds = self.data_adapter.input(
             input[0], self.input_schema_thresholds
         )

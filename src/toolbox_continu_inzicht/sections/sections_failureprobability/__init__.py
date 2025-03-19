@@ -1,1 +1,1 @@
-"""Classifiseren van een dijkvak"""
+"""Faalkansen van secties."""

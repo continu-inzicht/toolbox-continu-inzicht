@@ -16,9 +16,12 @@ from toolbox_continu_inzicht.loads.loads_fews.get_fews_thresholds import (
 )
 from toolbox_continu_inzicht.loads.loads_matroos.loads_matroos import (
     LoadsMatroos,
+    LoadsMatroosNetCDF,
 )
 from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
     get_matroos_locations,
+    get_matroos_locations_map,
+    get_matroos_sources,
 )
 from toolbox_continu_inzicht.loads.loads_rws_webservice.loads_rws_webservice import (
     LoadsWaterwebservicesRWS,
@@ -47,7 +50,10 @@ __all__ = [
     "get_fews_locations",
     "get_fews_thresholds",
     "LoadsMatroos",
+    "LoadsMatroosNetCDF",
     "get_matroos_locations",
+    "get_matroos_locations_map",
+    "get_matroos_sources",
     "LoadsWaterwebservicesRWS",
     "get_rws_webservices_locations",
     "LoadsToMoments",

@@ -1,6 +1,8 @@
 GlobalVariables:
     rootdir: "tests/src/loads/data_sets"
     moments: [-24,0,24,48]
+    aquo_allias:
+        WATHTE [m][NAP][OW]: "WATHTE"
 
     LoadsFews:
         host: "https://fews.hhnk.nl"

@@ -1,6 +1,8 @@
 GlobalVariables:
     rootdir: "data_sets"
     moments: [-24,0,24,48]
+    aquo_allias:
+        WNSHDB1: "WATHTE"
 
     LoadsFews:
         host: "https://********************"

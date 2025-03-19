@@ -37,6 +37,8 @@ def fetch_data_get(
         if response.status_code == 200:
             if mime_type == "json":
                 data = response.json()
+            elif mime_type == "NETCDF":
+                data = response
             else:
                 data = response.text
         else:

@@ -11,23 +11,27 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.base.aquo import read_aquo
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
-# aquo_id_dict = {"WATHTE": 4724}
-# RWS_webservices_verwacht = {"WATHTEVERWACHT": "WATHTE"}
-
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadsWaterwebservicesRWS:
     """
-    Belastinggegevens ophalen van rijkswaterstaat waterwebservices https://waterwebservices.rijkswaterstaat.nl/
+    Belastinggegevens ophalen van rijkswaterstaat waterwebservices
+
+    Notes
+    -----
+    Link: https://waterwebservices.rijkswaterstaat.nl/
 
     Attributes
     ----------
-        data_adapter: DataAdapter
-            De data adapter voor het ophalen en opslaan van gegevens.
-        df_in: Optional[pd.DataFrame] | None = None
-            Het invoerdataframe.
-        df_out: Optional[pd.DataFrame] | None = None
-            Het uitvoerdataframe.
+    data_adapter: DataAdapter
+        De data adapter voor het ophalen en opslaan van gegevens.
+    df_in: Optional[pd.DataFrame] | None
+        Het invoerdataframe.
+    df_out: Optional[pd.DataFrame] | None
+        Het uitvoerdataframe.
+    url_retrieve_observations: str
+        De url voor het ophalen van waarnemingen.
+
     """
 
     data_adapter: DataAdapter
@@ -40,6 +44,21 @@ class LoadsWaterwebservicesRWS:
     def run(self, input: str, output: str) -> None:
         """
         De runner van de Belasting WaterwebservicesRWS.
+
+        Parameters
+        ----------
+        input: str
+            De naam van de invoerdataadapter.
+        output: str
+            De naam van de uitvoerdataadapter.
+
+        Raises
+        ------
+        UserWarning
+            Wanneer de inputdata niet de kolom 'measurement_location_id' bevat.
+            Wanneer de inputdata geen 'measurement_location_code' bevat.
+            Wanneer de 'measurement_location_code' geen getal is.
+            Wanneer de 'LoadsWaterwebservicesRWS' sectie niet aanwezig is in global_variables (config).
         """
         # haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
@@ -80,7 +99,7 @@ class LoadsWaterwebservicesRWS:
         # zet tijd goed
         calc_time = global_variables["calc_time"]
 
-        # TODO DIT GAAT VERANDEREN
+        # TODO: DIT GAAT VERANDEREN - zie TBCI-154
         # https://rijkswaterstaatdata.nl/projecten/beta-waterwebservices/#:~:text=00.000%2B01%3A00%22%7D%7D-,Voorbeelden,-Een%20aantal%20specifieke
         # Verwachte waterstand over een uur
         # Elke 6 uur worden er waterstanden voorspeld op basis van het weer.
@@ -121,7 +140,11 @@ class LoadsWaterwebservicesRWS:
             )
 
         self.df_out = self.create_dataframe(
-            options, calc_time, lst_observations, self.df_in
+            options,
+            calc_time,
+            lst_observations,
+            self.df_in,
+            global_variables,
         )
 
         if not self.df_out.empty:
@@ -141,7 +164,11 @@ class LoadsWaterwebservicesRWS:
 
     @staticmethod
     def create_dataframe(
-        options: dict, calc_time: datetime, lst_data: list, df_in: pd.DataFrame
+        options: dict,
+        calc_time: datetime,
+        lst_data: list,
+        df_in: pd.DataFrame,
+        global_variables: dict,
     ) -> pd.DataFrame:
         """Maakt een dataframe met waardes van de rws water webservices
 
@@ -153,11 +180,15 @@ class LoadsWaterwebservicesRWS:
             De huidige tijd
         lst_data: list
             Een lijst met JSON data uit de post request
+        df_in: pd.DataFrame
+            Het invoerdataframe
+        global_variables: dict
+            De globale variabelen uit de config
 
-        Returns:
-        --------
-            pd.Dataframe
-                Pandas dataframe geschikt voor uitvoer
+        Returns
+        -------
+        dataframe: pd.Dataframe
+            Pandas dataframe geschikt voor uitvoer
         """
         dataframe = pd.DataFrame()
         records = []
@@ -179,7 +210,9 @@ class LoadsWaterwebservicesRWS:
                 unit = serie["AquoMetadata"]["Eenheid"]["Code"]
                 # de read_aquo functie geeft zelf de juiste naam terug
                 # is WATHTEVERWACHT niks, dus zet de code terug
-                parameter_code, aquo_grootheid_dict = read_aquo(parameter_code)
+                parameter_code, aquo_grootheid_dict = read_aquo(
+                    parameter_code, global_variables
+                )
                 parameter_id = aquo_grootheid_dict["id"]
                 # process per lijst en stop het in een record
                 for event in serie["MetingenLijst"]:

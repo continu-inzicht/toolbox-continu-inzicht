@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import warnings
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
@@ -7,6 +8,7 @@ from toolbox_continu_inzicht.utils.datetime_functions import (
     datetime_from_string,
 )
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
+from toolbox_continu_inzicht.base.aquo import read_aquo
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -42,20 +44,13 @@ class LoadsFews:
         global_variables = self.data_adapter.config.global_variables
         calc_time = global_variables["calc_time"]
 
+        # fews is te specifiek dus moet configuratie hebben
         if "LoadsFews" not in global_variables:
             raise UserWarning(
                 "LoadsFews niet in "
             )  # FIXME: Incomplete print-statement?
 
         options = global_variables["LoadsFews"]
-
-        # TODO: add user mapping for aquo equivalent
-        # if "aquo_equivalent" in options:
-        #     user_aquo_mapping = dict(
-        #         zip(options["parameters"], options["aquo_equivalent"])
-        #     )
-        # else:
-        #     user_aquo_mapping = dict(zip(options["parameters"], options["parameters"]))
 
         # moments eventueel toevoegen aan options
         if "moments" not in options and "moments" in global_variables:
@@ -89,6 +84,7 @@ class LoadsFews:
                 calc_time=calc_time,
                 json_data=json_data,
                 locations=self.df_in,
+                global_variables=global_variables,
             )
 
             self.data_adapter.output(output=output, df=self.df_out)
@@ -153,6 +149,7 @@ class LoadsFews:
         calc_time: datetime,
         json_data: str,
         locations: pd.DataFrame,
+        global_variables: dict,
     ) -> pd.DataFrame:
         """Maak een pandas dataframe
 
@@ -178,7 +175,7 @@ class LoadsFews:
         if "timeSeries" in json_data:
             records = []
             for serie in json_data["timeSeries"]:
-                parameter_id = 4724
+                # parameter_id = 4724
                 parameter_code = serie["header"]["parameterId"]
                 parameter_description = serie["header"]["parameterId"]
                 measurement_location_code = serie["header"]["locationId"]
@@ -198,6 +195,21 @@ class LoadsFews:
                     )
 
                     if parameter_code in options["parameters"]:
+                        try:
+                            parameter_code_aquo, aquo_grootheid_dict = read_aquo(
+                                parameter_code, global_variables
+                            )
+                            parameter_id_aquo = aquo_grootheid_dict["id"]
+                        except Exception as e:
+                            message = f"""
+                            {e=}
+                            Fews parameters kunnen niet worden vertaald naar Aquo standaard, geef dit zelf op via
+                            \nGlobalVariables:\n\taquo_allias\n\t\tFEWS_param: 'Aquo_param'
+                            Default waarde parameter:{parameter_code} en id:4724 is nu gebruikt.
+                            """
+                            warnings.warn(message)
+                            parameter_code_aquo = parameter_code
+                            parameter_id_aquo = 4724
                         if "events" in serie:
                             for event in serie["events"]:
                                 datestr = f"{event['date']}T{event['time']}Z"
@@ -218,8 +230,8 @@ class LoadsFews:
                                     "measurement_location_id": measurement_location_id,
                                     "measurement_location_code": measurement_location_code,
                                     "measurement_location_description": measurement_location_description,
-                                    "parameter_id": parameter_id,
-                                    "parameter_code": parameter_code,
+                                    "parameter_id": parameter_id_aquo,
+                                    "parameter_code": parameter_code_aquo,
                                     "parameter_description": parameter_description,
                                     "unit": unit,
                                     "date_time": utc_dt,

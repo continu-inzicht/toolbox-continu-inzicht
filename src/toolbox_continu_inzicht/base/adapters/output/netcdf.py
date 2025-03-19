@@ -17,10 +17,10 @@ def output_netcdf(output_config: dict, df: pd.DataFrame):
     None
     """
     # Data checks worden gedaan in de functies zelf, hier alleen geladen
-    # TODO: netcdf kent geen int64 dus converteren naar float
+    # netcdf kent geen int64 dus converteren naar float
     for column in df.columns:
         if df[column].dtype == "int64":
-            df[column] = df[column].astype("float64")
+            df[column] = df[column].astype(int)
 
     ds = xr.Dataset.from_dataframe(df)
     kwargs = get_kwargs(xr.Dataset.to_netcdf, output_config)

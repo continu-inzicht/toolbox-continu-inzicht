@@ -83,6 +83,8 @@ De data-adapter wordt gebruikt om verschillende datatypes in en uit te lezen. Op
 1.  CSV
 2.  NetCDF
 3.  PostgreSQL
+4.  Excel
+5.  Shape
 
 Deze wordt geconfigureerd in de een `.yaml` configuratiebestand. Een voorbeeld van een csv-bestand wordt hieronder weergegeven.
 Hierbij zijn `type` en `file` of `path` verplicht. In het voorbeeld hieronder wordt een relatief pad meegegeven als `rootdir`, dit wordt ook ondersteund.
@@ -114,6 +116,69 @@ Naast de verplichte waardes van een data-adapter worden ook alle overige opties 
 Voor de generieke data-adapters is er een check of de extra opgegeven opties ondersteund worden.
 Zo maakt de `csv` data adapter gebruik van [pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) en de `NetCDF` data adapter [xarray.open_dataset](https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html).
 Voor `PostgreSQL` zijn alleen drie standaardopties beschikbaar: `database`, `schema` en `table`.
+
+#### Zelf adapter locaties doorgeven
+In de python module worden alles bestanden vanuit de map base.adapters gebruikt, mits ze beginnen met `input_` of `output_` om de twee uit elkaar te houden. Naast de geleverde data adapters, kan je via de global_variables ook een `input_plugin_path` en `output_plugin_path` definiëren. Alle python bestanden (`.py`) in deze mappen worden ingelezen en functies met  `input_` of `output_` worden toegevoegd aan de mogelijke opties.
+
+::: {.panel-tabset}
+## Voorbeeld data adapter
+```python
+def input_test_text(input_config: dict):
+    """Function to read a text file given a path"""
+    # input_config contains all the information from reading the config file
+    path = input_config["abs_path"]
+    # we check with `get_kwargs` which options are compatible
+    kwargs = get_kwargs(open, input_config)
+    kwargs.pop("file")  # use the abs path instead of file
+    with open(path, **kwargs) as f:
+        data = f.read()
+    # return the data in a dataframe, this is just an example
+    return pd.DataFrame([data], columns=["text"])
+```
+
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: 'data_sets'
+    input_plugin_path: 'data_sets'
+
+DataAdapter:
+    example_test:
+        type: test_text
+        file: 'test.txt'
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+df_in = data_adapter.input("example_test")
+```
+:::
+
+Optie 2:
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    my_csv_in:
+        type: csv
+        file: "test_csv_in.csv"
+...
+```
+## Code
+```python
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+data_adapter.set_dataframe_adapter("my_new_data_adapter", input_df, if_not_exist="create")
+```
+:::
 
 #### Adapters aanmaken vanuit Python
 

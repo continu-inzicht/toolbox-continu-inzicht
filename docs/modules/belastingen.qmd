@@ -26,6 +26,8 @@ De functie `get_fews_locations()` kan worden gebruikt om de beschikbare locaties
 GlobalVariables:
     rootdir: "data_sets"  
     moments: [-24,0,24,48]
+    aquo_allias:
+        WNSHDB1: "WATHTE"
 
 
     LoadsFews:

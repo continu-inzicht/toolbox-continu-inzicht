@@ -2,4 +2,216 @@
 title: "Conditionele kansen en status waterkering per sectie"
 ---
 
-In ontwikkeling.
+Voor het vertalen van een conditionele kans uit een fragility curve naar een status per sectie zijn er drie verschillende type functies. De [technische](#sec-technische-kans) zoals voor berekend, na een [beheerdersoordeel](#sec-beheerdersoordeel-kans) en na een ingestelde [maatregel](#sec-maatregel-kans). Als laatste kan de [maatgevende](#sec-maatgevende-kans) faalkans van de drie opties worden bepaald en kan deze worden [geclassificeerd](#sec-geclassificeerd-kans) met opgegeven grenzen.
+
+### Technische kans{#sec-technische-kans}
+
+Dit is de uitgangssituatie die altijd van belang is.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    fragilitycurves_table:
+        type: ci_postgresql_fragilitycurves_table
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+        measureid: 0
+
+    section_load_from_data_table:
+        type: ci_postgresql_section_load_from_data_table
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+
+    technical_failure_probability:
+        type: ci_postgresql_section_to_data
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+        parameter_id: 100
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.sections import SectionsTechnicalFailureprobability
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+sections_failureprobability = SectionsTechnicalFailureprobability(data_adapter=data_adapter)
+sections_failureprobability.run(
+        input=["fragilitycurves_table", "section_load_from_data_table"],
+        output="technical_failure_probability",
+    )
+
+```
+:::
+
+### Kans na beheerdersoordeel{#sec-beheerdersoordeel-kans}
+
+Indien een beheerdersoordeel aanwezig is, kan deze ook worden gebruikt om een kans per sectie te bepalen.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    fragilitycurves_table:
+        type: ci_postgresql_measure_fragilitycurves_table
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+
+    section_load_from_data_table:
+        type: ci_postgresql_section_load_from_data_table
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+
+    measure_failure_probability:
+        type: ci_postgresql_section_to_data
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+        parameter_id: 101
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.sections import SectionsMeasureFailureprobability
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+sections_failureprobability = SectionsMeasureFailureprobability(data_adapter=data_adapter)
+sections_failureprobability.run(
+        input=["fragilitycurves_table", "section_load_from_data_table"],
+        output="measure_failure_probability",
+    )
+
+```
+:::
+
+
+### Kans na maatregel{#sec-maatregel-kans}
+
+Indien een maatregel aanwezig is, kan de kans gegeven de maatregel worden bepaald.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    in_expert_judgement_table:
+        type: ci_postgresql_section_expert_judgement_table
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+
+    expert_judgement_failure_probability:
+        type: ci_postgresql_section_to_data
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+        parameter_id: 102
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.sections import SectionsExpertJudgementFailureprobability
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+sections_failureprobability = SectionsExpertJudgementFailureprobability(data_adapter=data_adapter)
+sections_failureprobability.run(
+        input="in_expert_judgement_table",
+        output="expert_judgement_failure_probability",
+    )
+
+```
+:::
+
+### Maatgevende kans{#sec-maatgevende-kans}
+
+Nadat voor de drie type kansen de faalkans per sectie is bepaald, kan ook de de maatgevende van de drie worden bepaald.
+
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    in_section_data_failure_probability:
+        type: ci_postgresql_section_failure_probability_from_data_table
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+
+    out_section_failure_probability_data:
+        type: ci_postgresql_section_to_data
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+        parameter_id: 5
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.sections import SectionsCriticalFailureprobability
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+sections_failureprobability = SectionsCriticalFailureprobability(data_adapter=data_adapter)
+sections_failureprobability.run(
+        input="in_section_data_failure_probability",
+        output="out_section_failure_probability_data",
+    )
+
+```
+:::
+
+### Classificeren kans{#sec-geclassificeerd-kans}
+
+Voor het classificeren van kansen zijn twee inputs nodig: de klassen grenzen en faalkans per vak. Een klasse wordt vervolgens toegekend en terug gegeven.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    in_section_conditions:
+        type: ci_postgresql_section_thresholds_from_conditions_table
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+
+    in_section_data_failure_probability:
+        type: ci_postgresql_section_failure_probability_from_data_table
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+
+    out_section_states:
+        type: ci_postgresql_section_to_states
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.sections import SectionsClassify
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+sections_classify = SectionsClassify(data_adapter=data_adapter)
+sections_classify.run(
+        input=["in_section_conditions", "in_section_data_failure_probability"],
+        output="out_section_states",
+    )
+
+```
+:::

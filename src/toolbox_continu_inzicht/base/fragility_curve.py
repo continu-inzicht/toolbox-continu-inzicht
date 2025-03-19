@@ -1,9 +1,13 @@
 from abc import abstractmethod
-from pydantic.dataclasses import dataclass
+from typing import Callable, ClassVar, Optional
+import warnings
+
 import numpy as np
-from toolbox_continu_inzicht import DataAdapter
-from typing import Optional
 import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht import DataAdapter
+from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -11,14 +15,31 @@ class FragilityCurve:
     """
     Class met een aantal gemakkelijke methoden om fragility curves
     op te slaan en aan te passen
+
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        DataAdapter object om data in te laden
+    hydraulicload: Optional[np.ndarray] | None
+        Array met de belastingen
+    failure_probability: Optional[np.ndarray] | None
+        Array met de faalkansen
+    lower_limit: float
+        Ondergrens voor de faalkans, standaard 1e-20
+    interp_func: Callable
+        Functie waarmee geinterpoleerd wordt
+    fragility_curve_schema: ClassVar[dict[str, str]]
+        Schema waaraan de fragility curve moet voldoen:{hydraulicload: float, failure_probability: float}
     """
 
     data_adapter: DataAdapter
-    df_out: Optional[pd.DataFrame] | None = None
-
-    fragility_curve_schema = {
-        "waterlevels": float,
-        "failure_probability": float,
+    hydraulicload: Optional[np.ndarray] | None = None
+    failure_probability: Optional[np.ndarray] | None = None
+    lower_limit: float = 1e-20
+    interp_func: Callable = log_interpolate_1d
+    fragility_curve_schema: ClassVar[dict[str, str]] = {
+        "hydraulicload": "float",
+        "failure_probability": "float",
     }
 
     def run(self, *args, **kwargs):
@@ -29,84 +50,84 @@ class FragilityCurve:
         pass
 
     def as_array(self):
-        """Geeft curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst"""
-        arr = self.df_out[["waterlevels", "failure_probability"]].to_numpy()
-        return arr
+        """Geef curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst"""
+        return np.vstack(
+            [
+                self.hydraulicload,
+                self.failure_probability,
+            ]
+        ).T
+
+    def as_dataframe(self):
+        """Geef curve terug als pandas dataframe"""
+        return pd.DataFrame(
+            {
+                "hydraulicload": self.hydraulicload,
+                "failure_probability": self.failure_probability,
+            }
+        )
+
+    def from_dataframe(self, df: pd.DataFrame):
+        """Zet een dataframe om naar een fragility curve"""
+        self.hydraulicload = df["hydraulicload"].to_numpy()
+        self.failure_probability = df["failure_probability"].to_numpy()
 
     def load(self, input: str):
         """Laadt een fragility curve in"""
-        self.df_out = self.data_adapter.input(input, schema=self.fragility_curve_schema)
+        df_in = self.data_adapter.input(input, schema=self.fragility_curve_schema)
+        self.from_dataframe(df_in)
 
-    def shift(self, effect):
-        """Schuift de waterstanden van de fragility curve op (voor een noodmaatregel), en interpoleert de faalkansen
-        op het oorspronkelijke waterstandsgrid"""
+    def shift(self, effect: float):
+        """Schuift de belasting van de fragility curve op (voor bijvoorbeeld
+        een noodmaatregel), en interpoleer de faalkansen op het oorspronkelijke
+        waterstandsgrid
+        """
         if effect == 0.0:
             return None
-        # TODO: voor nu goed, maar overweging voor later: loggen of niet? Idealiter interpoleren van beta-waarden
-        self.df_out["failure_probability"] = np.maximum(
-            0.0,
-            np.minimum(
-                1.0,
-                log_interpolate_1d(
-                    self.df_out["waterlevels"].to_numpy(),
-                    self.df_out["waterlevels"].to_numpy() + effect,
-                    self.df_out["failure_probability"].to_numpy(),
-                ),
-            ),
-        )
+        # For now okay, consider later: Log or not? ideally interpolate beta values
+        x = self.hydraulicload
+        fp = self.failure_probability
+        xp = x + effect
+        self.failure_probability = self.interp_func(x, xp, fp, ll=1e-20, clip01=True)
 
-    def refine(self, waterlevels):
+    def refine(self, new_hydraulicload: np.ndarray | list[float] | float):
         """Interpoleert de fragility curve op de gegeven waterstanden"""
-        df_new = pd.DataFrame(
-            {
-                "waterlevels": waterlevels,
-                "failure_probability": 0.0,
-            }
+        refined_failure_probability = self.interp_func(
+            new_hydraulicload,
+            self.hydraulicload,
+            self.failure_probability,
+            ll=self.lower_limit,
+            clip01=True,
         )
-        df_new["failure_probability"] = np.maximum(
-            0.0,
-            np.minimum(
-                1.0,
-                log_interpolate_1d(
-                    waterlevels,
-                    self.df_out["waterlevels"].to_numpy(),
-                    self.df_out["failure_probability"].to_numpy(),
-                ),
-            ),
-        )
-        self.df_out = df_new
+        self.hydraulicload = new_hydraulicload
+        self.failure_probability = refined_failure_probability
 
+    def reliability_update(
+        self, update_level: int | float, trust_factor: int | float = 1
+    ):
+        """Voer een versimpelde reliability updating uit
 
-def interpolate_1d(x, xp, fp):
-    """
-    Interpoleert een array langs de gegeven as.
-    Gelijk aan np.interp, maar met extraplatie buiten het bereik.
+        Parameters
+        ----------
+        update_level : int | float
+            hydraulic load level to which the fragility curve is updated
+        trust_factor : int | float, optional
+            by default 1
+        """
+        wl_grid = self.hydraulicload
+        fp_grid = self.failure_probability
 
-    Parameters
-    ----------
-    x : np.array
-        Array met posities om op te interpoleren
-    xp : np.array
-        Array met posities met bekende waarden
-    fp : np.array
-        Array met waarden als bekende posities om tussen te interpoleren
+        sel_update = wl_grid < update_level
+        wl_steps = np.diff(wl_grid[sel_update])
+        if len(wl_steps) == 0:
+            warnings.warn(
+                "Geen waardes om aan te passen, originele curve blijft geldig",
+                UserWarning,
+            )
+        else:
+            wl_steps = np.hstack([wl_steps[0], wl_steps])
+            F_update = trust_factor * (fp_grid[sel_update] * wl_steps).sum()
 
-    Returns
-    -------
-    np.array
-        Geïnterpoleerde array
-    """
-    # Bepaal de ondergrenzen
-    intidx = np.minimum(np.maximum(0, np.searchsorted(xp, x) - 1), len(xp) - 2)
-    # Bepaal de interpolatiefracties
-    fracs = (x - xp[intidx]) / (xp[intidx + 1] - xp[intidx])
-    # Interpoleer (1-frac) * f_low + frac * f_up
-    f = (1 - fracs) * fp[intidx] + fp[intidx + 1] * fracs
-
-    return f
-
-
-def log_interpolate_1d(x, xp, fp):
-    """Gelijk aan interpolate_1d, maar interpoleert in log-space"""
-    fp[fp < 1e-20] = 1e-20
-    return np.exp(interpolate_1d(x, xp, np.log(fp)))
+            fp_grid[sel_update] = (1 - trust_factor) * fp_grid[sel_update]
+            fp_grid[~sel_update] = (fp_grid[~sel_update] - F_update) / (1 - F_update)
+            self.failure_probability = fp_grid

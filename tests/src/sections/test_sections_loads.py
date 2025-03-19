@@ -368,12 +368,12 @@ def test_invalid_adapter_type_run():
     except UserWarning as user_warning:
         warning_message = str(user_warning)
         assert warning_message.startswith(
-            f"Adapter van het type '{data_type}' niet gevonden."
+            f"DataAdapter van het type '{data_type}' niet gevonden."
         )
 
     except Exception as exception:
         warning_message = str(exception)
-        assert warning_message.startswith("??")
+        assert warning_message.startswith("'id'")
 
     assert not os.path.exists(output_file)
 

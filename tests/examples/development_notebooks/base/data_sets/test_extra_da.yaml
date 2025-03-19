@@ -1,0 +1,8 @@
+GlobalVariables:
+    rootdir: 'data_sets'
+    input_plugin_path: 'data_sets'
+
+DataAdapter:
+    example_test:
+        type: test_text
+        file: 'test.txt'

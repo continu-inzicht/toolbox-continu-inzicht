@@ -33,3 +33,8 @@ DataAdapter:
         database: "citoolbox"
         schema: "citoolbox_schema"
         objecttype: "measuringstation"
+
+    ci_status:
+        type: ci_postgresql_calc_status
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_whatif"

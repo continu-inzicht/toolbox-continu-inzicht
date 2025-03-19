@@ -223,9 +223,7 @@ def test_fragility_curves_wave_overtopping_csv():
         output="fragility_curves",
     )
 
-    result = np.array(
-        wave_overtopping_fragility_curve.df_out.failure_probability.to_list()
-    )[41:59]
+    result = wave_overtopping_fragility_curve.failure_probability[41:59]
     expected = [
         2.90283421e-06,
         7.36090664e-06,
@@ -275,7 +273,7 @@ def test_fragility_curves_wave_overtopping_vary_standard_values():
     )
 
     result = np.array(
-        wave_overtopping_fragility_curve.df_out.failure_probability.to_list()
+        wave_overtopping_fragility_curve.as_dataframe().failure_probability.to_list()
     )[41:59]
     expected = [
         2.90283421e-06,
@@ -307,7 +305,7 @@ def test_fragility_curves_wave_overtopping_vary_standard_values():
 def test_fragility_curves_wave_overtopping_parametric(
     windspeed, sectormin, sectorsize, closing_situation, foreshore, qcr, expected
 ):
-    """Test de functie FragilityCurvesOvertopping met verschillende parameter combinaties"""
+    """Test de functie FragilityCurveOvertoppingMultiple met verschillende parameter combinaties"""
     config = Config(config_path=Path.cwd())
     data_adapter = DataAdapter(config=config)
     data_adapter.config.global_variables["FragilityCurveOvertopping"] = {}
@@ -349,7 +347,5 @@ def test_fragility_curves_wave_overtopping_parametric(
     wave_overtopping_fragility_curve.run(
         input=["slopes", "profiles", "bed_levels"], output="fragility_curves"
     )
-    result = wave_overtopping_fragility_curve.df_out.iloc[41:59][
-        "failure_probability"
-    ].to_list()
+    result = wave_overtopping_fragility_curve.failure_probability[41:59]
     assert np.isclose(result, expected).all()
