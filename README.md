@@ -1,19 +1,19 @@
-# Toolbox Continu Inzicht <img align="right" src="./docs/assets/logo.png" height="32" alt='logo'></img>
+# Toolbox Continu Inzicht <img align="right" src="./docs/assets/logo.png" height="32" alt='logo'/>
 
 De Toolbox Continu Inzicht is een Python-toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij het ontwikkelen van de toolbox is rekening gehouden met de volgende type interacties met de toolbox: het gebruiken van de toolbox en bijdragen aan de toolbox. Op de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) is over beide informatie beschikbaar.
 
 ## Gebruik van de toolbox
 
-De toolbox kan _(straks)_ geïnstalleerd worden met:
+De toolbox kan geïnstalleerd worden met:
 
 ```bash
 pip install toolbox-continu-inzicht
 ```
 
-Tijdens het ontwikkelen is de package nog niet beschikbaar op PyPI. We raden aan om [Pixi](https://pixi.sh/latest/) te gebruiken. Een alternatieve mogelijkheid is om de package vanaf GitHub te installeren middels `pip`-commando:
+Het gebruik van een conda environment wordt sterk aanbevolen, hiervoor kan je gebruik maken van het volgende commando:
 
 ```bash
-pip install -e "git+https://github.com/continu-inzicht/toolbox-continu-inzicht@main#egg=toolbox_continu_inzicht&subdirectory=src"
+conda env create --file=https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/refs/heads/main/src/requirements.yaml
 ```
 
 Onder [Installeren](https://continu-inzicht.github.io/toolbox-continu-inzicht/install.html) op de wiki vindt je meer informatie.

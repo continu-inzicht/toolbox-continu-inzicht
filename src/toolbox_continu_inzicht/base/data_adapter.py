@@ -1,5 +1,6 @@
 from pydantic import BaseModel as PydanticBaseModel
 import pandas as pd
+import os
 
 import warnings
 from typing import Any, Optional, Dict
@@ -98,6 +99,8 @@ class DataAdapter(PydanticBaseModel):
             dotenv_path = None
             if "dotenv_path" in self.config.global_variables:
                 dotenv_path = self.config.global_variables["dotenv_path"]
+            elif "dotenv_path" in os.environ:
+                dotenv_path = os.environ["dotenv_path"]
 
             if load_dotenv(dotenv_path=dotenv_path):
                 environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
@@ -169,6 +172,8 @@ class DataAdapter(PydanticBaseModel):
         dotenv_path = None
         if "dotenv_path" in self.config.global_variables:
             dotenv_path = self.config.global_variables["dotenv_path"]
+        elif "dotenv_path" in os.environ:
+            dotenv_path = os.environ["dotenv_path"]
 
         if load_dotenv(dotenv_path=dotenv_path):
             environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
