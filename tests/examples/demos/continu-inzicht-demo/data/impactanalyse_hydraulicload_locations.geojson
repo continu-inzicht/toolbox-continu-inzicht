@@ -1,6 +1,6 @@
 {
     "type": "FeatureCollection",
-    "name": "zorgplicht_hydraulicload_locations",
+    "name": "impactanalyse_hydraulicload_locations",
     "crs": {
         "type": "name",
         "properties": {

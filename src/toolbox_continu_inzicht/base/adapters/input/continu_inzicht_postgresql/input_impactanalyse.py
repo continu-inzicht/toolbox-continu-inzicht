@@ -6,7 +6,7 @@ import pandas as pd
 import sqlalchemy
 
 
-def input_ci_postgresql_zorgplicht_variants(input_config: dict) -> pd.DataFrame:
+def input_ci_postgresql_impactanalyse_variants(input_config: dict) -> pd.DataFrame:
     """
     Ophalen varianten uit de Continu Inzicht database.
 
@@ -72,12 +72,12 @@ def input_ci_postgresql_zorgplicht_variants(input_config: dict) -> pd.DataFrame:
     return df
 
 
-def input_ci_postgresql_zorgplicht_sections(input_config: dict) -> pd.DataFrame:
+def input_ci_postgresql_impactanalyse_sections(input_config: dict) -> pd.DataFrame:
     """
     Ophalen section data uit de Continu Inzicht database.
 
     Yaml example:\n
-        type: ci_postgresql_zorgplicht_sections
+        type: ci_postgresql_impactanalyse_sections
         database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
@@ -138,12 +138,14 @@ def input_ci_postgresql_zorgplicht_sections(input_config: dict) -> pd.DataFrame:
     return df
 
 
-def input_ci_postgresql_zorgplicht_calculate_list(input_config: dict) -> pd.DataFrame:
+def input_ci_postgresql_impactanalyse_calculate_list(
+    input_config: dict,
+) -> pd.DataFrame:
     """
     Ophalen varianten uit de Continu Inzicht database.
 
     Yaml example:\n
-        type: ci_postgresql_zorgplicht_variants
+        type: ci_postgresql_impactanalyse_variants
         database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
 
@@ -247,14 +249,14 @@ def input_ci_postgresql_zorgplicht_calculate_list(input_config: dict) -> pd.Data
     return df
 
 
-def input_ci_postgresql_zorgplicht_fragilitycurves_data(
+def input_ci_postgresql_impactanalyse_fragilitycurves_data(
     input_config: dict,
 ) -> pd.DataFrame:
     """
     Ophalen fragilitycurves uit de Continu Inzicht database.
 
     Yaml example:\n
-        type: ci_postgresql_zorgplicht_fragilitycurves_data
+        type: ci_postgresql_impactanalyse_fragilitycurves_data
         database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
         section_id: 1
@@ -327,14 +329,14 @@ def input_ci_postgresql_zorgplicht_fragilitycurves_data(
     return df
 
 
-def input_ci_postgresql_zorgplicht_statistics_data(
+def input_ci_postgresql_impactanalyse_statistics_data(
     input_config: dict,
 ) -> pd.DataFrame:
     """
     Ophalen fragilitycurves uit de Continu Inzicht database.
 
     Yaml example:\n
-        type: ci_postgresql_zorgplicht_statistics_data
+        type: ci_postgresql_impactanalyse_statistics_data
         database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
         statistics_id: 1
