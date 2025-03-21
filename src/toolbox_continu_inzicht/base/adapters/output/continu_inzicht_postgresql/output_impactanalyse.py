@@ -6,11 +6,11 @@ import pandas as pd
 import sqlalchemy
 
 
-def output_ci_postgresql_zorgplicht_failuremechanism(
+def output_ci_postgresql_impactanalyse_failuremechanism(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
-    Schrijft voor zorgplicht de failuremechanism data naar de Continu Inzicht database (tabel: failuremechanism).
+    Schrijft voor impactanalyse de failuremechanism data naar de Continu Inzicht database (tabel: failuremechanism).
 
     """
 
@@ -70,11 +70,11 @@ def output_ci_postgresql_zorgplicht_failuremechanism(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_conditions(
+def output_ci_postgresql_impactanalyse_conditions(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
-    Schrijft voor zorgplicht de conditions data naar de Continu Inzicht database (tabel: conditions).
+    Schrijft voor impactanalyse de conditions data naar de Continu Inzicht database (tabel: conditions).
 
     """
 
@@ -149,7 +149,7 @@ def output_ci_postgresql_zorgplicht_conditions(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_section(
+def output_ci_postgresql_impactanalyse_section(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
@@ -252,7 +252,7 @@ def output_ci_postgresql_zorgplicht_section(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_hydraulicload_locations(
+def output_ci_postgresql_impactanalyse_hydraulicload_locations(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
@@ -338,11 +338,11 @@ def output_ci_postgresql_zorgplicht_hydraulicload_locations(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_statistics(
+def output_ci_postgresql_impactanalyse_statistics(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
-    Schrijft voor zorgplicht de statistics data naar de Continu Inzicht database (tabel: statistics).
+    Schrijft voor impactanalyse de statistics data naar de Continu Inzicht database (tabel: statistics).
 
     """
 
@@ -439,11 +439,11 @@ def output_ci_postgresql_zorgplicht_statistics(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_variants(
+def output_ci_postgresql_impactanalyse_variants(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
-    Schrijft voor zorgplicht de varianten data naar de Continu Inzicht database (tabel: variants).
+    Schrijft voor impactanalyse de varianten data naar de Continu Inzicht database (tabel: variants).
 
     """
 
@@ -503,11 +503,11 @@ def output_ci_postgresql_zorgplicht_variants(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_fragilitycurves(
+def output_ci_postgresql_impactanalyse_fragilitycurves(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
-    Schrijft voor zorgplicht de fragility curves data naar de Continu Inzicht database (tabel: "fragilitycurves" en "fragilitycurves_data").
+    Schrijft voor impactanalyse de fragility curves data naar de Continu Inzicht database (tabel: "fragilitycurves" en "fragilitycurves_data").
 
     """
 
@@ -636,11 +636,11 @@ def output_ci_postgresql_zorgplicht_fragilitycurves(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_fragilitycurves_simple(
+def output_ci_postgresql_impactanalyse_fragilitycurves_simple(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
-    Schrijft voor zorgplicht de fragility curves data naar de Continu Inzicht database (tabel: "fragilitycurves" en "fragilitycurves_data").
+    Schrijft voor impactanalyse de fragility curves data naar de Continu Inzicht database (tabel: "fragilitycurves" en "fragilitycurves_data").
 
     """
 
@@ -686,11 +686,11 @@ def output_ci_postgresql_zorgplicht_fragilitycurves_simple(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_expertjudgements(
+def output_ci_postgresql_impactanalyse_expertjudgements(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
-    Schrijft voor zorgplicht de beheerdersoordelen naar de Continu Inzicht database (tabel: expertjudgements).
+    Schrijft voor impactanalyse de beheerdersoordelen naar de Continu Inzicht database (tabel: expertjudgements).
 
     """
 
@@ -777,11 +777,11 @@ def output_ci_postgresql_zorgplicht_expertjudgements(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_fragilitycurves_intergrate(
+def output_ci_postgresql_impactanalyse_fragilitycurves_intergrate(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
-    Schrijft voor zorgplicht de fragilitycurves_intergrate naar de Continu Inzicht database
+    Schrijft voor impactanalyse de fragilitycurves_intergrate naar de Continu Inzicht database
     (tabel: fragilitycurves_intergrate en fragilitycurves_intergrate_data).
 
     """
@@ -857,11 +857,11 @@ def output_ci_postgresql_zorgplicht_fragilitycurves_intergrate(
         raise UserWarning("Geen gegevens om op te slaan.")
 
 
-def output_ci_postgresql_zorgplicht_fragilitycurves_intergrate_data(
+def output_ci_postgresql_impactanalyse_fragilitycurves_intergrate_data(
     output_config: dict, df: pd.DataFrame
 ) -> None:
     """
-    Schrijft voor zorgplicht de fragilitycurves_intergrate naar de Continu Inzicht database
+    Schrijft voor impactanalyse de fragilitycurves_intergrate naar de Continu Inzicht database
     (tabel: fragilitycurves_intergrate en fragilitycurves_intergrate_data).
 
     """

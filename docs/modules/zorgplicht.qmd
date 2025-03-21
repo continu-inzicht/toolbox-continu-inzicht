@@ -1,8 +1,8 @@
 ---
-title: "Zorgplicht: effect nieuwe statistiek en rekenregels op de faalkans"
+title: "Impactanalyse: effect nieuwe statistiek en rekenregels op de faalkans"
 ---
 
-De module zorgplicht is conceptueel anders dan de functionaliteit voor real-time en what-if. De gebruiker kan het effect van veranderingen in overschrijdingsfrequentie statistiek of rekenregels in kaart brengen.
+De module impactanalyse is conceptueel anders dan de functionaliteit voor real-time en what-if. De gebruiker kan het effect van veranderingen in overschrijdingsfrequentie statistiek of rekenregels in kaart brengen.
 Hiervoor is in de Toolbox Continu Inzicht functionaliteit toegevoegd voor het integreren van overschrijdingsfrequentie met een fragility curve om hiervan de jaarlijkse faalkans te berekenen.
 
 ### Jaarlijkse faalkans
