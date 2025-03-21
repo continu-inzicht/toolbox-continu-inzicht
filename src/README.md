@@ -3,6 +3,9 @@
 [![Run Pytest](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/tests.yml)
 [![Render and Publish Docs](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/quarto-docs.yml/badge.svg)](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/quarto-docs.yml)
 [![Pre-commit](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/pre-commit.yml)
+[![Upload Python Package](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/python-publish.yml/badge.svg)](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/python-publish.yml)
+[![PyPI](https://img.shields.io/pypi/v/toolbox-continu-inzicht)](https://pypi.org/project/toolbox-continu-inzicht)
+[![image](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
 
 Python toolbox voor waterkeringbeheerders om risico's in kaart te brengen. Bij het ontwikkelen van de toolbox is rekening gehouden met type interacties met de toolbox: het gebruiken van de toolbox en bijdragen. Op de [wiki](https://continu-inzicht.github.io/toolbox-continu-inzicht/) is voor beide informatie beschikbaar.
 
