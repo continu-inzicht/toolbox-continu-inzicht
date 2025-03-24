@@ -82,7 +82,7 @@ grayskull = "*"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
-pydra-core = "==0.0.7"
+pydra-core = "==0.0.9"
 probabilistic-piping = "==0.0.5"
 
 [environments]
