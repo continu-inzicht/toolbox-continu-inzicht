@@ -1,0 +1,71 @@
+from typing import Optional
+
+import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
+
+
+@dataclass(config={"arbitrary_types_allowed": True})
+class Filter:
+    """Filtert een DataFrame aan de hand van de opgegeven configuratie.
+
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        Adapter for handling data input and output operations.
+    df_in: Optional[pd.DataFrame] | None
+        Input DataFrame to be filtered
+    df_out: Optional[pd.DataFrame] | None
+        Output DataFrame containing the filtered dataframe.
+
+    Notes
+    -----
+    Voor het filteren zijn drie opties te configureren:
+
+        - query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html)
+        - drop_columns: Lijst van kolommen die verwijderd moeten worden
+        - keep_columns: Lijst van kolommen die behouden moeten worden
+
+    Als meerdere van deze opties worden geconfigureerd, worden ze in bovenstaande volgorde toegepast.
+
+    """
+
+    data_adapter: DataAdapter
+    df_in: Optional[pd.DataFrame] | None = None
+    df_out: Optional[pd.DataFrame] | None = None
+
+    def run(self, input: str, output: str):
+        """Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve
+
+        Parameters
+        ----------
+        input: str
+           Naam Data Adapter om te filteren
+        output: str
+            Naam van Data adapter voor de output
+
+        Notes
+        -----
+
+        """
+        global_variables = self.data_adapter.config.global_variables
+        options = global_variables.get("Filter", {})
+        query_filter = options.get("query", None)
+        drop_columns = options.get("drop_columns", None)
+        keep_columns = options.get("keep_columns", None)
+
+        self.df_in = self.data_adapter.input(input)
+
+        if query_filter is not None:
+            self.df_out = self.df_in.query(query_filter)
+
+        if drop_columns is not None:
+            self.df_out = self.df_out.drop(columns=drop_columns)
+
+        if keep_columns is not None:
+            if isinstance(keep_columns, str):
+                keep_columns = [keep_columns]
+            self.df_out = self.df_out[keep_columns]
+
+        self.data_adapter.output(output, self.df_out)

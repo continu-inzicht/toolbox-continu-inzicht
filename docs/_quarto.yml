@@ -51,7 +51,6 @@ website:
           - modules/kansen_en_status_per_sectie.qmd
           - modules/impactanalyse.qmd
           - modules/inspectieresultaten.qmd
-          - modules/digitale_delta_API.qmd
 
       - title: "Python API"
         contents:
@@ -139,6 +138,11 @@ quartodoc:
        - CombineFragilityCurvesWeightedSum
        - IntegrateFragilityCurve
        - IntegrateFragilityCurveMultiple
+    - title: Inspectie resultaten
+      desc: Invoer, verwerken en tonen van inspectie resultaten
+      package: toolbox_continu_inzicht.inspections
+      contents:
+        - Filter
 
     - title: Continu Inzicht Adapters (invoer)
       desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak

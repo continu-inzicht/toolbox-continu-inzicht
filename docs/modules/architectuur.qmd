@@ -117,7 +117,7 @@ Voor de generieke data-adapters is er een check of de extra opgegeven opties ond
 Zo maakt de `csv` data adapter gebruik van [pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) en de `NetCDF` data adapter [xarray.open_dataset](https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html).
 Voor `PostgreSQL` zijn alleen drie standaardopties beschikbaar: `database`, `schema` en `table`.
 
-#### Zelf adapter locaties doorgeven
+#### Zelf adapter locaties doorgeven {#sec-zelf-adapter-locatie-doorgeven}
 In de python module worden alles bestanden vanuit de map base.adapters gebruikt, mits ze beginnen met `input_` of `output_` om de twee uit elkaar te houden. Naast de geleverde data adapters, kan je via de global_variables ook een `input_plugin_path` en `output_plugin_path` definiëren. Alle python bestanden (`.py`) in deze mappen worden ingelezen en functies met  `input_` of `output_` worden toegevoegd aan de mogelijke opties.
 
 ::: {.panel-tabset}

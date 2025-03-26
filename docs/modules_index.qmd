@@ -38,4 +38,3 @@ De ontwikkeling van de volgende modules is voorzien:
 
 In ontwikkeling:
 7.  [Inspectieresultaten inlezen en weergeven](modules/inspectieresultaten.qmd)
-8.  [Resultaten ontsluiten via Digitale Delta API](modules/digitale_delta_API.qmd)

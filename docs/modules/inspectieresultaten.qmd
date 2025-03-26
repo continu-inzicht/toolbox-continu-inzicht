@@ -2,4 +2,56 @@
 title: "Inspectieresultaten inlezen en weergeven"
 ---
 
-In ontwikkeling.
+Voor het inlezen van inspectie resultaten is het wenselijk om de invoer data te kunnen filteren. In sommige gevallen zal dit al in de [data adapter](architectuur.qmd#sec-zelf-adapter-locatie-doorgeven) gebeuren. Voor het filteren zijn drie opties te configureren:
+
+- query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html)
+- drop_columns: Lijst van kolommen die verwijderd moeten worden
+- keep_columns: Lijst van kolommen die behouden moeten worden
+
+Als meerdere van deze opties worden geconfigureerd, worden ze in bovenstaande volgorde toegepast.
+
+::: {.panel-tabset}
+## Configuratie query
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    Filter:
+        query: "measurement_location_id == 1"
+...
+```
+
+## Configuratie kolommen behouden
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    Filter:
+        keep_columns:
+            - "measurement_location_id"
+            - "measurement_location_code"
+...
+```
+
+## Configuratie kolommen verwijderen
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    Filter:
+        drop_columns:
+            - "unwanted_columns"
+...
+```
+
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.inspections import Filter
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+filter = Filter(data_adapter=data_adapter)
+filter.run(
+    input="inspectie_resultaten",
+    output="inspectie_resultaten_filter",
+)
+```
