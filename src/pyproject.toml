@@ -53,5 +53,5 @@ path = "toolbox_continu_inzicht/__init__.py"
 packages = ["toolbox_continu_inzicht"]
 
 [project.urls]
-Documentation = "https://continu-inzicht.github.io/toolbox_continu_inzicht/"
-Source = "https://github.com/continu-inzicht/toolbox_continu_inzicht"
+Documentation = "https://continu-inzicht.github.io/toolbox-continu-inzicht/"
+Source = "https://github.com/continu-inzicht/toolbox-continu-inzicht"

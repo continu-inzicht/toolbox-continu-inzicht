@@ -9911,7 +9911,7 @@ packages:
 - pypi: src
   name: toolbox-continu-inzicht
   version: 0.1.0
-  sha256: fb0dd1cc3f5ca21285d29b3ab383edcf7f8a3fd7600b45a8eb9ea8507037e63c
+  sha256: c2d3e35341f390fd67cf9f5696a1e51f975dffe217c2aa208e0be79782ef60f2
   requires_dist:
   - fiona
   - geopandas
