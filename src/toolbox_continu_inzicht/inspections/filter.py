@@ -15,15 +15,15 @@ class Filter:
     data_adapter: DataAdapter
         Adapter for handling data input and output operations.
     df_in: Optional[pd.DataFrame] | None
-        Input DataFrame to be filtered
+        Input DataFrame om te filteren
     df_out: Optional[pd.DataFrame] | None
-        Output DataFrame containing the filtered dataframe.
+        Output DataFrame die gefilterd is.
 
     Notes
     -----
     Voor het filteren zijn drie opties te configureren:
 
-        - query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html)
+        - query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html). Gebruik een `'`'` voor kolomnamen met spaties, bijvoorbeeld `'`Meetpunt code` == 1'`.
         - drop_columns: Lijst van kolommen die verwijderd moeten worden
         - keep_columns: Lijst van kolommen die behouden moeten worden
 
@@ -36,12 +36,12 @@ class Filter:
     df_out: Optional[pd.DataFrame] | None = None
 
     def run(self, input: str, output: str):
-        """Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve
+        """Runt filtering van een input DataAdapter.
 
         Parameters
         ----------
         input: str
-           Naam Data Adapter om te filteren
+            Naam van de Data Adapter om te filteren
         output: str
             Naam van Data adapter voor de output
 

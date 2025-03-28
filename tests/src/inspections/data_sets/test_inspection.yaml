@@ -1,0 +1,20 @@
+GlobalVariables:
+    rootdir: "tests/src/inspections/data_sets"
+    moments: [-24,0,24,48]
+    ClassifyInspections:
+        classify_column: "priority"
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    locations_inspections:
+        type: csv
+        path: "test_inspection_results.csv"
+    styling_example:
+        type: csv
+        path: "test_styling.csv"
+    filter_resultaten:
+        type: csv
+        path: "hidden_filter_resultaten.csv"

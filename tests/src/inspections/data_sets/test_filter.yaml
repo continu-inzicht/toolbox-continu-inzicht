@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "tests/src/utils/data_sets"
+    rootdir: "tests/src/inspections/data_sets"
     moments: [-24,0,24,48]
     Filter:
         query: "measurement_location_id == 1"

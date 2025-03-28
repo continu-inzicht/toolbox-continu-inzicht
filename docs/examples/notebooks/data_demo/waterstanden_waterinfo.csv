@@ -1,429 +1,429 @@
 ,measurement_location_id,measurement_location_code,measurement_location_description,parameter_id,parameter_code,parameter_description,unit,date_time,value,value_type
-147,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 16:00:00+00:00,769.0,meting
-148,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 16:10:00+00:00,769.0,meting
-149,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 16:20:00+00:00,769.0,meting
-150,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 16:30:00+00:00,769.0,meting
-151,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 16:40:00+00:00,770.0,meting
-152,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 16:50:00+00:00,771.0,meting
-153,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 17:00:00+00:00,768.0,meting
-154,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 17:10:00+00:00,769.0,meting
-155,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 17:20:00+00:00,769.0,meting
-156,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 17:30:00+00:00,770.0,meting
-157,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 17:40:00+00:00,768.0,meting
-158,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 17:50:00+00:00,769.0,meting
-159,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 18:00:00+00:00,769.0,meting
-160,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 18:10:00+00:00,770.0,meting
-161,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 18:20:00+00:00,770.0,meting
-162,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 18:30:00+00:00,769.0,meting
-163,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 18:40:00+00:00,770.0,meting
-164,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 18:50:00+00:00,771.0,meting
-165,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 19:00:00+00:00,771.0,meting
-166,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 19:10:00+00:00,770.0,meting
-167,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 19:20:00+00:00,768.0,meting
-168,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 19:30:00+00:00,769.0,meting
-169,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 19:40:00+00:00,770.0,meting
-170,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 19:50:00+00:00,770.0,meting
-171,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 20:00:00+00:00,770.0,meting
-172,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 20:10:00+00:00,770.0,meting
-173,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 20:20:00+00:00,769.0,meting
-174,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 20:30:00+00:00,768.0,meting
-175,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 20:40:00+00:00,768.0,meting
-176,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 20:50:00+00:00,768.0,meting
-177,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 21:00:00+00:00,769.0,meting
-178,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 21:10:00+00:00,768.0,meting
-179,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 21:20:00+00:00,767.0,meting
-180,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 21:30:00+00:00,768.0,meting
-181,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 21:40:00+00:00,769.0,meting
-182,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 21:50:00+00:00,768.0,meting
-183,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 22:00:00+00:00,768.0,meting
-184,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 22:10:00+00:00,768.0,meting
-185,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 22:20:00+00:00,768.0,meting
-186,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 22:30:00+00:00,767.0,meting
-187,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 22:40:00+00:00,768.0,meting
-188,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 22:50:00+00:00,767.0,meting
-189,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 23:00:00+00:00,767.0,meting
-190,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 23:10:00+00:00,767.0,meting
-191,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 23:20:00+00:00,767.0,meting
-192,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 23:30:00+00:00,767.0,meting
-193,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 23:40:00+00:00,768.0,meting
-194,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-25 23:50:00+00:00,768.0,meting
-195,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 00:00:00+00:00,767.0,meting
-196,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 00:10:00+00:00,768.0,meting
-197,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 00:20:00+00:00,768.0,meting
-198,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 00:30:00+00:00,768.0,meting
-199,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 00:40:00+00:00,769.0,meting
-200,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 00:50:00+00:00,766.0,meting
-201,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 01:00:00+00:00,767.0,meting
-202,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 01:10:00+00:00,767.0,meting
-203,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 01:20:00+00:00,768.0,meting
-204,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 01:30:00+00:00,767.0,meting
-205,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 01:40:00+00:00,767.0,meting
-206,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 01:50:00+00:00,767.0,meting
-207,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 02:00:00+00:00,766.0,meting
-208,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 02:10:00+00:00,767.0,meting
-209,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 02:20:00+00:00,768.0,meting
-210,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 02:30:00+00:00,767.0,meting
-211,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 02:40:00+00:00,767.0,meting
-212,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 02:50:00+00:00,768.0,meting
-213,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 03:00:00+00:00,767.0,meting
-214,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 03:10:00+00:00,766.0,meting
-215,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 03:20:00+00:00,767.0,meting
-216,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 03:30:00+00:00,767.0,meting
-217,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 03:40:00+00:00,768.0,meting
-218,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 03:50:00+00:00,768.0,meting
-219,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 04:00:00+00:00,767.0,meting
-220,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 04:10:00+00:00,768.0,meting
-221,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 04:20:00+00:00,766.0,meting
-222,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 04:30:00+00:00,766.0,meting
-223,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 04:40:00+00:00,767.0,meting
-224,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 04:50:00+00:00,767.0,meting
-225,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:00:00+00:00,767.0,meting
-226,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:10:00+00:00,767.0,meting
-227,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:20:00+00:00,767.0,meting
-228,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:30:00+00:00,767.0,meting
-229,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:40:00+00:00,767.0,meting
-230,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:50:00+00:00,767.0,meting
-231,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:00:00+00:00,767.0,meting
-232,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:10:00+00:00,766.0,meting
-233,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:20:00+00:00,766.0,meting
-234,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:30:00+00:00,767.0,meting
-235,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:40:00+00:00,766.0,meting
-236,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:50:00+00:00,767.0,meting
-237,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:00:00+00:00,768.0,meting
-238,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:10:00+00:00,767.0,meting
-239,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:20:00+00:00,767.0,meting
-240,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:30:00+00:00,766.0,meting
-241,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:40:00+00:00,768.0,meting
-242,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:50:00+00:00,767.0,meting
-243,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:00:00+00:00,766.0,meting
-244,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:10:00+00:00,766.0,meting
-245,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:20:00+00:00,766.0,meting
-246,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:30:00+00:00,767.0,meting
-247,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:40:00+00:00,767.0,meting
-248,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:50:00+00:00,767.0,meting
-249,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:00:00+00:00,766.0,meting
-250,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:10:00+00:00,767.0,meting
-251,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:20:00+00:00,766.0,meting
-252,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:30:00+00:00,766.0,meting
-253,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:40:00+00:00,766.0,meting
-254,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:50:00+00:00,767.0,meting
-255,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:00:00+00:00,767.0,meting
-256,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:10:00+00:00,765.0,meting
-257,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:20:00+00:00,767.0,meting
-258,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:30:00+00:00,766.0,meting
-259,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:40:00+00:00,766.0,meting
-260,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:50:00+00:00,767.0,meting
-261,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:00:00+00:00,767.0,meting
-262,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:10:00+00:00,767.0,meting
-263,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:20:00+00:00,768.0,meting
-264,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:30:00+00:00,768.0,meting
-265,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:40:00+00:00,766.0,meting
-266,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:50:00+00:00,768.0,meting
-267,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:00:00+00:00,766.0,meting
-268,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:10:00+00:00,767.0,meting
-269,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:20:00+00:00,767.0,meting
-270,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:30:00+00:00,767.0,meting
-271,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:40:00+00:00,766.0,meting
-272,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:50:00+00:00,768.0,meting
-273,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:00:00+00:00,765.0,meting
-274,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:10:00+00:00,766.0,meting
-275,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:20:00+00:00,766.0,meting
-276,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:30:00+00:00,765.0,meting
-277,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:40:00+00:00,766.0,meting
-278,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:50:00+00:00,765.0,meting
-279,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:00:00+00:00,766.0,meting
-280,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:10:00+00:00,766.0,meting
-281,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:20:00+00:00,765.0,meting
-282,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:30:00+00:00,765.0,meting
-283,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:40:00+00:00,766.0,meting
-284,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:50:00+00:00,764.0,meting
-285,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 15:00:00+00:00,765.0,meting
-286,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:00:00+00:00,767.0,verwachting
-287,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:10:00+00:00,767.0,verwachting
-288,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:20:00+00:00,767.0,verwachting
-289,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:30:00+00:00,767.0,verwachting
-290,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:40:00+00:00,767.0,verwachting
-291,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 05:50:00+00:00,767.0,verwachting
-292,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:00:00+00:00,767.0,verwachting
-293,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:10:00+00:00,767.0,verwachting
-294,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:20:00+00:00,767.0,verwachting
-295,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:30:00+00:00,767.0,verwachting
-296,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:40:00+00:00,767.0,verwachting
-297,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 06:50:00+00:00,767.0,verwachting
-298,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:00:00+00:00,767.0,verwachting
-299,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:10:00+00:00,766.0,verwachting
-300,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:20:00+00:00,766.0,verwachting
-301,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:30:00+00:00,766.0,verwachting
-302,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:40:00+00:00,766.0,verwachting
-303,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 07:50:00+00:00,766.0,verwachting
-304,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:00:00+00:00,766.0,verwachting
-305,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:10:00+00:00,766.0,verwachting
-306,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:20:00+00:00,766.0,verwachting
-307,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:30:00+00:00,766.0,verwachting
-308,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:40:00+00:00,766.0,verwachting
-309,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 08:50:00+00:00,766.0,verwachting
-310,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:00:00+00:00,766.0,verwachting
-311,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:10:00+00:00,766.0,verwachting
-312,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:20:00+00:00,766.0,verwachting
-313,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:30:00+00:00,766.0,verwachting
-314,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:40:00+00:00,766.0,verwachting
-315,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 09:50:00+00:00,766.0,verwachting
-316,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:00:00+00:00,766.0,verwachting
-317,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:10:00+00:00,766.0,verwachting
-318,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:20:00+00:00,766.0,verwachting
-319,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:30:00+00:00,766.0,verwachting
-320,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:40:00+00:00,766.0,verwachting
-321,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 10:50:00+00:00,766.0,verwachting
-322,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:00:00+00:00,766.0,verwachting
-323,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:10:00+00:00,766.0,verwachting
-324,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:20:00+00:00,766.0,verwachting
-325,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:30:00+00:00,766.0,verwachting
-326,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:40:00+00:00,766.0,verwachting
-327,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 11:50:00+00:00,766.0,verwachting
-328,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:00:00+00:00,766.0,verwachting
-329,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:10:00+00:00,766.0,verwachting
-330,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:20:00+00:00,765.0,verwachting
-331,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:30:00+00:00,765.0,verwachting
-332,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:40:00+00:00,765.0,verwachting
-333,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 12:50:00+00:00,765.0,verwachting
-334,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:00:00+00:00,765.0,verwachting
-335,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:10:00+00:00,765.0,verwachting
-336,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:20:00+00:00,765.0,verwachting
-337,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:30:00+00:00,765.0,verwachting
-338,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:40:00+00:00,765.0,verwachting
-339,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 13:50:00+00:00,765.0,verwachting
-340,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:00:00+00:00,765.0,verwachting
-341,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:10:00+00:00,765.0,verwachting
-342,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:20:00+00:00,765.0,verwachting
-343,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:30:00+00:00,765.0,verwachting
-344,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:40:00+00:00,765.0,verwachting
-345,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 14:50:00+00:00,765.0,verwachting
-346,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 15:00:00+00:00,765.0,verwachting
-347,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 15:10:00+00:00,765.0,verwachting
-348,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 15:20:00+00:00,765.0,verwachting
-349,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 15:30:00+00:00,765.0,verwachting
-350,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 15:40:00+00:00,765.0,verwachting
-351,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 15:50:00+00:00,765.0,verwachting
-352,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 16:00:00+00:00,765.0,verwachting
-353,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 16:10:00+00:00,765.0,verwachting
-354,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 16:20:00+00:00,765.0,verwachting
-355,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 16:30:00+00:00,765.0,verwachting
-356,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 16:40:00+00:00,765.0,verwachting
-357,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 16:50:00+00:00,765.0,verwachting
-358,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 17:00:00+00:00,765.0,verwachting
-359,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 17:10:00+00:00,765.0,verwachting
-360,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 17:20:00+00:00,765.0,verwachting
-361,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 17:30:00+00:00,765.0,verwachting
-362,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 17:40:00+00:00,765.0,verwachting
-363,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 17:50:00+00:00,764.0,verwachting
-364,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 18:00:00+00:00,764.0,verwachting
-365,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 18:10:00+00:00,764.0,verwachting
-366,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 18:20:00+00:00,764.0,verwachting
-367,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 18:30:00+00:00,764.0,verwachting
-368,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 18:40:00+00:00,764.0,verwachting
-369,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 18:50:00+00:00,764.0,verwachting
-370,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 19:00:00+00:00,764.0,verwachting
-371,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 19:10:00+00:00,764.0,verwachting
-372,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 19:20:00+00:00,764.0,verwachting
-373,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 19:30:00+00:00,764.0,verwachting
-374,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 19:40:00+00:00,764.0,verwachting
-375,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 19:50:00+00:00,764.0,verwachting
-376,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 20:00:00+00:00,764.0,verwachting
-377,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 20:10:00+00:00,764.0,verwachting
-378,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 20:20:00+00:00,764.0,verwachting
-379,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 20:30:00+00:00,764.0,verwachting
-380,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 20:40:00+00:00,764.0,verwachting
-381,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 20:50:00+00:00,764.0,verwachting
-382,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 21:00:00+00:00,764.0,verwachting
-383,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 21:10:00+00:00,764.0,verwachting
-384,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 21:20:00+00:00,764.0,verwachting
-385,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 21:30:00+00:00,764.0,verwachting
-386,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 21:40:00+00:00,764.0,verwachting
-387,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 21:50:00+00:00,764.0,verwachting
-388,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 22:00:00+00:00,764.0,verwachting
-389,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 22:10:00+00:00,764.0,verwachting
-390,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 22:20:00+00:00,764.0,verwachting
-391,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 22:30:00+00:00,764.0,verwachting
-392,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 22:40:00+00:00,764.0,verwachting
-393,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 22:50:00+00:00,764.0,verwachting
-394,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 23:00:00+00:00,764.0,verwachting
-395,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 23:10:00+00:00,763.0,verwachting
-396,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 23:20:00+00:00,763.0,verwachting
-397,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 23:30:00+00:00,763.0,verwachting
-398,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 23:40:00+00:00,763.0,verwachting
-399,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-26 23:50:00+00:00,763.0,verwachting
-400,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 00:00:00+00:00,763.0,verwachting
-401,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 00:10:00+00:00,763.0,verwachting
-402,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 00:20:00+00:00,763.0,verwachting
-403,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 00:30:00+00:00,763.0,verwachting
-404,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 00:40:00+00:00,763.0,verwachting
-405,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 00:50:00+00:00,763.0,verwachting
-406,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 01:00:00+00:00,763.0,verwachting
-407,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 01:10:00+00:00,763.0,verwachting
-408,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 01:20:00+00:00,763.0,verwachting
-409,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 01:30:00+00:00,763.0,verwachting
-410,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 01:40:00+00:00,763.0,verwachting
-411,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 01:50:00+00:00,763.0,verwachting
-412,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 02:00:00+00:00,763.0,verwachting
-413,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 02:10:00+00:00,763.0,verwachting
-414,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 02:20:00+00:00,763.0,verwachting
-415,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 02:30:00+00:00,763.0,verwachting
-416,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 02:40:00+00:00,763.0,verwachting
-417,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 02:50:00+00:00,763.0,verwachting
-418,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 03:00:00+00:00,763.0,verwachting
-419,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 03:10:00+00:00,763.0,verwachting
-420,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 03:20:00+00:00,763.0,verwachting
-421,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 03:30:00+00:00,763.0,verwachting
-422,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 03:40:00+00:00,763.0,verwachting
-423,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 03:50:00+00:00,763.0,verwachting
-424,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 04:00:00+00:00,763.0,verwachting
-425,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 04:10:00+00:00,763.0,verwachting
-426,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 04:20:00+00:00,762.0,verwachting
-427,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 04:30:00+00:00,762.0,verwachting
-428,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 04:40:00+00:00,762.0,verwachting
-429,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 04:50:00+00:00,762.0,verwachting
-430,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 05:00:00+00:00,762.0,verwachting
-431,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 05:10:00+00:00,762.0,verwachting
-432,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 05:20:00+00:00,762.0,verwachting
-433,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 05:30:00+00:00,762.0,verwachting
-434,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 05:40:00+00:00,762.0,verwachting
-435,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 05:50:00+00:00,762.0,verwachting
-436,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 06:00:00+00:00,762.0,verwachting
-437,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 06:10:00+00:00,762.0,verwachting
-438,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 06:20:00+00:00,762.0,verwachting
-439,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 06:30:00+00:00,762.0,verwachting
-440,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 06:40:00+00:00,762.0,verwachting
-441,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 06:50:00+00:00,762.0,verwachting
-442,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 07:00:00+00:00,762.0,verwachting
-443,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 07:10:00+00:00,762.0,verwachting
-444,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 07:20:00+00:00,762.0,verwachting
-445,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 07:30:00+00:00,762.0,verwachting
-446,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 07:40:00+00:00,762.0,verwachting
-447,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 07:50:00+00:00,762.0,verwachting
-448,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 08:00:00+00:00,762.0,verwachting
-449,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 08:10:00+00:00,762.0,verwachting
-450,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 08:20:00+00:00,762.0,verwachting
-451,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 08:30:00+00:00,762.0,verwachting
-452,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 08:40:00+00:00,762.0,verwachting
-453,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 08:50:00+00:00,762.0,verwachting
-454,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 09:00:00+00:00,762.0,verwachting
-455,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 09:10:00+00:00,762.0,verwachting
-456,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 09:20:00+00:00,762.0,verwachting
-457,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 09:30:00+00:00,762.0,verwachting
-458,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 09:40:00+00:00,762.0,verwachting
-459,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 09:50:00+00:00,762.0,verwachting
-460,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 10:00:00+00:00,762.0,verwachting
-461,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 10:10:00+00:00,762.0,verwachting
-462,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 10:20:00+00:00,762.0,verwachting
-463,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 10:30:00+00:00,762.0,verwachting
-464,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 10:40:00+00:00,762.0,verwachting
-465,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 10:50:00+00:00,762.0,verwachting
-466,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 11:00:00+00:00,762.0,verwachting
-467,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 11:10:00+00:00,762.0,verwachting
-468,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 11:20:00+00:00,762.0,verwachting
-469,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 11:30:00+00:00,762.0,verwachting
-470,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 11:40:00+00:00,762.0,verwachting
-471,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 11:50:00+00:00,762.0,verwachting
-472,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 12:00:00+00:00,762.0,verwachting
-473,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 12:10:00+00:00,762.0,verwachting
-474,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 12:20:00+00:00,762.0,verwachting
-475,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 12:30:00+00:00,761.0,verwachting
-476,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 12:40:00+00:00,761.0,verwachting
-477,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 12:50:00+00:00,761.0,verwachting
-478,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 13:00:00+00:00,761.0,verwachting
-479,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 13:10:00+00:00,761.0,verwachting
-480,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 13:20:00+00:00,761.0,verwachting
-481,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 13:30:00+00:00,761.0,verwachting
-482,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 13:40:00+00:00,761.0,verwachting
-483,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 13:50:00+00:00,761.0,verwachting
-484,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:00:00+00:00,761.0,verwachting
-485,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:10:00+00:00,761.0,verwachting
-486,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:20:00+00:00,761.0,verwachting
-487,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:30:00+00:00,761.0,verwachting
-488,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:40:00+00:00,761.0,verwachting
-489,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:50:00+00:00,761.0,verwachting
-490,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:00:00+00:00,761.0,verwachting
-491,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:10:00+00:00,761.0,verwachting
-492,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:20:00+00:00,761.0,verwachting
-493,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:30:00+00:00,761.0,verwachting
-494,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:40:00+00:00,761.0,verwachting
-495,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:50:00+00:00,761.0,verwachting
-496,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:00:00+00:00,761.0,verwachting
-497,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:10:00+00:00,761.0,verwachting
-498,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:20:00+00:00,761.0,verwachting
-499,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:30:00+00:00,761.0,verwachting
-500,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:40:00+00:00,761.0,verwachting
-501,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:50:00+00:00,761.0,verwachting
-502,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:00:00+00:00,761.0,verwachting
-503,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:10:00+00:00,761.0,verwachting
-504,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:20:00+00:00,761.0,verwachting
-505,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:30:00+00:00,761.0,verwachting
-506,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:40:00+00:00,761.0,verwachting
-507,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:50:00+00:00,761.0,verwachting
-508,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:00:00+00:00,761.0,verwachting
-509,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:10:00+00:00,761.0,verwachting
-510,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:20:00+00:00,761.0,verwachting
-511,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:30:00+00:00,761.0,verwachting
-512,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:40:00+00:00,761.0,verwachting
-513,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:50:00+00:00,761.0,verwachting
-514,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:00:00+00:00,761.0,verwachting
-515,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:10:00+00:00,761.0,verwachting
-516,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:20:00+00:00,761.0,verwachting
-517,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:30:00+00:00,761.0,verwachting
-518,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:40:00+00:00,761.0,verwachting
-519,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:50:00+00:00,761.0,verwachting
-520,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:00:00+00:00,761.0,verwachting
-521,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:10:00+00:00,761.0,verwachting
-522,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:20:00+00:00,761.0,verwachting
-523,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:30:00+00:00,761.0,verwachting
-524,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:40:00+00:00,761.0,verwachting
-525,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:50:00+00:00,761.0,verwachting
-526,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:00:00+00:00,761.0,verwachting
-527,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:10:00+00:00,761.0,verwachting
-528,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:20:00+00:00,761.0,verwachting
-529,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:30:00+00:00,761.0,verwachting
-530,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:40:00+00:00,761.0,verwachting
-531,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:50:00+00:00,761.0,verwachting
-532,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:00:00+00:00,761.0,verwachting
-533,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:10:00+00:00,761.0,verwachting
-534,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:20:00+00:00,761.0,verwachting
-535,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:30:00+00:00,761.0,verwachting
-536,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:40:00+00:00,761.0,verwachting
-537,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:50:00+00:00,761.0,verwachting
-538,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:00:00+00:00,761.0,verwachting
-539,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:10:00+00:00,761.0,verwachting
-540,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:20:00+00:00,761.0,verwachting
-541,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:30:00+00:00,761.0,verwachting
-542,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:40:00+00:00,761.0,verwachting
-543,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:50:00+00:00,761.0,verwachting
-544,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:00:00+00:00,761.0,verwachting
-545,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:10:00+00:00,761.0,verwachting
-546,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:20:00+00:00,761.0,verwachting
-547,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:30:00+00:00,761.0,verwachting
-548,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:40:00+00:00,761.0,verwachting
-549,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:50:00+00:00,761.0,verwachting
-550,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:00:00+00:00,761.0,verwachting
-551,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:10:00+00:00,761.0,verwachting
-552,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:20:00+00:00,761.0,verwachting
-553,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:30:00+00:00,761.0,verwachting
-554,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:40:00+00:00,761.0,verwachting
-555,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:50:00+00:00,761.0,verwachting
-556,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:00:00+00:00,761.0,verwachting
-557,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:10:00+00:00,761.0,verwachting
-558,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:20:00+00:00,761.0,verwachting
-559,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:30:00+00:00,761.0,verwachting
-560,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:40:00+00:00,761.0,verwachting
-561,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:50:00+00:00,761.0,verwachting
-562,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:00:00+00:00,761.0,verwachting
-563,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:10:00+00:00,761.0,verwachting
-564,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:20:00+00:00,761.0,verwachting
-565,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:30:00+00:00,761.0,verwachting
-566,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:40:00+00:00,761.0,verwachting
-567,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:50:00+00:00,761.0,verwachting
-568,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:00:00+00:00,761.0,verwachting
-569,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:10:00+00:00,761.0,verwachting
-570,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:20:00+00:00,761.0,verwachting
-571,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:30:00+00:00,761.0,verwachting
-572,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:40:00+00:00,761.0,verwachting
-573,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:50:00+00:00,761.0,verwachting
-574,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:00:00+00:00,761.0,verwachting
+148,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:00:00+00:00,761.0,meting
+149,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:10:00+00:00,760.0,meting
+150,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:20:00+00:00,759.0,meting
+151,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:30:00+00:00,760.0,meting
+152,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:40:00+00:00,760.0,meting
+153,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 14:50:00+00:00,759.0,meting
+154,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:00:00+00:00,760.0,meting
+155,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:10:00+00:00,760.0,meting
+156,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:20:00+00:00,759.0,meting
+157,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:30:00+00:00,760.0,meting
+158,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:40:00+00:00,760.0,meting
+159,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 15:50:00+00:00,760.0,meting
+160,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:00:00+00:00,761.0,meting
+161,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:10:00+00:00,761.0,meting
+162,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:20:00+00:00,761.0,meting
+163,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:30:00+00:00,759.0,meting
+164,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:40:00+00:00,761.0,meting
+165,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 16:50:00+00:00,760.0,meting
+166,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:00:00+00:00,762.0,meting
+167,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:10:00+00:00,760.0,meting
+168,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:20:00+00:00,760.0,meting
+169,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:30:00+00:00,761.0,meting
+170,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:40:00+00:00,761.0,meting
+171,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 17:50:00+00:00,760.0,meting
+172,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:00:00+00:00,760.0,meting
+173,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:10:00+00:00,760.0,meting
+174,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:20:00+00:00,759.0,meting
+175,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:30:00+00:00,760.0,meting
+176,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:40:00+00:00,760.0,meting
+177,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 18:50:00+00:00,761.0,meting
+178,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:00:00+00:00,761.0,meting
+179,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:10:00+00:00,761.0,meting
+180,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:20:00+00:00,761.0,meting
+181,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:30:00+00:00,760.0,meting
+182,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:40:00+00:00,761.0,meting
+183,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 19:50:00+00:00,761.0,meting
+184,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:00:00+00:00,760.0,meting
+185,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:10:00+00:00,760.0,meting
+186,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:20:00+00:00,760.0,meting
+187,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:30:00+00:00,760.0,meting
+188,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:40:00+00:00,760.0,meting
+189,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 20:50:00+00:00,761.0,meting
+190,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:00:00+00:00,760.0,meting
+191,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:10:00+00:00,761.0,meting
+192,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:20:00+00:00,761.0,meting
+193,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:30:00+00:00,761.0,meting
+194,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:40:00+00:00,762.0,meting
+195,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 21:50:00+00:00,758.0,meting
+196,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:00:00+00:00,760.0,meting
+197,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:10:00+00:00,760.0,meting
+198,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:20:00+00:00,760.0,meting
+199,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:30:00+00:00,760.0,meting
+200,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:40:00+00:00,760.0,meting
+201,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 22:50:00+00:00,761.0,meting
+202,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:00:00+00:00,761.0,meting
+203,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:10:00+00:00,760.0,meting
+204,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:20:00+00:00,760.0,meting
+205,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:30:00+00:00,760.0,meting
+206,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:40:00+00:00,761.0,meting
+207,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-27 23:50:00+00:00,760.0,meting
+208,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:00:00+00:00,760.0,meting
+209,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:10:00+00:00,760.0,meting
+210,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:20:00+00:00,760.0,meting
+211,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:30:00+00:00,760.0,meting
+212,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:40:00+00:00,760.0,meting
+213,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 00:50:00+00:00,760.0,meting
+214,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:00:00+00:00,759.0,meting
+215,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:10:00+00:00,760.0,meting
+216,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:20:00+00:00,760.0,meting
+217,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:30:00+00:00,759.0,meting
+218,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:40:00+00:00,760.0,meting
+219,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 01:50:00+00:00,760.0,meting
+220,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:00:00+00:00,760.0,meting
+221,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:10:00+00:00,759.0,meting
+222,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:20:00+00:00,761.0,meting
+223,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:30:00+00:00,760.0,meting
+224,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:40:00+00:00,761.0,meting
+225,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 02:50:00+00:00,760.0,meting
+226,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:00:00+00:00,761.0,meting
+227,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:10:00+00:00,761.0,meting
+228,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:20:00+00:00,759.0,meting
+229,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:30:00+00:00,760.0,meting
+230,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:40:00+00:00,761.0,meting
+231,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 03:50:00+00:00,759.0,meting
+232,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:00:00+00:00,761.0,meting
+233,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:10:00+00:00,760.0,meting
+234,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:20:00+00:00,760.0,meting
+235,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:30:00+00:00,760.0,meting
+236,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:40:00+00:00,761.0,meting
+237,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 04:50:00+00:00,761.0,meting
+238,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:00:00+00:00,761.0,meting
+239,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:10:00+00:00,761.0,meting
+240,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:20:00+00:00,761.0,meting
+241,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:30:00+00:00,761.0,meting
+242,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:40:00+00:00,760.0,meting
+243,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:50:00+00:00,761.0,meting
+244,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:00:00+00:00,762.0,meting
+245,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:10:00+00:00,761.0,meting
+246,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:20:00+00:00,761.0,meting
+247,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:30:00+00:00,761.0,meting
+248,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:40:00+00:00,761.0,meting
+249,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:50:00+00:00,762.0,meting
+250,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:00:00+00:00,761.0,meting
+251,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:10:00+00:00,762.0,meting
+252,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:20:00+00:00,761.0,meting
+253,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:30:00+00:00,762.0,meting
+254,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:40:00+00:00,762.0,meting
+255,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:50:00+00:00,761.0,meting
+256,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:00:00+00:00,762.0,meting
+257,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:10:00+00:00,761.0,meting
+258,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:20:00+00:00,762.0,meting
+259,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:30:00+00:00,761.0,meting
+260,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:40:00+00:00,763.0,meting
+261,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:50:00+00:00,762.0,meting
+262,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:00:00+00:00,761.0,meting
+263,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:10:00+00:00,762.0,meting
+264,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:20:00+00:00,763.0,meting
+265,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:30:00+00:00,764.0,meting
+266,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:40:00+00:00,764.0,meting
+267,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:50:00+00:00,762.0,meting
+268,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:00:00+00:00,762.0,meting
+269,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:10:00+00:00,762.0,meting
+270,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:20:00+00:00,762.0,meting
+271,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:30:00+00:00,763.0,meting
+272,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:40:00+00:00,762.0,meting
+273,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:50:00+00:00,763.0,meting
+274,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:00:00+00:00,764.0,meting
+275,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:10:00+00:00,763.0,meting
+276,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:20:00+00:00,761.0,meting
+277,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:30:00+00:00,762.0,meting
+278,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:40:00+00:00,761.0,meting
+279,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:50:00+00:00,762.0,meting
+280,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:00:00+00:00,762.0,meting
+281,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:10:00+00:00,762.0,meting
+282,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:20:00+00:00,762.0,meting
+283,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:30:00+00:00,762.0,meting
+284,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:40:00+00:00,761.0,meting
+285,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:50:00+00:00,763.0,meting
+286,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 13:00:00+00:00,763.0,meting
+287,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:00:00+00:00,761.0,verwachting
+288,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:10:00+00:00,761.0,verwachting
+289,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:20:00+00:00,761.0,verwachting
+290,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:30:00+00:00,761.0,verwachting
+291,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:40:00+00:00,761.0,verwachting
+292,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 05:50:00+00:00,761.0,verwachting
+293,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:00:00+00:00,761.0,verwachting
+294,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:10:00+00:00,761.0,verwachting
+295,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:20:00+00:00,761.0,verwachting
+296,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:30:00+00:00,761.0,verwachting
+297,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:40:00+00:00,761.0,verwachting
+298,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 06:50:00+00:00,761.0,verwachting
+299,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:00:00+00:00,761.0,verwachting
+300,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:10:00+00:00,761.0,verwachting
+301,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:20:00+00:00,761.0,verwachting
+302,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:30:00+00:00,761.0,verwachting
+303,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:40:00+00:00,761.0,verwachting
+304,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 07:50:00+00:00,761.0,verwachting
+305,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:00:00+00:00,761.0,verwachting
+306,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:10:00+00:00,761.0,verwachting
+307,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:20:00+00:00,761.0,verwachting
+308,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:30:00+00:00,761.0,verwachting
+309,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:40:00+00:00,761.0,verwachting
+310,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 08:50:00+00:00,761.0,verwachting
+311,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:00:00+00:00,761.0,verwachting
+312,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:10:00+00:00,761.0,verwachting
+313,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:20:00+00:00,761.0,verwachting
+314,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:30:00+00:00,761.0,verwachting
+315,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:40:00+00:00,761.0,verwachting
+316,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 09:50:00+00:00,761.0,verwachting
+317,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:00:00+00:00,761.0,verwachting
+318,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:10:00+00:00,761.0,verwachting
+319,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:20:00+00:00,761.0,verwachting
+320,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:30:00+00:00,761.0,verwachting
+321,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:40:00+00:00,761.0,verwachting
+322,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 10:50:00+00:00,761.0,verwachting
+323,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:00:00+00:00,761.0,verwachting
+324,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:10:00+00:00,761.0,verwachting
+325,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:20:00+00:00,761.0,verwachting
+326,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:30:00+00:00,761.0,verwachting
+327,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:40:00+00:00,761.0,verwachting
+328,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 11:50:00+00:00,761.0,verwachting
+329,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:00:00+00:00,761.0,verwachting
+330,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:10:00+00:00,761.0,verwachting
+331,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:20:00+00:00,761.0,verwachting
+332,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:30:00+00:00,761.0,verwachting
+333,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:40:00+00:00,761.0,verwachting
+334,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 12:50:00+00:00,761.0,verwachting
+335,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 13:00:00+00:00,761.0,verwachting
+336,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 13:10:00+00:00,761.0,verwachting
+337,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 13:20:00+00:00,761.0,verwachting
+338,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 13:30:00+00:00,761.0,verwachting
+339,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 13:40:00+00:00,761.0,verwachting
+340,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 13:50:00+00:00,761.0,verwachting
+341,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 14:00:00+00:00,761.0,verwachting
+342,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 14:10:00+00:00,761.0,verwachting
+343,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 14:20:00+00:00,761.0,verwachting
+344,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 14:30:00+00:00,761.0,verwachting
+345,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 14:40:00+00:00,761.0,verwachting
+346,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 14:50:00+00:00,761.0,verwachting
+347,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 15:00:00+00:00,761.0,verwachting
+348,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 15:10:00+00:00,761.0,verwachting
+349,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 15:20:00+00:00,761.0,verwachting
+350,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 15:30:00+00:00,761.0,verwachting
+351,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 15:40:00+00:00,761.0,verwachting
+352,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 15:50:00+00:00,761.0,verwachting
+353,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 16:00:00+00:00,761.0,verwachting
+354,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 16:10:00+00:00,761.0,verwachting
+355,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 16:20:00+00:00,761.0,verwachting
+356,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 16:30:00+00:00,761.0,verwachting
+357,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 16:40:00+00:00,761.0,verwachting
+358,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 16:50:00+00:00,761.0,verwachting
+359,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 17:00:00+00:00,761.0,verwachting
+360,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 17:10:00+00:00,761.0,verwachting
+361,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 17:20:00+00:00,761.0,verwachting
+362,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 17:30:00+00:00,761.0,verwachting
+363,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 17:40:00+00:00,761.0,verwachting
+364,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 17:50:00+00:00,761.0,verwachting
+365,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 18:00:00+00:00,761.0,verwachting
+366,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 18:10:00+00:00,761.0,verwachting
+367,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 18:20:00+00:00,761.0,verwachting
+368,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 18:30:00+00:00,761.0,verwachting
+369,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 18:40:00+00:00,761.0,verwachting
+370,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 18:50:00+00:00,761.0,verwachting
+371,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 19:00:00+00:00,761.0,verwachting
+372,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 19:10:00+00:00,761.0,verwachting
+373,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 19:20:00+00:00,761.0,verwachting
+374,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 19:30:00+00:00,761.0,verwachting
+375,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 19:40:00+00:00,761.0,verwachting
+376,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 19:50:00+00:00,761.0,verwachting
+377,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 20:00:00+00:00,761.0,verwachting
+378,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 20:10:00+00:00,761.0,verwachting
+379,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 20:20:00+00:00,761.0,verwachting
+380,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 20:30:00+00:00,761.0,verwachting
+381,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 20:40:00+00:00,761.0,verwachting
+382,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 20:50:00+00:00,761.0,verwachting
+383,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 21:00:00+00:00,761.0,verwachting
+384,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 21:10:00+00:00,761.0,verwachting
+385,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 21:20:00+00:00,761.0,verwachting
+386,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 21:30:00+00:00,761.0,verwachting
+387,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 21:40:00+00:00,761.0,verwachting
+388,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 21:50:00+00:00,761.0,verwachting
+389,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 22:00:00+00:00,761.0,verwachting
+390,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 22:10:00+00:00,761.0,verwachting
+391,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 22:20:00+00:00,761.0,verwachting
+392,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 22:30:00+00:00,761.0,verwachting
+393,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 22:40:00+00:00,761.0,verwachting
+394,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 22:50:00+00:00,761.0,verwachting
+395,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 23:00:00+00:00,761.0,verwachting
+396,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 23:10:00+00:00,761.0,verwachting
+397,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 23:20:00+00:00,761.0,verwachting
+398,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 23:30:00+00:00,761.0,verwachting
+399,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 23:40:00+00:00,761.0,verwachting
+400,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-28 23:50:00+00:00,761.0,verwachting
+401,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 00:00:00+00:00,761.0,verwachting
+402,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 00:10:00+00:00,761.0,verwachting
+403,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 00:20:00+00:00,761.0,verwachting
+404,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 00:30:00+00:00,761.0,verwachting
+405,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 00:40:00+00:00,761.0,verwachting
+406,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 00:50:00+00:00,761.0,verwachting
+407,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 01:00:00+00:00,761.0,verwachting
+408,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 01:10:00+00:00,761.0,verwachting
+409,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 01:20:00+00:00,761.0,verwachting
+410,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 01:30:00+00:00,761.0,verwachting
+411,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 01:40:00+00:00,761.0,verwachting
+412,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 01:50:00+00:00,761.0,verwachting
+413,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 02:00:00+00:00,761.0,verwachting
+414,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 02:10:00+00:00,761.0,verwachting
+415,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 02:20:00+00:00,761.0,verwachting
+416,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 02:30:00+00:00,761.0,verwachting
+417,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 02:40:00+00:00,761.0,verwachting
+418,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 02:50:00+00:00,761.0,verwachting
+419,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 03:00:00+00:00,761.0,verwachting
+420,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 03:10:00+00:00,761.0,verwachting
+421,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 03:20:00+00:00,761.0,verwachting
+422,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 03:30:00+00:00,761.0,verwachting
+423,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 03:40:00+00:00,761.0,verwachting
+424,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 03:50:00+00:00,761.0,verwachting
+425,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 04:00:00+00:00,761.0,verwachting
+426,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 04:10:00+00:00,761.0,verwachting
+427,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 04:20:00+00:00,761.0,verwachting
+428,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 04:30:00+00:00,761.0,verwachting
+429,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 04:40:00+00:00,761.0,verwachting
+430,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 04:50:00+00:00,761.0,verwachting
+431,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 05:00:00+00:00,761.0,verwachting
+432,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 05:10:00+00:00,761.0,verwachting
+433,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 05:20:00+00:00,761.0,verwachting
+434,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 05:30:00+00:00,761.0,verwachting
+435,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 05:40:00+00:00,761.0,verwachting
+436,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 05:50:00+00:00,761.0,verwachting
+437,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 06:00:00+00:00,761.0,verwachting
+438,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 06:10:00+00:00,761.0,verwachting
+439,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 06:20:00+00:00,761.0,verwachting
+440,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 06:30:00+00:00,761.0,verwachting
+441,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 06:40:00+00:00,761.0,verwachting
+442,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 06:50:00+00:00,761.0,verwachting
+443,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 07:00:00+00:00,761.0,verwachting
+444,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 07:10:00+00:00,760.0,verwachting
+445,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 07:20:00+00:00,760.0,verwachting
+446,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 07:30:00+00:00,760.0,verwachting
+447,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 07:40:00+00:00,760.0,verwachting
+448,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 07:50:00+00:00,760.0,verwachting
+449,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 08:00:00+00:00,760.0,verwachting
+450,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 08:10:00+00:00,760.0,verwachting
+451,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 08:20:00+00:00,760.0,verwachting
+452,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 08:30:00+00:00,760.0,verwachting
+453,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 08:40:00+00:00,760.0,verwachting
+454,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 08:50:00+00:00,760.0,verwachting
+455,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 09:00:00+00:00,760.0,verwachting
+456,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 09:10:00+00:00,760.0,verwachting
+457,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 09:20:00+00:00,760.0,verwachting
+458,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 09:30:00+00:00,760.0,verwachting
+459,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 09:40:00+00:00,760.0,verwachting
+460,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 09:50:00+00:00,760.0,verwachting
+461,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 10:00:00+00:00,760.0,verwachting
+462,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 10:10:00+00:00,760.0,verwachting
+463,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 10:20:00+00:00,760.0,verwachting
+464,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 10:30:00+00:00,760.0,verwachting
+465,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 10:40:00+00:00,760.0,verwachting
+466,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 10:50:00+00:00,760.0,verwachting
+467,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 11:00:00+00:00,760.0,verwachting
+468,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 11:10:00+00:00,760.0,verwachting
+469,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 11:20:00+00:00,760.0,verwachting
+470,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 11:30:00+00:00,760.0,verwachting
+471,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 11:40:00+00:00,760.0,verwachting
+472,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 11:50:00+00:00,760.0,verwachting
+473,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 12:00:00+00:00,760.0,verwachting
+474,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 12:10:00+00:00,759.0,verwachting
+475,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 12:20:00+00:00,759.0,verwachting
+476,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 12:30:00+00:00,759.0,verwachting
+477,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 12:40:00+00:00,759.0,verwachting
+478,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 12:50:00+00:00,759.0,verwachting
+479,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 13:00:00+00:00,759.0,verwachting
+480,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 13:10:00+00:00,759.0,verwachting
+481,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 13:20:00+00:00,759.0,verwachting
+482,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 13:30:00+00:00,759.0,verwachting
+483,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 13:40:00+00:00,759.0,verwachting
+484,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 13:50:00+00:00,759.0,verwachting
+485,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 14:00:00+00:00,759.0,verwachting
+486,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 14:10:00+00:00,759.0,verwachting
+487,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 14:20:00+00:00,759.0,verwachting
+488,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 14:30:00+00:00,759.0,verwachting
+489,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 14:40:00+00:00,759.0,verwachting
+490,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 14:50:00+00:00,759.0,verwachting
+491,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 15:00:00+00:00,759.0,verwachting
+492,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 15:10:00+00:00,759.0,verwachting
+493,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 15:20:00+00:00,759.0,verwachting
+494,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 15:30:00+00:00,759.0,verwachting
+495,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 15:40:00+00:00,758.0,verwachting
+496,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 15:50:00+00:00,758.0,verwachting
+497,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 16:00:00+00:00,758.0,verwachting
+498,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 16:10:00+00:00,758.0,verwachting
+499,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 16:20:00+00:00,758.0,verwachting
+500,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 16:30:00+00:00,758.0,verwachting
+501,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 16:40:00+00:00,758.0,verwachting
+502,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 16:50:00+00:00,758.0,verwachting
+503,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 17:00:00+00:00,758.0,verwachting
+504,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 17:10:00+00:00,758.0,verwachting
+505,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 17:20:00+00:00,758.0,verwachting
+506,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 17:30:00+00:00,758.0,verwachting
+507,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 17:40:00+00:00,758.0,verwachting
+508,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 17:50:00+00:00,758.0,verwachting
+509,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 18:00:00+00:00,758.0,verwachting
+510,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 18:10:00+00:00,758.0,verwachting
+511,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 18:20:00+00:00,758.0,verwachting
+512,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 18:30:00+00:00,758.0,verwachting
+513,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 18:40:00+00:00,757.0,verwachting
+514,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 18:50:00+00:00,757.0,verwachting
+515,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 19:00:00+00:00,757.0,verwachting
+516,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 19:10:00+00:00,757.0,verwachting
+517,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 19:20:00+00:00,757.0,verwachting
+518,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 19:30:00+00:00,757.0,verwachting
+519,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 19:40:00+00:00,757.0,verwachting
+520,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 19:50:00+00:00,757.0,verwachting
+521,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 20:00:00+00:00,757.0,verwachting
+522,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 20:10:00+00:00,757.0,verwachting
+523,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 20:20:00+00:00,757.0,verwachting
+524,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 20:30:00+00:00,757.0,verwachting
+525,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 20:40:00+00:00,757.0,verwachting
+526,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 20:50:00+00:00,757.0,verwachting
+527,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 21:00:00+00:00,757.0,verwachting
+528,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 21:10:00+00:00,757.0,verwachting
+529,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 21:20:00+00:00,757.0,verwachting
+530,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 21:30:00+00:00,756.0,verwachting
+531,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 21:40:00+00:00,756.0,verwachting
+532,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 21:50:00+00:00,756.0,verwachting
+533,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 22:00:00+00:00,756.0,verwachting
+534,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 22:10:00+00:00,756.0,verwachting
+535,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 22:20:00+00:00,756.0,verwachting
+536,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 22:30:00+00:00,756.0,verwachting
+537,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 22:40:00+00:00,756.0,verwachting
+538,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 22:50:00+00:00,756.0,verwachting
+539,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 23:00:00+00:00,756.0,verwachting
+540,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 23:10:00+00:00,756.0,verwachting
+541,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 23:20:00+00:00,756.0,verwachting
+542,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 23:30:00+00:00,756.0,verwachting
+543,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 23:40:00+00:00,756.0,verwachting
+544,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-29 23:50:00+00:00,756.0,verwachting
+545,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 00:00:00+00:00,756.0,verwachting
+546,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 00:10:00+00:00,756.0,verwachting
+547,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 00:20:00+00:00,755.0,verwachting
+548,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 00:30:00+00:00,755.0,verwachting
+549,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 00:40:00+00:00,755.0,verwachting
+550,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 00:50:00+00:00,755.0,verwachting
+551,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:00:00+00:00,755.0,verwachting
+552,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:10:00+00:00,755.0,verwachting
+553,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:20:00+00:00,755.0,verwachting
+554,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:30:00+00:00,755.0,verwachting
+555,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:40:00+00:00,755.0,verwachting
+556,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:50:00+00:00,755.0,verwachting
+557,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:00:00+00:00,755.0,verwachting
+558,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:10:00+00:00,755.0,verwachting
+559,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:20:00+00:00,755.0,verwachting
+560,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:30:00+00:00,755.0,verwachting
+561,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:40:00+00:00,755.0,verwachting
+562,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 01:50:00+00:00,755.0,verwachting
+563,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 02:00:00+00:00,754.0,verwachting
+564,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 02:10:00+00:00,754.0,verwachting
+565,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 02:20:00+00:00,754.0,verwachting
+566,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 02:30:00+00:00,754.0,verwachting
+567,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 02:40:00+00:00,754.0,verwachting
+568,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 02:50:00+00:00,754.0,verwachting
+569,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 03:00:00+00:00,754.0,verwachting
+570,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 03:10:00+00:00,754.0,verwachting
+571,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 03:20:00+00:00,754.0,verwachting
+572,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 03:30:00+00:00,754.0,verwachting
+573,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 03:40:00+00:00,754.0,verwachting
+574,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 03:50:00+00:00,754.0,verwachting
+575,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,2025-03-30 04:00:00+00:00,754.0,verwachting
