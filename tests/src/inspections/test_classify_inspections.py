@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from toolbox_continu_inzicht.inspections.classify_inspections import ClassifyInspections
+from toolbox_continu_inzicht.inspections.inspections import ClassifyInspections
 
 from pathlib import Path
 from toolbox_continu_inzicht.base.config import Config
@@ -40,11 +40,11 @@ def test_classify_inspections_fails_missing_column():
 
 def test_classify_inspections_minimal_styling():
     """test of de minimal styling werkt"""
-    data_adapter = helper_create_data_adapter("test_filter.yaml")
+    data_adapter = helper_create_data_adapter("test_inspection.yaml")
     classify_inspection = ClassifyInspections(data_adapter=data_adapter)
-    classify_inspection.run(input="locations_fews", output="filter_resultaten")
+    classify_inspection.run(input="locations_inspections", output="classify_resultaten")
     result = classify_inspection.df_out.loc[:, "color"].to_list()
-    assert result == ["#0a49ba", "#0a49ba"]
+    assert result == ["#9e9e9e", "#9e9e9e", "#9e9e9e"]
 
 
 def test_classify_inspections_minimal_styling2():
@@ -67,7 +67,7 @@ def test_classify_inspections_with_styling():
             "color",
         ]
     ].to_numpy()
-    expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#0a49ba"]], dtype=object)
+    expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#9e9e9e"]], dtype=object)
     assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
     assert all(result[:, 1] == expected[:, 1])
 
@@ -140,3 +140,37 @@ def test_classify_inspections_with_styling_two_nan_value():
     expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#00ff00"]], dtype=object)
     assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
     assert all(result[:, 1] == expected[:, 1])
+
+
+def test_classify_inspections_with_styling_two_output():
+    """test of het werkt om de default styling aan te passen"""
+    data_adapter = helper_create_data_adapter("test_inspection.yaml")
+    classify_inspection = ClassifyInspections(data_adapter=data_adapter)
+    df_default_style = classify_inspection.get_default_styling()
+    df_changed_style = df_default_style.copy()
+    df_changed_style.loc[0, "color"] = "#ffffff"
+    classify_inspection.set_default_styling(df_changed_style)
+    classify_inspection.run(
+        input=["locations_inspections", "styling_example"],
+        output=["classify_resultaten", "classify_resultaten"],
+    )
+    result = classify_inspection.df_out[
+        [
+            "priority",
+            "color",
+        ]
+    ].to_numpy()
+    expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#ffffff"]], dtype=object)
+    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert all(result[:, 1] == expected[:, 1])
+    expected_col = classify_inspection.get_possible_styling_columns(type="Marker")
+    resulting_columns = classify_inspection.df_legend_out.columns
+    assert set(expected_col).issubset(resulting_columns)
+
+
+def test_get_default_styling_columns():
+    """test of de default styling werkt"""
+    data_adapter = helper_create_data_adapter("test_inspection.yaml")
+    classify_inspection = ClassifyInspections(data_adapter=data_adapter)
+    result = classify_inspection.get_possible_styling_columns()
+    print(result)

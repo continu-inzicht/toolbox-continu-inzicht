@@ -2,6 +2,8 @@
 title: "Inspectieresultaten inlezen en weergeven"
 ---
 
+## Filteren
+
 Voor het inlezen van inspectie resultaten is het wenselijk om de invoer data te kunnen filteren. In sommige gevallen zal dit al in de [data adapter](architectuur.qmd#sec-zelf-adapter-locatie-doorgeven) gebeuren. Voor het filteren zijn drie opties te configureren:
 
 - query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html)
@@ -55,3 +57,5 @@ filter.run(
     output="inspectie_resultaten_filter",
 )
 ```
+
+## Classificeren van inspectie resultaten
