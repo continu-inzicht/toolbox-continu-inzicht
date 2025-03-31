@@ -28,9 +28,11 @@ def test_filter_query():
 def test_filter_drop_columns():
     """ "Tests the filter function with drop_columns option"""
     data_adapter = helper_create_data_adapter()
+    data_adapter.config.global_variables["Filter"]["keep_columns"] = None
     data_adapter.config.global_variables["Filter"]["drop_columns"] = (
         "measurement_location_id"
     )
+
     filter = Filter(data_adapter=data_adapter)
     filter.run(input="locations_fews", output="filter_resultaten")
     output_cols = filter.df_out.columns

@@ -15,6 +15,6 @@ DataAdapter:
     styling_example:
         type: csv
         path: "test_styling.csv"
-    filter_resultaten:
+    classify_resultaten:
         type: csv
-        path: "hidden_filter_resultaten.csv"
+        path: "hidden_classify_resultaten.csv"

@@ -1,2 +1,2 @@
-id,name,description,color,symbol,lower_boundary,upper_boundary
-1,No data,,#0a49ba,circle,-99999999999,99999999999
+,id,name,description,color,symbol,lower_boundary,upper_boundary
+0,1,No data,,#0a49ba,circle,-99999999999,99999999999
