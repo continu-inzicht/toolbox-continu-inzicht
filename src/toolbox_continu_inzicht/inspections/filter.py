@@ -56,16 +56,17 @@ class Filter:
         keep_columns = options.get("keep_columns", None)
 
         self.df_in = self.data_adapter.input(input)
+        self.df_out = self.df_in.copy()
 
         if query_filter is not None:
-            self.df_out = self.df_in.query(query_filter)
+            self.df_out = self.df_out.query(query_filter).copy()
 
         if drop_columns is not None:
-            self.df_out = self.df_out.drop(columns=drop_columns)
+            self.df_out = self.df_out.drop(columns=drop_columns).copy()
 
         if keep_columns is not None:
             if isinstance(keep_columns, str):
                 keep_columns = [keep_columns]
-            self.df_out = self.df_out[keep_columns]
+            self.df_out = self.df_out[keep_columns].copy()
 
         self.data_adapter.output(output, self.df_out)

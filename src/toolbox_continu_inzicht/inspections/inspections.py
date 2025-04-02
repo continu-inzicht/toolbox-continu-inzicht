@@ -16,7 +16,7 @@ class ClassifyInspections:
     Attributes
     ----------
     data_adapter: DataAdapter
-        Adapter for handling data input and output operations.
+        DataAdapter object
     df_in: Optional[pd.DataFrame | gpd.GeoDataFrame] | None
         Input DataFrame om te classificeren
     df_styling: Optional[pd.DataFrame] | None
@@ -28,7 +28,7 @@ class ClassifyInspections:
         Output DataFrame containing the filtered dataframe.
     df_legend_out: Optional[pd.DataFrame] | None
         Output DataFrame containing the legend information.
-    styling_schema: ClassVar[dict[str, type]]
+    styling_schema: ClassVar[dict[str, str]]
         Schema dataframe met de opmaak informatie
 
     Notes
@@ -69,14 +69,14 @@ class ClassifyInspections:
     df_default_styling: Optional[pd.DataFrame] | None = None
     df_out: Optional[gpd.GeoDataFrame] | None = None
     df_legend_out: Optional[pd.DataFrame] | None = None
-    styling_schema: ClassVar[dict[str, type]] = {
+    styling_schema: ClassVar[dict[str, str]] = {
         "upper_boundary": "float",
         "lower_boundary": "float",
         "color": "object",
     }
 
     def run(self, input: str | list[str], output: str | list[str]):
-        """Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve
+        """Runt het classificeren van inspectie resultaten om vervolgens weer te geven in de viewer.
 
         Parameters
         ----------
@@ -147,7 +147,8 @@ class ClassifyInspections:
             else:
                 if "x" in self.df_in.columns and "y" in self.df_in.columns:
                     self.df_in = gpd.GeoDataFrame(
-                        self.df_in,
+                        index=self.df_in.index,
+                        data=self.df_in.to_dict(),
                         geometry=gpd.points_from_xy(self.df_in.x, self.df_in.y),
                     )
                 else:
@@ -162,17 +163,27 @@ class ClassifyInspections:
             self.df_in = self.df_in.to_crs(epsg=4326)
 
         if geometry_type is None:
-            geometry_type = self.df_in.geometry.type.unique()
-            assert len(geometry_type) == 1, (
+            if (  # haal op uit de styling indien aanwezig
+                self.df_styling is not None
+                and "geometry_type" in self.df_styling.columns
+            ):
+                geometry_type_list = self.df_styling["geometry_type"].unique()
+            else:  # of haal uit het type geometrie
+                geometry_type_list = self.df_in.geometry.type.unique()
+
+            assert len(geometry_type_list) == 1, (
                 "Er zijn meerdere geometrie types gevonden in de data, geef een type geometrie soort mee"
             )
-            geometry_type = geometry_type[0]
+            geometry_type = geometry_type_list[0]
             map_geometry_type = {
-                "Point": "Marker",
+                "Point": "CircleMarker",
                 "LineString": "Polyline",
                 "Polygon": "Polygon",
             }
-            geometry_type = map_geometry_type.get(geometry_type, None)
+            if geometry_type in map_geometry_type.keys():
+                geometry_type = map_geometry_type.get(geometry_type, None)
+
+        self.df_in["geometry_type"] = geometry_type
 
         self.df_out = self.df_in.copy()
 
@@ -281,7 +292,7 @@ class ClassifyInspections:
                 index=False,
             )
 
-    def get_possible_styling_columns(self, type=None) -> list:
+    def get_possible_styling_columns(self, type=None, dict_output=False) -> list:
         """Haal de mogelijke kolommen op voor de opmaak.
 
         De standaard waardes & mogelijke opties zijn:
@@ -309,6 +320,7 @@ class ClassifyInspections:
         | color        | string | #9e9e9e | hexcode van stroke       |
         | opacity      | number | 1       | transparantie van marker |
         | fillColor    | string | #9e9e9e | hexcode van fill         |
+        | SVGname      | string | null    | naam van de marker       |
 
         | CircleMarker |        |         |                          |
         |--------------|--------|---------|--------------------------|
@@ -406,19 +418,166 @@ class ClassifyInspections:
                 "description": "groote van circle",
             },
         }
-        possible_columns = (
-            list(Polyline.keys())
-            + list(Polygon.keys())
-            + list(Marker.keys())
-            + list(CircleMarker.keys())
-        )
+        # possible_columns = (
+        #     list(Polyline.keys())
+        #     + list(Polygon.keys())
+        #     + list(Marker.keys())
+        #     + list(CircleMarker.keys())
+        # )
+        all_possible_dict: dict = Polyline.copy()
+        all_possible_dict.update(Polygon)
+        all_possible_dict.update(Marker)
+        all_possible_dict.update(CircleMarker)
         type_dict = {
             "Polyline": Polyline,
             "Polygon": Polygon,
             "Marker": Marker,
             "CircleMarker": CircleMarker,
         }
-        if type is None:
-            return list(set(possible_columns))
-        else:
+        if type is None and not dict_output:
+            return list(set(all_possible_dict.keys()))
+        elif type is None:  # and dict_output:
+            return all_possible_dict
+        elif not dict_output:  # and known type
             return list(type_dict[type].keys())
+        # dict_output and type
+        else:
+            return list(type_dict[type])
+
+
+@dataclass(config={"arbitrary_types_allowed": True})
+class InspectionsToDatabase:
+    """Combineert de inspectie resultaten met de opmaak en slaat deze op in de database.
+
+    Met deze functie wordt de gehele geojson onderdeel van 1 tabel in de database.
+    Bij grote lagen is het aan te raden om deze als aparte tabel op te slaan,
+    het stappen plan voor het opslaan van grotere lagen in de database is te vinden onder modules `inspectieresultaten` in de documentatie.
+
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        DataAdapter object
+    df_in_inspections: Optional[pd.DataFrame | gpd.GeoDataFrame] | None
+        Input DataFrame met inspectie resultaten.
+    df_in_legend: Optional[pd.DataFrame] | None
+        DataFrame met standaard opmaak informatie.
+    df_in_layers: Optional[pd.DataFrame] | None
+        DataFrame met de lagen informatie.
+    df_out: Optional[pd.DataFrame] | None
+        Output DataFrame containing the filtered dataframe.
+    legend_schema: ClassVar[dict[str, str]]
+        Schema dataframe met de opmaak informatie
+    layer_schema: ClassVar[dict[str, str]]
+        Schema dataframe met de layer informatie
+
+    Notes
+    -----
+    Default waarden te overschrijven in de global variables:
+
+        - max_rows = 10
+            Maximale toegestane rijen geodata in een database veld
+
+        - index = 0
+            Index van df_in_layers waarin de geodata wordt opgeslagen
+
+    De layers tabel geeft de mogelijkheid om de meer configuratie door te geven aan de viewer. Als deze niet aanwezig is, worden standaard opties gebruikt.
+    Hier moet minimaal de volgende kolommen in zitten:
+
+        - group_name:
+            naam van de groep in de viewer waar de layer toegevoegd wordt.
+
+        - layer_name
+            Naam van de laag in de viewer.
+
+        - layer_visible
+            Of de laag direct zichtbaar is in de viewer (true), of dat hij moet worden aangezet door de gebruiker (false).
+
+    Optionele kolommen voor de df_in_layers zijn:
+
+        - layer_type
+            Type van de laag, wordt standaard gevuld als geojson.
+
+        - layer_tabel: str
+            Naam van een overige tabel in de database die met geodaata is gevuld.
+
+        - layer_wms_url: str
+            URL van een WMS service die gebruikt kan worden voor de laag.
+            Bij het inladen worden de volgende lagen opgehaald:
+             - layer_wms_layer: str
+             - layer_wms_style: str
+    """
+
+    data_adapter: DataAdapter
+    df_in_inspections: Optional[pd.DataFrame | gpd.GeoDataFrame] | None = None
+    df_in_legend: Optional[pd.DataFrame] | None = None
+    df_in_layers: Optional[pd.DataFrame] | None = None
+    df_out: Optional[pd.DataFrame] | None = None
+    legend_schema: ClassVar[dict[str, str]] = {
+        "color": "object",
+        "lower_boundary": "float",
+        "upper_boundary": "float",
+    }
+    layer_schema: ClassVar[dict[str, str]] = {
+        "group_name": "object",
+        "layer_name": "object",
+        "layer_visible": "bool",
+        "layer_type": "object",
+    }
+
+    def run(self, input: list[str], output: str):
+        """Run het combineren van inspectie resultaten met opmaak voor het op slaan in de database.
+
+        Parameters
+        ----------
+        input: list[str]
+            Naam van de Data Adapters met inspectie resultaten, opmaak en lagen (in die volgorde).
+            Resultaten en opmaak zijn verplicht, lagen zijn optioneel. Indien er geen informatie is meegegeven, worden standaard waardes gebruikt.
+
+        output: str
+            Naam van Data adapter voor de output
+
+        Notes
+        -----
+        ...
+        Raises
+        ------
+        UserWarning
+            Als er meer dan max_rows rijen zijn in de inspectie resultaten.
+        """
+        self.df_in_inspections = self.data_adapter.input(input[0])
+        self.df_in_legend = self.data_adapter.input(input[1], schema=self.legend_schema)
+        if len(input) == 3:
+            self.df_in_layers = self.data_adapter.input(
+                input[2], schema=self.layer_schema
+            )
+        else:
+            self.df_in_layers = pd.DataFrame(
+                index=[0],
+                data={
+                    "group_name": ["Extra Kaartlagen"],
+                    "layer_name": ["Inspectie resultaten"],
+                    "layer_visible": ["true"],
+                    "layer_type": ["geojson"],
+                },
+            )
+
+        global_variables = self.data_adapter.config.global_variables
+        options = global_variables.get("InspectionsToDatabase", {})
+        max_rows = options.get("max_rows", 10)
+        index = options.get("index", 0)
+
+        if len(self.df_in_inspections) >= max_rows:
+            raise UserWarning(
+                f"Er zijn meer dan {max_rows} inspectie resultaten, dit kan de database belasten."
+                + "Dit maximum is aan te passen met `max_rows` in de global variables"
+            )
+
+        self.df_out = self.df_in_layers.copy()
+
+        if not isinstance(self.df_in_inspections, gpd.GeoDataFrame):
+            self.df_in_inspections = gpd.GeoDataFrame(
+                self.df_in_inspections, geometry=self.df_in_inspections["geometry"]
+            )
+        self.df_out.loc[index, "layer_data"] = self.df_in_inspections.to_json()
+        self.df_out.loc[index, "layer_legend"] = self.df_in_legend.to_json()
+        self.data_adapter.output(output, self.df_out)

@@ -34,6 +34,7 @@ def output_postgresql_database(output_config: dict, df: pd.DataFrame):
     """
     table = output_config["table"]
     schema = output_config["schema"]
+    if_exists = output_config.get("if_exists", "replace")
 
     # controleer of alle benodigde variabelen beschikbaar zijn in het .env-bestand
     keys = [
@@ -49,12 +50,12 @@ def output_postgresql_database(output_config: dict, df: pd.DataFrame):
     engine = sqlalchemy.create_engine(
         f"postgresql://{output_config['postgresql_user']}:{output_config['postgresql_password']}@{output_config['postgresql_host']}:{int(output_config['postgresql_port'])}/{output_config['database']}"
     )
-
+    df.fillna("", inplace=True)
     df.to_sql(
         table,
         con=engine,
         schema=schema,
-        if_exists="replace",  # append
+        if_exists=if_exists,
         index=False,
     )
 
