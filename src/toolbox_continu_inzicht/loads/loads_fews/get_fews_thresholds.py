@@ -10,18 +10,32 @@ def get_fews_thresholds(
     parameter_id: str,
     location_id: str,
 ) -> pd.DataFrame:
-    """Haal voor FEWS de thresholds op voor de opgegegeven parameter en locatie.
+    """Haal voor FEWS de thresholds op voor de opgegeven parameter en locatie.
 
-    Args:
-        host (str): FEWS server host URL
-        port (int): port waar de REST-service draait
-        region (str): in FEWS gedefinieerde region
-        filter_id (str): filter van de timeserie
-        parameter_id (str): parameter van de timeserie
-        locatie_id (str): locatie van de timeserie
+    Parameters
+    ----------
+    host: str
+        FEWS server host URL
+    port: int
+        Port waar de REST-service draait
+    region: str
+        In FEWS gedefinieerde region
+    filter_id: str
+        Filter van de timeserie
+    parameter_id: str
+        Parameter van de timeserie
+    location_id: str
+        Locatie van de timeserie
 
-    Returns:
-        Dataframe: Pandas dataframe met thresholds
+    Raises
+    ------
+    ConnectionError
+        Als er geen verbinding kan worden gemaakt of als de opgegeven parameter of locatie niet bestaat.
+
+    Returns
+    -------
+    pd.DataFrame
+        Pandas dataframe met thresholds
     """
 
     # Genereer de URL, geen data dus alleen header en thresholds aan.

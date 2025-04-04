@@ -3,7 +3,7 @@ import warnings
 from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
-from typing import Optional, List
+from typing import Optional
 from toolbox_continu_inzicht.utils.datetime_functions import (
     datetime_from_string,
 )
@@ -33,10 +33,21 @@ class LoadsFews:
         """
         De runner van de Loads FEWS.
 
-        Args:
+        Parameters
+        ----------
+        input: str
+            De naam van de input data met meetlocaties bekend in FEWS
+        output: str
+            De naam van de output data met resultaten uit FEWS
 
-        Returns:
-            None
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        UserWarning
+            Als de LoadsFews niet in de globale variabelen staat
         """
 
         self.df_in = self.data_adapter.input(input, self.input_schema)
@@ -95,11 +106,15 @@ class LoadsFews:
         """
         Maak een REST-URL voor FEWS
 
-        Args:
-            options (_type_): Options uit de invoer yaml
+        Parameters
+        ----------
+        options: dict
+             Options uit de invoer yaml
 
-        Returns:
-            str: URL
+        Returns
+        -------
+        URL: str
+            De URL voor de FEWS REST API
         """
         host = options["host"]
         port = options["port"]
@@ -108,17 +123,26 @@ class LoadsFews:
         return f"{host}:{port}/FewsWebServices/rest/{region}/v1/timeseries"
 
     def create_params(
-        self, calc_time: datetime, options: dict, moments: List, locations: pd.DataFrame
+        self, calc_time: datetime, options: dict, moments: list, locations: pd.DataFrame
     ) -> dict:
         """
         Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.
 
-        Args:
-            calc_time (datetime): T0 in UTC
-            options (_type_): options uit de invoer yaml
+        Parameters
+        ----------
+        calc_time: datetime
+            T0 in UTC
+        options: dict
+            options uit de invoer yaml
+        moments: list
+            Lijst van momenten in uren
+        locations: pd.DataFrame
+            Dataframe met meetlocaties
 
-        Returns:
-            dict: lijst met parameters
+        Returns
+        -------
+        lijst met parameters: dict
+            De parameters die meegegeven moeten worden aan de FEWS API
         """
         params = {}
 
@@ -153,22 +177,34 @@ class LoadsFews:
     ) -> pd.DataFrame:
         """Maak een pandas dataframe
 
-        Args:
-            json_data (str): JSON data
+        Parameters
+        ----------
+        options: dict
+            Opties uit de invoer yaml
+        calc_time: datetime
+            T0 in UTC
+        json_data: str
+            JSON data van FEWS
+        locations: pd.DataFrame
+            Dataframe met meetlocaties
+        global_variables: dict
+            Globale variabelen uit de invoer yaml
 
-        Returns:
-            Dataframe: Pandas dataframe geschikt voor uitvoer
-            definition:
-                - Meetlocatie id (measurement_location_id)
-                - Meetlocatie code (measurement_location_code)
-                - Meetlocatie omschrijving/naam (measurement_location_description)
-                - Parameter id overeenkomstig Aquo-standaard: '4724' (parameter_id)
-                - Parameter code overeenkomstig Aquo-standaard: 'WATHTE' (parameter_code)
-                - Parameter omschrijving overeenkomstig Aquo-standaard: 'Waterhoogte' (parameter_description)
-                - Eenheid (unit)
-                - Datum en tijd (date_time)
-                - Waarde (value)
-                - Type waarde: meting of verwachting (value_type)
+        Returns
+        -------
+        DataFrame: pandas.core.Dataframe
+            Met daar in:
+
+            - Meetlocatie id (measurement_location_id)
+            - Meetlocatie code (measurement_location_code)
+            - Meetlocatie omschrijving/naam (measurement_location_description)
+            - Parameter id overeenkomstig Aquo-standaard: '4724' (parameter_id)
+            - Parameter code overeenkomstig Aquo-standaard: 'WATHTE' (parameter_code)
+            - Parameter omschrijving overeenkomstig Aquo-standaard: 'Waterhoogte' (parameter_description)
+            - Eenheid (unit)
+            - Datum en tijd (date_time)
+            - Waarde (value)
+            - Type waarde: meting of verwachting (value_type)
         """
 
         dataframe = pd.DataFrame()

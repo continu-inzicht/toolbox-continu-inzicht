@@ -23,9 +23,9 @@ class Filter:
     -----
     Voor het filteren zijn drie opties te configureren:
 
-        - query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html). Gebruik een `'`'` voor kolomnamen met spaties, bijvoorbeeld `'`Meetpunt code` == 1'`.
-        - drop_columns: Lijst van kolommen die verwijderd moeten worden
-        - keep_columns: Lijst van kolommen die behouden moeten worden
+    - query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html). Gebruik een `'`'` voor kolomnamen met spaties, bijvoorbeeld `'`Meetpunt code` == 1'`.
+    - drop_columns: Lijst van kolommen die verwijderd moeten worden
+    - keep_columns: Lijst van kolommen die behouden moeten worden
 
     Als meerdere van deze opties worden geconfigureerd, worden ze in bovenstaande volgorde toegepast.
 
@@ -44,9 +44,6 @@ class Filter:
             Naam van de Data Adapter om te filteren
         output: str
             Naam van Data adapter voor de output
-
-        Notes
-        -----
 
         """
         global_variables = self.data_adapter.config.global_variables

@@ -15,8 +15,10 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
     """
     Maakt een enkele fragility curve voor piping met een gegeven waterstand.
 
-    De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie.
+    De fragility curve wordt berekend met behulp van de [probabilistic_piping](https://github.com/HKV-products-services/probabilistic_piping) package, zie de [eigen documentatie](https://hkv-products-services.github.io/probabilistic_piping/) voor meer informatie.
+
     Deze functie berekent fragility curves voor uplift, heave, Sellmeijer, en de gecombineerde mechanismes.
+
     Voor het combineren van de mechanismes wordt het minimum van de kansen van de drie sub-mechanismes genomen,
     De gecombineerde fragility curve is de standaard output, de andere kunnen worden opgevraagd met de df_result_uplift, df_result_heave, en df_result_sellmeijer attributen.
 

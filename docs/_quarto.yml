@@ -107,6 +107,7 @@ quartodoc:
        - get_fews_thresholds
        - LoadsMatroos
        - get_matroos_locations
+       - get_matroos_locations_map
        - LoadsWaterwebservicesRWS
        - get_rws_webservices_locations
        - LoadsToMoments

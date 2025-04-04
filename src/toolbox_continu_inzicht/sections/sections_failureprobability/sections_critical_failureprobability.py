@@ -77,16 +77,17 @@ class SectionsCriticalFailureprobability:
 
             uitvoer data adapter: koppeling van de maatgevende meetlocaties per dijkvak
             Dataframe: Pandas dataframe geschikt voor uitvoer:
-                - Meetlocatie id (measurement_location_id)
-                - Meetlocatie code (measurement_location_code)
-                - Meetlocatie omschrijving/naam (measurement_location_description)
-                - Parameter id overeenkomstig Aquo-standaard: '4724' (parameter_id)
-                - Parameter code overeenkomstig Aquo-standaard: 'WATHTE' (parameter_code)
-                - Parameter omschrijving overeenkomstig Aquo-standaard: 'Waterhoogte' (parameter_description)
-                - Eenheid (unit)
-                - Datum en tijd (date_time)
-                - Waarde (value)
-                - Type waarde: meting of verwachting (value_type)
+
+            - Meetlocatie id (measurement_location_id)
+            - Meetlocatie code (measurement_location_code)
+            - Meetlocatie omschrijving/naam (measurement_location_description)
+            - Parameter id overeenkomstig Aquo-standaard: '4724' (parameter_id)
+            - Parameter code overeenkomstig Aquo-standaard: 'WATHTE' (parameter_code)
+            - Parameter omschrijving overeenkomstig Aquo-standaard: 'Waterhoogte' (parameter_description)
+            - Eenheid (unit)
+            - Datum en tijd (date_time)
+            - Waarde (value)
+            - Type waarde: meting of verwachting (value_type)
         """
 
         # invoer: faalskans per dijkvak

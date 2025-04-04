@@ -26,9 +26,10 @@ class LoadsMatroos:
     Haalt matroos tijdserie informatie op uit de Noos, Matroos of Vitaal server.
 
     De Matroos informatie is beschikbaar op de volgende websites:
-    https://noos.matroos.rws.nl/maps1d/
-    Met de functie get_matroos_sources() kan je de beschikbare bronnen ophalen.
-    Met de functie get_matroos_locations(source='...') kan je de bijbehorende beschikbare locaties ophalen.
+    [https://noos.matroos.rws.nl/maps1d/](https://noos.matroos.rws.nl/maps1d/)
+
+    Met de `functie get_matroos_sources()` kan je de beschikbare bronnen ophalen.
+    Met de functie `get_matroos_locations(source='...')` kan je de bijbehorende beschikbare locaties ophalen.
 
     Attributes
     ----------
