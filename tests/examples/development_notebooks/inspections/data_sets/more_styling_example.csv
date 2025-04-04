@@ -2,4 +2,4 @@ id,name,description,color,fillColor,geometry_type,lower_boundary,upper_boundary
 2,1,,#a9070f,#a9070f,Marker,0.9,1.1
 3,2,,#07a9a1,#07a9a1,Marker,1.9,2.1
 4,3,,#0760a9,#0760a9,Marker,2.9,3.1
-4,4,,#5007a9,#5007a9,Marker,3.9,4.1
+5,4,,#5007a9,#5007a9,Marker,3.9,4.1

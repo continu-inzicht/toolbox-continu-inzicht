@@ -2,7 +2,7 @@
 title: "Inspectieresultaten inlezen en weergeven"
 ---
 
-## Filteren
+### Filteren
 
 Voor het inlezen van inspectie resultaten is het wenselijk om de invoer data te kunnen filteren. In sommige gevallen zal dit al in de [data adapter](architectuur.qmd#sec-zelf-adapter-locatie-doorgeven) gebeuren. Voor het filteren zijn drie opties te configureren:
 
@@ -19,7 +19,18 @@ GlobalVariables:
     rootdir: "data_sets"
     Filter:
         query: "measurement_location_id == 1"
-...
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    inspectie_resultaten:
+        type: csv
+        path: "resultaten.csv"
+    inspectie_resultaten_filter:
+        type: csv
+        path: "filter_resultaten.csv"
+        index: False
 ```
 
 ## Configuratie kolommen behouden
@@ -58,4 +69,87 @@ filter.run(
 )
 ```
 
-## Classificeren van inspectie resultaten
+### Classificeren van inspectie resultaten
+
+Inspectie resultaten kunnen afhankelijk van eigenschappen geclassificeerd worden en getoond met bepaalde opmaak. Bijvoorbeeld om afhankelijk van het type of de toegekende prioriteit een kleur of lijndikte aan te geven. Hiervoor is een laag met resultaten nodig en een legenda met informatie over hoe de resultaten geclassificeerd worden en bijbehorende opmaak. De resultaten kunnen of een [geografische laag zijn](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) of een platte text tabel met geometrie of xy-coördinaten. De geografische informatie wordt altijd omgezet naar WGS84 om ondersteund te worden in de viewer.
+De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de global variables. Deze kolom wordt vergeleken met de waardes in de legenda en de opmaak van uit de legenda wordt vervolgens overgenomen. De viewer verwacht een heel aantal kolommen, als deze niet worden opgegeven neemt de toolbox standaard waardes over (`get_possible_styling()`). Deze standaard waardes kunnen ook aangepast worden met  door de gebruiker.
+
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    ...
+    ClassifyInspections:
+        classify_column: "prioriteit"
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    styling_example:
+        type: csv
+        path: "styling_example.csv"
+    inspectie_resultaten_filter:
+        type: csv
+        path: "inspectie_resultaten_filter.csv"
+        index: False
+    classify_resultaten:
+        type: shape
+        path: "classify_resultaten.geojson"
+        index: False
+    legenda:
+        type: csv
+        path: "legenda.csv"
+```
+
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.inspections import Filter
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+classify_inspections_styling = ClassifyInspections(data_adapter=data_adapter)
+classify_inspections_styling.run(
+    input=["filter_resultaten", "styling_example"], output=["classify_resultaten", "legenda"]
+)
+```
+
+
+#### Standaard opmaak
+Daarnaast kan de functie ook gebruikt worden om standaard opmaak toe te kennen aan kaartlagen, hierdoor is de interactie tussen viewer en de gebruiker simpeler. Om de standaard opmaak toe te kennen aan een tabel kaartlaag kan de volgende configuratie gebruikt worden:
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    kaartlaag:
+        type: csv
+        path: "kaartlaag.csv"
+    kaartlaag_met_opmaak:
+        type: csv
+        path: "kaartlaag_met_opmaak.csv"
+```
+
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.inspections import Filter
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+classify_inspections_styling = ClassifyInspections(data_adapter=data_adapter)
+classify_inspections_styling.run(
+    input=["kaartlaag"], output=["kaartlaag_met_opmaak"]
+)
+```

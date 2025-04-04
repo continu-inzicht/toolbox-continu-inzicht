@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 from typing import ClassVar, Optional
 import warnings
@@ -81,7 +82,7 @@ class ClassifyInspections:
         Parameters
         ----------
         input: str | list[str]
-            Naam van de Data Adapters met inspectie resultaten en opmaak (indien gewenst), in die volgorde.
+            Naam van de Data Adapters met inspectie resultaten en legenda met opmaak (indien gewenst), in die volgorde.
 
         output: str | list[str]
             Naam van Data adapter voor de output
@@ -133,7 +134,7 @@ class ClassifyInspections:
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("ClassifyInspections", {})
         classify_columns = options.get("classify_column", None)
-        if classify_columns not in self.df_in.columns:
+        if classify_columns is not None and classify_columns not in self.df_in.columns:
             raise KeyError(
                 f"De kolom '{classify_columns}' is niet aanwezig in de input data"
             )
@@ -149,7 +150,7 @@ class ClassifyInspections:
                     self.df_in = gpd.GeoDataFrame(
                         index=self.df_in.index,
                         data=self.df_in.to_dict(),
-                        geometry=gpd.points_from_xy(self.df_in.x, self.df_in.y),
+                        geometry=gpd.points_from_xy(x=self.df_in.x, y=self.df_in.y),
                     )
                 else:
                     raise KeyError(
@@ -183,7 +184,8 @@ class ClassifyInspections:
             if geometry_type in map_geometry_type.keys():
                 geometry_type = map_geometry_type.get(geometry_type, None)
 
-        self.df_in["geometry_type"] = geometry_type
+        # symbol in de CI viewer
+        self.df_in["symbol"] = geometry_type
 
         self.df_out = self.df_in.copy()
 
@@ -191,13 +193,13 @@ class ClassifyInspections:
         self.df_default_styling = self.get_default_styling()
         if self.df_styling is None:
             self.df_styling = self.df_default_styling
-        possible_columns = self.get_possible_styling_columns()
+        possible_columns = self.get_possible_styling()
 
         # zorg dat alle benodigde kolommen aanwezig zijn
         columns_to_transfer = list(
             set(self.df_styling.columns).intersection(possible_columns)
         )
-        required_columns_for_dataset = self.get_possible_styling_columns(geometry_type)
+        required_columns_for_dataset = self.get_possible_styling(geometry_type)
         extra_required_columns = list(
             set(required_columns_for_dataset).difference(columns_to_transfer)
         )
@@ -292,9 +294,28 @@ class ClassifyInspections:
                 index=False,
             )
 
-    def get_possible_styling_columns(self, type=None, dict_output=False) -> list:
+    def get_possible_styling(
+        self, type: str | None = None, dict_output: bool = False
+    ) -> list:
         """Haal de mogelijke kolommen op voor de opmaak.
 
+        Parameters
+        ----------
+        type: str | None
+            Type van de laag, indien None worden alle kolommen opgehaald.
+            Mogelijke waardes zijn: Polyline, Polygon, Marker, CircleMarker
+
+        dict_output: bool
+            Als True, wordt een dictionary met de kolommen en hun type terug gegeven.
+            Anders wordt een lijst met de kolommen terug gegeven.
+
+        Returns
+        -------
+        list[str] | dict[str, dict]
+            Een lijst met de mogelijke kolommen of een dictionary met de kolommen en hun type.
+
+        Notes
+        -----
         De standaard waardes & mogelijke opties zijn:
         | Polyline     |        |         |                          |
         |--------------|--------|---------|--------------------------|
@@ -334,7 +355,7 @@ class ClassifyInspections:
         | radius       | number | 10      | groote van circle        |
 
         Default waardes worden hier getoond, maar deze hebben geen invloed op de output.
-        Om default aan te passen gebruik set_default_styling(df).
+        Om default aan te passen gebruik `set_default_styling(df)`.
         """
         Polyline = {
             "color": {
@@ -418,12 +439,6 @@ class ClassifyInspections:
                 "description": "groote van circle",
             },
         }
-        # possible_columns = (
-        #     list(Polyline.keys())
-        #     + list(Polygon.keys())
-        #     + list(Marker.keys())
-        #     + list(CircleMarker.keys())
-        # )
         all_possible_dict: dict = Polyline.copy()
         all_possible_dict.update(Polygon)
         all_possible_dict.update(Marker)
@@ -436,9 +451,11 @@ class ClassifyInspections:
         }
         if type is None and not dict_output:
             return list(set(all_possible_dict.keys()))
-        elif type is None:  # and dict_output:
+        # and dict_output:
+        elif type is None:
             return all_possible_dict
-        elif not dict_output:  # and known type
+        # and known type
+        elif not dict_output:
             return list(type_dict[type].keys())
         # dict_output and type
         else:
@@ -446,7 +463,7 @@ class ClassifyInspections:
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class InspectionsToDatabase:
+class InspectionsToDatabase(ClassifyInspections):
     """Combineert de inspectie resultaten met de opmaak en slaat deze op in de database.
 
     Met deze functie wordt de gehele geojson onderdeel van 1 tabel in de database.
@@ -513,9 +530,8 @@ class InspectionsToDatabase:
     df_in_layers: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
     legend_schema: ClassVar[dict[str, str]] = {
+        "id": "int",
         "color": "object",
-        "lower_boundary": "float",
-        "upper_boundary": "float",
     }
     layer_schema: ClassVar[dict[str, str]] = {
         "group_name": "object",
@@ -564,7 +580,7 @@ class InspectionsToDatabase:
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("InspectionsToDatabase", {})
         max_rows = options.get("max_rows", 10)
-        index = options.get("index", 0)
+        insert_layer_index = options.get("index", 0)
 
         if len(self.df_in_inspections) >= max_rows:
             raise UserWarning(
@@ -578,6 +594,63 @@ class InspectionsToDatabase:
             self.df_in_inspections = gpd.GeoDataFrame(
                 self.df_in_inspections, geometry=self.df_in_inspections["geometry"]
             )
-        self.df_out.loc[index, "layer_data"] = self.df_in_inspections.to_json()
-        self.df_out.loc[index, "layer_legend"] = self.df_in_legend.to_json()
+
+        # voor een mooie popup in de legenda willen we de styling in een 'style' kolom
+        style_columns = self.get_possible_styling()
+        style_columns += ["x", "y", "symbol"]
+        style_dicts = []
+        for index, row in self.df_in_inspections.iterrows():
+            style_dict = {}
+            for col in style_columns:
+                if col in self.df_in_inspections.columns:
+                    style_dict[col] = row[col]
+            style_dicts.append(style_dict)
+
+        self.df_in_inspections = self.df_in_inspections.drop(
+            columns=list(style_dicts[0].keys())
+        )
+        output_json = dict(json.loads(self.df_in_inspections.to_json()))
+        number_features = len(output_json["features"])
+        for i in range(number_features):
+            output_json["features"][i]["properties"]["style"] = style_dicts[i]
+
+        self.df_out["layer_data"] = ""
+        self.df_out.loc[insert_layer_index, "layer_data"] = json.dumps(output_json)
+
+        # if upper and lower boundary are present, combine them into a name
+        if (
+            set(["lower_boundary", "upper_boundary"]).issubset(
+                self.df_in_legend.columns
+            )
+            and "name" not in self.df_in_legend.columns
+        ):
+            if "unit" in self.df_in_legend.columns:
+                self.df_in_legend["name"] = self.df_in_legend.apply(
+                    lambda x: f"{x['lower_boundary']} - {x['upper_boundary']} {x['unit']}",
+                    axis=1,
+                )
+            else:
+                self.df_in_legend["name"] = self.df_in_legend.apply(
+                    lambda x: f"{x['lower_boundary']} - {x['upper_boundary']}", axis=1
+                )
+            self.df_in_legend = self.df_in_legend.drop(
+                columns=["lower_boundary", "upper_boundary"]
+            )
+
+        # formateer voor de database
+        self.df_in_legend.fillna("", inplace=True)
+        self.df_out["layer_legend"] = ""
+        self.df_out.loc[insert_layer_index, "layer_legend"] = json.dumps(
+            [value for key, value in self.df_in_legend.T.to_dict().items()]
+        )
         self.data_adapter.output(output, self.df_out)
+
+    def set_default_styling():
+        raise NotImplementedError(
+            "De standaard opmaak is niet van toepassing voor deze functie."
+        )
+
+    def get_default_styling():
+        raise NotImplementedError(
+            "De standaard opmaak is niet van toepassing voor deze functie."
+        )

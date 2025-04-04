@@ -1,4 +1,4 @@
-"group_name","layer_name","layer_visible","layer_type","layer_table","layer_wms_url","layer_wms_layer","layer_wms_style","layer_data","layer_legend"
-"Extra Kaartlagen","Geojson met data",True,"geojson","","","","","",""
-"Extra Kaartlagen","WMS test",True,"wms","","https://geo.hkvservices.nl/geoserver/wms","Waterdiepte","liwo_waterdiepte_band1","",""
-"Extra Kaartlagen","table test",True,"table","areas","","","","",""
+"group_name","layer_name","layer_visible","layer_type","layer_table","layer_wms_url","layer_wms_layer","layer_wms_style","layer_wms_legend_url","layer_data","layer_legend"
+"Extra Kaartlagen","Geojson met data",True,"geojson","","","","","","",""
+"Extra Kaartlagen","WMS test",True,"wms","","https://geo.hkvservices.nl/geoserver/wms","Waterdiepte","liwo_waterdiepte_band1","","",""
+"Extra Kaartlagen","table test",True,"table","areas","","","","","",""

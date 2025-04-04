@@ -1,17 +1,19 @@
+
 GlobalVariables:
-    rootdir: "data_sets"
+    rootdir: "tests/src/inspections/data_sets"
     moments: [-24,0,24,48]
-    InspectionsToDatabase:
-        index: 0
 
 
 DataAdapter:
     default_options:
         csv:
             sep: ","
-    classify_resultaten:
+    classify_resultaten_polygoon:
         type: shape
-        path: "hidden_classify_resultaten.geojson"
+        path: "provincie_flevoland.geojson"
+    filter_classify_resultaten_polygoon:
+        type: shape
+        path: "hidden_provincie_flevoland_filtered.geojson"
     legenda:
         type: csv
         path: "hidden_legend.csv"
@@ -19,6 +21,9 @@ DataAdapter:
     layers:
         type: csv
         path: "layers_inspectie.csv"
+    test_to_db:
+        type: csv
+        path: "hidden_tests_to_db.csv"
     to_ci_database:
         type: postgresql_database
         schema: continuinzicht_demo_realtime

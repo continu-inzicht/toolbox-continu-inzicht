@@ -24,8 +24,8 @@ DataAdapter:
         path: "hidden_filter_resultaten.csv"
         index: False
     classify_resultaten:
-        type: csv
-        path: "classify_resultaten.csv"
+        type: shape
+        path: "classify_resultaten.geojson"
     hidden_classify_resultaten:
         type: csv
         path: "hidden_classify_resultaten.csv"
@@ -37,6 +37,6 @@ DataAdapter:
     layers:
         type: csv
         path: "layers.csv"
-    ci_example_to_database:
+    example_to_database:
         type: csv
         path: "hidden_example_to_database.csv"

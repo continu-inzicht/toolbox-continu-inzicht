@@ -15,6 +15,9 @@ DataAdapter:
     styling_example:
         type: csv
         path: "test_styling.csv"
-    classify_resultaten:
+    legenda_example:
         type: csv
-        path: "hidden_classify_resultaten.csv"
+        path: "hidden_styling.csv"
+    classify_resultaten:
+        type: shape
+        path: "hidden_classify_resultaten.geojson"

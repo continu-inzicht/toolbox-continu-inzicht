@@ -43,3 +43,9 @@ DataAdapter:
     example_to_database:
         type: csv
         path: "hidden_example_to_database.csv"
+    to_ci_database:
+        type: postgresql_database
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: layers
+        if_exists: append

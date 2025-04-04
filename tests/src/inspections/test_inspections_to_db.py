@@ -51,3 +51,17 @@ def test_inspections_to_database_with_styling():
     # check layer legend and data have been added
     assert (len(inspections_to_database.df_out.loc[0, "layer_legend"])) >= 472
     assert (len(inspections_to_database.df_out.loc[0, "layer_data"])) >= 699
+
+
+def test_classify_simple_polygon_to_db():
+    """test of het werkt om de polygoon naar database te zetten"""
+    data_adapter = helper_create_data_adapter("test_inspection_polygon.yaml")
+    inspections_to_database = InspectionsToDatabase(data_adapter=data_adapter)
+    inspections_to_database.run(
+        input=["filter_classify_resultaten_polygoon", "legenda"],
+        output="test_to_db",
+    )
+    assert len(inspections_to_database.df_out) >= 1
+    # check layer legend and data have been added
+    assert (len(inspections_to_database.df_out.loc[0, "layer_legend"])) >= 234
+    assert (len(inspections_to_database.df_out.loc[0, "layer_data"])) >= 699
