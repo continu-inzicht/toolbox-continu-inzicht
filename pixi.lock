@@ -120,6 +120,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/freetype-2.12.1-h267a509_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/freexl-2.0.0-h9dce30a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/fsspec-2025.3.0-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/geoalchemy2-0.17.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geographiclib-2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-1.0.1-pyhd8ed1ab_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-base-1.0.1-pyha770c72_3.conda
@@ -602,6 +603,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/freetype-2.12.1-hdaf720e_2.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/freexl-2.0.0-hf297d47_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/fsspec-2025.3.0-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/geoalchemy2-0.17.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geographiclib-2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-1.0.1-pyhd8ed1ab_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-base-1.0.1-pyha770c72_3.conda
@@ -3101,6 +3103,19 @@ packages:
   - pkg:pypi/fsspec?source=hash-mapping
   size: 141329
   timestamp: 1741404114588
+- conda: https://conda.anaconda.org/conda-forge/noarch/geoalchemy2-0.17.1-pyhd8ed1ab_0.conda
+  sha256: f2b11e2af2bae8b77567e6a7178388351e05962029d2fd638b07a440441349c0
+  md5: bddd76591cbd1408a024a35490a2fdf4
+  depends:
+  - packaging
+  - python >=3.7
+  - sqlalchemy >=1.4
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/geoalchemy2?source=hash-mapping
+  size: 58313
+  timestamp: 1739798649117
 - conda: https://conda.anaconda.org/conda-forge/noarch/geographiclib-2.0-pyhd8ed1ab_1.conda
   sha256: 933064eaaac79ceadef948223873c433eb5375b8445264cbe569d34035ab4e20
   md5: 8b9328ab4aafb8fde493ab32c5eba731

@@ -79,6 +79,7 @@ types-pyyaml = "*"
 xugrid = "*"
 yaml = "*"
 grayskull = "*"
+geoalchemy2 = ">=0.17.1,<0.18"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }

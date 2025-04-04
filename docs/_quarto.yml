@@ -10,11 +10,7 @@ website:
       - text: "Installeren"
         file:  install.qmd
       - text: "Voorbeelden"
-        menu:
-            - examples/notebooks/1.proof_of_concept.ipynb
-            - examples/notebooks/2.belastingen_inladen.ipynb
-            - examples/notebooks/3.fragility_curve_overtopping.ipynb
-            - examples/notebooks/4.adjust_integrated_statistics.ipynb
+        file: "examples/voorbeelden.qmd"
       - text: "Modules"
         file:  modules_index.qmd
       - text: "Python API"
@@ -25,7 +21,7 @@ website:
     right:
       - text: "Bijdragen"
         file: contributing.qmd
-      - icon: github
+      - icon: GitHub
         href: https://github.com/continu-inzicht/toolbox
         aria-label: GitHub
 
@@ -36,10 +32,12 @@ website:
 
       - title: "Voorbeelden"
         contents:
-          - examples/notebooks/1.proof_of_concept.ipynb
-          - examples/notebooks/2.belastingen_inladen.ipynb
-          - examples/notebooks/3.fragility_curve_overtopping.ipynb
-          - examples/notebooks/4.adjust_integrated_statistics.ipynb
+            - examples/notebooks/1.proof_of_concept.ipynb
+            - examples/notebooks/2.belastingen_inladen.ipynb
+            - examples/notebooks/3.fragility_curve_overtopping.ipynb
+            - examples/notebooks/4.adjust_integrated_statistics.ipynb
+            - examples/notebooks/5.Inspectie_resultaten.ipynb
+            - examples/notebooks/6.WMS_laag_naar_database.ipynb
 
       - title: "Modules"
         contents:
@@ -143,7 +141,8 @@ quartodoc:
       package: toolbox_continu_inzicht.inspections
       contents:
         - Filter
-
+        - InspectionsToDatabase
+        - ClassifyInspections
     - title: Continu Inzicht Adapters (invoer)
       desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
       package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql

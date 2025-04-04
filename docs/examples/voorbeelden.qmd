@@ -1,0 +1,19 @@
+---
+title: "Voorbeelden"
+---
+
+
+Hier zijn een aantal notebooks met voorbeelden hoe de toolbox gebruikt kan worden.
+
+Deze notebook met bijbehorende data en configuratie zijn beschikbaar op [GitHub](https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/docs/examples/notebooks).
+
+Tijdens het ontwikkelen zijn ook een heel aantal `development` notebooks gemaakt, in de loop van de tijd zullen de meeste ook naar deze wiki pagina worden gemigreerd. De notebooks gemaakt voor de demo hebben vaak interactie met de database om zo de viewer te laten zien. Deze zullen hier niet beschikbaar worden, wel zijn ze te vinden onder [`tests` op GitHub](https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/tests/examples).
+
+De voorbeelden zijn:
+
+- [Architectuur voorbeeld](notebooks/1.proof_of_concept.ipynb)
+- [Inladen van belastingen](notebooks/2.belastingen_inladen.ipynb)
+- [Fragility curve overtopping](notebooks/3.fragility_curve_overtopping.ipynb)
+- [Aanpassen van geïntegreerde faalkans](notebooks/4.adjust_integrated_statistics.ipynb)
+- [Inspectie resultaten](notebooks/5.Inspectie_resultaten.ipynb)
+- [WMS laag instellen in de viewer](notebooks/6.WMS_laag_naar_database.ipynb)
