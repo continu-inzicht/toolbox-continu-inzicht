@@ -42,21 +42,22 @@ class ClassifyInspections:
 
     Er zijn drie manier om de geodata mee te geven. Deze wordt gebruik voor de opmaak.
     Alle projecties worden ondersteund, maar wordt omgerekend naar WGS84 voor de viewer.
+
     In de Global Variables kan de projectie worden aangepast, standaard is EPSG:4326, alle andere projecties worden omgerekend naar deze projectie.
 
-        - Bij het mee geven van een [GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html),
-        wordt de opmaak toegepast op de geometrie van het GeoDataFrame.
-        - Als er een 'geometry' kolom is uit de dataframe, wordt deze gebruikt om een GeoDataFrame te maken.
-        - Indien beide bovenstaande niet het geval is, wordt gezocht naar een kolom met x en met y coördinaten en deze wordt gebruikt om een GeoDataFrame te maken.
+    - Bij het mee geven van een [GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html), wordt de opmaak toegepast op de geometrie van het GeoDataFrame.
+    - Als er een 'geometry' kolom is uit de dataframe, wordt deze gebruikt om een GeoDataFrame te maken.
+    - Indien beide bovenstaande niet het geval is, wordt gezocht naar een kolom met x en met y coördinaten en deze wordt gebruikt om een GeoDataFrame te maken.
 
     Het type geometry wordt automatisch bepaald, maar kan ook meegegeven worden in de Global Variables.
     Slechts een type per tabel is toe gestaan.
+
     De opties zijn:
 
-        - Polygon
-        - Polyline
-        - CircleMarker
-        - Marker
+    - Polygon
+    - Polyline
+    - CircleMarker
+    - Marker
 
     De output DataFrame bevat de opmaak informatie die is toegepast op de inspectie resultaten.
     Als er geen opmaak informatie is meegegeven, wordt de standaard opmaak gebruikt.
@@ -95,19 +96,21 @@ class ClassifyInspections:
         Indien gewenst kan ook opmaak opties worden meegegeven.
         Als deze niet meegegeven wordt, wordt de standaard opmaak gebruikt.
         Deze is op te halen met get_default_styling() en te vervangen (geavanceerd) met set_default_styling(df).
+
         Deze moet de volgende kolommen bevatten:
 
-            - 'color': kleur van de classificatie in hexadecimaal formaat
-            - 'lower_boundary': ondergrens van de classificatie
-            - 'upper_boundary': bovengrens van de classificatie
+        - 'color': kleur van de classificatie in hexadecimaal formaat
+        - 'lower_boundary': ondergrens van de classificatie
+        - 'upper_boundary': bovengrens van de classificatie
 
         Naast de verplichte kolommen zijn ook een aantal die ook worden meegenomen in de output.
         Indien deze niet aanwezig zijn, worden ze ook niet meegenomen in de output.
+
         Dit zijn:
 
-            - 'name': Naam van de categorie
-            - 'description': Omschrijving van de categorie
-            - 'symbol': Symbool van de categorie
+        - 'name': Naam van de categorie
+        - 'description': Omschrijving van de categorie
+        - 'symbol': Symbool van de categorie
 
         Raises
         ------
@@ -316,7 +319,9 @@ class ClassifyInspections:
 
         Notes
         -----
+
         De standaard waardes & mogelijke opties zijn:
+
         | Polyline     |        |         |                          |
         |--------------|--------|---------|--------------------------|
         | Option       | Type   | Default | Description              |
@@ -491,37 +496,25 @@ class InspectionsToDatabase(ClassifyInspections):
     -----
     Default waarden te overschrijven in de global variables:
 
-        - max_rows = 10
-            Maximale toegestane rijen geodata in een database veld
-
-        - index = 0
-            Index van df_in_layers waarin de geodata wordt opgeslagen
+    - max_rows = 10, Maximale toegestane rijen geodata in een database veld
+    - index = 0, Index van df_in_layers waarin de geodata wordt opgeslagen
 
     De layers tabel geeft de mogelijkheid om de meer configuratie door te geven aan de viewer. Als deze niet aanwezig is, worden standaard opties gebruikt.
     Hier moet minimaal de volgende kolommen in zitten:
 
-        - group_name:
-            naam van de groep in de viewer waar de layer toegevoegd wordt.
-
-        - layer_name
-            Naam van de laag in de viewer.
-
-        - layer_visible
-            Of de laag direct zichtbaar is in de viewer (true), of dat hij moet worden aangezet door de gebruiker (false).
+    - group_name: naam van de groep in de viewer waar de layer toegevoegd wordt.
+    - layer_name: naam van de laag in de viewer.
+    - layer_visible: of de laag direct zichtbaar is in de viewer (true), of dat hij moet worden aangezet door de gebruiker (false).
 
     Optionele kolommen voor de df_in_layers zijn:
 
-        - layer_type
-            Type van de laag, wordt standaard gevuld als geojson.
-
-        - layer_tabel: str
-            Naam van een overige tabel in de database die met geodaata is gevuld.
-
-        - layer_wms_url: str
-            URL van een WMS service die gebruikt kan worden voor de laag.
-            Bij het inladen worden de volgende lagen opgehaald:
-             - layer_wms_layer: str
-             - layer_wms_style: str
+    - layer_type: type van de laag, wordt standaard gevuld als geojson.
+    - layer_tabel: naam van een overige tabel in de database die met geodaata is gevuld.
+    - layer_wms_url: str
+    URL van een WMS service die gebruikt kan worden voor de laag.
+    Bij het inladen worden de volgende lagen opgehaald:
+        - layer_wms_layer: str
+        - layer_wms_style: str
     """
 
     data_adapter: DataAdapter

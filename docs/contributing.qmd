@@ -86,7 +86,7 @@ Dit is een stukje voor de hoofdontwikkelaars van toolbox continu inzicht.
 1. Maak een pull request aan, laat iemand het reviewen, wacht op alle acties, deze worden groen, en merge de pull request.
 1. Wacht tot de GitHub-acties op de main branch klaar zijn en er een groen vinkje bij staat.
 1. Maak een nieuwe \'release\' aan op GitHub
-    - Gebruik de versie als titel en pas een versietag toe.
+    - Gebruik de versie als titel en pas een versie tag toe.
     - Als beschrijving gebruik de intro van de `README.md` en veranderingen uit de `changelog.qmd`.
 
 1. Check
