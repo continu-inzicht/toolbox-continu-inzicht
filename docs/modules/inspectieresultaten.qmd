@@ -73,11 +73,11 @@ filter.run(
 ### Classificeren van inspectie resultaten
 
 Inspectie resultaten kunnen afhankelijk van eigenschappen geclassificeerd worden en getoond met bepaalde opmaak. Bijvoorbeeld om afhankelijk van het type of de toegekende prioriteit een kleur of lijndikte aan te geven. Hiervoor is een laag met resultaten nodig en een legenda met informatie over hoe de resultaten geclassificeerd worden en bijbehorende opmaak. De resultaten kunnen of een [geografische laag zijn](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) of een platte text tabel met geometrie of xy-coördinaten. De geografische informatie wordt altijd omgezet naar WGS84 om ondersteund te worden in de viewer.
-De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de global variables. Deze kolom wordt vergeleken met de waardes in de legenda en de opmaak van uit de legenda wordt vervolgens overgenomen. De viewer verwacht een heel aantal kolommen, als deze niet worden opgegeven neemt de toolbox standaard waardes over (`get_possible_styling()`). Deze standaard waardes kunnen ook aangepast worden met  door de gebruiker.
+De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de global variables. Deze kolom wordt vergeleken met de waardes in de legenda en de opmaak van uit de legenda wordt vervolgens overgenomen. De waardes om mee te vergelijken kunnen getallen of text zijn. Bij text wordt de 'lower_boundary' kolom gebruikt,. De viewer verwacht een heel aantal kolommen, als deze niet worden opgegeven neemt de toolbox standaard waardes over (`get_possible_styling()`). Deze standaard waardes kunnen ook aangepast worden met  door de gebruiker.
 
 
 ::: {.panel-tabset}
-## Configuratie
+## Configuratie getallen
 ```yaml
 GlobalVariables:
     rootdir: "data_sets"
@@ -103,6 +103,17 @@ DataAdapter:
     legenda:
         type: csv
         path: "legenda.csv"
+```
+## Configuratie text
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    ...
+    ClassifyInspections:
+        classify_column: "opmerkingen"
+        match_text_on: "contains"
+        # kan zijn: contains, equals, startswith, endswith
+...
 ```
 
 ## Code

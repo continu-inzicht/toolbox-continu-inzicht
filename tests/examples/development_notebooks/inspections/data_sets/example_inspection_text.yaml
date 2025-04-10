@@ -2,7 +2,8 @@ GlobalVariables:
     rootdir: "data_sets"
     moments: [-24,0,24,48]
     ClassifyInspections:
-        classify_column: "prioriteit"
+        classify_column: "opmerking"
+        classify_text_type: "contains"
     Filter:
         query: "prioriteit > 0"
         drop_columns:
@@ -19,15 +20,12 @@ DataAdapter:
     inspections_results:
         type: csv
         path: "inspection_results_example.csv"
-    styling_example:
+    styling_example_text:
         type: csv
-        path: "styling_example.csv"
+        path: "styling_example_text.csv"
     more_styling_example:
         type: csv
         path: "more_styling_example.csv"
-    styling_lower_bound:
-        type: csv
-        path: "styling_example_lower_boundary.csv"
     filter_resultaten:
         type: csv
         path: "hidden_filter_resultaten.csv"

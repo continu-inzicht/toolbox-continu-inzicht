@@ -72,6 +72,80 @@ def test_classify_inspections_with_styling():
     assert all(result[:, 1] == expected[:, 1])
 
 
+def test_classify_inspections_with_styling_only_lower_boundary():
+    """test werkt met styling - alleen lower_boundary
+    Let op is dus net anders dan vorige test en laatste waarde is dus ook anders want geen upper_boundary
+    """
+    data_adapter = helper_create_data_adapter("test_inspection.yaml")
+    data_adapter.config.data_adapters["styling_example"]["path"] = (
+        "styling_example_lower_boundary.csv"
+    )
+    classify_inspection = ClassifyInspections(data_adapter=data_adapter)
+    classify_inspection.run(
+        input=["locations_inspections", "styling_example"], output="classify_resultaten"
+    )
+    result = classify_inspection.df_out[
+        [
+            "priority",
+            "color",
+        ]
+    ].to_numpy()
+    expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#5007a9"]], dtype=object)
+    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert all(result[:, 1] == expected[:, 1])
+
+
+def test_classify_inspections_text():
+    """test werkt met text, tot nu toe alleen met getallen"""
+    data_adapter = helper_create_data_adapter("test_inspection.yaml")
+    data_adapter.config.global_variables["ClassifyInspections"]["classify_column"] = (
+        "opmerking"
+    )
+    data_adapter.config.data_adapters["styling_example"]["path"] = (
+        "styling_example_text.csv"
+    )
+    classify_inspection = ClassifyInspections(data_adapter=data_adapter)
+    classify_inspection.run(
+        input=["locations_inspections", "styling_example"], output="classify_resultaten"
+    )
+    result = classify_inspection.df_out[
+        [
+            "priority",
+            "color",
+        ]
+    ].to_numpy()
+    expected = np.array([[1, "#a9070f"], [3, "#07a9a1"], [11, "#0760a9"]], dtype=object)
+    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert all(result[:, 1] == expected[:, 1])
+
+
+def test_classify_inspections_text_contains():
+    """test werkt met text, tot nu toe alleen met getallen"""
+    data_adapter = helper_create_data_adapter("test_inspection.yaml")
+    data_adapter.config.global_variables["ClassifyInspections"]["classify_column"] = (
+        "opmerking"
+    )
+    data_adapter.config.data_adapters["styling_example"]["path"] = (
+        "styling_example_text.csv"
+    )
+    data_adapter.config.global_variables["ClassifyInspections"][
+        "classify_text_type"
+    ] = "contains"
+    classify_inspection = ClassifyInspections(data_adapter=data_adapter)
+    classify_inspection.run(
+        input=["locations_inspections", "styling_example"], output="classify_resultaten"
+    )
+    result = classify_inspection.df_out[
+        [
+            "priority",
+            "color",
+        ]
+    ].to_numpy()
+    expected = np.array([[1, "#a9070f"], [3, "#07a9a1"], [11, "#a9070f"]], dtype=object)
+    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert all(result[:, 1] == expected[:, 1])
+
+
 def test_classify_inspections_edit_default_styling():
     """test of het werkt om de default styling aan te passen"""
     data_adapter = helper_create_data_adapter("test_inspection.yaml")

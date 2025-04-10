@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import ClassVar, Optional
 import warnings
 
+import numpy as np
 import pandas as pd
 from pydantic.dataclasses import dataclass
 import geopandas as gpd
@@ -72,8 +73,7 @@ class ClassifyInspections:
     df_out: Optional[gpd.GeoDataFrame] | None = None
     df_legend_out: Optional[pd.DataFrame] | None = None
     styling_schema: ClassVar[dict[str, str]] = {
-        "upper_boundary": "float",
-        "lower_boundary": "float",
+        "lower_boundary": ["float", "int", "object"],
         "color": "object",
     }
 
@@ -92,6 +92,7 @@ class ClassifyInspections:
         -----
         De input DataAdapters moet minimaal 'Inspectie resultaten' bevatten die worden geclassificeerd.
         De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de global variables.
+        Deze classificatie waardes kan zowel numeriek zijn als text.
 
         Indien gewenst kan ook opmaak opties worden meegegeven.
         Als deze niet meegegeven wordt, wordt de standaard opmaak gebruikt.
@@ -100,8 +101,21 @@ class ClassifyInspections:
         Deze moet de volgende kolommen bevatten:
 
         - 'color': kleur van de classificatie in hexadecimaal formaat
-        - 'lower_boundary': ondergrens van de classificatie
+        - 'lower_boundary': ondergrens van de classificatie waarde. De inspectie resultaten moeten groter of gelijk zijn.
+
+        De classificatie in 'lower_boundary' en 'classify_column' moet van hetzelfde type zijn.
+        Als de classificatie op basis van een waarde is, mag ook de volgende kolom aanwezig zijn:
+
         - 'upper_boundary': bovengrens van de classificatie
+
+        Bij text waardes wordt standaard tijdens de classificatie gekeken of de waarde identiek is aan de classificatie.
+        Door de global variables kan dit ook worden aangepast naar een `match_text_on` check.
+        De opties zijn:
+
+        - 'contains': de classificatie waarde moet in de inspectie resultaten staan
+        - 'equals': de classificatie waarde moet gelijk zijn aan de inspectie resultaten
+        - 'startswith': de classificatie waarde moet aan het begin van de inspectie resultaten staan
+        - 'endswith': de classificatie waarde moet aan het einde van de inspectie resultaten staan
 
         Naast de verplichte kolommen zijn ook een aantal die ook worden meegenomen in de output.
         Indien deze niet aanwezig zijn, worden ze ook niet meegenomen in de output.
@@ -120,6 +134,9 @@ class ClassifyInspections:
 
         KeyError
             Als de kolom die gebruikt moet worden voor classificatie niet aanwezig is in de input data.
+
+        UserWarning
+            Als de classificatie niet gelukt is, omdat de kolom die gebruikt moet worden voor classificatie geen tekst of getal is.
         """
         # Als alleen input string is, is zijn er alleen resultaten met standaard opmaak
         if isinstance(input, str):
@@ -137,6 +154,13 @@ class ClassifyInspections:
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("ClassifyInspections", {})
         classify_columns = options.get("classify_column", None)
+        match_text_on = options.get("classify_text_type", "equals")
+        match_text_on_dict = {
+            "contains": self._contains,
+            "equals": self._equals,
+            "endswith": str.endswith,
+            "startswith": str.startswith,
+        }
         if classify_columns is not None and classify_columns not in self.df_in.columns:
             raise KeyError(
                 f"De kolom '{classify_columns}' is niet aanwezig in de input data"
@@ -213,9 +237,12 @@ class ClassifyInspections:
         columns_to_transfer += extra_required_columns
 
         # Haal waardes weg waarbij geen kleur is gedefinieerd
-        filtered_df_styling = self.df_styling.dropna(
-            subset=["upper_boundary", "lower_boundary"]
+        drop_subset = list(
+            set(["upper_boundary", "lower_boundary"]).intersection(
+                self.df_styling.columns
+            )
         )
+        filtered_df_styling = self.df_styling.dropna(subset=drop_subset)
 
         # Bewaar deze verwijderde waardes voor alles zonder keur
         index_unclassified_values = list(
@@ -229,6 +256,11 @@ class ClassifyInspections:
                 )
                 # bewaar de eerste
                 unclassified_values[column] = unclassified_values[column][0]
+                # als die leeg is, vervang door de default
+                if isinstance(unclassified_values[column], float) and np.isnan(
+                    unclassified_values[column]
+                ):
+                    unclassified_values[column] = self.df_default_styling.loc[0, column]
         # Als er geen style is gedefinieerd, gebruik default
         else:
             for column in columns_to_transfer:
@@ -239,14 +271,46 @@ class ClassifyInspections:
             for column in columns_to_transfer:
                 self.df_out.loc[:, column] = None
         else:
-            for _, row in filtered_df_styling.iterrows():
-                for column in columns_to_transfer:
-                    self.df_out.loc[
-                        (self.df_in[classify_columns] > row["lower_boundary"])
-                        & (self.df_in[classify_columns] <= row["upper_boundary"]),
-                        column,
-                    ] = row[column]
-
+            values = self.df_in[classify_columns]
+            # Classificatie voor text
+            if self._check_dtype(values.dtype, "text"):
+                assert self._check_dtype(
+                    filtered_df_styling["lower_boundary"].dtype, "text"
+                ), (
+                    "Type van de classificatie is geen tekst, maar de inspectie resultaten zijn dat wel"
+                )
+                for _, row in filtered_df_styling.iterrows():
+                    for column in columns_to_transfer:
+                        self.df_out.loc[
+                            match_text_on_dict[match_text_on](
+                                values, row["lower_boundary"]
+                            ),
+                            column,
+                        ] = row[column]
+            # Classificatie voor getallen
+            elif pd.api.types.is_numeric_dtype(values.dtype):
+                assert self._check_dtype(
+                    filtered_df_styling["lower_boundary"].dtype, "number"
+                ), (
+                    "Type van de classificatie is geen getal, maar de inspectie resultaten zijn dat wel"
+                )
+                for _, row in filtered_df_styling.iterrows():
+                    for column in columns_to_transfer:
+                        if "upper_boundary" in row:
+                            self.df_out.loc[
+                                (values >= row["lower_boundary"])
+                                & (values < row["upper_boundary"]),
+                                column,
+                            ] = row[column]
+                        else:
+                            self.df_out.loc[
+                                (values >= row["lower_boundary"]),
+                                column,
+                            ] = row[column]
+            else:
+                raise UserWarning(
+                    f"De classificatie is niet gelukt, het type van kolom {classify_columns} is geen tekst of getal"
+                )
         # Voeg toe aan de waardes waarbij kolom niet is gedefinieerd
         warnings.filterwarnings("ignore", category=FutureWarning)
 
@@ -268,6 +332,48 @@ class ClassifyInspections:
                 if column not in self.df_legend_out.columns:
                     self.df_legend_out[:, column] = unclassified_values[column]
             self.data_adapter.output(output[1], self.df_legend_out)
+
+    @staticmethod
+    def _equals(waardes, classificatie):
+        """Vergelijk classificatie en waardes element voor element: voor identieke waardes"""
+        return waardes == classificatie
+
+    @staticmethod
+    def _contains(waardes, classificatie):
+        """Vergelijk classificatie en waardes element voor element: voor waardes in andere"""
+        return waardes.apply(lambda x: classificatie in x)
+
+    @staticmethod
+    def _check_dtype(values_dtype: pd.api.types, type: str) -> bool:
+        """Controleert of de dtype van de waardes overeenkomt met het opgegeven type.
+
+        Parameters
+        ----------
+        values_dtype: pd.api.types
+            De dtype van de waardes.
+        type: str
+            Het type dat gecontroleerd moet worden. Mogelijke waardes zijn: 'text' of 'number'.
+
+        Raises
+        ------
+        ValueError
+            Als het opgegeven type niet geldig is geeft een ValueError.
+
+        Returns
+        -------
+        bool
+            True als de dtype overeenkomt met het opgegeven type, anders False.
+        """
+        if type == "text":
+            return (
+                pd.api.types.is_object_dtype(values_dtype)
+                or pd.api.types.is_bool_dtype(values_dtype)
+                or pd.api.types.is_string_dtype(values_dtype)
+            )
+        elif type == "number":
+            return pd.api.types.is_numeric_dtype(values_dtype)
+        else:
+            raise ValueError(f"Type {type} is niet geldig, gebruik 'text' of 'number'")
 
     def get_default_styling(self) -> pd.DataFrame:
         """Haal de standaard opmaak op.
@@ -631,6 +737,8 @@ class InspectionsToDatabase(ClassifyInspections):
             )
 
         # formateer voor de database
+        # fix met nieuwe versie van pandas
+        warnings.filterwarnings("ignore", category=FutureWarning)
         self.df_in_legend.fillna("", inplace=True)
         self.df_out["layer_legend"] = ""
         self.df_out.loc[insert_layer_index, "layer_legend"] = json.dumps(
