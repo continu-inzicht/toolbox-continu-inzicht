@@ -1,0 +1,2 @@
+id,name,description,color,opacity,dashArray,fillColor,radius,fillOpacity,weight,lower_boundary,upper_boundary
+0,No data,null,#9e9e9e,1,null,#9e9e9e,10,0.2,3,-99999999999,99999999999

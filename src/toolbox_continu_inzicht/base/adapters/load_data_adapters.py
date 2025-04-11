@@ -62,6 +62,9 @@ def get_functions_from_package(package: object, remove_prefix: str) -> dict:
                                         str(parameter)
                                         == "df: pandas.core.frame.DataFrame"
                                         or str(parameter) == "df"
+                                        or str(parameter)
+                                        == "gdf: geopandas.geodataframe.GeoDataFrame"
+                                        or str(parameter) == "gdf"
                                     )
                                     items.append((add_item_1 or add_item_2))
                                 add_item = all(items)

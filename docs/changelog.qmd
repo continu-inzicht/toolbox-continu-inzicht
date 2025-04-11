@@ -76,3 +76,19 @@ Daarnaast checkt de `pre-commit` nu ook op [docstring](https://github.com/jsh9/p
 Het verschil tussen waterlevel(s) en hydaulicload(s) aangepakt, we voeren nu overal `hydaulicload`.
 
 Matroos was al beschikbaar, maar maakte gebruik van de [timeseries](https://noos.matroos.rws.nl/timeseries/) endpoint. Omdat timeseries de vertaling naar reeks al op de server van matroos doet, kan dit wat traag zijn. Om dit op te lossen is na contact met het beheer van Matroos ook de [maps1d](https://noos.matroos.rws.nl/maps1d/) endpoint toegevoegd, deze leest de 'ruwe' NetCDF bestanden in en vertaald ze naar een tijdreeks die in de toolbox kan worden gebruikt.
+
+
+
+### Sprint 5 [[0.1.1](https://pypi.org/project/toolbox-continu-inzicht/0.1.1/)]
+
+#### Inhoudelijk
+
+Alle aanpassingen zijn te vinden in pull request [#55](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/55)
+
+In Sprint 5 is gekeken naar het filteren, ontsluiten en visualiseren van inspectie resultaten.
+
+
+
+#### Technische
+
+Om het mogelijk te maken  wordt de opmaak informatie voor kaartlagen nu uit de database opgehaald door de viewer.

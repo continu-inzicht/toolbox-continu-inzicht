@@ -1,6 +1,0 @@
-date_time,Unnamed: 0,measurement_location_id,measurement_location_code,measurement_location_description,parameter_id,parameter_code,parameter_description,unit,value,value_type
-2024-11-12 09:00:00+00:00,142,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,767.0,meting
-2024-11-13 09:00:00+00:00,286,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,767.0,meting
-2024-11-13 09:00:00+00:00,305,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,767.0,verwachting
-2024-11-14 09:00:00+00:00,449,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,761.0,verwachting
-2024-11-15 06:00:00+00:00,575,1,Pannerdense-kop(PANN),Pannerdense kop,4724,WATHTE,Waterhoogte verwacht Oppervlaktewater t.o.v. Normaal Amsterdams Peil in cm,cm,757.0,verwachting

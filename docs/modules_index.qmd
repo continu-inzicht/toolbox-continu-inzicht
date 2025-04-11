@@ -36,6 +36,6 @@ De ontwikkeling van de volgende modules is voorzien:
 
     Een fragility curve omschrijft de kans gegeven een waterstand, belangrijk is om ook mee te nemen dat de waterstanden een kans van optreden hebben. Door het combineren van een overschrijdingsfrequentie lijn met een fragility curve kan een geïntegreerde kans worden berekend. Hiermee kunnen veranderingen in de overschrijdingsfrequentie, bijvoorbeeld door klimaat verandering, worden vergeleken met de huidige situatie.
 
-In ontwikkeling:
 7.  [Inspectieresultaten inlezen en weergeven](modules/inspectieresultaten.qmd)
-8.  [Resultaten ontsluiten via Digitale Delta API](modules/digitale_delta_API.qmd)
+
+    Naast informatie over huidige belastingen op een dijk is het ook interessant om informatie over de huidige sterke van de dijk te verzamelen. Hierbij spelen inspecties een grote rol, deze kunnen met de toolbox worden gefilterd, geclassificeerd en getoond op de viewer van Continu Inzicht.

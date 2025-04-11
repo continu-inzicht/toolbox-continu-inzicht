@@ -1,0 +1,41 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+    ClassifyInspections:
+        classify_column: "prioriteit"
+    Filter:
+        query: "prioriteit > 0"
+        drop_columns:
+            - "waterschap"
+            - "location_id"
+    InspectionsToDatabase:
+        index: 0
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    inspections_results_geo:
+        type: shape
+        path: "postcodes_brabant.geojson"
+    layers:
+        type: csv
+        path: "layers.csv"
+    postcodes_ci_database:
+        type: postgis
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: area
+        if_exists: replace
+    postcodes_from_database:
+        type: postgis
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: area
+    to_ci_database:
+        type: postgresql_database
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: layers
+        if_exists: append

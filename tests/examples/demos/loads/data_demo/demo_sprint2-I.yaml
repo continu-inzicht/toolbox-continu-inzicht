@@ -39,25 +39,25 @@ DataAdapter:
         path: "locaties.csv"
     Waterstanden_WaterInfo:
         type: csv
-        path: "waterstanden_waterinfo.csv"
+        path: "hidden_waterstanden_waterinfo.csv"
     BelastingLocaties_FEWS:
         type: csv_source
         filter: "FEWS"
         path: "locaties.csv"
     Waterstanden_FEWS:
         type: csv
-        path: "waterstanden_fews.csv"
+        path: "hidden_waterstanden_fews.csv"
     BelastingLocaties_Matroos:
         type: csv_source
         filter: "NOOS Matroos"
         path: "locaties.csv"
     Waterstanden_Matroos:
         type: csv
-        path: "waterstanden_matroos.csv"
+        path: "hidden_waterstanden_matroos.csv"
     BelastingLocaties_Waterwebservices_RWS:
         type: csv_source
         filter: "RWS Waterwebservices"
         path: "locaties.csv"
     Waterstanden_Waterwebservices_RWS:
         type: csv
-        path: "waterstanden_waterwebservices_rws.csv"
+        path: "hidden_waterstanden_waterwebservices_rws.csv"

@@ -5,11 +5,23 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 def get_waterinfo_locations(parameter_id: str = "waterhoogte") -> pd.DataFrame:
     """Haal voor Waterinfo de locaties op voor de opgegegeven parameter.
 
-    Args:
-        parameter_id (str): Waterinfo parameter bij geen waarde 'waterhoogte'
+    Parameters
+    ----------
+    parameter_id: str
+        Waterinfo parameter bij geen waarde 'waterhoogte'
 
-    Returns:
-        Dataframe: Pandas dataframe met locaties
+    Notes
+    -----
+    Gebruikte API: [https://waterinfo.rws.nl/api/point/latestmeasurement](https://waterinfo.rws.nl/api/point/latestmeasurement)
+
+    Returns
+    -------
+    Pandas dataframe met locaties: pd.DataFrame
+
+    Raises
+    ------
+    ConnectionError
+        Als de verbinding met de API niet lukt of geen locaties zijn gevonden
     """
 
     # URL voor ophalen van waterinfo geojson

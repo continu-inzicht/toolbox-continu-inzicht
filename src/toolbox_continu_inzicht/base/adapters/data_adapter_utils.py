@@ -72,7 +72,7 @@ def check_plugin_path(global_variables: dict, prefix: str) -> None | Path:
         Dictionary die global variabelen van de config bevat
 
     prefix: str
-        prefixnamen: ['input_','ouput_'] waarnaar in de config moet worden gekeken
+        prefix namen: ['input_','output_'] waarnaar in de config moet worden gekeken
 
     """
 

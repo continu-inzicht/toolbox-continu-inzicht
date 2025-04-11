@@ -1,0 +1,19 @@
+GlobalVariables:
+    rootdir: "tests/src/inspections/data_sets"
+    moments: [-24,0,24,48]
+    Filter:
+        query: "measurement_location_id == 1"
+        keep_columns:
+            - "measurement_location_id"
+            - "measurement_location_code"
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    locations_fews:
+        type: csv
+        path: "test_locations_fews.csv"
+    filter_resultaten:
+        type: csv
+        path: "hidden_filter_resultaten.csv"

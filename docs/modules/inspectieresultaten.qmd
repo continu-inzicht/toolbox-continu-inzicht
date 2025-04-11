@@ -2,4 +2,266 @@
 title: "Inspectieresultaten inlezen en weergeven"
 ---
 
-In ontwikkeling.
+### Filteren
+
+Voor het inlezen van inspectie resultaten is het wenselijk om de invoer data te kunnen filteren. In sommige gevallen zal dit al in de [data adapter](architectuur.qmd#sec-zelf-adapter-locatie-doorgeven) gebeuren. Voor het filteren zijn drie opties te configureren:
+
+- query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html)
+- drop_columns: Lijst van kolommen die verwijderd moeten worden
+- keep_columns: Lijst van kolommen die behouden moeten worden
+
+Als meerdere van deze opties worden geconfigureerd, worden ze in bovenstaande volgorde toegepast.
+
+::: {.panel-tabset}
+## Configuratie query
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    Filter:
+        query: "measurement_location_id == 1"
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    inspectie_resultaten:
+        type: csv
+        path: "resultaten.csv"
+    inspectie_resultaten_filter:
+        type: csv
+        path: "filter_resultaten.csv"
+        index: False
+```
+
+## Configuratie kolommen behouden
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    Filter:
+        keep_columns:
+            - "measurement_location_id"
+            - "measurement_location_code"
+...
+```
+
+## Configuratie kolommen verwijderen
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    Filter:
+        drop_columns:
+            - "unwanted_columns"
+...
+```
+
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.inspections import Filter
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+filter = Filter(data_adapter=data_adapter)
+filter.run(
+    input="inspectie_resultaten",
+    output="inspectie_resultaten_filter",
+)
+```
+:::
+
+### Classificeren van inspectie resultaten
+
+Inspectie resultaten kunnen afhankelijk van eigenschappen geclassificeerd worden en getoond met bepaalde opmaak. Bijvoorbeeld om afhankelijk van het type of de toegekende prioriteit een kleur of lijndikte aan te geven. Hiervoor is een laag met resultaten nodig en een legenda met informatie over hoe de resultaten geclassificeerd worden en bijbehorende opmaak. De resultaten kunnen of een [geografische laag zijn](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) of een platte text tabel met geometrie of xy-coördinaten. De geografische informatie wordt altijd omgezet naar WGS84 om ondersteund te worden in de viewer.
+De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de global variables. Deze kolom wordt vergeleken met de waardes in de legenda en de opmaak van uit de legenda wordt vervolgens overgenomen. De waardes om mee te vergelijken kunnen getallen of text zijn. Bij text wordt de 'lower_boundary' kolom gebruikt,. De viewer verwacht een heel aantal kolommen, als deze niet worden opgegeven neemt de toolbox standaard waardes over (`get_possible_styling()`). Deze standaard waardes kunnen ook aangepast worden met  door de gebruiker.
+
+
+::: {.panel-tabset}
+## Configuratie getallen
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    ...
+    ClassifyInspections:
+        classify_column: "prioriteit"
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    styling_example:
+        type: csv
+        path: "styling_example.csv"
+    inspectie_resultaten_filter:
+        type: csv
+        path: "inspectie_resultaten_filter.csv"
+        index: False
+    classify_resultaten:
+        type: shape
+        path: "classify_resultaten.geojson"
+        index: False
+    legenda:
+        type: csv
+        path: "legenda.csv"
+```
+## Configuratie text
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    ...
+    ClassifyInspections:
+        classify_column: "opmerkingen"
+        match_text_on: "contains"
+        # kan zijn: contains, equals, startswith, endswith
+...
+```
+
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.inspections import Filter
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+classify_inspections_styling = ClassifyInspections(data_adapter=data_adapter)
+classify_inspections_styling.run(
+    input=["filter_resultaten", "styling_example"], output=["classify_resultaten", "legenda"]
+)
+```
+:::
+
+#### Standaard opmaak
+
+Daarnaast kan de functie ook gebruikt worden om standaard opmaak toe te kennen aan kaartlagen, hierdoor is de interactie tussen viewer en de gebruiker simpeler. Het invoer bestand wordt dan aangevuld met de benodigde opmaak kolommen en waardes. Om de standaard opmaak toe te kennen aan een tabel kaartlaag kan de volgende configuratie gebruikt worden.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    kaartlaag:
+        type: csv
+        path: "kaartlaag.csv"
+    kaartlaag_met_opmaak:
+        type: csv
+        path: "kaartlaag_met_opmaak.csv"
+```
+
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.inspections import Filter
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+classify_inspections_styling = ClassifyInspections(data_adapter=data_adapter)
+classify_inspections_styling.run(
+    input=["kaartlaag"], output=["kaartlaag_met_opmaak"]
+)
+```
+:::
+### Inspectie resultaten en de viewer
+
+De kaartlagen van inspectie resultaten kunnen in de viewer worden weergegeven. Naast de kaartlaag die met de toolbox is geclassificeerd kan ook een eigen WMS laag gebruikt worden. Voor kaartlagen die relatief klein zijn kan alle informatie in één database veld gestopt worden. Bij grotere lagen is het aan te raden om een nieuwe tabel te maken, waar vervolgens naar verwezen kan worden. Voor alle drie zal deze opties zal een voorbeeld gegeven worden. De kolommen `group_name`, `layer_name` en `layer_visible` kunnen gebruik worden om de groepen, kaartlaag namen en standaard zichtbaarheid in de viewer te configureren. De `layer_type` moet voor 'geojson', 'wms' en 'table' worden ingesteld.
+
+#### Kleine kaartlaag in de viewer
+
+Om de verschillende databronnen te combineren to een tabel kan de functie `InspectionsToDatabase` gebruikt worden. De input hiervoor is de inspectie resultaten, opmaak en lagen. `Lagen` is een tabel waar de informatie in staat over de verschillende lagen. Als deze niet wordt opgegeven wordt een standaard tabel gebruikt. De `inspectie resultaten` wordt toegevoegd aan de `lagen` tabel, indien er meerdere rijden in de `lagen` tabel zitten kan de rij index worden aangepast met `index`. Het maximum aantal `inspectie resultaten` kan aangepast worden met `max_rows`, standaard is dit 10.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    ...
+    InspectionsToDatabase:
+        index: 0
+        max_rows: 10
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    classify_resultaten:
+        type: shape
+        path: "hidden_classify_resultaten.geojson"
+        index: False
+    legenda:
+        type: csv
+        path: "hidden_legend.csv"
+        index: False
+    layers:
+        type: csv
+        path: "layers.csv"
+    to_ci_database:
+        type: postgresql_database
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: layers
+        if_exists: append
+```
+
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.inspections import InspectionsToDatabase
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+inspections_to_database = InspectionsToDatabase(data_adapter=data_adapter)
+inspections_to_database.run(
+    input=["classify_resultaten", "legenda", "layers"],
+    output="to_ci_database",
+)
+```
+:::
+#### WMS lagen in de viewer
+
+De definitie voor WMS lagen is simpeler, hier is alleen een url (`layer_wms_url`) voor nodig. In sommigen gevallen is ook de `layer_wms_layer`,    `layer_wms_style` en `layer_wms_legend_url` nodig om voldoende informatie aan de viewer te geven. Dit is een voorbeeld waarbij de data adapter gebruikt kan worden om de database te vullen.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    ...
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    layers:
+        type: csv
+        path: "layers.csv"
+    to_ci_database:
+        type: postgresql_database
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: layers
+        if_exists: append
+```
+:::
+
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+layer_table = data_adapter.input('layers')
+data_adapter.output('to_ci_database', layer_table)
+```
+
+
+#### Grote tabel in de viewer
+
+Om grote kaartlagen in de viewer te tonen is het advies om dit via een losse tabel in database te doen. Deze kan dan gekoppeld worden aan de viewer op de zelfde manier als een WMS laag via de `layers` tabel.

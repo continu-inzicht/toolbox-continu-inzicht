@@ -47,3 +47,12 @@ integrate_statistics_per_section.run(
 
 ```
 :::
+
+
+### Reliability Update
+
+Naast het integreren van één curve met één overschrijdingsfrequentie lijn kan de impact van verandering ook in kaart worden gebracht.
+Met gebruik van `FragilityCurve.reliability_update` kan de fragility curve worden aangepast met een overleefde waterstand.
+Hierdoor kan ook weer een geïntegreerde kans worden berekend met een nieuwe curve.
+Dit stappen plan wordt weergegeven in het voorbeeld notebook [Aanpassen van geïntegreerde fragility curves
+](../examples/notebooks/4.adjust_integrated_statistics.ipynb).

@@ -7,11 +7,25 @@ def get_waterinfo_thresholds(
 ) -> pd.DataFrame:
     """Haal voor Waterinfo de thresholds op voor de opgegegeven parameter.
 
-    Args:
-        parameter_id (str): Waterinfo parameter bij geen waarde 'waterhoogte'
+    Parameters
+    ----------
+    location_code: str
+        Locatiecode van de waterinfo locatie
+    parameter_id: str
+        Waterinfo parameter bij geen waarde 'waterhoogte'
 
-    Returns:
-        Dataframe: Pandas dataframe met thressholds
+    Notes
+    -----
+    Gebruikte API: [https://waterinfo.rws.nl/api/chart/get](https://waterinfo.rws.nl/api/chart/get)
+
+    Returns
+    -------
+    Dataframe: Pandas dataframe met thresholds
+
+    Raises
+    ------
+    ConnectionError
+        Als de verbinding met de API niet lukt of geen thresholds zijn gevonden
     """
     url: str = "https://waterinfo.rws.nl/api/chart/get"
 

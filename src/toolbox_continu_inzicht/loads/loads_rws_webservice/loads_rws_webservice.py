@@ -19,7 +19,7 @@ class LoadsWaterwebservicesRWS:
 
     Notes
     -----
-    Link: https://waterwebservices.rijkswaterstaat.nl/
+    Link: [https://waterwebservices.rijkswaterstaat.nl/](https://waterwebservices.rijkswaterstaat.nl/)
 
     Attributes
     ----------
@@ -256,13 +256,21 @@ class LoadsWaterwebservicesRWS:
         """
         Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.
 
-        Args:
-            calc_time: T0 in UTC
-            global_variables: globale variable uit de invoer yaml
-            locations: dataframe with locations wanted
+        Parameters
+        ----------
+        measurement: str
+            De naam van de parameter die je wilt ophalen.
+        calc_time : datetime
+            De huidige tijd in UTC.
+        global_variables : dict
+            De globale variabelen uit de invoer yaml.
+        locations : pd.DataFrame
+            Dataframe met de gewenste locaties.
 
-        Returns:
-            dict: lijst met parameters
+        Returns
+        -------
+        list
+            Lijst met parameters.
         """
         lst_json = []
         moments = global_variables["moments"]

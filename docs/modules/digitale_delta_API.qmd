@@ -1,5 +1,0 @@
----
-title: "Digitale Delta API"
----
-
-In ontwikkeling.

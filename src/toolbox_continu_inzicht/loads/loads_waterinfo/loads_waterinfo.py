@@ -34,7 +34,7 @@ class LoadsWaterinfo:
 
     Notes
     -----
-    Hiervoor wordt de url gebruikt: https://waterinfo.rws.nl/#/publiek/waterhoogte
+    Hiervoor wordt de url gebruikt: [https://waterinfo.rws.nl/#/publiek/waterhoogte](https://waterinfo.rws.nl/#/publiek/waterhoogte
     """
 
     data_adapter: DataAdapter
@@ -212,9 +212,9 @@ class LoadsWaterinfo:
         - Meetlocatie id (measurement_location_id)
         - Meetlocatie code (measurement_location_code)
         - Meetlocatie omschrijving/naam (measurement_location_description)
-        - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id)
-        - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code)
-        - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description)
+        - Parameter id overeenkomstig Aquo-standaard: '4724' (parameter_id)
+        - Parameter code overeenkomstig Aquo-standaard: 'WATHTE' (parameter_code)
+        - Parameter omschrijving overeenkomstig Aquo-standaard: 'Waterhoogte' (parameter_description)
         - Eenheid (unit)
         - Datum en tijd (date_time)
         - Waarde (value)
@@ -400,20 +400,30 @@ class LoadsWaterinfo:
 
     def get_value_by_observedhours(
         self, maptype_schema: dict, observedhours_moments: int
-    ):
+    ) -> str | None:
         """
         bepaal welke range gebruikt moet worden voor het ophalen van de belasting
 
-        Args:
-            maptype_schema (dict): schema met mogelijke ranges. Voorbeeld:
+        Parameters
+        ----------
+        maptype_schema: dict
+            schema met mogelijke ranges.
+            Voorbeeld:
+            ```json
                 {"observedhours": 48, "predictionhours": 48, "query": "-48,0"},
                 {"observedhours": 6, "predictionhours": 3, "query": "-6,0"},
                 {"observedhours": 216, "predictionhours": 48, "query": "-216,0"},
                 {"observedhours": 672, "predictionhours": 0, "query": "-672,0"}
-            observedhours_moments (int): het laagste moment.
+            ```
+        observedhours_moments: int
+            het laagste moment.
 
-        returns:
-            de query van de range als string. voorbeeld: -48,0
+        Returns
+        -------
+        de query van de range als string: str
+            voorbeeld: -48,0
+        None : None
+            als er geen range gevonden kan worden
         """
 
         observedhours = 6

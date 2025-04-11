@@ -1,0 +1,42 @@
+GlobalVariables:
+    rootdir: "tests/src/inspections/data_sets"
+    moments: [-24,0,24,48]
+    ClassifyInspections:
+        classify_column: "priority"
+    InspectionsToDatabase:
+        index: 0 # default
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    inspections_results:
+        type: csv
+        path: "inspection_results_example.csv"
+    styling_example:
+        type: csv
+        path: "styling_example.csv"
+    more_styling_example:
+        type: csv
+        path: "more_styling_example.csv"
+    filter_resultaten:
+        type: csv
+        path: "hidden_filter_resultaten.csv"
+        index: False
+    classify_resultaten:
+        type: shape
+        path: "classify_resultaten.geojson"
+    hidden_classify_resultaten:
+        type: csv
+        path: "hidden_classify_resultaten.csv"
+        index: False
+    legenda:
+        type: csv
+        path: "legenda.csv"
+        index: False
+    layers:
+        type: csv
+        path: "layers.csv"
+    example_to_database:
+        type: csv
+        path: "hidden_example_to_database.csv"
