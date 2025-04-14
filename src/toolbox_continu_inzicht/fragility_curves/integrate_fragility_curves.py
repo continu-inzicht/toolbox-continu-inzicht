@@ -28,7 +28,7 @@ class IntegrateFragilityCurve:
     df_out: Optional[pd.DataFrame] | None
         Output DataFrame containing the integrated fragility curve.
     interp_func: Callable
-        Functie waarmee geinterpoleerd wordt
+        Functie waarmee geïnterpoleerd wordt
 
     Notes
     -----

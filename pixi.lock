@@ -9925,8 +9925,8 @@ packages:
   timestamp: 1736962345843
 - pypi: src
   name: toolbox-continu-inzicht
-  version: 0.1.0
-  sha256: c2d3e35341f390fd67cf9f5696a1e51f975dffe217c2aa208e0be79782ef60f2
+  version: 0.1.1
+  sha256: 87ff21908e265ece9e88d6c52ad233f06ae7945616b64260a0952bc0ce8de0ca
   requires_dist:
   - fiona
   - geopandas
@@ -9936,11 +9936,11 @@ packages:
   - openpyxl
   - openturns>=1.23
   - pandas
-  - probabilistic-piping
+  - probabilistic-piping==0.0.5
   - psycopg2
   - pyarrow
   - pydantic>=2
-  - pydra-core
+  - pydra-core==0.0.9
   - pyogrio
   - python-dotenv>=1.0.1
   - pyyaml

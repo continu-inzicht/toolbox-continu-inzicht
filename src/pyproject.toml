@@ -38,8 +38,8 @@ dependencies = [
                 "httpx",
                 "sqlalchemy",
                 "tqdm>=4.67.1",
-                "probabilistic_piping",
-                "pydra_core",
+                "probabilistic_piping==0.0.5",
+                "pydra_core==0.0.9",
                 "pyyaml",
                 "xarray",
 ]

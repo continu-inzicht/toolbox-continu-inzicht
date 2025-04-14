@@ -1,0 +1,21 @@
+---
+title: "Vertalingen"
+---
+
+De afspraak bij het ontwikkelen van toolbox continu inzicht is dat alles voor de gebruiker beschikbaar is in het Nederlands.
+De code zelf is echter in het Engels geschreven. Alle documentatie, errors en warnings zijn wel in het Engels.
+Om hier bij te helpen is een tabel opgesteld om bij te helpen.
+
+|Nederlands|Engels|
+|-|-|
+|Waterstand|Waterlevel|
+|Belastingen|Hydraulicloads|
+|Overschrijdingskans|Exceedance probability|
+|Overschrijdingsfrequentie lijn|Exceedance frequency curve|
+|Kruinhoogte|Crest height|
+|Overslag|Overtopping|
+|Helling|Slope|
+|Golfhoogte|Wave height|
+|Golfperiode|Wave period|
+|Golfrichting|Wave direction|
+|Faalkans|Failure probability|
