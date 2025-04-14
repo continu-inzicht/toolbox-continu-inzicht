@@ -22,7 +22,7 @@ allias_dict = {
 def read_aquo(allias: str, global_variables: dict) -> tuple[str, dict]:
     """
     Leest de Aquo-grootheid uit de aquo_grootheid.json file
-    geeft een tuple van de bijbehoordende code en een dict met benodigde informatie terug.
+    geeft een tuple van de bij behoorde code en een dict met benodigde informatie terug.
     """
     path = Path(__file__).parent / "aquo_meta_data" / "aquo_grootheid.json"
     aquo_grootheid_dict = json.load(open(path))

@@ -1,3 +1,4 @@
+from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
 import pandas as pd
 import os
@@ -20,6 +21,8 @@ from toolbox_continu_inzicht.base.adapters.data_adapter_utils import (
     check_rootdir,
 )
 
+from toolbox_continu_inzicht.base.logging import Logger
+
 
 class DataAdapter(PydanticBaseModel):
     """Basis DataAdapter"""
@@ -27,6 +30,12 @@ class DataAdapter(PydanticBaseModel):
     config: Config
     input_types: dict = {}
     output_types: dict = {}
+    logger: Logger = None
+
+    def __init__(self, config: Config):
+        super().__init__(config=config)
+        # check_rootdir(self.config.global_variables)
+        self.init_logging()
 
     def initialize_input_types(self):
         # externe functies laden
@@ -92,6 +101,7 @@ class DataAdapter(PydanticBaseModel):
 
             check_rootdir(self.config.global_variables)
             check_file_and_path(function_input_config, self.config.global_variables)
+            # self.init_logging()
 
             # uit het .env-bestand halen we de extra waardes en laden deze in de config
             # .env is een lokaal bestand waar wachtwoorden in kunnen worden opgeslagen, zie .evn.template
@@ -116,10 +126,10 @@ class DataAdapter(PydanticBaseModel):
             # Maar je wilt er vanuit de functies ook bij kunnen
             self.config.global_variables.update(environmental_variables)
 
-            # Roep de bijbehorende functie bij het datatype aan en geef het inputpad mee.
+            # Roep de bijbehorende functie bij het datatype aan en geef het input pad mee.
             if data_type in self.input_types:
-                correspinding_function = self.input_types[data_type]
-                df = correspinding_function(function_input_config)
+                corresponding_function = self.input_types[data_type]
+                df = corresponding_function(function_input_config)
 
                 # Controleer of er data is opgehaald.
                 if len(df) == 0:
@@ -137,7 +147,7 @@ class DataAdapter(PydanticBaseModel):
                 # Adapter bestaat niet
                 message = f"Adapter van het type '{data_type}' niet gevonden."
         else:
-            # Adaptersleutel staat niet in het YAML-bestand
+            # Adapter staat niet in het YAML-bestand
             message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
             raise UserWarning(message)
 
@@ -166,6 +176,7 @@ class DataAdapter(PydanticBaseModel):
         # Check of de rootdir bestaat
         check_rootdir(self.config.global_variables)
         check_file_and_path(functie_output_config, self.config.global_variables)
+        # self.init_logging()
 
         # Uit het .env-bestand halen we de extra waardes en laden deze in de config
         environmental_variables = {}
@@ -186,7 +197,7 @@ class DataAdapter(PydanticBaseModel):
         # voeg alle environmental variables toe aan de functie output config
         functie_output_config.update(environmental_variables)
 
-        # Roep de bijbehorende functie bij het datatype aan en geef het inputpad mee.
+        # Roep de bijbehorende functie bij het datatype aan en geef het input pad mee.
         bijbehorende_functie = self.output_types[data_type]
         bijbehorende_functie(functie_output_config, df)
 
@@ -262,3 +273,50 @@ class DataAdapter(PydanticBaseModel):
             raise UserWarning(
                 f"DataAdapter `{key=}` niet gevonden en {if_not_exist=} is ongeldig, dit moet `raise` of `create` zijn"
             )
+
+    def init_logging(self):
+        """Initialiseer de logger met de configuratie."""
+
+        # TODO:
+        if self.logger is None:
+            # alleen loggen als we willen.
+            logging_settings = self.config.global_variables.get("logging", {})
+
+            if len(logging_settings) == 0:
+                self.logger = None  # hier stream handler naar stdout
+
+            else:
+                logfile = logging_settings.get("logfile", None)
+                loghistoryfile = logging_settings.get("loghistoryfile", None)
+                level = logging_settings.get("loglevel", "INFO")
+                mode = logging_settings.get("logmode", "w")
+
+                if logfile is not None:
+                    if Path(logfile).is_absolute():
+                        logfile = Path(logfile)
+                    elif Path(
+                        self.config.global_variables["rootdir"] / logfile
+                    ).is_absolute():
+                        logfile = Path(
+                            self.config.global_variables["rootdir"] / logfile
+                        )
+
+                if loghistoryfile is not None:
+                    if Path(loghistoryfile).is_absolute():
+                        loghistoryfile = Path(loghistoryfile)
+                    elif Path(
+                        self.config.global_variables["rootdir"] / loghistoryfile
+                    ).is_absolute():
+                        loghistoryfile = Path(
+                            self.config.global_variables["rootdir"] / loghistoryfile
+                        )
+
+                if logfile is None:
+                    logfile = (
+                        Path(self.config.global_variables["rootdir"])
+                        / "hidden_logfile.log"
+                    )
+
+                self.logger = Logger.set_up_logging(
+                    logfile, loghistoryfile, level, mode=mode
+                )

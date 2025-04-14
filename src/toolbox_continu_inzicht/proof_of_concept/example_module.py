@@ -31,7 +31,8 @@ class ValuesDivideTwo:
     }
 
     def run(self, input: str, output: str):
-        """Runt de funcies en stuur de df terug"""
+        """Runt de functies en stuur de df terug"""
+
         self.df_in = self.data_adapter.input(input, schema=self.input_schema)
 
         self.df_out = self.divide_two(self.df_in)
