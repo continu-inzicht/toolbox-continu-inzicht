@@ -8,15 +8,15 @@ website:
     logo: https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png
     left:
       - text: "Installeren"
-        file:  install.qmd
+        file: install.qmd
       - text: "Voorbeelden"
         file: "voorbeelden.qmd"
       - text: "Modules"
-        file:  modules_index.qmd
+        file: modules_index.qmd
       - text: "Python API"
         file: reference/index.qmd
       - text: "Overig"
-        file: contact.qmd
+        file: overig/contact.qmd
 
     right:
       - text: "Bijdragen"
@@ -57,9 +57,10 @@ website:
 
       - title: "Overig"
         contents:
-          - contact.qmd
-          - tests.qmd
-          - changelog.qmd
+          - overig/contact.qmd
+          - overig/tests.qmd
+          - overig/changelog.qmd
+          - overig/translations.qmd
 
       - title: "Bijdragen"
         contents:
