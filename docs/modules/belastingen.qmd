@@ -17,7 +17,7 @@ De volgende databronnen worden op dit moment in de Toolbox Continu Inzicht onder
 4. [RWS waterinfo](#sec-RWS-waterinfo)
 
 #### Aquo standaard
-De standaard ondersteunde belastingen zetten de parameters om in het [Aquo standaard](www.aquo.nl) formaat met parameter id, code en omschrijving (naam). Elke functie roept de functie `base.aquo.read_aquo()` aan, hierbij wordt ook gekeken naar de `GlobalVariables` voor een `aquo_allias`. Op die manier is het ook mogelijk om andere parameters, bijvoorbeeld uit FEWS, te koppelen aan een Aquo grootheid. De meta data die gebruikt wordt voor deze standaard is te vinden onder [overig/aquo_grootheid](../overig/aquo_grootheid.qmd).
+De standaard ondersteunde belastingen zetten de parameters om in het [Aquo standaard](www.aquo.nl) formaat met parameter id, code en omschrijving (naam). Elke functie roept de functie `base.aquo.read_aquo()` aan, hierbij wordt ook gekeken naar de `GlobalVariables` voor een `aquo_allias`. Op die manier is het ook mogelijk om andere parameters, bijvoorbeeld uit FEWS, te koppelen aan een Aquo grootheid. De meta data die gebruikt wordt voor deze standaard is te vinden onder [Aquo grootheden](../overig/aquo_grootheid.qmd).
 
 #### Delft-FEWS{#sec-delft-fews}
 Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen) implementatie voor het beheren van verschillende interne en externe informatiebronnen.
