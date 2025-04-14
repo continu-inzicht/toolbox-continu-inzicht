@@ -61,6 +61,7 @@ website:
           - overig/tests.qmd
           - overig/changelog.qmd
           - overig/translations.qmd
+          - overig/aquo_grootheid.qmd
 
       - title: "Bijdragen"
         contents:

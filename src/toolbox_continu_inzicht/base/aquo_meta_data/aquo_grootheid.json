@@ -30,7 +30,7 @@
         "definitie": "de richting van waaruit de wind waait",
         "label_en": "wind direction",
         "aquo_url": "https://www.aquo.nl/index.php/Id-e955993f-b546-4603-ad85-5e84e77a1293",
-        "units": "\u00ef\u00bf\u00bd tov Noord waar de wind vandaan komt"
+        "units": "\u00b0 tov Noord waar de wind vandaan komt"
     },
     "WINDSHD": {
         "voorkeurslabel": "Windsnelheid",
@@ -63,7 +63,7 @@
         "definitie": "maat voor hoe warm of koud iets is",
         "label_en": "temperature",
         "aquo_url": "https://www.aquo.nl/index.php/Id-368757fa-38b2-4b6a-910f-72e849810ba9",
-        "units": "\u00ef\u00bf\u00bd Celcius"
+        "units": "\u00b0 Celcius"
     },
     "TLCHT": {
         "voorkeurslabel": "Temperatuur lucht",
@@ -74,7 +74,7 @@
         "definitie": "",
         "label_en": "temperature air",
         "aquo_url": "",
-        "units": "\u00ef\u00bf\u00bd Celcius"
+        "units": "\u00b0 Celcius"
     },
     "TWAT": {
         "voorkeurslabel": "Temperatuur water",
@@ -85,7 +85,7 @@
         "definitie": "",
         "label_en": "temperature water",
         "aquo_url": "",
-        "units": "\u00ef\u00bf\u00bd Celcius"
+        "units": "\u00b0 Celcius"
     },
     "STROOMRTG": {
         "voorkeurslabel": "Stroomrichting",
@@ -96,7 +96,7 @@
         "definitie": "richting waarin het water stroomt. De richting die een stroom volgt, d.w.z. de richting van de snelheid van een stromend medium.",
         "label_en": "current direction",
         "aquo_url": "https://www.aquo.nl/index.php/Id-d929235a-0943-4bcb-a3f3-1914c3c5e91d",
-        "units": "\u00ef\u00bf\u00bd tov Noord waar de stroming heen gaat"
+        "units": "\u00b0 tov Noord waar de stroming heen gaat"
     },
     "STROOMSHD": {
         "voorkeurslabel": "Stroomsnelheid",
@@ -104,7 +104,7 @@
         "id": 4519,
         "groep": "Grootheid",
         "label": "stroomsnelheid",
-        "definitie": "de gemiddelde stroomsnelheid van het water, zijnde het quoti\u00ef\u00bf\u00bdnt van de cumulatieve aanvoerhoeveelheid en de natte oppervlakte",
+        "definitie": "de gemiddelde stroomsnelheid van het water, zijnde het quoti\u00ebnt van de cumulatieve aanvoerhoeveelheid en de natte oppervlakte",
         "label_en": "\tcurrent speed",
         "aquo_url": "https://www.aquo.nl/index.php/Id-ce7672a9-b215-4f1c-ba6b-c048fbc26bd5",
         "units": "m/s"

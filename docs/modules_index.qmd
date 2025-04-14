@@ -2,13 +2,10 @@
 title: "Modules"
 ---
 
-De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken.
-Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd.
-Een voorbeeld van een functie is het inlezen van waterstanden uit FEWS.
-De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke [GitHub](https://github.com/continu-inzicht/toolbox-continu-inzicht).
-De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.
-
-De ontwikkeling van de volgende modules is voorzien:
+De Toolbox Continu Inzicht is in sprints ontwikkeld waarbij één of meerdere modules is ontwikkeld.
+Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd.
+Deze modules kunnen los gebruikt worden of vormen samen een geheel.
+Naast de functies is per module een beschrijving beschikbaar en zijn er voorbeelden hoe de code gebruikt kan worden met uitleg.
 
 1.  [Basis architectuur Toolbox Continu Inzicht](modules/architectuur.qmd)
 

@@ -6,7 +6,7 @@ if __name__ == "__main__":
     import json
 
     path = Path(__file__).parent
-    df_aquo = pd.read_csv(path / "AQUO(Parameters).csv", encoding="unicode_escape")
+    df_aquo = pd.read_csv(path / "AQUO(Parameters).csv", encoding="utf-8")
 
     df_aquo = df_aquo.dropna(subset="voorkeurslabel")
     df_aquo = df_aquo.fillna("")

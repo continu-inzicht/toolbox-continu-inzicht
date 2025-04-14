@@ -10,6 +10,7 @@ Om hier bij te helpen is een tabel opgesteld om bij te helpen.
 |-|-|
 |Waterstand|Waterlevel|
 |Belastingen|Hydraulicloads|
+|Faalkans|Failure probability|
 |Overschrijdingskans|Exceedance probability|
 |Overschrijdingsfrequentie lijn|Exceedance frequency curve|
 |Kruinhoogte|Crest height|
@@ -18,4 +19,3 @@ Om hier bij te helpen is een tabel opgesteld om bij te helpen.
 |Golfhoogte|Wave height|
 |Golfperiode|Wave period|
 |Golfrichting|Wave direction|
-|Faalkans|Failure probability|
