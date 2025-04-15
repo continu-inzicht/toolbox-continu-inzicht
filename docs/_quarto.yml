@@ -38,7 +38,10 @@ website:
           - "examples/notebooks/3.fragility_curve_overtopping.ipynb"
           - "examples/notebooks/4.adjust_integrated_statistics.ipynb"
           - "examples/notebooks/5.Inspectie_resultaten.ipynb"
-          - "examples/notebooks/6.WMS_laag_naar_database.ipynb"
+          - "examples/notebooks/100.logging.ipynb"
+          - "examples/notebooks/101.WMS_laag_naar_database.ipynb"
+
+
 
       - title: "Modules"
         contents:

@@ -2,6 +2,7 @@ from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
 import pandas as pd
 import os
+import logging
 
 import warnings
 from typing import Any, Optional, Dict
@@ -30,7 +31,7 @@ class DataAdapter(PydanticBaseModel):
     config: Config
     input_types: dict = {}
     output_types: dict = {}
-    logger: Logger = None
+    logger: Logger | None = None
 
     def __init__(self, config: Config):
         super().__init__(config=config)
@@ -90,11 +91,11 @@ class DataAdapter(PydanticBaseModel):
 
         # initieer een leeg dataframe
         df = pd.DataFrame()
-
         # controleer of de adapter bestaat
         if input in self.config.data_adapters:
             # haal de inputconfiguratie op van de functie
-            function_input_config = self.config.data_adapters[input]
+            function_input_config: dict = self.config.data_adapters[input]
+            self.logger.debug(f"DataAdapter input: {function_input_config=}")
 
             # leidt het datatype af
             data_type = function_input_config["type"]
@@ -168,7 +169,7 @@ class DataAdapter(PydanticBaseModel):
         """
         self.initialize_output_types()  # maak een dictionary van type: functie
         # haal de inputconfiguratie op van de functie
-        functie_output_config = self.config.data_adapters[output]
+        functie_output_config: dict = self.config.data_adapters[output]
 
         # leidt het datatype af
         data_type = functie_output_config["type"]
@@ -275,48 +276,66 @@ class DataAdapter(PydanticBaseModel):
             )
 
     def init_logging(self):
-        """Initialiseer de logger met de configuratie."""
+        """Initialiseer de logger met de configuratie.
 
-        # TODO:
+        Voor logging zijn de volgende instellingen mogelijk:
+        - name: naam van de logger
+        - level: logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        - mode: schrijfwijze van de logfile (w, a)
+        - file: bestands naam om naar weg te schrijven logfile
+        - history_file: logfile voor de history
+
+        Als file en history_file geen absolute path zijn, dan worden ze in de rootdir van de configuratie opgeslagen.
+        In het geval dat `file` opgegeven is, maar geen valide pad is, dan wordt er een logfile `hidden_logfile.log` aangemaakt in de rootdir.
+        """
+
         if self.logger is None:
-            # alleen loggen als we willen.
-            logging_settings = self.config.global_variables.get("logging", {})
+            logging_settings: dict = self.config.global_variables.get("logging", {})
+            logname = logging_settings.get("name", "toolbox_continu_inzicht")
+            level = logging_settings.get("level", "WARNING")
+            mode = logging_settings.get("mode", "w")
 
-            if len(logging_settings) == 0:
-                self.logger = None  # hier stream handler naar stdout
+            # zonder configuratie alles een stream handler naar stdout
+            self.logger: logging = Logger.set_up_logging_to_stream(
+                name=logname, level=level
+            )
 
-            else:
-                logfile = logging_settings.get("logfile", None)
-                loghistoryfile = logging_settings.get("loghistoryfile", None)
-                level = logging_settings.get("loglevel", "INFO")
-                mode = logging_settings.get("logmode", "w")
+            if "file" in logging_settings or "history_file" in logging_settings:
+                # als er in de configuratie logging files is ingesteld, haal de instellingen op
+                logfile = logging_settings.get("file", None)
+                loghistoryfile = logging_settings.get("history_file", None)
+                maxBytes = logging_settings.get("maxBytes", 10 * 1024 * 1024)  # 10 MB
 
                 if logfile is not None:
-                    if Path(logfile).is_absolute():
-                        logfile = Path(logfile)
-                    elif Path(
-                        self.config.global_variables["rootdir"] / logfile
-                    ).is_absolute():
-                        logfile = Path(
-                            self.config.global_variables["rootdir"] / logfile
-                        )
-
-                if loghistoryfile is not None:
-                    if Path(loghistoryfile).is_absolute():
-                        loghistoryfile = Path(loghistoryfile)
-                    elif Path(
-                        self.config.global_variables["rootdir"] / loghistoryfile
-                    ).is_absolute():
-                        loghistoryfile = Path(
-                            self.config.global_variables["rootdir"] / loghistoryfile
-                        )
-
-                if logfile is None:
+                    logfile = self._check_logger_path(
+                        logfile, self.config.global_variables
+                    )
+                else:
                     logfile = (
                         Path(self.config.global_variables["rootdir"])
                         / "hidden_logfile.log"
                     )
 
-                self.logger = Logger.set_up_logging(
-                    logfile, loghistoryfile, level, mode=mode
+                # voeg alleen een history file nodig indien ingesteld
+                if loghistoryfile is not None:
+                    loghistoryfile = self._check_logger_path(
+                        loghistoryfile, self.config.global_variables
+                    )
+
+                self.logger: logging = Logger.set_up_logging_to_file(
+                    logname, logfile, loghistoryfile, level, mode, maxBytes
                 )
+
+            self.logger.debug("Logging is ingesteld.")
+
+    @staticmethod
+    def _check_logger_path(logfile: str, global_variables: dict):
+        if Path(logfile).is_absolute():
+            logfile = Path(logfile)
+        elif Path(global_variables["rootdir"]).is_absolute():
+            logfile = Path(global_variables["rootdir"]) / logfile
+        # als rootdir geen absoluut pad is, nemen we relatief aan
+        elif (Path.cwd() / global_variables["rootdir"]).is_dir():
+            logfile = Path.cwd() / global_variables["rootdir"] / logfile
+
+        return logfile

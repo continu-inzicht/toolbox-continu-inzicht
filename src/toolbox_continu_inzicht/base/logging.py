@@ -1,41 +1,47 @@
-import json
 import logging.handlers
 from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
 
 
 class Logger(PydanticBaseModel):
-    """Base logging class"""
+    """logging voor Toolbox CI
+
+    Wordt aangemaakt bij het aanmaken van de data adapter
+
+    Grove richtlijnen:
+    - DEBUG: voor het development team
+    - INFO: voor de technische gebruiker hoofdlijnen wat de functie doet
+    - WARNING: Er klopt iets niet, maar de functie kan door
+    - ERROR: Er klopt iets niet, en de functie kan niet door
+    """
 
     @staticmethod
-    def read_json(settings_file: Path, logger: logging):
-        logger.debug("Running function read_json")
-        try:
-            with open(settings_file, "r") as json_file:
-                json_data = json.load(json_file)
-                return json_data
-        except FileNotFoundError:
-            logger.error(
-                "Credentials not imported: file {} not found.".format(settings_file)
-            )
-            exit(1)
-        except json.JSONDecodeError:
-            logger.error(
-                "Credentials not imported: file {} not valid JSON.".format(
-                    settings_file
-                )
-            )
-            exit(1)
+    def set_up_logging_to_stream(name: str, level: int | str):
+        logger = logging.getLogger(name)
+        logger.setLevel(level)
+        if not logger.hasHandlers():
+            log_stream_handler = logging.StreamHandler()
+            log_stream_handler.setFormatter(Logger.get_formatter())
+            logger.addHandler(log_stream_handler)
+        return logger
 
     @staticmethod
-    def set_up_logging(
-        logfile: Path, loghistoryfile: Path | None, level: int | str, mode: str = "w"
+    def set_up_logging_to_file(
+        name: str,
+        logfile: Path,
+        loghistoryfile: Path | None,
+        level: int | str,
+        mode: str,
+        maxBytes: int,
     ):
-        logger = Logger.set_up_single_logging(logfile, level, mode=mode)
+        logger = Logger.set_up_single_file_logging(name, logfile, level, mode=mode)
 
-        if loghistoryfile is not None:
+        no_handler = logging.handlers.RotatingFileHandler not in [
+            type(handler) for handler in logger.handlers
+        ]
+        if loghistoryfile is not None and no_handler:
             history_log_handler = logging.handlers.RotatingFileHandler(
-                loghistoryfile, maxBytes=10000000, backupCount=5
+                loghistoryfile, maxBytes=maxBytes, backupCount=5
             )
             history_log_handler.setFormatter(Logger.get_formatter())
             logger.addHandler(history_log_handler)
@@ -43,13 +49,16 @@ class Logger(PydanticBaseModel):
         return logger
 
     @staticmethod
-    def set_up_single_logging(logfile: Path, level: int | str, mode="w"):
-        logger = logging.getLogger("CI toolbox")
+    def set_up_single_file_logging(
+        name: str, logfile: Path, level: int | str, mode="w"
+    ):
+        logger = logging.getLogger(name)
         logger.setLevel(level)
 
-        current_log_handler = logging.FileHandler(filename=logfile, mode=mode)
-        current_log_handler.setFormatter(Logger.get_formatter())
-        logger.addHandler(current_log_handler)
+        if logging.FileHandler not in [type(handler) for handler in logger.handlers]:
+            current_log_handler = logging.FileHandler(filename=logfile, mode=mode)
+            current_log_handler.setFormatter(Logger.get_formatter())
+            logger.addHandler(current_log_handler)
         return logger
 
     @staticmethod
@@ -60,6 +69,7 @@ class Logger(PydanticBaseModel):
 
     @staticmethod
     def get_formatter():
-        fmt = r"%(asctime)s %(levelname)s: %(message)s"
+        # https://docs.python.org/3/library/logging.html#logrecord-attributes
+        fmt = r"%(asctime)s %(levelname)s - %(module)s: %(message)s"
         dfmt = r"%Y-%m-%d %H:%M:%S"
         return logging.Formatter(fmt, datefmt=dfmt)
