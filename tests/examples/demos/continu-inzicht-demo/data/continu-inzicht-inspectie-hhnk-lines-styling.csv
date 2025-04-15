@@ -1,0 +1,6 @@
+id;name;description;color;fillColor;geometry_type;lower_boundary
+1;onbekend;;#a9070f;#a9070f;Marker;onbekend
+2;goed;;#07a9a1;#07a9a1;Marker;goed
+3;redelijk;;#0760a9;#0760a9;Marker;redelijk
+4;matig;;#5007a9;#5007a9;Marker;matig
+5;slecht;;#5007a9;#5007a9;Marker;slecht
