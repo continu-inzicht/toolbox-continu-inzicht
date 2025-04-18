@@ -3,13 +3,14 @@ Bepaal de belasting op een dijkvak
 """
 
 from pydantic.dataclasses import dataclass
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 import pandas as pd
 from typing import ClassVar, Optional
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class SectionsLoads:
+class SectionsLoads(ToolboxBase):
     """
     Bepaal de belasting op een dijkvak gegeven een belasting
 

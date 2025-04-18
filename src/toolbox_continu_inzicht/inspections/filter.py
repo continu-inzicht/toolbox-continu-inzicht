@@ -3,11 +3,12 @@ from typing import Optional
 import pandas as pd
 from pydantic.dataclasses import dataclass
 
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class Filter:
+class Filter(ToolboxBase):
     """Filtert een DataFrame aan de hand van de opgegeven configuratie.
 
     Attributes

@@ -1,11 +1,14 @@
-from pydantic.dataclasses import dataclass
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-import pandas as pd
 from typing import ClassVar, Optional
+
+import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class LoadsClassify:
+class LoadsClassify(ToolboxBase):
     """
     Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd.
 

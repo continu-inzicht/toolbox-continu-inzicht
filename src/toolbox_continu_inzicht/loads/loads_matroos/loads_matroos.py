@@ -11,6 +11,7 @@ from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
     get_matroos_locations,
     get_matroos_sources,
 )
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 from toolbox_continu_inzicht.base.aquo import read_aquo
@@ -21,7 +22,7 @@ matroos_aquo_synoniem = {"water height": "waterlevel"}
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class LoadsMatroos:
+class LoadsMatroos(ToolboxBase):
     """
     Haalt matroos tijdserie informatie op uit de Noos, Matroos of Vitaal server.
 

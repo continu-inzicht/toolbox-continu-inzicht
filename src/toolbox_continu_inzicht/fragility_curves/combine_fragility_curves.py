@@ -1,9 +1,11 @@
 from dataclasses import field
-import numpy as np
-from pydantic.dataclasses import dataclass
-import pandas as pd
-from typing import ClassVar, Optional, Callable
+from typing import Callable, ClassVar, Optional
 
+import numpy as np
+import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
@@ -41,7 +43,7 @@ def combine_weighted(lst_fragility_curves, weights=None):
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class CombineFragilityCurvesIndependent:
+class CombineFragilityCurvesIndependent(ToolboxBase):
     """
     Combineer meerdere fragility curves onafhankelijk tot een enkele fragility curve.
 

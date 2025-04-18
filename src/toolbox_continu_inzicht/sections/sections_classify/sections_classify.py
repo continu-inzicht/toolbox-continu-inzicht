@@ -2,15 +2,17 @@
 Bepaal de status van een dijkvak
 """
 
-from pydantic.dataclasses import dataclass
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from typing import ClassVar, Optional
 
 import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class SectionsClassify:
+class SectionsClassify(ToolboxBase):
     """
     Bepaal de status van een dijkvak gegeven de faalkans en grenswaardes.
 

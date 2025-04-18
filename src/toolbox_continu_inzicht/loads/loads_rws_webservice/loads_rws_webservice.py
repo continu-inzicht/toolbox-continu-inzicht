@@ -1,19 +1,21 @@
-from datetime import datetime, timedelta
 import warnings
-from pydantic.dataclasses import dataclass
-import pandas as pd
+from datetime import datetime, timedelta
 from typing import Optional
 
+import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
+from toolbox_continu_inzicht.base.aquo import read_aquo
 from toolbox_continu_inzicht.loads.loads_rws_webservice.get_rws_webservices_locations import (
     get_rws_webservices_locations,
 )
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.base.aquo import read_aquo
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class LoadsWaterwebservicesRWS:
+class LoadsWaterwebservicesRWS(ToolboxBase):
     """
     Belastinggegevens ophalen van rijkswaterstaat waterwebservices
 

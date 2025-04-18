@@ -1,18 +1,19 @@
 import json
+import warnings
 from pathlib import Path
 from typing import ClassVar, Optional
-import warnings
 
+import geopandas as gpd
 import numpy as np
 import pandas as pd
 from pydantic.dataclasses import dataclass
-import geopandas as gpd
 
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class ClassifyInspections:
+class ClassifyInspections(ToolboxBase):
     """Classificeert inspectieresultaten om weer te geven in de viewer.
 
     Attributes

@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from typing import Callable, ClassVar, Optional
 import warnings
 
@@ -6,12 +5,12 @@ import numpy as np
 import pandas as pd
 from pydantic.dataclasses import dataclass
 
-from toolbox_continu_inzicht import DataAdapter
+from toolbox_continu_inzicht import ToolboxBase, DataAdapter
 from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurve:
+class FragilityCurve(ToolboxBase):
     """
     Class met een aantal gemakkelijke methoden om fragility curves
     op te slaan en aan te passen
@@ -45,9 +44,13 @@ class FragilityCurve:
     def run(self, *args, **kwargs):
         self.calculate_fragility_curve(*args, **kwargs)
 
-    @abstractmethod
     def calculate_fragility_curve(self, *args, **kwargs):
-        pass
+        # Dit is geen abstractmethod omdat anders deze class altijd als
+        # subclass gebruikt moet worden. Raise daarom alleen een TypeError
+        # als deze methode wordt aangeroepen zonder subclass.
+        raise TypeError(
+            "De methode 'calculate_fragility_curve' is niet geimplementeerd"
+        )
 
     def as_array(self):
         """Geef curve terug als NumPy array. Deze kunnen vervolgens worden gestacked en in een database geplaatst"""
