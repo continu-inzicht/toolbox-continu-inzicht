@@ -4,10 +4,10 @@ title: "Bijstellen fragility curves"
 
 ### Verschuiven van een curve
 
-Voor het simpel weg verschuiven van een curve is voor alle type fragility curves de functie `Shift*` beschikbaar, `*` de naam van de functie is.
-Zo schuift `ShiftFragilityCurveOvertopping` de curve van `FragilityCurveOvertopping` naar rechts met een gegeven effect.
-Belangrijk om hier te benoemen is dat de opties in GlobalVariables nog steeds moeten verwijzen naar de originele functie, ook alle andere configuraties blijven hetzelfde.
-In het voorbeeld hier onder wordt gebruik gemaakt van`FragilityCurveOvertopping` in de GlobalVariables, ook al wordt de `ShiftFragilityCurveOvertopping` functie aangeroepen.
+Voor het verschuiven van een fragility curve over een opgegeven waterstandsbereik is voor alle type fragility curves de functie `Shift*` beschikbaar, `*` de naam van de functie is.
+Zo schuift `ShiftFragilityCurveOvertopping` de curve van `FragilityCurveOvertopping` naar links of rechts met een opgegeven stapgrootte (bijv. 0,5 voor een verschuiving van de fragility curve met 0,5m naar rechts). Belangrijk om hier te benoemen is dat de opties in GlobalVariables nog steeds moeten verwijzen naar de originele functie, ook alle andere configuraties blijven hetzelfde. 
+
+In het voorbeeld hieronder wordt gebruik gemaakt van`FragilityCurveOvertopping` in de GlobalVariables, ook al wordt de `ShiftFragilityCurveOvertopping` functie aangeroepen.
 
 ::: {.panel-tabset}
 ## Configuratie
