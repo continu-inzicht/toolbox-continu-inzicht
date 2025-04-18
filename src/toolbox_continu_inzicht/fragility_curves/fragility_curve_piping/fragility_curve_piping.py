@@ -1,13 +1,14 @@
-import pandas as pd
-from pydantic.dataclasses import dataclass
-from typing import Optional
 from pathlib import Path
+from typing import Optional
 
+import pandas as pd
 from probabilistic_piping import (
     ProbInput,
     ProbPipingFixedWaterlevelSimple,
 )
-from toolbox_continu_inzicht import FragilityCurve, DataAdapter, Config
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht import ToolboxBase, Config, DataAdapter, FragilityCurve
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -148,7 +149,7 @@ class FragilityCurvePipingFixedWaterlevel(FragilityCurve):
 
 # Dit is nu nog heel traag: in de toekomst kijken of we dit met cache kunnen versnellen?
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurvePipingMultiple:
+class FragilityCurvePipingMultiple(ToolboxBase):
     """
     Maakt een set van fragility curves voor piping voor een dijkvak.
     De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie.

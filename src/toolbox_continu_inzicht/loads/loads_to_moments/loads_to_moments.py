@@ -1,13 +1,16 @@
-from pydantic.dataclasses import dataclass
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter
+from datetime import datetime, timedelta
+from typing import ClassVar, Optional
+
 import pandas as pd
 import pandas.api.types as ptypes
-from typing import ClassVar, Optional
-from datetime import datetime, timedelta
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class LoadsToMoments:
+class LoadsToMoments(ToolboxBase):
     """
     Met deze klasse kunnen waterstandsgegevens worden omgezet naar bepaalde momenten.
     Deze klasse bevat een methode genaamd 'run' die de waterstandsgegevens verwerkt en de resulterende momenten opslaat in een dataframe.

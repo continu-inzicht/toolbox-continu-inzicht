@@ -4,7 +4,7 @@ title: "Inspectieresultaten inlezen en weergeven"
 
 ### Filteren
 
-Voor het inlezen van inspectie resultaten is het wenselijk om de invoer data te kunnen filteren. In sommige gevallen zal dit al in de [data adapter](architectuur.qmd#sec-zelf-adapter-locatie-doorgeven) gebeuren. Voor het filteren zijn drie opties te configureren:
+Voor het inlezen van inspectieresultaten is het wenselijk om de invoer data te kunnen filteren. In sommige gevallen zal dit al in de [data adapter](architectuur.qmd#sec-zelf-adapter-locatie-doorgeven) gebeuren. Voor het filteren zijn drie opties te configureren:
 
 - query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html)
 - drop_columns: Lijst van kolommen die verwijderd moeten worden
@@ -70,9 +70,9 @@ filter.run(
 ```
 :::
 
-### Classificeren van inspectie resultaten
+### Classificeren van inspectieresultaten
 
-Inspectie resultaten kunnen afhankelijk van eigenschappen geclassificeerd worden en getoond met bepaalde opmaak. Bijvoorbeeld om afhankelijk van het type of de toegekende prioriteit een kleur of lijndikte aan te geven. Hiervoor is een laag met resultaten nodig en een legenda met informatie over hoe de resultaten geclassificeerd worden en bijbehorende opmaak. De resultaten kunnen of een [geografische laag zijn](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) of een platte text tabel met geometrie of xy-coördinaten. De geografische informatie wordt altijd omgezet naar WGS84 om ondersteund te worden in de viewer.
+Inspectieresultaten kunnen afhankelijk van eigenschappen geclassificeerd worden en getoond met bepaalde opmaak. Bijvoorbeeld om afhankelijk van het type of de toegekende prioriteit een kleur of lijndikte aan te geven. Hiervoor is een laag met resultaten nodig en een legenda met informatie over hoe de resultaten geclassificeerd worden en bijbehorende opmaak. De resultaten kunnen of een [geografische laag zijn](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) of een platte text tabel met geometrie of xy-coördinaten. De geografische informatie wordt altijd omgezet naar WGS84 om ondersteund te worden in de viewer.
 De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de global variables. Deze kolom wordt vergeleken met de waardes in de legenda en de opmaak van uit de legenda wordt vervolgens overgenomen. De waardes om mee te vergelijken kunnen getallen of text zijn. Bij text wordt de 'lower_boundary' kolom gebruikt,. De viewer verwacht een heel aantal kolommen, als deze niet worden opgegeven neemt de toolbox standaard waardes over (`get_possible_styling()`). Deze standaard waardes kunnen ook aangepast worden met  door de gebruiker.
 
 
@@ -167,13 +167,13 @@ classify_inspections_styling.run(
 )
 ```
 :::
-### Inspectie resultaten en de viewer
+### Inspectieresultaten en de viewer
 
-De kaartlagen van inspectie resultaten kunnen in de viewer worden weergegeven. Naast de kaartlaag die met de toolbox is geclassificeerd kan ook een eigen WMS laag gebruikt worden. Voor kaartlagen die relatief klein zijn kan alle informatie in één database veld gestopt worden. Bij grotere lagen is het aan te raden om een nieuwe tabel te maken, waar vervolgens naar verwezen kan worden. Voor alle drie zal deze opties zal een voorbeeld gegeven worden. De kolommen `group_name`, `layer_name` en `layer_visible` kunnen gebruik worden om de groepen, kaartlaag namen en standaard zichtbaarheid in de viewer te configureren. De `layer_type` moet voor 'geojson', 'wms' en 'table' worden ingesteld.
+De kaartlagen van inspectieresultaten kunnen in de viewer worden weergegeven. Naast de kaartlaag die met de toolbox is geclassificeerd kan ook een eigen WMS laag gebruikt worden. Voor kaartlagen die relatief klein zijn kan alle informatie in één database veld gestopt worden. Bij grotere lagen is het aan te raden om een nieuwe tabel te maken, waar vervolgens naar verwezen kan worden. Voor alle drie zal deze opties zal een voorbeeld gegeven worden. De kolommen `group_name`, `layer_name` en `layer_visible` kunnen gebruik worden om de groepen, kaartlaag namen en standaard zichtbaarheid in de viewer te configureren. De `layer_type` moet voor 'geojson', 'wms' en 'table' worden ingesteld.
 
 #### Kleine kaartlaag in de viewer
 
-Om de verschillende databronnen te combineren to een tabel kan de functie `InspectionsToDatabase` gebruikt worden. De input hiervoor is de inspectie resultaten, opmaak en lagen. `Lagen` is een tabel waar de informatie in staat over de verschillende lagen. Als deze niet wordt opgegeven wordt een standaard tabel gebruikt. De `inspectie resultaten` wordt toegevoegd aan de `lagen` tabel, indien er meerdere rijden in de `lagen` tabel zitten kan de rij index worden aangepast met `index`. Het maximum aantal `inspectie resultaten` kan aangepast worden met `max_rows`, standaard is dit 10.
+Om de verschillende databronnen te combineren to een tabel kan de functie `InspectionsToDatabase` gebruikt worden. De input hiervoor is de inspectieresultaten, opmaak en lagen. `Lagen` is een tabel waar de informatie in staat over de verschillende lagen. Als deze niet wordt opgegeven wordt een standaard tabel gebruikt. De `inspectieresultaten` wordt toegevoegd aan de `lagen` tabel, indien er meerdere rijden in de `lagen` tabel zitten kan de rij index worden aangepast met `index`. Het maximum aantal `inspectieresultaten` kan aangepast worden met `max_rows`, standaard is dit 10.
 
 ::: {.panel-tabset}
 ## Configuratie

@@ -295,13 +295,14 @@ class DataAdapter(PydanticBaseModel):
             level = logging_settings.get("level", "WARNING")
             mode = logging_settings.get("mode", "w")
 
-            # zonder configuratie alles een stream handler naar stdout
+            # zonder configuratie alleen een stream handler naar stdout
             self.logger: logging = Logger.set_up_logging_to_stream(
                 name=logname, level=level
             )
 
             if "file" in logging_settings or "history_file" in logging_settings:
-                # als er in de configuratie logging files is ingesteld, haal de instellingen op
+                # Als in de configuratie logging naar een bestand is ingesteld,
+                # haal de instellingen op
                 logfile = logging_settings.get("file", None)
                 loghistoryfile = logging_settings.get("history_file", None)
                 maxBytes = logging_settings.get("maxBytes", 10 * 1024 * 1024)  # 10 MB

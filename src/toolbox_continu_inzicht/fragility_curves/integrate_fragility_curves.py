@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from pydantic.dataclasses import dataclass
 
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.adapters.validate_dataframe import validate_dataframe
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.base.exceedance_frequency_curve import (
@@ -14,7 +15,7 @@ from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class IntegrateFragilityCurve:
+class IntegrateFragilityCurve(ToolboxBase):
     """Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve
 
     Attributes

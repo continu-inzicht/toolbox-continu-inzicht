@@ -1,18 +1,21 @@
-from datetime import datetime, timedelta
 import warnings
-from pydantic.dataclasses import dataclass
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-import pandas as pd
+from datetime import datetime, timedelta
 from typing import Optional
+
+import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
+from toolbox_continu_inzicht.base.aquo import read_aquo
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.utils.datetime_functions import (
     datetime_from_string,
 )
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
-from toolbox_continu_inzicht.base.aquo import read_aquo
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class LoadsFews:
+class LoadsFews(ToolboxBase):
     """
     Met deze functie worden gegevens uit de opgegeven FEWS omgeving opgehaald via REST.
     """

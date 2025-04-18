@@ -6,7 +6,7 @@ from pydantic import BaseModel as PydanticBaseModel
 class Logger(PydanticBaseModel):
     """logging voor Toolbox CI
 
-    Wordt aangemaakt bij het aanmaken van de data adapter
+    Wordt aangemaakt bij het aanmaken van de DataAdapter
 
     Grove richtlijnen:
     - DEBUG: voor het development team
