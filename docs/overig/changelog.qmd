@@ -85,7 +85,7 @@ Matroos was al beschikbaar, maar maakte gebruik van de [timeseries](https://noos
 
 Alle aanpassingen zijn te vinden in pull request [#55](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/55)
 
-In Sprint 5 is gekeken naar het filteren, ontsluiten en visualiseren van inspectie resultaten.
+In Sprint 5 is gekeken naar het filteren, ontsluiten en visualiseren van inspectieresultaten.
 
 
 

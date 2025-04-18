@@ -13,7 +13,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class ClassifyInspections:
-    """Classificeert Inspectie resultaten om weer te geven in de viewer.
+    """Classificeert inspectieresultaten om weer te geven in de viewer.
 
     Attributes
     ----------
@@ -27,27 +27,27 @@ class ClassifyInspections:
         DataFrame met standaard opmaak informatie, wordt gebruikt als er geen opmaak informatie is meegegeven
         Beschikbaar via get_default_styling() en te vervangen met set_default_styling(df)
     df_out: Optional[gpd.GeoDataFrame] | None
-        Output DataFrame containing the filtered dataframe.
+        Output DataFrame containing the filtered DataFrame.
     df_legend_out: Optional[pd.DataFrame] | None
         Output DataFrame containing the legend information.
     styling_schema: ClassVar[dict[str, str]]
-        Schema dataframe met de opmaak informatie
+        Schema DataFrame met de opmaak informatie
 
     Notes
     -----
-    Het classificeren van inspectie resultaten gebeurt op basis van de kolom 'classify_column' die is opgegeven in de global variables.
-    De classificatie wordt gedaan op basis van de kolommen 'upper_boundary' en 'lower_boundary' in de opmaak DataFrame, deze wordt mee geven als tweede input.
+    Het classificeren van inspectieresultaten gebeurt op basis van de kolom 'classify_column' die is opgegeven in de global variables.
+    De classificatie wordt gedaan op basis van de kolommen 'upper_boundary' en 'lower_boundary' in de opmaak DataFrame, deze wordt meegegeven als tweede input.
     Waardes die niet geclassificeerd kunnen worden, krijgen de opmaak van de rij zonder waardes in de upper_boundary en lower_boundary kolommen.
     Als er geen opmaak DataFrame wordt meegegeven, wordt de standaard opmaak gebruikt voor alle waardes.
     De standaard opmaak is op te halen met get_default_styling() en te vervangen met set_default_styling(df).
 
-    Er zijn drie manier om de geodata mee te geven. Deze wordt gebruik voor de opmaak.
-    Alle projecties worden ondersteund, maar wordt omgerekend naar WGS84 voor de viewer.
+    Er zijn drie manier om geodata mee te geven. Deze wordt gebruik voor de opmaak.
+    Alle projecties worden ondersteund, maar wordt omgezet naar EPSG:4326 voor de viewer.
 
-    In de Global Variables kan de projectie worden aangepast, standaard is EPSG:4326, alle andere projecties worden omgerekend naar deze projectie.
+    In de Global Variables kan de projectie worden aangepast, standaard is EPSG:4326, alle andere projecties worden omgezet naar deze projectie.
 
     - Bij het mee geven van een [GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html), wordt de opmaak toegepast op de geometrie van het GeoDataFrame.
-    - Als er een 'geometry' kolom is uit de dataframe, wordt deze gebruikt om een GeoDataFrame te maken.
+    - Als er een 'geometry' kolom is in de DataFrame, wordt deze gebruikt om een GeoDataFrame te maken.
     - Indien beide bovenstaande niet het geval is, wordt gezocht naar een kolom met x en met y coördinaten en deze wordt gebruikt om een GeoDataFrame te maken.
 
     Het type geometry wordt automatisch bepaald, maar kan ook meegegeven worden in de Global Variables.
@@ -60,9 +60,9 @@ class ClassifyInspections:
     - CircleMarker
     - Marker
 
-    De output DataFrame bevat de opmaak informatie die is toegepast op de inspectie resultaten.
+    De output DataFrame bevat de opmaak informatie die is toegepast op de inspectieresultaten.
     Als er geen opmaak informatie is meegegeven, wordt de standaard opmaak gebruikt.
-    De output kan een met alleen geclassificeerde resultaten of twee dataframes met de inspectie resultaten en een met de legenda informatie.
+    De output kan een met alleen geclassificeerde resultaten of twee DataFrames met de inspectieresultaten en een met de legenda informatie.
     Ontbrekende kolommen in de opmaak DataFrame worden aangevuld met de standaard opmaak.
     """
 
@@ -78,21 +78,21 @@ class ClassifyInspections:
     }
 
     def run(self, input: str | list[str], output: str | list[str]):
-        """Runt het classificeren van inspectie resultaten om vervolgens weer te geven in de viewer.
+        """Runt het classificeren van inspectieresultaten om vervolgens weer te geven in de viewer.
 
         Parameters
         ----------
         input: str | list[str]
-            Naam van de Data Adapters met inspectie resultaten en legenda met opmaak (indien gewenst), in die volgorde.
+            Naam van de Data Adapters met inspectieresultaten en legenda met opmaak (indien gewenst), in die volgorde.
 
         output: str | list[str]
             Naam van Data adapter voor de output
 
         Notes
         -----
-        De input DataAdapters moet minimaal 'Inspectie resultaten' bevatten die worden geclassificeerd.
+        De input DataAdapters moet minimaal 'Inspectieresultaten' bevatten die worden geclassificeerd.
         De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de global variables.
-        Deze classificatie waardes kan zowel numeriek zijn als text.
+        Deze classificatiewaardes kunnen zowel numeriek zijn als text.
 
         Indien gewenst kan ook opmaak opties worden meegegeven.
         Als deze niet meegegeven wordt, wordt de standaard opmaak gebruikt.
@@ -101,7 +101,7 @@ class ClassifyInspections:
         Deze moet de volgende kolommen bevatten:
 
         - 'color': kleur van de classificatie in hexadecimaal formaat
-        - 'lower_boundary': ondergrens van de classificatie waarde. De inspectie resultaten moeten groter of gelijk zijn.
+        - 'lower_boundary': ondergrens van de classificatie waarde. De inspectieresultaten moeten groter of gelijk zijn.
 
         De classificatie in 'lower_boundary' en 'classify_column' moet van hetzelfde type zijn.
         Als de classificatie op basis van een waarde is, mag ook de volgende kolom aanwezig zijn:
@@ -112,10 +112,10 @@ class ClassifyInspections:
         Door de global variables kan dit ook worden aangepast naar een `match_text_on` check.
         De opties zijn:
 
-        - 'contains': de classificatie waarde moet in de inspectie resultaten staan
-        - 'equals': de classificatie waarde moet gelijk zijn aan de inspectie resultaten
-        - 'startswith': de classificatie waarde moet aan het begin van de inspectie resultaten staan
-        - 'endswith': de classificatie waarde moet aan het einde van de inspectie resultaten staan
+        - 'contains': de classificatie waarde moet in de inspectieresultaten staan
+        - 'equals': de classificatie waarde moet gelijk zijn aan de inspectieresultaten
+        - 'startswith': de classificatie waarde moet aan het begin van de inspectieresultaten staan
+        - 'endswith': de classificatie waarde moet aan het einde van de inspectieresultaten staan
 
         Naast de verplichte kolommen zijn ook een aantal die ook worden meegenomen in de output.
         Indien deze niet aanwezig zijn, worden ze ook niet meegenomen in de output.
@@ -277,7 +277,7 @@ class ClassifyInspections:
                 assert self._check_dtype(
                     filtered_df_styling["lower_boundary"].dtype, "text"
                 ), (
-                    "Type van de classificatie is geen tekst, maar de inspectie resultaten zijn dat wel"
+                    "Type van de classificatie is geen tekst, maar de inspectieresultaten zijn dat wel"
                 )
                 for _, row in filtered_df_styling.iterrows():
                     for column in columns_to_transfer:
@@ -292,7 +292,7 @@ class ClassifyInspections:
                 assert self._check_dtype(
                     filtered_df_styling["lower_boundary"].dtype, "number"
                 ), (
-                    "Type van de classificatie is geen getal, maar de inspectie resultaten zijn dat wel"
+                    "Type van de classificatie is geen getal, maar de inspectieresultaten zijn dat wel"
                 )
                 for _, row in filtered_df_styling.iterrows():
                     for column in columns_to_transfer:
@@ -575,28 +575,28 @@ class ClassifyInspections:
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class InspectionsToDatabase(ClassifyInspections):
-    """Combineert de inspectie resultaten met de opmaak en slaat deze op in de database.
+    """Combineert de inspectieresultaten met de opmaak en slaat deze op in de database.
 
     Met deze functie wordt de gehele geojson onderdeel van 1 tabel in de database.
     Bij grote lagen is het aan te raden om deze als aparte tabel op te slaan,
-    het stappen plan voor het opslaan van grotere lagen in de database is te vinden onder modules `inspectieresultaten` in de documentatie.
+    de aanpak voor het opslaan van grotere lagen in de database is te vinden onder modules `inspectieresultaten` in de documentatie.
 
     Attributes
     ----------
     data_adapter: DataAdapter
         DataAdapter object
     df_in_inspections: Optional[pd.DataFrame | gpd.GeoDataFrame] | None
-        Input DataFrame met inspectie resultaten.
+        Input DataFrame met inspectieresultaten.
     df_in_legend: Optional[pd.DataFrame] | None
         DataFrame met standaard opmaak informatie.
     df_in_layers: Optional[pd.DataFrame] | None
         DataFrame met de lagen informatie.
     df_out: Optional[pd.DataFrame] | None
-        Output DataFrame containing the filtered dataframe.
+        Output DataFrame containing the filtered DataFrame.
     legend_schema: ClassVar[dict[str, str]]
-        Schema dataframe met de opmaak informatie
+        Schema DataFrame met de opmaak informatie
     layer_schema: ClassVar[dict[str, str]]
-        Schema dataframe met de layer informatie
+        Schema DataFrame met de layer informatie
 
     Notes
     -----
@@ -640,12 +640,12 @@ class InspectionsToDatabase(ClassifyInspections):
     }
 
     def run(self, input: list[str], output: str):
-        """Run het combineren van inspectie resultaten met opmaak voor het op slaan in de database.
+        """Run het combineren van inspectieresultaten met opmaak voor het opslaan in de database.
 
         Parameters
         ----------
         input: list[str]
-            Naam van de Data Adapters met inspectie resultaten, opmaak en lagen (in die volgorde).
+            Naam van de Data Adapters met inspectieresultaten, opmaak en lagen (in die volgorde).
             Resultaten en opmaak zijn verplicht, lagen zijn optioneel. Indien er geen informatie is meegegeven, worden standaard waardes gebruikt.
 
         output: str
@@ -657,7 +657,7 @@ class InspectionsToDatabase(ClassifyInspections):
         Raises
         ------
         UserWarning
-            Als er meer dan max_rows rijen zijn in de inspectie resultaten.
+            Als er meer dan max_rows rijen zijn in de inspectieresultaten.
         """
         self.df_in_inspections = self.data_adapter.input(input[0])
         self.df_in_legend = self.data_adapter.input(input[1], schema=self.legend_schema)
@@ -670,7 +670,7 @@ class InspectionsToDatabase(ClassifyInspections):
                 index=[0],
                 data={
                     "group_name": ["Extra Kaartlagen"],
-                    "layer_name": ["Inspectie resultaten"],
+                    "layer_name": ["Inspectieresultaten"],
                     "layer_visible": ["true"],
                     "layer_type": ["geojson"],
                 },
@@ -683,7 +683,7 @@ class InspectionsToDatabase(ClassifyInspections):
 
         if len(self.df_in_inspections) >= max_rows:
             raise UserWarning(
-                f"Er zijn meer dan {max_rows} inspectie resultaten, dit kan de database belasten."
+                f"Er zijn meer dan {max_rows} inspectieresultaten, dit kan de database belasten."
                 + "Dit maximum is aan te passen met `max_rows` in de global variables"
             )
 

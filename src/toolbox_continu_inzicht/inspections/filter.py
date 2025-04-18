@@ -13,7 +13,7 @@ class Filter:
     Attributes
     ----------
     data_adapter: DataAdapter
-        Adapter for handling data input and output operations.
+        DataAdapter object
     df_in: Optional[pd.DataFrame] | None
         Input DataFrame om te filteren
     df_out: Optional[pd.DataFrame] | None
@@ -27,7 +27,7 @@ class Filter:
     - drop_columns: Lijst van kolommen die verwijderd moeten worden
     - keep_columns: Lijst van kolommen die behouden moeten worden
 
-    Als meerdere van deze opties worden geconfigureerd, worden ze in bovenstaande volgorde toegepast.
+    Als meerdere van deze opties zijn geconfigureerd, worden ze in bovenstaande volgorde toegepast.
 
     """
 
@@ -41,9 +41,9 @@ class Filter:
         Parameters
         ----------
         input: str
-            Naam van de Data Adapter om te filteren
+            Naam van de DataAdapter om te filteren
         output: str
-            Naam van Data adapter voor de output
+            Naam van DataAdapter voor de output
 
         """
         global_variables = self.data_adapter.config.global_variables
