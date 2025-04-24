@@ -109,7 +109,7 @@ class FragilityCurve(ToolboxBase):
             self.failure_probability = np.maximum.accumulate(self.failure_probability)
 
     def sort_curve(self):
-        # Sorteer eerst op waterstand en vervolgens op faalkans
+        """Sorteert de fragility curve eerst op waterstand en vervolgens op faalkans"""
         lexsort = np.lexsort((self.failure_probability, self.hydraulicload))
         self.hydraulicload = self.hydraulicload[lexsort]
         self.failure_probability = self.failure_probability[lexsort]
