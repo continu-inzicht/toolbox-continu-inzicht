@@ -20,14 +20,14 @@ class ExceedanceFrequencyCurve(ToolboxBase):
     df_out: Optional[pd.DataFrame] | None
         DataFrame met de overschrijdingsfrequentiecurve
     lower_limit: float
-        Ondergrens voor de overschrijdingsfrequentie, standaard 1e-20
+        Ondergrens voor de overschrijdingsfrequentie, standaard 1e-200
     exceedance_frequency_curve_schema: ClassVar[dict[str, str]]
         Schema waaraan de overschrijdingsfrequentiecurve moet voldoen: {hydraulicload: float, probability_exceedance: float}
     """
 
     data_adapter: DataAdapter
     df_out: Optional[pd.DataFrame] | None = None
-    lower_limit: float = 1e-20
+    lower_limit: float = 1e-200
     exceedance_frequency_curve_schema: ClassVar[dict[str, str]] = {
         "hydraulicload": float,
         "probability_exceedance": float,
