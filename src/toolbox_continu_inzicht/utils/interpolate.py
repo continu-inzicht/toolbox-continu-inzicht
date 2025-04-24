@@ -57,26 +57,26 @@ def interpolate_1d(
     clip01: bool = False,
 ) -> np.ndarray:
     """
-    Interpolate an array along the given axis.
-    Similar to np.interp, but with extrapolation outside range.
+    Interpolatie van een 1d vector, gebaseerd op np.interp maar met
+    extrapolatie buiten het opgegeven bereik.
 
     Parameters
     ----------
     x : np.ndarray
-        Array with positions to interpolate at
+        X-waardes waarop geinterpoleerd moet worden
     xp : np.ndarray
-        Array with positions of known values
+        Referentievector van x-waardes
     fp : np.ndarray
-        Array with values as known positions to interpolate between
+        Referentievector van y-waardes
     ll : float
-        Lower limit for values in fp
+        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
     clip01 : bool
-        Clip values between 0 and 1
+        Begrens resultaat tussen [0, 1]
 
     Returns
     -------
     np.array
-        interpolated array
+        geinterpoleerde vector
     """
     return _transformed_interpolate_1d(x, xp, fp, ll, clip01)
 
@@ -88,25 +88,25 @@ def log_interpolate_1d(
     ll: float = 1e-200,
     clip01: bool = False,
 ) -> np.ndarray:
-    """Similar to interpolate_1d, but interpolates in log-space
+    """interpolate_1d met y-waardes omgezet naar log-waardes
 
     Parameters
     ----------
     x : np.ndarray
-        Array with positions to interpolate at
+        X-waardes waarop geinterpoleerd moet worden
     xp : np.ndarray
-        Array with positions of known values
+        Referentievector van x-waardes
     fp : np.ndarray
-        Array with values as known positions to interpolate between
+        Referentievector van y-waardes
     ll : float
-        Lower limit for values in fp
+        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
     clip01 : bool
-        Clip values between 0 and 1
+        Begrens resultaat tussen [0, 1]
 
     Returns
     -------
     np.array
-        interpolated array
+        geinterpoleerde vector
     """
     return _transformed_interpolate_1d(
         x, xp, fp, ll, clip01, ftransform=np.log, finvtransform=np.exp
@@ -120,25 +120,25 @@ def beta_interpolate_1d(
     ll: float = 1e-200,
     clip01: bool = False,
 ) -> np.ndarray:
-    """Similar to interpolate_1d, but interpolates in beta-space
+    """interpolate_1d met y-waardes omgezet naar beta-waardes
 
     Parameters
     ----------
     x : np.ndarray
-        Array with positions to interpolate at
+        X-waardes waarop geinterpoleerd moet worden
     xp : np.ndarray
-        Array with positions of known values
+        Referentievector van x-waardes
     fp : np.ndarray
-        Array with values as known positions to interpolate between
+        Referentievector van y-waardes
     ll : float
-        Lower limit for values in fp
+        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
     clip01 : bool
-        Clip values between 0 and 1
+        Begrens resultaat tussen [0, 1]
 
     Returns
     -------
     np.array
-        interpolated array
+        geinterpoleerde vector
     """
     return _transformed_interpolate_1d(
         x, xp, fp, ll, clip01, ftransform=norm.isf, finvtransform=norm.sf
