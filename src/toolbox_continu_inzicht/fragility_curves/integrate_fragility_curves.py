@@ -120,13 +120,8 @@ class IntegrateFragilityCurve(ToolboxBase):
         # such as 0.9999).
         decimals = int(np.ceil(-np.log10(refine_step_size))) + 3
         new_range_waterlevel = new_range_waterlevel.round(decimals)
-
-        # Voer de refine() van fragility curve eerst uit, omdat deze
-        # functie controleert of er een sprong in de faalkansen zit.
-        # in dat geval verandert het waterstandsgrid.
-        fragility_curve.refine(new_range_waterlevel)
-        new_range_waterlevel = fragility_curve.hydraulicload.copy()
         exceedance_frequency_curve.refine(new_range_waterlevel)
+        fragility_curve.refine(new_range_waterlevel, use_steps=False)
 
         integrated_probability = _integrate_midpoint(
             new_range_waterlevel,
