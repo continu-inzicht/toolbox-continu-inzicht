@@ -175,7 +175,7 @@ class FragilityCurve(ToolboxBase):
         wl_steps = np.diff(wl_grid[sel_update])
         if len(wl_steps) == 0:
             msg = "Geen waardes om aan te passen, originele curve blijft geldig"
-            self.logger.warning(msg)
+            self.data_adapter.logger.warning(msg)
             warnings.warn(msg, UserWarning)
         else:
             wl_steps = np.hstack([wl_steps[0], wl_steps])
