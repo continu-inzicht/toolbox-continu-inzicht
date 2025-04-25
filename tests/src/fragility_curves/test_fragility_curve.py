@@ -29,7 +29,7 @@ def test_fragility_curve_ignore_step():
     new_hydraulicload = np.hstack([0, np.linspace(1.97, 2.01, 5)])
 
     fc = _setup_fragility_curve(hydraulicload, failure_probability, False)
-    fc.refine(new_hydraulicload, use_steps=False)
+    fc.refine(new_hydraulicload, add_steps=False)
     data = fc.as_array()
     check_data = np.array(
         [
@@ -51,7 +51,7 @@ def test_fragility_curve_include_step():
     new_hydraulicload = np.hstack([0, np.linspace(1.97, 2.01, 5)])
 
     fc = _setup_fragility_curve(hydraulicload, failure_probability, False)
-    fc.refine(new_hydraulicload, use_steps=True)
+    fc.refine(new_hydraulicload, add_steps=True)
     data = fc.as_array()
     check_data = np.array(
         [

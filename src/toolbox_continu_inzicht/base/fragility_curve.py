@@ -117,7 +117,7 @@ class FragilityCurve(ToolboxBase):
     def refine(
         self,
         new_hydraulicload: np.ndarray | list[float] | float,
-        use_steps: bool = True,
+        add_steps: bool = True,
     ):
         """Interpoleert de fragility curve op de gegeven waterstanden"""
         new_failure_probability = self.interp_func(
@@ -128,7 +128,7 @@ class FragilityCurve(ToolboxBase):
             clip01=True,
         )
 
-        if use_steps:
+        if add_steps:
             current_steps = np.diff(self.hydraulicload)
             jumps = np.nonzero(current_steps == 0)[0]
             if len(jumps) > 0:

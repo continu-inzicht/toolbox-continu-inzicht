@@ -121,7 +121,7 @@ class IntegrateFragilityCurve(ToolboxBase):
         decimals = int(np.ceil(-np.log10(refine_step_size))) + 3
         new_range_waterlevel = new_range_waterlevel.round(decimals)
         exceedance_frequency_curve.refine(new_range_waterlevel)
-        fragility_curve.refine(new_range_waterlevel, use_steps=False)
+        fragility_curve.refine(new_range_waterlevel, add_steps=False)
 
         integrated_probability = _integrate_midpoint(
             new_range_waterlevel,
