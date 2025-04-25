@@ -116,10 +116,9 @@ class DataAdapter(PydanticBaseModel):
             if load_dotenv(dotenv_path=dotenv_path):
                 environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
             else:
-                warnings.warn(
-                    "Het bestand `.env` is niet aanwezig in de hoofdmap, code negeert deze melding.",
-                    UserWarning,
-                )
+                msg = "Het bestand `.env` is niet aanwezig in de hoofdmap, code negeert deze melding."
+                self.logger.warning(msg)
+                warnings.warn(msg, UserWarning)
 
             # In eerste instantie alleen beschikbaar voor de DataAdapters
             function_input_config.update(environmental_variables)
@@ -134,9 +133,9 @@ class DataAdapter(PydanticBaseModel):
 
                 # Controleer of er data is opgehaald.
                 if len(df) == 0:
-                    raise UserWarning(
-                        f"Ophalen van gegevens van {input} heeft niets opgeleverd."
-                    )
+                    msg = f"Ophalen van gegevens van {input} heeft niets opgeleverd."
+                    self.logger.warning(msg)
+                    raise UserWarning(msg)
 
                 # Als schema is meegegeven, controleer of de data aan het schema voldoet.
                 if schema is not None:
@@ -150,6 +149,7 @@ class DataAdapter(PydanticBaseModel):
         else:
             # Adapter staat niet in het YAML-bestand
             message = f"Adapter met de naam '{input}' niet gevonden in de configuratie (yaml)."
+            self.logger.warning(message)
             raise UserWarning(message)
 
         return df
@@ -190,10 +190,9 @@ class DataAdapter(PydanticBaseModel):
         if load_dotenv(dotenv_path=dotenv_path):
             environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
         else:
-            warnings.warn(
-                "Het bestand `.env` is niet aanwezig in de hoofdmap, code negeert deze melding.",
-                UserWarning,
-            )
+            msg = "Het bestand `.env` is niet aanwezig in de hoofdmap, code negeert deze melding."
+            self.logger.warning(msg)
+            warnings.warn(msg, UserWarning)
 
         # voeg alle environmental variables toe aan de functie output config
         functie_output_config.update(environmental_variables)

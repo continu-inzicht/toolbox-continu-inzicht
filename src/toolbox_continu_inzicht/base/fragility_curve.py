@@ -174,10 +174,9 @@ class FragilityCurve(ToolboxBase):
         sel_update = wl_grid < update_level
         wl_steps = np.diff(wl_grid[sel_update])
         if len(wl_steps) == 0:
-            warnings.warn(
-                "Geen waardes om aan te passen, originele curve blijft geldig",
-                UserWarning,
-            )
+            msg = "Geen waardes om aan te passen, originele curve blijft geldig"
+            self.logger.warning(msg)
+            warnings.warn(msg, UserWarning)
         else:
             wl_steps = np.hstack([wl_steps[0], wl_steps])
             F_update = trust_factor * (fp_grid[sel_update] * wl_steps).sum()
