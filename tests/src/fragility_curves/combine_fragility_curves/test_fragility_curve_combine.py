@@ -152,9 +152,11 @@ def test_combine_fragility_curves_indep1_csv():
         output="fragility_curves",
     )
     result = combine_fragility_curve.df_out
-    assert np.isclose(
-        result.iloc[100:150]["failure_probability"], expected_result
-    ).all()
+    assert np.allclose(
+        result.iloc[100:150]["failure_probability"],
+        expected_result,
+        atol=0,
+    )
 
 
 def test_combine_fragility_curves_indep2_csv():
@@ -176,9 +178,11 @@ def test_combine_fragility_curves_indep2_csv():
         output="fragility_curves",
     )
     result = combine_fragility_curve.df_out
-    assert np.isclose(
-        result.iloc[100:150]["failure_probability"], expected_result_indep2
-    ).all()
+    assert np.allclose(
+        result.iloc[100:150]["failure_probability"],
+        expected_result_indep2,
+        atol=0,
+    )
 
 
 def test_combine_fragility_curves_dep_csv():
@@ -198,9 +202,11 @@ def test_combine_fragility_curves_dep_csv():
         output="fragility_curves",
     )
     result = combine_fragility_curve.df_out
-    assert np.isclose(
-        result.iloc[100:150]["failure_probability"], expected_result
-    ).all()
+    assert np.allclose(
+        result.iloc[100:150]["failure_probability"],
+        expected_result,
+        atol=0,
+    )
 
 
 def test_combine_fragility_curves_weighted_csv():
@@ -223,9 +229,82 @@ def test_combine_fragility_curves_weighted_csv():
         output="fragility_curves",
     )
     result = combine_fragility_curve.df_out
-    assert np.isclose(
-        result.iloc[280:316]["failure_probability"], expected_result_weighted
-    ).all()
+    assert np.allclose(
+        result.iloc[280:316]["failure_probability"],
+        expected_result_weighted,
+        atol=0,
+    )
+
+
+def test_combine_fragility_curves_step():
+    """Test de CombineFragilityCurvesWeightedSum functie met 2 stapfragility curves"""
+    df_fc1 = pd.DataFrame(
+        {
+            "hydraulicload": [1, 1.2, 1.2, 1.6],
+            "failure_probability": [0.01, 0.01, 0.1, 0.1],
+        }
+    )
+    df_fc2 = pd.DataFrame(
+        {
+            "hydraulicload": [1, 1.4, 1.4, 1.6],
+            "failure_probability": [0.01, 0.01, 0.1, 0.1],
+        }
+    )
+    df_weights = pd.DataFrame({"weights": [0.5, 0.5]})
+
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(
+        config_path=test_data_sets_path / "test_combine_fragility_curve.yaml"
+    )
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
+    data_adapter.set_dataframe_adapter("fc_step1", df_fc1, if_not_exist="create")
+    data_adapter.set_dataframe_adapter("fc_step2", df_fc2, if_not_exist="create")
+    data_adapter.set_dataframe_adapter("weights", df_weights, if_not_exist="create")
+    data_adapter.set_dataframe_adapter("df_test", pd.DataFrame(), if_not_exist="create")
+    data_adapter.config.global_variables["refine_step_size"] = 0.1
+
+    combine_fragility_curve = CombineFragilityCurvesWeightedSum(
+        data_adapter=data_adapter
+    )
+    combine_fragility_curve.run(
+        input=["fc_step1", "fc_step2", "weights"],
+        output="df_test",
+    )
+    result = combine_fragility_curve.df_out
+
+    expected_result = np.array(
+        [
+            [1.0, 0.01],
+            [1.05, 0.01],
+            [1.1, 0.01],
+            [1.15, 0.01],
+            [1.2, 0.01],
+            [1.2, 0.01],
+            [1.2, 0.055],
+            [1.25, 0.055],
+            [1.3, 0.055],
+            [1.35, 0.055],
+            [1.4, 0.055],
+            [1.4, 0.055],
+            [1.4, 0.1],
+            [1.45, 0.1],
+            [1.5, 0.1],
+            [1.55, 0.1],
+            [1.6, 0.1],
+        ]
+    )
+
+    assert np.allclose(
+        result["hydraulicload"].to_numpy(),
+        expected_result[:, 0],
+        atol=0,
+    )
+    assert np.allclose(
+        result["failure_probability"].to_numpy(),
+        expected_result[:, 1],
+        atol=0,
+    )
 
 
 @pytest.mark.performance
@@ -266,12 +345,12 @@ def test_combine_fragility_curves_largeset_csv(benchmark):
                 combine_fc.run(input=input_keys, output="fragility_curves")
                 df_combi = combine_fc.df_out[usecols].copy()
                 results.append(
-                    np.isclose(
+                    np.allclose(
                         df_combi.to_numpy(),
                         df_combi_check.to_numpy(),
                         atol=1e-8,
                         rtol=1e-2,
-                    ).all()
+                    )
                 )
 
         return results

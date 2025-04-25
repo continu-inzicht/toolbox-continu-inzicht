@@ -108,6 +108,13 @@ class FragilityCurve(ToolboxBase):
             self.sort_curve()
             self.failure_probability = np.maximum.accumulate(self.failure_probability)
 
+    def find_jump_indices(self):
+        stepsize = np.diff(self.hydraulicload)
+        jumps = np.nonzero(stepsize == 0)[0]
+        idxs = np.vstack([jumps, jumps + 1]).flatten(order="F")
+
+        return idxs
+
     def sort_curve(self):
         """Sorteert de fragility curve eerst op waterstand en vervolgens op faalkans"""
         lexsort = np.lexsort((self.failure_probability, self.hydraulicload))
@@ -129,11 +136,9 @@ class FragilityCurve(ToolboxBase):
         )
 
         if add_steps:
-            current_steps = np.diff(self.hydraulicload)
-            jumps = np.nonzero(current_steps == 0)[0]
-            if len(jumps) > 0:
+            idxs = self.find_jump_indices()
+            if len(idxs) > 0:
                 # Voeg sprongen toe aan de nieuwe waterstanden
-                idxs = np.hstack([jumps, jumps + 1])
                 new_hydraulicload = np.hstack(
                     [new_hydraulicload, self.hydraulicload[idxs]]
                 )
