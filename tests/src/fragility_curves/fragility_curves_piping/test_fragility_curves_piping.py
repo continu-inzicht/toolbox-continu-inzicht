@@ -22,12 +22,12 @@ from toolbox_continu_inzicht.fragility_curves import (
 #         input=["probabilistic_input", "waterlevels"], output="fragility_curve"
 #     )
 #     df_exp_results = pd.read_csv(path / "full_test_output.csv")
-#     assert np.isclose(
+#     assert np.allclose(
 #         fragility_curve_piping_fixed_waterlevel.df_out.failure_probability.to_list(),
 #         df_exp_results.prob_cond.to_list(),
 #         atol=1e-8,
 #         rtol=1e-8,
-#     ).all()
+#     )
 
 
 # in de probabilstic pipig module zelf zit al een hoop tests om met de oude versei te vergelijken
@@ -59,14 +59,14 @@ def test_fragility_curve_piping_simple():
             "prob_cond",
         ],
     ):
-        assert np.isclose(
+        assert np.allclose(
             fragility_curve_piping_fixed_waterlevel.__getattribute__(
                 attr
             ).failure_probability.to_list(),
             df_exp_results[col_result].to_list(),
             atol=1e-8,
             rtol=1e-8,
-        ).all()
+        )
 
 
 def test_fragility_curve_piping_multiple_sections():
@@ -81,9 +81,9 @@ def test_fragility_curve_piping_multiple_sections():
     )
     # compare to stored result
     df_exp_results = pd.read_csv(path / "test_output_multiple.csv")
-    assert np.isclose(
+    assert np.allclose(
         fragility_curve_piping.df_out.failure_probability.to_list(),
         df_exp_results.failure_probability.to_list(),
         atol=1e-8,
         rtol=1e-8,
-    ).all()
+    )

@@ -42,7 +42,7 @@ def test_fragility_curve_ignore_step():
         ]
     )
 
-    assert np.isclose(check_data, data, atol=0, rtol=1e-8).all()
+    assert np.allclose(check_data, data, atol=0, rtol=1e-8)
 
 
 def test_fragility_curve_include_step():
@@ -66,7 +66,7 @@ def test_fragility_curve_include_step():
         ]
     )
 
-    assert np.isclose(check_data, data, atol=0, rtol=1e-8).all()
+    assert np.allclose(check_data, data, atol=0, rtol=1e-8)
 
 
 def test_fragility_curve_not_monotonic():
@@ -98,4 +98,4 @@ def test_fragility_curve_monotonic():
             [5.0e00, 1.0e-05],
         ]
     )
-    assert np.isclose(check_data, data, atol=0, rtol=1e-8).all()
+    assert np.allclose(check_data, data, atol=0, rtol=1e-8)

@@ -244,7 +244,7 @@ def test_fragility_curves_wave_overtopping_csv():
         2.70687764e-01,
         3.92097266e-01,
     ]
-    assert np.isclose(result, expected).all()
+    assert np.allclose(result, expected)
 
 
 def test_fragility_curves_wave_overtopping_vary_standard_values():
@@ -295,7 +295,7 @@ def test_fragility_curves_wave_overtopping_vary_standard_values():
         2.70687764e-01,
         3.92097266e-01,
     ]
-    assert np.isclose(result, expected).all()
+    assert np.allclose(result, expected)
 
 
 @pytest.mark.parametrize(
@@ -348,4 +348,4 @@ def test_fragility_curves_wave_overtopping_parametric(
         input=["slopes", "profiles", "bed_levels"], output="fragility_curves"
     )
     result = wave_overtopping_fragility_curve.failure_probability[41:59]
-    assert np.isclose(result, expected).all()
+    assert np.allclose(result, expected)

@@ -139,12 +139,10 @@ def test_ShiftFragilityCurveOvertopping():
         "shift_fragility_curve_overtopping",
     ]
     # check that the centre of the fragility curve has changed
-    assert (
-        ~np.isclose(
-            df_combined["fragility_curve_overtopping"].to_list()[41:59],
-            df_combined["shift_fragility_curve_overtopping"].to_list()[41:59],
-        )
-    ).all()
+    assert ~np.allclose(
+        df_combined["fragility_curve_overtopping"].to_list()[41:59],
+        df_combined["shift_fragility_curve_overtopping"].to_list()[41:59],
+    )
 
 
 def test_ChangeCrestHeightFragilityCurveOvertopping():
@@ -171,9 +169,7 @@ def test_ChangeCrestHeightFragilityCurveOvertopping():
         change_crest_height_fragility_curve_overtopping.failure_probability[50:57]
     )
     ## check that the centre of the fragility curve has changed
-    assert (
-        ~np.isclose(
-            result_fragility_curve_overtopping,
-            result_change_crest_height_fragility_curve_overtopping,
-        )
-    ).all()
+    assert ~np.allclose(
+        result_fragility_curve_overtopping,
+        result_change_crest_height_fragility_curve_overtopping,
+    )

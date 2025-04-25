@@ -107,10 +107,10 @@ def tests_reliability_update_full_trust_high_update():
     )
 
     assert not (np.allclose(fragility_curve.failure_probability, initial_value))
-    assert np.isclose(
+    assert np.allclose(
         fragility_curve.failure_probability[
             (fragility_curve.failure_probability > 1e-10)
             & (fragility_curve.failure_probability < 0.99)
         ],
         expected_result,
-    ).all()
+    )
