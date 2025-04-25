@@ -10,7 +10,7 @@ Voor het inlezen van inspectieresultaten is het wenselijk om de invoerdata te ku
 - drop_columns: Lijst van de te verwijderen kolommen;
 - keep_columns: Lijst van de te behouden kolommen.
 
-Als de gebruiker meerdere opties configureert, zal deze in bovenstaande volgorde worden toegepast.
+Als de gebruiker meerdere opties configureert, zal deze in bovenstaande volgorde achtereenvolgens worden toegepast.
 
 ::: {.panel-tabset}
 ## Configuratie query
@@ -72,7 +72,7 @@ filter.run(
 
 ### Classificeren van inspectieresultaten
 
-Inspectieresultaten zijn te classificeren afhankelijk van eigenschappen in de tabel. Ook is het mogelijk om op basis van deze eigenschappen een bepaalde opmaak te tonen. Bijvoorbeeld een opmaak voor het element van de waterkering dat is geïnspecteerd (grasbekleding, steenbekleding, asfaltbekleding) of de toegekende prioriteit (score 1, 2, 3 etc) een kleur of lijndikte aan te geven. Hiervoor is een laag met resultaten nodig en een definitie van de klassegrenzen voor de te geclassificeren data, inclusief de definitie van de bijbehorende opmaak. De resultaten bevatten een [geografische laag zijn](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) of een platte teksttabel met geometrie of x,y-coördinaten. De geografische informatie wordt altijd omgezet naar WGS84 om ondersteund te worden in de viewer.
+Inspectieresultaten zijn te classificeren afhankelijk van eigenschappen in de tabel. Ook is het mogelijk om op basis van deze eigenschappen een bepaalde opmaak te tonen. Bijvoorbeeld een opmaak voor het element van de waterkering dat is geïnspecteerd (grasbekleding, steenbekleding, asfaltbekleding) of de toegekende prioriteit (score 1, 2, 3 etc) een kleur of lijndikte aan te geven. Hiervoor is een laag met resultaten nodig en een definitie van de klassegrenzen voor de te geclassificeren data, inclusief de definitie van de bijbehorende opmaak. De resultaten bevatten een [geografische laag](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) of een platte teksttabel met geometrie of x,y-coördinaten. De geografische informatie wordt altijd omgezet naar WGS84 om ondersteund te worden in de viewer.
 De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de GlobalVariables. Deze kolom wordt vergeleken met de waardes in de legenda en vervolgens wordt de opmaak uit de legenda overgenomen. De waardes op basis waarvan de legenda wordt bepaald kan bestaan uit getallen of tekst. Bij tekst wordt de 'lower_boundary' kolom gebruikt. De viewer verwacht een heel aantal kolommen, als deze niet worden opgegeven neemt de toolbox standaardwaardes over (`get_possible_styling()`). Deze standaardswaardes kunnen ook aangepast worden door de gebruiker.
 
 
@@ -173,7 +173,7 @@ De kaartlagen van inspectieresultaten zijn in de viewer weer te geven. Naast de 
 
 #### Kleine kaartlaag in de viewer
 
-Om de verschillende databronnen te combineren tot één tabel kan de functie `InspectionsToDatabase` gebruikt worden. De input hiervoor zijn de inspectieresultaten, opmaak en kaartlagen. `Lagen` is een tabel waarin de gegevens over de verschillende kaartlagen staat beschreven. Als deze niet wordt opgegeven, wordt een standaardtabel gebruikt. De `inspectieresultaten` wordt toegevoegd aan de tabel `lagen`. Indien de tabel `lagen` meerdere rijen bevat, kan rij-index worden aangepast met `index`. Het maximum aantal `inspectieresultaten` kan aangepast worden met `max_rows`. Standaard is dit 10.
+Om de verschillende databronnen te combineren tot één tabel kan de functie `InspectionsToDatabase` gebruikt worden. De input hiervoor zijn de inspectieresultaten, opmaak en kaartlagen. `layers` is een tabel waarin de gegevens over de verschillende kaartlagen staat beschreven. Als deze niet wordt opgegeven, wordt een standaardtabel gebruikt. De `inspectieresultaten` wordt toegevoegd aan de tabel `layers`. Indien de tabel `layers` meerdere rijen bevat, kan rij-index worden aangepast met `index`. Het maximum aantal `inspectieresultaten` kan aangepast worden met `max_rows`. Standaard is dit 10.
 
 ::: {.panel-tabset}
 ## Configuratie
