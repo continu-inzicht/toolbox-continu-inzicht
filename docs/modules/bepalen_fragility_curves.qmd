@@ -149,7 +149,7 @@ Het gewichten DataFrame moet een kolom met 'weights' hebben. Er is bewust geen v
 |0.6       |
 |0.4       |
 
-Bij het combineren van de fragility curves moeten de fragility waterstanden van de curves op elkaar afgestemd worden. Dit wordt gedaan op basis van de waterniveaus en nog twee parameters: hoe ver voorbij de hoogste waarde `extend_past_max` (standaardwaarde is 0.01) en met welke stapgrootte `refine_step_size` (standaardwaarde is 0.05)
+Bij het combineren van de fragility curves moeten eerst de waterstanden van de curves op elkaar afgestemd worden door middel van een gedeeld waterstandsgrid. Dit gedeelde waterstandsgrid wordt begrensd door de ondergrens en bovengrens van alle waterstanden van alle fragility curves. De stappen tussen deze grenzen worden vastgelegd met behulp van een vaste stapgrootte (`refine_step_size`, standaardwaarde is 0.05).
 
 
 ::: {.panel-tabset}
