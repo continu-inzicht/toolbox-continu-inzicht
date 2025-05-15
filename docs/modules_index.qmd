@@ -18,21 +18,21 @@ Naast de functies is per module een beschrijving beschikbaar en zijn er voorbeel
 
 3.  [Bepalen fragility curves](modules/bepalen_fragility_curves.qmd)
 
-    Fragility curves kunnen voor verschillende faalmechanismes worden berekend. In de toolbox wordt voor STPH (piping) en GEKB (golf overlag) functionaliteit aangeboden voor het afleiden van curves.
+    Fragility curves kunnen voor verschillende faalmechanismes worden opgesteld. In de toolbox wordt voor GEKB (overloop en golfoverslag van dijken) en STPH (piping en heave bij dijken) een functionaliteit aangeboden voor het afleiden van fragility curves. Daarnaast is het mogelijk om voor andere faalmechanismen een door de gebruiker vooraf opgestelde fragility curve te importeren.
 
 
 4.  [Bijstellen fragility curves](modules/bijstellen_fragility_curves.qmd)
 
-    In sommige gevallen is het nodig om de fragility curve aan te passen vanwege een verandering ten opzichten van de voor berekende curve. Denk aan het verhogen van de kruin of verbeteren van de stabiliteit. De fragility curve kan dan worden verschoven of een nieuwe GEKB curve kan worden berekend met de aangepaste kruinhoogte.
+    In sommige gevallen is het gewenst om een fragility curve aan te passen vanwege nieuwe inzichten, bijv. vanuit beheer, na grondonderzoek of dijkverbetering. Denk hierbij aan aanpassen van het dijkprofiel of de sterkte van de ondergrond of de bekleding. Het is mogelijk om een nieuwe fragility curve te berekenen of de conditionele faalkansen aan te passen.
 
 5.  [Conditionele kansen en status waterkering per sectie](modules/kansen_en_status_per_sectie.qmd)
 
-    De ingelezen belasting in combinatie met de berekende fragility curves kunnen worden vertaald naar een kans per sectie op het huidige moment en over een aantal uur.
+    Per dijkvak (sectie) wordt een statusbeeld bepaald op basis van de actuele of voorspelde belasting en de fragility curve. Dit statusbeeld is voor elk dijkvak te bepalen voor elk individueel faalmechanisme of een totaalbeeld o.b.v. alle faalmechanismen. 
 
 6.  [Impactanalyse: effect nieuwe statistiek en rekenregels op de faalkans](modules/impactanalyse.qmd)
 
-    Een fragility curve omschrijft de kans gegeven een waterstand, belangrijk is om ook mee te nemen dat de waterstanden een kans van optreden hebben. Door het combineren van een overschrijdingsfrequentie lijn met een fragility curve kan een geïntegreerde kans worden berekend. Hiermee kunnen veranderingen in de overschrijdingsfrequentie, bijvoorbeeld door klimaat verandering, worden vergeleken met de huidige situatie.
+    Een fragility curve beschrijft de conditionele kans gegeven een belasting, zoals een waterstand. Om inzicht te krijgen in de faalkans per jaar moet de fragility curve gecombineerd worden met de kans van voorkomen van verschillende waterstanden (overschrijdingsfrequentielijn waterstanden). Hiermee is het mogelijk om het effect van veranderingen in de statistiek van de belasting, bijvoorbeeld door klimaatverandering, een systeemmaatregel zoals rivierverruiming of nieuwe rekenregels, op de faalkans per jaar te vergelijken met een referentiesituatie. De duiding van de verandering van de faalkans is in klassen van grote kansafname tot grote kanstoename. Deze klassen zijn door de gebruiker zelf te definieren. 
 
 7.  [Inspectieresultaten inlezen en weergeven](modules/inspectieresultaten.qmd)
 
-    Naast informatie over huidige belastingen op een dijk is het ook interessant om informatie over de huidige sterke van de dijk te verzamelen. Hierbij spelen inspecties een grote rol, deze kunnen met de toolbox worden gefilterd, geclassificeerd en getoond op de viewer van Continu Inzicht.
+    Het statusbeeld van de dijken op basis van fragility curves, eventueel bijgesteld met een beheerdersoordeel, is te verrijken met informatie uit de inspecties. Dit kunnen historische waarnemingen zijn, maar ook de voorjaarsinspectie of een melding tijdens een calamiteiteninspectie. Met de Toolbox Continu Inzicht is het mogelijk om de inspectiedata te filteren, classificeren en kaart te tonen in de viewer van de Toolbox Continu Inzicht.

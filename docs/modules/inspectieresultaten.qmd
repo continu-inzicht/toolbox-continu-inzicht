@@ -4,13 +4,13 @@ title: "Inspectieresultaten inlezen en weergeven"
 
 ### Filteren
 
-Voor het inlezen van inspectieresultaten is het wenselijk om de invoer data te kunnen filteren. In sommige gevallen zal dit al in de [data adapter](architectuur.qmd#sec-zelf-adapter-locatie-doorgeven) gebeuren. Voor het filteren zijn drie opties te configureren:
+Voor het inlezen van inspectieresultaten is het wenselijk om de invoerdata te kunnen filteren. In sommige gevallen zal dit al in de [data adapter](architectuur.qmd#sec-zelf-adapter-locatie-doorgeven) gebeuren. Voor het filteren zijn drie opties te configureren:
 
-- query: SQL-achtige query om de DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html)
-- drop_columns: Lijst van kolommen die verwijderd moeten worden
-- keep_columns: Lijst van kolommen die behouden moeten worden
+- query: SQL-achtige query om het DataFrame te filteren, zie ook [pandas.DataFrame.query](http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html);
+- drop_columns: Lijst van de te verwijderen kolommen;
+- keep_columns: Lijst van de te behouden kolommen.
 
-Als meerdere van deze opties worden geconfigureerd, worden ze in bovenstaande volgorde toegepast.
+Als de gebruiker meerdere opties configureert, zal deze in bovenstaande volgorde achtereenvolgens worden toegepast.
 
 ::: {.panel-tabset}
 ## Configuratie query
@@ -72,8 +72,8 @@ filter.run(
 
 ### Classificeren van inspectieresultaten
 
-Inspectieresultaten kunnen afhankelijk van eigenschappen geclassificeerd worden en getoond met bepaalde opmaak. Bijvoorbeeld om afhankelijk van het type of de toegekende prioriteit een kleur of lijndikte aan te geven. Hiervoor is een laag met resultaten nodig en een legenda met informatie over hoe de resultaten geclassificeerd worden en bijbehorende opmaak. De resultaten kunnen of een [geografische laag zijn](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) of een platte text tabel met geometrie of xy-coördinaten. De geografische informatie wordt altijd omgezet naar WGS84 om ondersteund te worden in de viewer.
-De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de global variables. Deze kolom wordt vergeleken met de waardes in de legenda en de opmaak van uit de legenda wordt vervolgens overgenomen. De waardes om mee te vergelijken kunnen getallen of text zijn. Bij text wordt de 'lower_boundary' kolom gebruikt,. De viewer verwacht een heel aantal kolommen, als deze niet worden opgegeven neemt de toolbox standaard waardes over (`get_possible_styling()`). Deze standaard waardes kunnen ook aangepast worden met  door de gebruiker.
+Inspectieresultaten zijn te classificeren afhankelijk van eigenschappen in de tabel. Ook is het mogelijk om op basis van deze eigenschappen een bepaalde opmaak te tonen. Bijvoorbeeld een opmaak voor het element van de waterkering dat is geïnspecteerd (grasbekleding, steenbekleding, asfaltbekleding) of de toegekende prioriteit (score 1, 2, 3 etc) een kleur of lijndikte aan te geven. Hiervoor is een laag met resultaten nodig en een definitie van de klassegrenzen voor de te geclassificeren data, inclusief de definitie van de bijbehorende opmaak. De resultaten bevatten een [geografische laag](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) of een platte teksttabel met geometrie of x,y-coördinaten. De geografische informatie wordt altijd omgezet naar WGS84 om ondersteund te worden in de viewer.
+De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de GlobalVariables. Deze kolom wordt vergeleken met de waardes in de legenda en vervolgens wordt de opmaak uit de legenda overgenomen. De waardes op basis waarvan de legenda wordt bepaald kan bestaan uit getallen of tekst. Bij tekst wordt de 'lower_boundary' kolom gebruikt. De viewer verwacht een heel aantal kolommen, als deze niet worden opgegeven neemt de toolbox standaardwaardes over (`get_possible_styling()`). Deze standaardswaardes kunnen ook aangepast worden door de gebruiker.
 
 
 ::: {.panel-tabset}
@@ -131,9 +131,9 @@ classify_inspections_styling.run(
 ```
 :::
 
-#### Standaard opmaak
+#### Standaardopmaak
 
-Daarnaast kan de functie ook gebruikt worden om standaard opmaak toe te kennen aan kaartlagen, hierdoor is de interactie tussen viewer en de gebruiker simpeler. Het invoer bestand wordt dan aangevuld met de benodigde opmaak kolommen en waardes. Om de standaard opmaak toe te kennen aan een tabel kaartlaag kan de volgende configuratie gebruikt worden.
+Daarnaast kan de functie ook gebruikt worden om een standaardopmaak toe te kennen aan een kaartlaag. Hierdoor wordt de viewer gebruiksvriendelijker. Het invoerbestand wordt aangevuld met het benodigde aantal kolommen voor de opmaak en bijbehorende waardes. Om de standaardopmaak aan een kaartlaag-tabel toe te kennen, kan de volgende configuratie gebruikt worden:
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -169,11 +169,11 @@ classify_inspections_styling.run(
 :::
 ### Inspectieresultaten en de viewer
 
-De kaartlagen van inspectieresultaten kunnen in de viewer worden weergegeven. Naast de kaartlaag die met de toolbox is geclassificeerd kan ook een eigen WMS laag gebruikt worden. Voor kaartlagen die relatief klein zijn kan alle informatie in één database veld gestopt worden. Bij grotere lagen is het aan te raden om een nieuwe tabel te maken, waar vervolgens naar verwezen kan worden. Voor alle drie zal deze opties zal een voorbeeld gegeven worden. De kolommen `group_name`, `layer_name` en `layer_visible` kunnen gebruik worden om de groepen, kaartlaag namen en standaard zichtbaarheid in de viewer te configureren. De `layer_type` moet voor 'geojson', 'wms' en 'table' worden ingesteld.
+De kaartlagen van inspectieresultaten zijn in de viewer weer te geven. Naast de kaartlaag die in de Toolbox Continu Inzicht is geclassificeerd, kan ook een eigen WMS-kaartlaag worden gebruikt. Voor kaartlagen die relatief klein zijn, kan alle informatie in één databaseveld gestopt gedefinieerd. Bij grotere kaartlagen is het aan te raden om een nieuwe tabel te maken, waar vervolgens naar verwezen kan worden. Voor deze drie opties zal een voorbeeld worden weergegeven. De kolommen `group_name`, `layer_name` en `layer_visible` kunnen gebruik worden om de groepen, namen van kaartlaag en de zichtbaarheid in de viewer te configureren. De `layer_type` moet voor 'geojson', 'wms' en 'table' worden ingesteld.
 
 #### Kleine kaartlaag in de viewer
 
-Om de verschillende databronnen te combineren to een tabel kan de functie `InspectionsToDatabase` gebruikt worden. De input hiervoor is de inspectieresultaten, opmaak en lagen. `Lagen` is een tabel waar de informatie in staat over de verschillende lagen. Als deze niet wordt opgegeven wordt een standaard tabel gebruikt. De `inspectieresultaten` wordt toegevoegd aan de `lagen` tabel, indien er meerdere rijden in de `lagen` tabel zitten kan de rij index worden aangepast met `index`. Het maximum aantal `inspectieresultaten` kan aangepast worden met `max_rows`, standaard is dit 10.
+Om de verschillende databronnen te combineren tot één tabel kan de functie `InspectionsToDatabase` gebruikt worden. De input hiervoor zijn de inspectieresultaten, opmaak en kaartlagen. `layers` is een tabel waarin de gegevens over de verschillende kaartlagen staat beschreven. Als deze niet wordt opgegeven, wordt een standaardtabel gebruikt. De `inspectieresultaten` wordt toegevoegd aan de tabel `layers`. Indien de tabel `layers` meerdere rijen bevat, kan rij-index worden aangepast met `index`. Het maximum aantal `inspectieresultaten` kan aangepast worden met `max_rows`. Standaard is dit 10.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -225,7 +225,7 @@ inspections_to_database.run(
 :::
 #### WMS lagen in de viewer
 
-De definitie voor WMS lagen is simpeler, hier is alleen een url (`layer_wms_url`) voor nodig. In sommigen gevallen is ook de `layer_wms_layer`,    `layer_wms_style` en `layer_wms_legend_url` nodig om voldoende informatie aan de viewer te geven. Dit is een voorbeeld waarbij de data adapter gebruikt kan worden om de database te vullen.
+De definitie voor WMS-lagen is simpeler. Hiervoor is alleen een url (`layer_wms_url`) nodig. In sommige gevallen is ook de `layer_wms_layer`, `layer_wms_style` en `layer_wms_legend_url` nodig om voldoende informatie aan de viewer te geven. Dit is een voorbeeld waarbij de data-adapter gebruikt kan worden om de database te vullen.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -264,4 +264,4 @@ data_adapter.output('to_ci_database', layer_table)
 
 #### Grote tabel in de viewer
 
-Om grote kaartlagen in de viewer te tonen is het advies om dit via een losse tabel in database te doen. Deze kan dan gekoppeld worden aan de viewer op de zelfde manier als een WMS laag via de `layers` tabel.
+Om grote kaartlagen in de viewer te tonen, is het advies om dit via een losse tabel in database te doen. Deze tabel kan dan gekoppeld worden aan de viewer op dezelfde manier als een WMS-laag via de tabel `layers`.
