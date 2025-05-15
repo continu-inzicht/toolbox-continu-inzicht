@@ -116,18 +116,39 @@ class CombineFragilityCurvesIndependent(ToolboxBase):
             hydraulicload_min.append(df_in["hydraulicload"].min())
             hydraulicload_max.append(df_in["hydraulicload"].max())
 
+        # Maak het grid van hydraulische belastingen aan waarop alle
+        # fragility curves geinterpoleerd gaan worden.
         hydraulicload = np.arange(
             min(hydraulicload_min),
             max(hydraulicload_max) + extend_past_max,
             refine_step_size,
         )
 
-        # Interpoleer fragility curves naar dezelfde hydraulicload
+        # Detecteer sprongen in de fragility curves en voeg deze toe aan het
+        # algemene grid. Om toch een voorspelbaar grid te krijgen waar we op
+        # kunnen interpoleren, voegen we ter plaatse van de sprong de
+        # hydraulische belasting en de hydraulische belasting plus een kleine
+        # offset toe.
+        steps = []
+        for index, fragility_curve in enumerate(self.lst_fragility_curves):
+            fc = FragilityCurve(data_adapter=self.data_adapter)
+            fc.from_dataframe(fragility_curve)
+            idxs = fc.find_jump_indices()
+            if len(idxs) > 0:
+                for wl in np.unique(fc.hydraulicload[idxs]):
+                    if wl not in steps:
+                        steps.append(wl)
+                        steps.append(wl + 1e-16)
+        hydraulicload = np.sort(np.hstack([hydraulicload, steps]))
+
+        # Interpoleer fragility curves naar dezelfde hydraulicload. Aangezien
+        # we de sprongen al hebben gedetecteerd en verwerkt, doe dat hier niet
+        # nog een keer.
         for index, fragility_curve in enumerate(self.lst_fragility_curves):
             fc = FragilityCurve(data_adapter=self.data_adapter)
             fc.interp_func = self.interp_func
             fc.from_dataframe(fragility_curve)
-            fc.refine(hydraulicload)
+            fc.refine(hydraulicload, add_steps=False)
             self.lst_fragility_curves[index] = fc.as_dataframe()
 
         overschrijdingskans = self.combine_func(

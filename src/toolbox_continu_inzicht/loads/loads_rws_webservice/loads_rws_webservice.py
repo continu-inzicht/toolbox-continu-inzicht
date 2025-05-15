@@ -137,9 +137,9 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
             )
 
         elif len(missing_data) > 0 and len(lst_observations) > 0:
-            warnings.warn(
-                f"Ontbrekende gegevens voor {len(missing_data)} locaties, controleer de invoer op fouten \n doorgaan met {len(lst_observations)} locaties"
-            )
+            msg = f"Ontbrekende gegevens voor {len(missing_data)} locaties, controleer de invoer op fouten \n doorgaan met {len(lst_observations)} locaties"
+            self.data_adapter.logger.warning(msg)
+            warnings.warn(msg)
 
         self.df_out = self.create_dataframe(
             options,

@@ -68,7 +68,7 @@ def test_classify_inspections_with_styling():
         ]
     ].to_numpy()
     expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#9e9e9e"]], dtype=object)
-    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert np.allclose(list(result[:, 0]), list(expected[:, 0]))
     assert all(result[:, 1] == expected[:, 1])
 
 
@@ -91,7 +91,7 @@ def test_classify_inspections_with_styling_only_lower_boundary():
         ]
     ].to_numpy()
     expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#5007a9"]], dtype=object)
-    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert np.allclose(list(result[:, 0]), list(expected[:, 0]))
     assert all(result[:, 1] == expected[:, 1])
 
 
@@ -115,7 +115,7 @@ def test_classify_inspections_text():
         ]
     ].to_numpy()
     expected = np.array([[1, "#a9070f"], [3, "#07a9a1"], [11, "#0760a9"]], dtype=object)
-    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert np.allclose(list(result[:, 0]), list(expected[:, 0]))
     assert all(result[:, 1] == expected[:, 1])
 
 
@@ -142,7 +142,7 @@ def test_classify_inspections_text_contains():
         ]
     ].to_numpy()
     expected = np.array([[1, "#a9070f"], [3, "#07a9a1"], [11, "#a9070f"]], dtype=object)
-    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert np.allclose(list(result[:, 0]), list(expected[:, 0]))
     assert all(result[:, 1] == expected[:, 1])
 
 
@@ -164,7 +164,7 @@ def test_classify_inspections_edit_default_styling():
         ]
     ].to_numpy()
     expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#ffffff"]], dtype=object)
-    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert np.allclose(list(result[:, 0]), list(expected[:, 0]))
     assert all(result[:, 1] == expected[:, 1])
 
 
@@ -188,7 +188,7 @@ def test_classify_inspections_with_styling_one_nan_value():
         ]
     ].to_numpy()
     expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#00ced1"]], dtype=object)
-    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert np.allclose(list(result[:, 0]), list(expected[:, 0]))
     assert all(result[:, 1] == expected[:, 1])
 
 
@@ -212,7 +212,7 @@ def test_classify_inspections_with_styling_two_nan_value():
         ]
     ].to_numpy()
     expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#00ff00"]], dtype=object)
-    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert np.allclose(list(result[:, 0]), list(expected[:, 0]))
     assert all(result[:, 1] == expected[:, 1])
 
 
@@ -235,7 +235,7 @@ def test_classify_inspections_with_styling_two_output():
         ]
     ].to_numpy()
     expected = np.array([[1, "#a9070f"], [3, "#0760a9"], [11, "#ffffff"]], dtype=object)
-    assert np.isclose(list(result[:, 0]), list(expected[:, 0])).all()
+    assert np.allclose(list(result[:, 0]), list(expected[:, 0]))
     assert all(result[:, 1] == expected[:, 1])
     expected_col = classify_inspection.get_possible_styling(type="Marker")
     resulting_columns = classify_inspection.df_legend_out.columns

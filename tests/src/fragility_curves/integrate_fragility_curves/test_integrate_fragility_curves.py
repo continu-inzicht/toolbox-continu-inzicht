@@ -39,7 +39,4 @@ def tests_integrate_statistics_per_section():
     )
     df_out = integrate_statistics_per_section.df_out
     array = df_out["probability_contribution"]
-    assert np.isclose(
-        array[array > 1e-10],
-        expected_result,
-    ).all()
+    assert np.allclose(array[array > 1e-10], expected_result, atol=0)
