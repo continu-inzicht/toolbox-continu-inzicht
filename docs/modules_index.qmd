@@ -27,11 +27,11 @@ Naast de functies is per module een beschrijving beschikbaar en zijn er voorbeel
 
 5.  [Conditionele kansen en status waterkering per sectie](modules/kansen_en_status_per_sectie.qmd)
 
-    Per dijkvak (sectie) wordt een statusbeeld bepaald op basis van de actuele of voorspelde belasting en de fragility curve. Dit statusbeeld is voor elk dijkvak te bepalen voor elk individueel faalmechanisme of een totaalbeeld o.b.v. alle faalmechanismen. 
+    Per dijkvak (sectie) wordt een statusbeeld bepaald op basis van de actuele of voorspelde belasting en de fragility curve. Dit statusbeeld is voor elk dijkvak te bepalen voor elk individueel faalmechanisme of een totaalbeeld o.b.v. alle faalmechanismen.
 
 6.  [Impactanalyse: effect nieuwe statistiek en rekenregels op de faalkans](modules/impactanalyse.qmd)
 
-    Een fragility curve beschrijft de conditionele kans gegeven een belasting, zoals een waterstand. Om inzicht te krijgen in de faalkans per jaar moet de fragility curve gecombineerd worden met de kans van voorkomen van verschillende waterstanden (overschrijdingsfrequentielijn waterstanden). Hiermee is het mogelijk om het effect van veranderingen in de statistiek van de belasting, bijvoorbeeld door klimaatverandering, een systeemmaatregel zoals rivierverruiming of nieuwe rekenregels, op de faalkans per jaar te vergelijken met een referentiesituatie. De duiding van de verandering van de faalkans is in klassen van grote kansafname tot grote kanstoename. Deze klassen zijn door de gebruiker zelf te definieren. 
+    Een fragility curve beschrijft de conditionele kans gegeven een belasting, zoals een waterstand. Om inzicht te krijgen in de faalkans per jaar moet de fragility curve gecombineerd worden met de kans van voorkomen van verschillende waterstanden (overschrijdingsfrequentielijn waterstanden). Hiermee is het mogelijk om het effect van veranderingen in de statistiek van de belasting, bijvoorbeeld door klimaatverandering, een systeemmaatregel zoals rivierverruiming of nieuwe rekenregels, op de faalkans per jaar te vergelijken met een referentiesituatie. De duiding van de verandering van de faalkans is in klassen van grote kansafname tot grote kanstoename. Deze klassen zijn door de gebruiker zelf te definieren.
 
 7.  [Inspectieresultaten inlezen en weergeven](modules/inspectieresultaten.qmd)
 

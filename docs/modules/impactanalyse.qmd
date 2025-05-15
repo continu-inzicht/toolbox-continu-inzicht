@@ -2,7 +2,7 @@
 title: "Impactanalyse: effect nieuwe statistiek en rekenregels op de faalkans"
 ---
 
-De module impactanalyse is conceptueel anders dan de functionaliteit in de modules real-time en what-if. De gebruiker kan het effect van veranderingen in de statistiek van de belasting of rekenregels in kaart brengen. 
+De module impactanalyse is conceptueel anders dan de functionaliteit in de modules real-time en what-if. De gebruiker kan het effect van veranderingen in de statistiek van de belasting of rekenregels in kaart brengen.
 Hiervoor is in de Toolbox Continu Inzicht een functionaliteit toegevoegd om per dijkvak (sectie) de faalkans per jaar te berekenen. De faalkans per jaar wordt per dijvak berekend door het integreren van overschrijdingsfrequentielijn van een belasting (overschrijdingskans per jaar van belastingen) met een fragility curve (faalkans gegeven een belasting).
 
 ### Jaarlijkse faalkans
@@ -51,8 +51,8 @@ integrate_statistics_per_section.run(
 
 ### Reliability Update (methode bewezen sterkte)
 
-Naast het berekenen van de faalkans per jaar per dijkvak, is het mogelijk om het effect van bewezen sterkte mee te nemen in de faalkansberekening. 
-Met gebruik van `FragilityCurve.reliability_update` kan de fragility curve worden aangepast door een overleefde belastingsituatie in rekening te brengen. Ook hier geldt dat dit een waterstand, grondwaterstand of elke andere belastingparameter kan zijn. 
+Naast het berekenen van de faalkans per jaar per dijkvak, is het mogelijk om het effect van bewezen sterkte mee te nemen in de faalkansberekening.
+Met gebruik van `FragilityCurve.reliability_update` kan de fragility curve worden aangepast door een overleefde belastingsituatie in rekening te brengen. Ook hier geldt dat dit een waterstand, grondwaterstand of elke andere belastingparameter kan zijn.
 Hierdoor kan ook weer een geïntegreerde faalkans per jaar worden berekend met een nieuwe fragility curve, waarbij het effect van een overleefde belastingsituatie in is meegenomen.
 Dit stappenplan wordt weergegeven in het voorbeeld-notebook [Aanpassen van geïntegreerde fragility curves
 ](../examples/notebooks/4.adjust_integrated_statistics.ipynb).

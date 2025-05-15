@@ -6,7 +6,7 @@ De Toolbox Continu Inzicht heeft de functionaliteit om fragility curves voor ver
 
 ![Overzicht van verschillende fragilityCurves in Toolbox Continu Inzicht](../assets/Overzicht_FragilityCurves_TBCI.png)
 
-De fragility curves voor GEKB kunnen 'on-the-fly' worden berekend, afhankelijk van verschillende parameters (zoals windsnelheid en windrichting) kunnen deze worden aangepast. Voor STPH is een funtionaliteit beschikbaar om de fragility curves vooraf te berekenen. Vanwege de langere rekentijden en een benodigde kwaliteitscontrole is ervoor gekozen om de fragility curves voor STPH niet 'on-the-fly' te berekenen. Voor alle andere faalmechanismen geldt dat er geen functionaliteit binnen de Toolbox Continu Inzicht is om de fragility te berekenen. Voor deze overige faalmechanismen geldt dat de gebruiker buiten de Toolbox Continu Inzicht een fragility curve opgesteld ("pre-processed" fragility curves) en deze in de database definieert.  
+De fragility curves voor GEKB kunnen 'on-the-fly' worden berekend, afhankelijk van verschillende parameters (zoals windsnelheid en windrichting) kunnen deze worden aangepast. Voor STPH is een funtionaliteit beschikbaar om de fragility curves vooraf te berekenen. Vanwege de langere rekentijden en een benodigde kwaliteitscontrole is ervoor gekozen om de fragility curves voor STPH niet 'on-the-fly' te berekenen. Voor alle andere faalmechanismen geldt dat er geen functionaliteit binnen de Toolbox Continu Inzicht is om de fragility te berekenen. Voor deze overige faalmechanismen geldt dat de gebruiker buiten de Toolbox Continu Inzicht een fragility curve opgesteld ("pre-processed" fragility curves) en deze in de database definieert.
 
 ### Golfoverslag Erosie Kruin en Binnentalud (GEKB){#sec-Bepalen-fragility-curves-GEKB}
 
