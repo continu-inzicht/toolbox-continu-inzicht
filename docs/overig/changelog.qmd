@@ -83,12 +83,29 @@ Matroos was al beschikbaar, maar maakte gebruik van de [timeseries](https://noos
 
 #### Inhoudelijk
 
-Alle aanpassingen zijn te vinden in pull request [#55](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/55)
+Alle aanpassingen zijn te vinden in pull request [#57](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/57)
 
 In Sprint 5 is gekeken naar het filteren, ontsluiten en visualiseren van inspectieresultaten.
+Er zijn meerdere vormen van ontsluiting toegevoegd in de Continu Inzicht Viewer:
+
+- WMS-laag via link
+- GeoJSON-objecten in een kaartweergave
+- Tabelweergave met inspectiegegevens
+
+Daarnaast zijn er diverse restpunten opgepakt, waaronder:
+
+- Centrale logging: Afvangen van alle fouten tijdens de `run()`-uitvoering, met uitgebreide configuratiemogelijkheden.
+- Fragility curves functionaliteit is uitgebreid:
+    - Betere interpolatie functie
+    - Ondersteuning voor stapfuncties
+    - Correct omgaan met kleine kansen
+    - Validatie op monotoon stijgende curves
+- Een integratie test is uitgevoerd om de snelheid te bepalen van de rekenmodules en waar nodig aanpassingen geweest.
 
 
+#### Technisch
 
-#### Technische
+De opmaak informatie voor kaartlagen nu uit de database opgehaald door de viewer, dit was een handmatige configuratie stap.
+Gebruikers kunnen op deze manier makkelijker aanpassingen doorvoeren in de viewer.
 
-Om het mogelijk te maken  wordt de opmaak informatie voor kaartlagen nu uit de database opgehaald door de viewer.
+De logging gebruikt een nieuwe 'baseClass': `ToolboxBase`, inherit deze om logging automatische toe te voegen aan de `run()` functie.
