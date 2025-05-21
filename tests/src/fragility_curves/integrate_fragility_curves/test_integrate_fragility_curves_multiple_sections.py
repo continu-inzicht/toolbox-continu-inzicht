@@ -54,14 +54,8 @@ def test_integrate_statistics_multiple_sections():
     assert len(df_out.section_id.unique()) == 2
     section_1 = df_out[df_out["section_id"] == 1]
     arr_sec_1 = section_1["probability_contribution"]
-    assert np.isclose(
-        arr_sec_1[arr_sec_1 > 1e-10],
-        expected_res_1,
-    ).all()
+    assert np.allclose(arr_sec_1[arr_sec_1 > 1e-10], expected_res_1, atol=0)
 
     section_2 = df_out[df_out["section_id"] == 2]
     arr_sec_2 = section_2["probability_contribution"]
-    assert np.isclose(
-        arr_sec_2[arr_sec_2 > 1e-10],
-        expected_res_1,
-    ).all()
+    assert np.allclose(arr_sec_2[arr_sec_2 > 1e-10], expected_res_1, atol=0)

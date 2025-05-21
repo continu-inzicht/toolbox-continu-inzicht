@@ -152,8 +152,9 @@ class LoadsMatroos(ToolboxBase):
         self.df_out = pd.concat(lst_dfs, axis=0)
         self.data_adapter.output(output, self.df_out)
 
-    @staticmethod
-    def get_matroos_available_locations(df_in, options, endpoint_model) -> pd.DataFrame:
+    def get_matroos_available_locations(
+        self, df_in, options, endpoint_model
+    ) -> pd.DataFrame:
         # doe een data type check
         if "measurement_location_code" not in df_in.columns:
             raise UserWarning(
@@ -195,7 +196,9 @@ class LoadsMatroos(ToolboxBase):
                 locations_not_found = set(supplied_location_names).difference(
                     wanted_location_names
                 )
-                warnings.warn(f"location {locations_not_found}")
+                msg = f"location {locations_not_found}"
+                self.data_adapter.logger.warning(msg)
+                warnings.warn(msg)
 
             return wanted_location_names
 

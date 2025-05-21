@@ -120,9 +120,8 @@ class IntegrateFragilityCurve(ToolboxBase):
         # such as 0.9999).
         decimals = int(np.ceil(-np.log10(refine_step_size))) + 3
         new_range_waterlevel = new_range_waterlevel.round(decimals)
-
         exceedance_frequency_curve.refine(new_range_waterlevel)
-        fragility_curve.refine(new_range_waterlevel)
+        fragility_curve.refine(new_range_waterlevel, add_steps=False)
 
         integrated_probability = _integrate_midpoint(
             new_range_waterlevel,
@@ -210,8 +209,7 @@ class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
         fragility_curve_multi_section = self.data_adapter.input(input[1])
 
         results = []
-        for section_id in fragility_curve_multi_section["section_id"].unique():
-            df_fc = fragility_curve_multi_section.query("`section_id` == @section_id")
+        for section_id, df_fc in fragility_curve_multi_section.groupby("section_id"):
             status, message = validate_dataframe(
                 df=df_fc, schema=FragilityCurve.fragility_curve_schema
             )
