@@ -1,7 +1,7 @@
 GlobalVariables:
     rootdir: "data"
     moments: [-24,0,24,48]
-    
+
     ClassifyInspections:
         classify_column: "conditiescore"
 
@@ -9,7 +9,7 @@ GlobalVariables:
         query: "Elementengroep=='Steenbekleding' and Status_waarneming=='Afgerond'"
         drop_columns:
             - "SHAPE *"
-            - "OBJECTID *"        
+            - "OBJECTID *"
             - "AB_Aangetast_oppervlak"
             - "AB_drijf__en_zwerfvuil"
             - "AB_gaten"
@@ -165,15 +165,15 @@ DataAdapter:
 
     inspectie_lines_csv:
         type: csv
-        path: "continu-inzicht-inspectie-hhnk-lines.csv"        
+        path: "continu-inzicht-inspectie-hhnk-lines.csv"
 
     inspectie_points_styling_csv:
         type: csv
-        path: "continu-inzicht-inspectie-hhnk-points-styling.csv"      
+        path: "continu-inzicht-inspectie-hhnk-points-styling.csv"
 
     inspectie_lines_styling_csv:
         type: csv
-        path: "continu-inzicht-inspectie-hhnk-lines-styling.csv"  
+        path: "continu-inzicht-inspectie-hhnk-lines-styling.csv"
 
     inspectie_points_layer_csv:
         type: csv
@@ -181,60 +181,60 @@ DataAdapter:
 
     inspectie_lines_layer_csv:
         type: csv
-        path: "continu-inzicht-inspectie-hhnk-lines-layer.csv"        
+        path: "continu-inzicht-inspectie-hhnk-lines-layer.csv"
 
     inspectie_points_filtered_csv:
         type: csv
         path: "hidden_inspectie_points_filter.csv"
-        index: False  
+        index: False
 
     inspectie_lines_filtered_csv:
         type: csv
         path: "hidden-inspectie-lines-filtered.csv"
-        index: False  
+        index: False
 
     inspectie_points_filtered_geojson:
         type: shape
         path: "hidden-inspectie-points-filtered.geojson"
-        index: False      
+        index: False
 
     inspectie_lines_filtered_geojson:
         type: shape
         path: "hidden-inspectie-lines-filtered.geojson"
-        index: False                
-    
-    inspectie_points_filtered_styled_geojson:          
-        type: shape
-        path: "hidden-inspectie-points-filtered-styled.geojson"            
+        index: False
 
-    inspectie_lines_filtered_styled_geojson:          
+    inspectie_points_filtered_styled_geojson:
         type: shape
-        path: "hidden-inspectie-lines-filtered-styled.geojson"               
+        path: "hidden-inspectie-points-filtered-styled.geojson"
+
+    inspectie_lines_filtered_styled_geojson:
+        type: shape
+        path: "hidden-inspectie-lines-filtered-styled.geojson"
 
     inspectie_points_styled_legenda_csv:
         type: csv
-        path: "hidden-inspectie-points-styled-legenda.csv"   
-        index: False     
+        path: "hidden-inspectie-points-styled-legenda.csv"
+        index: False
 
     inspectie_lines_styled_legenda_csv:
         type: csv
-        path: "hidden-inspectie-lines-styled-legenda.csv"   
-        index: False                     
+        path: "hidden-inspectie-lines-styled-legenda.csv"
+        index: False
 
     inspectie_points_filtered_styled_ci_to_database:
         type: postgis
         schema: continuinzicht_demo_realtime
         database: "continuinzicht"
         table: hhnk_inspectie_points
-        if_exists: replace        
+        if_exists: replace
 
     inspectie_lines_filtered_styled_ci_to_database:
         type: postgis
         schema: continuinzicht_demo_realtime
         database: "continuinzicht"
         table: hhnk_inspectie_lines
-        if_exists: replace               
-    
+        if_exists: replace
+
     inspectie_layers_ci_to_database:
         type: postgresql_database
         schema: continuinzicht_demo_realtime

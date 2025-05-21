@@ -71,6 +71,7 @@ class LoadsWaterinfo(ToolboxBase):
             Wanneer de opgegeven parameter(s) komen niet voor in Waterinfo.
             Wanneer de opgegeven locatie niet voorkomt in Waterinfo
         """
+        self.data_adapter.logger.debug("Start LoadsMatroos")
 
         # Haal opties en dataframe van de config
         global_variables = self.data_adapter.config.global_variables
@@ -116,7 +117,7 @@ class LoadsWaterinfo(ToolboxBase):
         # observedhours,predictionhours
         # -672, 0   | achtentwintig dagen terug
         # -216, 48  | negen dagen terug en 2 dagen vooruit
-        #   -6, 3   | zes uur teru, en 3 uur vooruit
+        #   -6, 3   | zes uur terug, en 3 uur vooruit
         #  -48, 48  | twee dagen terug en 2 dagen vooruit
 
         # TODO: hard coded op een data type: nl de eerste

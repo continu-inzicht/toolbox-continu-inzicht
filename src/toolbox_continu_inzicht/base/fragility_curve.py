@@ -49,7 +49,7 @@ class FragilityCurve(ToolboxBase):
         # subclass gebruikt moet worden. Raise daarom alleen een TypeError
         # als deze methode wordt aangeroepen zonder subclass.
         raise TypeError(
-            "De methode 'calculate_fragility_curve' is niet geimplementeerd"
+            "De methode 'calculate_fragility_curve' is niet geïmplementeerd"
         )
 
     def as_array(self):

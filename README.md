@@ -30,7 +30,7 @@ Zie [Modules](https://continu-inzicht.github.io/toolbox-continu-inzicht/modules.
 
 Zie [Bijdragen](https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html) op de wiki voor een uitgebreide uitleg.
 
-### Developen in het kort
+### Ontwikkelen in het kort
 
 #### Pixi
 

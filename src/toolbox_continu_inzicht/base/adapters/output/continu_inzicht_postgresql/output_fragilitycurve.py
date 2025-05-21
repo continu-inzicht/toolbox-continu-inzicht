@@ -99,6 +99,9 @@ def output_ci_postgresql_fragilitycurves_table(
     df = df.copy()
     """Schrijft fragility curve data naar een postgresql database in de profile tabel & zet namen goed"""
     table = "fragilitycurves"
+    if "table" in output_config:
+        table = output_config["table"]
+
     schema = output_config["schema"]
 
     # hernoemen van de kolom section_id naar profile_id
@@ -115,7 +118,7 @@ def output_ci_postgresql_fragilitycurves_table(
         if col not in df.columns:
             df[col] = columns[col]
 
-    # check all required variables are availible from the .env file
+    # check all required variables are available from the .env file
     keys = [
         "postgresql_user",
         "postgresql_password",

@@ -131,7 +131,7 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
     - measureid (int64, optioneel): maatregel id, bij geen waarde wordt geen maatregel
       (measureid=0) gebruikt
     - timedep (int64, optioneel): tijdsafhankelijk 0=nee, 1=ja
-    - degradatieid (int64, optioneel): rekening houden met degradatie (nog net geimplementeerd)
+    - degradatieid (int64, optioneel): rekening houden met degradatie (nog net geïmplementeerd)
 
     Returns:\n
     df (DataFrame):\n
@@ -192,6 +192,192 @@ def input_ci_postgresql_fragilitycurves_table(input_config: dict) -> pd.DataFram
     """
 
     # qurey uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
+    return df
+
+
+def input_ci_postgresql_fragilitycurves_methode2_table(
+    input_config: dict,
+) -> pd.DataFrame:
+    """
+    Ophalen fragilitycurves voor alle dijkvakken, faalmechanismes en opgegeven maatregel
+
+    YAML voorbeeld:\n
+        type: ci_postgresql_fragilitycurves_table
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+        measureid: 0
+
+    Args:\n
+    input_config (dict): configuratie-opties
+
+    **Opmerking:**\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+    - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+    - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+    - postgresql_port (str): poort van de Continu Inzicht databaseserver
+
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht database
+    - schema (str): schema van de Continu Inzicht database
+    - measureid (int64, optioneel): maatregel id, bij geen waarde wordt geen maatregel
+      (measureid=0) gebruikt
+    - timedep (int64, optioneel): tijdsafhankelijk 0=nee, 1=ja
+    - degradatieid (int64, optioneel): rekening houden met degradatie (nog net geïmplementeerd)
+
+    Returns:\n
+    df (DataFrame):\n
+    - section_id: int64             : id van het dijkvak
+    - measure_id: int64             : id van de maatregel
+    - measure: str                  : naam van de maatregel
+    - failuremechanismid: int64     : id van het faalmechanisme
+    - failuremechanism: str         : naam van het faalmechanisme
+    - hydraulicload: float64        : belasting van het tijdreeksitem
+    - failureprobability: float64   : faalkans van het tijdreeksitem
+    """
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    sectionid = 0
+    if "sectionid" in input_config:
+        sectionid = input_config["sectionid"]
+
+    measureid = 0
+    if "measureid" in input_config:
+        measureid = input_config["measureid"]
+
+    failuremechanismid = 1  # gecombineerd
+    if "failuremechanismid" in input_config:
+        failuremechanismid = input_config["failuremechanismid"]
+
+    # 1 "STBI, STPH en GEKB"
+    # 2 "GEBU"
+    # 3 "Kunstwerken"
+    fmgroup = 1
+    if "fmgroup" in input_config:
+        fmgroup = input_config["fmgroup"]
+
+    if failuremechanismid == 1:
+        # gecombineerde faalmechanisme
+        query = f"""
+            SELECT
+                a.hydraulicload,
+                a.failureprobability as failureprobability,
+                a.failureprobability as failure_probability,
+                b.measureid AS measureid,
+                b.failuremechanismid as failuremechanismid,
+                d.name AS failuremechanism,
+                b.sectionid AS section_id
+            FROM
+                continuinzicht_realtime.fragilitycurves_comb AS a
+            INNER JOIN
+                continuinzicht_realtime.fragilitycurves_combinations AS b
+                ON a.combinationid=b.id
+            INNER JOIN
+                continuinzicht_realtime.wind_combinations AS c
+                ON b.windcombinationid=c.id
+            INNER JOIN
+                continuinzicht_realtime.failuremechanism AS d
+                ON b.failuremechanismid=d.id
+                AND c.winddep=d.winddep
+            WHERE
+                b.fragcurvenumber=1
+                --AND b.sectionid={sectionid}
+                AND b.measureid={measureid}
+                AND a.fmgroup={fmgroup}
+            ORDER BY
+                a.hydraulicload, a.failureprobability ASC
+        """
+    elif failuremechanismid == 0 and sectionid == 0:
+        # alle faalmechanismes behalve gecombineerd en alle dijkvakken
+        query = f"""
+            SELECT
+                a.hydraulicload,
+                a.failureprobability as failureprobability,
+                a.failureprobability as failure_probability,
+                b.measureid AS measureid,
+                b.failuremechanismid as failuremechanismid,
+                d.name AS failuremechanism,
+                b.sectionid AS section_id
+            FROM
+                {schema}.fragilitycurves_all AS a
+            INNER JOIN
+                {schema}.fragilitycurves_combinations AS b
+                ON a.combinationid=b.id
+            INNER JOIN
+                {schema}.wind_combinations AS c
+                ON b.windcombinationid=c.id
+            INNER JOIN
+                {schema}.failuremechanism AS d
+                ON b.failuremechanismid=d.id
+                AND c.winddep=d.winddep
+            INNER JOIN
+                {schema}.wind AS w
+                ON w.windspeed=c.windspeed AND w.sectormin=c.sectormin AND w.sectorsize=c.sectorsize
+            WHERE
+                b.fragcurvenumber=1 AND
+                b.measureid={measureid}
+            ORDER BY
+                a.hydraulicload, a.failureprobability ASC
+        """
+    else:
+        # per faalmechanisme
+        query = f"""
+            SELECT
+                a.hydraulicload,
+                a.failureprobability as failureprobability,
+                a.failureprobability as failure_probability,
+                b.measureid AS measureid,
+                b.failuremechanismid as failuremechanismid,
+                d.name AS failuremechanism,
+                b.sectionid AS section_id
+            FROM
+                {schema}.fragilitycurves_all AS a
+            INNER JOIN
+                {schema}.fragilitycurves_combinations AS b
+                ON a.combinationid=b.id
+            INNER JOIN
+                {schema}.wind_combinations AS c
+                ON b.windcombinationid=c.id
+            INNER JOIN
+                {schema}.failuremechanism AS d
+                ON b.failuremechanismid=d.id
+                AND c.winddep=d.winddep
+            INNER JOIN
+                {schema}.wind AS w
+                ON w.windspeed=c.windspeed AND w.sectormin=c.sectormin AND w.sectorsize=c.sectorsize
+            WHERE
+                b.fragcurvenumber=1
+                AND b.sectionid={sectionid}
+                AND b.measureid={measureid}
+                AND b.failuremechanismid={failuremechanismid}
+            ORDER BY
+                a.hydraulicload, a.failureprobability ASC
+        """
+
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
@@ -290,7 +476,50 @@ def input_ci_postgresql_slopes(input_config: dict) -> pd.DataFrame:
         INNER JOIN {schema}.profiles ON profiles.id=slopes.profileid;
     """
 
-    # qurey uitvoeren op de database
+    # query uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
+    return df
+
+
+def input_ci_postgresql_slopes_limburg(input_config: dict) -> pd.DataFrame:
+    """leest hellingsdata van PostgreSQL-database in de hellingstabel en zet namen goed."""
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    query = f"""
+        SELECT
+            profiles.sectionid AS section_id,
+            slopes.slopetypeid,
+            slopes.x,
+            slopes.y,
+            slopes.r,
+            profiles.damheight
+        FROM {schema}.slopes
+        INNER JOIN {schema}.profiles ON profiles.id=slopes.profileid;
+    """
+
+    # query uitvoeren op de database
     with engine.connect() as connection:
         df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
 
