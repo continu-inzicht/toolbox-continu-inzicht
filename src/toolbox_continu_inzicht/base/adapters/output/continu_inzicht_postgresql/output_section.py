@@ -24,12 +24,12 @@ def output_ci_postgresql_section_load_to_data(
         unit_conversion_factor: 0.01
 
     Args:\n
-        * output_config (dict): configuratie opties
-        * df (DataFrame):\n
-        - measurement_location_id: int64
-        - date_time: datetime64[ns, UTC]
-        - value: float64
-        - value_type: str
+    output_config (dict): configuratie opties\n
+    df (DataFrame):\n
+    - measurement_location_id: int64
+    - date_time: datetime64[ns, UTC]
+    - value: float64
+    - value_type: str
 
     **Opmerking:**\n
     In de `.env` environment bestand moeten de volgende parameters staan:\n
@@ -135,15 +135,15 @@ def output_ci_postgresql_section_to_data(output_config: dict, df: pd.DataFrame) 
 
     Opmerking:
     ------
-    In de `.env` environment bestand moeten de volgende parameters staan:
-    postgresql_user (str):
-    postgresql_password (str):
-    postgresql_host (str):
-    postgresql_port (str):
+    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str):
+    - postgresql_password (str):
+    - postgresql_host (str):
+    - postgresql_port (str):
 
-    In de 'yaml' config moeten de volgende parameters staan:
-    database (str):
-    schema (str):
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str):
+    - schema (str):
 
     Returns:
     --------
@@ -378,15 +378,15 @@ def output_ci_postgresql_section_to_states(
 
     Opmerking:
     ------
-    In de `.env` environment bestand moeten de volgende parameters staan:
-    postgresql_user (str):
-    postgresql_password (str):
-    postgresql_host (str):
-    postgresql_port (str):
+    In de `.env` environment bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str):
+    - postgresql_password (str):
+    - postgresql_host (str):
+    - postgresql_port (str):
 
-    In de 'yaml' config moeten de volgende parameters staan:
-    database (str):
-    schema (str):
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str):
+    - schema (str):
 
     Returns:
     --------
@@ -528,12 +528,12 @@ def output_ci_postgresql_section(output_config: dict, df: pd.DataFrame) -> None:
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
-        * output_config (dict): configuratie opties
-        * df (DataFrame):\n
-        - id: int64                 : id van de sectie
-        - segmentid: int64          : id van het segment waartoe de sectie behoort
-        - name: str                 : naam van de sectie
-        - geometry: geom            : geometrie (ligging) van de sectie (let op projectie altijd EPSG4326!)
+    output_config (dict): configuratie opties
+    df (DataFrame):\n
+    - id: int64: id van de sectie
+    - segmentid: int64: id van het segment waartoe de sectie behoort
+    - name: str: naam van de sectie
+    - geometry: geom: geometrie (ligging) van de sectie (let op projectie altijd EPSG4326!)
 
     **Opmerking:**\n
     In de `.env` environment bestand moeten de volgende parameters staan:\n
@@ -603,14 +603,14 @@ def output_ci_postgresql_sectionfractions(
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
-        * output_config (dict): configuratie opties
-        * df (DataFrame):\n
-        - sectionid: int64          : id van de sectie
-        - idup: int64               : id van het meetlocatie (measuringlocation), stroomopwaarst gelegen (indien van toepassing)
-        - iddown: int64             : id van het meetlocatie (measuringlocation), stroomafwaarst gelegen (indien van toepassing)
-        - fractionup: float64       : fractie van de belasting gebruikt voor interpolatie belasting bij sectie stroomopwaarst gelegen (indien van toepassing)
-        - fractiondown: float64     : fractie van de belasting gebruikt voor interpolatie belasting bij sectie stroomafwaarst gelegen (indien van toepassing)
-        - parameters: XXXXXX          : OPTIONEEL lijst van (belasting)parameters (ROLF VRAGEN)
+    output_config (dict): configuratie opties\n
+    df (DataFrame):
+    - sectionid: int64          : id van de sectie
+    - idup: int64               : id van het meetlocatie (measuringlocation), stroomopwaarst gelegen (indien van toepassing)
+    - iddown: int64             : id van het meetlocatie (measuringlocation), stroomafwaarst gelegen (indien van toepassing)
+    - fractionup: float64       : fractie van de belasting gebruikt voor interpolatie belasting bij sectie stroomopwaarst gelegen (indien van toepassing)
+    - fractiondown: float64     : fractie van de belasting gebruikt voor interpolatie belasting bij sectie stroomafwaarst gelegen (indien van toepassing)
+    - parameters: XXXXXX          : OPTIONEEL lijst van (belasting)parameters (ROLF VRAGEN)
 
     **Opmerking:**\n
     In de `.env` environment bestand moeten de volgende parameters staan:\n
@@ -687,22 +687,22 @@ def get_parameters(engine: Engine, schema: str) -> dict:
     """
     Ophalen lijst met parameters uit de Continu Inzicht database
 
-    Faalmechanismes:
-        code:   naam
-        H10:    Gemeten waterstand
-        H10V:	Voorspelde waterstand
-        H10EH:	Voorspelde waterstand ensemble hoog
-        H10EL:	Voorspelde waterstand ensemble laag
-        PF:	    Faalkans
-        BO:	    Beheerdersoordeel
-        MR:     Maatregel
-        RSCH:   Risico verwachte schade
-        RSL:    Risico verwachte slachtoffers
-        RGETR:	Risico getroffenen
-        RPLPF:	Risico plaatsgebonden overstromingskans
-        PFT:	Faalkans technical
-        PFM:	Faalkans measure
-        PFEJ:	Faalkans expert judgement
+    Faalmechanismes:\n
+    - code: naam
+    - H10: Gemeten waterstand
+    - H10V:	Voorspelde waterstand
+    - H10EH: Voorspelde waterstand ensemble hoog
+    - H10EL: Voorspelde waterstand ensemble laag
+    - PF: Faalkans
+    - BO: Beheerdersoordeel
+    - MR: Maatregel
+    - RSCH: Risico verwachte schade
+    - RSL: Risico verwachte slachtoffers
+    - RGETR: Risico getroffenen
+    - RPLPF: Risico plaatsgebonden overstromingskans
+    - PFT: Faalkans technical
+    - PFM: Faalkans measure
+    - PFEJ: Faalkans expert judgement
     """
     # ophalen parameters
     parameters = []
@@ -725,15 +725,15 @@ def get_failuremechanisms(engine: Engine, schema: str) -> dict:
     """
     Ophalen lijst met faalmechanismes uit de Continu Inzicht database
 
-    Faalmechanismes:
-        code: naam
-        COMB: Combinatie faalmechanismen
-        GEKB: Overloop en overslag dijken
-        STPH: Opbarsten en piping dijken
-        STBI: Stabiliteit binnenwaarts dijken
-        HTKW: Overloop en overslag langsconstructies
-        STKWl: Stabiliteit langsconstructies
-        PKW: Piping langsconstructies
+    Faalmechanismes:\n
+    - code: naam
+    - COMB: Combinatie faalmechanismen
+    - GEKB: Overloop en overslag dijken
+    - STPH: Opbarsten en piping dijken
+    - STBI: Stabiliteit binnenwaarts dijken
+    - HTKW: Overloop en overslag langsconstructies
+    - STKWl: Stabiliteit langsconstructies
+    - PKW: Piping langsconstructies
     """
     # ophalen faalmechanismes
     failuremechanisms = []

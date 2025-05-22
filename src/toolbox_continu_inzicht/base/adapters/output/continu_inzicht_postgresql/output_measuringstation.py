@@ -357,10 +357,10 @@ def output_ci_postgresql_to_moments(output_config: dict, df: pd.DataFrame) -> No
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
-        * output_config (dict): configuratie opties
-        * df (DataFrame):\n
-        - date_time: int64      : datum/tijd van het huidige moment
-        - calc_time: int64      : datum/tijd van eerst volgende rekenstap
+    output_config (dict): configuratie opties\n
+    df (DataFrame):\n
+    - date_time: int64      : datum/tijd van het huidige moment
+    - calc_time: int64      : datum/tijd van eerst volgende rekenstap
 
     **Opmerking:**\n
     In de `.env` environment bestand moeten de volgende parameters staan:\n
@@ -431,17 +431,17 @@ def output_ci_postgresql_conditions(output_config: dict, df: pd.DataFrame) -> No
         schema: "continuinzicht_demo_whatif"
 
     Args:\n
-        * output_config (dict): configuratie opties
-        * df (DataFrame):\n
-        - id: int64                 : id van de conditie
-        - stateid: int64            : id van de status van een conditie
-        - objectid: int64           : id van het object waartoe de conditie behoort (altijd in combinatie met objecttype)
-        - objecttype: str           : het type object waartoe de conditie behoort (bijv. een 'section' of 'measuringstation')
-        - upperboundary: float64    : de bovengrenswaarde van de status van een conditie (overgang van de betreffende status naar de volgende status)
-        - name: str                 : naam van de status van de conditie
-        - description: str          : omschrijving van de status van de conditie
-        - color: str                : HEX kleurcode van de kleur van de status van de conditie
-        - statevalue: float64       : middenwaarde van statusovergangen (specifiek voor objecttype 'sections')
+    output_config (dict): configuratie opties
+    df (DataFrame):\n
+    - id: int64                 : id van de conditie
+    - stateid: int64            : id van de status van een conditie
+    - objectid: int64           : id van het object waartoe de conditie behoort (altijd in combinatie met objecttype)
+    - objecttype: str           : het type object waartoe de conditie behoort (bijv. een 'section' of 'measuringstation')
+    - upperboundary: float64    : de bovengrenswaarde van de status van een conditie (overgang van de betreffende status naar de volgende status)
+    - name: str                 : naam van de status van de conditie
+    - description: str          : omschrijving van de status van de conditie
+    - color: str                : HEX kleurcode van de kleur van de status van de conditie
+    - statevalue: float64       : middenwaarde van statusovergangen (specifiek voor objecttype 'sections')
 
     **Opmerking:**\n
     In de `.env` environment bestand moeten de volgende parameters staan:\n

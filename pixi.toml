@@ -7,6 +7,8 @@ platforms = ["win-64", "linux-64"]
 readme = "README.md"
 license = "GPL-3.0"
 license-file = "LICENSE"
+repository = "https://github.com/continu-inzicht/toolbox-continu-inzicht"
+homepage = "https://continu-inzicht.github.io/toolbox-continu-inzicht/"
 
 [tasks]
 # Installation
