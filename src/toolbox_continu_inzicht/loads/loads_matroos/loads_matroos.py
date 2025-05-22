@@ -158,11 +158,11 @@ class LoadsMatroos(ToolboxBase):
         # doe een data type check
         if "measurement_location_code" not in df_in.columns:
             raise UserWarning(
-                f"Input data 'measurement_location_code' ontbreekt in kollomen {df_in.columns}"
+                f"Input data 'measurement_location_code' ontbreekt in kolommen {df_in.columns}"
             )
         else:
             df_sources = get_matroos_sources(endpoint=endpoint_model)
-            # maak een lijst met alle parameter namen, noos herhekend ook een heleboel aliases
+            # maak een lijst met alle parameter namen, noos herkent ook een heleboel aliases
             list_aliases = []
             for alias in list(df_sources["source_label"]):
                 list_aliases.extend(alias.split(";"))
@@ -240,7 +240,7 @@ class LoadsMatroos(ToolboxBase):
         records = []
         # loop over de lijst met data heen
         for index, serie in enumerate(json_data["results"]):
-            # hier zit ook coordinaten in
+            # hier zit ook coördinaten in
             measurement_location_name = serie["location"]["properties"]["locationName"]
             measurement_location_code = (
                 measurement_location_name  # .lower().replace(" ", "")
