@@ -1,0 +1,17 @@
+GlobalVariables:
+    rootdir: "data"
+    moments: [-24,0,24,48]
+    logging:
+        name: test_log
+        level: WARNING
+        mode: w
+        file: hidden_logfile.log
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    CSV_in:
+        type: csv
+        path: 'demo.csv'

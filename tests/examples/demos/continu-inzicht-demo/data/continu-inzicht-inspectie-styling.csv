@@ -1,0 +1,6 @@
+id;name;description;color;fillColor;geometry_type;lower_boundary
+1;Onbekende schade;Onbekende schade;#a9070f;#a9070f;Marker;onbekend
+2;Geringe schade;Geringe schade;#07a9a1;#07a9a1;Marker;gering
+3;Matige schade;Matige schade;#5007a9;#5007a9;Marker;matig
+4;Ernstige schade;Ernstige schade;#0760a9;#0760a9;Marker;ernstig
+

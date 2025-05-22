@@ -1,0 +1,63 @@
+GlobalVariables:
+    rootdir: "data"
+    moments: [-24,0,24,48]
+
+    ClassifyInspections:
+        classify_column: "conditiescore"
+
+    Filter:
+        drop_columns:
+            - "Drop"
+
+    InspectionsToDatabase:
+        index: 1
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ";"
+
+    inspectie_points_csv:
+        type: csv
+        path: "continu-inzicht-inspectie-data.csv"
+
+    inspectie_points_styling_csv:
+        type: csv
+        path: "continu-inzicht-inspectie-styling.csv"
+
+    inspectie_points_layer_csv:
+        type: csv
+        path: "continu-inzicht-inspectie-layer.csv"
+
+    inspectie_points_filtered_csv:
+        type: csv
+        path: "hidden_inspectie_filter.csv"
+        index: False
+
+    inspectie_points_filtered_geojson:
+        type: shape
+        path: "hidden-inspectie-filtered.geojson"
+        index: False
+
+    inspectie_points_filtered_styled_geojson:
+        type: shape
+        path: "hidden-inspectie-filtered-styled.geojson"
+
+    inspectie_points_styled_legenda_csv:
+        type: csv
+        path: "hidden-inspectie-styled-legenda.csv"
+        index: False
+
+    inspectie_points_filtered_styled_ci_to_database:
+        type: postgis
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: demo_inspectie_resultaten
+        if_exists: replace
+
+    inspectie_layers_ci_to_database:
+        type: postgresql_database
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: layers
+        if_exists: append

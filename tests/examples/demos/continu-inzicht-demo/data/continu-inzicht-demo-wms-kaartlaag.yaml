@@ -1,0 +1,22 @@
+GlobalVariables:
+    rootdir: "data"
+    moments: [-24,0,24,48]
+    
+    InspectionsToDatabase:
+        index: 0
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ";"
+
+    wms_layer_csv:
+        type: csv
+        path: "continu-inzicht-wms-layer-extra.csv"
+
+    wms_inspectie_layers_ci_to_database:
+        type: postgresql_database
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: layers
+        if_exists: append
