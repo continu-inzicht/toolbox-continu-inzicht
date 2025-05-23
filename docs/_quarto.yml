@@ -21,7 +21,7 @@ website:
     right:
       - text: "Bijdragen"
         file: contributing.qmd
-      - icon: GitHub
+      - icon: github
         href: https://github.com/continu-inzicht/toolbox
         aria-label: GitHub
 
