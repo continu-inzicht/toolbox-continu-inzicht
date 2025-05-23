@@ -152,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -240,7 +240,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#filteren" id="toc-filteren" class="nav-link active" data-scroll-target="#filteren">Filteren</a></li>
   <li><a href="#classificeren-van-inspectieresultaten" id="toc-classificeren-van-inspectieresultaten" class="nav-link" data-scroll-target="#classificeren-van-inspectieresultaten">Classificeren van inspectieresultaten</a></li>
   <li><a href="#inspectieresultaten-en-de-viewer" id="toc-inspectieresultaten-en-de-viewer" class="nav-link" data-scroll-target="#inspectieresultaten-en-de-viewer">Inspectieresultaten en de viewer</a></li>
-  <li><a href="#code-4" id="toc-code-4" class="nav-link" data-scroll-target="#code-4">Code</a></li>
   </ul>
 </nav>
     </div>
@@ -481,7 +480,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="wms-lagen-in-de-viewer">WMS lagen in de viewer</h4>
 <p>De definitie voor WMS-lagen is simpeler. Hiervoor is alleen een url (<code>layer_wms_url</code>) nodig. In sommige gevallen is ook de <code>layer_wms_layer</code>, <code>layer_wms_style</code> en <code>layer_wms_legend_url</code> nodig om voldoende informatie aan de viewer te geven. Dit is een voorbeeld waarbij de data-adapter gebruikt kan worden om de database te vullen.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Configuratie</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
@@ -502,12 +501,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">table</span><span class="kw">:</span><span class="at"> layers</span></span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">if_exists</span><span class="kw">:</span><span class="at"> append</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</section>
-</section>
-<section id="code-4" class="level2">
-<h2 class="anchored" data-anchor-id="code-4">Code</h2>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
@@ -515,6 +509,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>layer_table <span class="op">=</span> data_adapter.<span class="bu">input</span>(<span class="st">'layers'</span>)</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>data_adapter.output(<span class="st">'to_ci_database'</span>, layer_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="grote-tabel-in-de-viewer" class="level4">
 <h4 class="anchored" data-anchor-id="grote-tabel-in-de-viewer">Grote tabel in de viewer</h4>
 <p>Om grote kaartlagen in de viewer te tonen, is het advies om dit via een losse tabel in database te doen. Deze tabel kan dan gekoppeld worden aan de viewer op dezelfde manier als een WMS-laag via de tabel <code>layers</code>.</p>
