@@ -50,4 +50,4 @@ def test_fragility_curves_wave_overtopping_multiple():
         0.2505993808444639,
         0.3553930566770582,
     ]
-    assert np.isclose(result, expected).all()
+    assert np.allclose(result, expected)

@@ -13,7 +13,7 @@ De oude back-end kan met weinig aanpassingen worden vervangen door de nieuwe cod
 
 ## Losstaande modules
 
-Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.
+Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van [PyPi](https://pypi.org/project/toolbox-continu-inzicht/).
 
 ```python
 pip install toolbox-continu-inzicht
@@ -22,7 +22,7 @@ pip install toolbox-continu-inzicht
 Vanwege het aantal afhankelijkheden is het aan te raden om een nieuwe conda environment te gebruiken. Hiervoor kan gebruik gemaakt worden van de `requirements.yaml` in de source map op GitHub. Met het volgende conda commando kan deze worden geïnstalleerd.
 
 ```bash
-conda env create --file=https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/f3b55e9a01ad5111090451024bb50388ac2a6695/src/requirements.yaml
+conda env create --file=https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/refs/heads/main/src/requirements.yaml
 ```
 
 ## Als ontwikkelaar
@@ -41,7 +41,7 @@ iwr -useb https://pixi.sh/install.ps1 | iex
 curl -fsSL https://pixi.sh/install.sh | bash
 ```
 
-#### Instaleer python packages met pixi
+#### Installeer python packages met pixi
 
 Met het `Pixi` commando in powershell kun je vervolgens de juiste python bestanden installeren:
 
@@ -52,4 +52,4 @@ Met het `Pixi` commando in powershell kun je vervolgens de juiste python bestand
 
 Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand op de juiste packages te laden en zet deze in de `.pixi` map.
 
-Zie het document ['contributing'](https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html) voor meer informatie.
+Zie de ['Richtlijnen voor bijdragen aan Toolbox Continu Inzicht'](https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html) voor meer informatie.

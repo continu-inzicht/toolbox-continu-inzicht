@@ -11,12 +11,15 @@ De belastingen worden ingelezen voor verschillende momenten (bijv. gister, nu, m
 
 De volgende databronnen worden op dit moment in de Toolbox Continu Inzicht ondersteund:
 
-1. Delft-FEWS
-2. (Noos)Matroos
-3. RWS waterwebservices
-4. RWS waterinfo
+1. [Delft-FEWS](#sec-delft-fews)
+2. [(Noos)Matroos](#sec-matroos)
+3. [RWS waterwebservices](#sec-RWS-waterwebservices)
+4. [RWS waterinfo](#sec-RWS-waterinfo)
 
-#### Delft-FEWS
+#### Aquo standaard
+De standaard ondersteunde belastingen zetten de parameters om in het [Aquo standaard](www.aquo.nl) formaat met parameter id, code en omschrijving (naam). Elke functie roept de functie `base.aquo.read_aquo()` aan, hierbij wordt ook gekeken naar de `GlobalVariables` voor een `aquo_allias`. Op die manier is het ook mogelijk om andere parameters, bijvoorbeeld uit FEWS, te koppelen aan een Aquo grootheid. De meta data die gebruikt wordt voor deze standaard is te vinden onder [Aquo grootheden](../overig/aquo_grootheid.qmd).
+
+#### Delft-FEWS{#sec-delft-fews}
 Veel waterschappen gebruiken een [Delft - Forecast Early Warning System (FEWS)](https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen) implementatie voor het beheren van verschillende interne en externe informatiebronnen.
 Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen.
 Toegang verkrijgen tot een FEWS is complexer dan andere bronnen, waardoor het noodzakelijk is om extra parameters te definiëren in het configuratiebestand.
@@ -76,7 +79,7 @@ DataAdapter:
 - value_type (str): Type waarde: meting of verwachting
 
 
-#### Matroos
+#### Matroos {#sec-matroos}
 Matroos of `Multifunctional Access Tool for Operational Oceandata Services` is een webbased distributiesysteem van de operationele verwachtingen van waterstanden, stroming, debieten en golven, van onder meer het Watermanagementcentrum Nederland.
 Matroos is beschikbaar voor verschillende doelgroepen, waarvan er op dit moment drie relevant zijn voor de ontwikkeling van de Toolbox Continu Inzicht.
 De verschillende versies worden in de tabel hieronder toegelicht. Voor meer informatie verwijzen we naar de nieuwsbrief op [iplo.nl](https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf).
@@ -116,7 +119,7 @@ matroos_user: "..."
 matroos_password: "..."
 ```
 
-#### RWS WaterWebservices
+#### RWS WaterWebservices {#sec-RWS-waterwebservices}
 Via de RWS WaterWebservices zijn metingen en verwachtingen van o.a. waterstanden beschikbaar via de [WaterWebservices](https://rijkswaterstaatdata.nl/waterdata/) API.
 Vooral langs de rivieren zijn veel meetpunten beschikbaar.
 Deze API is openbaar en vereist weinig configuratie. De `MISSING_VALUE` kan in de configuratie worden aangepast, maar staat al standaard ingesteld.
@@ -128,7 +131,7 @@ Deze API is openbaar en vereist weinig configuratie. De `MISSING_VALUE` kan in d
 
 Beschikbare locaties kunnen worden weergegeven met `get_rws_webservices_locations()`.
 
-#### RWS Waterinfo
+#### RWS Waterinfo {#sec-RWS-waterinfo}
 Naast de RWS WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via [waterinfo.rws.nl](https://waterinfo.rws.nl/).
 Waterinfo is bedoeld als informatieportaal, en niet als API om data op te halen. Voordat de WaterWebservices API beschikbaar was, werd de Waterinfo-website gebruikt in verschillende Continu Inzicht systemen.
 Om de comptabiliteit met deze oudere Continu Inzicht systemen te behouden, is deze functie nu nog wel beschikbaar in de Toolbox Continu Inzicht.

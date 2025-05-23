@@ -1,0 +1,111 @@
+# Changelog
+
+Alle noemenswaardige veranderingen worden hier bijgehouden.
+Dit project gebruikt [Semantic Versioning](http://semver.org/).
+Het format is beschreven op [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
+
+## Development
+
+### Sprint 1 [Ongeplubliceerd]
+
+- Werkende Quarto documentatie [#7](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/7)
+- Proof of concept met csv en database [#9](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/9)
+- Voeg notebook toe om te laten zien hoe het werkt [#12](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/12)
+- Maak map structuur overzichtelijker [#19](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/19)
+
+### Sprint 2 [Ongeplubliceerd]
+
+In sprint 2 is gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#36](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/36).
+
+Allereerst zijn er nog restpunten uit sprint 1 aangepast:
+
+- het specificeren van `delimiter` deed het niet, dit moet `sep` zijn. Daarnaast worden nu alle opties die in de configuratie zijn gespecificeerd doorgegeven aan de data adapters.
+- `path` is nu `file`, waarbij `file` altijd een bestand is in de `rootdir`. 'path' mag ook een ander absoluut pad zijn: bijvoorbeeld een bestand op een andere locatie. Er wordt ook gecheckt of de paden bestaan voor het runnen van een functie.
+- `.env` bestand is niet meer verplicht, maar geeft wel een warning
+- `util` map aangemaakt voor generieke functies als tijd en post/get functies
+- `pytest.skipif` voor testen die alleen op het HKV-netwerk draaien door FEWS/postgreSQL verbindingen.
+- de keywords `input=..` en `output=..` worden nu alleen aan de `.run()` functie doorgegeven, niet aan de class zelf.
+
+Daarnaast zijn er toevoegingen gedaan ten behoeve van het inlezen van belastingen:
+
+- Inlezen en ophalen van locaties, parameters en grenswaardes(waar mogelijk) uit:
+
+    - (Noos/Vitaal) Matroos
+    -  FEWS
+    -  RWS waterinfo
+    -  RWS waterwebservices
+
+Deze inleesfuncties gebruiken allemaal de Aquo-standaard naam en code (WATHTE).
+
+- Classificeren van belastingen aan de hand van opgehaalde/opgegeven grenswaardes.
+- Toekennen van belastingen aan secties.
+- Aggregeren van tijdreeksen naar momenten of bij het getij naar maxima over de getijperiode.
+
+### Sprint 3 [Ongeplubliceerd]
+
+#### Inhoudelijk
+
+In sprint 3 is weer gebruikt gemaakt van aparte 'feature branches' met een grote pull request naar main [#45](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/45).
+
+De nadruk lag vooral op het toevoegen van fragility curves. Fragility curves kunnen worden gemaakt voor GEKB (golfoverslag) en STPH (piping). Ook kunnen ze afhankelijk, onafhankelijk en met een gewogen gemiddelde worden gecombineerd. Hiervoor zijn de packages respectievelijk [`pydra_core`](https://github.com/HKV-products-services/pydra_core) en [`probabilistic piping`](https://github.com/HKV-products-services/probabilistic_piping) gebruikt.
+
+Daarnaast zijn er een heel aantal data adapters toegevoegd en veel voorbeelden hoe je het kan linken aan een continu inzicht database, daar data op kan zetten en vervolgens gebruiken in functies.
+
+#### Technisch/projectmatig
+
+De `pre-commit` uitgebreid en toegevoegd aan de github actions, dit run je voor je een aanpassingen doorvoer met `pixi run pre-commit`.
+De tests en publiceren van docs is nu in een windows action omgeving zodat de Dll's van `pydra_core` het doen, de pixi.lock is geupdate om nieuwe packages toe te laten.
+
+
+### Sprint 4 [[0.1.0](https://pypi.org/project/toolbox-continu-inzicht/0.1.0/)]
+
+#### Inhoudelijk
+
+Alle aanpassingen zijn te vinden in pull request [#54](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/54)
+
+Waar in sprint 3 een groot deel van het werk lag in 'nieuwe' inhoud, was dit wat beperkter in sprint 4. Er zijn toevoegingen gedaan aan de FragilityCurve base class waarmee het nu ook mogelijk is om met een overschrijdingsfrequentie lijn de conditionele kans te integreren. Hiermee kunnen verschillende varianten (combinatie van fragility curve en overschrijdingsfrequentie) worden vergeleken.
+
+Wel is veel werk verricht om een het integreren van de curve mooi weer te geven in de viewer. Hier is ook aan een fast-api implementatie gewerkt.
+
+#### Technisch/projectmatig
+
+Publiceren op [PyPi](https://pypi.org/project/toolbox-continu-inzicht/) is nu mogelijk en gaat volledig automatisch via github actions, dit run je door een tag aan te maken op de github.
+
+Daarnaast checkt de `pre-commit` nu ook op [docstring](https://github.com/jsh9/pydoclint) format zodat het netter in de 'API reference' komt in de documentatie. Hierdoor zijn een hele hoop docstrings aangepast.
+
+Het verschil tussen waterlevel(s) en hydaulicload(s) aangepakt, we voeren nu overal `hydaulicload`.
+
+Matroos was al beschikbaar, maar maakte gebruik van de [timeseries](https://noos.matroos.rws.nl/timeseries/) endpoint. Omdat timeseries de vertaling naar reeks al op de server van matroos doet, kan dit wat traag zijn. Om dit op te lossen is na contact met het beheer van Matroos ook de [maps1d](https://noos.matroos.rws.nl/maps1d/) endpoint toegevoegd, deze leest de 'ruwe' NetCDF bestanden in en vertaald ze naar een tijdreeks die in de toolbox kan worden gebruikt.
+
+
+
+### Sprint 5 [[0.1.1](https://pypi.org/project/toolbox-continu-inzicht/0.1.1/)]
+
+#### Inhoudelijk
+
+Alle aanpassingen zijn te vinden in pull request [#57](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/57)
+
+In Sprint 5 is gekeken naar het filteren, ontsluiten en visualiseren van inspectieresultaten.
+Er zijn meerdere vormen van ontsluiting toegevoegd in de Continu Inzicht Viewer:
+
+- WMS-laag via link
+- GeoJSON-objecten in een kaartweergave
+- Tabelweergave met inspectiegegevens
+
+Daarnaast zijn er diverse restpunten opgepakt, waaronder:
+
+- Centrale logging: Afvangen van alle fouten tijdens de `run()`-uitvoering, met uitgebreide configuratiemogelijkheden.
+- Fragility curves functionaliteit is uitgebreid:
+    - Betere interpolatie functie
+    - Ondersteuning voor stapfuncties
+    - Correct omgaan met kleine kansen
+    - Validatie op monotoon stijgende curves
+- Een integratie test is uitgevoerd om de snelheid te bepalen van de rekenmodules en waar nodig aanpassingen geweest.
+
+
+#### Technisch
+
+De opmaak informatie voor kaartlagen nu uit de database opgehaald door de viewer, dit was een handmatige configuratie stap.
+Gebruikers kunnen op deze manier makkelijker aanpassingen doorvoeren in de viewer.
+
+De logging gebruikt een nieuwe 'baseClass': `ToolboxBase`, inherit deze om logging automatische toe te voegen aan de `run()` functie.

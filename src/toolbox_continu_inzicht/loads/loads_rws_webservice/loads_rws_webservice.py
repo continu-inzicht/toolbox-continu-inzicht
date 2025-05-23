@@ -1,25 +1,27 @@
-from datetime import datetime, timedelta
 import warnings
-from pydantic.dataclasses import dataclass
-import pandas as pd
+from datetime import datetime, timedelta
 from typing import Optional
 
+import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
+from toolbox_continu_inzicht.base.aquo import read_aquo
 from toolbox_continu_inzicht.loads.loads_rws_webservice.get_rws_webservices_locations import (
     get_rws_webservices_locations,
 )
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.base.aquo import read_aquo
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class LoadsWaterwebservicesRWS:
+class LoadsWaterwebservicesRWS(ToolboxBase):
     """
     Belastinggegevens ophalen van rijkswaterstaat waterwebservices
 
     Notes
     -----
-    Link: https://waterwebservices.rijkswaterstaat.nl/
+    Link: [https://waterwebservices.rijkswaterstaat.nl/](https://waterwebservices.rijkswaterstaat.nl/)
 
     Attributes
     ----------
@@ -135,9 +137,9 @@ class LoadsWaterwebservicesRWS:
             )
 
         elif len(missing_data) > 0 and len(lst_observations) > 0:
-            warnings.warn(
-                f"Ontbrekende gegevens voor {len(missing_data)} locaties, controleer de invoer op fouten \n doorgaan met {len(lst_observations)} locaties"
-            )
+            msg = f"Ontbrekende gegevens voor {len(missing_data)} locaties, controleer de invoer op fouten \n doorgaan met {len(lst_observations)} locaties"
+            self.data_adapter.logger.warning(msg)
+            warnings.warn(msg)
 
         self.df_out = self.create_dataframe(
             options,
@@ -256,13 +258,21 @@ class LoadsWaterwebservicesRWS:
         """
         Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.
 
-        Args:
-            calc_time: T0 in UTC
-            global_variables: globale variable uit de invoer yaml
-            locations: dataframe with locations wanted
+        Parameters
+        ----------
+        measurement: str
+            De naam van de parameter die je wilt ophalen.
+        calc_time : datetime
+            De huidige tijd in UTC.
+        global_variables : dict
+            De globale variabelen uit de invoer yaml.
+        locations : pd.DataFrame
+            Dataframe met de gewenste locaties.
 
-        Returns:
-            dict: lijst met parameters
+        Returns
+        -------
+        list
+            Lijst met parameters.
         """
         lst_json = []
         moments = global_variables["moments"]

@@ -2,13 +2,15 @@
 Bepaal de faalkans door een maatregel van een dijkvak
 """
 
-from pydantic.dataclasses import dataclass
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from typing import ClassVar, Optional
+
+import pandas as pd
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.sections.sections_failureprobability.sections_technical_failureprobability import (
     SectionsTechnicalFailureprobability,
 )
-import pandas as pd
 
 
 @dataclass(config={"arbitrary_types_allowed": True})

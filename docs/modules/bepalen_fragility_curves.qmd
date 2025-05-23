@@ -2,17 +2,17 @@
 title: "Bepalen fragility curves"
 ---
 
-De continu inzicht toolbox heeft de functionaliteit om fragility curves voor verschillende faalmechanisme uit te rekenen. Deze sectie beschrijft de beschikbare functies per type faalmechanisme. In Toolbox Continu Inzicht zijn 3 verschillende type fragility curves: GEKB, STPH en alle overige curves. Deze worden in het figuur hieronder weer gegeven.
+De Toolbox Continu Inzicht heeft de functionaliteit om fragility curves voor verschillende faalmechanismen uit te rekenen. Deze sectie beschrijft de beschikbare functies per type faalmechanisme. In Toolbox Continu Inzicht zijn 3 verschillende type fragility curves functies opgenomen: GEKB (Graserosie Kruin en Binnentalud), STPH (Piping en Heave) en voor alle overige faalmechanismen. Deze worden in het figuur hieronder weer gegeven.
 
 ![Overzicht van verschillende fragilityCurves in Toolbox Continu Inzicht](../assets/Overzicht_FragilityCurves_TBCI.png)
 
-Golfoverslag Erosie Kruin en Binnentalud (GEKB) kunnen 'on-the-fly' worden berekend, afhankelijk van verschillende factoren kunnen deze worden aangepast. Voor SPTH kunnen curves vastgesteld worden met de beschikbare functionaliteit, maar dit moet vooraf plaatsvinden. Dit komt door een langere rekentijd en vanwege kwaliteitscontrole. Alle andere curves kunnen niet berekend worden binnen Toolbox Continu
+De fragility curves voor GEKB kunnen 'on-the-fly' worden berekend, afhankelijk van verschillende parameters (zoals windsnelheid en windrichting) kunnen deze worden aangepast. Voor STPH is een funtionaliteit beschikbaar om de fragility curves vooraf te berekenen. Vanwege de langere rekentijden en een benodigde kwaliteitscontrole is ervoor gekozen om de fragility curves voor STPH niet 'on-the-fly' te berekenen. Voor alle andere faalmechanismen geldt dat er geen functionaliteit binnen de Toolbox Continu Inzicht is om de fragility te berekenen. Voor deze overige faalmechanismen geldt dat de gebruiker buiten de Toolbox Continu Inzicht een fragility curve opgesteld ("pre-processed" fragility curves) en deze in de database definieert.
 
 ### Golfoverslag Erosie Kruin en Binnentalud (GEKB){#sec-Bepalen-fragility-curves-GEKB}
 
-Voor het bereken van fragility curves voor GEKB wordt gebruik gemaakt van de Python module [`pydra-core`](https://pypi.org/project/pydra-core/). Deze losstaande Python module is ontwikkeld door HKV en openbaar beschikbaar gemaakt op [GitHub](https://github.com/HKV-products-services/pydra_core). De documentatie is op deze GitHub pagina te vinden
+Voor het bereken van fragility curves voor GEKB wordt gebruik gemaakt van de Python module [`pydra-core`](https://pypi.org/project/pydra-core/). Deze losstaande Python module is ontwikkeld door HKV en openbaar beschikbaar gemaakt op [GitHub](https://github.com/HKV-products-services/pydra_core). De documentatie is op deze GitHub pagina te vinden.
 
-Een fragility curve kan berekend door de functie `FragilityCurveOvertopping` aan te roepen. Hier zijn drie dataframes voor nodig: de eerste met informatie over de hellingen, de tweede over het profiel en als laatste informatie over de bodem en strijklengte. Voor de berekening wordt model onzekerheid mee genomen. Hiervoor zijn acht standaardwaardes gebruikt voor [bretschneider](https://tl.iplo.nl/@192798/golfgroei-bijlage-golfberekeningen-volgens/) waarmee golf hoogte en periode worden bepaald. Deze kunnen aangepast worden als opties in de `config.yaml`, zo als te zien in het voorbeeld met `gh_onz_mu`. Naast onzekerheden kan ook de verhouding tussen de piek periode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) worden aangepast met `tp_tspec` (standaard 1.1). Ook zijn er reken instellingen waarmee wordt gerekend. Hier zijn nog vier instellingen die aangepast kunnen worden. De waterniveaus waarmee probabilistisch gerekend wordt is verdeelt in twee delen: grof en fijn. Standaard zijn fijne stappen van 2m (`upper_limit_coarse`)  onder de kruin tot 1.01m (`upper_limit_fine`) boven de kruin met stappen van 0.05 (`hstap`). Standaard grove stappen lopen van 4m (`lower_limit_coarse`) onder de kruin tot 2m (`upper_limit_coarse`) onder de kruin met stappen van twee keer zo groot (2 * `hstap` = 0.1). Al deze variable zijn los te configureren, als er niks wordt opgegeven, worden de standaard genoemde waardes gebruikt.
+Een fragility curve kan berekend worden door de functie `FragilityCurveOvertopping` aan te roepen. Hier zijn drie DataFrames voor nodig: het eerste DataFrame met informatie over de hellingen, het tweede over het profiel en als laatste informatie over de bodem en strijklengte. In de berekening wordt modelonzekerheid meegenomen. Voor de modelonzekerheid zijn acht standaardwaardes gebruikt voor [bretschneider](https://tl.iplo.nl/@192798/golfgroei-bijlage-golfberekeningen-volgens/), waarmee de golfhoogte en golfperiode worden bepaald. Deze kunnen aangepast worden als opties in de `config.yaml`, zoals te zien in het voorbeeld met `gh_onz_mu`. Naast onzekerheden kan ook de verhouding tussen de piekperiode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) worden aangepast met `tp_tspec` (standaard 1.1). Ook zijn er rekeninstellingen waarmee wordt gerekend, waarvan vier rekeninstellingen zijn aan te passen. De probabilistische berekening wordt gemaakt voor verschillende stapgroottes van de waterstand: grof en fijn. De standaardinstelling is een fijne stapgrootte van 0.05m (`hstap`) van 2m onder de kruin (`upper_limit_coarse`) tot 1.01m boven de kruin (`upper_limit_fine`). De standaardinstelling is een grove stapgrootte van 4m onder de kruin (`lower_limit_coarse`) tot 2m onder de kruin (`upper_limit_coarse`) met stappen van twee keer zo groot (2 * `hstap` = 0.1). Al deze variabele zijn los te configureren. Als de gebruiker deze niet opgeeft, dan wordt uitgegaan van de genoemde standaardwaardes.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -70,19 +70,19 @@ fragility_curve_overtopping.run(
 ```
 :::
 
-### Piping (STPH) {#sec-Bepalen-fragility-curves-STPH}
-Voor het bereken van fragility curves voor piping (STPH) wordt gebruik gemaakt van de python module [`probabilistic_piping`](https://pypi.org/project/probabilistic-piping/). Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikbaar gemaakt op [GitHub](https://github.com/HKV-products-services/probabilistic_piping). De documentatie van deze module is daar ook te vinden.
+### Piping en Heave (STPH) {#sec-Bepalen-fragility-curves-STPH}
+Voor het berekenen van de fragility curves voor piping (STPH) wordt gebruik gemaakt van de Python module [`probabilistic_piping`](https://pypi.org/project/probabilistic-piping/). Deze losstaande Python module is ontwikkeld door HKV en is voor de Toolbox Continu Inzicht openbaar beschikbaar gemaakt op [GitHub](https://github.com/HKV-products-services/probabilistic_piping). De documentatie van deze module is daar ook te vinden.
 
 >```{=html}
 ><span style="color: red; font-weight: bold;">Disclaimer:</span>
 ><span style="color: red;">
->De uitvoer van 'probabilistic-piping' geeft meer informatie over of een som in de berekening is gelukt, hier worden echter binnen Toolbox Continu Inzicht geen checks op gedaan. Het is aan de gebruiker om na te lopen of de curve die wordt gegenereerd daadwerkelijk logisch is.
+>De uitvoer van 'probabilistic-piping' geeft meer informatie of een som in de berekening is gelukt. Binnen de Toolbox Continu Inzicht wordt geen validatie gedaan. Het is aan de gebruiker om te controleren of de berekende fragility curve daadwerkelijk logisch is.
 ></span>
 >```
 
 #### FragilityCurvePipingFixedWaterlevel {#sec-Bepalen-fragility-curves-STPH-combined}
 
-De functie `FragilityCurvePipingFixedWaterlevel` rekent met de drie sub-mechanismes uplift, heave, Sellmeijer en geeft een gecombineerde curve terug. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. De curves van de sub-mechanismes zijn beschikbaar via de`df_result_uplift`, `df_result_heave`, en `df_result_sellmeijer` attributen.
+De functie `FragilityCurvePipingFixedWaterlevel` rekent met de drie deelmechanismen Uplift, Heave, Sellmeijer en geeft een gecombineerde fragility curve terug. Het combineren gebeurt hier door het minimum van de kansen van de drie deelmechanismen te nemen. De fragility curves van de drie deelmechanismen zijn beschikbaar via de`df_result_uplift`, `df_result_heave`, en `df_result_sellmeijer` attributen.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -132,7 +132,7 @@ fragility_curve_piping_fixed_waterlevel.run(
 
 ### Combineren van fragility curves{#sec-Combineren-van-fragility-curves}
 
-Fragility curves kunnen op drie manieren worden gecombineerd: Afhankelijk, onafhankelijk of met een gewogen gemiddelde. De tabel hieronder geeft hier een overzicht van.
+Fragility curves kunnen op drie manieren worden gecombineerd: afhankelijk, onafhankelijk of met een gewogen gemiddelde. De tabel hieronder geeft hier een overzicht van.
 
 | Type             | Functie                           | Formule                              |
 |------------------|-----------------------------------|--------------------------------------|
@@ -140,16 +140,16 @@ Fragility curves kunnen op drie manieren worden gecombineerd: Afhankelijk, onafh
 |Onafhankelijk     |`CombineFragilityCurvesDependent`  |$P(fail,comb|h)=max(P(fail,i|h))$     |
 |Gewogen gemiddelde|`CombineFragilityCurvesWeightedSum`|$P(fail,comb|h)=\sum_{i=1}^{n}(w_i*P(fail,i|h))$ |
 
-Alle drie de functies verwachten een lijst met namen van de data adapters van de fragility curves die gecombineerd moeten worden.
-Bij de gewogen gemiddelde functie moet de laatste data adapter de gewichten bevatten waarmee de fragility curves worden gecombineerd.
-De gewichten dataframe moet een kolom met 'weights' hebben, er is met opzet geen validatie of deze gewichten optellen tot 1 zodat de curve ook geschaald kan worden. De tabel hieronder geeft weer hoe de gewichten table er uit moet zien.
+Voor drie de functies is het nodig om een lijst op te geven, met daarin de namen van de data-adapters van de fragility curves die gecombineerd moeten worden.
+Bij de gewogen gemiddelde functie moet de laatste data-adapter de gewichten bevatten waarmee de fragility curves worden gecombineerd.
+Het gewichten DataFrame moet een kolom met 'weights' hebben. Er is bewust geen validatie of deze gewichten optellen tot 1, zodat de fragility curve ook geschaald kan worden. De tabel hieronder geeft weer hoe de tabel met gewichten er uit moet zien.
 
 | weights  |
 |----------|
 |0.6       |
 |0.4       |
 
-Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden. Dit wordt gedaan op basis van de waterniveaus, en nog twee parameters: hoe ver voorbij de hoogste waarde `extend_past_max` (standaardwaarde is 0.01) en met welke stap grootte `refine_step_size` (standaardwaarde is 0.05)
+Bij het combineren van de fragility curves moeten eerst de waterstanden van de curves op elkaar afgestemd worden door middel van een gedeeld waterstandsgrid. Dit gedeelde waterstandsgrid wordt begrensd door de ondergrens en bovengrens van alle waterstanden van alle fragility curves. De stappen tussen deze grenzen worden vastgelegd met behulp van een vaste stapgrootte (`refine_step_size`, standaardwaarde is 0.05).
 
 
 ::: {.panel-tabset}

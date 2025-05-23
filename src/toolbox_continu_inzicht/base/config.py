@@ -26,7 +26,7 @@ class Config(PydanticBaseModel):
     def lees_config(self):
         """Laadt het gegeven pad in, zet de configuraties klaar in de Config class."""
 
-        with self.config_path.open() as fin:
+        with self.config_path.open(encoding="utf-8") as fin:
             try:
                 data = yaml.safe_load(fin)
             except ScannerError:

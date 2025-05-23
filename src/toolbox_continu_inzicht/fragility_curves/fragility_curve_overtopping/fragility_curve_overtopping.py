@@ -1,18 +1,19 @@
-import pandas as pd
-from pydantic.dataclasses import dataclass
-from typing import Optional
 from pathlib import Path
+from typing import Optional
+
+import pandas as pd
 
 # pydra_core=0.0.1
 import pydra_core
 import pydra_core.common
 import pydra_core.common.enum
 import pydra_core.location
+from pydantic.dataclasses import dataclass
 
+from toolbox_continu_inzicht import ToolboxBase, Config, DataAdapter, FragilityCurve
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.calculate_fragility_curve_overtopping import (
     WaveOvertoppingCalculation,
 )
-from toolbox_continu_inzicht import FragilityCurve, DataAdapter, Config
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -48,12 +49,12 @@ class FragilityCurveOvertopping(FragilityCurve):
 
     tp_tspec, de verhouding tussen de piek periode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
 
-    De waterniveaus waarmee probablistisch gerekend wordt is verdeeld in twee delen: grof en fijn.
+    De waterniveaus waarmee probabilistisch gerekend wordt is verdeeld in twee delen: grof en fijn.
 
-    1. lower_limit_coarse, De ondergrens van de waterstanden waarvoor de fragility scurve wordt berekend in grove stappen (standaard 4.0m onder de kruin)
-    1. upper_limit_coarse, De bovengrens van de waterstanden waarvoor de fragility scurve wordt berekend in grove stappen (standaard 2.0m onder de kruin). Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.
-    1. upper_limit_fine, De bovengrens van de waterstanden waarvoor de fragility scurve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)
-    1. hstap, De fijne stapgrootte van de waterstanden waarvoor de fragility scurve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.
+    1. lower_limit_coarse, De ondergrens van de waterstanden waarvoor de fragility curve wordt berekend in grove stappen (standaard 4.0m onder de kruin)
+    1. upper_limit_coarse, De bovengrens van de waterstanden waarvoor de fragility curve wordt berekend in grove stappen (standaard 2.0m onder de kruin). Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.
+    1. upper_limit_fine, De bovengrens van de waterstanden waarvoor de fragility curve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)
+    1. hstap, De fijne stapgrootte van de waterstanden waarvoor de fragility curve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.
 
     """
 
@@ -212,7 +213,7 @@ class FragilityCurveOvertopping(FragilityCurve):
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurveOvertoppingMultiple:
+class FragilityCurveOvertoppingMultiple(ToolboxBase):
     """
     Maakt een set van fragility curves voor golfoverslag voor een dijkvak.
 

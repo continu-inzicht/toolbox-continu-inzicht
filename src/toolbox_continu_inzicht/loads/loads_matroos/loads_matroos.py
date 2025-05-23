@@ -11,6 +11,7 @@ from toolbox_continu_inzicht.loads.loads_matroos.get_matroos_locations import (
     get_matroos_locations,
     get_matroos_sources,
 )
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 from toolbox_continu_inzicht.base.aquo import read_aquo
@@ -21,14 +22,15 @@ matroos_aquo_synoniem = {"water height": "waterlevel"}
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class LoadsMatroos:
+class LoadsMatroos(ToolboxBase):
     """
     Haalt matroos tijdserie informatie op uit de Noos, Matroos of Vitaal server.
 
     De Matroos informatie is beschikbaar op de volgende websites:
-    https://noos.matroos.rws.nl/maps1d/
-    Met de functie get_matroos_sources() kan je de beschikbare bronnen ophalen.
-    Met de functie get_matroos_locations(source='...') kan je de bijbehorende beschikbare locaties ophalen.
+    [https://noos.matroos.rws.nl/maps1d/](https://noos.matroos.rws.nl/maps1d/)
+
+    Met de `functie get_matroos_sources()` kan je de beschikbare bronnen ophalen.
+    Met de functie `get_matroos_locations(source='...')` kan je de bijbehorende beschikbare locaties ophalen.
 
     Attributes
     ----------
@@ -150,16 +152,17 @@ class LoadsMatroos:
         self.df_out = pd.concat(lst_dfs, axis=0)
         self.data_adapter.output(output, self.df_out)
 
-    @staticmethod
-    def get_matroos_available_locations(df_in, options, endpoint_model) -> pd.DataFrame:
+    def get_matroos_available_locations(
+        self, df_in, options, endpoint_model
+    ) -> pd.DataFrame:
         # doe een data type check
         if "measurement_location_code" not in df_in.columns:
             raise UserWarning(
-                f"Input data 'measurement_location_code' ontbreekt in kollomen {df_in.columns}"
+                f"Input data 'measurement_location_code' ontbreekt in kolommen {df_in.columns}"
             )
         else:
             df_sources = get_matroos_sources(endpoint=endpoint_model)
-            # maak een lijst met alle parameter namen, noos herhekend ook een heleboel aliases
+            # maak een lijst met alle parameter namen, noos herkent ook een heleboel aliases
             list_aliases = []
             for alias in list(df_sources["source_label"]):
                 list_aliases.extend(alias.split(";"))
@@ -193,7 +196,9 @@ class LoadsMatroos:
                 locations_not_found = set(supplied_location_names).difference(
                     wanted_location_names
                 )
-                warnings.warn(f"location {locations_not_found}")
+                msg = f"location {locations_not_found}"
+                self.data_adapter.logger.warning(msg)
+                warnings.warn(msg)
 
             return wanted_location_names
 
@@ -235,7 +240,7 @@ class LoadsMatroos:
         records = []
         # loop over de lijst met data heen
         for index, serie in enumerate(json_data["results"]):
-            # hier zit ook coordinaten in
+            # hier zit ook coördinaten in
             measurement_location_name = serie["location"]["properties"]["locationName"]
             measurement_location_code = (
                 measurement_location_name  # .lower().replace(" ", "")

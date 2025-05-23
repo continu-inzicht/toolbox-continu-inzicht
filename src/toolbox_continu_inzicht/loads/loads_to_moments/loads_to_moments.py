@@ -1,13 +1,16 @@
-from pydantic.dataclasses import dataclass
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter
+from datetime import datetime, timedelta
+from typing import ClassVar, Optional
+
 import pandas as pd
 import pandas.api.types as ptypes
-from typing import ClassVar, Optional
-from datetime import datetime, timedelta
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class LoadsToMoments:
+class LoadsToMoments(ToolboxBase):
     """
     Met deze klasse kunnen waterstandsgegevens worden omgezet naar bepaalde momenten.
     Deze klasse bevat een methode genaamd 'run' die de waterstandsgegevens verwerkt en de resulterende momenten opslaat in een dataframe.
@@ -23,6 +26,17 @@ class LoadsToMoments:
 
     input_schema_loads: ClassVar[dict[str, str | list[str]]]
         Het schema van het invoerdataframe met waterstandsgegevens.
+
+    Notes
+    -----
+    Het schema van het invoerdataframe is:
+
+    - measurement_location_id: int64
+    - parameter_id: int64
+    - unit: object
+    - date_time: datetime64[ns, UTC] of object
+    - value: float64
+    - value_type: object
 
     """
 
@@ -44,11 +58,21 @@ class LoadsToMoments:
         """
         Verwerkt de invoergegevens om momenten te berekenen en genereert het uitvoerdataframe.
 
-        Args:
-            input (str): Naam van de dataadapter met invoergegevens.
-            output (str): Naam van de dataadapter om uitvoergegevens op te slaan.
-        Returns:
-            None
+        Parameters
+        ----------
+        input : str
+            Naam van de dataadapter met invoergegevens.
+        output : str
+            Naam van de dataadapter om uitvoergegevens op te slaan.
+
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        AssertionError
+            Als de invoergegevens niet voldoen aan de vereiste schema's.
         """
 
         self.df_in = self.data_adapter.input(input, schema=self.input_schema_loads)
@@ -110,14 +134,22 @@ class LoadsToMoments:
         self.data_adapter.output(output=output, df=self.df_out)
 
     @staticmethod
-    def get_moment_from_dataframe(moment, df_moments):
+    def get_moment_from_dataframe(
+        moment: dict, df_moments: pd.DataFrame
+    ) -> pd.DataFrame:
         """
         Haalt het moment op uit een dataframe van momenten.
-        Parameters:
-            - moment: Het moment dat moet worden opgehaald.
-            - df_moments: Het dataframe van momenten.
-        Returns:
-            Het dataframe met het opgehaalde moment.
+
+        Parameters
+        ----------
+        moment: dict
+            Het moment dat moet worden opgehaald.
+        df_moments: pd.DataFrame
+            Het dataframe van momenten.
+
+        Returns
+        -------
+        Het dataframe met het opgehaalde moment: pd.DataFrame
         """
 
         df_moment = pd.DataFrame()

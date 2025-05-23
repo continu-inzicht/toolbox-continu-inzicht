@@ -60,6 +60,7 @@ Hier onder vallen een aantal zaken als spaties, haakjes etc, maar ook docstrings
 1. Voeg bij nieuwe functionaliteit altijd nieuwe tests toe.
 1. Update en voeg documentatie toe. Gebruik [Numpy Style Python
     docstrings](https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes). Zorg dat je code leesbaar en begrijpelijk is voor anderen. De [`pydoclint`](https://github.com/jsh9/pydoclint) checkt de doctring format voor je.
+1. Heb je nieuwe termen toegevoegd? Update dan de vertalingen in [tabel](overig/translations.qmd)
 1. [Push](http://rogerdudler.github.io/git-guide/) je branch.
     naar (jouw fork van) de toolbox continu inzicht repo op GitHub;
 1. Maak een pull request aan, bijvoorbeeld volgens
@@ -79,14 +80,14 @@ Dit is een stukje voor de hoofdontwikkelaars van toolbox continu inzicht.
 1. Omdat je niet direct naar de main branch kan schrijven (protected), maak een nieuwe branch aan met ``git checkout -b release-<version>``.
 1. Indien dependencies zijn aangepast, maak een nieuw [pixi lock](https://pixi.sh/latest/features/lockfile/) bestand.
 1. Pas de versie aan in `src/toolbox_continu_inzicht/__init__.py`, de `pyptoject.toml` leest deze uit.
-1. Pas de `docs/changelog.qmd` aan met de veranderingen. Vergeet de link naar de pull request niet.
+1. Pas de `[docs/overig/changelog.qmd](overig/changelog.qmd)` aan met de veranderingen. Vergeet de link naar de pull request niet.
 1. Zorg dat de format van je code correct is met `pixi run ruff check`.
 1. Zorg dat alle bestaande testen werken met `pixi run pytest`.
 1. Commit & push je aanpassingen naar GitHub.
 1. Maak een pull request aan, laat iemand het reviewen, wacht op alle acties, deze worden groen, en merge de pull request.
 1. Wacht tot de GitHub-acties op de main branch klaar zijn en er een groen vinkje bij staat.
 1. Maak een nieuwe \'release\' aan op GitHub
-    - Gebruik de versie als titel en pas een versietag toe.
+    - Gebruik de versie als titel en pas een versie tag toe.
     - Als beschrijving gebruik de intro van de `README.md` en veranderingen uit de `changelog.qmd`.
 
 1. Check

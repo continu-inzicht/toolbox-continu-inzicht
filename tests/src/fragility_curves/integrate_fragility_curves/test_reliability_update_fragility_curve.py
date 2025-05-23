@@ -15,7 +15,7 @@ def init():
 
 
 def tests_reliability_update_empty():
-    """Tests of de reliability update werkt met een té lage update level en geen dvertrouwen, we verwachten geen aanpassingen"""
+    """Tests of de reliability update werkt met een té laag update-level en geen vertrouwen, we verwachten geen aanpassingen"""
     data_adapter = init()
     # onrealistische update_level
     update_level = -10
@@ -31,7 +31,7 @@ def tests_reliability_update_empty():
 
 
 def tests_reliability_update_no_trust():
-    """Tests of de reliability update werkt met een hoge update level en geen vertrouwen, we verwachten geen aanpassingen"""
+    """Tests of de reliability update werkt met een hoog update-level en geen vertrouwen, we verwachten geen aanpassingen"""
     data_adapter = init()
     # no trust is no update
     update_level = 14.3
@@ -46,7 +46,7 @@ def tests_reliability_update_no_trust():
 
 
 def tests_reliability_update_full_trust_low_update():
-    """Tests of de reliability update werkt met een lage update level en volledig vertrouwen, we verwachten geen aanpassingen"""
+    """Tests of de reliability update werkt met een laag update-level en volledig vertrouwen, we verwachten geen aanpassingen"""
     data_adapter = init()
     # trust is update,
     update_level = 2.3
@@ -107,10 +107,10 @@ def tests_reliability_update_full_trust_high_update():
     )
 
     assert not (np.allclose(fragility_curve.failure_probability, initial_value))
-    assert np.isclose(
+    assert np.allclose(
         fragility_curve.failure_probability[
             (fragility_curve.failure_probability > 1e-10)
             & (fragility_curve.failure_probability < 0.99)
         ],
         expected_result,
-    ).all()
+    )

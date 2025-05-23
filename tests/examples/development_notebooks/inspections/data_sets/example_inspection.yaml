@@ -1,0 +1,54 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [-24,0,24,48]
+    ClassifyInspections:
+        classify_column: "prioriteit"
+    Filter:
+        query: "prioriteit > 0"
+        drop_columns:
+            - "waterschap"
+            - "location_id"
+    InspectionsToDatabase:
+        index: 0
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    inspections_results:
+        type: csv
+        path: "inspection_results_example.csv"
+    styling_example:
+        type: csv
+        path: "styling_example.csv"
+    more_styling_example:
+        type: csv
+        path: "more_styling_example.csv"
+    styling_lower_bound:
+        type: csv
+        path: "styling_example_lower_boundary.csv"
+    filter_resultaten:
+        type: csv
+        path: "hidden_filter_resultaten.csv"
+        index: False
+    classify_resultaten:
+        type: shape
+        path: "hidden_classify_resultaten.geojson"
+        index: False
+    legenda:
+        type: csv
+        path: "hidden_legend.csv"
+        index: False
+    layers:
+        type: csv
+        path: "layers.csv"
+    example_to_database:
+        type: csv
+        path: "hidden_example_to_database.csv"
+    to_ci_database:
+        type: postgresql_database
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: layers
+        if_exists: append

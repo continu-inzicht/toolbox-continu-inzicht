@@ -1,6 +1,0 @@
-,measurement_location_id,date_time,value,lower_boundary,upper_boundary,color,label
-1,1,2024-11-12 09:00:00+00:00,767.0,695.0,1155.0,#b6dde8,licht verhoogd
-6,1,2024-11-13 09:00:00+00:00,767.0,695.0,1155.0,#b6dde8,licht verhoogd
-11,1,2024-11-13 09:00:00+00:00,767.0,695.0,1155.0,#b6dde8,licht verhoogd
-16,1,2024-11-14 09:00:00+00:00,761.0,695.0,1155.0,#b6dde8,licht verhoogd
-21,1,2024-11-15 06:00:00+00:00,757.0,695.0,1155.0,#b6dde8,licht verhoogd

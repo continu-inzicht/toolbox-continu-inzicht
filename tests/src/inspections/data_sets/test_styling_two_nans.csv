@@ -1,0 +1,7 @@
+id,name,description,color,symbol,lower_boundary,upper_boundary
+0,nan1,,#00ff00,circle,,
+1,nan2,,#00ced1,circle,,
+2,1,,#a9070f,circle,0.9,1.1
+3,2,,#07a9a1,circle,1.9,2.1
+4,3,,#0760a9,circle,2.9,3.1
+4,4,,#5007a9,circle,3.9,4.1

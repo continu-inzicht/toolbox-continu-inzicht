@@ -2,7 +2,6 @@ GlobalVariables:
     rootdir: "data_sets"
     moments: [-24,0,24,48]
 
-
 DataAdapter:
     default_options:
         csv:

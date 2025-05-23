@@ -3,6 +3,7 @@ Bepaal de technische faalkans van een dijkvak
 """
 
 from pydantic.dataclasses import dataclass
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from typing import ClassVar, Optional
 
@@ -10,7 +11,7 @@ import pandas as pd
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class SectionsExpertJudgementFailureprobability:
+class SectionsExpertJudgementFailureprobability(ToolboxBase):
     """
     Bepaal de beheerdersoordeel faalkans van een dijkvak
 

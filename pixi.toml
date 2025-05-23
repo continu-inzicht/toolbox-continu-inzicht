@@ -1,12 +1,14 @@
 [project]
 name = "toolbox-continu-inzicht"
-version = "0.1.0"
+version = "0.1.1"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen."
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64"]
 readme = "README.md"
 license = "GPL-3.0"
 license-file = "LICENSE"
+repository = "https://github.com/continu-inzicht/toolbox-continu-inzicht"
+homepage = "https://continu-inzicht.github.io/toolbox-continu-inzicht/"
 
 [tasks]
 # Installation
@@ -35,8 +37,8 @@ quarto-render = { cmd = "export QUARTO_PYTHON=python && quarto render docs --to 
 pre-commit = "pre-commit run --all-files"
 lint = { depends-on = ["pre-commit"] }
 # Test
-pytest-cov = "pytest --cov --cov-report=xml --benchmark-save=ci-run"
-pytest-cov-html = "pytest --cov --cov-report html:tests/hidden_test_cov"
+pytest-cov = "pytest --cov --cov-report=xml --benchmark-save=ci-run --ignore=src\\toolbox_continu_inzicht\\base\\adapters"
+pytest-cov-html = "pytest --cov --cov-report html:tests/hidden_test_cov --ignore=src\\toolbox_continu_inzicht\\base\\adapters"
 
 [feature.common.dependencies]
 contextily = "*"
@@ -79,10 +81,11 @@ types-pyyaml = "*"
 xugrid = "*"
 yaml = "*"
 grayskull = "*"
+geoalchemy2 = ">=0.17.1,<0.18"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
-pydra-core = "==0.0.7"
+pydra-core = "==0.0.9"
 probabilistic-piping = "==0.0.5"
 
 [environments]

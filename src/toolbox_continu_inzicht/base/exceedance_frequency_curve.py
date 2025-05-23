@@ -1,15 +1,14 @@
-from abc import abstractmethod
 from typing import ClassVar, Optional
 
 import pandas as pd
 from pydantic.dataclasses import dataclass
 
-from toolbox_continu_inzicht import DataAdapter
+from toolbox_continu_inzicht import ToolboxBase, DataAdapter
 from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class ExceedanceFrequencyCurve:
+class ExceedanceFrequencyCurve(ToolboxBase):
     """
     Class met een aantal gemakkelijke methoden om overschrijdingsfrequentiecurves
     op te slaan en aan te passen.
@@ -21,14 +20,14 @@ class ExceedanceFrequencyCurve:
     df_out: Optional[pd.DataFrame] | None
         DataFrame met de overschrijdingsfrequentiecurve
     lower_limit: float
-        Ondergrens voor de overschrijdingsfrequentie, standaard 1e-20
+        Ondergrens voor de overschrijdingsfrequentie, standaard 1e-200
     exceedance_frequency_curve_schema: ClassVar[dict[str, str]]
         Schema waaraan de overschrijdingsfrequentiecurve moet voldoen: {hydraulicload: float, probability_exceedance: float}
     """
 
     data_adapter: DataAdapter
     df_out: Optional[pd.DataFrame] | None = None
-    lower_limit: float = 1e-20
+    lower_limit: float = 1e-200
     exceedance_frequency_curve_schema: ClassVar[dict[str, str]] = {
         "hydraulicload": float,
         "probability_exceedance": float,
@@ -37,9 +36,13 @@ class ExceedanceFrequencyCurve:
     def run(self, *args, **kwargs):
         self.calculate_exceedance_frequency_curve(*args, **kwargs)
 
-    @abstractmethod
     def calculate_exceedance_frequency_curve(self, *args, **kwargs):
-        pass
+        # Dit is geen abstractmethod omdat anders deze class altijd als
+        # subclass gebruikt moet worden. Raise daarom alleen een TypeError
+        # als deze methode wordt aangeroepen zonder subclass.
+        raise TypeError(
+            "De methode 'calculate_exceedance_frequency_curve' is niet geimplementeerd"
+        )
 
     def as_array(self):
         """Geef curve terug als numpy array, deze kunnen vervolgens worden gestacked en in een database geplaatst"""

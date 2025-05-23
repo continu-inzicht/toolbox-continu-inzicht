@@ -1,0 +1,243 @@
+GlobalVariables:
+    rootdir: "data"
+    moments: [-24,0,24,48]
+
+    ClassifyInspections:
+        classify_column: "conditiescore"
+
+    Filter:
+        query: "Elementengroep=='Steenbekleding' and Status_waarneming=='Afgerond'"
+        drop_columns:
+            - "SHAPE *"
+            - "OBJECTID *"
+            - "AB_Aangetast_oppervlak"
+            - "AB_drijf__en_zwerfvuil"
+            - "AB_gaten"
+            - "AB_scheuren"
+            - "AB_vegetatie"
+            - "AB_verzakkingen_of_opbollingen"
+            - "AH_defect"
+            - "AH_gaten_of_niet_veedicht"
+            - "AH_paal_defect"
+            - "AH_spandraden_defect"
+            - "AH_uit_lood"
+            - "API_access_token"
+            - "Aansluiting_bebouwing"
+            - "BB_afleesbaar"
+            - "BB_defect"
+            - "BB_uit_lood"
+            - "BH_conditie"
+            - "BH_windworp"
+            - "BO_conditie_of_vitaliteit"
+            - "BS_conditie_wapening"
+            - "BS_gaten"
+            - "Bedekkingsgraad_helmgras"
+            - "Bedekkingsgraad_oeverlijn"
+            - "Bedekkingsgraad_overig"
+            - "Breedte_schade__m_"
+            - "CP_aansluiting_sponninghoofd_op_dijklichaam"
+            - "CP_conditie_aanslag"
+            - "CP_conditie_afsluitmiddelen"
+            - "CP_vervorming_of_deformatie_sponningen"
+            - "Conditie_gaten"
+            - "Conditie_of_vitaliteit_helmgras"
+            - "Context"
+            - "DOB_aansluiting_grondlichaam__afkalving_"
+            - "DOB_conditie"
+            - "DOB_vervorming_of_deformatie"
+            - "DU_afvoercapaciteit"
+            - "DU_markering"
+            - "DU_zanduitspoeling"
+            - "Diepte__m_"
+            - "Effectiviteit_stuifschermen"
+            - "Embryonale_duinprofiel"
+            - "GR_afdekking"
+            - "GR_bedekkingsgraad"
+            - "GR_drijf__of_zwerfvuil"
+            - "GR_erosieafslag"
+            - "GR_graverij_groot"
+            - "GR_graverij_klein"
+            - "GR_houtopslag"
+            - "GR_kale_plekken"
+            - "GR_maaien_en_beweiding"
+            - "GR_natte_plekken"
+            - "GR_onkruid_groot"
+            - "GR_onkruid_klein"
+            - "GR_ruigte"
+            - "GR_scheuren"
+            - "GR_soorten_rijkdom"
+            - "GR_spoorvorming"
+            - "GR_sterkte_graszode"
+            - "GR_verzakkingen_of_opbollingen"
+            - "Geïnspecteerd_door"
+            - "Geen_actie"
+            - "Gekerfde_zeereepprofiel"
+            - "HK_kwaliteit_aansluiting"
+            - "iASSET_waarneming_nummer"
+            - "KM_aansluiting_grondlichaam"
+            - "KM_conditie"
+            - "KM_scheuren"
+            - "KM_vervorming"
+            - "Kwaliteit_stuifgaten"
+            - "LM_defect"
+            - "LM_uit_lood"
+            - "Lengte_schade__m_"
+            - "Niet_verstuivende_zeereepprofiel"
+            - "OA_dwarsonvlakheid"
+            - "OA_gaten"
+            - "OB_conditie"
+            - "OB_spleet"
+            - "OB_vlakke_aansluiting"
+            - "OSA_Aangetast_oppervlak"
+            - "OSA_drijf__en_zwerfvuil"
+            - "OSA_gaten"
+            - "OSA_ruigte_of_houtopslag"
+            - "OSA_verzakkingen_of_opbollingen"
+            - "Objectbeheerder"
+            - "Onderdeel_duin"
+            - "PL_afleesbaar"
+            - "PL_defect"
+            - "PL_uit_lood"
+            - "Paraboliserende_zeereepprofiel"
+            - "Prognose__Objectbeheer"
+            - "Reden_geen_actie"
+            - "SH_gaten"
+            - "SH_gebarsten_of_gebroken_stenen"
+            - "SH_scheuren"
+            - "SH_verzakkingen"
+            - "SP_afslag"
+            - "SP_steilheid__breshoogte_"
+            - "Schade"
+            - "Schade_Asfaltbeton"
+            - "Schade_Bebording"
+            - "Schade_Beplanting_helmgras"
+            - "Schade_Beplanting_overig"
+            - "Schade_Bomen_of_houtopstanden"
+            - "Schade_Breuksteen_in_schanskorven"
+            - "Schade_Damwand_of_beschoeiing"
+            - "Schade_Drainuitmonding"
+            - "Schade_Grasbekleding"
+            - "Schade_Keermuur"
+            - "Schade_Lichtmasten"
+            - "Schade_Op__en_afritten"
+            - "Schade_Open_Steenasfalt"
+            - "Schade_Opsluitbanden"
+            - "Schade_Palen"
+            - "Schade_Teensloot"
+            - "Schade_afrastering_hekwerk"
+            - "Schade_beheerprofiel"
+            - "Schade_strandhoofd"
+            - "Schade_strandprofiel"
+            - "Schade_trappen"
+            - "Schade_zuilen_of_blokken"
+            - "Schadebeelden"
+            - "Slufterprofiel"
+            - "Stuivende_zeereepprofiel"
+            - "Suggesties_voor_objectbeheerder"
+            - "TR_aansluiting"
+            - "TR_conditie"
+            - "TR_verzakkingen"
+            - "TS_afvoer_capaciteit"
+            - "TS_wellen_of_zandkraters"
+            - "Type_Asfaltbekleding"
+            - "Type_bijzondere_constructie"
+            - "Type_niet_waterkerende_element"
+            - "Verstuiving_duinovergang"
+            - "Washoverprofiel"
+            - "ZB_drijf__of_zwerfvuil"
+            - "ZB_gaten"
+            - "ZB_losse_of_gekamde_stenen"
+            - "ZB_ruigte_of_houtopslag"
+            - "ZB_uitspoeling"
+            - "ZB_verzakkingen_of_opbollingen"
+
+    InspectionsToDatabase:
+        index: 0
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ";"
+
+    inspectie_points_csv:
+        type: csv
+        path: "continu-inzicht-inspectie-hhnk-points.csv"
+
+    inspectie_lines_csv:
+        type: csv
+        path: "continu-inzicht-inspectie-hhnk-lines.csv"
+
+    inspectie_points_styling_csv:
+        type: csv
+        path: "continu-inzicht-inspectie-hhnk-points-styling.csv"
+
+    inspectie_lines_styling_csv:
+        type: csv
+        path: "continu-inzicht-inspectie-hhnk-lines-styling.csv"
+
+    inspectie_points_layer_csv:
+        type: csv
+        path: "continu-inzicht-inspectie-hhnk-points-layer.csv"
+
+    inspectie_lines_layer_csv:
+        type: csv
+        path: "continu-inzicht-inspectie-hhnk-lines-layer.csv"
+
+    inspectie_points_filtered_csv:
+        type: csv
+        path: "hidden_inspectie_points_filter.csv"
+        index: False
+
+    inspectie_lines_filtered_csv:
+        type: csv
+        path: "hidden-inspectie-lines-filtered.csv"
+        index: False
+
+    inspectie_points_filtered_geojson:
+        type: shape
+        path: "hidden-inspectie-points-filtered.geojson"
+        index: False
+
+    inspectie_lines_filtered_geojson:
+        type: shape
+        path: "hidden-inspectie-lines-filtered.geojson"
+        index: False
+
+    inspectie_points_filtered_styled_geojson:
+        type: shape
+        path: "hidden-inspectie-points-filtered-styled.geojson"
+
+    inspectie_lines_filtered_styled_geojson:
+        type: shape
+        path: "hidden-inspectie-lines-filtered-styled.geojson"
+
+    inspectie_points_styled_legenda_csv:
+        type: csv
+        path: "hidden-inspectie-points-styled-legenda.csv"
+        index: False
+
+    inspectie_lines_styled_legenda_csv:
+        type: csv
+        path: "hidden-inspectie-lines-styled-legenda.csv"
+        index: False
+
+    inspectie_points_filtered_styled_ci_to_database:
+        type: postgis
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: hhnk_inspectie_points
+        if_exists: replace
+
+    inspectie_lines_filtered_styled_ci_to_database:
+        type: postgis
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: hhnk_inspectie_lines
+        if_exists: replace
+
+    inspectie_layers_ci_to_database:
+        type: postgresql_database
+        schema: continuinzicht_demo_realtime
+        database: "continuinzicht"
+        table: layers
+        if_exists: append

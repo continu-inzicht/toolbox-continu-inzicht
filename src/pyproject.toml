@@ -38,8 +38,8 @@ dependencies = [
                 "httpx",
                 "sqlalchemy",
                 "tqdm>=4.67.1",
-                "probabilistic_piping",
-                "pydra_core",
+                "probabilistic_piping==0.0.5",
+                "pydra_core==0.0.9",
                 "pyyaml",
                 "xarray",
 ]
@@ -53,5 +53,5 @@ path = "toolbox_continu_inzicht/__init__.py"
 packages = ["toolbox_continu_inzicht"]
 
 [project.urls]
-Documentation = "https://continu-inzicht.github.io/toolbox_continu_inzicht/"
-Source = "https://github.com/continu-inzicht/toolbox_continu_inzicht"
+Documentation = "https://continu-inzicht.github.io/toolbox-continu-inzicht/"
+Source = "https://github.com/continu-inzicht/toolbox-continu-inzicht"

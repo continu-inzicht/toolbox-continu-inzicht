@@ -1,0 +1,14 @@
+GlobalVariables:
+    rootdir: 'data_sets'
+    logging:
+        level: DEBUG
+        mode: w
+        file: hidden_logfile_advanced.log
+
+DataAdapter:
+    mycsv_in:
+        type: csv
+        file: 'test_csv_in.csv'
+    mycsv_out:
+        type: csv
+        file: 'test_csv_out.csv'

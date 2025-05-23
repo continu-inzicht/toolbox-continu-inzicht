@@ -1,11 +1,14 @@
-from pydantic.dataclasses import dataclass
-from toolbox_continu_inzicht.base.data_adapter import DataAdapter
+from typing import ClassVar, Optional
+
 import pandas as pd
-from typing import Optional, ClassVar
+from pydantic.dataclasses import dataclass
+
+from toolbox_continu_inzicht.base.base_module import ToolboxBase
+from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class ValuesDivideTwo:
+class ValuesDivideTwo(ToolboxBase):
     """
     Voorbeeld class die laat zien hoe de architectuur werkt door waardes delen door twee te doen
 
@@ -31,9 +34,12 @@ class ValuesDivideTwo:
     }
 
     def run(self, input: str, output: str):
-        """Runt de funcies en stuur de df terug"""
+        """Runt de functies en stuur de df terug"""
         self.df_in = self.data_adapter.input(input, schema=self.input_schema)
-
+        self.data_adapter.logger.info(f"Division started for {len(self.df_in)} rows")
+        self.data_adapter.logger.debug(
+            f"Division with dataframe containing '{self.df_in.columns}' as columns"
+        )
         self.df_out = self.divide_two(self.df_in)
         self.data_adapter.output(output, self.df_out)
 
@@ -46,7 +52,7 @@ class ValuesDivideTwo:
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class ValuesTimesTwo:
+class ValuesTimesTwo(ToolboxBase):
     """
     Voorbeeld class die laat zien hoe de architectuur werkt door waardes keer twee te doen
 

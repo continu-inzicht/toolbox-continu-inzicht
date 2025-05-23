@@ -12,6 +12,7 @@ src/dist/*
 
 # testing
 hidden_*
+hidden-*
 
 # cache:
 __pycache__
