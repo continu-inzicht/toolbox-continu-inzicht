@@ -132,29 +132,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link active" href="../../voorbeelden.html" aria-current="page"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -164,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../contact.html"> 
+    <a class="nav-link" href="../../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -174,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -203,6 +184,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../voorbeelden.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Voorbeelden</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/1.proof_of_concept.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Architectuur voorbeeld</span></a>
   </div>
@@ -222,7 +209,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/4.adjust_integrated_statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Aanpassen van geïntegreerde fragility curves</span></a>
+ <span class="menu-text">Aanpassen van geïntegreerde faalkans</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/5.inspectieresultaten.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspectieresultaten</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gebruik van logging</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/101.WMS_laag_naar_database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WMS laag toevoegen aan database voor viewer</span></a>
   </div>
 </li>
     </ul>
@@ -270,13 +275,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Inlezen waterstanden uit verschillende bronsystemen: - RWS Waterinfo - FEWS - (Noos) Matroos - RWS WaterWebServices</p>
-<p>Gebruikmakend van: - csv bestanden voor uitwisselen van data</p>
+<p>Om inzicht te krijgen in de veiligheid van waterkeringen is het van belang om de belastingen op de waterkeringen in kaart te brengen. Dit kunnen waterstanden op het buitenwater (zee, rivieren of meren) zijn, maar ook grondwaterstanden.</p>
+<p>In dit voorbeeld wordt het inlezen van waterstanden uit verschillende bronsystemen getoond: - RWS Waterinfo - FEWS - (Noos) Matroos - RWS WaterWebServices</p>
+<p>Hierbij wordt gebruik gemaakt van csv bestanden voor uitwisselen van data.</p>
 <section id="benodigde-generieke-python-packages" class="level3">
 <h3 class="anchored" data-anchor-id="benodigde-generieke-python-packages">Benodigde generieke Python packages</h3>
-<div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="definitie-configuratie-csv-bestanden" class="level3">
 <h3 class="anchored" data-anchor-id="definitie-configuratie-csv-bestanden">Definitie configuratie: CSV bestanden</h3>
@@ -345,18 +349,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="lees-configuratie-in-en-maak-dictionary-base.config-aan" class="level3">
 <h3 class="anchored" data-anchor-id="lees-configuratie-in-en-maak-dictionary-base.config-aan">Lees configuratie in en maak dictionary base.Config aan</h3>
-<div id="cell-6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>yaml_config_file <span class="op">=</span> <span class="st">"demo_sprint2-I.yaml"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_demo"</span> <span class="op">/</span> yaml_config_file</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="geef-config-mee-aan-base.adapter" class="level3">
 <h3 class="anchored" data-anchor-id="geef-config-mee-aan-base.adapter">Geef config mee aan base.Adapter</h3>
-<div id="cell-8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> DataAdapter</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
@@ -364,48 +365,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Globale variabelen: </span><span class="sc">{</span>data<span class="sc">.</span>config<span class="sc">.</span>global_variables<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> data_adapter <span class="kw">in</span> data.config.data_adapters:</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Data apdater: </span><span class="sc">{</span>data_adapter<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Folder met data: D:\a\toolbox-continu-inzicht\toolbox-continu-inzicht\continu_inzicht\docs\examples\notebooks\data_demo\demo_sprint2-I.yaml
-Globale variabelen: {'rootdir': 'data_demo', 'moments': [-24, 0, 24, 48], 'aquo_allias': {'WATHTE [m][NAP][OW]': 'WATHTE'}, 'LoadsWaterinfo': {'parameters': ['waterhoogte'], 'MISSING_VALUE': 999}, 'LoadsFews': {'host': 'https://fews.hhnk.nl', 'port': 443, 'region': 'fewspiservice', 'version': '1.25', 'filter': 'HHNK_WEB', 'parameters': ['WATHTE [m][NAP][OW]'], 'MISSING_VALUE': 999}, 'LoadsMatroos': {'website': 'noos', 'model': 'dcsm6_kf', 'parameters': ['WATHTE'], 'MISSING_VALUE': 999}, 'LoadsWaterwebservicesRWS': {'parameters': ['WATHTE'], 'MISSING_VALUE': 999}, 'calc_time': datetime.datetime(2025, 3, 21, 16, 0, tzinfo=datetime.timezone.utc)}
-Data apdater: default_options
-Data apdater: BelastingLocaties_WaterInfo
-Data apdater: Waterstanden_WaterInfo
-Data apdater: BelastingLocaties_FEWS
-Data apdater: Waterstanden_FEWS
-Data apdater: BelastingLocaties_Matroos
-Data apdater: Waterstanden_Matroos
-Data apdater: BelastingLocaties_Waterwebservices_RWS
-Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
-</div>
-</div>
+<p>Folder met data: D:-continu-inzicht-continu-inzicht_inzicht_demo_sprint2-I.yaml Globale variabelen: {‘rootdir’: ‘data_demo’, ‘moments’: [-24, 0, 24, 48], ‘aquo_allias’: {‘WATHTE [m][NAP][OW]’: ‘WATHTE’}, ‘LoadsWaterinfo’: {‘parameters’: [‘waterhoogte’], ‘MISSING_VALUE’: 999}, ‘LoadsFews’: {‘host’: ‘https://fews.hhnk.nl’, ‘port’: 443, ‘region’: ‘fewspiservice’, ‘version’: ‘1.25’, ‘filter’: ‘HHNK_WEB’, ‘parameters’: [‘WATHTE [m][NAP][OW]’], ‘MISSING_VALUE’: 999}, ‘LoadsMatroos’: {‘website’: ‘noos’, ‘model’: ‘dcsm6_kf’, ‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘LoadsWaterwebservicesRWS’: {‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘calc_time’: datetime.datetime(2025, 5, 23, 6, 0, tzinfo=datetime.timezone.utc)} Data apdater: default_options Data apdater: BelastingLocaties_WaterInfo Data apdater: Waterstanden_WaterInfo Data apdater: BelastingLocaties_FEWS Data apdater: Waterstanden_FEWS Data apdater: BelastingLocaties_Matroos Data apdater: Waterstanden_Matroos Data apdater: BelastingLocaties_Waterwebservices_RWS Data apdater: Waterstanden_Waterwebservices_RWS</p>
 </section>
 <section id="invoerbestand-csv-met-data-van-belastinglocaties" class="level3">
 <h3 class="anchored" data-anchor-id="invoerbestand-csv-met-data-van-belastinglocaties">Invoerbestand (CSV) met data van belastinglocaties</h3>
-<p>Verplichte velden (schema): - measurement_location_id: int64 - measurement_location_code: object (string) - measurement_location_description: object (string)</p>
-<p>measurement_location_id;measurement_location_code;measurement_location_description;source;tide<br>
-1;Pannerdense-kop(PANN);Pannerdense kop;WaterInfo;false<br>
-2;MPN-N-24;Meetpunt Spijkerboor;FEWS;false<br>
-3;hoekvanholland;Hoek van Holland;NOOS Matroos;true<br>
-4;9889;Hintham beneden;RWS Waterwebservices;false</p>
+<p>De functie verwacht de volgende verplichte velden, dit wordt ook wel een schema genoemd in de code: - measurement_location_id: int64 - measurement_location_code: object (string) - measurement_location_description: object (string)</p>
+<p>Het csv bestand ziet er als volgt uit:</p>
+<pre class="csv"><code>measurement_location_id;measurement_location_code;measurement_location_description;source;tide\
+1;Pannerdense-kop(PANN);Pannerdense kop;WaterInfo;false\
+2;MPN-N-24;Meetpunt Spijkerboor;FEWS;false\
+3;hoekvanholland;Hoek van Holland;NOOS Matroos;true\
+4;9889;Hintham beneden;RWS Waterwebservices;false</code></pre>
 </section>
 <section id="laad-module-functie-loadswaterinfo-voor-inlezen-belastingen-uit-rws-waterinfo" class="level3">
 <h3 class="anchored" data-anchor-id="laad-module-functie-loadswaterinfo-voor-inlezen-belastingen-uit-rws-waterinfo">Laad module (functie) LoadsWaterinfo voor inlezen belastingen uit RWS Waterinfo</h3>
-<div id="cell-11" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.loads <span class="im">import</span> LoadsWaterinfo</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>waterinfo <span class="op">=</span> LoadsWaterinfo(data_adapter<span class="op">=</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="run-module-functie-loadswaterinfo-voor-inlezen-waterstanden-uit-waterinfo" class="level3">
 <h3 class="anchored" data-anchor-id="run-module-functie-loadswaterinfo-voor-inlezen-waterstanden-uit-waterinfo">Run module (functie) LoadsWaterinfo voor inlezen waterstanden uit Waterinfo</h3>
-<p>LET OP: zoek op basis van een measurement_location_code die in RWS WaterInfo overeenkomt met <a href="https://waterinfo.rws.nl/api/chart/get?mapType=waterhoogte&amp;locationCodes=Pannerdense-kop(PANN)&amp;values=-48%2C48">‘locationCodes’</a></p>
-<div id="cell-13" class="cell" data-execution_count="5">
+<p>Zoek op basis van een measurement_location_code die in RWS WaterInfo overeenkomt met <a href="https://waterinfo.rws.nl/api/chart/get?mapType=waterhoogte&amp;locationCodes=Pannerdense-kop(PANN)&amp;values=-48%2C48">‘locationCodes’</a></p>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> waterinfo.run(<span class="bu">input</span><span class="op">=</span><span class="st">"BelastingLocaties_WaterInfo"</span>, output<span class="op">=</span><span class="st">"Waterstanden_WaterInfo"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-14" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>measuringlocations <span class="op">=</span> waterinfo.df_in</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>measuringlocations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -433,12 +416,8 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 </table>
 
 </div>
-</div>
-</div>
-<div id="cell-15" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>waterlevels <span class="op">=</span> waterinfo.df_out</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>waterlevels</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -460,7 +439,7 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">147</td>
+<td data-quarto-table-cell-role="th">154</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
 <td>Pannerdense kop</td>
@@ -468,12 +447,12 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2025-03-20 16:00:00+00:00</td>
-<td>798.0</td>
+<td>2025-05-22 06:00:00+00:00</td>
+<td>714.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">148</td>
+<td data-quarto-table-cell-role="th">155</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
 <td>Pannerdense kop</td>
@@ -481,12 +460,12 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2025-03-20 16:10:00+00:00</td>
-<td>799.0</td>
+<td>2025-05-22 06:10:00+00:00</td>
+<td>715.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">149</td>
+<td data-quarto-table-cell-role="th">156</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
 <td>Pannerdense kop</td>
@@ -494,12 +473,12 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2025-03-20 16:20:00+00:00</td>
-<td>799.0</td>
+<td>2025-05-22 06:20:00+00:00</td>
+<td>714.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">150</td>
+<td data-quarto-table-cell-role="th">157</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
 <td>Pannerdense kop</td>
@@ -507,12 +486,12 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2025-03-20 16:30:00+00:00</td>
-<td>799.0</td>
+<td>2025-05-22 06:30:00+00:00</td>
+<td>714.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">151</td>
+<td data-quarto-table-cell-role="th">158</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
 <td>Pannerdense kop</td>
@@ -520,8 +499,8 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2025-03-20 16:40:00+00:00</td>
-<td>799.0</td>
+<td>2025-05-22 06:40:00+00:00</td>
+<td>714.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -538,19 +517,6 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">570</td>
-<td>1</td>
-<td>Pannerdense-kop(PANN)</td>
-<td>Pannerdense kop</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
-<td>cm</td>
-<td>2025-03-23 04:20:00+00:00</td>
-<td>779.0</td>
-<td>verwachting</td>
-</tr>
-<tr class="even">
 <td data-quarto-table-cell-role="th">571</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -559,11 +525,11 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>WATHTE</td>
 <td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
 <td>cm</td>
-<td>2025-03-23 04:30:00+00:00</td>
-<td>779.0</td>
+<td>2025-05-25 02:20:00+00:00</td>
+<td>716.0</td>
 <td>verwachting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td data-quarto-table-cell-role="th">572</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -572,11 +538,11 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>WATHTE</td>
 <td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
 <td>cm</td>
-<td>2025-03-23 04:40:00+00:00</td>
-<td>779.0</td>
+<td>2025-05-25 02:30:00+00:00</td>
+<td>716.0</td>
 <td>verwachting</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td data-quarto-table-cell-role="th">573</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -585,11 +551,11 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>WATHTE</td>
 <td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
 <td>cm</td>
-<td>2025-03-23 04:50:00+00:00</td>
-<td>779.0</td>
+<td>2025-05-25 02:40:00+00:00</td>
+<td>716.0</td>
 <td>verwachting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td data-quarto-table-cell-role="th">574</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -598,50 +564,51 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>WATHTE</td>
 <td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
 <td>cm</td>
-<td>2025-03-23 05:00:00+00:00</td>
-<td>779.0</td>
+<td>2025-05-25 02:50:00+00:00</td>
+<td>716.0</td>
+<td>verwachting</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">575</td>
+<td>1</td>
+<td>Pannerdense-kop(PANN)</td>
+<td>Pannerdense kop</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
+<td>cm</td>
+<td>2025-05-25 03:00:00+00:00</td>
+<td>716.0</td>
 <td>verwachting</td>
 </tr>
 </tbody>
 </table>
 
-<p>428 rows × 10 columns</p>
-</div>
-</div>
+<p>422 rows × 10 columns</p>
 </div>
 </section>
 <section id="laad-en-run-module-functie-loadsfews-voor-inlezen-belastingen-uit-fews" class="level3">
 <h3 class="anchored" data-anchor-id="laad-en-run-module-functie-loadsfews-voor-inlezen-belastingen-uit-fews">Laad en run module (functie) LoadsFEWS voor inlezen belastingen uit FEWS</h3>
-<p>LET OP: zoek op basis van een measurement_location_code die in FEWS overeenkomt met <a href="https://fews.hhnk.nl/FewsWebServices/rest/fewspiservice/v1/locations">‘locationId’</a><br> <img src="data_demo/images/FEWS_locationIs.PNG" class="img-fluid" alt="image info"></p>
-<p>FEWS is niet extern bereikbaar</p>
-<div id="cell-17" class="cell" data-execution_count="8">
+<p>Zoek op basis van een measurement_location_code die in FEWS overeenkomt met <a href="https://fews.hhnk.nl/FewsWebServices/rest/fewspiservice/v1/locations">‘locationId’</a><br> <img src="data_demo/images/FEWS_locationIs.PNG" class="img-fluid" alt="image info"></p>
+<p>FEWS is niet extern bereikbaar en kan dus niet in de documentatie worden getoond</p>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from toolbox_continu_inzicht.loads import LoadsFews</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fews = LoadsFews(data_adapter=data)</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ds = fews.run(input="BelastingLocaties_FEWS", output="Waterstanden_FEWS")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-18" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># measuringlocations = fews.df_in</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># measuringlocations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-19" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># waterlevels = fews.df_out</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># waterlevels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="laad-en-run-module-functie-loadsmatroos-voor-inlezen-belastingen-uit-matroos" class="level3">
 <h3 class="anchored" data-anchor-id="laad-en-run-module-functie-loadsmatroos-voor-inlezen-belastingen-uit-matroos">Laad en run module (functie) LoadsMatroos voor inlezen belastingen uit Matroos</h3>
-<p>LET OP: zoek op basis van een measurement_location_code die in (NOOS) Matroos overeenkomt met <a href="https://vitaal.matroos.rws.nl/matroos/php/image_series.php?type=image&amp;source_id=156&amp;loc_id=7&amp;unit_id=1&amp;colors=blue&amp;ymin=0&amp;ymax=0&amp;label=0&amp;alarm=0&amp;alert=0&amp;prealert=0&amp;localtime_offset=0&amp;tcurrent=2024-11-11%2019:38:11&amp;tstart=2024-11-10%2000:00:00&amp;tstop=2024-11-13%2000:00:00&amp;anal_time=2024-11-11%2000:00:00">‘Location’ -&gt; loc_id!</a></p>
-<div id="cell-21" class="cell" data-execution_count="11">
+<p>Zoek op basis van een measurement_location_code die in (NOOS) Matroos overeenkomt met <a href="https://vitaal.matroos.rws.nl/matroos/php/image_series.php?type=image&amp;source_id=156&amp;loc_id=7&amp;unit_id=1&amp;colors=blue&amp;ymin=0&amp;ymax=0&amp;label=0&amp;alarm=0&amp;alert=0&amp;prealert=0&amp;localtime_offset=0&amp;tcurrent=2024-11-11%2019:38:11&amp;tstart=2024-11-10%2000:00:00&amp;tstop=2024-11-13%2000:00:00&amp;anal_time=2024-11-11%2000:00:00">‘Location’ -&gt; loc_id!</a></p>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.loads <span class="im">import</span> LoadsMatroos</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>matroos <span class="op">=</span> LoadsMatroos(data_adapter<span class="op">=</span>data)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> matroos.run(<span class="bu">input</span><span class="op">=</span><span class="st">"BelastingLocaties_Matroos"</span>, output<span class="op">=</span><span class="st">"Waterstanden_Matroos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-22" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>measuringlocations <span class="op">=</span> matroos.df_in</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>measuringlocations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
 
@@ -669,12 +636,8 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 </table>
 
 </div>
-</div>
-</div>
-<div id="cell-23" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>waterlevels <span class="op">=</span> matroos.df_out</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>waterlevels</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -701,9 +664,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 16:00:00+00:00</td>
+<td>2025-05-22 06:00:00+00:00</td>
 <td>cm</td>
-<td>71.14</td>
+<td>-15.79</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -713,9 +676,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 16:10:00+00:00</td>
+<td>2025-05-22 06:10:00+00:00</td>
 <td>cm</td>
-<td>84.19</td>
+<td>-8.90</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -725,9 +688,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 16:20:00+00:00</td>
+<td>2025-05-22 06:20:00+00:00</td>
 <td>cm</td>
-<td>94.61</td>
+<td>-1.54</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -737,9 +700,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 16:30:00+00:00</td>
+<td>2025-05-22 06:30:00+00:00</td>
 <td>cm</td>
-<td>102.04</td>
+<td>6.34</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -749,9 +712,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 16:40:00+00:00</td>
+<td>2025-05-22 06:40:00+00:00</td>
 <td>cm</td>
-<td>107.41</td>
+<td>14.64</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -767,78 +730,75 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">404</td>
+<td data-quarto-table-cell-role="th">392</td>
 <td>3</td>
 <td>Hoek van Holland</td>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-23 11:20:00+00:00</td>
+<td>2025-05-24 23:20:00+00:00</td>
 <td>cm</td>
-<td>-17.15</td>
+<td>107.92</td>
 <td>verwachting</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">405</td>
+<td data-quarto-table-cell-role="th">393</td>
 <td>3</td>
 <td>Hoek van Holland</td>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-23 11:30:00+00:00</td>
+<td>2025-05-24 23:30:00+00:00</td>
 <td>cm</td>
-<td>-22.79</td>
+<td>109.20</td>
 <td>verwachting</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">406</td>
+<td data-quarto-table-cell-role="th">394</td>
 <td>3</td>
 <td>Hoek van Holland</td>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-23 11:40:00+00:00</td>
+<td>2025-05-24 23:40:00+00:00</td>
 <td>cm</td>
-<td>-27.32</td>
+<td>109.18</td>
 <td>verwachting</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">407</td>
+<td data-quarto-table-cell-role="th">395</td>
 <td>3</td>
 <td>Hoek van Holland</td>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-23 11:50:00+00:00</td>
+<td>2025-05-24 23:50:00+00:00</td>
 <td>cm</td>
-<td>-32.45</td>
+<td>108.56</td>
 <td>verwachting</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">408</td>
+<td data-quarto-table-cell-role="th">396</td>
 <td>3</td>
 <td>Hoek van Holland</td>
 <td>Hoek van Holland</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-23 12:00:00+00:00</td>
+<td>2025-05-25 00:00:00+00:00</td>
 <td>cm</td>
-<td>-37.61</td>
+<td>105.93</td>
 <td>verwachting</td>
 </tr>
 </tbody>
 </table>
 
-<p>409 rows × 9 columns</p>
-</div>
-</div>
+<p>397 rows × 9 columns</p>
 </div>
 </section>
 <section id="laad-en-run-module-functie-loadswaterwebservicesrws-voor-inlezen-belastingen-uit-rws-waterwebservices" class="level3">
 <h3 class="anchored" data-anchor-id="laad-en-run-module-functie-loadswaterwebservicesrws-voor-inlezen-belastingen-uit-rws-waterwebservices">Laad en run module (functie) LoadsWaterwebservicesRWS voor inlezen belastingen uit RWS Waterwebservices</h3>
-<p>LET OP: zoek op basis van een measurement_location_code die in RWS WaterWebservices overeenkomt met Locatie_MessageID!<br>
+<p>Zoek op basis van een measurement_location_code die in RWS WaterWebservices overeenkomt met Locatie_MessageID!<br>
 <img src="data_demo/images/WaterWebservicesRWS_Locatie_MessageId.PNG" class="img-fluid" alt="image info"></p>
-<div id="cell-25" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.loads <span class="im">import</span> LoadsWaterwebservicesRWS</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>waterwebservices_rws <span class="op">=</span> LoadsWaterwebservicesRWS(data_adapter<span class="op">=</span>data)</span>
@@ -846,11 +806,8 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span><span class="st">"BelastingLocaties_Waterwebservices_RWS"</span>,</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"Waterstanden_Waterwebservices_RWS"</span>,</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-26" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>measuringlocations <span class="op">=</span> waterwebservices_rws.df_in</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>measuringlocations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
 <div>
 
 
@@ -878,12 +835,8 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 </table>
 
 </div>
-</div>
-</div>
-<div id="cell-27" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>waterlevels <span class="op">=</span> waterwebservices_rws.df_out</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>waterlevels</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -910,9 +863,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hintham beneden</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 17:00:00+01:00</td>
+<td>2025-05-22 08:00:00+01:00</td>
 <td>cm</td>
-<td>197.0</td>
+<td>203.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -922,9 +875,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hintham beneden</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 17:10:00+01:00</td>
+<td>2025-05-22 08:10:00+01:00</td>
 <td>cm</td>
-<td>191.0</td>
+<td>201.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -934,9 +887,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hintham beneden</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 17:20:00+01:00</td>
+<td>2025-05-22 08:20:00+01:00</td>
 <td>cm</td>
-<td>202.0</td>
+<td>201.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -946,9 +899,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hintham beneden</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 17:30:00+01:00</td>
+<td>2025-05-22 08:30:00+01:00</td>
 <td>cm</td>
-<td>195.0</td>
+<td>202.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -958,9 +911,9 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>Hintham beneden</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-20 17:40:00+01:00</td>
+<td>2025-05-22 08:40:00+01:00</td>
 <td>cm</td>
-<td>190.0</td>
+<td>198.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -976,71 +929,69 @@ Data apdater: Waterstanden_Waterwebservices_RWS</code></pre>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">141</td>
+<td data-quarto-table-cell-role="th">134</td>
 <td>4</td>
 <td>9889</td>
 <td>Hintham beneden</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-21 16:30:00+01:00</td>
+<td>2025-05-23 06:20:00+01:00</td>
 <td>cm</td>
-<td>191.0</td>
+<td>201.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">142</td>
+<td data-quarto-table-cell-role="th">135</td>
 <td>4</td>
 <td>9889</td>
 <td>Hintham beneden</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-21 16:40:00+01:00</td>
-<td>cm</td>
-<td>199.0</td>
-<td>meting</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">143</td>
-<td>4</td>
-<td>9889</td>
-<td>Hintham beneden</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>2025-03-21 16:50:00+01:00</td>
+<td>2025-05-23 06:30:00+01:00</td>
 <td>cm</td>
 <td>198.0</td>
 <td>meting</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">144</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">136</td>
 <td>4</td>
 <td>9889</td>
 <td>Hintham beneden</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-21 17:00:00+01:00</td>
+<td>2025-05-23 06:40:00+01:00</td>
 <td>cm</td>
-<td>187.0</td>
+<td>207.0</td>
+<td>meting</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">137</td>
+<td>4</td>
+<td>9889</td>
+<td>Hintham beneden</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>2025-05-23 06:50:00+01:00</td>
+<td>cm</td>
+<td>200.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">145</td>
+<td data-quarto-table-cell-role="th">138</td>
 <td>4</td>
 <td>9889</td>
 <td>Hintham beneden</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2025-03-21 17:10:00+01:00</td>
+<td>2025-05-23 07:00:00+01:00</td>
 <td>cm</td>
-<td>199.0</td>
-<td>verwachting</td>
+<td>197.0</td>
+<td>meting</td>
 </tr>
 </tbody>
 </table>
 
-<p>146 rows × 9 columns</p>
-</div>
-</div>
+<p>139 rows × 9 columns</p>
 </div>
 
 

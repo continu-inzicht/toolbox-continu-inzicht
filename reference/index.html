@@ -95,29 +95,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -127,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -137,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -186,6 +167,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#belastingen" id="toc-belastingen" class="nav-link" data-scroll-target="#belastingen">Belastingen</a></li>
   <li><a href="#dijkvak" id="toc-dijkvak" class="nav-link" data-scroll-target="#dijkvak">Dijkvak</a></li>
   <li><a href="#fragility-curves" id="toc-fragility-curves" class="nav-link" data-scroll-target="#fragility-curves">Fragility curves</a></li>
+  <li><a href="#inspectieresultaten" id="toc-inspectieresultaten" class="nav-link" data-scroll-target="#inspectieresultaten">Inspectieresultaten</a></li>
   <li><a href="#continu-inzicht-adapters-invoer" id="toc-continu-inzicht-adapters-invoer" class="nav-link" data-scroll-target="#continu-inzicht-adapters-invoer">Continu Inzicht Adapters (invoer)</a></li>
   <li><a href="#continu-inzicht-adapters-uitvoer" id="toc-continu-inzicht-adapters-uitvoer" class="nav-link" data-scroll-target="#continu-inzicht-adapters-uitvoer">Continu Inzicht Adapters (uitvoer)</a></li>
   </ul></li>
@@ -243,11 +225,11 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><a href="../reference/get_fews_locations.html#toolbox_continu_inzicht.loads.get_fews_locations">get_fews_locations</a></td>
-<td>Haal voor FEWS de locaties op voor de opgegegeven parameters.</td>
+<td>Haal voor FEWS de locaties op voor de opgegeven parameters.</td>
 </tr>
 <tr class="odd">
 <td><a href="../reference/get_fews_thresholds.html#toolbox_continu_inzicht.loads.get_fews_thresholds">get_fews_thresholds</a></td>
-<td>Haal voor FEWS de thresholds op voor de opgegegeven parameter en locatie.</td>
+<td>Haal voor FEWS de thresholds op voor de opgegeven parameter en locatie.</td>
 </tr>
 <tr class="even">
 <td><a href="../reference/LoadsMatroos.html#toolbox_continu_inzicht.loads.LoadsMatroos">LoadsMatroos</a></td>
@@ -258,26 +240,30 @@ ul.task-list li input[type="checkbox"] {
 <td>Haal alle matroos locaties op, indien gewenst ook bron en parameter.</td>
 </tr>
 <tr class="even">
+<td><a href="../reference/get_matroos_locations_map.html#toolbox_continu_inzicht.loads.get_matroos_locations_map">get_matroos_locations_map</a></td>
+<td>Haal alle matroos locaties op en maak een folium map.</td>
+</tr>
+<tr class="odd">
 <td><a href="../reference/LoadsWaterwebservicesRWS.html#toolbox_continu_inzicht.loads.LoadsWaterwebservicesRWS">LoadsWaterwebservicesRWS</a></td>
 <td>Belastinggegevens ophalen van rijkswaterstaat waterwebservices</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="../reference/get_rws_webservices_locations.html#toolbox_continu_inzicht.loads.get_rws_webservices_locations">get_rws_webservices_locations</a></td>
 <td>Haal locaties op die bekend zijn bij de RWS webservice.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="../reference/LoadsToMoments.html#toolbox_continu_inzicht.loads.LoadsToMoments">LoadsToMoments</a></td>
 <td>Met deze klasse kunnen waterstandsgegevens worden omgezet naar bepaalde momenten.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="../reference/LoadsWaterinfo.html#toolbox_continu_inzicht.loads.LoadsWaterinfo">LoadsWaterinfo</a></td>
 <td>Belastinggegevens ophalen van Rijkswaterstaat Waterinfo</td>
 </tr>
-<tr class="even">
-<td><a href="../reference/get_waterinfo_locations.html#toolbox_continu_inzicht.loads.get_waterinfo_locations">get_waterinfo_locations</a></td>
-<td>Haal voor Waterinfo de locaties op voor de opgegegeven parameter.</td>
-</tr>
 <tr class="odd">
+<td><a href="../reference/get_waterinfo_locations.html#toolbox_continu_inzicht.loads.get_waterinfo_locations">get_waterinfo_locations</a></td>
+<td>Haal voor Waterinfo de locaties op voor de opgegeven parameter.</td>
+</tr>
+<tr class="even">
 <td><a href="../reference/get_waterinfo_thresholds.html#toolbox_continu_inzicht.loads.get_waterinfo_thresholds">get_waterinfo_thresholds</a></td>
 <td>Haal voor Waterinfo de thresholds op voor de opgegegeven parameter.</td>
 </tr>
@@ -360,6 +346,26 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td><a href="../reference/IntegrateFragilityCurveMultiple.html#toolbox_continu_inzicht.fragility_curves.IntegrateFragilityCurveMultiple">IntegrateFragilityCurveMultiple</a></td>
 <td>Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor reeks aan secties</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="inspectieresultaten" class="level2">
+<h2 class="anchored" data-anchor-id="inspectieresultaten">Inspectieresultaten</h2>
+<p>Invoer, verwerken en tonen van inspectieresultaten</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><a href="../reference/Filter.html#toolbox_continu_inzicht.inspections.Filter">Filter</a></td>
+<td>Filtert een DataFrame aan de hand van de opgegeven configuratie.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/InspectionsToDatabase.html#toolbox_continu_inzicht.inspections.InspectionsToDatabase">InspectionsToDatabase</a></td>
+<td>Combineert de inspectieresultaten met de opmaak en slaat deze op in de database.</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/ClassifyInspections.html#toolbox_continu_inzicht.inspections.ClassifyInspections">ClassifyInspections</a></td>
+<td>Classificeert inspectieresultaten om weer te geven in de viewer.</td>
 </tr>
 </tbody>
 </table>

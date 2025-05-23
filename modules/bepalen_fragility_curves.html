@@ -158,29 +158,10 @@ window.Quarto = {
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link active" href="../modules_index.html" aria-current="page"> 
 <span class="menu-text">Modules</span></a>
@@ -190,7 +171,7 @@ window.Quarto = {
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -200,7 +181,7 @@ window.Quarto = {
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -275,12 +256,6 @@ window.Quarto = {
  <span class="menu-text">Inspectieresultaten inlezen en weergeven</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../modules/digitale_delta_API.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Digitale Delta API</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -292,7 +267,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#sec-Bepalen-fragility-curves-GEKB" id="toc-sec-Bepalen-fragility-curves-GEKB" class="nav-link active" data-scroll-target="#sec-Bepalen-fragility-curves-GEKB">Golfoverslag Erosie Kruin en Binnentalud (GEKB)</a></li>
-  <li><a href="#sec-Bepalen-fragility-curves-STPH" id="toc-sec-Bepalen-fragility-curves-STPH" class="nav-link" data-scroll-target="#sec-Bepalen-fragility-curves-STPH">Piping (STPH)</a></li>
+  <li><a href="#sec-Bepalen-fragility-curves-STPH" id="toc-sec-Bepalen-fragility-curves-STPH" class="nav-link" data-scroll-target="#sec-Bepalen-fragility-curves-STPH">Piping en Heave (STPH)</a></li>
   <li><a href="#sec-Combineren-van-fragility-curves" id="toc-sec-Combineren-van-fragility-curves" class="nav-link" data-scroll-target="#sec-Combineren-van-fragility-curves">Combineren van fragility curves</a></li>
   </ul>
 </nav>
@@ -319,18 +294,18 @@ window.Quarto = {
 </header>
 
 
-<p>De continu inzicht toolbox heeft de functionaliteit om fragility curves voor verschillende faalmechanisme uit te rekenen. Deze sectie beschrijft de beschikbare functies per type faalmechanisme. In Toolbox Continu Inzicht zijn 3 verschillende type fragility curves: GEKB, STPH en alle overige curves. Deze worden in het figuur hieronder weer gegeven.</p>
+<p>De Toolbox Continu Inzicht heeft de functionaliteit om fragility curves voor verschillende faalmechanismen uit te rekenen. Deze sectie beschrijft de beschikbare functies per type faalmechanisme. In Toolbox Continu Inzicht zijn 3 verschillende type fragility curves functies opgenomen: GEKB (Graserosie Kruin en Binnentalud), STPH (Piping en Heave) en voor alle overige faalmechanismen. Deze worden in het figuur hieronder weer gegeven.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../assets/Overzicht_FragilityCurves_TBCI.png" class="img-fluid figure-img"></p>
 <figcaption>Overzicht van verschillende fragilityCurves in Toolbox Continu Inzicht</figcaption>
 </figure>
 </div>
-<p>Golfoverslag Erosie Kruin en Binnentalud (GEKB) kunnen ‘on-the-fly’ worden berekend, afhankelijk van verschillende factoren kunnen deze worden aangepast. Voor SPTH kunnen curves vastgesteld worden met de beschikbare functionaliteit, maar dit moet vooraf plaatsvinden. Dit komt door een langere rekentijd en vanwege kwaliteitscontrole. Alle andere curves kunnen niet berekend worden binnen Toolbox Continu</p>
+<p>De fragility curves voor GEKB kunnen ‘on-the-fly’ worden berekend, afhankelijk van verschillende parameters (zoals windsnelheid en windrichting) kunnen deze worden aangepast. Voor STPH is een funtionaliteit beschikbaar om de fragility curves vooraf te berekenen. Vanwege de langere rekentijden en een benodigde kwaliteitscontrole is ervoor gekozen om de fragility curves voor STPH niet ‘on-the-fly’ te berekenen. Voor alle andere faalmechanismen geldt dat er geen functionaliteit binnen de Toolbox Continu Inzicht is om de fragility te berekenen. Voor deze overige faalmechanismen geldt dat de gebruiker buiten de Toolbox Continu Inzicht een fragility curve opgesteld (“pre-processed” fragility curves) en deze in de database definieert.</p>
 <section id="sec-Bepalen-fragility-curves-GEKB" class="level3">
 <h3 class="anchored" data-anchor-id="sec-Bepalen-fragility-curves-GEKB">Golfoverslag Erosie Kruin en Binnentalud (GEKB)</h3>
-<p>Voor het bereken van fragility curves voor GEKB wordt gebruik gemaakt van de Python module <a href="https://pypi.org/project/pydra-core/"><code>pydra-core</code></a>. Deze losstaande Python module is ontwikkeld door HKV en openbaar beschikbaar gemaakt op <a href="https://github.com/HKV-products-services/pydra_core">GitHub</a>. De documentatie is op deze GitHub pagina te vinden</p>
-<p>Een fragility curve kan berekend door de functie <code>FragilityCurveOvertopping</code> aan te roepen. Hier zijn drie dataframes voor nodig: de eerste met informatie over de hellingen, de tweede over het profiel en als laatste informatie over de bodem en strijklengte. Voor de berekening wordt model onzekerheid mee genomen. Hiervoor zijn acht standaardwaardes gebruikt voor <a href="https://tl.iplo.nl/@192798/golfgroei-bijlage-golfberekeningen-volgens/">bretschneider</a> waarmee golf hoogte en periode worden bepaald. Deze kunnen aangepast worden als opties in de <code>config.yaml</code>, zo als te zien in het voorbeeld met <code>gh_onz_mu</code>. Naast onzekerheden kan ook de verhouding tussen de piek periode van de golf (<code>$T_p$</code>) en de spectrale golfperiode (<code>$Tm_{-1,0}$</code>) worden aangepast met <code>tp_tspec</code> (standaard 1.1). Ook zijn er reken instellingen waarmee wordt gerekend. Hier zijn nog vier instellingen die aangepast kunnen worden. De waterniveaus waarmee probabilistisch gerekend wordt is verdeelt in twee delen: grof en fijn. Standaard zijn fijne stappen van 2m (<code>upper_limit_coarse</code>) onder de kruin tot 1.01m (<code>upper_limit_fine</code>) boven de kruin met stappen van 0.05 (<code>hstap</code>). Standaard grove stappen lopen van 4m (<code>lower_limit_coarse</code>) onder de kruin tot 2m (<code>upper_limit_coarse</code>) onder de kruin met stappen van twee keer zo groot (2 * <code>hstap</code> = 0.1). Al deze variable zijn los te configureren, als er niks wordt opgegeven, worden de standaard genoemde waardes gebruikt.</p>
+<p>Voor het bereken van fragility curves voor GEKB wordt gebruik gemaakt van de Python module <a href="https://pypi.org/project/pydra-core/"><code>pydra-core</code></a>. Deze losstaande Python module is ontwikkeld door HKV en openbaar beschikbaar gemaakt op <a href="https://github.com/HKV-products-services/pydra_core">GitHub</a>. De documentatie is op deze GitHub pagina te vinden.</p>
+<p>Een fragility curve kan berekend worden door de functie <code>FragilityCurveOvertopping</code> aan te roepen. Hier zijn drie DataFrames voor nodig: het eerste DataFrame met informatie over de hellingen, het tweede over het profiel en als laatste informatie over de bodem en strijklengte. In de berekening wordt modelonzekerheid meegenomen. Voor de modelonzekerheid zijn acht standaardwaardes gebruikt voor <a href="https://tl.iplo.nl/@192798/golfgroei-bijlage-golfberekeningen-volgens/">bretschneider</a>, waarmee de golfhoogte en golfperiode worden bepaald. Deze kunnen aangepast worden als opties in de <code>config.yaml</code>, zoals te zien in het voorbeeld met <code>gh_onz_mu</code>. Naast onzekerheden kan ook de verhouding tussen de piekperiode van de golf (<code>$T_p$</code>) en de spectrale golfperiode (<code>$Tm_{-1,0}$</code>) worden aangepast met <code>tp_tspec</code> (standaard 1.1). Ook zijn er rekeninstellingen waarmee wordt gerekend, waarvan vier rekeninstellingen zijn aan te passen. De probabilistische berekening wordt gemaakt voor verschillende stapgroottes van de waterstand: grof en fijn. De standaardinstelling is een fijne stapgrootte van 0.05m (<code>hstap</code>) van 2m onder de kruin (<code>upper_limit_coarse</code>) tot 1.01m boven de kruin (<code>upper_limit_fine</code>). De standaardinstelling is een grove stapgrootte van 4m onder de kruin (<code>lower_limit_coarse</code>) tot 2m onder de kruin (<code>upper_limit_coarse</code>) met stappen van twee keer zo groot (2 * <code>hstap</code> = 0.1). Al deze variabele zijn los te configureren. Als de gebruiker deze niet opgeeft, dan wordt uitgegaan van de genoemde standaardwaardes.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
@@ -387,17 +362,17 @@ window.Quarto = {
 </div>
 </section>
 <section id="sec-Bepalen-fragility-curves-STPH" class="level3">
-<h3 class="anchored" data-anchor-id="sec-Bepalen-fragility-curves-STPH">Piping (STPH)</h3>
-<p>Voor het bereken van fragility curves voor piping (STPH) wordt gebruik gemaakt van de python module <a href="https://pypi.org/project/probabilistic-piping/"><code>probabilistic_piping</code></a>. Deze los staande python module is ontwikkeld door HKV en is voor toolbox continu inzicht openbaar beschikbaar gemaakt op <a href="https://github.com/HKV-products-services/probabilistic_piping">GitHub</a>. De documentatie van deze module is daar ook te vinden.</p>
+<h3 class="anchored" data-anchor-id="sec-Bepalen-fragility-curves-STPH">Piping en Heave (STPH)</h3>
+<p>Voor het berekenen van de fragility curves voor piping (STPH) wordt gebruik gemaakt van de Python module <a href="https://pypi.org/project/probabilistic-piping/"><code>probabilistic_piping</code></a>. Deze losstaande Python module is ontwikkeld door HKV en is voor de Toolbox Continu Inzicht openbaar beschikbaar gemaakt op <a href="https://github.com/HKV-products-services/probabilistic_piping">GitHub</a>. De documentatie van deze module is daar ook te vinden.</p>
 <blockquote class="blockquote">
 <span style="color: red; font-weight: bold;">Disclaimer:</span>
 <span style="color: red;">
-De uitvoer van 'probabilistic-piping' geeft meer informatie over of een som in de berekening is gelukt, hier worden echter binnen Toolbox Continu Inzicht geen checks op gedaan. Het is aan de gebruiker om na te lopen of de curve die wordt gegenereerd daadwerkelijk logisch is.
+De uitvoer van 'probabilistic-piping' geeft meer informatie of een som in de berekening is gelukt. Binnen de Toolbox Continu Inzicht wordt geen validatie gedaan. Het is aan de gebruiker om te controleren of de berekende fragility curve daadwerkelijk logisch is.
 </span>
 </blockquote>
 <section id="sec-Bepalen-fragility-curves-STPH-combined" class="level4">
 <h4 class="anchored" data-anchor-id="sec-Bepalen-fragility-curves-STPH-combined">FragilityCurvePipingFixedWaterlevel</h4>
-<p>De functie <code>FragilityCurvePipingFixedWaterlevel</code> rekent met de drie sub-mechanismes uplift, heave, Sellmeijer en geeft een gecombineerde curve terug. Het combineren gebeurt hier door het minimum van de kansen per sub mechanisme te nemen. De curves van de sub-mechanismes zijn beschikbaar via de<code>df_result_uplift</code>, <code>df_result_heave</code>, en <code>df_result_sellmeijer</code> attributen.</p>
+<p>De functie <code>FragilityCurvePipingFixedWaterlevel</code> rekent met de drie deelmechanismen Uplift, Heave, Sellmeijer en geeft een gecombineerde fragility curve terug. Het combineren gebeurt hier door het minimum van de kansen van de drie deelmechanismen te nemen. De fragility curves van de drie deelmechanismen zijn beschikbaar via de<code>df_result_uplift</code>, <code>df_result_heave</code>, en <code>df_result_sellmeijer</code> attributen.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
@@ -446,7 +421,7 @@ De uitvoer van 'probabilistic-piping' geeft meer informatie over of een som in d
 </section>
 <section id="sec-Combineren-van-fragility-curves" class="level3">
 <h3 class="anchored" data-anchor-id="sec-Combineren-van-fragility-curves">Combineren van fragility curves</h3>
-<p>Fragility curves kunnen op drie manieren worden gecombineerd: Afhankelijk, onafhankelijk of met een gewogen gemiddelde. De tabel hieronder geeft hier een overzicht van.</p>
+<p>Fragility curves kunnen op drie manieren worden gecombineerd: afhankelijk, onafhankelijk of met een gewogen gemiddelde. De tabel hieronder geeft hier een overzicht van.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 19%">
@@ -478,7 +453,7 @@ De uitvoer van 'probabilistic-piping' geeft meer informatie over of een som in d
 </tr>
 </tbody>
 </table>
-<p>Alle drie de functies verwachten een lijst met namen van de data adapters van de fragility curves die gecombineerd moeten worden. Bij de gewogen gemiddelde functie moet de laatste data adapter de gewichten bevatten waarmee de fragility curves worden gecombineerd. De gewichten dataframe moet een kolom met ‘weights’ hebben, er is met opzet geen validatie of deze gewichten optellen tot 1 zodat de curve ook geschaald kan worden. De tabel hieronder geeft weer hoe de gewichten table er uit moet zien.</p>
+<p>Voor drie de functies is het nodig om een lijst op te geven, met daarin de namen van de data-adapters van de fragility curves die gecombineerd moeten worden. Bij de gewogen gemiddelde functie moet de laatste data-adapter de gewichten bevatten waarmee de fragility curves worden gecombineerd. Het gewichten DataFrame moet een kolom met ‘weights’ hebben. Er is bewust geen validatie of deze gewichten optellen tot 1, zodat de fragility curve ook geschaald kan worden. De tabel hieronder geeft weer hoe de tabel met gewichten er uit moet zien.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -494,7 +469,7 @@ De uitvoer van 'probabilistic-piping' geeft meer informatie over of een som in d
 </tr>
 </tbody>
 </table>
-<p>Bij het combineren van de fragility curves moeten de waterstanden van de curves op elkaar afgestemd worden. Dit wordt gedaan op basis van de waterniveaus, en nog twee parameters: hoe ver voorbij de hoogste waarde <code>extend_past_max</code> (standaardwaarde is 0.01) en met welke stap grootte <code>refine_step_size</code> (standaardwaarde is 0.05)</p>
+<p>Bij het combineren van de fragility curves moeten eerst de waterstanden van de curves op elkaar afgestemd worden door middel van een gedeeld waterstandsgrid. Dit gedeelde waterstandsgrid wordt begrensd door de ondergrens en bovengrens van alle waterstanden van alle fragility curves. De stappen tussen deze grenzen worden vastgelegd met behulp van een vaste stapgrootte (<code>refine_step_size</code>, standaardwaarde is 0.05).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Configuratie (on)afhankelijk</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Code (on)afhankelijk</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Configuratie gewogen gemiddelde</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Code gewogen gemiddelde</a></li></ul>
 <div class="tab-content">

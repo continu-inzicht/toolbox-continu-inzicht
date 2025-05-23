@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -199,6 +180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#toolbox_continu_inzicht.loads.LoadsFews.create_dataframe" id="toc-toolbox_continu_inzicht.loads.LoadsFews.create_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsFews.create_dataframe">create_dataframe</a></li>
   <li><a href="#toolbox_continu_inzicht.loads.LoadsFews.create_params" id="toc-toolbox_continu_inzicht.loads.LoadsFews.create_params" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsFews.create_params">create_params</a></li>
   <li><a href="#toolbox_continu_inzicht.loads.LoadsFews.create_url" id="toc-toolbox_continu_inzicht.loads.LoadsFews.create_url" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsFews.create_url">create_url</a></li>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsFews.log_exceptions" id="toc-toolbox_continu_inzicht.loads.LoadsFews.log_exceptions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsFews.log_exceptions">log_exceptions</a></li>
   <li><a href="#toolbox_continu_inzicht.loads.LoadsFews.run" id="toc-toolbox_continu_inzicht.loads.LoadsFews.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsFews.run">run</a></li>
   </ul></li>
   </ul></li>
@@ -267,6 +249,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Maak een REST-URL voor FEWS</td>
 </tr>
 <tr class="even">
+<td><a href="#toolbox_continu_inzicht.loads.LoadsFews.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
+</tr>
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.loads.LoadsFews.run">run</a></td>
 <td>De runner van de Loads FEWS.</td>
 </tr>
@@ -282,31 +268,282 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    global_variables</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Maak een pandas dataframe</p>
-<p>Args: json_data (str): JSON data</p>
-<p>Returns: Dataframe: Pandas dataframe geschikt voor uitvoer definition: - Meetlocatie id (measurement_location_id) - Meetlocatie code (measurement_location_code) - Meetlocatie omschrijving/naam (measurement_location_description) - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id) - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code) - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description) - Eenheid (unit) - Datum en tijd (date_time) - Waarde (value) - Type waarde: meting of verwachting (value_type)</p>
+<section id="parameters" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 16%">
+<col style="width: 46%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>options</td>
+<td>dict</td>
+<td>Opties uit de invoer yaml</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>calc_time</td>
+<td>datetime</td>
+<td>T0 in UTC</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>json_data</td>
+<td>str</td>
+<td>JSON data van FEWS</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>locations</td>
+<td>pd.DataFrame</td>
+<td>Dataframe met meetlocaties</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>global_variables</td>
+<td>dict</td>
+<td>Globale variabelen uit de invoer yaml</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 1%">
+<col style="width: 4%">
+<col style="width: 93%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DataFrame</td>
+<td>pandas.core.Dataframe</td>
+<td>Met daar in: - Meetlocatie id (measurement_location_id) - Meetlocatie code (measurement_location_code) - Meetlocatie omschrijving/naam (measurement_location_description) - Parameter id overeenkomstig Aquo-standaard: ‘4724’ (parameter_id) - Parameter code overeenkomstig Aquo-standaard: ‘WATHTE’ (parameter_code) - Parameter omschrijving overeenkomstig Aquo-standaard: ‘Waterhoogte’ (parameter_description) - Eenheid (unit) - Datum en tijd (date_time) - Waarde (value) - Type waarde: meting of verwachting (value_type)</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsFews.create_params" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsFews.create_params">create_params</h3>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsFews.create_params(calc_time, options, moments, locations)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</p>
-<p>Args: calc_time (datetime): T0 in UTC options (<em>type</em>): options uit de invoer yaml</p>
-<p>Returns: dict: lijst met parameters</p>
+<section id="parameters-1" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>calc_time</td>
+<td>datetime</td>
+<td>T0 in UTC</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>options</td>
+<td>dict</td>
+<td>options uit de invoer yaml</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>moments</td>
+<td>list</td>
+<td>Lijst van momenten in uren</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>locations</td>
+<td>pd.DataFrame</td>
+<td>Dataframe met meetlocaties</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns-1" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-1">Returns</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 29%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>lijst met parameters: dict</td>
+<td>De parameters die meegegeven moeten worden aan de FEWS API</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsFews.create_url" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsFews.create_url">create_url</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsFews.create_url(options)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Maak een REST-URL voor FEWS</p>
-<p>Args: options (<em>type</em>): Options uit de invoer yaml</p>
-<p>Returns: str: URL</p>
+<section id="parameters-2" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>options</td>
+<td>dict</td>
+<td>Options uit de invoer yaml</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns-2" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-2">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>URL</td>
+<td>str</td>
+<td>De URL voor de FEWS REST API</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.loads.LoadsFews.log_exceptions" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsFews.log_exceptions">log_exceptions</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsFews.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
 </section>
 <section id="toolbox_continu_inzicht.loads.LoadsFews.run" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsFews.run">run</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsFews.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsFews.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>De runner van de Loads FEWS.</p>
-<p>Args:</p>
-<p>Returns: None</p>
+<section id="parameters-3" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-3">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 67%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>input</td>
+<td>str</td>
+<td>De naam van de input data met meetlocaties bekend in FEWS</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>output</td>
+<td>str</td>
+<td>De naam van de output data met resultaten uit FEWS</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns-3" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-3">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="raises" class="level4 doc-section doc-section-raises">
+<h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises">Raises</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 17%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>UserWarning</td>
+<td>Als de LoadsFews niet in de globale variabelen staat</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
 </section>
 </section>
 </section>

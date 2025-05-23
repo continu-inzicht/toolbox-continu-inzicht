@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>output_measuringstation – Toolbox continu inzicht</title>
+<title>classifyinspections – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -172,15 +172,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation">output_measuringstation</a>
+  <li><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections" id="toc-toolbox_continu_inzicht.inspections.ClassifyInspections" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.inspections.ClassifyInspections">ClassifyInspections</a>
   <ul class="collapse">
-  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
+  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions">output_ci_postgresql_conditions</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation">output_ci_postgresql_measuringstation</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data">output_ci_postgresql_measuringstation_to_data</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments">output_ci_postgresql_to_moments</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states">output_ci_postgresql_to_states</a></li>
+  <li><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.get_default_styling" id="toc-toolbox_continu_inzicht.inspections.ClassifyInspections.get_default_styling" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.inspections.ClassifyInspections.get_default_styling">get_default_styling</a></li>
+  <li><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.get_possible_styling" id="toc-toolbox_continu_inzicht.inspections.ClassifyInspections.get_possible_styling" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.inspections.ClassifyInspections.get_possible_styling">get_possible_styling</a></li>
+  <li><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.log_exceptions" id="toc-toolbox_continu_inzicht.inspections.ClassifyInspections.log_exceptions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.inspections.ClassifyInspections.log_exceptions">log_exceptions</a></li>
+  <li><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.run" id="toc-toolbox_continu_inzicht.inspections.ClassifyInspections.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.inspections.ClassifyInspections.run">run</a></li>
+  <li><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.set_default_styling" id="toc-toolbox_continu_inzicht.inspections.ClassifyInspections.set_default_styling" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.inspections.ClassifyInspections.set_default_styling">set_default_styling</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -192,12 +194,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation" class="level1">
-<h1>output_measuringstation</h1>
-<p><code>base.adapters.output.continu_inzicht_postgresql.output_measuringstation</code></p>
-<p>Data adapters voor het schrijven naar de Continu Inzicht database</p>
-<section id="functions" class="level2">
-<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<section id="toolbox_continu_inzicht.inspections.ClassifyInspections" class="level1">
+<h1>ClassifyInspections</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>inspections.ClassifyInspections()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Classificeert inspectieresultaten om weer te geven in de viewer.</p>
+<section id="attributes" class="level2 doc-section doc-section-attributes">
+<h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 20%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>DataAdapter object</td>
+</tr>
+<tr class="even">
+<td>df_in</td>
+<td>Optional[pd.DataFrame | gpd.GeoDataFrame] | None</td>
+<td>Input DataFrame om te classificeren</td>
+</tr>
+<tr class="odd">
+<td>df_styling</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Input DataFrame met opmaak informatie</td>
+</tr>
+<tr class="even">
+<td>df_default_styling</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>DataFrame met standaard opmaak informatie, wordt gebruikt als er geen opmaak informatie is meegegeven Beschikbaar via get_default_styling() en te vervangen met set_default_styling(df)</td>
+</tr>
+<tr class="odd">
+<td>df_out</td>
+<td>Optional[gpd.GeoDataFrame] | None</td>
+<td>Output DataFrame containing the filtered DataFrame.</td>
+</tr>
+<tr class="even">
+<td>df_legend_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Output DataFrame containing the legend information.</td>
+</tr>
+<tr class="odd">
+<td>styling_schema</td>
+<td>ClassVar[dict[str, str]]</td>
+<td>Schema DataFrame met de opmaak informatie</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notes" class="level2 doc-section doc-section-notes">
+<h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
+<p>Het classificeren van inspectieresultaten gebeurt op basis van de kolom ‘classify_column’ die is opgegeven in de global variables. De classificatie wordt gedaan op basis van de kolommen ‘upper_boundary’ en ‘lower_boundary’ in de opmaak DataFrame, deze wordt meegegeven als tweede input. Waardes die niet geclassificeerd kunnen worden, krijgen de opmaak van de rij zonder waardes in de upper_boundary en lower_boundary kolommen. Als er geen opmaak DataFrame wordt meegegeven, wordt de standaard opmaak gebruikt voor alle waardes. De standaard opmaak is op te halen met get_default_styling() en te vervangen met set_default_styling(df).</p>
+<p>Er zijn drie manier om geodata mee te geven. Deze wordt gebruik voor de opmaak. Alle projecties worden ondersteund, maar wordt omgezet naar EPSG:4326 voor de viewer.</p>
+<p>In de Global Variables kan de projectie worden aangepast, standaard is EPSG:4326, alle andere projecties worden omgezet naar deze projectie.</p>
+<ul>
+<li>Bij het mee geven van een <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html">GeoDataFrame</a>, wordt de opmaak toegepast op de geometrie van het GeoDataFrame.</li>
+<li>Als er een ‘geometry’ kolom is in de DataFrame, wordt deze gebruikt om een GeoDataFrame te maken.</li>
+<li>Indien beide bovenstaande niet het geval is, wordt gezocht naar een kolom met x en met y co�rdinaten en deze wordt gebruikt om een GeoDataFrame te maken.</li>
+</ul>
+<p>Het type geometry wordt automatisch bepaald, maar kan ook meegegeven worden in de Global Variables. Slechts een type per tabel is toe gestaan.</p>
+<p>De opties zijn:</p>
+<ul>
+<li>Polygon</li>
+<li>Polyline</li>
+<li>CircleMarker</li>
+<li>Marker</li>
+</ul>
+<p>De output DataFrame bevat de opmaak informatie die is toegepast op de inspectieresultaten. Als er geen opmaak informatie is meegegeven, wordt de standaard opmaak gebruikt. De output kan een met alleen geclassificeerde resultaten of twee DataFrames met de inspectieresultaten en een met de legenda informatie. Ontbrekende kolommen in de opmaak DataFrame worden aangevuld met de standaard opmaak.</p>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -207,201 +283,410 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions">output_ci_postgresql_conditions</a></td>
-<td>Schrijft voor condities van belastingen voor meetstations naar de Continu Inzicht database (tabel: conditions).</td>
+<td><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.get_default_styling">get_default_styling</a></td>
+<td>Haal de standaard opmaak op.</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation">output_ci_postgresql_measuringstation</a></td>
-<td>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</td>
+<td><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.get_possible_styling">get_possible_styling</a></td>
+<td>Haal de mogelijke kolommen op voor de opmaak.</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data">output_ci_postgresql_measuringstation_to_data</a></td>
-<td>Schrijft voor meetstations de belasting data naar de Continu Inzicht database (tabel: data).</td>
+<td><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments">output_ci_postgresql_to_moments</a></td>
-<td>Schrijft moments naar Continu Inzicht database (tabel: moments)</td>
+<td><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.run">run</a></td>
+<td>Runt het classificeren van inspectieresultaten om vervolgens weer te geven in de viewer.</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states">output_ci_postgresql_to_states</a></td>
-<td>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</td>
+<td><a href="#toolbox_continu_inzicht.inspections.ClassifyInspections.set_default_styling">set_default_styling</a></td>
+<td>Vervangt de default styling.</td>
 </tr>
 </tbody>
 </table>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions">output_ci_postgresql_conditions</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor condities van belastingen voor meetstations naar de Continu Inzicht database (tabel: conditions).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_conditions
-database: "continuinzicht"
-schema: "continuinzicht_demo_whatif"</code></pre>
-<p>Args:</p>
-<p>output_config (dict): configuratie opties df (DataFrame):</p>
-<ul>
-<li>id: int64 : id van de conditie</li>
-<li>stateid: int64 : id van de status van een conditie</li>
-<li>objectid: int64 : id van het object waartoe de conditie behoort (altijd in combinatie met objecttype)</li>
-<li>objecttype: str : het type object waartoe de conditie behoort (bijv. een ‘section’ of ‘measuringstation’)</li>
-<li>upperboundary: float64 : de bovengrenswaarde van de status van een conditie (overgang van de betreffende status naar de volgende status)</li>
-<li>name: str : naam van de status van de conditie</li>
-<li>description: str : omschrijving van de status van de conditie</li>
-<li>color: str : HEX kleurcode van de kleur van de status van de conditie</li>
-<li>statevalue: float64 : middenwaarde van statusovergangen (specifiek voor objecttype ‘sections’)</li>
-</ul>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
+<section id="toolbox_continu_inzicht.inspections.ClassifyInspections.get_default_styling" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.inspections.ClassifyInspections.get_default_styling">get_default_styling</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inspections.ClassifyInspections.get_default_styling()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Haal de standaard opmaak op.</p>
+<p>Returns: pd.DataFrame: Het DataFrame met de standaard opmaak.</p>
 </section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation">output_ci_postgresql_measuringstation</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    df</span>
+<section id="toolbox_continu_inzicht.inspections.ClassifyInspections.get_possible_styling" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.inspections.ClassifyInspections.get_possible_styling">get_possible_styling</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>inspections.ClassifyInspections.get_possible_styling(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">type</span><span class="op">=</span><span class="va">None</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    dict_output<span class="op">=</span><span class="va">False</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_measuringstation
-database: "continuinzicht"
-schema: "continuinzicht_demo_whatif"</code></pre>
-<p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- id: int64                 : id van het meetstation
-- name: str                 : naam van het meetstation
-- code: str                 : code van het meetstation
-- source: str               : bron van de data van het meetstation
-- geometry: geom            : geometrie (ligging) van het meetstation (let op projectie!)
-- tide: bool                : meetstation bevat belasting waar een getijperiode een tol speelt (default false)
-- area_geometry: geom       : OPTIONEEL geometrie van het gebied waarbinnen de belasting wordt bepaald (bijv. een gemiddelde waarde)</code></pre>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<p>Haal de mogelijke kolommen op voor de opmaak.</p>
+<section id="parameters" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 77%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>type</td>
+<td>str | None</td>
+<td>Type van de laag, indien None worden alle kolommen opgehaald. Mogelijke waardes zijn: Polyline, Polygon, Marker, CircleMarker</td>
+<td><code>None</code></td>
+</tr>
+<tr class="even">
+<td>dict_output</td>
+<td>bool</td>
+<td>Als True, wordt een dictionary met de kolommen en hun type terug gegeven. Anders wordt een lijst met de kolommen terug gegeven.</td>
+<td><code>False</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 26%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>list[str] | dict[str, dict]</td>
+<td>Een lijst met de mogelijke kolommen of een dictionary met de kolommen en hun type.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notes-1" class="level4 doc-section doc-section-notes">
+<h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes-1">Notes</h4>
+<p>De standaard waardes &amp; mogelijke opties zijn:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polyline</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Option</td>
+<td>Type</td>
+<td>Default</td>
+<td>Description</td>
+</tr>
+<tr class="even">
+<td>color</td>
+<td>string</td>
+<td>#9e9e9e</td>
+<td>hexcode van lijn</td>
+</tr>
+<tr class="odd">
+<td>weight</td>
+<td>number</td>
+<td>3</td>
+<td>breedte lijn</td>
+</tr>
+<tr class="even">
+<td>opacity</td>
+<td>number</td>
+<td>1</td>
+<td>transparantie van lijn</td>
+</tr>
+<tr class="odd">
+<td>dashArray</td>
+<td>string</td>
+<td>null</td>
+<td>array voor dashed lijn</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polygon</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Option</td>
+<td>Type</td>
+<td>Default</td>
+<td>Description</td>
+</tr>
+<tr class="even">
+<td>color</td>
+<td>string</td>
+<td>#9e9e9e</td>
+<td>hexcode van stroke</td>
+</tr>
+<tr class="odd">
+<td>weight</td>
+<td>number</td>
+<td>3</td>
+<td>breedte stroke</td>
+</tr>
+<tr class="even">
+<td>opacity</td>
+<td>number</td>
+<td>1</td>
+<td>transparantie van stroke</td>
+</tr>
+<tr class="odd">
+<td>dashArray</td>
+<td>string</td>
+<td>null</td>
+<td>array voor dashed stroke</td>
+</tr>
+<tr class="even">
+<td>fillColor</td>
+<td>string</td>
+<td>#9e9e9e</td>
+<td>hexcode van fill</td>
+</tr>
+<tr class="odd">
+<td>fillOpacity</td>
+<td>number</td>
+<td>1</td>
+<td>transparantie van fill</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Marker</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Option</td>
+<td>Type</td>
+<td>Default</td>
+<td>Description</td>
+</tr>
+<tr class="even">
+<td>color</td>
+<td>string</td>
+<td>#9e9e9e</td>
+<td>hexcode van stroke</td>
+</tr>
+<tr class="odd">
+<td>opacity</td>
+<td>number</td>
+<td>1</td>
+<td>transparantie van marker</td>
+</tr>
+<tr class="even">
+<td>fillColor</td>
+<td>string</td>
+<td>#9e9e9e</td>
+<td>hexcode van fill</td>
+</tr>
+<tr class="odd">
+<td>SVGname</td>
+<td>string</td>
+<td>null</td>
+<td>naam van de marker</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>CircleMarker</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Option</td>
+<td>Type</td>
+<td>Default</td>
+<td>Description</td>
+</tr>
+<tr class="even">
+<td>color</td>
+<td>string</td>
+<td>#9e9e9e</td>
+<td>hexcode van stroke</td>
+</tr>
+<tr class="odd">
+<td>weight</td>
+<td>number</td>
+<td>3</td>
+<td>breedte stroke</td>
+</tr>
+<tr class="even">
+<td>opacity</td>
+<td>number</td>
+<td>1</td>
+<td>transparantie van stroke</td>
+</tr>
+<tr class="odd">
+<td>dashArray</td>
+<td>string</td>
+<td>null</td>
+<td>array voor dashed stroke</td>
+</tr>
+<tr class="even">
+<td>fillColor</td>
+<td>string</td>
+<td>#9e9e9e</td>
+<td>hexcode van fill</td>
+</tr>
+<tr class="odd">
+<td>fillOpacity</td>
+<td>number</td>
+<td>1</td>
+<td>transparantie van fill</td>
+</tr>
+<tr class="even">
+<td>radius</td>
+<td>number</td>
+<td>10</td>
+<td>groote van circle</td>
+</tr>
+</tbody>
+</table>
+<p>Default waardes worden hier getoond, maar deze hebben geen invloed op de output. Om default aan te passen gebruik <code>set_default_styling(df)</code>.</p>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.inspections.ClassifyInspections.log_exceptions" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.inspections.ClassifyInspections.log_exceptions">log_exceptions</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>inspections.ClassifyInspections.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
+</section>
+<section id="toolbox_continu_inzicht.inspections.ClassifyInspections.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.inspections.ClassifyInspections.run">run</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>inspections.ClassifyInspections.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Runt het classificeren van inspectieresultaten om vervolgens weer te geven in de viewer.</p>
+<section id="parameters-1" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 13%">
+<col style="width: 72%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>input</td>
+<td>str | list[str]</td>
+<td>Naam van de Data Adapters met inspectieresultaten en legenda met opmaak (indien gewenst), in die volgorde.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>output</td>
+<td>str | list[str]</td>
+<td>Naam van Data adapter voor de output</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notes-2" class="level4 doc-section doc-section-notes">
+<h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes-2">Notes</h4>
+<p>De input DataAdapters moet minimaal ‘Inspectieresultaten’ bevatten die worden geclassificeerd. De classificatie wordt gedaan op basis van de kolom ‘classify_column’ opgegeven in de global variables. Deze classificatiewaardes kunnen zowel numeriek zijn als text.</p>
+<p>Indien gewenst kan ook opmaak opties worden meegegeven. Als deze niet meegegeven wordt, wordt de standaard opmaak gebruikt. Deze is op te halen met get_default_styling() en te vervangen (geavanceerd) met set_default_styling(df).</p>
+<p>Deze moet de volgende kolommen bevatten:</p>
 <ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
+<li>‘color’: kleur van de classificatie in hexadecimaal formaat</li>
+<li>‘lower_boundary’: ondergrens van de classificatie waarde. De inspectieresultaten moeten groter of gelijk zijn.</li>
 </ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<p>De classificatie in ‘lower_boundary’ en ‘classify_column’ moet van hetzelfde type zijn. Als de classificatie op basis van een waarde is, mag ook de volgende kolom aanwezig zijn:</p>
 <ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
+<li>‘upper_boundary’: bovengrens van de classificatie</li>
+</ul>
+<p>Bij text waardes wordt standaard tijdens de classificatie gekeken of de waarde identiek is aan de classificatie. Door de global variables kan dit ook worden aangepast naar een <code>match_text_on</code> check. De opties zijn:</p>
+<ul>
+<li>‘contains’: de classificatie waarde moet in de inspectieresultaten staan</li>
+<li>‘equals’: de classificatie waarde moet gelijk zijn aan de inspectieresultaten</li>
+<li>‘startswith’: de classificatie waarde moet aan het begin van de inspectieresultaten staan</li>
+<li>‘endswith’: de classificatie waarde moet aan het einde van de inspectieresultaten staan</li>
+</ul>
+<p>Naast de verplichte kolommen zijn ook een aantal die ook worden meegenomen in de output. Indien deze niet aanwezig zijn, worden ze ook niet meegenomen in de output.</p>
+<p>Dit zijn:</p>
+<ul>
+<li>‘name’: Naam van de categorie</li>
+<li>‘description’: Omschrijving van de categorie</li>
+<li>‘symbol’: Symbool van de categorie</li>
 </ul>
 </section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data">output_ci_postgresql_measuringstation_to_data</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor meetstations de belasting data naar de Continu Inzicht database (tabel: data).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_measuringstation_to_data
-database: "continuinzicht"
-schema: "continuinzicht_demo_realtime"
-unit_conversion_factor: 0.01</code></pre>
-<p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- measurement_location_id: int64
-- date_time: datetime64[ns, UTC]
-- value: float64
-- value_type: str</code></pre>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-<li>unit_conversion_factor (optioneel, float): conversiefactor om waarde om te zetten naar meters</li>
-</ul>
+<section id="raises" class="level4 doc-section doc-section-raises">
+<h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises">Raises</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 11%">
+<col style="width: 83%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>AssertionError</td>
+<td>Als er maar ��n input DataAdapter wordt meegegeven als string in plaats van een lijst met minimaal twee items.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>KeyError</td>
+<td>Als de kolom die gebruikt moet worden voor classificatie niet aanwezig is in de input data.</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>UserWarning</td>
+<td>Als de classificatie niet gelukt is, omdat de kolom die gebruikt moet worden voor classificatie geen tekst of getal is.</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments">output_ci_postgresql_to_moments</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft moments naar Continu Inzicht database (tabel: moments)</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_to_moments
-database: "continuinzicht"
-schema: "continuinzicht_demo_whatif"</code></pre>
-<p>Args:</p>
-<p>output_config (dict): configuratie opties</p>
-<p>df (DataFrame):</p>
-<ul>
-<li>date_time: int64 : datum/tijd van het huidige moment</li>
-<li>calc_time: int64 : datum/tijd van eerst volgende rekenstap</li>
-</ul>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
 </section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states">output_ci_postgresql_to_states</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_to_states
-database: "continuinzicht"
-schema: "continuinzicht_demo_realtime"</code></pre>
-<p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- measurement_location_id: int64
-- date_time: datetime64[ns, UTC]
-- hours: int64
-- upper_boundary: int64
-- value: float64</code></pre>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
+<section id="toolbox_continu_inzicht.inspections.ClassifyInspections.set_default_styling" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.inspections.ClassifyInspections.set_default_styling">set_default_styling</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>inspections.ClassifyInspections.set_default_styling(df, permanent<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Vervangt de default styling. Parameters: df (pandas.DataFrame): Het DataFrame met de nieuwe default styling. permanent (bool, optional): Indien True, vervangt de default styling in het bestand. Standaard is False. Returns: None</p>
 
 
 </section>

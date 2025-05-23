@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -197,6 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
+  <li><a href="#toolbox_continu_inzicht.sections.SectionsLoads.log_exceptions" id="toc-toolbox_continu_inzicht.sections.SectionsLoads.log_exceptions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.sections.SectionsLoads.log_exceptions">log_exceptions</a></li>
   <li><a href="#toolbox_continu_inzicht.sections.SectionsLoads.run" id="toc-toolbox_continu_inzicht.sections.SectionsLoads.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.sections.SectionsLoads.run">run</a></li>
   </ul></li>
   </ul></li>
@@ -320,14 +302,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.sections.SectionsLoads.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.sections.SectionsLoads.run">run</a></td>
 <td>Bepalen de belasting op een dijkvak.</td>
 </tr>
 </tbody>
 </table>
+<section id="toolbox_continu_inzicht.sections.SectionsLoads.log_exceptions" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.sections.SectionsLoads.log_exceptions">log_exceptions</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sections.SectionsLoads.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
+</section>
 <section id="toolbox_continu_inzicht.sections.SectionsLoads.run" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.sections.SectionsLoads.run">run</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sections.SectionsLoads.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sections.SectionsLoads.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Bepalen de belasting op een dijkvak.</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>

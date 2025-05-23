@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -201,6 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#methods-1" id="toc-methods-1" class="nav-link" data-scroll-target="#methods-1">Methods</a>
   <ul class="collapse">
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.log_exceptions" id="toc-toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.log_exceptions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.log_exceptions">log_exceptions</a></li>
   <li><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run" id="toc-toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run">run</a></li>
   </ul></li>
   </ul></li>
@@ -290,7 +272,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple">fragility_curve_function_simple</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Maakt een enkele fragility curve voor piping met een gegeven waterstand.</p>
-<p>De fragility curve wordt berekend met behulp van de probabilistic_piping package, zie de eigen documentatie voor meer informatie. Deze functie berekent fragility curves voor uplift, heave, Sellmeijer, en de gecombineerde mechanismes. Voor het combineren van de mechanismes wordt het minimum van de kansen van de drie sub-mechanismes genomen, De gecombineerde fragility curve is de standaard output, de andere kunnen worden opgevraagd met de df_result_uplift, df_result_heave, en df_result_sellmeijer attributen.</p>
+<p>De fragility curve wordt berekend met behulp van de <a href="https://github.com/HKV-products-services/probabilistic_piping">probabilistic_piping</a> package, zie de <a href="https://hkv-products-services.github.io/probabilistic_piping/">eigen documentatie</a> voor meer informatie.</p>
+<p>Deze functie berekent fragility curves voor uplift, heave, Sellmeijer, en de gecombineerde mechanismes.</p>
+<p>Voor het combineren van de mechanismes wordt het minimum van de kansen van de drie sub-mechanismes genomen, De gecombineerde fragility curve is de standaard output, de andere kunnen worden opgevraagd met de df_result_uplift, df_result_heave, en df_result_sellmeijer attributen.</p>
 <section id="attributes-1" class="level4 doc-section doc-section-attributes">
 <h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-1">Attributes</h4>
 <table class="caption-top table">
@@ -381,32 +365,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Bereken de fragiliteitscurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</td>
 </tr>
 <tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.check_monotonic_curve">check_monotonic_curve</a></td>
+<td>Forceert monotoon stijgende faalkansen</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.find_jump_indices">find_jump_indices</a></td>
+<td></td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.from_dataframe">from_dataframe</a></td>
 <td>Zet een dataframe om naar een fragility curve</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.interp_func">interp_func</a></td>
-<td>Similar to interpolate_1d, but interpolates in log-space</td>
+<td>interpolate_1d met y-waardes omgezet naar log-waardes</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.load">load</a></td>
 <td>Laadt een fragility curve in</td>
 </tr>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.refine">refine</a></td>
 <td>Interpoleert de fragility curve op de gegeven waterstanden</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.reliability_update">reliability_update</a></td>
 <td>Voer een versimpelde reliability updating uit</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.run">run</a></td>
 <td>Runt de berekening van de fragility curve voor piping</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.shift">shift</a></td>
-<td>Schuift de belasting van de fragility curve op (voor bijvoorbeeld</td>
+<td>Schuift de hydraulische belasting van de fragility curve op om</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.sort_curve">sort_curve</a></td>
+<td>Sorteert de fragility curve eerst op waterstand en vervolgens op faalkans</td>
 </tr>
 </tbody>
 </table>
@@ -463,31 +463,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </section>
 </section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.check_monotonic_curve" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.check_monotonic_curve">check_monotonic_curve</h5>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.check_monotonic_curve(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Forceert monotoon stijgende faalkansen</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.find_jump_indices" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.find_jump_indices">find_jump_indices</h5>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.find_jump_indices(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.from_dataframe" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.from_dataframe">from_dataframe</h5>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.from_dataframe(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.from_dataframe(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Zet een dataframe om naar een fragility curve</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.interp_func" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.interp_func">interp_func</h5>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.interp_func(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    x</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    xp</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    fp</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    ll<span class="op">=</span><span class="fl">1e-20</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    clip01<span class="op">=</span><span class="va">False</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Similar to interpolate_1d, but interpolates in log-space</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.interp_func(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    x</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    xp</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    fp</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    ll<span class="op">=</span><span class="fl">1e-200</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    clip01<span class="op">=</span><span class="va">False</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>interpolate_1d met y-waardes omgezet naar log-waardes</p>
 <section id="parameters-1" class="level6 doc-section doc-section-parameters">
 <h6 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h6>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 12%">
-<col style="width: 65%">
-<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 70%">
+<col style="width: 11%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -501,31 +512,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>x</td>
 <td>np.ndarray</td>
-<td>Array with positions to interpolate at</td>
+<td>X-waardes waarop geinterpoleerd moet worden</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td>xp</td>
 <td>np.ndarray</td>
-<td>Array with positions of known values</td>
+<td>Referentievector van x-waardes</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td>fp</td>
 <td>np.ndarray</td>
-<td>Array with values as known positions to interpolate between</td>
+<td>Referentievector van y-waardes</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td>ll</td>
 <td>float</td>
-<td>Lower limit for values in fp</td>
-<td><code>1e-20</code></td>
+<td>Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien</td>
+<td><code>1e-200</code></td>
 </tr>
 <tr class="odd">
 <td>clip01</td>
 <td>bool</td>
-<td>Clip values between 0 and 1</td>
+<td>Begrens resultaat tussen [0, 1]</td>
 <td><code>False</code></td>
 </tr>
 </tbody>
@@ -545,7 +556,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td></td>
 <td>np.array</td>
-<td>interpolated array</td>
+<td>geinterpoleerde vector</td>
 </tr>
 </tbody>
 </table>
@@ -553,24 +564,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.load" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.load">load</h5>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.load(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.load(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Laadt een fragility curve in</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.log_exceptions" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.log_exceptions">log_exceptions</h5>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.log_exceptions(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    method</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.refine" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.refine">refine</h5>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.refine(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    new_hydraulicload</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.refine(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    new_hydraulicload</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    add_steps<span class="op">=</span><span class="va">True</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Interpoleert de fragility curve op de gegeven waterstanden</p>
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.reliability_update" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.reliability_update">reliability_update</h5>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.reliability_update(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    update_level</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    trust_factor<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.reliability_update(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    update_level</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    trust_factor<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Voer een versimpelde reliability updating uit</p>
 <section id="parameters-2" class="level6 doc-section doc-section-parameters">
 <h6 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h6>
@@ -608,10 +627,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.run" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.run">run</h5>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.run(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    output</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.run(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    output</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Runt de berekening van de fragility curve voor piping</p>
 <section id="parameters-3" class="level6 doc-section doc-section-parameters">
 <h6 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-3">Parameters</h6>
@@ -657,10 +676,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.shift" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.shift">shift</h5>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.shift(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    effect</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schuift de belasting van de fragility curve op (voor bijvoorbeeld een noodmaatregel), en interpoleer de faalkansen op het oorspronkelijke waterstandsgrid</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.shift(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    effect</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Schuift de hydraulische belasting van de fragility curve op om bijvoorbeeld het effect van een noodmaatregel te implementeren. Een positieve verschuiving levert bij dezelfde faalkans dan een hogere hydraulische belasting op. Of bij dezelfde hydraulische belasting een lagere faalkans.</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.sort_curve" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.sort_curve">sort_curve</h5>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.fragility_curve_function_simple.sort_curve(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Sorteert de fragility curve eerst op waterstand en vervolgens op faalkans</p>
 </section>
 </section>
 </section>
@@ -676,14 +701,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run">run</a></td>
 <td>Runt de berekening van de fragility curves voor piping voor verschillende vakken</td>
 </tr>
 </tbody>
 </table>
+<section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.log_exceptions" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.log_exceptions">log_exceptions</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
+</section>
 <section id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.FragilityCurvePipingMultiple.run">run</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.FragilityCurvePipingMultiple.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Runt de berekening van de fragility curves voor piping voor verschillende vakken</p>
 <section id="parameters-4" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-4">Parameters</h4>

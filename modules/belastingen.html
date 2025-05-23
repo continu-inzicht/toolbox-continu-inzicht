@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link active" href="../modules_index.html" aria-current="page"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -246,12 +227,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Inspectieresultaten inlezen en weergeven</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../modules/digitale_delta_API.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Digitale Delta API</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -294,13 +269,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="belastingen-inlezen">Belastingen inlezen</h3>
 <p>De volgende databronnen worden op dit moment in de Toolbox Continu Inzicht ondersteund:</p>
 <ol type="1">
-<li>Delft-FEWS</li>
-<li>(Noos)Matroos</li>
-<li>RWS waterwebservices</li>
-<li>RWS waterinfo</li>
+<li><a href="#sec-delft-fews">Delft-FEWS</a></li>
+<li><a href="#sec-matroos">(Noos)Matroos</a></li>
+<li><a href="#sec-RWS-waterwebservices">RWS waterwebservices</a></li>
+<li><a href="#sec-RWS-waterinfo">RWS waterinfo</a></li>
 </ol>
-<section id="delft-fews" class="level4">
-<h4 class="anchored" data-anchor-id="delft-fews">Delft-FEWS</h4>
+<section id="aquo-standaard" class="level4">
+<h4 class="anchored" data-anchor-id="aquo-standaard">Aquo standaard</h4>
+<p>De standaard ondersteunde belastingen zetten de parameters om in het <a href="www.aquo.nl">Aquo standaard</a> formaat met parameter id, code en omschrijving (naam). Elke functie roept de functie <code>base.aquo.read_aquo()</code> aan, hierbij wordt ook gekeken naar de <code>GlobalVariables</code> voor een <code>aquo_allias</code>. Op die manier is het ook mogelijk om andere parameters, bijvoorbeeld uit FEWS, te koppelen aan een Aquo grootheid. De meta data die gebruikt wordt voor deze standaard is te vinden onder <a href="../overig/aquo_grootheid.html">Aquo grootheden</a>.</p>
+</section>
+<section id="sec-delft-fews" class="level4">
+<h4 class="anchored" data-anchor-id="sec-delft-fews">Delft-FEWS</h4>
 <p>Veel waterschappen gebruiken een <a href="https://www.deltares.nl/software-en-data/producten/delft-fews-zicht-op-verwachtingen">Delft - Forecast Early Warning System (FEWS)</a> implementatie voor het beheren van verschillende interne en externe informatiebronnen. Via de REST API van FEWS kunnen verschillende belastingen worden ingelezen. Toegang verkrijgen tot een FEWS is complexer dan andere bronnen, waardoor het noodzakelijk is om extra parameters te definiëren in het configuratiebestand. De functie <code>get_fews_locations()</code> kan worden gebruikt om de beschikbare locaties te tonen.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span><span class="at"> </span><span class="er">&nbsp;</span></span>
@@ -362,8 +341,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="matroos" class="level4">
-<h4 class="anchored" data-anchor-id="matroos">Matroos</h4>
+<section id="sec-matroos" class="level4">
+<h4 class="anchored" data-anchor-id="sec-matroos">Matroos</h4>
 <p>Matroos of <code>Multifunctional Access Tool for Operational Oceandata Services</code> is een webbased distributiesysteem van de operationele verwachtingen van waterstanden, stroming, debieten en golven, van onder meer het Watermanagementcentrum Nederland. Matroos is beschikbaar voor verschillende doelgroepen, waarvan er op dit moment drie relevant zijn voor de ontwikkeling van de Toolbox Continu Inzicht. De verschillende versies worden in de tabel hieronder toegelicht. Voor meer informatie verwijzen we naar de nieuwsbrief op <a href="https://iplo.nl/publish/pages/132743/nieuwsbrief-matroos-no-22-26-maart-2024.pdf">iplo.nl</a>. In de Toolbox wordt nu alleen de series API gebruikt, dus volstaat NOOS.</p>
 <table class="caption-top table">
 <thead>
@@ -416,15 +395,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">matroos_user</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">matroos_password</span><span class="kw">:</span><span class="at"> </span><span class="st">"..."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="rws-waterwebservices" class="level4">
-<h4 class="anchored" data-anchor-id="rws-waterwebservices">RWS WaterWebservices</h4>
+<section id="sec-RWS-waterwebservices" class="level4">
+<h4 class="anchored" data-anchor-id="sec-RWS-waterwebservices">RWS WaterWebservices</h4>
 <p>Via de RWS WaterWebservices zijn metingen en verwachtingen van o.a. waterstanden beschikbaar via de <a href="https://rijkswaterstaatdata.nl/waterdata/">WaterWebservices</a> API. Vooral langs de rivieren zijn veel meetpunten beschikbaar. Deze API is openbaar en vereist weinig configuratie. De <code>MISSING_VALUE</code> kan in de configuratie worden aangepast, maar staat al standaard ingesteld.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">LoadsWaterwebservicesRWS</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">parameters</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="st">"WATHTE"</span><span class="kw">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Beschikbare locaties kunnen worden weergegeven met <code>get_rws_webservices_locations()</code>.</p>
 </section>
-<section id="rws-waterinfo" class="level4">
-<h4 class="anchored" data-anchor-id="rws-waterinfo">RWS Waterinfo</h4>
+<section id="sec-RWS-waterinfo" class="level4">
+<h4 class="anchored" data-anchor-id="sec-RWS-waterinfo">RWS Waterinfo</h4>
 <p>Naast de RWS WaterWebservices is alle informatie van Rijkswaterstaat ook verkrijgbaar via <a href="https://waterinfo.rws.nl/">waterinfo.rws.nl</a>. Waterinfo is bedoeld als informatieportaal, en niet als API om data op te halen. Voordat de WaterWebservices API beschikbaar was, werd de Waterinfo-website gebruikt in verschillende Continu Inzicht systemen. Om de comptabiliteit met deze oudere Continu Inzicht systemen te behouden, is deze functie nu nog wel beschikbaar in de Toolbox Continu Inzicht. Wel is in de toekomst mogelijk dat door veranderingen aan de Waterinfo-website deze ondersteuning komt te vervallen.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span></span>

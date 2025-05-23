@@ -95,29 +95,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link active" href="./modules_index.html" aria-current="page"> 
 <span class="menu-text">Modules</span></a>
@@ -127,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./contact.html"> 
+    <a class="nav-link" href="./overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -137,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -212,12 +193,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Inspectieresultaten inlezen en weergeven</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./modules/digitale_delta_API.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Digitale Delta API</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -248,23 +223,23 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>De Toolbox Continu Inzicht wordt incrementeel ontwikkeld. De IT-ontwikkeling is opgedeeld in sprintblokken. Binnen elk sprintblok worden één of meerdere modules ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Een voorbeeld van een functie is het inlezen van waterstanden uit FEWS. De scripts en de code (inclusief documentatie) worden na het afronden van iedere sprint gepubliceerd op deze Wikipagina en een publieke <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht">GitHub</a>. De scripts worden vrijgegeven nadat deze succesvol het testprotocol hebben doorlopen.</p>
-<p>De ontwikkeling van de volgende modules is voorzien:</p>
+<p>De Toolbox Continu Inzicht is in sprints ontwikkeld waarbij één of meerdere modules is ontwikkeld. Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd. Deze modules kunnen los gebruikt worden of vormen samen een geheel. Naast de functies is per module een beschrijving beschikbaar en zijn er voorbeelden hoe de code gebruikt kan worden met uitleg.</p>
 <ol type="1">
 <li><p><a href="./modules/architectuur.html">Basis architectuur Toolbox Continu Inzicht</a></p>
 <p>In de toolbox continu inzicht is een belangrijk uitgangspunt dat verschillende data formaten gebruikt kunnen worden, de functie zijn zo opgezet dat elk formaat als in of uitvoer kan dienen.</p></li>
 <li><p><a href="./modules/belastingen.html">Belastingen inlezen en classificeren</a></p>
 <p>Om inzicht te krijgen in de veiligheid van waterkeringen is het van belang om de belastingen op de waterkeringen in kaart te brengen. Dit kunnen waterstanden op het buitenwater (zee, rivieren of meren) zijn, maar ook grondwaterstanden. Er zijn verschillende functies geïmplementeerd voor het inlezen, opslaan en classificeren van historische en voorspelde belastingen.</p></li>
 <li><p><a href="./modules/bepalen_fragility_curves.html">Bepalen fragility curves</a></p>
-<p>Fragility curves kunnen voor verschillende faalmechanismes worden berekend. In de toolbox wordt voor STPH (piping) en GEKB (golf overlag) functionaliteit aangeboden voor het afleiden van curves.</p></li>
+<p>Fragility curves kunnen voor verschillende faalmechanismes worden opgesteld. In de toolbox wordt voor GEKB (overloop en golfoverslag van dijken) en STPH (piping en heave bij dijken) een functionaliteit aangeboden voor het afleiden van fragility curves. Daarnaast is het mogelijk om voor andere faalmechanismen een door de gebruiker vooraf opgestelde fragility curve te importeren.</p></li>
 <li><p><a href="./modules/bijstellen_fragility_curves.html">Bijstellen fragility curves</a></p>
-<p>In sommige gevallen is het nodig om de fragility curve aan te passen vanwege een verandering ten opzichten van de voor berekende curve. Denk aan het verhogen van de kruin of verbeteren van de stabiliteit. De fragility curve kan dan worden verschoven of een nieuwe GEKB curve kan worden berekend met de aangepaste kruinhoogte.</p></li>
+<p>In sommige gevallen is het gewenst om een fragility curve aan te passen vanwege nieuwe inzichten, bijv. vanuit beheer, na grondonderzoek of dijkverbetering. Denk hierbij aan aanpassen van het dijkprofiel of de sterkte van de ondergrond of de bekleding. Het is mogelijk om een nieuwe fragility curve te berekenen of de conditionele faalkansen aan te passen.</p></li>
 <li><p><a href="./modules/kansen_en_status_per_sectie.html">Conditionele kansen en status waterkering per sectie</a></p>
-<p>De ingelezen belasting in combinatie met de berekende fragility curves kunnen worden vertaald naar een kans per sectie op het huidige moment en over een aantal uur.</p></li>
+<p>Per dijkvak (sectie) wordt een statusbeeld bepaald op basis van de actuele of voorspelde belasting en de fragility curve. Dit statusbeeld is voor elk dijkvak te bepalen voor elk individueel faalmechanisme of een totaalbeeld o.b.v. alle faalmechanismen.</p></li>
 <li><p><a href="./modules/impactanalyse.html">Impactanalyse: effect nieuwe statistiek en rekenregels op de faalkans</a></p>
-<p>Een fragility curve omschrijft de kans gegeven een waterstand, belangrijk is om ook mee te nemen dat de waterstanden een kans van optreden hebben. Door het combineren van een overschrijdingsfrequentie lijn met een fragility curve kan een geïntegreerde kans worden berekend. Hiermee kunnen veranderingen in de overschrijdingsfrequentie, bijvoorbeeld door klimaat verandering, worden vergeleken met de huidige situatie.</p></li>
+<p>Een fragility curve beschrijft de conditionele kans gegeven een belasting, zoals een waterstand. Om inzicht te krijgen in de faalkans per jaar moet de fragility curve gecombineerd worden met de kans van voorkomen van verschillende waterstanden (overschrijdingsfrequentielijn waterstanden). Hiermee is het mogelijk om het effect van veranderingen in de statistiek van de belasting, bijvoorbeeld door klimaatverandering, een systeemmaatregel zoals rivierverruiming of nieuwe rekenregels, op de faalkans per jaar te vergelijken met een referentiesituatie. De duiding van de verandering van de faalkans is in klassen van grote kansafname tot grote kanstoename. Deze klassen zijn door de gebruiker zelf te definieren.</p></li>
+<li><p><a href="./modules/inspectieresultaten.html">Inspectieresultaten inlezen en weergeven</a></p>
+<p>Het statusbeeld van de dijken op basis van fragility curves, eventueel bijgesteld met een beheerdersoordeel, is te verrijken met informatie uit de inspecties. Dit kunnen historische waarnemingen zijn, maar ook de voorjaarsinspectie of een melding tijdens een calamiteiteninspectie. Met de Toolbox Continu Inzicht is het mogelijk om de inspectiedata te filteren, classificeren en kaart te tonen in de viewer van de Toolbox Continu Inzicht.</p></li>
 </ol>
-<p>In ontwikkeling: 7. <a href="./modules/inspectieresultaten.html">Inspectieresultaten inlezen en weergeven</a> 8. <a href="./modules/digitale_delta_API.html">Resultaten ontsluiten via Digitale Delta API</a></p>
 
 
 

@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="./install.html" aria-current="page"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="./modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./contact.html"> 
+    <a class="nav-link" href="./overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -243,10 +224,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="losstaande-modules" class="level2">
 <h2 class="anchored" data-anchor-id="losstaande-modules">Losstaande modules</h2>
-<p>Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van PyPi.</p>
+<p>Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van <a href="https://pypi.org/project/toolbox-continu-inzicht/">PyPi</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install toolbox<span class="op">-</span>continu<span class="op">-</span>inzicht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Vanwege het aantal afhankelijkheden is het aan te raden om een nieuwe conda environment te gebruiken. Hiervoor kan gebruik gemaakt worden van de <code>requirements.yaml</code> in de source map op GitHub. Met het volgende conda commando kan deze worden geïnstalleerd.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--file</span><span class="op">=</span>https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/f3b55e9a01ad5111090451024bb50388ac2a6695/src/requirements.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--file</span><span class="op">=</span>https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/refs/heads/main/src/requirements.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="als-ontwikkelaar" class="level2">
 <h2 class="anchored" data-anchor-id="als-ontwikkelaar">Als ontwikkelaar</h2>
@@ -259,13 +240,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h5 class="anchored" data-anchor-id="linux">Linux</h5>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="instaleer-python-packages-met-pixi" class="level4">
-<h4 class="anchored" data-anchor-id="instaleer-python-packages-met-pixi">Instaleer python packages met pixi</h4>
+<section id="installeer-python-packages-met-pixi" class="level4">
+<h4 class="anchored" data-anchor-id="installeer-python-packages-met-pixi">Installeer python packages met pixi</h4>
 <p>Met het <code>Pixi</code> commando in powershell kun je vervolgens de juiste python bestanden installeren:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="bu">cd</span> ..../toolbox-continu-inzicht</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">pixi</span> install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Dit kan even duren, Pixi gebruikt het <code>pixi.lock</code> bestand op de juiste packages te laden en zet deze in de <code>.pixi</code> map.</p>
-<p>Zie het document <a href="https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html">‘contributing’</a> voor meer informatie.</p>
+<p>Zie de <a href="https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html">‘Richtlijnen voor bijdragen aan Toolbox Continu Inzicht’</a> voor meer informatie.</p>
 
 
 </section>

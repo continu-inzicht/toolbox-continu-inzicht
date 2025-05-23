@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link active" href="../modules_index.html" aria-current="page"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -246,12 +227,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Inspectieresultaten inlezen en weergeven</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../modules/digitale_delta_API.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Digitale Delta API</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -291,7 +266,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="verschuiven-van-een-curve" class="level3">
 <h3 class="anchored" data-anchor-id="verschuiven-van-een-curve">Verschuiven van een curve</h3>
-<p>Voor het simpel weg verschuiven van een curve is voor alle type fragility curves de functie <code>Shift*</code> beschikbaar, <code>*</code> de naam van de functie is. Zo schuift <code>ShiftFragilityCurveOvertopping</code> de curve van <code>FragilityCurveOvertopping</code> naar rechts met een gegeven effect. Belangrijk om hier te benoemen is dat de opties in GlobalVariables nog steeds moeten verwijzen naar de originele functie, ook alle andere configuraties blijven hetzelfde. In het voorbeeld hier onder wordt gebruik gemaakt van<code>FragilityCurveOvertopping</code> in de GlobalVariables, ook al wordt de <code>ShiftFragilityCurveOvertopping</code> functie aangeroepen.</p>
+<p>Voor het verschuiven van een fragility curve over een opgegeven waterstandsbereik is voor alle type fragility curves de functie <code>Shift*</code> beschikbaar, waarbij <code>*</code> de naam van de functie is. Zo schuift <code>ShiftFragilityCurveOvertopping</code> de curve van <code>FragilityCurveOvertopping</code> naar links of rechts met een opgegeven stapgrootte (bijv. 0,5 voor een verschuiving van de fragility curve met 0,5m naar rechts). Belangrijk om hier te benoemen is dat de opties in GlobalVariables nog steeds moeten verwijzen naar de originele functie, ook alle andere configuraties blijven hetzelfde.</p>
+<p>In het voorbeeld hieronder wordt gebruik gemaakt van<code>FragilityCurveOvertopping</code> in de GlobalVariables, ook al wordt de <code>ShiftFragilityCurveOvertopping</code> functie aangeroepen. De verschuiving van 0,5 meter is in het ‘Code’ tabblad terug te vinden als de <code>effect</code> parameter (<code>effect=0.5</code>).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">

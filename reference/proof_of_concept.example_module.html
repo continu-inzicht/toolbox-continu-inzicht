@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -289,8 +270,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Vermenigvuldigd de meetstation waardes met 2 als voorbeeld</td>
 </tr>
 <tr class="even">
+<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
+</tr>
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.run">run</a></td>
-<td>Runt de funcies en stuur de df terug</td>
+<td>Runt de functies en stuur de df terug</td>
 </tr>
 </tbody>
 </table>
@@ -299,16 +284,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo.divide_two(dataframe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Vermenigvuldigd de meetstation waardes met 2 als voorbeeld</p>
 </section>
+<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.log_exceptions" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.log_exceptions">log_exceptions</h5>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
+</section>
 <section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.run" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.run">run</h5>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Runt de funcies en stuur de df terug</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Runt de functies en stuur de df terug</p>
 </section>
 </section>
 </section>
 <section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo">ValuesTimesTwo</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Voorbeeld class die laat zien hoe de architectuur werkt door waardes keer twee te doen</p>
 <section id="attributes-1" class="level4 doc-section doc-section-attributes">
 <h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-1">Attributes</h4>
@@ -360,23 +350,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.run">run</a></td>
 <td>Runt de funcies en stuur de df terug</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.times_two">times_two</a></td>
 <td>Deelt de meetstation waardes door 2 als voorbeeld</td>
 </tr>
 </tbody>
 </table>
+<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.log_exceptions" class="level5">
+<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.log_exceptions">log_exceptions</h5>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
+</section>
 <section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.run" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.run">run</h5>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Runt de funcies en stuur de df terug</p>
 </section>
 <section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.times_two" class="level5">
 <h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.times_two">times_two</h5>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.times_two(dataframe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.times_two(dataframe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Deelt de meetstation waardes door 2 als voorbeeld</p>
 
 

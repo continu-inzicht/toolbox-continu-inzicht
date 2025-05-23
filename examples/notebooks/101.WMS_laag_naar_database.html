@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>output_measuringstation – Toolbox continu inzicht</title>
+<title>WMS laag toevoegen aan database voor viewer – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,22 +57,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e212f1f3c46809d555a1335ea96b499f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -100,22 +100,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles/styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Toolbox continu inzicht</span>
     </a>
   </div>
@@ -126,29 +129,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../install.html"> 
+    <a class="nav-link" href="../../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../voorbeelden.html"> 
+    <a class="nav-link active" href="../../voorbeelden.html" aria-current="page"> 
 <span class="menu-text">Voorbeelden</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../modules_index.html"> 
+    <a class="nav-link" href="../../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../reference/index.html"> 
+    <a class="nav-link" href="../../reference/index.html"> 
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../overig/contact.html"> 
+    <a class="nav-link" href="../../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../contributing.html"> 
+    <a class="nav-link" href="../../contributing.html"> 
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
@@ -162,251 +165,328 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/101.WMS_laag_naar_database.html">WMS laag toevoegen aan database voor viewer</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation">output_measuringstation</a>
-  <ul class="collapse">
-  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
-  <ul class="collapse">
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions">output_ci_postgresql_conditions</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation">output_ci_postgresql_measuringstation</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data">output_ci_postgresql_measuringstation_to_data</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments">output_ci_postgresql_to_moments</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states">output_ci_postgresql_to_states</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../voorbeelden.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Voorbeelden</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/1.proof_of_concept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Architectuur voorbeeld</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/2.belastingen_inladen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Belastingen inladen</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/3.fragility_curve_overtopping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fragility Curve Overtopping</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/4.adjust_integrated_statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aanpassen van geïntegreerde faalkans</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/5.inspectieresultaten.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspectieresultaten</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gebruik van logging</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/101.WMS_laag_naar_database.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">WMS laag toevoegen aan database voor viewer</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
 </nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">WMS laag toevoegen aan database voor viewer</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation" class="level1">
-<h1>output_measuringstation</h1>
-<p><code>base.adapters.output.continu_inzicht_postgresql.output_measuringstation</code></p>
-<p>Data adapters voor het schrijven naar de Continu Inzicht database</p>
-<section id="functions" class="level2">
-<h2 class="anchored" data-anchor-id="functions">Functions</h2>
-<table class="caption-top table">
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="cell-1" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.config <span class="im">import</span> Config</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> DataAdapter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-2" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"example_inspection.yaml"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-3" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"inspections_results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
-<th>Name</th>
-<th>Description</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">location_id</th>
+<th data-quarto-table-cell-role="th">prioriteit</th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">y</th>
+<th data-quarto-table-cell-role="th">opmerking</th>
+<th data-quarto-table-cell-role="th">datum</th>
+<th data-quarto-table-cell-role="th">tijd</th>
+<th data-quarto-table-cell-role="th">waterschap</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions">output_ci_postgresql_conditions</a></td>
-<td>Schrijft voor condities van belastingen voor meetstations naar de Continu Inzicht database (tabel: conditions).</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>0</td>
+<td>0</td>
+<td>5.533930</td>
+<td>52.596911</td>
+<td>foutje</td>
+<td>2-4-2025</td>
+<td>09:08</td>
+<td>Zuiderzeeland</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation">output_ci_postgresql_measuringstation</a></td>
-<td>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</td>
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>1</td>
+<td>5.451603</td>
+<td>52.540697</td>
+<td>scheurvorming</td>
+<td>28-3-2025</td>
+<td>15:48</td>
+<td>Zuiderzeeland</td>
 </tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data">output_ci_postgresql_measuringstation_to_data</a></td>
-<td>Schrijft voor meetstations de belasting data naar de Continu Inzicht database (tabel: data).</td>
+<td data-quarto-table-cell-role="th">2</td>
+<td>2</td>
+<td>3</td>
+<td>5.407599</td>
+<td>52.497642</td>
+<td>opschot</td>
+<td>28-3-2025</td>
+<td>15:50</td>
+<td>Zuiderzeeland</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments">output_ci_postgresql_to_moments</a></td>
-<td>Schrijft moments naar Continu Inzicht database (tabel: moments)</td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states">output_ci_postgresql_to_states</a></td>
-<td>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</td>
+<td data-quarto-table-cell-role="th">3</td>
+<td>3</td>
+<td>11</td>
+<td>5.616243</td>
+<td>52.602794</td>
+<td>beginnende scheurvorming</td>
+<td>31-3-2025</td>
+<td>09:02</td>
+<td>Zuiderzeeland</td>
 </tr>
 </tbody>
 </table>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions">output_ci_postgresql_conditions</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor condities van belastingen voor meetstations naar de Continu Inzicht database (tabel: conditions).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_conditions
-database: "continuinzicht"
-schema: "continuinzicht_demo_whatif"</code></pre>
-<p>Args:</p>
-<p>output_config (dict): configuratie opties df (DataFrame):</p>
-<ul>
-<li>id: int64 : id van de conditie</li>
-<li>stateid: int64 : id van de status van een conditie</li>
-<li>objectid: int64 : id van het object waartoe de conditie behoort (altijd in combinatie met objecttype)</li>
-<li>objecttype: str : het type object waartoe de conditie behoort (bijv. een ‘section’ of ‘measuringstation’)</li>
-<li>upperboundary: float64 : de bovengrenswaarde van de status van een conditie (overgang van de betreffende status naar de volgende status)</li>
-<li>name: str : naam van de status van de conditie</li>
-<li>description: str : omschrijving van de status van de conditie</li>
-<li>color: str : HEX kleurcode van de kleur van de status van de conditie</li>
-<li>statevalue: float64 : middenwaarde van statusovergangen (specifiek voor objecttype ‘sections’)</li>
-</ul>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
-</section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation">output_ci_postgresql_measuringstation</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_measuringstation
-database: "continuinzicht"
-schema: "continuinzicht_demo_whatif"</code></pre>
-<p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
 
-- id: int64                 : id van het meetstation
-- name: str                 : naam van het meetstation
-- code: str                 : code van het meetstation
-- source: str               : bron van de data van het meetstation
-- geometry: geom            : geometrie (ligging) van het meetstation (let op projectie!)
-- tide: bool                : meetstation bevat belasting waar een getijperiode een tol speelt (default false)
-- area_geometry: geom       : OPTIONEEL geometrie van het gebied waarbinnen de belasting wordt bepaald (bijv. een gemiddelde waarde)</code></pre>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
-</section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data">output_ci_postgresql_measuringstation_to_data</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor meetstations de belasting data naar de Continu Inzicht database (tabel: data).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_measuringstation_to_data
-database: "continuinzicht"
-schema: "continuinzicht_demo_realtime"
-unit_conversion_factor: 0.01</code></pre>
-<p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- measurement_location_id: int64
-- date_time: datetime64[ns, UTC]
-- value: float64
-- value_type: str</code></pre>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-<li>unit_conversion_factor (optioneel, float): conversiefactor om waarde om te zetten naar meters</li>
-</ul>
-</section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments">output_ci_postgresql_to_moments</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft moments naar Continu Inzicht database (tabel: moments)</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_to_moments
-database: "continuinzicht"
-schema: "continuinzicht_demo_whatif"</code></pre>
-<p>Args:</p>
-<p>output_config (dict): configuratie opties</p>
-<p>df (DataFrame):</p>
-<ul>
-<li>date_time: int64 : datum/tijd van het huidige moment</li>
-<li>calc_time: int64 : datum/tijd van eerst volgende rekenstap</li>
-</ul>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
-</section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states">output_ci_postgresql_to_states</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_to_states
-database: "continuinzicht"
-schema: "continuinzicht_demo_realtime"</code></pre>
-<p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- measurement_location_id: int64
-- date_time: datetime64[ns, UTC]
-- hours: int64
-- upper_boundary: int64
-- value: float64</code></pre>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
+</div>
+</div>
+</div>
+<p>We willen de volgende data toevoegen aan de viewer:</p>
+<div id="cell-5" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://basisinformatie-overstromingen.nl/geoserver/LIWO_Basis/infrastructuur_dijkringen/ows?SERVICE=WMS&amp;"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>legend_url <span class="op">=</span> <span class="st">"https://geodata.basisinformatie-overstromingen.nl/geoserver/LIWO_Basis/infrastructuur_dijkringen/ows?service=WMS&amp;version=1.3.0&amp;request=GetLegendGraphic&amp;format=image/png&amp;width=20&amp;height=20&amp;layer=infrastructuur_dijkringen&amp;"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>layer_wms_layer <span class="op">=</span> <span class="st">"infrastructuur_dijkringen"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>layer_wms_style <span class="op">=</span> <span class="st">"LIWO_Basis_Dijkringen"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Het layers bestand bevat de standaard opties</p>
+<div id="cell-7" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_layers <span class="op">=</span> data_adapter.<span class="bu">input</span>(<span class="st">"layers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-8" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_layers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
 
 
-</section>
-</section>
-</section>
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">group_name</th>
+<th data-quarto-table-cell-role="th">layer_name</th>
+<th data-quarto-table-cell-role="th">layer_visible</th>
+<th data-quarto-table-cell-role="th">layer_type</th>
+<th data-quarto-table-cell-role="th">layer_table</th>
+<th data-quarto-table-cell-role="th">layer_wms_url</th>
+<th data-quarto-table-cell-role="th">layer_wms_layer</th>
+<th data-quarto-table-cell-role="th">layer_wms_style</th>
+<th data-quarto-table-cell-role="th">layer_wms_legend_url</th>
+<th data-quarto-table-cell-role="th">layer_data</th>
+<th data-quarto-table-cell-role="th">layer_legend</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Extra Kaartlagen</td>
+<td>Geojson met data</td>
+<td>True</td>
+<td>geojson</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Extra Kaartlagen</td>
+<td>WMS test</td>
+<td>True</td>
+<td>wms</td>
+<td>NaN</td>
+<td>https://geo.hkvservices.nl/geoserver/wms</td>
+<td>Waterdiepte</td>
+<td>liwo_waterdiepte_band1</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Extra Kaartlagen</td>
+<td>table test</td>
+<td>True</td>
+<td>table</td>
+<td>areas</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We vullen alleen de eerste kolom met de dijkringen informatie</p>
+<div id="cell-10" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_wms_laag <span class="op">=</span> df_layers.iloc[[<span class="dv">1</span>]].copy()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df_wms_laag.reset_index(drop<span class="op">=</span><span class="va">True</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"group_name"</span>] <span class="op">=</span> <span class="st">"Dijkringen Nederland"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_url"</span>] <span class="op">=</span> url</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_layer"</span>] <span class="op">=</span> layer_wms_layer</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_style"</span>] <span class="op">=</span> layer_wms_style</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df_wms_laag[<span class="st">"layer_wms_legend_url"</span>] <span class="op">=</span> df_wms_laag[<span class="st">"layer_legend"</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_legend_url"</span>] <span class="op">=</span> legend_url</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>df_wms_laag <span class="op">=</span> df_wms_laag.fillna(<span class="st">""</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>df_wms_laag</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">group_name</th>
+<th data-quarto-table-cell-role="th">layer_name</th>
+<th data-quarto-table-cell-role="th">layer_visible</th>
+<th data-quarto-table-cell-role="th">layer_type</th>
+<th data-quarto-table-cell-role="th">layer_table</th>
+<th data-quarto-table-cell-role="th">layer_wms_url</th>
+<th data-quarto-table-cell-role="th">layer_wms_layer</th>
+<th data-quarto-table-cell-role="th">layer_wms_style</th>
+<th data-quarto-table-cell-role="th">layer_wms_legend_url</th>
+<th data-quarto-table-cell-role="th">layer_data</th>
+<th data-quarto-table-cell-role="th">layer_legend</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Dijkringen Nederland</td>
+<td>WMS test</td>
+<td>True</td>
+<td>wms</td>
+<td></td>
+<td>https://basisinformatie-overstromingen.nl/geos...</td>
+<td>infrastructuur_dijkringen</td>
+<td>LIWO_Basis_Dijkringen</td>
+<td>https://geodata.basisinformatie-overstromingen...</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><em>Omdat database interactie op GitHub niet mogelijk wordt de onderstaande cell niet uitgevoerd, lokaal kan dit uiteraard wel</em></p>
+<p>En vervolgens kunnen we deze naar de database zetten</p>
+<div id="cell-12" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data_adapter.output("to_ci_database", df_wms_laag)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

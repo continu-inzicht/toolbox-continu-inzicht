@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>output_measuringstation – Toolbox continu inzicht</title>
+<title>filter – Toolbox continu inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -172,15 +172,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation">output_measuringstation</a>
+  <li><a href="#toolbox_continu_inzicht.inspections.Filter" id="toc-toolbox_continu_inzicht.inspections.Filter" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.inspections.Filter">Filter</a>
   <ul class="collapse">
-  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
+  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions">output_ci_postgresql_conditions</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation">output_ci_postgresql_measuringstation</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data">output_ci_postgresql_measuringstation_to_data</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments">output_ci_postgresql_to_moments</a></li>
-  <li><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states" id="toc-toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states">output_ci_postgresql_to_states</a></li>
+  <li><a href="#toolbox_continu_inzicht.inspections.Filter.log_exceptions" id="toc-toolbox_continu_inzicht.inspections.Filter.log_exceptions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.inspections.Filter.log_exceptions">log_exceptions</a></li>
+  <li><a href="#toolbox_continu_inzicht.inspections.Filter.run" id="toc-toolbox_continu_inzicht.inspections.Filter.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.inspections.Filter.run">run</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -192,12 +191,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation" class="level1">
-<h1>output_measuringstation</h1>
-<p><code>base.adapters.output.continu_inzicht_postgresql.output_measuringstation</code></p>
-<p>Data adapters voor het schrijven naar de Continu Inzicht database</p>
-<section id="functions" class="level2">
-<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<section id="toolbox_continu_inzicht.inspections.Filter" class="level1">
+<h1>Filter</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>inspections.Filter()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Filtert een DataFrame aan de hand van de opgegeven configuratie.</p>
+<section id="attributes" class="level2 doc-section doc-section-attributes">
+<h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 40%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>DataAdapter object</td>
+</tr>
+<tr class="even">
+<td>df_in</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Input DataFrame om te filteren</td>
+</tr>
+<tr class="odd">
+<td>df_out</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Output DataFrame die gefilterd is.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notes" class="level2 doc-section doc-section-notes">
+<h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
+<p>Voor het filteren zijn drie opties te configureren:</p>
+<ul>
+<li>query: SQL-achtige query om de DataFrame te filteren, zie ook <a href="http://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html">pandas.DataFrame.query</a>. Gebruik een <code>'</code>‘<code>voor kolomnamen met spaties, bijvoorbeeld</code>’<code>Meetpunt code</code> == 1’`.</li>
+<li>drop_columns: Lijst van kolommen die verwijderd moeten worden</li>
+<li>keep_columns: Lijst van kolommen die behouden moeten worden</li>
+</ul>
+<p>Als meerdere van deze opties zijn geconfigureerd, worden ze in bovenstaande volgorde toegepast.</p>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -207,203 +250,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions">output_ci_postgresql_conditions</a></td>
-<td>Schrijft voor condities van belastingen voor meetstations naar de Continu Inzicht database (tabel: conditions).</td>
+<td><a href="#toolbox_continu_inzicht.inspections.Filter.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation">output_ci_postgresql_measuringstation</a></td>
-<td>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data">output_ci_postgresql_measuringstation_to_data</a></td>
-<td>Schrijft voor meetstations de belasting data naar de Continu Inzicht database (tabel: data).</td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments">output_ci_postgresql_to_moments</a></td>
-<td>Schrijft moments naar Continu Inzicht database (tabel: moments)</td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states">output_ci_postgresql_to_states</a></td>
-<td>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</td>
+<td><a href="#toolbox_continu_inzicht.inspections.Filter.run">run</a></td>
+<td>Runt filtering van een input DataAdapter.</td>
 </tr>
 </tbody>
 </table>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions">output_ci_postgresql_conditions</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_conditions(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor condities van belastingen voor meetstations naar de Continu Inzicht database (tabel: conditions).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_conditions
-database: "continuinzicht"
-schema: "continuinzicht_demo_whatif"</code></pre>
-<p>Args:</p>
-<p>output_config (dict): configuratie opties df (DataFrame):</p>
-<ul>
-<li>id: int64 : id van de conditie</li>
-<li>stateid: int64 : id van de status van een conditie</li>
-<li>objectid: int64 : id van het object waartoe de conditie behoort (altijd in combinatie met objecttype)</li>
-<li>objecttype: str : het type object waartoe de conditie behoort (bijv. een ‘section’ of ‘measuringstation’)</li>
-<li>upperboundary: float64 : de bovengrenswaarde van de status van een conditie (overgang van de betreffende status naar de volgende status)</li>
-<li>name: str : naam van de status van de conditie</li>
-<li>description: str : omschrijving van de status van de conditie</li>
-<li>color: str : HEX kleurcode van de kleur van de status van de conditie</li>
-<li>statevalue: float64 : middenwaarde van statusovergangen (specifiek voor objecttype ‘sections’)</li>
-</ul>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
+<section id="toolbox_continu_inzicht.inspections.Filter.log_exceptions" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.inspections.Filter.log_exceptions">log_exceptions</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>inspections.Filter.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
 </section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation">output_ci_postgresql_measuringstation</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_measuringstation
-database: "continuinzicht"
-schema: "continuinzicht_demo_whatif"</code></pre>
-<p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
+<section id="toolbox_continu_inzicht.inspections.Filter.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.inspections.Filter.run">run</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>inspections.Filter.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Runt filtering van een input DataAdapter.</p>
+<section id="parameters" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 58%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>input</td>
+<td>str</td>
+<td>Naam van de DataAdapter om te filteren</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>output</td>
+<td>str</td>
+<td>Naam van DataAdapter voor de output</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
 
-- id: int64                 : id van het meetstation
-- name: str                 : naam van het meetstation
-- code: str                 : code van het meetstation
-- source: str               : bron van de data van het meetstation
-- geometry: geom            : geometrie (ligging) van het meetstation (let op projectie!)
-- tide: bool                : meetstation bevat belasting waar een getijperiode een tol speelt (default false)
-- area_geometry: geom       : OPTIONEEL geometrie van het gebied waarbinnen de belasting wordt bepaald (bijv. een gemiddelde waarde)</code></pre>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
+
 </section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data">output_ci_postgresql_measuringstation_to_data</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_measuringstation_to_data(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor meetstations de belasting data naar de Continu Inzicht database (tabel: data).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_measuringstation_to_data
-database: "continuinzicht"
-schema: "continuinzicht_demo_realtime"
-unit_conversion_factor: 0.01</code></pre>
-<p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- measurement_location_id: int64
-- date_time: datetime64[ns, UTC]
-- value: float64
-- value_type: str</code></pre>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-<li>unit_conversion_factor (optioneel, float): conversiefactor om waarde om te zetten naar meters</li>
-</ul>
-</section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments">output_ci_postgresql_to_moments</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_moments(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft moments naar Continu Inzicht database (tabel: moments)</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_to_moments
-database: "continuinzicht"
-schema: "continuinzicht_demo_whatif"</code></pre>
-<p>Args:</p>
-<p>output_config (dict): configuratie opties</p>
-<p>df (DataFrame):</p>
-<ul>
-<li>date_time: int64 : datum/tijd van het huidige moment</li>
-<li>calc_time: int64 : datum/tijd van eerst volgende rekenstap</li>
-</ul>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
-</section>
-<section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states">output_ci_postgresql_to_states</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_measuringstation.output_ci_postgresql_to_states(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Schrijft voor meetstations de classificatie data naar de Continu Inzicht database (tabel: states).</p>
-<p>Yaml example:</p>
-<pre><code>type: ci_postgresql_to_states
-database: "continuinzicht"
-schema: "continuinzicht_demo_realtime"</code></pre>
-<p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- measurement_location_id: int64
-- date_time: datetime64[ns, UTC]
-- hours: int64
-- upper_boundary: int64
-- value: float64</code></pre>
-<p><strong>Opmerking:</strong></p>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
-<ul>
-<li>postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database</li>
-<li>postgresql_password (str): inlog wachtwoord van de Continu Inzicht database</li>
-<li>postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver</li>
-<li>postgresql_port (str): poort van de Continu Inzicht databaseserver</li>
-</ul>
-<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
-<ul>
-<li>database (str): database van de Continu Inzicht</li>
-<li>schema (str): schema van de Continu Inzicht</li>
-</ul>
-
-
 </section>
 </section>
 </section>

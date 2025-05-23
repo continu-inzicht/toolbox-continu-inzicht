@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -264,7 +245,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    schema</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Ophalen lijst met faalmechanismes uit de Continu Inzicht database</p>
-<p>Faalmechanismes: code: naam COMB: Combinatie faalmechanismen GEKB: Overloop en overslag dijken STPH: Opbarsten en piping dijken STBI: Stabiliteit binnenwaarts dijken HTKW: Overloop en overslag langsconstructies STKWl: Stabiliteit langsconstructies PKW: Piping langsconstructies</p>
+<p>Faalmechanismes:</p>
+<ul>
+<li>code: naam</li>
+<li>COMB: Combinatie faalmechanismen</li>
+<li>GEKB: Overloop en overslag dijken</li>
+<li>STPH: Opbarsten en piping dijken</li>
+<li>STBI: Stabiliteit binnenwaarts dijken</li>
+<li>HTKW: Overloop en overslag langsconstructies</li>
+<li>STKWl: Stabiliteit langsconstructies</li>
+<li>PKW: Piping langsconstructies</li>
+</ul>
 </section>
 <section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.get_parameters" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.get_parameters">get_parameters</h3>
@@ -273,7 +264,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    schema</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Ophalen lijst met parameters uit de Continu Inzicht database</p>
-<p>Faalmechanismes: code: naam H10: Gemeten waterstand H10V: Voorspelde waterstand H10EH: Voorspelde waterstand ensemble hoog H10EL: Voorspelde waterstand ensemble laag PF: Faalkans BO: Beheerdersoordeel MR: Maatregel RSCH: Risico verwachte schade RSL: Risico verwachte slachtoffers RGETR: Risico getroffenen RPLPF: Risico plaatsgebonden overstromingskans PFT: Faalkans technical PFM: Faalkans measure PFEJ: Faalkans expert judgement</p>
+<p>Faalmechanismes:</p>
+<ul>
+<li>code: naam</li>
+<li>H10: Gemeten waterstand</li>
+<li>H10V: Voorspelde waterstand</li>
+<li>H10EH: Voorspelde waterstand ensemble hoog</li>
+<li>H10EL: Voorspelde waterstand ensemble laag</li>
+<li>PF: Faalkans</li>
+<li>BO: Beheerdersoordeel</li>
+<li>MR: Maatregel</li>
+<li>RSCH: Risico verwachte schade</li>
+<li>RSL: Risico verwachte slachtoffers</li>
+<li>RGETR: Risico getroffenen</li>
+<li>RPLPF: Risico plaatsgebonden overstromingskans</li>
+<li>PFT: Faalkans technical</li>
+<li>PFM: Faalkans measure</li>
+<li>PFEJ: Faalkans expert judgement</li>
+</ul>
 </section>
 <section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section">output_ci_postgresql_section</h3>
@@ -287,13 +295,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 database: "continuinzicht"
 schema: "continuinzicht_demo_whatif"</code></pre>
 <p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- id: int64                 : id van de sectie
-- segmentid: int64          : id van het segment waartoe de sectie behoort
-- name: str                 : naam van de sectie
-- geometry: geom            : geometrie (ligging) van de sectie (let op projectie altijd EPSG4326!)</code></pre>
+<p>output_config (dict): configuratie opties df (DataFrame):</p>
+<ul>
+<li>id: int64: id van de sectie</li>
+<li>segmentid: int64: id van het segment waartoe de sectie behoort</li>
+<li>name: str: naam van de sectie</li>
+<li>geometry: geom: geometrie (ligging) van de sectie (let op projectie altijd EPSG4326!)</li>
+</ul>
 <p><strong>Opmerking:</strong></p>
 <p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
 <ul>
@@ -310,10 +318,10 @@ schema: "continuinzicht_demo_whatif"</code></pre>
 </section>
 <section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_load_to_data" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_load_to_data">output_ci_postgresql_section_load_to_data</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_load_to_data(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_load_to_data(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Schrijft data voor dijkvakken de belasting naar Continu Inzicht database (tabel: data)</p>
 <p>Yaml example:</p>
 <pre><code>type: ci_postgresql_section_load_to_data
@@ -321,13 +329,14 @@ database: "continuinzicht"
 schema: "continuinzicht_demo_realtime"
 unit_conversion_factor: 0.01</code></pre>
 <p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- measurement_location_id: int64
-- date_time: datetime64[ns, UTC]
-- value: float64
-- value_type: str</code></pre>
+<p>output_config (dict): configuratie opties</p>
+<p>df (DataFrame):</p>
+<ul>
+<li>measurement_location_id: int64</li>
+<li>date_time: datetime64[ns, UTC]</li>
+<li>value: float64</li>
+<li>value_type: str</li>
+</ul>
 <p><strong>Opmerking:</strong></p>
 <p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
 <ul>
@@ -344,10 +353,10 @@ unit_conversion_factor: 0.01</code></pre>
 </section>
 <section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_to_data" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_to_data">output_ci_postgresql_section_to_data</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_to_data(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_to_data(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Schrijft data naar Continu Inzicht database</p>
 <section id="args" class="level4 doc-section doc-section-args">
 <h4 class="doc-section doc-section-args anchored" data-anchor-id="args">Args:</h4>
@@ -355,8 +364,18 @@ unit_conversion_factor: 0.01</code></pre>
 </section>
 <section id="opmerking" class="level4 doc-section doc-section-opmerking">
 <h4 class="doc-section doc-section-opmerking anchored" data-anchor-id="opmerking">Opmerking:</h4>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan: postgresql_user (str): postgresql_password (str): postgresql_host (str): postgresql_port (str):</p>
-<p>In de ‘yaml’ config moeten de volgende parameters staan: database (str): schema (str):</p>
+<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<ul>
+<li>postgresql_user (str):</li>
+<li>postgresql_password (str):</li>
+<li>postgresql_host (str):</li>
+<li>postgresql_port (str):</li>
+</ul>
+<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<ul>
+<li>database (str):</li>
+<li>schema (str):</li>
+</ul>
 </section>
 <section id="returns" class="level4 doc-section doc-section-returns">
 <h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns:</h4>
@@ -365,10 +384,10 @@ unit_conversion_factor: 0.01</code></pre>
 </section>
 <section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_to_states" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_to_states">output_ci_postgresql_section_to_states</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_to_states(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_section_to_states(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Schrijft state naar Continu Inzicht database</p>
 <section id="args-1" class="level4 doc-section doc-section-args">
 <h4 class="doc-section doc-section-args anchored" data-anchor-id="args-1">Args:</h4>
@@ -376,8 +395,18 @@ unit_conversion_factor: 0.01</code></pre>
 </section>
 <section id="opmerking-1" class="level4 doc-section doc-section-opmerking">
 <h4 class="doc-section doc-section-opmerking anchored" data-anchor-id="opmerking-1">Opmerking:</h4>
-<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan: postgresql_user (str): postgresql_password (str): postgresql_host (str): postgresql_port (str):</p>
-<p>In de ‘yaml’ config moeten de volgende parameters staan: database (str): schema (str):</p>
+<p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
+<ul>
+<li>postgresql_user (str):</li>
+<li>postgresql_password (str):</li>
+<li>postgresql_host (str):</li>
+<li>postgresql_port (str):</li>
+</ul>
+<p>In de ‘yaml’ config moeten de volgende parameters staan:</p>
+<ul>
+<li>database (str):</li>
+<li>schema (str):</li>
+</ul>
 </section>
 <section id="returns-1" class="level4 doc-section doc-section-returns">
 <h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-1">Returns:</h4>
@@ -386,25 +415,18 @@ unit_conversion_factor: 0.01</code></pre>
 </section>
 <section id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_sectionfractions" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_sectionfractions">output_ci_postgresql_sectionfractions</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_sectionfractions(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>base.adapters.output.continu_inzicht_postgresql.output_section.output_ci_postgresql_sectionfractions(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    output_config</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Schrijft (interpolatie)fracties van meetlocatie per sectie naar de Continu Inzicht database (tabel: sectionfractions).</p>
 <p>Yaml example:</p>
 <pre><code>type: ci_postgresql_sectionfractions
 database: "continuinzicht"
 schema: "continuinzicht_demo_whatif"</code></pre>
 <p>Args:</p>
-<pre><code>* output_config (dict): configuratie opties
-* df (DataFrame):
-
-- sectionid: int64          : id van de sectie
-- idup: int64               : id van het meetlocatie (measuringlocation), stroomopwaarst gelegen (indien van toepassing)
-- iddown: int64             : id van het meetlocatie (measuringlocation), stroomafwaarst gelegen (indien van toepassing)
-- fractionup: float64       : fractie van de belasting gebruikt voor interpolatie belasting bij sectie stroomopwaarst gelegen (indien van toepassing)
-- fractiondown: float64     : fractie van de belasting gebruikt voor interpolatie belasting bij sectie stroomafwaarst gelegen (indien van toepassing)
-- parameters: XXXXXX          : OPTIONEEL lijst van (belasting)parameters (ROLF VRAGEN)</code></pre>
+<p>output_config (dict): configuratie opties</p>
+<p>df (DataFrame): - sectionid: int64 : id van de sectie - idup: int64 : id van het meetlocatie (measuringlocation), stroomopwaarst gelegen (indien van toepassing) - iddown: int64 : id van het meetlocatie (measuringlocation), stroomafwaarst gelegen (indien van toepassing) - fractionup: float64 : fractie van de belasting gebruikt voor interpolatie belasting bij sectie stroomopwaarst gelegen (indien van toepassing) - fractiondown: float64 : fractie van de belasting gebruikt voor interpolatie belasting bij sectie stroomafwaarst gelegen (indien van toepassing) - parameters: XXXXXX : OPTIONEEL lijst van (belasting)parameters (ROLF VRAGEN)</p>
 <p><strong>Opmerking:</strong></p>
 <p>In de <code>.env</code> environment bestand moeten de volgende parameters staan:</p>
 <ul>

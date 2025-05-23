@@ -95,29 +95,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="./modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -127,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./contact.html"> 
+    <a class="nav-link" href="./overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -137,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -236,6 +217,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Zorg dat alle documentatie automatisch genereert met <code>pixi run quarto-render</code>. <a href="https://quarto.org/docs/computations/python.html">Quarto</a> is al onderdeel van de zojuist aangemaakte pixi omgeving.</li>
 <li>Voeg bij nieuwe functionaliteit altijd nieuwe tests toe.</li>
 <li>Update en voeg documentatie toe. Gebruik <a href="https://numpydoc.readthedocs.io/en/latest/format.html#documenting-classes">Numpy Style Python docstrings</a>. Zorg dat je code leesbaar en begrijpelijk is voor anderen. De <a href="https://github.com/jsh9/pydoclint"><code>pydoclint</code></a> checkt de doctring format voor je.</li>
+<li>Heb je nieuwe termen toegevoegd? Update dan de vertalingen in <a href="./overig/translations.html">tabel</a></li>
 <li><a href="http://rogerdudler.github.io/git-guide/">Push</a> je branch. naar (jouw fork van) de toolbox continu inzicht repo op GitHub;</li>
 <li>Maak een pull request aan, bijvoorbeeld volgens <a href="https://help.github.com/articles/creating-a-pull-request/">deze instructies</a>. Pull requests die worden ontvangen, krijgen altijd een review.</li>
 </ol>
@@ -250,7 +232,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Omdat je niet direct naar de main branch kan schrijven (protected), maak een nieuwe branch aan met <code>git checkout -b release-&lt;version&gt;</code>.</p></li>
 <li><p>Indien dependencies zijn aangepast, maak een nieuw <a href="https://pixi.sh/latest/features/lockfile/">pixi lock</a> bestand.</p></li>
 <li><p>Pas de versie aan in <code>src/toolbox_continu_inzicht/__init__.py</code>, de <code>pyptoject.toml</code> leest deze uit.</p></li>
-<li><p>Pas de <code>docs/changelog.qmd</code> aan met de veranderingen. Vergeet de link naar de pull request niet.</p></li>
+<li><p>Pas de <code>[docs/overig/changelog.qmd](overig/changelog.qmd)</code> aan met de veranderingen. Vergeet de link naar de pull request niet.</p></li>
 <li><p>Zorg dat de format van je code correct is met <code>pixi run ruff check</code>.</p></li>
 <li><p>Zorg dat alle bestaande testen werken met <code>pixi run pytest</code>.</p></li>
 <li><p>Commit &amp; push je aanpassingen naar GitHub.</p></li>
@@ -258,7 +240,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Wacht tot de GitHub-acties op de main branch klaar zijn en er een groen vinkje bij staat.</p></li>
 <li><p>Maak een nieuwe 'release' aan op GitHub</p>
 <ul>
-<li>Gebruik de versie als titel en pas een versietag toe.</li>
+<li>Gebruik de versie als titel en pas een versie tag toe.</li>
 <li>Als beschrijving gebruik de intro van de <code>README.md</code> en veranderingen uit de <code>changelog.qmd</code>.</li>
 </ul></li>
 <li><p>Check</p>

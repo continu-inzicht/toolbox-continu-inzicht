@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -200,6 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.format_location_names" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.format_location_names" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.format_location_names">format_location_names</a></li>
   <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.generate_url" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.generate_url" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.generate_url">generate_url</a></li>
   <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.get_matroos_available_locations" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.get_matroos_available_locations" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.get_matroos_available_locations">get_matroos_available_locations</a></li>
+  <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.log_exceptions" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.log_exceptions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.log_exceptions">log_exceptions</a></li>
   <li><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.run" id="toc-toolbox_continu_inzicht.loads.LoadsMatroos.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.loads.LoadsMatroos.run">run</a></li>
   </ul></li>
   </ul></li>
@@ -216,7 +198,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>LoadsMatroos</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Haalt matroos tijdserie informatie op uit de Noos, Matroos of Vitaal server.</p>
-<p>De Matroos informatie is beschikbaar op de volgende websites: https://noos.matroos.rws.nl/maps1d/ Met de functie get_matroos_sources() kan je de beschikbare bronnen ophalen. Met de functie get_matroos_locations(source=‘…’) kan je de bijbehorende beschikbare locaties ophalen.</p>
+<p>De Matroos informatie is beschikbaar op de volgende websites: <a href="https://noos.matroos.rws.nl/maps1d/">https://noos.matroos.rws.nl/maps1d/</a></p>
+<p>Met de <code>functie get_matroos_sources()</code> kan je de beschikbare bronnen ophalen. Met de functie <code>get_matroos_locations(source='...')</code> kan je de bijbehorende beschikbare locaties ophalen.</p>
 <section id="attributes" class="level2 doc-section doc-section-attributes">
 <h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="caption-top table">
@@ -293,6 +276,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td></td>
 </tr>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.loads.LoadsMatroos.run">run</a></td>
 <td>Voert de functie uit om gegevens op te halen en te verwerken voor matroos gegevens.</td>
 </tr>
@@ -478,9 +465,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    endpoint_model</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+<section id="toolbox_continu_inzicht.loads.LoadsMatroos.log_exceptions" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsMatroos.log_exceptions">log_exceptions</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
+</section>
 <section id="toolbox_continu_inzicht.loads.LoadsMatroos.run" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.loads.LoadsMatroos.run">run</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>loads.LoadsMatroos.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Voert de functie uit om gegevens op te halen en te verwerken voor matroos gegevens.</p>
 <section id="parameters-2" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h4>

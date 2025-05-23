@@ -129,29 +129,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-voorbeelden" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Voorbeelden</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-voorbeelden">    
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/1.proof_of_concept.html">
- <span class="dropdown-text">Architectuur voorbeeld</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../voorbeelden.html"> 
+<span class="menu-text">Voorbeelden</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/2.belastingen_inladen.html">
- <span class="dropdown-text">Belastingen inladen</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/3.fragility_curve_overtopping.html">
- <span class="dropdown-text">Fragility Curve Overtopping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../examples/notebooks/4.adjust_integrated_statistics.html">
- <span class="dropdown-text">Aanpassen van geïntegreerde fragility curves</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
     <a class="nav-link active" href="../modules_index.html" aria-current="page"> 
 <span class="menu-text">Modules</span></a>
@@ -161,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
@@ -171,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-GitHub" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -246,12 +227,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Inspectieresultaten inlezen en weergeven</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../modules/digitale_delta_API.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Digitale Delta API</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -263,6 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#jaarlijkse-faalkans" id="toc-jaarlijkse-faalkans" class="nav-link active" data-scroll-target="#jaarlijkse-faalkans">Jaarlijkse faalkans</a></li>
+  <li><a href="#reliability-update-methode-bewezen-sterkte" id="toc-reliability-update-methode-bewezen-sterkte" class="nav-link" data-scroll-target="#reliability-update-methode-bewezen-sterkte">Reliability Update (methode bewezen sterkte)</a></li>
   </ul>
 </nav>
     </div>
@@ -288,10 +264,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>De module impactanalyse is conceptueel anders dan de functionaliteit voor real-time en what-if. De gebruiker kan het effect van veranderingen in overschrijdingsfrequentie statistiek of rekenregels in kaart brengen. Hiervoor is in de Toolbox Continu Inzicht functionaliteit toegevoegd voor het integreren van overschrijdingsfrequentie met een fragility curve om hiervan de jaarlijkse faalkans te berekenen.</p>
+<p>De module impactanalyse is conceptueel anders dan de functionaliteit in de modules real-time en what-if. De gebruiker kan het effect van veranderingen in de statistiek van de belasting of rekenregels in kaart brengen. Hiervoor is in de Toolbox Continu Inzicht een functionaliteit toegevoegd om per dijkvak (sectie) de faalkans per jaar te berekenen. De faalkans per jaar wordt per dijvak berekend door het integreren van overschrijdingsfrequentielijn van een belasting (overschrijdingskans per jaar van belastingen) met een fragility curve (faalkans gegeven een belasting).</p>
 <section id="jaarlijkse-faalkans" class="level3">
 <h3 class="anchored" data-anchor-id="jaarlijkse-faalkans">Jaarlijkse faalkans</h3>
-<p>Voor het berekenen van de geïntegreerde faalkans zijn twee opties. Dit kan per vak per mechanisme met de functie de functie <code>IntegrateFragilityCurve</code> of dit voor een reeks aan vakken en mechanismes met de functie <code>IntegrateFragilityCurveMultiple</code>. Qua configuratie is <code>IntegrateFragilityCurveMultiple</code> identiek, de functie loopt alleen nog extra de kolommen <code>section_id</code> en <code>mechanism_id</code> langs om voor alle fragility curves de geïntegreerde kans te berekenen.</p>
+<p>Voor het berekenen van de geïntegreerde faalkans zijn twee opties: (1) per dijkvak per faalmechanisme met de functie <code>IntegrateFragilityCurve</code>; of (2) voor meerdere dijkvakken en faalmechanismes met de functie <code>IntegrateFragilityCurveMultiple</code>. Qua configuratie is de functie <code>IntegrateFragilityCurveMultiple</code> identiek aan de functie <code>IntegrateFragilityCurve</code>, alleen loopt de functie <code>IntegrateFragilityCurveMultiple</code> nog extra de kolommen <code>section_id</code> en <code>mechanism_id</code> langs om voor alle fragility curves de geïntegreerde kans te berekenen.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
@@ -331,6 +307,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="reliability-update-methode-bewezen-sterkte" class="level3">
+<h3 class="anchored" data-anchor-id="reliability-update-methode-bewezen-sterkte">Reliability Update (methode bewezen sterkte)</h3>
+<p>Naast het berekenen van de faalkans per jaar per dijkvak, is het mogelijk om het effect van bewezen sterkte mee te nemen in de faalkansberekening. Met gebruik van <code>FragilityCurve.reliability_update</code> kan de fragility curve worden aangepast door een overleefde belastingsituatie in rekening te brengen. Ook hier geldt dat dit een waterstand, grondwaterstand of elke andere belastingparameter kan zijn. Hierdoor kan ook weer een geïntegreerde faalkans per jaar worden berekend met een nieuwe fragility curve, waarbij het effect van een overleefde belastingsituatie in is meegenomen. Dit stappenplan wordt weergegeven in het voorbeeld-notebook <a href="../examples/notebooks/4.adjust_integrated_statistics.html">Aanpassen van geïntegreerde fragility curves</a>.</p>
 
 
 </section>
