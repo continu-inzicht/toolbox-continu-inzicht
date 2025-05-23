@@ -248,7 +248,6 @@ DataAdapter:
         table: layers
         if_exists: append
 ```
-:::
 
 ## Code
 ```python
@@ -260,6 +259,7 @@ data_adapter = DataAdapter(config=config)
 layer_table = data_adapter.input('layers')
 data_adapter.output('to_ci_database', layer_table)
 ```
+:::
 
 
 #### Grote tabel in de viewer
