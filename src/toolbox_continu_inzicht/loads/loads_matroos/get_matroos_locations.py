@@ -1,7 +1,18 @@
 import geopandas as gpd
 import pandas as pd
-import folium
+
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
+
+
+def import_folium():
+    try:
+        import folium
+    except ImportError:
+        folium = None
+        raise ImportError(
+            "Folium is not installed, use the dev pixi environment or install folium"
+        )
+    return folium
 
 
 def get_matroos_locations(
@@ -86,7 +97,7 @@ def get_matroos_locations_map(
     source: str | None = None,
     parameter: str | None = None,
     endpoint: str = "timeseries",
-) -> folium.Map:
+):
     """Haal alle matroos locaties op en maak een folium map.
 
     Parameters
@@ -102,6 +113,7 @@ def get_matroos_locations_map(
     -------
     Folium.map
     """
+    folium = import_folium()
     df_location = get_matroos_locations(
         source=source, parameter=parameter, endpoint=endpoint
     )

@@ -17,6 +17,5 @@ dependencies:
   - shapely
   - httpx
   - sqlalchemy
-  - tqdm>=4.67.1
   - pyyaml
   - xarray

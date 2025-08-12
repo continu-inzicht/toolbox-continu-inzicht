@@ -19,7 +19,7 @@ authors = [
 
 license = { text = "GPL-3.0-or-later" }
 
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = [
                 "fiona",
                 "geopandas",
@@ -37,7 +37,6 @@ dependencies = [
                 "shapely",
                 "httpx",
                 "sqlalchemy",
-                "tqdm>=4.67.1",
                 "probabilistic_piping==0.0.5",
                 "pydra_core==0.0.9",
                 "pyyaml",
