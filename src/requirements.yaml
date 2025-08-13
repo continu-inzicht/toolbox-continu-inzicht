@@ -2,20 +2,26 @@ name: Toolbox_continu_inzicht
 channels:
   - conda-forge
 dependencies:
-  - geopandas
-  - matplotlib
-  - netcdf4>=1.7.1
-  - openpyxl
-  - openturns>=1.23
+# bare minimum dependencies
   - pandas
-  - psycopg2
-  - pyarrow
   - pydantic>=2
-  - pyogrio
   - python-dotenv>=1.0.1
   - requests
-  - shapely
   - httpx
-  - sqlalchemy
   - pyyaml
+  # io dependencies
+  - pyarrow
+  - sqlalchemy
+  - psycopg2
   - xarray
+  - netcdf4>=1.7.1
+  - openpyxl
+  # geospatial dependencies
+  - fiona
+  - geopandas
+  - pyogrio
+  - shapely
+  # daughter package dependencies
+  - openturns>=1.23
+  - probabilistic_piping==0.0.5
+  - pydra_core==0.0.9

@@ -41,34 +41,34 @@ pytest-cov = "pytest --cov --cov-report=xml --benchmark-save=ci-run --ignore=src
 pytest-cov-html = "pytest --cov --cov-report html:tests/hidden_test_cov --ignore=src\\toolbox_continu_inzicht\\base\\adapters"
 
 [feature.common.dependencies]
-fiona = "*"
-geopandas = "*"
-httpx = "*"
-matplotlib = "*"
-netcdf4 = ">=1.7.1"
-openpyxl = "*"
-openturns = ">=1.23"
 pandas = "*"
-psycopg2 = "*"
-pyarrow = "*"
 pydantic = ">=2"
-pyogrio = "*"
-python = ">=3.11"
 python-dotenv = ">=1.0.1"
 pyyaml = "*"
 requests = "*"
-shapely = "*"
+httpx = "*"
+pyarrow = "*"
 sqlalchemy = "*"
+psycopg2 = "*"
 xarray = "*"
+netcdf4 = ">=1.7.1"
+openpyxl = "*"
+fiona = "*"
+geopandas = "*"
+pyogrio = "*"
+shapely = "*"
+openturns = ">=1.23"
 # specific to pixi
 pip = "*"
 
+# only for testing
 [feature.tests.dependencies]
 pytest = "*"
 pytest-benchmark = "*"
 pytest-cov = "*"
 pytest-xdist = "*"
 
+# these are only for development needs
 [feature.dev.dependencies]
 contextily = "*"
 ipykernel = "*"
@@ -78,13 +78,13 @@ jupyterlab = "*"
 pandas-stubs = "*"
 pre-commit = "*"
 quarto = "*"
+quartodoc = ">=0.11.1,<0.12"
 ruff = "*"
 tomli = "*"
 tomli-w = "*"
 types-requests = "*"
 types-pyyaml = "*"
-yaml = "*"
-quartodoc = ">=0.11.1,<0.12"
+matplotlib = "*"
 
 ## check specific python versions
 #[feature.py311.dependencies]
