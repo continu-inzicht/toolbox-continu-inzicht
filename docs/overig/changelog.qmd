@@ -109,3 +109,8 @@ De opmaak informatie voor kaartlagen nu uit de database opgehaald door de viewer
 Gebruikers kunnen op deze manier makkelijker aanpassingen doorvoeren in de viewer.
 
 De logging gebruikt een nieuwe 'baseClass': `ToolboxBase`, inherit deze om logging automatische toe te voegen aan de `run()` functie.
+
+
+### V0.1.2 [[0.1.2](https://pypi.org/project/toolbox-continu-inzicht/0.1.2/)]
+
+Kleine aanpassingen om onnodige packages op te ruimen en folium optioneel te maken.

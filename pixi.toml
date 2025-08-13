@@ -1,6 +1,6 @@
 [project]
 name = "toolbox-continu-inzicht"
-version = "0.1.1"
+version = "0.1.2"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen."
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64"]
@@ -41,47 +41,58 @@ pytest-cov = "pytest --cov --cov-report=xml --benchmark-save=ci-run --ignore=src
 pytest-cov-html = "pytest --cov --cov-report html:tests/hidden_test_cov --ignore=src\\toolbox_continu_inzicht\\base\\adapters"
 
 [feature.common.dependencies]
-contextily = "*"
+pandas = "*"
+pydantic = ">=2"
+python-dotenv = ">=1.0.1"
+pyyaml = "*"
+requests = "*"
+httpx = "*"
+pyarrow = "*"
+sqlalchemy = "*"
+psycopg2 = "*"
+xarray = "*"
+netcdf4 = ">=1.7.1"
+openpyxl = "*"
 fiona = "*"
 geopandas = "*"
-ipykernel = "*"
-ipywidgets = ">=8.1.5,<9"
-jupyter-cache = ">=1.0.0,<2"
-jupyterlab = "*"
-matplotlib = "*"
-netcdf4 = ">=1.7.1,<2"
-openpyxl = "*"
-openturns = ">=1.23,<2"
-pandas = "*"
-pandas-stubs = "*"
-pip = "*"
-pre-commit = "*"
-psycopg2 = "*"
-pyarrow = "*"
-pydantic = ">=2"
 pyogrio = "*"
+shapely = "*"
+openturns = ">=1.23"
+# specific to pixi
+pip = "*"
+
+# only for testing
+[feature.tests.dependencies]
 pytest = "*"
 pytest-benchmark = "*"
 pytest-cov = "*"
 pytest-xdist = "*"
-python = ">=3.9"
-python-dotenv = ">=1.0.1,<2"
+
+# these are only for development needs
+[feature.dev.dependencies]
+contextily = "*"
+ipykernel = "*"
+ipywidgets = ">=8.1.5,<9"
+jupyter-cache = ">=1.0.0,<2"
+jupyterlab = "*"
+pandas-stubs = "*"
+pre-commit = "*"
 quarto = "*"
-quartodoc = "<=0.9.0"
-requests = "*"
+quartodoc = ">=0.11.1,<0.12"
 ruff = "*"
-shapely = ">=2"
-httpx = "<0.28.0"
-sqlalchemy = "*"
 tomli = "*"
 tomli-w = "*"
-tqdm = ">=4.67.1,<5"
 types-requests = "*"
 types-pyyaml = "*"
-xugrid = "*"
-yaml = "*"
-grayskull = "*"
-geoalchemy2 = ">=0.17.1,<0.18"
+matplotlib = "*"
+
+## check specific python versions
+#[feature.py311.dependencies]
+#python = "3.11.*"
+#[feature.py312.dependencies]
+#python = "3.12.*"
+#[feature.py313.dependencies]
+#python = "3.13.*"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
@@ -89,4 +100,9 @@ pydra-core = "==0.0.9"
 probabilistic-piping = "==0.0.5"
 
 [environments]
-default = { features = ["common"] }
+default = { features = ["common","tests", "dev"] }
+prod = { features = ["common", "tests"] }
+## check python versions - makes pixi large so only to test locally
+#py311 = { features = ["common","tests", "py311"] }
+#py312 = { features = ["common","tests", "py312"] }
+#py313 = { features = ["common","tests", "py313"] }

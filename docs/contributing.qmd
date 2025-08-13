@@ -79,7 +79,7 @@ Dit is een stukje voor de hoofdontwikkelaars van toolbox continu inzicht.
 1. Beslis welke nieuwe versie (major, minor or patch) gebruikt gaat worden. We gebruiken [semantic versioning](https://semver.org).
 1. Omdat je niet direct naar de main branch kan schrijven (protected), maak een nieuwe branch aan met ``git checkout -b release-<version>``.
 1. Indien dependencies zijn aangepast, maak een nieuw [pixi lock](https://pixi.sh/latest/features/lockfile/) bestand.
-1. Pas de versie aan in `src/toolbox_continu_inzicht/__init__.py`, de `pyptoject.toml` leest deze uit.
+1. Pas de versie aan in `src/toolbox_continu_inzicht/__init__.py`, de `pyproject.toml` leest deze uit.
 1. Pas de `[docs/overig/changelog.qmd](overig/changelog.qmd)` aan met de veranderingen. Vergeet de link naar de pull request niet.
 1. Zorg dat de format van je code correct is met `pixi run ruff check`.
 1. Zorg dat alle bestaande testen werken met `pixi run pytest`.

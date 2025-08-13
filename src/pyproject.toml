@@ -19,32 +19,39 @@ authors = [
 
 license = { text = "GPL-3.0-or-later" }
 
-requires-python = ">=3.9"
+requires-python = ">=3.11"
+# bare minimum dependencies
 dependencies = [
-                "fiona",
-                "geopandas",
-                "matplotlib",
-                "netcdf4>=1.7.1",
-                "openpyxl",
-                "openturns>=1.23",
                 "pandas",
-                "psycopg2",
-                "pyarrow",
                 "pydantic>=2",
-                "pyogrio",
                 "python-dotenv>=1.0.1",
                 "requests",
-                "shapely",
                 "httpx",
+                "pyyaml",
+                # io dependencies
+                "pyarrow",
                 "sqlalchemy",
-                "tqdm>=4.67.1",
+                "psycopg2",
+                "xarray",
+                "netcdf4>=1.7.1",
+                "openpyxl",
+                # geospatial dependencies
+                "fiona",
+                "geopandas",
+                "pyogrio",
+                "shapely",
+                # daughter package dependencies
+                "openturns>=1.23",
                 "probabilistic_piping==0.0.5",
                 "pydra_core==0.0.9",
-                "pyyaml",
-                "xarray",
 ]
 
 dynamic = ["version"]
+
+## voor nu niet doen, wellicht later
+#[project.optional-dependencies]
+#all = [
+#]
 
 [tool.hatch.version]
 path = "toolbox_continu_inzicht/__init__.py"
