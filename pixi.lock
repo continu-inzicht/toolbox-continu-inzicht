@@ -9825,27 +9825,51 @@ packages:
 - pypi: src
   name: toolbox-continu-inzicht
   version: 0.1.2
-  sha256: a3ceca54d834c6233239a3bc4c378d53ea21b0415278504d00768e13257a309b
+  sha256: a06651df38b1eb3fb1f183e87241340d35d867d8236ca2de50bac78e475666f4
   requires_dist:
-  - fiona
-  - geopandas
-  - httpx
-  - netcdf4>=1.7.1
-  - openpyxl
-  - openturns>=1.23
   - pandas
-  - probabilistic-piping==0.0.5
-  - psycopg2
-  - pyarrow
   - pydantic>=2
-  - pydra-core==0.0.9
-  - pyogrio
   - python-dotenv>=1.0.1
   - pyyaml
-  - requests
-  - shapely
-  - sqlalchemy
-  - xarray
+  - fiona ; extra == 'all'
+  - geopandas ; extra == 'all'
+  - httpx ; extra == 'all'
+  - netcdf4>=1.7.1 ; extra == 'all'
+  - openpyxl ; extra == 'all'
+  - openturns>=1.23 ; extra == 'all'
+  - probabilistic-piping==0.0.5 ; extra == 'all'
+  - psycopg2 ; extra == 'all'
+  - pyarrow ; extra == 'all'
+  - pydra-core==0.0.9 ; extra == 'all'
+  - pyogrio ; extra == 'all'
+  - requests ; extra == 'all'
+  - scipy ; extra == 'all'
+  - shapely ; extra == 'all'
+  - sqlalchemy ; extra == 'all'
+  - xarray ; extra == 'all'
+  - openturns>=1.23 ; extra == 'fragility-curves'
+  - probabilistic-piping==0.0.5 ; extra == 'fragility-curves'
+  - pydra-core==0.0.9 ; extra == 'fragility-curves'
+  - scipy ; extra == 'fragility-curves'
+  - fiona ; extra == 'inspections'
+  - geopandas ; extra == 'inspections'
+  - httpx ; extra == 'inspections'
+  - netcdf4>=1.7.1 ; extra == 'inspections'
+  - pyogrio ; extra == 'inspections'
+  - requests ; extra == 'inspections'
+  - shapely ; extra == 'inspections'
+  - xarray ; extra == 'inspections'
+  - netcdf4>=1.7.1 ; extra == 'io'
+  - openpyxl ; extra == 'io'
+  - psycopg2 ; extra == 'io'
+  - pyarrow ; extra == 'io'
+  - sqlalchemy ; extra == 'io'
+  - xarray ; extra == 'io'
+  - httpx ; extra == 'loads'
+  - netcdf4>=1.7.1 ; extra == 'loads'
+  - requests ; extra == 'loads'
+  - xarray ; extra == 'loads'
+  - scipy ; extra == 'sections'
   requires_python: '>=3.11'
   editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/tornado-6.5.2-py312h4c3975b_0.conda

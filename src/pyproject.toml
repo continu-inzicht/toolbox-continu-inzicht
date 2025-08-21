@@ -20,38 +20,58 @@ authors = [
 license = { text = "GPL-3.0-or-later" }
 
 requires-python = ">=3.11"
-# bare minimum dependencies
-dependencies = [
-                "pandas",
-                "pydantic>=2",
-                "python-dotenv>=1.0.1",
-                "requests",
-                "httpx",
-                "pyyaml",
-                # io dependencies
-                "pyarrow",
-                "sqlalchemy",
-                "psycopg2",
-                "xarray",
-                "netcdf4>=1.7.1",
-                "openpyxl",
-                # geospatial dependencies
-                "fiona",
-                "geopandas",
-                "pyogrio",
-                "shapely",
-                # daughter package dependencies
-                "openturns>=1.23",
-                "probabilistic_piping==0.0.5",
-                "pydra_core==0.0.9",
-]
-
 dynamic = ["version"]
 
-## voor nu niet doen, wellicht later
-#[project.optional-dependencies]
-#all = [
-#]
+# bare minimum dependencies
+dependencies = [
+    "pandas",
+    "pydantic>=2",
+    "python-dotenv>=1.0.1",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+fragility_curves = [
+    "scipy",
+    "openturns>=1.23",
+    "probabilistic_piping==0.0.5",
+    "pydra_core==0.0.9",
+]
+
+loads = [
+    "requests",
+    "httpx",
+    "netcdf4>=1.7.1",
+    "xarray",
+]
+
+inspections = [
+    "fiona",
+    "geopandas",
+    "pyogrio",
+    "shapely",
+    "toolbox_continu_inzicht[loads]"
+]
+
+sections = ["scipy"]
+
+# io dependencies separate for now
+io = [
+    "pyarrow",
+    "sqlalchemy",
+    "psycopg2",
+    "xarray",
+    "netcdf4>=1.7.1",
+    "openpyxl",
+]
+
+all = [
+    "toolbox_continu_inzicht[fragility_curves]",
+    "toolbox_continu_inzicht[loads]",
+    "toolbox_continu_inzicht[inspections]",
+    "toolbox_continu_inzicht[sections]",
+    "toolbox_continu_inzicht[io]",
+]
 
 [tool.hatch.version]
 path = "toolbox_continu_inzicht/__init__.py"
