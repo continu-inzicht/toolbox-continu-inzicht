@@ -1,0 +1,19 @@
+GlobalVariables:
+    rootdir: "tests/src/flood_scenarios/data_sets"
+    moments: [-24,0,24,48]
+    CalculateFloodScenarioProbability:
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    grouped_sections_failure_probability:
+        type: csv
+        path: "test_grouped_sections_failure_probability.csv"
+    sections_to_segment:
+        type: csv
+        path: "test_sections_to_segment.csv"
+    flood_scenario_probability_resultaten:
+        type: csv
+        path: "flood_scenario_probability_resultaten.csv"

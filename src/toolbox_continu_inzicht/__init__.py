@@ -20,6 +20,7 @@ from toolbox_continu_inzicht import (
     fragility_curves,
     proof_of_concept,
     inspections,
+    flood_scenarios,
 )
 
 
@@ -38,4 +39,5 @@ __all__ = [
     "fragility_curves",
     "proof_of_concept",
     "inspections",
+    "flood_scenarios",
 ]

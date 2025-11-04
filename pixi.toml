@@ -1,4 +1,4 @@
-[project]
+[workspace]
 name = "toolbox-continu-inzicht"
 version = "0.1.2"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen."
