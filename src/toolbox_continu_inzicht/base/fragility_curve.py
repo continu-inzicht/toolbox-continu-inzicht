@@ -84,6 +84,10 @@ class FragilityCurve(ToolboxBase):
         df_in = self.data_adapter.input(input, schema=self.fragility_curve_schema)
         self.from_dataframe(df_in)
 
+    def measure_from_data_adapter(self):
+        """ "Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden"""
+        raise NotImplementedError("# TODO")
+
     def shift(self, effect: float):
         """Schuift de hydraulische belasting van de fragility curve op om
         bijvoorbeeld het effect van een noodmaatregel te implementeren. Een
