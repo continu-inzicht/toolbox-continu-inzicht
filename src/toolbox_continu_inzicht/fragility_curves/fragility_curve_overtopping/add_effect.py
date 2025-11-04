@@ -49,7 +49,7 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
         1. fetch, lengte van fetch in meters
         """
         self.calculate_fragility_curve(input, output)
-        self.shift(effect)
+        self.shift(effect, output)
 
 
 class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):

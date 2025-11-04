@@ -31,6 +31,10 @@ class FragilityCurve(ToolboxBase):
         Forceert monotoon stijgende faalkansen, standaard True
     fragility_curve_schema: ClassVar[dict[str, str]]
         Schema waaraan de fragility curve moet voldoen:{hydraulicload: float, failure_probability: float}
+    cached_fragility_curves: Optional[dict[str | int, str]] | None
+        Cache voor fragility curves die al zijn berekend, de key is een string of int met een bijbehorende DataAdapter naam
+        Afhankelijk van de implementatie kan deze cache worden gebruikt om fragility curves in te laden zonder deze opnieuw te berekenen.
+        De logica om de selectie van de cache te kiezen moet op een hoger abstractieniveau worden geïmplementeerd.
     """
 
     data_adapter: DataAdapter
@@ -43,6 +47,7 @@ class FragilityCurve(ToolboxBase):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
+    cached_fragility_curves: Optional[dict[str | int, str]] | None = None
 
     def run(self, *args, **kwargs):
         self.calculate_fragility_curve(*args, **kwargs)
@@ -84,11 +89,13 @@ class FragilityCurve(ToolboxBase):
         df_in = self.data_adapter.input(input, schema=self.fragility_curve_schema)
         self.from_dataframe(df_in)
 
-    def measure_from_data_adapter(self):
-        """ "Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden"""
-        raise NotImplementedError("# TODO")
+    def load_effect_from_data_adapter(self, cached_value: int | str):
+        """Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden"""
+        data_adapter_to_load = self.cached_fragility_curves[cached_value]
+        df_in = self.data_adapter.input(data_adapter_to_load)
+        self.from_dataframe(df_in)
 
-    def shift(self, effect: float):
+    def shift(self, effect: float, output: str):
         """Schuift de hydraulische belasting van de fragility curve op om
         bijvoorbeeld het effect van een noodmaatregel te implementeren. Een
         positieve verschuiving levert bij dezelfde faalkans dan een hogere
@@ -104,6 +111,7 @@ class FragilityCurve(ToolboxBase):
         self.failure_probability = self.interp_func(
             x, xp, fp, ll=self.lower_limit, clip01=True
         )
+        self.data_adapter.output(output=output, df=self.as_dataframe())
 
     def check_monotonic_curve(self):
         """Forceert monotoon stijgende faalkansen"""
