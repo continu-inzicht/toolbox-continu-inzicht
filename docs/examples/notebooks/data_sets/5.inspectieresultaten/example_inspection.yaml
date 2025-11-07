@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data_sets"
+    rootdir: "data_sets/5.inspectieresultaten"
     moments: [-24,0,24,48]
     ClassifyInspections:
         classify_column: "prioriteit"

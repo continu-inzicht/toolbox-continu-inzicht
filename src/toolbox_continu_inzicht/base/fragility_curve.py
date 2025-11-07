@@ -7,6 +7,7 @@ from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht import ToolboxBase, DataAdapter
 from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
+from pydantic import TypeAdapter
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -94,6 +95,14 @@ class FragilityCurve(ToolboxBase):
         data_adapter_to_load = self.cached_fragility_curves[cached_value]
         df_in = self.data_adapter.input(data_adapter_to_load)
         self.from_dataframe(df_in)
+
+    def copy(self):
+        """Maak een kopie van de fragility curve"""
+        # Get all field values as dict and create new instance
+        adapter = TypeAdapter(FragilityCurve)
+        data = adapter.dump_python(self, exclude={"data_adapter"})
+        new_curve = FragilityCurve(data_adapter=self.data_adapter, **data)
+        return new_curve
 
     def shift(self, effect: float, output: str):
         """Schuift de hydraulische belasting van de fragility curve op om

@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data_demo"
+    rootdir: "data_sets/2.belastingen_inladen"
     moments: [-24,0,24,48]
     aquo_allias:
         WATHTE [m][NAP][OW]: "WATHTE"

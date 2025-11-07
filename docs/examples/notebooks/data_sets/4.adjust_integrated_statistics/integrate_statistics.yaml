@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data_sets"
+    rootdir: "data_sets/4.adjust_integrated_statistics"
     moments: [-24,0,24,48]
 
     IntegrateFragilityCurve:

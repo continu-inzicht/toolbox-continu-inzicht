@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data_sets"
+    rootdir: "data_sets/3.fragility_curve_overtopping"
     moments: [-24,0,24,48]
 
     FragilityCurveOvertopping:
@@ -33,15 +33,3 @@ DataAdapter:
     fragility_curves:
         type: csv
         file: "fragility_curves_5.csv"
-    fragility_curve_cache_1:
-        type: csv
-        file: "fragility_curve_cache_1.csv"
-    fragility_curve_cache_2:
-        type: csv
-        file: "fragility_curve_cache_2.csv"
-    fragility_curve_cache_3:
-        type: csv
-        file: "fragility_curve_cache_3.csv"
-    fragility_curve_cache_4:
-        type: csv
-        file: "fragility_curve_cache_4.csv"

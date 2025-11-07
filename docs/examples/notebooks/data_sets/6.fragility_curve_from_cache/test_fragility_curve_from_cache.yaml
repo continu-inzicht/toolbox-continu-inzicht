@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data_sets"
+    rootdir: "data_sets/6.fragility_curve_from_cache"
     moments: [-24,0,24,48]
 
 DataAdapter:
