@@ -32,7 +32,7 @@ class FragilityCurve(ToolboxBase):
         Forceert monotoon stijgende faalkansen, standaard True
     fragility_curve_schema: ClassVar[dict[str, str]]
         Schema waaraan de fragility curve moet voldoen:{hydraulicload: float, failure_probability: float}
-    cached_fragility_curves: Optional[dict[str | int, str]] | None
+    cached_fragility_curves: Optional[dict[str | int, str | pd.DataFrame]] | None
         Cache voor fragility curves die al zijn berekend, de key is een string of int met een bijbehorende DataAdapter naam
         Afhankelijk van de implementatie kan deze cache worden gebruikt om fragility curves in te laden zonder deze opnieuw te berekenen.
         De logica om de selectie van de cache te kiezen moet op een hoger abstractieniveau worden geïmplementeerd.
@@ -48,7 +48,7 @@ class FragilityCurve(ToolboxBase):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
-    cached_fragility_curves: Optional[dict[str | int, str]] | None = None
+    cached_fragility_curves: Optional[dict[str | int, str | pd.DataFrame]] | None = None
 
     def run(self, *args, **kwargs):
         self.calculate_fragility_curve(*args, **kwargs)
@@ -88,6 +88,11 @@ class FragilityCurve(ToolboxBase):
     def load(self, input: str):
         """Laadt een fragility curve in"""
         df_in = self.data_adapter.input(input, schema=self.fragility_curve_schema)
+        self.from_dataframe(df_in)
+
+    def load_effect_from_dataframe(self, cached_value: int | str):
+        """Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden"""
+        df_in = self.cached_fragility_curves[cached_value]
         self.from_dataframe(df_in)
 
     def load_effect_from_data_adapter(self, cached_value: int | str):

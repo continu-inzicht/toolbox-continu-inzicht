@@ -21,3 +21,6 @@ DataAdapter:
     fragility_curve_cache_4:
         type: csv
         file: "fragility_curve_cache_4.csv"
+    resulting_fragility_curve:
+        type: csv
+        file: "hidden_resulting_fragility.csv"
