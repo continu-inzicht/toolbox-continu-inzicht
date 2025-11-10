@@ -139,7 +139,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/importlib_resources-6.5.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/iniconfig-2.0.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/ipopt-3.14.19-h0804adb_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/ipykernel-7.0.0a2-pyh82676e8_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/ipykernel-7.1.0-pyha191276_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipython-9.4.0-pyhfa0c392_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipython_pygments_lexers-1.1.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipywidgets-8.1.7-pyhd8ed1ab_0.conda
@@ -470,7 +470,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/16/96/0597cabf3017ca47ec5f93c4eb578b477d7bba93344b0e8d5ed74f28fc1b/pydra_core-0.0.9-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
-      - pypi: src
+      - pypi: ./src
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/win-64/_openmp_mutex-4.5-2_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/affine-2.4.0-pyhd8ed1ab_1.conda
@@ -580,7 +580,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/importlib-resources-6.5.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/importlib_resources-6.5.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/iniconfig-2.0.0-pyhd8ed1ab_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/ipykernel-7.0.0a2-pyh3521513_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/ipykernel-7.1.0-pyh6dadd2b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipython-9.4.0-pyh6be1c34_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipython_pygments_lexers-1.1.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ipywidgets-8.1.7-pyhd8ed1ab_0.conda
@@ -830,7 +830,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/16/96/0597cabf3017ca47ec5f93c4eb578b477d7bba93344b0e8d5ed74f28fc1b/pydra_core-0.0.9-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
-      - pypi: src
+      - pypi: ./src
   prod:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
@@ -1122,7 +1122,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/16/96/0597cabf3017ca47ec5f93c4eb578b477d7bba93344b0e8d5ed74f28fc1b/pydra_core-0.0.9-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
-      - pypi: src
+      - pypi: ./src
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/win-64/_openmp_mutex-4.5-2_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-types-0.7.0-pyhd8ed1ab_1.conda
@@ -1334,7 +1334,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/16/96/0597cabf3017ca47ec5f93c4eb578b477d7bba93344b0e8d5ed74f28fc1b/pydra_core-0.0.9-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
-      - pypi: src
+      - pypi: ./src
 packages:
 - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
   sha256: fe51de6107f9edc7aa4f786a70f4a883943bc9d39b3bb7307c04c41410990726
@@ -3885,10 +3885,11 @@ packages:
   purls: []
   size: 1023755
   timestamp: 1753899099198
-- conda: https://conda.anaconda.org/conda-forge/noarch/ipykernel-7.0.0a2-pyh3521513_0.conda
-  sha256: 94eaa4f9f937a71707f6a25f98dfe7b13731132391016679e96b8d4814c0829d
-  md5: d97f8cd0bab843bb58cb7a6af71df1b0
+- conda: https://conda.anaconda.org/conda-forge/noarch/ipykernel-7.1.0-pyh6dadd2b_0.conda
+  sha256: 75e42103bc3350422896f727041e24767795b214a20f50bf39c371626b8aae8b
+  md5: f22cb16c5ad68fd33d0f65c8739b6a06
   depends:
+  - python
   - __win
   - comm >=0.1.1
   - debugpy >=1.6.5
@@ -3899,20 +3900,24 @@ packages:
   - nest-asyncio >=1.4
   - packaging >=22
   - psutil >=5.7
-  - python >=3.9
+  - python >=3.10
   - pyzmq >=25
   - tornado >=6.2
   - traitlets >=5.4.0
+  - python
+  constrains:
+  - appnope >=0.1.2
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/ipykernel?source=compressed-mapping
-  size: 123857
-  timestamp: 1755087201242
-- conda: https://conda.anaconda.org/conda-forge/noarch/ipykernel-7.0.0a2-pyh82676e8_0.conda
-  sha256: ce2486c0b41dff9dfbdcff1ecde38419b1d2eec4823821125b48e924e1ff3633
-  md5: 3bc121d1e9428f478d5a4d6ee28857f4
+  - pkg:pypi/ipykernel?source=hash-mapping
+  size: 132418
+  timestamp: 1761567966860
+- conda: https://conda.anaconda.org/conda-forge/noarch/ipykernel-7.1.0-pyha191276_0.conda
+  sha256: a9d6b74115dbd62e19017ff8fa4885b07b5164427f262cc15b5307e5aaf3ee73
+  md5: c6f63cfe66adaa5650788e3106b6683a
   depends:
+  - python
   - __linux
   - comm >=0.1.1
   - debugpy >=1.6.5
@@ -3923,16 +3928,19 @@ packages:
   - nest-asyncio >=1.4
   - packaging >=22
   - psutil >=5.7
-  - python >=3.9
+  - python >=3.10
   - pyzmq >=25
   - tornado >=6.2
   - traitlets >=5.4.0
+  - python
+  constrains:
+  - appnope >=0.1.2
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/ipykernel?source=compressed-mapping
-  size: 122990
-  timestamp: 1755087171716
+  - pkg:pypi/ipykernel?source=hash-mapping
+  size: 133820
+  timestamp: 1761567932044
 - conda: https://conda.anaconda.org/conda-forge/noarch/ipython-9.4.0-pyh6be1c34_0.conda
   sha256: 8fb441c9f4b50e38b6059e8984e49208a4e2a4ec4e41b543ebaa894f8261d4c9
   md5: b551e25e4fb27ccb51aff2c5dcf178f4
@@ -9822,7 +9830,7 @@ packages:
   - pkg:pypi/tomli-w?source=hash-mapping
   size: 12680
   timestamp: 1736962345843
-- pypi: src
+- pypi: ./src
   name: toolbox-continu-inzicht
   version: 0.1.2
   sha256: a06651df38b1eb3fb1f183e87241340d35d867d8236ca2de50bac78e475666f4
@@ -9901,6 +9909,22 @@ packages:
   - pkg:pypi/tornado?source=hash-mapping
   size: 878818
   timestamp: 1754732227288
+- pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
+  name: tqdm
+  version: 4.67.1
+  sha256: 26445eca388f82e72884e0d580d5464cd801a3ea01e63e5601bdff9ba6a48de2
+  requires_dist:
+  - colorama ; sys_platform == 'win32'
+  - pytest>=6 ; extra == 'dev'
+  - pytest-cov ; extra == 'dev'
+  - pytest-timeout ; extra == 'dev'
+  - pytest-asyncio>=0.24 ; extra == 'dev'
+  - nbval ; extra == 'dev'
+  - requests ; extra == 'discord'
+  - slack-sdk ; extra == 'slack'
+  - requests ; extra == 'telegram'
+  - ipywidgets>=6 ; extra == 'notebook'
+  requires_python: '>=3.7'
 - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
   name: tqdm
   version: 4.67.1

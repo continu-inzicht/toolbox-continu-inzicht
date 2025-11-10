@@ -1,6 +1,8 @@
 GlobalVariables:
     rootdir: "data_sets/6.fragility_curve_from_cache"
     moments: [-24,0,24,48]
+    LoadCachedFragilityCurve:
+        default_measure_id: 0
 
 DataAdapter:
     default_options:
@@ -9,9 +11,13 @@ DataAdapter:
     fragility_curve_multi_section_multi_failure:
         type: csv
         file: "fragility_curve_multi_section_multi_failure.csv"
+    section_id_to_measure_id:
+        type: csv
+        file: "section_id_to_measure_id.csv"
     resulting_fragility_curve:
         type: csv
         file: "hidden_resulting_fragility_one_section_multi_failure.csv"
+    # only used to create shifted curves
     shifted_fragility_curve:
         type: csv
         file: "hidden_shifted_fragility_mulit_section_multi_failure.csv"

@@ -1,6 +1,8 @@
 GlobalVariables:
     rootdir: "data_sets/6.fragility_curve_from_cache"
     moments: [-24,0,24,48]
+    LoadCachedFragilityCurve:
+        default_measure_id: 0
 
 DataAdapter:
     default_options:

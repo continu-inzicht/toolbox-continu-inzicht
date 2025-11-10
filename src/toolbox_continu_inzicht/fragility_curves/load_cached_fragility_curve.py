@@ -44,6 +44,11 @@ class LoadCachedFragilityCurveOneFailureMechanism(ToolboxBase):
     Notes
     -----
 
+    Default waarden te overschrijven in de global variables (let op: `LoadCachedFragilityCurve`):
+
+    - default_measure_id: int
+        Standaard measure_id die gebruikt wordt als basis fragility curve, standaard 0.
+
 
     """
 
@@ -91,23 +96,39 @@ class LoadCachedFragilityCurveOneFailureMechanism(ToolboxBase):
         """Functie om hergebruik toe te staan van LoadCachedFragilityCurveOneFailureMechanism door LoadCachedFragilityCurve"""
 
         fragility_curve = FragilityCurve(self.data_adapter)
-        # aanname dat altijd op nul staat
+        # measures zijn configurabel
+        global_variables = self.data_adapter.config.global_variables
+        options = global_variables.get("LoadCachedFragilityCurve", {})
+        default_measure_value = options.get("default_measure_id", 0)
         measures = list(df_fragility_curves["measure_id"].unique())
-        if 0 not in measures:
+        if default_measure_value not in measures:
             raise ValueError(
-                "Er is geen basis fragility curve (measure_id 0) aanwezig in de input dataadapter"
+                f"Er is geen basis fragility curve (measure_id {default_measure_value}) aanwezig. Zorg dat de input data klopt of pas "
+                f"de default_measure_id aan in de input data adapter onder LoadCachedFragilityCurve:\ndefault_measure_id:"
             )
 
-        df_in = df_fragility_curves[df_fragility_curves["measure_id"] == 0]
-        fragility_curve.from_dataframe(df_in)
-        measures.remove(0)  # we already loaded the base curve with measure_id 0
-        cache = {}
-        for ids in measures:
-            cache[ids] = df_fragility_curves[df_fragility_curves["measure_id"] == ids]
-        fragility_curve.cached_fragility_curves = cache
-        # select the implemented fragility curve based on measure_id
-        fragility_curve.load_effect_from_dataframe(measure_id)
-        df_out = fragility_curve.as_dataframe()
+        df_in = df_fragility_curves[
+            df_fragility_curves["measure_id"] == default_measure_value
+        ]
+        # trivial case, return the base curve
+        if measure_id == default_measure_value:
+            df_out = df_in.copy()
+        else:
+            # load the base fragility curve
+            fragility_curve.from_dataframe(df_in)
+            measures.remove(
+                default_measure_value
+            )  # we already loaded the base curve with measure_id 0
+            cache = {}
+            for ids in measures:
+                cache[ids] = df_fragility_curves[
+                    df_fragility_curves["measure_id"] == ids
+                ]
+            fragility_curve.cached_fragility_curves = cache
+            # select the implemented fragility curve based on measure_id
+            fragility_curve.load_effect_from_dataframe(measure_id)
+            df_out = fragility_curve.as_dataframe()
+
         return df_in, df_out
 
 
@@ -129,16 +150,25 @@ class LoadCachedFragilityCurve(LoadCachedFragilityCurveOneFailureMechanism):
     loaded_curve : Optional[FragilityCurve] | None
         Ingeladen fragility curve met cached curves
     cache_fragility_curve_schema : ClassVar[dict[str, str]]
-        Schema waaraan de fragility curve moet voldoen:
+        Schema waaraan de fragility curve moet voldoen.
 
         - failure_mechanism_id: int,
         - measure_id: int,
         - hydraulicload: float,
         - failure_probability: float
 
+    measure_id_to_failuremechanism_id_schema : ClassVar[dict[str, str]]
+        Schema waaraan de koppelingstabel tussen measure_id en failuremechanism_id moet voldoen.
+
+        - failure_mechanism_id: int,
+        - measure_id: int
     Notes
     -----
 
+    Default waarden te overschrijven in de global variables:
+
+    - default_measure_id: int
+        Standaard measure_id die gebruikt wordt als basis fragility curve, standaard 0.
 
     """
 
@@ -149,55 +179,104 @@ class LoadCachedFragilityCurve(LoadCachedFragilityCurveOneFailureMechanism):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
+    failuremechanism_id_to_measure_id_schema: ClassVar[dict[str, str]] = {
+        "failuremechanism_id": "int",
+        "measure_id": "int",
+    }
 
-    def run(self, input: str, output: str, measure_id: int) -> None:
+    def run(
+        self, input: str | list[str], output: str, measure_id: int | None = None
+    ) -> None:
         """
         Runt de het ophalen van een voorberekende fragility curve voor een enkel vak, voor een meerdere faalmechanisme.
 
         Parameters
         ----------
-        input: str
-            Naam van de input dataadapter: fragility curves,
-            hierbij zijn de fragility curves voor een faalmechanisme en dijkvak, maar meerdere measureids.
+        input: str | list[str]
+            - Als string:
+                Naam van de input dataadapter: fragility curves,
+                hierbij zijn de fragility curves voor een faalmechanisme en dijkvak, maar meerdere measureids.
+            - Als list van strings:
+                1. Naam van de input dataadapter: fragility curves,
+                hierbij zijn de fragility curves voor een faalmechanisme en dijkvak, maar meerdere measureids.
+                2. Naam van de input dataadapter: koppelingstabel tussen measure_id en failuremechanism_id
 
         output: str
             Naam van de dataadapter voor de enkele Fragility curve output.
 
-        measure_id: int
+        measure_id: int | None
             Measure_id van de fragility curve die ingeladen moet worden.
+
+        Raises
+        ------
+        AssertionError
+            Als `input` een string is, maar `measure_id` is None.
 
         Notes
         -----
 
         """
-        df_fragility_curves = self.data_adapter.input(
-            input, schema=self.cache_fragility_curve_schema
-        )
-        self.df_in, self.df_out = self.retrieve_cache_for_multiple_failure_mechanisms(
-            df_fragility_curves, measure_id
-        )
+        if isinstance(input, str):
+            assert measure_id is not None, (
+                "measure_id moet worden opgegeven als input een string is"
+            )
+            df_fragility_curves = self.data_adapter.input(
+                input, schema=self.cache_fragility_curve_schema
+            )
+            self.df_in, self.df_out = (
+                self.retrieve_cache_for_multiple_failure_mechanisms(
+                    df_fragility_curves, measure_id
+                )
+            )
+        else:
+            if measure_id is not None:
+                self.data_adapter.logger.warning(
+                    "Als een koppelingstabel is meegegeven, wordt de opgegeven measure_id genegeerd."
+                    "zet deze op None om de warning te voorkomen."
+                )
+            df_fragility_curves = self.data_adapter.input(
+                input[0], schema=self.cache_fragility_curve_schema
+            )
+            df_failuremechanism_to_measure_id = self.data_adapter.input(
+                input[1], schema=self.failuremechanism_id_to_measure_id_schema
+            )
+            self.df_in, self.df_out = (
+                self.retrieve_cache_for_multiple_failure_mechanisms(
+                    df_fragility_curves, df_failuremechanism_to_measure_id
+                )
+            )
+
         self.df_out = self.df_out[
             list(self.cache_fragility_curve_schema.keys())
         ]  # fix column order
         self.data_adapter.output(output, self.df_out)
 
     def retrieve_cache_for_multiple_failure_mechanisms(
-        self, df_fragility_curves: pd.DataFrame, measure_id: int
+        self, df_fragility_curves: pd.DataFrame, measure_id: int | pd.DataFrame
     ) -> pd.DataFrame:
         """Functie om hergebruik toe te staan van LoadCachedFragilityCurve door LoadCachedFragilityCurveMultiple"""
         failure_mechanism_ids = list(
             df_fragility_curves["failuremechanism_id"].unique()
         )
         lst_selected_curves, lst_initial_curves = [], []
+
         for failure_mechanism in failure_mechanism_ids:
             df_fragility_curves_per_mechanism = df_fragility_curves[
                 df_fragility_curves["failuremechanism_id"] == failure_mechanism
             ]
+            if isinstance(measure_id, pd.DataFrame):
+                # als er een koppelingstabel is meegegeven, zoek dan de juiste measure_id per faalmechanisme
+                corresonding_measure_id = measure_id[
+                    measure_id["failuremechanism_id"] == failure_mechanism
+                ]["measure_id"].values[0]
+            else:
+                corresonding_measure_id = measure_id
+
             inital_curve, selected_curve = self.retrieve_cache(
-                df_fragility_curves_per_mechanism, measure_id
+                df_fragility_curves_per_mechanism, corresonding_measure_id
             )
             selected_curve["failuremechanism_id"] = failure_mechanism
-            selected_curve["measure_id"] = measure_id
+            selected_curve["measure_id"] = corresonding_measure_id
 
             lst_selected_curves.append(selected_curve)
             lst_initial_curves.append(inital_curve)
@@ -217,11 +296,18 @@ class LoadCachedFragilityCurveMultiple(LoadCachedFragilityCurve):
     ----------
     data_adapter : DataAdapter
         Adapter for handling data input and output operations.
+
     df_out : Optional[pd.DataFrame] | None
         Output DataFrame containing the final fragility curve
 
     Notes
     -----
+
+    Default waarden te overschrijven in de global variables (let op: `LoadCachedFragilityCurve`):
+
+    - default_measure_id: int
+        Standaard measure_id die gebruikt wordt als basis fragility curve, standaard 0.
+
 
 
     """
@@ -234,28 +320,61 @@ class LoadCachedFragilityCurveMultiple(LoadCachedFragilityCurve):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
+    section_id_to_measure_id_schema: ClassVar[dict[str, str]] = {
+        "section_id": "int",
+        "failuremechanism_id": "int",
+        "measure_id": "int",
+    }
 
-    def run(self, input: str, output: str, measure_id: int) -> None:
+    def run(
+        self, input: str | list[str], output: str, measure_id: int | None = None
+    ) -> None:
         """
         Runt de het ophalen van een voorberekende fragility curve voor  meerdere vakken en voor meerdere faalmechanisme.
 
         Parameters
         ----------
-        input: str
+        input: str | list[str]
             Naam van de input dataadapter: fragility curves,
             Hierbij zijn de fragility curves voor meerdere faalmechanisme, dijkvak en measure_ids.
+
         output: str
             Naam van de dataadapter Fragility curve output
-        measure_id: int
+
+        measure_id: int | None
             Measure_id van de fragility curve die ingeladen moet worden.
+
+        Raises
+        ------
+        AssertionError
+            Als `input` een string is, maar `measure_id` is None.
+
 
         Notes
         -----
 
         """
-        df_fragility_curves = self.data_adapter.input(
-            input, schema=self.cache_fragility_curve_schema
-        )
+        if isinstance(input, str):
+            assert measure_id is not None, (
+                "measure_id moet worden opgegeven als `input` een string is"
+            )
+            df_fragility_curves = self.data_adapter.input(
+                input, schema=self.cache_fragility_curve_schema
+            )
+            corresonding_measure_id = measure_id
+        else:
+            df_fragility_curves = self.data_adapter.input(
+                input[0], schema=self.cache_fragility_curve_schema
+            )
+            df_section_to_measure_id = self.data_adapter.input(
+                input[1], schema=self.section_id_to_measure_id_schema
+            )
+            if measure_id is not None:
+                self.data_adapter.logger.warning(
+                    "Als een koppelingstabel is meegegeven, wordt de opgegeven measure_id genegeerd."
+                    "zet deze op None om de warning te voorkomen."
+                )
+
         section_ids = list(df_fragility_curves["section_id"].unique())
         lst_selected_curves = []
         lst_initial_curves = []
@@ -263,9 +382,14 @@ class LoadCachedFragilityCurveMultiple(LoadCachedFragilityCurve):
             df_fragility_curves_per_section = df_fragility_curves[
                 df_fragility_curves["section_id"] == section
             ]
+            if isinstance(input, list):
+                corresonding_measure_id = df_section_to_measure_id[
+                    df_section_to_measure_id["section_id"] == section
+                ]
+
             input_per_section, output_per_section = (
                 self.retrieve_cache_for_multiple_failure_mechanisms(
-                    df_fragility_curves_per_section, measure_id
+                    df_fragility_curves_per_section, corresonding_measure_id
                 )
             )
             output_per_section["section_id"] = section
