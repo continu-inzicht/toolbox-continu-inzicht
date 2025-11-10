@@ -92,12 +92,22 @@ class FragilityCurve(ToolboxBase):
 
     def load_effect_from_dataframe(self, cached_value: int | str):
         """Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden"""
-        df_in = self.cached_fragility_curves[cached_value]
+        try:
+            df_in = self.cached_fragility_curves[cached_value]
+        except KeyError:
+            raise ValueError(
+                f"Geen fragility curve gevonden voor waarde {cached_value} in de cache: {self.cached_fragility_curves.keys()}"
+            )
         self.from_dataframe(df_in)
 
     def load_effect_from_data_adapter(self, cached_value: int | str):
         """Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden"""
-        data_adapter_to_load = self.cached_fragility_curves[cached_value]
+        try:
+            data_adapter_to_load = self.cached_fragility_curves[cached_value]
+        except KeyError:
+            raise ValueError(
+                f"Geen fragility curve gevonden voor waarde {cached_value} in de cache: {self.cached_fragility_curves.keys()}"
+            )
         df_in = self.data_adapter.input(data_adapter_to_load)
         self.from_dataframe(df_in)
 
