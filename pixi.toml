@@ -1,4 +1,4 @@
-[project]
+[workspace]
 name = "toolbox-continu-inzicht"
 version = "0.1.2"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen."
@@ -41,6 +41,7 @@ pytest-cov = "pytest --cov --cov-report=xml --benchmark-save=ci-run --ignore=src
 pytest-cov-html = "pytest --cov --cov-report html:tests/hidden_test_cov --ignore=src\\toolbox_continu_inzicht\\base\\adapters"
 
 [feature.common.dependencies]
+python = ">=3.11,<3.14" # no support for 3.14 yet in many packages
 pandas = "*"
 pydantic = ">=2"
 python-dotenv = ">=1.0.1"

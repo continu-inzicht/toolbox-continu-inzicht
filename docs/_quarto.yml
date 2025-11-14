@@ -38,10 +38,9 @@ website:
           - "examples/notebooks/3.fragility_curve_overtopping.ipynb"
           - "examples/notebooks/4.adjust_integrated_statistics.ipynb"
           - "examples/notebooks/5.inspectieresultaten.ipynb"
+          - "examples/notebooks/6.fragility_curve_from_cache.ipynb"
           - "examples/notebooks/100.logging.ipynb"
           - "examples/notebooks/101.WMS_laag_naar_database.ipynb"
-
-
 
       - title: "Modules"
         contents:
@@ -53,6 +52,7 @@ website:
           - modules/kansen_en_status_per_sectie.qmd
           - modules/impactanalyse.qmd
           - modules/inspectieresultaten.qmd
+          - modules/maatregelen.qmd
 
       - title: "Python API"
         contents:
@@ -74,7 +74,7 @@ website:
 format:
   html:
     theme: cosmo
-    css: styles/styles.css
+    css: assets/styles.css
     toc: true
     encoding: 'ISO-8859-1'
 

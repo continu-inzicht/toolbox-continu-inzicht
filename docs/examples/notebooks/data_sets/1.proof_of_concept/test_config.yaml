@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: 'data_sets'
+    rootdir: 'data_sets/1.proof_of_concept'
 
 DataAdapter:
     default_options:
