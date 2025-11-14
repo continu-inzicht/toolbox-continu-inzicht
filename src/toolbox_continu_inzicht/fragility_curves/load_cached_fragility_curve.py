@@ -416,12 +416,6 @@ class LoadCachedFragilityCurveMultiple(LoadCachedFragilityCurve):
             df_section_to_measure_id = self.data_adapter.input(
                 input[2], schema=self.section_id_to_measure_id_schema
             )
-            if measure_id is not None:
-                self.data_adapter.logger.warning(
-                    "Als een koppelingstabel is meegegeven, wordt de opgegeven measure_id genegeerd."
-                    "zet deze op None om de warning te voorkomen."
-                )
-
         section_ids = list(df_fragility_curves["section_id"].unique())
         lst_selected_curves = []
         lst_initial_curves = []
