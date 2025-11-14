@@ -11,6 +11,9 @@ DataAdapter:
     fragility_curve_multi_section_multi_failure:
         type: csv
         file: "fragility_curve_multi_section_multi_failure.csv"
+    measures_to_effect:
+        type: csv
+        file: "measures_to_effect.csv"
     section_id_to_measure_id:
         type: csv
         file: "section_id_to_measure_id.csv"
