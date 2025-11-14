@@ -205,7 +205,7 @@ DataAdapter:
         file: "fragility_curve_cache_4.csv"
     resulting_fragility_curve:
         type: csv
-        file: "hidden_resulting_fragility.csv""
+        file: "hidden_resulting_fragility.csv"
 ```
 ## Code
 ```python

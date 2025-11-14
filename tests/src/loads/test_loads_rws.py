@@ -12,7 +12,7 @@ def test_BelastingWaterwebservicesRWS():
     c = Config(config_path=test_data_sets_path / "test_loads_rws_8420_config.yaml")
     c.lees_config()
     data_adapter = DataAdapter(config=c)
-    # set calc time as to not be so dependat on outage
+    # set calc time as to not be so dependent on outage
     data_adapter.config.global_variables["calc_time"] = datetime(
         2025,
         6,

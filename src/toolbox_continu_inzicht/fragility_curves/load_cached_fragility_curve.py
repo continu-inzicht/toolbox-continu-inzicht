@@ -15,7 +15,7 @@ Load cached fragility curve heeft 3 niveas:
 1. Voor een dijkvak, maar voor alle faalmechanismen in een keer de curves aanpassen met `LoadCachedFragilityCurve`.
 
 1. Voor alle dijkvakken en faalmechanismes in een keer alle curves aanpassen met `LoadCachedFragilityCurveMultiple`,
-    dit is in de huidge implementatie de manier om het te doen.
+    dit is in de huidige implementatie van CI de manier om het te doen.
 """
 
 
@@ -298,19 +298,19 @@ class LoadCachedFragilityCurve(LoadCachedFragilityCurveOneFailureMechanism):
             ]
             if isinstance(measure_id, pd.DataFrame):
                 # als er een koppelingstabel is meegegeven, zoek dan de juiste measure_id per faalmechanisme
-                corresonding_measure_id = measure_id[
+                corresponding_measure_id = measure_id[
                     measure_id["failuremechanism_id"] == failure_mechanism
                 ]["measure_id"].values[0]
             else:
-                corresonding_measure_id = measure_id
+                corresponding_measure_id = measure_id
 
             inital_curve, selected_curve = self.retrieve_cache(
                 df_fragility_curves_per_mechanism,
                 df_measures_to_effect,
-                corresonding_measure_id,
+                corresponding_measure_id,
             )
             selected_curve["failuremechanism_id"] = failure_mechanism
-            selected_curve["measure_id"] = corresonding_measure_id
+            selected_curve["measure_id"] = corresponding_measure_id
 
             lst_selected_curves.append(selected_curve)
             lst_initial_curves.append(inital_curve)
@@ -401,7 +401,7 @@ class LoadCachedFragilityCurveMultiple(LoadCachedFragilityCurve):
             df_measures_to_effect = self.data_adapter.input(
                 input[1], schema=self.measure_to_effect_schema
             )
-            corresonding_measure_id = measure_id
+            corresponding_measure_id = measure_id
         else:
             assert len(input) == 3, (
                 "Als er geen measure_id is opgegeven, moeten er precies 3 input data adapters zijn: "
@@ -430,7 +430,7 @@ class LoadCachedFragilityCurveMultiple(LoadCachedFragilityCurve):
                 df_fragility_curves["section_id"] == section
             ]
             if measure_id is None:
-                corresonding_measure_id = df_section_to_measure_id[
+                corresponding_measure_id = df_section_to_measure_id[
                     df_section_to_measure_id["section_id"] == section
                 ]
 
@@ -438,7 +438,7 @@ class LoadCachedFragilityCurveMultiple(LoadCachedFragilityCurve):
                 self.retrieve_cache_for_multiple_failure_mechanisms(
                     df_fragility_curves_per_section,
                     df_measures_to_effect,
-                    corresonding_measure_id,
+                    corresponding_measure_id,
                 )
             )
             output_per_section["section_id"] = section
