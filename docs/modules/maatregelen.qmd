@@ -4,61 +4,35 @@ title: "Maatregelen"
 
 Tijdens crisis situaties kunnen maatregelen worden getroffen, om in dat soort situaties ook de actuele kansen inzichtelijk te maken kunnen de fragility curves worden aangepast. Voor alle fragility curve kunnen worden verschoven. Voor GEKB curves die in de toolbox 'on the fly' worden berekend kan de kruinhoogte worden aangepast, zie de module [bijstellen](./bijstellen_fragility_curves.qmd) voor meer informatie.
 Als de fragility curves van de voren zijn berekend met een bepaalde maatregel, kunnen we de huidige curve vervangen met een voorberekende curve die past bij de maatregel.
-Hiervoor zijn 4 verschillende functies uitgewerkt, afhankelijk van de implementatie kan gekozen worden voor een van de vier.
+Als de curve er niet is die pas bij de maatregel, verschuiven we de originele curve. Hiervoor is ook een koppelings nodig tussen maatregel en effect.
 
-1. De fragility curve kan per dijk vak aangepast worden voor één mechanisme met [`LoadCachedFragilityCurveOneFailureMechanism`](#sec-LoadCachedFragilityCurveOneFailureMechanism). Hierbij is de aanpassing het meest overzichtelijk, maar het is wel omslachtig als er veel dijkvakken zijn.
-
-1. Voor een dijkvak, maar voor alle faalmechanismen in een keer de fragility curves aanpassen met `LoadCachedFragilityCurve`.
+De standaard manier is om voor alle dijkvakken en faalmechanismes in een keer alles aan te passen.
 
 1. Voor alle dijkvakken en faalmechanismes in één keer alle fragility curves aanpassen met `LoadCachedFragilityCurveMultiple`.
 
+Daarnaast zijn er nog 3 opties om fragility curves aan te passen als je het niet op de standaard manier wilt doen.
+Deze opties zijn afhankelijk van je toepassing.
+
+1. Voor een dijkvak, maar voor alle faalmechanismen in een keer de fragility curves aanpassen met `LoadCachedFragilityCurve`.
+
+1. De fragility curve kan per dijk vak aangepast worden voor één mechanisme met [`LoadCachedFragilityCurveOneFailureMechanism`](#sec-LoadCachedFragilityCurveOneFailureMechanism). Hierbij is de aanpassing het mees
+
 1. Zelf logica in python implementeren om de bijbehorende fragility curve aan te passen door de `FragilityCurve` class te gebruiken.
 
+### Voor alle vakken en alle faalmechanisme de {#sec-LoadCachedFragilityCurveMultiple}
 
-### Per vak & per faalmechanisme de fragility curve aanpassen{#sec-LoadCachedFragilityCurveOneFailureMechanism}
+Om voor alle vak de fragility curve van alle faalmechanisme aan te passen kan de functie `LoadCachedFragilityCurveMultiple` worden gebruikt.
+Hier moet naast [`measure_id`](#sec-LoadCachedFragilityCurveOneFailureMechanism) en [`failuremechanism_id`](#sec-LoadCachedFragilityCurve) ook de `section_id` worden opgegeven.
+De eerste data adapter moet naast de `hydraulicload` en `failure_probability` van de fragilitycurve ook `measure_id`, `failuremechanism_id` en `section_id` bevatten.
 
-Om voor één vak de fragility curve van één faalmechanisme aan te passen kan de functie `LoadCachedFragilityCurveOneFailureMechanism` worden gebruikt. Hier moet naast de standaard kolomen voor een fragility curve (`hydraulicload` & `failure_probability`) ook een id worden opgegeven dat aangeeft bij welke maatregel een fragility curve hoort: `measure_id`. In het input bestand staan meerdere curves met maatregelen, standaard heeft de fragilitycurve zonder maatregel een id `0`. Deze standaard waarde kan worden aandepast met `default_measure_id` in de `yaml`. Omdat de 3 functies `LoadCachedFragilityCurve*` die hier worden beschreven functionaliteit delen moet dit altijd onder he kopje van `LoadCachedFragilityCurve`.
+Per dijkvak (section) wordt dan de fragility curve aangepast naar de fragility curve met het bijbehorende maatregel. Op deze manier worden dan alle vakken aangepast naar de gegeven maatregel.
 
-::: {.panel-tabset}
-## Configuratie
-```yaml
-GlobalVariables:
-    rootdir: "data_sets"
-    LoadCachedFragilityCurve:
-        default_measure_id: 0
+Om een koppeling te maken van vak en faalmechanisme naar maatregel is een extra tabel nodig.
+Hiervoor moet als tweede een data adapter  met `section_id`,`failuremechanism_id` en `measure_id` worden meegegeven.
 
-DataAdapter:
-    fragility_curve_one_section_one_failure:
-        type: csv
-        file: "fragility_curve_one_section_one_failure.csv"
-    resulting_fragility_curve:
-        type: csv
-        file: "hidden_resulting_fragility_one_section_one_failure.csv"
-
-```
-## Code
-```python
-from toolbox_continu_inzicht import Config, DataAdapter
-from toolbox_continu_inzicht.fragility_curves import LoadCachedFragilityCurveOneFailureMechanism
-
-config = Config(config_path="config.yaml")
-config.lees_config()
-data_adapter = DataAdapter(config=config)
-load_cached_fragility_curve = LoadCachedFragilityCurveOneFailureMechanism(
-    data_adapter=data_adapter
-)
-load_cached_fragility_curve.run(
-    input="fragility_curve_one_section_one_failure",
-    output="resulting_fragility_curve",
-    measure_id=1,
-)
-```
-:::
-
-### Per vak voor alle faalmechanisme de fragility curve aanpassen{#sec-LoadCachedFragilityCurve}
-
-#### Per faalmechanisme dezelfde maatregel{#sec-LoadCachedFragilityCurve-alle-vakken}
-Om voor één vak de fragility curve van alle faalmechanisme aan te passen kan de functie `LoadCachedFragilityCurve` worden gebruikt. Hier moet naast [`measure_id`](#sec-LoadCachedFragilityCurveOneFailureMechanism), het id van de faalmechanisme worden opgegeven: `failuremechanism_id`. Per faalmechanisme wordt dan de fragility curve aangepast naar de fragility curve met het bijbehorende maatregel. Op deze manier worden dan alle faalmechanisme aangepast naar de gegeven maatregel. Als de maatregel per faalmechanisme anders is moet ook deze koppeling in een tabel worden mee gegeven, zie hiervoor het volgende kopje: [andere maatregel per faalmechanisme](#sec-LoadCachedFragilityCurve-per-vak).
+In deze eerste data adapter staan dus meerdere curves met maatregelen en faalmechanismes. Standaard heeft de fragilitycurve zonder maatregel een id `0`.
+Deze standaard waarde kan worden aandepast met `default_measure_id` in de `yaml`.
+Omdat de 3 functies `LoadCachedFragilityCurve*` functionaliteit delen moet dit altijd onder he kopje van `LoadCachedFragilityCurve`.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -69,9 +43,12 @@ GlobalVariables:
         default_measure_id: 0
 
 DataAdapter:
-    fragility_curve_one_section_multi_failure:
+    fragility_curve_multi_section_multi_failure:
         type: csv
-        file: "fragility_curve_one_section_multi_failure.csv"
+        file: "fragility_curve_multi_section_multi_failure.csv"
+    section_id_to_measure_id:
+        type: csv
+        file: "section_id_to_measure_id.csv"
     resulting_fragility_curve:
         type: csv
         file: "hidden_resulting_fragility_one_section_multi_failure.csv"
@@ -80,23 +57,32 @@ DataAdapter:
 ## Code
 ```python
 from toolbox_continu_inzicht import Config, DataAdapter
-from toolbox_continu_inzicht.fragility_curves import LoadCachedFragilityCurve
+from toolbox_continu_inzicht.fragility_curves import LoadCachedFragilityCurveMultiple
 
 config = Config(config_path="config.yaml")
 config.lees_config()
 data_adapter = DataAdapter(config=config)
-
-load_cached_fragility_curve = LoadCachedFragilityCurve(data_adapter=data_adapter)
+load_cached_fragility_curve = LoadCachedFragilityCurveMultiple(
+    data_adapter=data_adapter
+)
 load_cached_fragility_curve.run(
-    input="fragility_curve_one_section_multi_failure",
-    output="resulting_fragility_curve",
-    measure_id=1,
+    input=["fragility_curve_one_section_one_failure","section_id_to_measure_id"],
+    output="resulting_fragility_curve"
 )
 ```
 :::
-#### Andere maatregel per faalmechanisme{#sec-LoadCachedFragilityCurve-per-vak}
 
-Als een andere maatregel wordt toegepast per faalmechanisme moet een koppeling worden gemaakt tussen de faalmechanisme en de maatregel. Hiervoor moeten een tabel met `failuremechanism_id` en `measure_id` worden meegegeven. It dat geval is de variable `measure_id` standaard `None`.
+### Per vak voor alle faalmechanisme de fragility curve aanpassen{#sec-LoadCachedFragilityCurve}
+
+Om voor één vak de fragility curve van alle faalmechanisme aan te passen kan de functie `LoadCachedFragilityCurve` worden gebruikt.
+De eerste data adapter moet naast de `hydraulicload` en `failure_probability` van de fragilitycurve ook `measure_id` en `failuremechanism_id` bevatten.
+Per faalmechanisme wordt dan de fragility curve aangepast naar de fragility curve met het bijbehorende maatregel.
+Om de aanpassing te doen moet een koppeling worden gemaakt tussen het faalmechanisme: (`failuremechanism_id`) en de maatregel  (`measure_id`), deze wordt als tweede data adapter opgegeven.
+
+In deze eerste data adapter staan dus meerdere curves met maatregelen en faalmechanismes. Standaard heeft de fragilitycurve zonder maatregel een id `0`.
+Deze standaard waarde kan worden aandepast met `default_measure_id` in de `yaml`.
+Omdat de 3 functies `LoadCachedFragilityCurve*` functionaliteit delen moet dit altijd onder he kopje van `LoadCachedFragilityCurve`.
+
 ::: {.panel-tabset}
 ## Configuratie
 ```yaml
@@ -137,14 +123,14 @@ load_cached_fragility_curve.run(
 ```
 :::
 
-### Voor alle vakken en alle faalmechanisme de {#sec-LoadCachedFragilityCurveMultiple}
+### Per vak & per faalmechanisme de fragility curve aanpassen{#sec-LoadCachedFragilityCurveOneFailureMechanism}
 
-Om voor alle vak de fragility curve van alle faalmechanisme aan te passen kan de functie `LoadCachedFragilityCurveMultiple` worden gebruikt. Hier moet naast [`measure_id`](#sec-LoadCachedFragilityCurveOneFailureMechanism) en [`failuremechanism_id`](#sec-LoadCachedFragilityCurve) ook de `section_id` worden opgegeven. Per dijkvak (section) wordt dan de fragility curve aangepast naar de fragility curve met het bijbehorende maatregel. Op deze manier worden dan alle vakken aangepast naar de gegeven maatregel. Als de maatregel per faalmechanisme of vak anders is moet ook deze koppeling in een tabel worden mee gegeven, zie hiervoor het volgende kopje: [Andere maatregel per vak & faalmechanisme](#sec-LoadCachedFragilityCurve-per-vak).
+Om voor één vak de fragility curve van één faalmechanisme aan te passen kan de functie `LoadCachedFragilityCurveOneFailureMechanism` worden gebruikt.
+De eerste data adapter moet naast de `hydraulicload` en `failure_probability` van de fragilitycurve ook `measure_id` bevatten.
 
-
-#### Per vak & faalmechanisme dezelfde maatregel{#sec-LoadCachedFragilityCurveMultiple-alle-vakken}
-
-In het geval dat alle vakken en fragility curves dezelfde maatregel hebben kan deze direct worden opgegeven via de variable `measure_id`.
+In het input bestand staan meerdere curves met maatregelen, standaard heeft de fragilitycurve zonder maatregel een id `0`.
+Deze standaard waarde kan worden aandepast met `default_measure_id` in de `yaml`.
+Omdat de 3 functies `LoadCachedFragilityCurve*` functionaliteit delen moet dit altijd onder he kopje van `LoadCachedFragilityCurve`.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -155,23 +141,23 @@ GlobalVariables:
         default_measure_id: 0
 
 DataAdapter:
-    fragility_curve_multi_section_multi_failure:
+    fragility_curve_one_section_one_failure:
         type: csv
-        file: "fragility_curve_multi_section_multi_failure.csv"
+        file: "fragility_curve_one_section_one_failure.csv"
     resulting_fragility_curve:
         type: csv
-        file: "hidden_resulting_fragility_one_section_multi_failure.csv"
+        file: "hidden_resulting_fragility_one_section_one_failure.csv"
 
 ```
 ## Code
 ```python
 from toolbox_continu_inzicht import Config, DataAdapter
-from toolbox_continu_inzicht.fragility_curves import LoadCachedFragilityCurveMultiple
+from toolbox_continu_inzicht.fragility_curves import LoadCachedFragilityCurveOneFailureMechanism
 
 config = Config(config_path="config.yaml")
 config.lees_config()
 data_adapter = DataAdapter(config=config)
-load_cached_fragility_curve = LoadCachedFragilityCurveMultiple(
+load_cached_fragility_curve = LoadCachedFragilityCurveOneFailureMechanism(
     data_adapter=data_adapter
 )
 load_cached_fragility_curve.run(
@@ -181,50 +167,6 @@ load_cached_fragility_curve.run(
 )
 ```
 :::
-
-#### Andere maatregel per vak & faalmechanisme{#sec-LoadCachedFragilityCurve-per-vak}
-
-Om een koppeling te maken van vak en faalmechanisme naar maatregel is een extra tabel nodig. Hiervoor moeten een tabel met `section_id`,`failuremechanism_id` en `measure_id` worden meegegeven.
-It dat geval is de variable `measure_id` standaard `None`.
-
-::: {.panel-tabset}
-## Configuratie
-```yaml
-GlobalVariables:
-    rootdir: "data_sets"
-    LoadCachedFragilityCurve:
-        default_measure_id: 0
-
-DataAdapter:
-    fragility_curve_multi_section_multi_failure:
-        type: csv
-        file: "fragility_curve_multi_section_multi_failure.csv"
-    section_id_to_measure_id:
-        type: csv
-        file: "section_id_to_measure_id.csv"
-    resulting_fragility_curve:
-        type: csv
-        file: "hidden_resulting_fragility_one_section_multi_failure.csv"
-
-```
-## Code
-```python
-from toolbox_continu_inzicht import Config, DataAdapter
-from toolbox_continu_inzicht.fragility_curves import LoadCachedFragilityCurveMultiple
-
-config = Config(config_path="config.yaml")
-config.lees_config()
-data_adapter = DataAdapter(config=config)
-load_cached_fragility_curve = LoadCachedFragilityCurveMultiple(
-    data_adapter=data_adapter
-)
-load_cached_fragility_curve.run(
-    input=["fragility_curve_one_section_one_failure","section_id_to_measure_id"],
-    output="resulting_fragility_curve"
-)
-```
-:::
-
 
 ### FragilityCurve{#sec-FragilityCurve}
 

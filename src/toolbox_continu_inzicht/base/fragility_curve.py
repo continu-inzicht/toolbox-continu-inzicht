@@ -143,6 +143,7 @@ class FragilityCurve(ToolboxBase):
             # Forceer dat de faalkansen monotoon stijgend zijn
             self.sort_curve()
             self.failure_probability = np.maximum.accumulate(self.failure_probability)
+            # TODO: raise warning if needed.
 
     def find_jump_indices(self):
         stepsize = np.diff(self.hydraulicload)

@@ -116,3 +116,6 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
         self.calculate_fragility_curve(
             [input[0], "changed_crest_profile", input[2]], output
         )
+
+
+# TODO: ChangeCrestHeightFragilityCurveOvertoppingMultiple
