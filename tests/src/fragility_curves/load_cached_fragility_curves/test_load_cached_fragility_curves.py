@@ -67,6 +67,7 @@ def tests_load_cached_multi_section_multi_failure_mechanism_one_measure_id():
 
 
 def tests_load_cached_multi_section_multi_failure_mechanism_diff_measure_id():
+    """checks that different measure_ids are used per section_id when specified in section_id_to_measure_id"""
     data_adapter = load_data_adapter(
         "test_fragility_curve_from_cache_multi_section_multi_failure.yaml"
     )
@@ -81,6 +82,30 @@ def tests_load_cached_multi_section_multi_failure_mechanism_diff_measure_id():
         ],
         output="resulting_fragility_curve",
     )
+    # opposite of previous test, now different measure_ids per section
+    assert not (load_cached_fragility_curve.df_out["measure_id"] == 1).all()
+    # still all different
+    assert not (load_cached_fragility_curve.df_out["failuremechanism_id"] == 1).all()
+    assert not (load_cached_fragility_curve.df_out["section_id"] == 1).all()
+
+
+def tests_loadcached_multi_section_multi_failure_mechanism_missing_cached_curve():
+    """checks that different measure_ids are used per section_id when specified in section_id_to_measure_id, even when missing in cache"""
+    data_adapter = load_data_adapter(
+        "test_fragility_curve_from_cache_multi_section_multi_failure.yaml"
+    )
+    load_cached_fragility_curve = LoadCachedFragilityCurveMultiple(
+        data_adapter=data_adapter
+    )
+    load_cached_fragility_curve.run(
+        input=[
+            "fragility_curve_multi_section_multi_failure",
+            "measures_to_effect",
+            "section_id_to_measure_id_not_cached",
+        ],
+        output="resulting_fragility_curve",
+    )
+    # See notebook 6 for visual check: TODO: add more detailed tests here
     # opposite of previous test, now different measure_ids per section
     assert not (load_cached_fragility_curve.df_out["measure_id"] == 1).all()
     # still all different

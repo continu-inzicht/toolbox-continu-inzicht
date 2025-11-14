@@ -17,6 +17,9 @@ DataAdapter:
     section_id_to_measure_id:
         type: csv
         file: "section_id_to_measure_id.csv"
+    section_id_to_measure_id_not_cached:
+        type: csv
+        file: "section_id_to_measure_id_not_cached.csv"
     resulting_fragility_curve:
         type: csv
         file: "hidden_resulting_fragility_one_section_multi_failure.csv"

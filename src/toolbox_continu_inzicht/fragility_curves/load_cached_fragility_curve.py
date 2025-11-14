@@ -138,7 +138,12 @@ class LoadCachedFragilityCurveOneFailureMechanism(ToolboxBase):
                 ]
             fragility_curve.cached_fragility_curves = cache
             # for the cases where the measure_id is not found, we shift the curve based on the effect
-            fragility_curve.measure_to_effect = df_measures_to_effect.to_dict()
+            # turn df into a dict
+            fragility_curve.measure_to_effect = dict(
+                zip(
+                    df_measures_to_effect["measure_id"], df_measures_to_effect["effect"]
+                )
+            )
             # select the implemented fragility curve based on measure_id
             fragility_curve.load_effect_from_dataframe(measure_id)
             df_out = fragility_curve.as_dataframe()
