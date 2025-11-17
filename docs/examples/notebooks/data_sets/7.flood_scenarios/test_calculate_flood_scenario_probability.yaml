@@ -6,9 +6,12 @@ DataAdapter:
     default_options:
         csv:
             sep: ","
-    failure_probability_data:
+    combined_failure_probability_data:
         type: csv
-        file: "failure_probability_data.csv"
+        file: "combined_failure_probability_data.csv"
     section_id_to_segment_id:
         type: csv
         file: "section_id_to_segment_id.csv"
+    segment_failure_probability:
+        type: csv
+        file: "hidden_segment_failure_probability.csv"

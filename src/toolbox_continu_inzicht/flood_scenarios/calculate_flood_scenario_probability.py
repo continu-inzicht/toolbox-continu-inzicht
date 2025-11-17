@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import ClassVar, Optional
 
 import pandas as pd
 from pydantic.dataclasses import dataclass
@@ -22,10 +22,22 @@ class CalculateFloodScenarioProbability(ToolboxBase):
         Dataframe met koppeling van dijkvakken naar deeltrajecten
     df_out : Optional[pd.DataFrame] | None
         Dataframe met geclassificeerde waterstanden voor opgegeven momenten.
+    schema_sections_to_segment : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met koppeling van dijkvakken naar deeltrajecten
+    schema_grouped_sections_failure_probability : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met gecombineerde dijkvakkansen
 
     Notes
     -----
 
+    schema voor sections_to_segment
+
+    - section_id: int
+    - segment_id: int
+
+    schema voor grouped_sections_failure_probability
+    - section_id: int
+    - failure_probability: float
 
     """
 
@@ -34,6 +46,14 @@ class CalculateFloodScenarioProbability(ToolboxBase):
     df_in_grouped_sections_failure_probability: Optional[pd.DataFrame] | None = None
     df_in_sections_to_segment: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
+    schema_sections_to_segment: ClassVar[dict[str, str]] = {
+        "section_id": "int",
+        "segment_id": "int",
+    }
+    schema_grouped_sections_failure_probability: ClassVar[dict[str, str]] = {
+        "section_id": "int",
+        "failure_probability": "float",
+    }
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -52,16 +72,52 @@ class CalculateFloodScenarioProbability(ToolboxBase):
 
         # drempelwaarden per meetlocatie
         self.df_in_grouped_sections_failure_probability = self.data_adapter.input(
-            input[0], self.df_in_grouped_sections_failure_probability
+            input[0], schema=self.schema_grouped_sections_failure_probability
         )
 
         # belasting per moment per meetlocaties
         self.df_in_sections_to_segment = self.data_adapter.input(
-            input[1], self.df_in_sections_to_segment
+            input[1], schema=self.schema_sections_to_segment
         )
+
+        segments = self.df_in_sections_to_segment["segment_id"].unique()
+        segments = self.df_in_sections_to_segment["segment_id"].unique()
+        segment_failure = {}
+        for segment in segments:
+            # sections die horen bij een segment
+            df_sections = self.df_in_sections_to_segment[
+                self.df_in_sections_to_segment["segment_id"] == segment
+            ]
+            dict_sections_to_length = dict(
+                zip(df_sections["section_id"], df_sections["length"])
+            )
+            # haal voor die sections de bijbehorende kansen op
+            df_prob = self.df_in_grouped_sections_failure_probability.copy()
+            df_prob_segment = df_prob[
+                df_prob["section_id"].apply(
+                    lambda x: x in dict_sections_to_length.keys()
+                )
+            ].copy()
+            # zoek in de input section de lengte op
+            df_prob_segment["length"] = df_prob_segment.apply(
+                lambda row: dict_sections_to_length[row["section_id"]], axis=1
+            )
+            # deze kansen wegen we nu naar lengte
+            total_length = df_prob_segment["length"].sum()
+            df_prob_segment["weighted_failure_probability"] = (
+                df_prob_segment["failure_probability"]
+                * df_prob_segment["length"]
+                / total_length
+            )
+            """Combineer onafhankelijk: P(fail,comb|h) = 1 - PROD(1 - P(fail,i|h))"""
+            failure = 1 - (1 - df_prob_segment["weighted_failure_probability"]).prod()
+            segment_failure[segment] = failure
 
         # placeholder
 
-        self.df_out = self.df_in_sections_to_segment
+        self.df_out = pd.DataFrame.from_dict(
+            segment_failure, orient="index", columns=["failure_probability"]
+        ).reset_index()
+        self.df_out = self.df_out.rename(columns={"index": "segment_id"})
 
         self.data_adapter.output(output=output, df=self.df_out)
