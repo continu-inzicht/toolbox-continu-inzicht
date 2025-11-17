@@ -1,4 +1,4 @@
-"""Dijkvakken module for toolbox continu inzicht"""
+# Dijkvakken module for toolbox continu inzicht
 
 from toolbox_continu_inzicht.sections.sections_loads.sections_loads import SectionsLoads
 from toolbox_continu_inzicht.sections.sections_classify.sections_classify import (
@@ -19,10 +19,10 @@ from toolbox_continu_inzicht.sections.sections_failureprobability.sections_exper
 
 
 __all__ = [
-    "SectionsLoads",
-    "SectionsClassify",
-    "SectionsCriticalFailureprobability",
-    "SectionsTechnicalFailureprobability",
-    "SectionsMeasureFailureprobability",
-    "SectionsExpertJudgementFailureprobability",
+    SectionsLoads,
+    SectionsClassify,
+    SectionsCriticalFailureprobability,
+    SectionsTechnicalFailureprobability,
+    SectionsMeasureFailureprobability,
+    SectionsExpertJudgementFailureprobability,
 ]

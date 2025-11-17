@@ -3,4 +3,4 @@ from toolbox_continu_inzicht.flood_scenarios.calculate_flood_scenario_probabilit
 )
 
 
-__all__ = ["CalculateFloodScenarioProbability"]
+__all__ = [CalculateFloodScenarioProbability]
