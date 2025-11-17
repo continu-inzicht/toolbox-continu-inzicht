@@ -1,7 +1,10 @@
 GlobalVariables:
-    rootdir: 'data_sets'
+    rootdir: 'data_sets/1.proof_of_concept'
     logging:
+        name:  toolbox_continu_inzicht  # default
         level: DEBUG
+        mode:  w # default
+        file:  hidden_logfile_advanced.log
 
 DataAdapter:
     mycsv_in:

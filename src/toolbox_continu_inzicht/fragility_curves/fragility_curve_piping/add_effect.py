@@ -69,3 +69,4 @@ class ShiftFragilityCurvePipingFixedWaterlevel(FragilityCurvePipingFixedWaterlev
         """
         self.calculate_fragility_curve(input, output)
         self.shift(effect)
+        self.data_adapter.output(output=output, df=self.as_dataframe())

@@ -15,6 +15,11 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_piping.add_effect 
     ShiftFragilityCurvePipingFixedWaterlevel,
 )
 
+from toolbox_continu_inzicht.fragility_curves.load_cached_fragility_curve import (
+    LoadCachedFragilityCurveOneFailureMechanism,
+    LoadCachedFragilityCurve,
+    LoadCachedFragilityCurveMultiple,
+)
 
 from toolbox_continu_inzicht.fragility_curves.combine_fragility_curves import (
     CombineFragilityCurvesIndependent,
@@ -41,4 +46,7 @@ __all__ = [
     "CombineFragilityCurvesWeightedSum",
     "IntegrateFragilityCurve",
     "IntegrateFragilityCurveMultiple",
+    "LoadCachedFragilityCurveOneFailureMechanism",
+    "LoadCachedFragilityCurve",
+    "LoadCachedFragilityCurveMultiple",
 ]

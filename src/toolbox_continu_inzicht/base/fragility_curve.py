@@ -7,6 +7,7 @@ from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht import ToolboxBase, DataAdapter
 from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
+from pydantic import TypeAdapter
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -31,6 +32,13 @@ class FragilityCurve(ToolboxBase):
         Forceert monotoon stijgende faalkansen, standaard True
     fragility_curve_schema: ClassVar[dict[str, str]]
         Schema waaraan de fragility curve moet voldoen:{hydraulicload: float, failure_probability: float}
+    cached_fragility_curves: Optional[dict[str | int, str | pd.DataFrame]] | None
+        Cache voor fragility curves die al zijn berekend, de key is een string of int met een bijbehorende DataAdapter naam
+        Afhankelijk van de implementatie kan deze cache worden gebruikt om fragility curves in te laden zonder deze opnieuw te berekenen.
+        De logica om de selectie van de cache te kiezen moet op een hoger abstractieniveau worden geïmplementeerd.
+    measure_to_effect: Optional[dict[str | int, float]] | None
+        Mapping van maatregel id's naar effect waarden (float) om verschuivingen van de fragility curve te bepalen.
+        Deze mapping kan worden gebruikt in combinatie met de 'shift' methode om fragility curves aan te passen op basis van specifieke maatregelen.
     """
 
     data_adapter: DataAdapter
@@ -43,6 +51,8 @@ class FragilityCurve(ToolboxBase):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
+    cached_fragility_curves: Optional[dict[str | int, str | pd.DataFrame]] | None = None
+    measure_to_effect: Optional[dict[str | int, float]] | None = None
 
     def run(self, *args, **kwargs):
         self.calculate_fragility_curve(*args, **kwargs)
@@ -84,6 +94,47 @@ class FragilityCurve(ToolboxBase):
         df_in = self.data_adapter.input(input, schema=self.fragility_curve_schema)
         self.from_dataframe(df_in)
 
+    def load_effect_from_dataframe(self, cached_value: int | str):
+        """Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden"""
+        if cached_value in self.cached_fragility_curves:
+            df_in = self.cached_fragility_curves[cached_value]
+            self.from_dataframe(df_in)
+        else:
+            self.data_adapter.logger.info(
+                f"Fragility curve with key {cached_value} not found in cache: {self.cached_fragility_curves.keys()}, cannot load. so shifting instead."
+            )
+            if self.measure_to_effect is None:
+                raise ValueError(
+                    "measure_to_effect is not defined, cannot shift fragility curve."
+                )
+            effect = self.measure_to_effect[cached_value]
+            self.shift(effect=effect)
+
+    def load_effect_from_data_adapter(self, cached_value: int | str):
+        """Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden"""
+        if cached_value in self.cached_fragility_curves:
+            data_adapter_to_load = self.cached_fragility_curves[cached_value]
+            df_in = self.data_adapter.input(data_adapter_to_load)
+            self.from_dataframe(df_in)
+        else:
+            self.data_adapter.logger.info(
+                f"Fragility curve with key {cached_value} not found in cache: {self.cached_fragility_curves.keys()}, cannot load. so shifting instead."
+            )
+            if self.measure_to_effect is None:
+                raise ValueError(
+                    "measure_to_effect is not defined, cannot shift fragility curve."
+                )
+            effect = self.measure_to_effect[cached_value]
+            self.shift(effect=effect)
+
+    def copy(self):
+        """Maak een kopie van de fragility curve"""
+        # Get all field values as dict and create new instance
+        adapter = TypeAdapter(FragilityCurve)
+        data = adapter.dump_python(self, exclude={"data_adapter"})
+        new_curve = FragilityCurve(data_adapter=self.data_adapter, **data)
+        return new_curve
+
     def shift(self, effect: float):
         """Schuift de hydraulische belasting van de fragility curve op om
         bijvoorbeeld het effect van een noodmaatregel te implementeren. Een
@@ -107,6 +158,7 @@ class FragilityCurve(ToolboxBase):
             # Forceer dat de faalkansen monotoon stijgend zijn
             self.sort_curve()
             self.failure_probability = np.maximum.accumulate(self.failure_probability)
+            # TODO: raise warning if needed.
 
     def find_jump_indices(self):
         stepsize = np.diff(self.hydraulicload)
