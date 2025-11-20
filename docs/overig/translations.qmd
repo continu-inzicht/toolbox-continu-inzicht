@@ -22,3 +22,4 @@ Om hier bij te helpen is een tabel opgesteld om bij te helpen.
 |Dijkvak|Dike section|
 |Dijk trajectdeel|Dike segment|
 |Overstromingskans gebied|Dikesystem|
+|Bres|Breach|

@@ -1,3 +1,66 @@
 ---
 title: "Overstromingsrisico scenarios"
 ---
+
+Scenarios worden gebruikt om de mogelijke gevolgen van overstromingen in kaart te brengen. <br>
+Hiermee kan de kans uit een fragilitycruve gecombineerd worden met de gevolgen die bepaald zijn bij een scenario om zo een beter inzicht te krijgen in het totale risico. <br>
+Dit kan helpen om prioriteiten te stellen op basis van een totaal beeld en niet alleen op basis van kans of gevolg afzonderlijk. <br>
+Om de scenarios te kunnen combineren moeten er een aantal stappen worden doorlopen:
+- Omrekenen van dijkvakkansen naar trajectdeelkansen ([CalculateFloodScenarioProbability](#sec-CalculateFloodScenarioProbability))
+- Belasting per deeltraject bepalen ([LoadFromFloodScenarioProbabilit](#sec-LoadFromFloodScenarioProbabilit))
+- Met de belasting een bijpassende overstromingscenario selecteren ([SelectFloodScenarioFromLoad ](#sec-SelectFloodScenarioFromLoad))
+- Van het scenario en de curve een geagregeerd risico bepalen ([CalculateFloodRisk](#sec-CalculateFloodRisk))
+
+## CalculateFloodScenarioProbability
+
+Voor het berekenen van overstromingsrisico scenarios moeten de faalkansen van vakken gecobineerd worden tot faalkansen die vergeleken kunnen worden met de kansen van overstromingsscenario's. Hierbij wordt gebruik gemaakt van de gecombineerde kans van het vak en deze worden gecombineerd naar traject delen.
+
+```mermaid
+graph TD
+    A1[Dijkvak/section] --> D[Dijktraject deel/segment]
+    B1[Dijkvak/section] --> D
+    B2[Dijkvak/section] --> D
+    C1[Dijkvak/section] --> E[Dijktraject deel/segment]
+    C2[Dijkvak/section] --> E
+    E --> F
+    D --> F[Overstromingskans gebied/Dikesystem]
+```
+
+Dit voorbeeld laat zien hoe dit gedaan kan worden met behulp van de `CalculateFloodScenarioProbability` stap in de TBCI toolbox.
+Hiervoor is de gecombineerde faalkans per dijkvak nodig en een mapping van dijkvakken naar dijktraject delen van daar naar de overstromingsscenario gebieden.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [-24,0,24,48]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    combined_failure_probability_data:
+        type: csv
+        file: "combined_failure_probability_data.csv"
+    section_id_to_segment_id:
+        type: csv
+        file: "section_id_to_segment_id.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.flood_scenarios import CalculateFloodScenarioProbability
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+calculate_flood_scenario_probability = CalculateFloodScenarioProbability(
+    data_adapter=data_adapter
+)
+calculate_flood_scenario_probability.run(
+    input=["combined_failure_probability_data", "section_id_to_segment_id"],
+    output="segment_failure_probability",
+)
+```
+:::

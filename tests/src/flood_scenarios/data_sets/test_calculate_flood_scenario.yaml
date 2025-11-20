@@ -8,12 +8,12 @@ DataAdapter:
     default_options:
         csv:
             sep: ","
-    grouped_sections_failure_probability:
+    combined_failure_probability_data:
         type: csv
-        path: "test_grouped_sections_failure_probability.csv"
-    sections_to_segment:
+        path: "test_data_grouped_sections_failure_probability.csv"
+    section_id_to_segment_id:
         type: csv
-        path: "test_sections_to_segment.csv"
+        path: "test_section_id_to_segment_id.csv"
     flood_scenario_probability_resultaten:
         type: csv
-        path: "flood_scenario_probability_resultaten.csv"
+        path: "hidden_flood_scenario_probability_resultaten.csv"

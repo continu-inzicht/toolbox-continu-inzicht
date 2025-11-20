@@ -10,7 +10,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 @dataclass(config={"arbitrary_types_allowed": True})
 class CalculateFloodScenarioProbability(ToolboxBase):
     """
-    Met deze functie worden de waterstanden met opgegeven grenzen geclassificeerd.
+    Met deze functie worden de dijkvakkansen gecombineerd naar deeltrajectkansen.
 
     Attributes
     ----------
@@ -21,7 +21,7 @@ class CalculateFloodScenarioProbability(ToolboxBase):
     df_in_sections_to_segment : Optional[pd.DataFrame] | None
         Dataframe met koppeling van dijkvakken naar deeltrajecten
     df_out : Optional[pd.DataFrame] | None
-        Dataframe met geclassificeerde waterstanden voor opgegeven momenten.
+        Dataframe met gecombineerde deeltrajectkansen.
     schema_sections_to_segment : ClassVar[dict[str, str]]
         Schema voor de input dataframe met koppeling van dijkvakken naar deeltrajecten
     schema_grouped_sections_failure_probability : ClassVar[dict[str, str]]

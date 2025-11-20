@@ -1,3 +1,4 @@
+import numpy as np
 from toolbox_continu_inzicht.flood_scenarios import CalculateFloodScenarioProbability
 
 from pathlib import Path
@@ -19,8 +20,18 @@ def test_test_calculate_flood_scenario_probability():
     calculate_flood_scenario_probability = CalculateFloodScenarioProbability(
         data_adapter=data_adapter
     )
-    result = calculate_flood_scenario_probability.run(
-        input="grouped_sections_failure_probability", output="sections_to_segment"
+    calculate_flood_scenario_probability.run(
+        input=["combined_failure_probability_data", "section_id_to_segment_id"],
+        output="flood_scenario_probability_resultaten",
     )
-    result
-    # assert result
+    df_out = calculate_flood_scenario_probability.df_out
+    df_out.set_index("segment_id", inplace=True)
+    # na rekenen van segment 34003
+    failure = 1
+    for prob, length in zip([5.500000e-01, 1.000000e-10, 1.000000e-10], [2, 3, 1]):
+        failure *= 1 - prob * length / 6
+    hand_calc = 1 - failure
+    assert np.isclose(
+        df_out.loc[34003, "failure_probability"],
+        hand_calc,
+    )
