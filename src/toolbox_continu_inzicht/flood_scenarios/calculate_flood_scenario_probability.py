@@ -120,4 +120,5 @@ class CalculateFloodScenarioProbability(ToolboxBase):
         ).reset_index()
         self.df_out = self.df_out.rename(columns={"index": "segment_id"})
 
+        # TODO: voeg overstromingskans gebied toe
         self.data_adapter.output(output=output, df=self.df_out)

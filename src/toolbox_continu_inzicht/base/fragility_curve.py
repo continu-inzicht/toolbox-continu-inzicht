@@ -236,3 +236,25 @@ class FragilityCurve(ToolboxBase):
             fp_grid[sel_update] = (1 - trust_factor) * fp_grid[sel_update]
             fp_grid[~sel_update] = (fp_grid[~sel_update] - F_update) / (1 - F_update)
             self.failure_probability = fp_grid
+
+    def water_level_from_failure_probability(self, failure_probability: float) -> float:
+        """Zoek de hydraulische belasting behorende bij een faalkans
+
+        Parameters
+        ----------
+        failure_probability : float
+            Faalkans waarvoor de hydraulische belasting gezocht wordt
+
+        Returns
+        -------
+        float
+            Hydraulische belasting behorende bij de faalkans
+        """
+        wl = self.interp_func(
+            failure_probability,
+            self.failure_probability,
+            self.hydraulicload,
+            ll=None,
+            clip01=False,
+        )
+        return wl
