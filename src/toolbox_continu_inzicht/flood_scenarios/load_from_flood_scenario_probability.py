@@ -1,5 +1,4 @@
 from typing import ClassVar, Optional
-
 import pandas as pd
 from pydantic.dataclasses import dataclass
 
@@ -98,6 +97,7 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
         self.df_in_fragility_curves.set_index("section_id", inplace=True)
 
         segments = self.df_in_breach_to_segment_risk["segment_id"].unique()
+        load_per_segment = {}
         for segment in segments:
             segment_failure_probability = self.df_in_segment_failure_probability.loc[
                 segment, "failure_probability"
@@ -106,11 +106,31 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
                 segment, "representative_section_id_fragilitycurve"
             ]
             # load curve based on fragility_curve_id
-            fragility_curve = FragilityCurve.from_dataframe(
-                self.df_in_fragility_curves.loc[fragility_curve_id]
+            fragility_curve = FragilityCurve(data_adapter=self.data_adapter)
+            try:
+                fragility_curve.from_dataframe(
+                    self.df_in_fragility_curves.loc[fragility_curve_id]
+                )
+            except KeyError:
+                self.data_adapter.logger.warning(
+                    f"Geen fragility curve gevonden voor segment {segment} "
+                    f"met fragility_curve_id {fragility_curve_id}. "
+                    f"Zorg dat de fragility curves correct zijn ingeladen, en de mapping van segment naar fragility_curve_id klopt."
+                )
+            hydraulic_load, error = (
+                fragility_curve.water_level_from_failure_probability(
+                    segment_failure_probability
+                )
             )
-            # look up the water level for the given failure probability
-            return fragility_curve, segment_failure_probability
-            # fragility_curve.water_level_from_failure_probability(segment_failure_probability)
+            self.data_adapter.logger.debug(
+                f"Segment {segment}: failure_probability {segment_failure_probability}, "
+                f"hydraulic_load {hydraulic_load}, error {error}"
+            )
+            load_per_segment[segment] = hydraulic_load
+
+        self.df_out = pd.DataFrame.from_dict(
+            load_per_segment, orient="index", columns=["hydraulic_load"]
+        )
+        self.df_out.index.name = "segment_id"
 
         self.data_adapter.output(output=output, df=self.df_out)

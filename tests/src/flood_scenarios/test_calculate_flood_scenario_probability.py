@@ -14,8 +14,8 @@ def helper_create_data_adapter(name):
     return DataAdapter(config=config)
 
 
-def test_test_calculate_flood_scenario_probability():
-    """test of de minimal werkt"""
+def test_calculate_flood_scenario_probability():
+    """test vergelijking handmatig met code"""
     data_adapter = helper_create_data_adapter("test_calculate_flood_scenario.yaml")
     calculate_flood_scenario_probability = CalculateFloodScenarioProbability(
         data_adapter=data_adapter

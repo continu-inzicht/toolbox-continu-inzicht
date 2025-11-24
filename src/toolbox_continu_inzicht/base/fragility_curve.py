@@ -6,7 +6,10 @@ import pandas as pd
 from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht import ToolboxBase, DataAdapter
-from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
+from toolbox_continu_inzicht.utils.interpolate import (
+    _interpolate_1d,
+    log_interpolate_1d,
+)
 from pydantic import TypeAdapter
 
 
@@ -237,12 +240,14 @@ class FragilityCurve(ToolboxBase):
             fp_grid[~sel_update] = (fp_grid[~sel_update] - F_update) / (1 - F_update)
             self.failure_probability = fp_grid
 
-    def water_level_from_failure_probability(self, failure_probability: float) -> float:
+    def water_level_from_failure_probability(
+        self, failure_probability_value: float
+    ) -> float:
         """Zoek de hydraulische belasting behorende bij een faalkans
 
         Parameters
         ----------
-        failure_probability : float
+        failure_probability_value : float
             Faalkans waarvoor de hydraulische belasting gezocht wordt
 
         Returns
@@ -250,11 +255,25 @@ class FragilityCurve(ToolboxBase):
         float
             Hydraulische belasting behorende bij de faalkans
         """
-        wl = self.interp_func(
-            failure_probability,
+        failure_probability = np.array(
+            sorted(list(self.failure_probability) + [failure_probability_value])
+        )
+        waterlevel = self._interpolate_water_for_failure_probability(
+            failure_probability
+        )
+
+        index = np.argmin(np.abs(self.failure_probability - failure_probability_value))
+        error = failure_probability_value - self.failure_probability[index]
+        waterlevel = self.hydraulicload[index]
+        return waterlevel, error
+
+    def _interpolate_water_for_failure_probability(
+        self, new_failure_probability: np.ndarray
+    ) -> np.ndarray:
+        """Interpoleer de hydraulische belasting behorende bij een faalkans"""
+        wl = _interpolate_1d(
+            new_failure_probability,
             self.failure_probability,
             self.hydraulicload,
-            ll=None,
-            clip01=False,
         )
         return wl

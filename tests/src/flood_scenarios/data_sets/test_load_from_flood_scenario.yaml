@@ -1,6 +1,8 @@
 GlobalVariables:
-    rootdir: "data_sets/7.flood_scenarios"
+    rootdir: "tests/src/flood_scenarios/data_sets"
     moments: [ -24, 0, 24, 48 ]
+    CalculateFloodScenarioProbability:
+
 
 DataAdapter:
     default_options:
