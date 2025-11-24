@@ -46,6 +46,9 @@ DataAdapter:
     section_id_to_segment_id:
         type: csv
         file: "section_id_to_segment_id.csv"
+    segment_failure_probability:
+        type: csv
+        file: "segment_failure_probability.csv"
 ```
 ## Code
 ```python
@@ -61,6 +64,63 @@ calculate_flood_scenario_probability = CalculateFloodScenarioProbability(
 calculate_flood_scenario_probability.run(
     input=["combined_failure_probability_data", "section_id_to_segment_id"],
     output="segment_failure_probability",
+)
+```
+:::
+
+
+## LoadFromFloodScenarioProbability
+
+Met de faalkansen per trajectdeel hebben kan met de `LoadFromFloodScenarioProbability` de belasting per trajectdeel worden bepaald.
+Hiermee kan een bijpassende overstromingsscenario geselecteerd worden.
+Met de input van de vorige stap `segment_failure_probability`, kan een koppeling worden gemaakt naar de bijhorende bres en fragilitycurve die representatief is voor een deeltraject met de tabel `breach_id_to_segment_id`.
+Zolang de koppeling van deze id's overeenkomt, is deze door de gebruiker te configureren. De bestaande vak indelingen kunnen gebruik worden, maar er kunnen ook andere curves worden gebruikt.
+Deze `representative_section_id_fragilitycurve` kan vervolgens uit de data van de curves in `section_failure_probability_data` worden gehaald.
+Met de fragilitycurve wordt de hydraulische belasting bepaald voor het deeltraject.
+
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [-24,0,24,48]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    segment_failure_probability:
+        type: csv
+        file: "segment_failure_probability.csv"
+    breach_id_to_segment_id:
+        type: csv
+        file: "breach_id_to_segment_id.csv"
+    section_failure_probability_data:
+        type: csv
+        file: "fragility_curve_multi_section.csv"
+    flood_scenario_load_resultaten:
+        type: csv
+        path: "hidden_flood_scenario_load_resultaten.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.flood_scenarios import LoadFromFloodScenarioProbability
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+load_from_flood_scenario_probability = LoadFromFloodScenarioProbability(
+    data_adapter=data_adapter
+)
+load_from_flood_scenario_probability.run(
+    input=[
+        "segment_failure_probability",
+        "breach_id_to_segment_id",
+        "section_failure_probability_data",
+    ],
+    output="flood_scenario_load_resultaten",
 )
 ```
 :::
