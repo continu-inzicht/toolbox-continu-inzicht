@@ -18,7 +18,7 @@ def _interpolate_1d(x, xp, fp):
     return f
 
 
-def _transformed_interpolate_1d(
+def _transformed_x_interpolate_1d(
     x: np.ndarray,
     xp: np.ndarray,
     fp: np.ndarray,
@@ -45,6 +45,27 @@ def _transformed_interpolate_1d(
 
     if clip01:
         f = np.clip(f, 0, 1)
+
+    return f
+
+
+def _transformed_y_interpolate_1d(
+    y: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float,
+    ftransform: Callable | None = None,
+):
+    if ll > 0:
+        # Pas de lower limit toe op een kopie van de input
+        fp = np.copy(fp)
+        fp[fp < ll] = ll
+
+    if ftransform is not None:
+        # Transformeer de fp-waarden
+        f = _interpolate_1d(ftransform(y), ftransform(fp), xp)
+    else:
+        f = _interpolate_1d(y, fp, xp)
 
     return f
 
@@ -78,10 +99,10 @@ def interpolate_1d(
     np.array
         geinterpoleerde vector
     """
-    return _transformed_interpolate_1d(x, xp, fp, ll, clip01)
+    return _transformed_x_interpolate_1d(x, xp, fp, ll, clip01)
 
 
-def log_interpolate_1d(
+def log_x_interpolate_1d(
     x: np.ndarray,
     xp: np.ndarray,
     fp: np.ndarray,
@@ -108,12 +129,12 @@ def log_interpolate_1d(
     np.array
         geinterpoleerde vector
     """
-    return _transformed_interpolate_1d(
+    return _transformed_x_interpolate_1d(
         x, xp, fp, ll, clip01, ftransform=np.log, finvtransform=np.exp
     )
 
 
-def beta_interpolate_1d(
+def beta_x_interpolate_1d(
     x: np.ndarray,
     xp: np.ndarray,
     fp: np.ndarray,
@@ -140,6 +161,60 @@ def beta_interpolate_1d(
     np.array
         geinterpoleerde vector
     """
-    return _transformed_interpolate_1d(
+    return _transformed_x_interpolate_1d(
         x, xp, fp, ll, clip01, ftransform=norm.isf, finvtransform=norm.sf
     )
+
+
+def log_y_interpolate_1d(
+    y: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float = 1e-200,
+) -> np.ndarray:
+    """interpolate_1d met x-waardes omgezet naar log-waardes
+
+    Parameters
+    ----------
+    y : np.ndarray
+        Y-waardes waarop geinterpoleerd moet worden
+    xp : np.ndarray
+        Referentievector van x-waardes
+    fp : np.ndarray
+        Referentievector van y-waardes
+    ll : float
+        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
+
+    Returns
+    -------
+    np.array
+        geinterpoleerde vector
+    """
+    return _transformed_y_interpolate_1d(y, xp, fp, ll, ftransform=np.log)
+
+
+def beta_y_interpolate_1d(
+    y: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float = 1e-200,
+) -> np.ndarray:
+    """interpolate_1d met y-waardes omgezet naar beta-waardes
+
+    Parameters
+    ----------
+    y : np.ndarray
+        Y-waardes waarop geinterpoleerd moet worden
+    xp : np.ndarray
+        Referentievector van x-waardes
+    fp : np.ndarray
+        Referentievector van y-waardes
+    ll : float
+        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
+
+    Returns
+    -------
+    np.array
+        geinterpoleerde vector
+    """
+    return _transformed_y_interpolate_1d(y, xp, fp, ll, ftransform=norm.isf)
