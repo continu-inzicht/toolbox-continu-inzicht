@@ -1,0 +1,5 @@
+,segment_id,breach_id,hydaulicload_upperboundary,waterdepth_grid,casualties_grid,damage_grid,flooding_grid,affected_people_grid
+5,34003,1,2.506,scenario_5196_waterdiepte.tif,scenario_5196_slachtoffers.tif,scenario_5196_schade.tif,scenario_5196_nattevoeten.tif,scenario_5196_getroffenen.tif
+6,34003,1,2.726,scenario_5200_waterdiepte.tif,scenario_5200_slachtoffers.tif,scenario_5200_schade.tif,scenario_5200_nattevoeten.tif,scenario_5200_getroffenen.tif
+1,34002,11,2.497,scenario_4182_waterdiepte.tif,scenario_4182_slachtoffers.tif,scenario_4182_schade.tif,scenario_4182_nattevoeten.tif,scenario_4182_getroffenen.tif
+2,34002,11,2.723,scenario_5199_waterdiepte.tif,scenario_5199_slachtoffers.tif,scenario_5199_schade.tif,scenario_5199_nattevoeten.tif,scenario_5199_getroffenen.tif

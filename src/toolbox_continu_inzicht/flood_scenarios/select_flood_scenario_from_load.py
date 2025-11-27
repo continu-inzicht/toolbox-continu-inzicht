@@ -53,11 +53,12 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
     sechema_flood_scenario_metadata: ClassVar[dict[str, str]] = {
         "breach_id": "int",
         "hydaulicload_upperboundary": "float",
-        "waterdepth_grid": "str",
-        "casualties_grid": "str",
-        "damage_grid": "str",
-        "flooding_grid": "str",
-        "affected_people_grid": "str",
+        # can contain nans so object dtype is used
+        "waterdepth_grid": "object",
+        "casualties_grid": "object",
+        "damage_grid": "object",
+        "flooding_grid": "object",
+        "affected_people_grid": "object",
     }
 
     def run(self, input: list[str], output: str) -> None:
@@ -72,7 +73,7 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
             Data adapter voor output van scenario kansen per deeltraject
         """
 
-        if not len(input) == 3:
+        if not len(input) == 2:
             raise UserWarning("Input variabele moet 2 string waarden bevatten.")
 
         self.df_in_segment_flood_scenario_load = self.data_adapter.input(
@@ -86,10 +87,10 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
         options = global_variables.get("SelectFloodScenarioFromLoad", {})
         return_two_scenarios = options.get("return_two_scenarios", False)
 
-        segments = self.df_in_flood_scenario_metadata["segment_id"].unique()
+        segments = self.df_in_segment_flood_scenario_load["segment_id"].unique()
         self.df_in_segment_flood_scenario_load.set_index("segment_id", inplace=True)
         meta_data = self.df_in_flood_scenario_metadata.copy()
-        selected_grids = {}
+        selected_grids = []
         for segment in segments:
             segment_series = self.df_in_segment_flood_scenario_load.loc[segment]
             hydraulic_load = segment_series["hydraulicload"]
@@ -97,23 +98,49 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
             current_breach_data = meta_data[meta_data["breach_id"] == breach_id].copy()
             smallest_load = current_breach_data["hydaulicload_upperboundary"].min()
             if hydraulic_load <= smallest_load:
+                # in cases where the hydaulic load is smaller than the smallest boundary, select the smallest boundary
+                # in most cases this will be a no breach scenario
                 grids_series = current_breach_data[
                     current_breach_data["hydaulicload_upperboundary"] == smallest_load
                 ]
-            elif return_two_scenarios:
-                pass
             else:
                 smaller_loads = (
                     current_breach_data["hydaulicload_upperboundary"] < hydraulic_load
                 )
-                # current_breach_data[]
-                smaller_loads
-                pass
+                subs_election = current_breach_data[smaller_loads]
+                # by default we take the lower bound
+                idx_lowerbound = subs_election["hydaulicload_upperboundary"].idxmax()
+                grids_series = current_breach_data.loc[[idx_lowerbound]]
 
-            selected_grids[segment] = grids_series.to_numpy()
+                # if requested, also find the upper bound
+                if return_two_scenarios:
+                    largest_load = current_breach_data[
+                        "hydaulicload_upperboundary"
+                    ].max()
+                    if hydraulic_load <= largest_load:
+                        larger_loads = (
+                            current_breach_data["hydaulicload_upperboundary"]
+                            >= hydraulic_load
+                        )
+                        larger_sub_selection = current_breach_data[larger_loads]
+                        idx_upperbound = larger_sub_selection[
+                            "hydaulicload_upperboundary"
+                        ].idxmin()
+                        grids_series = current_breach_data.loc[
+                            [idx_lowerbound, idx_upperbound]
+                        ]
+                    else:
+                        pass  # in this case we do not have an upper bound
 
-        self.df_out = pd.DataFrame.from_dict(
-            selected_grids, orient="index", columns=["scenario_id"]
-        )
+            grids_series["segment_id"] = segment
+            selected_grids.append(grids_series)
+
+        self.df_out = pd.concat(selected_grids, axis=0)
+
+        # reorder columns to have segment_id first - nit pik
+        columns = self.df_out.columns.tolist()
+        columns.remove("segment_id")
+        columns = ["segment_id"] + columns
+        self.df_out = self.df_out[columns]
 
         self.data_adapter.output(output=output, df=self.df_out)

@@ -78,7 +78,7 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
         """
 
         if not len(input) == 3:
-            raise UserWarning("Input variabele moet 2 string waarden bevatten.")
+            raise UserWarning("Input variabele moet 3 string waarden bevatten.")
 
         self.df_in_segment_failure_probability = self.data_adapter.input(
             input[0], schema=self.schema_segment_failure_probability
