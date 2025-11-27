@@ -3,9 +3,19 @@ from scipy.stats import norm
 from typing import Callable
 
 
-def _interpolate_1d(x, xp, fp):
-    # Bepaal lower bounds
-    intidx = np.minimum(np.maximum(0, np.searchsorted(xp, x) - 1), len(xp) - 2)
+def _interpolate_1d(x, xp, fp, side="left", sorter=None):
+    # Computes the index of the lower bracket in xp to use for linear
+    # interpolation of x. First np.searchsorted(xp, x) finds where each value
+    # in x would be inserted into the (assumed sorted) array xp to keep order;
+    # subtracting 1 turns that insertion index into the index of the element
+    # just below (the lower neighbor).
+    # Because searchsorted can return 0 or len(xp), the expression wraps that
+    # result with clamps to keep intidx in the valid range: it never drops
+    # below 0 and never exceeds len(xp) - 2. The upper clamp is len(xp) - 2 so
+    # that later code can safely access xp[intidx + 1].
+    intidx = np.searchsorted(xp, x, side=side, sorter=sorter) - 1
+    intidx = np.clip(intidx, 0, len(xp) - 2)
+
     # Bepaal stapgrootte van de gegeven x-waarden. Om delen door 0 te voorkomen
     # gebruiken we een kleine waarde in plaats van 0
     xstep = xp[intidx + 1] - xp[intidx]
@@ -34,9 +44,9 @@ def _transformed_x_interpolate_1d(
 
     if ftransform is not None and finvtransform is not None:
         # Transformeer de fp-waarden
-        f = finvtransform(_interpolate_1d(x, xp, ftransform(fp)))
+        f = finvtransform(_interpolate_1d(x, xp, ftransform(fp), side="left"))
     else:
-        f = _interpolate_1d(x, xp, fp)
+        f = _interpolate_1d(x, xp, fp, side="left")
 
     if ll > 0:
         # Reset lower limit naar 0
@@ -65,9 +75,9 @@ def _transformed_y_interpolate_1d(
 
     if ftransform is not None:
         # Transformeer de fp-waarden
-        f = _interpolate_1d(ftransform(y), ftransform(fp), xp)
+        f = _interpolate_1d(ftransform(y), ftransform(fp), xp, side="right")
     else:
-        f = _interpolate_1d(y, fp, xp)
+        f = _interpolate_1d(y, fp, xp, side="right")
 
     return f
 
