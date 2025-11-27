@@ -22,7 +22,10 @@ def test_calculate_flood_scenario_probability():
     )
     calculate_flood_scenario_probability.run(
         input=["combined_failure_probability_data", "section_id_to_segment_id"],
-        output="flood_scenario_probability_resultaten",
+        output=[
+            "flood_scenario_probability_resultaten",
+            "gecombineerde_faalkans_dijkvakken",
+        ],
     )
     df_out = calculate_flood_scenario_probability.df_out
     df_out.set_index("segment_id", inplace=True)

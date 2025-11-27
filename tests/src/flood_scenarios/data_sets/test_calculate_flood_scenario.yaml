@@ -17,3 +17,6 @@ DataAdapter:
     flood_scenario_probability_resultaten:
         type: csv
         path: "hidden_flood_scenario_probability_resultaten.csv"
+    gecombineerde_faalkans_dijkvakken:
+        type: csv
+        path: "hidden_gecombineerde_faalkans_dijkvakken.csv"
