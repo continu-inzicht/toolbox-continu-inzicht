@@ -11,6 +11,13 @@ Om de scenarios te kunnen combineren moeten er een aantal stappen worden doorlop
 - Met de belasting een bijpassende overstromingscenario selecteren ([SelectFloodScenarioFromLoad ](#sec-SelectFloodScenarioFromLoad))
 - Van het scenario en de curve een geagregeerd risico bepalen ([CalculateFloodRisk](#sec-CalculateFloodRisk))
 
+```mermaid
+graph TD
+    A[CalculateFloodScenarioProbability] --> B[LoadFromFloodScenarioProbabilit]
+    B --> C[SelectFloodScenarioFromLoad]
+    C --> D[CalculateFloodRisk]
+```
+
 ## CalculateFloodScenarioProbability
 
 Voor het berekenen van overstromingsrisico scenarios moeten de faalkansen van vakken gecobineerd worden tot faalkansen die vergeleken kunnen worden met de kansen van overstromingsscenario's. Hierbij wordt gebruik gemaakt van de gecombineerde kans van het vak en deze worden gecombineerd naar traject delen.
@@ -124,3 +131,5 @@ load_from_flood_scenario_probability.run(
 )
 ```
 :::
+
+## SelectFloodScenarioFromLoad
