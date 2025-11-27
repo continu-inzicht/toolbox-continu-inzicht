@@ -60,6 +60,8 @@ def _transformed_y_interpolate_1d(
         # Pas de lower limit toe op een kopie van de input
         fp = np.copy(fp)
         fp[fp < ll] = ll
+        y = np.copy(y)
+        y[y < ll] = ll
 
     if ftransform is not None:
         # Transformeer de fp-waarden

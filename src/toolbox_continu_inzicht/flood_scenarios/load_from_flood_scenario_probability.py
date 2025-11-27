@@ -107,6 +107,9 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
             ]
             # load curve based on fragility_curve_id
             fragility_curve = FragilityCurve(data_adapter=self.data_adapter)
+            fragility_curve.lower_limit = (
+                1e-500  # FC defailt was 1e-200, we have smaller values here so adjust
+            )
             try:
                 fragility_curve.from_dataframe(
                     self.df_in_fragility_curves.loc[fragility_curve_id]
