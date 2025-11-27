@@ -127,12 +127,13 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
             )
             self.data_adapter.logger.debug(
                 f"Segment {segment}: failure_probability {segment_failure_probability}, "
-                f"hydraulic_load {hydraulic_load}, error {error}"
+                f"hydraulicload {hydraulic_load}, error {error}"
             )
-            load_per_segment[segment] = hydraulic_load
+            breach_id = df_segment_to_curve.loc[segment, "breach_id"]
+            load_per_segment[segment] = [hydraulic_load, breach_id]
 
         self.df_out = pd.DataFrame.from_dict(
-            load_per_segment, orient="index", columns=["hydraulic_load"]
+            load_per_segment, orient="index", columns=["hydraulicload", "breach_id"]
         )
         self.df_out.index.name = "segment_id"
 
