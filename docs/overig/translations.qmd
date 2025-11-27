@@ -19,3 +19,12 @@ Om hier bij te helpen is een tabel opgesteld om bij te helpen.
 |Golfhoogte|Wave height|
 |Golfperiode|Wave period|
 |Golfrichting|Wave direction|
+|Dijkvak|Dike section|
+|Dijk trajectdeel|Dike segment|
+|Overstromingskans gebied|Dikesystem|
+|Bres|Breach|
+|Waterdepth|Waterdiepte|
+|Casualties|Slachtoffers|
+|Damage|Schade|
+|Flooding|Natten voeten |
+|Affected_people |Getroffenen|

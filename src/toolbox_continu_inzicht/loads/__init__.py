@@ -1,4 +1,4 @@
-"""Belasting module for toolbox continu inzicht"""
+# Belasting module for toolbox continu inzicht
 
 # op alfabetische volgorde van module toevoegen
 from toolbox_continu_inzicht.loads.loads_ci_whatif.loads_ci_whatif import (
@@ -44,20 +44,20 @@ from toolbox_continu_inzicht.loads.loads_waterinfo.get_waterinfo_thresholds impo
 
 # deze ook in de zelfde volgorde als hierboven.
 __all__ = [
-    "LoadsCIWhatIf",
-    "LoadsClassify",
-    "LoadsFews",
-    "get_fews_locations",
-    "get_fews_thresholds",
-    "LoadsMatroos",
-    "LoadsMatroosNetCDF",
-    "get_matroos_locations",
-    "get_matroos_locations_map",
-    "get_matroos_sources",
-    "LoadsWaterwebservicesRWS",
-    "get_rws_webservices_locations",
-    "LoadsToMoments",
-    "LoadsWaterinfo",
-    "get_waterinfo_locations",
-    "get_waterinfo_thresholds",
+    LoadsCIWhatIf,
+    LoadsClassify,
+    LoadsFews,
+    get_fews_locations,
+    get_fews_thresholds,
+    LoadsMatroos,
+    LoadsMatroosNetCDF,
+    get_matroos_locations,
+    get_matroos_locations_map,
+    get_matroos_sources,
+    LoadsWaterwebservicesRWS,
+    get_rws_webservices_locations,
+    LoadsToMoments,
+    LoadsWaterinfo,
+    get_waterinfo_locations,
+    get_waterinfo_thresholds,
 ]

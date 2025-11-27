@@ -6,7 +6,10 @@ import pandas as pd
 from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht import ToolboxBase, DataAdapter
-from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
+from toolbox_continu_inzicht.utils.interpolate import (
+    log_y_interpolate_1d,
+    log_x_interpolate_1d,
+)
 from pydantic import TypeAdapter
 
 
@@ -26,8 +29,10 @@ class FragilityCurve(ToolboxBase):
         Array met de faalkansen
     lower_limit: float
         Ondergrens voor de interpolatie van de faalkans, standaard 1e-200
-    interp_func: Callable
-        Functie waarmee geinterpoleerd wordt
+    interp_x_func: Callable
+        Functie waarmee x waardes geinterpoleerd worden
+    interp_y_func: Callable
+        Functie waarmee y waardes geinterpoleerd worden
     enforce_monotonic: bool
         Forceert monotoon stijgende faalkansen, standaard True
     fragility_curve_schema: ClassVar[dict[str, str]]
@@ -45,7 +50,8 @@ class FragilityCurve(ToolboxBase):
     hydraulicload: Optional[np.ndarray] | None = None
     failure_probability: Optional[np.ndarray] | None = None
     lower_limit: float = 1e-200
-    interp_func: Callable = log_interpolate_1d
+    interp_x_func: Callable = log_x_interpolate_1d
+    interp_y_func: Callable = log_y_interpolate_1d
     enforce_monotonic: bool = True
     fragility_curve_schema: ClassVar[dict[str, str]] = {
         "hydraulicload": "float",
@@ -148,7 +154,7 @@ class FragilityCurve(ToolboxBase):
         x = self.hydraulicload
         fp = self.failure_probability
         xp = x + effect
-        self.failure_probability = self.interp_func(
+        self.failure_probability = self.interp_x_func(
             x, xp, fp, ll=self.lower_limit, clip01=True
         )
 
@@ -179,7 +185,7 @@ class FragilityCurve(ToolboxBase):
         add_steps: bool = True,
     ):
         """Interpoleert de fragility curve op de gegeven waterstanden"""
-        new_failure_probability = self.interp_func(
+        new_failure_probability = self.interp_x_func(
             new_hydraulicload,
             self.hydraulicload,
             self.failure_probability,
@@ -236,3 +242,39 @@ class FragilityCurve(ToolboxBase):
             fp_grid[sel_update] = (1 - trust_factor) * fp_grid[sel_update]
             fp_grid[~sel_update] = (fp_grid[~sel_update] - F_update) / (1 - F_update)
             self.failure_probability = fp_grid
+
+    def water_level_from_failure_probability(
+        self, failure_probability_value: float
+    ) -> float:
+        """Zoek de hydraulische belasting behorende bij een faalkans
+
+        Parameters
+        ----------
+        failure_probability_value : float
+            Faalkans waarvoor de hydraulische belasting gezocht wordt
+
+        Returns
+        -------
+        float
+            Hydraulische belasting behorende bij de faalkans
+        """
+        failure_probability = np.array(
+            sorted(list(self.failure_probability) + [failure_probability_value])
+        )
+        waterlevel = self._interpolate_water_for_failure_probability(
+            failure_probability
+        )
+
+        index = np.argmin(np.abs(self.failure_probability - failure_probability_value))
+        error = failure_probability_value - self.failure_probability[index]
+        waterlevel = self.hydraulicload[index]
+        return waterlevel, error
+
+    def _interpolate_water_for_failure_probability(
+        self, new_failure_probability: np.ndarray
+    ) -> np.ndarray:
+        """Interpoleer de hydraulische belasting behorende bij een faalkans"""
+        wl = self.interp_y_func(
+            new_failure_probability, self.hydraulicload, self.failure_probability
+        )
+        return wl

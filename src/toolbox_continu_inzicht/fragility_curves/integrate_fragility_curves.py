@@ -11,7 +11,7 @@ from toolbox_continu_inzicht.base.exceedance_frequency_curve import (
     ExceedanceFrequencyCurve,
 )
 from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
-from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
+from toolbox_continu_inzicht.utils.interpolate import log_x_interpolate_1d
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -44,7 +44,7 @@ class IntegrateFragilityCurve(ToolboxBase):
     df_exceedance_frequency: Optional[pd.DataFrame] | None = None
     df_fragility_curve: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
-    interp_func: Callable = log_interpolate_1d
+    interp_func: Callable = log_x_interpolate_1d
 
     def run(self, input: list[str], output: str):
         """Runt de integratie van een waterniveau overschrijdingsfrequentielijn met een fragility curve
@@ -164,7 +164,7 @@ class IntegrateFragilityCurveMultiple(IntegrateFragilityCurve):
     df_exceedance_frequency: Optional[pd.DataFrame] | None = None
     df_fragility_curve: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
-    interp_func: Callable = log_interpolate_1d
+    interp_func: Callable = log_x_interpolate_1d
 
     def run(self, input: list[str], output: str):
         """
