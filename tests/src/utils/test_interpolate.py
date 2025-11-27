@@ -6,6 +6,7 @@ from toolbox_continu_inzicht.utils.interpolate import (
     log_y_interpolate_1d,
 )
 import numpy as np
+from test_interpolate_data import fragility_curve_data
 
 
 # 1D
@@ -79,3 +80,39 @@ def test_beta_y_interpolate():
     x = beta_y_interpolate_1d(y_new, x, fp)
     for i in range(len(x_new)):
         assert np.isclose(x[i], x_new[i], atol=0, rtol=1e-8)
+
+
+def test_interp_y_fc():
+    x, fp = fragility_curve_data()
+    y_new = np.array(sorted(list(fp) + [0.183]))
+    new_x = log_y_interpolate_1d(y_new, x, fp, ll=1e-200)
+
+    from test_interpolate_data import expected_x_new_0_183
+
+    assert (np.isclose(new_x, expected_x_new_0_183, atol=0, rtol=1e-8)).all()
+
+    ### debug plot
+    # import matplotlib.pyplot as plt
+    # plt.plot(x, fp, label="data points")
+    # plt.plot(new_x, y, label="interpolated")
+    # plt.yscale("log")
+    # plt.show()
+    # new_x
+
+
+def test_interp_x_fc():
+    x, fp = fragility_curve_data()
+    x_new = np.array(sorted(list(x) + [15.075]))
+    new_y = log_x_interpolate_1d(x_new, x, fp, ll=1e-200)
+    new_y
+    from test_interpolate_data import expected_y_new_15_075
+
+    assert (np.isclose(new_y, expected_y_new_15_075, atol=0, rtol=1e-8)).all()
+
+    ### debug plot
+    # import matplotlib.pyplot as plt
+    # plt.plot(x, fp, label="data points")
+    # plt.plot(new_x, y, label="interpolated")
+    # plt.yscale("log")
+    # plt.show()
+    # new_x

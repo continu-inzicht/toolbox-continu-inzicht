@@ -23,7 +23,7 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
     df_in_fragility_curves : Optional[pd.DataFrame] | None
         Dataframe met koppeling van dijkvakken naar deeltrajecten
     df_out : Optional[pd.DataFrame] | None
-        Dataframe met geclassificeerde waterstanden voor opgegeven momenten.
+        Dataframe met belastingen per dijkvak en bijbehorende bres locaties id.
     schema_segment_failure_probability : ClassVar[dict[str, str]]
         Schema voor de input dataframe met deeltrajectkansen
     sechema_breach_to_segment_risk : ClassVar[dict[str, str]]

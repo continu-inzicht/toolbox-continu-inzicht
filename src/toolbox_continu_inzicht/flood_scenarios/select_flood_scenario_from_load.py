@@ -15,20 +15,16 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
     ----------
     data_adapter : DataAdapter
         De data adapter die wordt gebruikt om de data in te laden en op te slaan.
-    df_in_segment_failure_probability : Optional[pd.DataFrame] | None
-        Dataframe met deeltrajectkansen
-    df_in_breach_to_segment_risk : Optional[pd.DataFrame] | None
-        Dataframe met koppeling van Bresen naar deeltrajecten en maatgevende fragility curves
-    df_in_fragility_curves : Optional[pd.DataFrame] | None
-        Dataframe met koppeling van dijkvakken naar deeltrajecten
+    df_in_segment_flood_scenario_load : Optional[pd.DataFrame] | None
+        Dataframe met belastingen per deeltraject & doobraaklocatie id per deeltraject.
+    df_in_flood_scenario_metadata : Optional[pd.DataFrame] | None
+        Dataframe met metadata van de Bresen locaties
     df_out : Optional[pd.DataFrame] | None
-        Dataframe met geclassificeerde waterstanden voor opgegeven momenten.
-    schema_segment_failure_probability : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met deeltrajectkansen
-    sechema_breach_to_segment_risk : ClassVar[dict[str, str]]
+        Dataframe met de geselecteerde flood scenario's.
+    schema_segment_flood_scenario_load : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met belastingen & doobraaklocatie id per deeltraject.
+    sechema_flood_scenario_metadata : ClassVar[dict[str, str]]
         Schema voor de input dataframe met koppeling van Bresen naar deeltrajecten en maatgevende fragility curves
-    schema_grouped_sections_failure_probability : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met gecombineerde dijkvakkansen
 
     Notes
     -----
@@ -101,8 +97,9 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
             current_breach_data = meta_data[meta_data["breach_id"] == breach_id].copy()
             smallest_load = current_breach_data["hydaulicload_upperboundary"].min()
             if hydraulic_load <= smallest_load:
-                # current_breach_data[]
-                pass
+                grids_series = current_breach_data[
+                    current_breach_data["hydaulicload_upperboundary"] == smallest_load
+                ]
             elif return_two_scenarios:
                 pass
             else:
@@ -110,7 +107,10 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
                     current_breach_data["hydaulicload_upperboundary"] < hydraulic_load
                 )
                 # current_breach_data[]
+                smaller_loads
                 pass
+
+            selected_grids[segment] = grids_series.to_numpy()
 
         self.df_out = pd.DataFrame.from_dict(
             selected_grids, orient="index", columns=["scenario_id"]

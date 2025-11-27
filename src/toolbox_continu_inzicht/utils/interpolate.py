@@ -67,12 +67,8 @@ def _transformed_y_interpolate_1d(
     ftransform: Callable | None = None,
 ):
     if ll > 0:
-        # Pas de lower limit toe op een kopie van de input
-        # Bij kansen kleiner dan ll worden de x-waarden op basis van de laatste hellingshoek geextrapoleerd
         fp = np.copy(fp)
         fp[fp < ll] = ll
-        # store x values where y < ll
-        # x_adjusted = xp[fp < ll]
         y = np.copy(y)
         y[y < ll] = ll
 
@@ -81,11 +77,6 @@ def _transformed_y_interpolate_1d(
         f = _interpolate_1d(ftransform(y), ftransform(fp), xp, side="right")
     else:
         f = _interpolate_1d(y, fp, xp, side="right")
-
-    if ll > 0:
-        # Reset lower limit naar 0
-        f[f <= ll] = 0
-        f[np.isclose(f, ll, atol=0, rtol=1e-8)] = 0
 
     return f
 
