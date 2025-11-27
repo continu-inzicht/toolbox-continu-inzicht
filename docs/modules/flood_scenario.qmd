@@ -18,7 +18,7 @@ graph TD
     C --> D[CalculateFloodRisk]
 ```
 
-## CalculateFloodScenarioProbability
+## CalculateFloodScenarioProbability{sec-CalculateFloodScenarioProbability}
 
 Voor het berekenen van overstromingsrisico scenarios moeten de faalkansen van vakken gecobineerd worden tot faalkansen die vergeleken kunnen worden met de kansen van overstromingsscenario's. Hierbij wordt gebruik gemaakt van de gecombineerde kans van het vak en deze worden gecombineerd naar traject delen.
 
@@ -76,15 +76,14 @@ calculate_flood_scenario_probability.run(
 :::
 
 
-## LoadFromFloodScenarioProbability
+## LoadFromFloodScenarioProbability{sec-LoadFromFloodScenarioProbability}
 
-Met de faalkansen per trajectdeel hebben kan met de `LoadFromFloodScenarioProbability` de belasting per trajectdeel worden bepaald.
-Hiermee kan een bijpassende overstromingsscenario geselecteerd worden.
-Met de input van de vorige stap `segment_failure_probability`, kan een koppeling worden gemaakt naar de bijhorende bres en fragilitycurve die representatief is voor een deeltraject met de tabel `breach_id_to_segment_id`.
-Zolang de koppeling van deze id's overeenkomt, is deze door de gebruiker te configureren. De bestaande vak indelingen kunnen gebruik worden, maar er kunnen ook andere curves worden gebruikt.
+Met de faalkansen per trajectdeel kunnen met de `LoadFromFloodScenarioProbability` de belastingen per trajectdeel worden bepaald.
+Hiermee kan een bijpassend overstromingsscenario worden geselecteerd.
+Met de input van de vorige stap `segment_failure_probability`, kan een koppeling worden gemaakt naar de bijbehorende bres en fragilitycurve die representatief is voor een deeltraject met de tabel `breach_id_to_segment_id`.
+Zolang de koppeling van deze id's overeenkomt, is deze door de gebruiker te configureren. De bestaande vak-indelingen kunnen worden gebruikt, maar er kunnen ook andere curves worden gebruikt.
 Deze `representative_section_id_fragilitycurve` kan vervolgens uit de data van de curves in `section_failure_probability_data` worden gehaald.
-Met de fragilitycurve wordt de hydraulische belasting bepaald voor het deeltraject.
-
+Met de fragilitycurve worden de hydraulische belastingen bepaald voor de deeltrajecten.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -132,4 +131,55 @@ load_from_flood_scenario_probability.run(
 ```
 :::
 
-## SelectFloodScenarioFromLoad
+## SelectFloodScenarioFromLoad{sec-SelectFloodScenarioFromLoad}
+
+Met de maatgevende belastingen per trajectdeel (resultaat van [LoadFromFloodScenarioProbability](#sec-LoadFromFloodScenarioProbability)), kan een bijbehorend scenario worden geselecteerd.
+Hiervoor is metadata per bres nodig. Hierbij wordt voor de volgende functie alvast de koppeling gemaakt met de bijbehorende grids. Deze grids per scenario worden in [CalculateFloodRisk](#sec-CalculateFloodRisk) gebruikt om het overstromingsrisico te bepalen gegeven de huidige belasting.
+
+De eerste data adapter is de output van `LoadFromFloodScenarioProbability` met daarin per dijktraject id (`segment_id`) de bijbehorende belasting en bres id (`hydraulicload`,`breach_id`).
+
+De tweede data adapter bevat per bres id (`breach_id`) een bijbehorende maximale belasting waarvoor een scenario geldig is (`hydraulicload_upperboundary`). Op basis van deze belasting wordt een koppeling gemaakt van de huidige belasting naar een scenario. Hierbij is de standaard optie om maar één resultaat per dijktraject terug te geven. Hierbij moet de waterstand overschreden zijn waarbij het scenario hoort. Om het mogelijk te maken voor de gebruiker om te kiezen tussen twee scenarios kan de optie `return_two_scenarios` op `True` worden gezet, in dit geval worden de onder en bovengrens teruggegeven. Hiermee is het ook mogelijk om tussen de twee scenarios te kiezen. De data adapter moet ook een naam bevatten voor waterdiepte, slachtoffers, schade, natte voeten en getroffenen. Deze worden meegenomen naar het output bestand, wat gebruikt wordt in de input van de functie `CalculateFloodRisk`.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 48 ]
+    SelectFloodScenarioFromLoad:
+        return_two_scenarios: False # Default
+
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    flood_scenario_loads:
+        type: csv
+        path: "flood_scenario_load_resultaten.csv"
+    breach_location_metadata:
+        type: csv
+        path: "breach_location_metadata.csv"
+    flood_scenario_grids:
+        type: csv
+        path: "flood_scenario_grids.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.flood_scenarios import SelectFloodScenarioFromLoad
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+select_flood_scenario_from_load = SelectFloodScenarioFromLoad(
+    data_adapter=data_adapter
+)
+select_flood_scenario_from_load.run(
+    input=[
+        "flood_scenario_loads",
+        "breach_location_metadata",
+    ],
+    output="flood_scenario_load_resultaten",
+)
+```
+:::
