@@ -1,0 +1,31 @@
+GlobalVariables:
+    rootdir: "data_sets/6.1.fragility_curve_database"
+    moments: [-24,0,24,48]
+    LoadCachedFragilityCurve:
+        default_measure_id: 0
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+
+    fragility_curves:
+        type: ci_postgresql_fragility_curve_multi_section_multi_failure
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"        
+
+    measures_effect:
+        type: ci_postgresql_measures_to_effect
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"            
+
+    section_measure:
+        type: ci_postgresql_section_id_to_measure_id
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"  
+
+    save_fragility_curve:
+        type: ci_postgresql_fragilitycurves_table
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"  
+        table: "fragilitycurves"

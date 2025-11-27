@@ -5,3 +5,5 @@ from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.inpu
 from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_general import *  # noqa: F403
 from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_scenario import *  # noqa: F403
 from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_impactanalyse import *  # noqa: F403
+from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_measure import *  # noqa: F403
+from toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql.input_expertjudgement import *  # noqa: F403

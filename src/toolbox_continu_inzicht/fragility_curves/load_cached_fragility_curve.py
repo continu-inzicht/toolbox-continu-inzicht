@@ -436,7 +436,9 @@ class LoadCachedFragilityCurveMultiple(LoadCachedFragilityCurve):
                 )
             )
             output_per_section["section_id"] = section
-            output_per_section["measure_id"] = measure_id
+            if measure_id is not None:
+                output_per_section["measure_id"] = measure_id
+
             lst_selected_curves.append(output_per_section)
             lst_initial_curves.append(input_per_section)
 
