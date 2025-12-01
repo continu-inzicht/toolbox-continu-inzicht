@@ -26,7 +26,7 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
         Dataframe met belastingen per dijkvak en bijbehorende bres locaties id.
     schema_segment_failure_probability : ClassVar[dict[str, str]]
         Schema voor de input dataframe met deeltrajectkansen
-    sechema_breach_to_segment_risk : ClassVar[dict[str, str]]
+    schema_breach_to_segment_risk : ClassVar[dict[str, str]]
         Schema voor de input dataframe met koppeling van Bresen naar deeltrajecten en maatgevende fragility curves
     schema_grouped_sections_failure_probability : ClassVar[dict[str, str]]
         Schema voor de input dataframe met gecombineerde dijkvakkansen
@@ -55,7 +55,7 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
         "segment_id": "int",
         "failure_probability": "float",
     }
-    sechema_breach_to_segment_risk: ClassVar[dict[str, str]] = {
+    schema_breach_to_segment_risk: ClassVar[dict[str, str]] = {
         "segment_id": "int",
         "breach_id": "int",
         "representative_section_id_fragilitycurve": "int",
@@ -87,7 +87,7 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
 
         # drempelwaarden per meetlocatie``
         self.df_in_breach_to_segment_risk = self.data_adapter.input(
-            input[1], schema=self.sechema_breach_to_segment_risk
+            input[1], schema=self.schema_breach_to_segment_risk
         )
         df_segment_to_curve = self.df_in_breach_to_segment_risk.set_index("segment_id")
         # belasting per moment per meetlocaties

@@ -1,8 +1,8 @@
 GlobalVariables:
-    rootdir: "data_sets/7.flood_scenarios"
+    rootdir: "tests/src/flood_scenarios/data_sets"
     moments: [ -24, 0, 24, 48 ]
     CalculateFloodRisk:
-        scenario_path: 'flood_scenarios'
+        scenario_path: "docs/examples/notebooks/data_sets/7.flood_scenarios/flood_scenarios"
         averging_method: 'mean'
         per_hectare: False
 
@@ -19,7 +19,7 @@ DataAdapter:
         path: "flood_scenario_grids.csv"
     areas_to_average:
         type: shape
-        path: "areas_to_average.geojson"
+        path: "C:/Data/Python/TBCI/toolbox-continu-inzicht/docs/examples/notebooks/data_sets/7.flood_scenarios/areas_to_average.geojson"
     flood_risk_results:
         type: csv
         path: "hidden_flood_risk_results.csv"

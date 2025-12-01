@@ -33,13 +33,17 @@ class CalculateFloodRisk(ToolboxBase):
     ----------
     data_adapter : DataAdapter
         De data adapter die wordt gebruikt om de data in te laden en op te slaan.
+    df_in_segment_failure_probability : Optional[pd.DataFrame] | None
+        Dataframe met deeltrajectkansen
     df_in_flood_scenario_grids: Optional[pd.DataFrame] | None
         Dataframe met namen van grids per trajectedeel.
     gdf_in_areas_to_average : Optional[gpd.GeoDataFrame] | None
         GeoDataframe met gebieden om te middelen.
     df_out : Optional[pd.DataFrame] | None
         Dataframe met de geselecteerde flood scenario's.
-    sechema_flood_scenario_grids : ClassVar[dict[str, str]]
+    schema_segment_failure_probability : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met deeltrajectkansen
+    schema_flood_scenario_grids : ClassVar[dict[str, str]]
         Schema voor de input dataframe met namen van grids per trajectedeel.
     schema_areas_to_average : ClassVar[dict[str, str]]
         Schema voor de input geodataframe met gebieden om te middelen.
@@ -59,10 +63,15 @@ class CalculateFloodRisk(ToolboxBase):
 
     data_adapter: DataAdapter
 
+    df_in_segment_failure_probability: Optional[pd.DataFrame] | None = None
     df_in_flood_scenario_grids: Optional[pd.DataFrame] | None = None
     gdf_in_areas_to_average: Optional[gpd.GeoDataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
-    sechema_flood_scenario_grids: ClassVar[dict[str, str]] = {
+    schema_segment_failure_probability: ClassVar[dict[str, str]] = {
+        "segment_id": "int",
+        "failure_probability": "float",
+    }
+    schema_flood_scenario_grids: ClassVar[dict[str, str]] = {
         "segment_id": "int",
         "breach_id": "int",
         "hydaulicload_upperboundary": "float",
@@ -75,7 +84,7 @@ class CalculateFloodRisk(ToolboxBase):
     }
     schema_areas_to_average: ClassVar[dict[str, str]] = {
         # these are useful later on but not used now
-        # "id": "int32",
+        "area_id": "int32",
         "name": "object",
         "code": "object",
         "zip": "int32",
@@ -96,15 +105,20 @@ class CalculateFloodRisk(ToolboxBase):
             Data adapter voor output van scenario kansen per deeltraject
         """
 
-        if not len(input) == 2:
-            raise UserWarning("Input variabele moet 2 string waarden bevatten.")
+        if not len(input) == 3:
+            raise UserWarning("Input variabele moet 3 string waarden bevatten.")
 
-        self.df_in_flood_scenario_grids = self.data_adapter.input(
+        self.df_in_segment_failure_probability = self.data_adapter.input(
             input=input[0],
-            schema=self.sechema_flood_scenario_grids,
+            schema=self.schema_segment_failure_probability,
+        )
+        self.df_in_segment_failure_probability.set_index("segment_id", inplace=True)
+        self.df_in_flood_scenario_grids = self.data_adapter.input(
+            input=input[1],
+            schema=self.schema_flood_scenario_grids,
         )
         self.gdf_in_areas_to_average = self.data_adapter.input(
-            input=input[1],
+            input=input[2],
         )
 
         global_variables = self.data_adapter.config.global_variables
@@ -116,14 +130,16 @@ class CalculateFloodRisk(ToolboxBase):
         #     `sum` for risk based grids
         #     `median` for probability based grids
 
-        # 3 opties om het pad naar de scenario grids te bepalen:
+        # 4 opties om het pad naar de scenario grids te bepalen:
         # absoluut
         # relatief onder de data dir
+        # relatief tov werkdirectory
         # in de data dir (niet aanbevolen)
         scenario_path_abs = Path(options["scenario_path"])
         scenario_path_rel = global_variables["used_root_dir"] / Path(
             options["scenario_path"]
         )
+        scenario_path_cwd_rel = Path.cwd() / Path(options["scenario_path"])
         if scenario_path_abs.is_absolute() and scenario_path_abs.exists():
             self.data_adapter.logger.debug(
                 f"Gebruik absolute pad voor scenario grids: {scenario_path_abs}"
@@ -135,6 +151,11 @@ class CalculateFloodRisk(ToolboxBase):
                 f"Gebruik relatieve pad voor scenario grids: {scenario_path_rel}"
             )
             scenario_path = scenario_path_rel
+        elif scenario_path_cwd_rel.exists():
+            self.data_adapter.logger.debug(
+                f"Gebruik relatieve pad tov werkdirectory voor scenario grids: {scenario_path_cwd_rel}"
+            )
+            scenario_path = scenario_path_cwd_rel
         else:
             self.data_adapter.logger.info("Gebruik data directory voor scenario grids.")
             scenario_path = global_variables["used_root_dir"]
@@ -142,18 +163,20 @@ class CalculateFloodRisk(ToolboxBase):
         # unconventional way to ensure that the libraries are imported only when needed allowing for lighter installations
         zonal_stats, rasterio = import_raster_librariers()
         dict_segments_out = {}
-        for idx, row in self.df_in_flood_scenario_grids.iterrows():
+        for _, row in self.df_in_flood_scenario_grids.iterrows():
             # load grids
+            # Dynamically create grid_files dict from columns ending with '_grid'
             grid_files = {
-                "waterdepth": row["waterdepth_grid"],
-                "casualties": row["casualties_grid"],
-                "damage": row["damage_grid"],
-                "flooding": row["flooding_grid"],
-                "affected_people": row["affected_people_grid"],
+                col.replace("_grid", ""): row[col]
+                for col in self.df_in_flood_scenario_grids.columns
+                if col.endswith("_grid")
             }
-            segment = row["segment_id"]
-            dict_segments_out[segment] = self.gdf_in_areas_to_average.copy()
-            dict_segments_out[segment].loc[:, "segment_id"] = segment
+            segment_id = row["segment_id"]
+            failure_probability_segment = self.df_in_segment_failure_probability.loc[
+                segment_id, "failure_probability"
+            ]
+            dict_segments_out[segment_id] = self.gdf_in_areas_to_average.copy()
+            dict_segments_out[segment_id].loc[:, "segment_id"] = segment_id
             for grid_name, grid_file in grid_files.items():
                 if pd.isna(grid_file):
                     continue
@@ -166,6 +189,9 @@ class CalculateFloodRisk(ToolboxBase):
                     array_msk = src.read(1, masked=True)
                     affine = src.transform
 
+                # kans vermenigvuldigen met raster
+                array_msk *= failure_probability_segment
+
                 zs = zonal_stats(
                     vectors=self.gdf_in_areas_to_average["geometry"],
                     raster=array_msk.data,
@@ -176,18 +202,44 @@ class CalculateFloodRisk(ToolboxBase):
                 )
 
                 # add the zonal stats to the output geodataframe
-                dict_segments_out[segment] = pd.concat(
-                    (dict_segments_out[segment], pd.DataFrame(zs)), axis=1
+                dict_segments_out[segment_id] = pd.concat(
+                    (dict_segments_out[segment_id], pd.DataFrame(zs)), axis=1
                 )
-                dict_segments_out[segment].rename(
+                dict_segments_out[segment_id].rename(
                     columns={stat: grid_name}, inplace=True
                 )
+                dict_segments_out[segment_id].set_index("area_id")
 
-        # TODO: risico brekenene en evnt. omrekenen per hectare
+        # Concatenate all segment dataframes
+        all_segments_df = pd.concat(dict_segments_out.values(), ignore_index=True)
+
+        # Identify numeric columns to sum (excluding geometry and identifier columns)
+        exclude_cols = [
+            "geometry",
+            "area_id",
+            "name",
+            "code",
+            "zip",
+            "people",
+            "segment_id",
+        ]
+        numeric_cols = all_segments_df.select_dtypes(
+            include=["float64", "float32", "int64", "int32"]
+        ).columns
+        numeric_cols = [col for col in numeric_cols if col not in exclude_cols]
+
+        # Group by area_id and aggregate
+        agg_dict = {col: "sum" for col in numeric_cols}
+        # Keep first value for non-numeric columns
+        for col in ["name", "code", "zip", "people", "geometry"]:
+            if col in all_segments_df.columns:
+                agg_dict[col] = "first"
+
+        df_out = all_segments_df.groupby("area_id", as_index=False).agg(agg_dict)
+        self.df_out = gpd.GeoDataFrame(df_out)
+
+        # TODO: risico berekenen en evnt. omrekenen per hectare
         # omrekenen naar hectaren (later)
-
-        # combine the segments
-        self.df_out = pd.concat(dict_segments_out, ignore_index=True)
         if per_hectare:
             self.df_out["risk_per_ha"] = self.df_out["risk"] / (
                 self.gdf_in_areas_to_average["geometry"].area / 10000
