@@ -1,0 +1,22 @@
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 48 ]
+    CalculateFloodRisk:
+        scenario_path: 'flood_scenarios'
+        averging_method: 'mean'
+        per_hectare: False
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+            index: False
+    flood_scenario_grids:
+        type: csv
+        path: "flood_scenario_grids.csv"
+    areas_to_average:
+        type: shape
+        path: "areas_to_average.geojson"
+    flood_risk_results:
+        type: csv
+        path: "hidden_flood_risk_results.csv"
