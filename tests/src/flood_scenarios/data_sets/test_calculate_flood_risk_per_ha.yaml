@@ -36,7 +36,7 @@ DataAdapter:
         path: "flood_scenario_grids_one_gridfile_different_name.csv"
     areas_to_average:
         type: shape
-        path: "C:/Data/Python/TBCI/toolbox-continu-inzicht/docs/examples/notebooks/data_sets/7.flood_scenarios/areas_to_average.geojson"
+        path: "areas_to_average.geojson"
     flood_risk_results:
         type: csv
         path: "hidden_flood_risk_results.csv"

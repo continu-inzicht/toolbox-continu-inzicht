@@ -5,7 +5,7 @@ from toolbox_continu_inzicht.inspections.inspections import (
 )
 
 __all__ = [
-    Filter,
-    ClassifyInspections,
-    InspectionsToDatabase,
+    "Filter",
+    "ClassifyInspections",
+    "InspectionsToDatabase",
 ]

@@ -19,10 +19,10 @@ from toolbox_continu_inzicht.sections.sections_failureprobability.sections_exper
 
 
 __all__ = [
-    SectionsLoads,
-    SectionsClassify,
-    SectionsCriticalFailureprobability,
-    SectionsTechnicalFailureprobability,
-    SectionsMeasureFailureprobability,
-    SectionsExpertJudgementFailureprobability,
+    "SectionsLoads",
+    "SectionsClassify",
+    "SectionsCriticalFailureprobability",
+    "SectionsTechnicalFailureprobability",
+    "SectionsMeasureFailureprobability",
+    "SectionsExpertJudgementFailureprobability",
 ]
