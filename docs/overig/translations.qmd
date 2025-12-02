@@ -26,5 +26,5 @@ Om hier bij te helpen is een tabel opgesteld om bij te helpen.
 |Waterdepth|Waterdiepte|
 |Casualties|Slachtoffers|
 |Damage|Schade|
-|Flooding|Natten voeten |
+|Flooding|Plaatgebonden overstromingskans|
 |Affected_people |Getroffenen|

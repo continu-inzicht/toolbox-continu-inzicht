@@ -53,12 +53,11 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
     sechema_flood_scenario_metadata: ClassVar[dict[str, str]] = {
         "breach_id": "int",
         "hydaulicload_upperboundary": "float",
-        # can contain nans so object dtype is used
-        "waterdepth_grid": "object",
-        "casualties_grid": "object",
-        "damage_grid": "object",
-        "flooding_grid": "object",
-        "affected_people_grid": "object",
+        # can contain nans so object dtype is used, we dont stricly check on them
+        # "casualties_grid": "object",
+        # "damage_grid": "object",
+        # "flooding_grid": "object",
+        # "affected_people_grid": "object",
     }
 
     def run(self, input: list[str], output: str) -> None:
@@ -83,6 +82,15 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
         self.df_in_flood_scenario_metadata = self.data_adapter.input(
             input[1], schema=self.sechema_flood_scenario_metadata
         )
+        columns_grid = [
+            col.replace("_grid", "")
+            for col in self.df_in_flood_scenario_metadata.columns
+            if col.endswith("_grid")
+        ]
+        if len(columns_grid) < 1:
+            raise UserWarning(
+                "Er zijn geen grid kolommen gevonden in de flood scenario metadata input, dit moet er minimaal 1 zijn."
+            )
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("SelectFloodScenarioFromLoad", {})
         return_two_scenarios = options.get("return_two_scenarios", False)

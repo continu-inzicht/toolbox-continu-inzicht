@@ -17,6 +17,9 @@ DataAdapter:
     breach_location_metadata:
         type: csv
         path: "breach_location_metadata.csv"
+    breach_location_metadata_one_grid:
+        type: csv
+        path: "breach_location_metadata_one_grid.csv"
     flood_scenario_grids:
         type: csv
         path: "hidden_flood_scenario_grids.csv"

@@ -75,21 +75,20 @@ class CalculateFloodRisk(ToolboxBase):
         "segment_id": "int",
         "breach_id": "int",
         "hydaulicload_upperboundary": "float",
-        # can contain nans so object dtype is used
-        "waterdepth_grid": "object",
-        "casualties_grid": "object",
-        "damage_grid": "object",
-        "flooding_grid": "object",
-        "affected_people_grid": "object",
+        # can contain nans so object dtype is used, we dont stricly check on them
+        # "casualties_grid": "object",
+        # "damage_grid": "object",
+        # "flooding_grid": "object",
+        # "affected_people_grid": "object",
     }
     schema_areas_to_average: ClassVar[dict[str, str]] = {
         # these are useful later on but not used now
         "area_id": "int32",
-        "name": "object",
-        "code": "object",
-        "zip": "int32",
+        # "name": "object",
+        # "code": "object",
+        # "zip": "int32",
         # these are most needed
-        "people": "int32",
+        # "people": "int32",
         "geometry": "geometry",
     }
 
@@ -117,19 +116,43 @@ class CalculateFloodRisk(ToolboxBase):
             input=input[1],
             schema=self.schema_flood_scenario_grids,
         )
+        columns_grid = [
+            col.replace("_grid", "")
+            for col in self.df_in_flood_scenario_grids.columns
+            if col.endswith("_grid")
+        ]
+        if len(columns_grid) < 1:
+            raise UserWarning(
+                "Er zijn geen grid kolommen gevonden in de flood scenario grids input, dit moet er minimaal 1 zijn."
+            )
         self.gdf_in_areas_to_average = self.data_adapter.input(
             input=input[2],
         )
 
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("CalculateFloodRisk", {})
-        stat = options.get("averging_method", "mean")
-        per_hectare = options.get("per_hectare", True)
+        per_hectare = options.get("per_hectare", False)
+
+        user_set_averaging_methods = options.get("averaging_methods", {})
+        averaging_methods = {
+            "casualties": "sum",
+            "damage": "sum",
+            "flooding": "median",
+            "affected_people": "sum",
+        }
+        averaging_methods.update(user_set_averaging_methods)
+        if not set(columns_grid).issubset(
+            set(averaging_methods.keys())
+        ):  # check of alle grid columns een averaging method hebben
+            raise UserWarning(
+                "Niet alle grid kolommen hebben een bijbehorende averging method in de options."
+            )
         # type statistics (`mean`, `sum`, `median`, `min`, `max`, `count`)
         #     see: https://pythonhosted.org/rasterstats/manual.html#zonal-statistics
         #     `sum` for risk based grids
         #     `median` for probability based grids
 
+        # TODO: meer flexibiliteit voor grids: waarom niet andere bronnen?
         # 4 opties om het pad naar de scenario grids te bepalen:
         # absoluut
         # relatief onder de data dir
@@ -178,6 +201,7 @@ class CalculateFloodRisk(ToolboxBase):
             dict_segments_out[segment_id] = self.gdf_in_areas_to_average.copy()
             dict_segments_out[segment_id].loc[:, "segment_id"] = segment_id
             for grid_name, grid_file in grid_files.items():
+                # slaan over als er een nan in de tif waarde staat.
                 if pd.isna(grid_file):
                     continue
 
@@ -191,7 +215,7 @@ class CalculateFloodRisk(ToolboxBase):
 
                 # kans vermenigvuldigen met raster
                 array_msk *= failure_probability_segment
-
+                stat = averaging_methods[grid_name]
                 zs = zonal_stats(
                     vectors=self.gdf_in_areas_to_average["geometry"],
                     raster=array_msk.data,
@@ -240,9 +264,25 @@ class CalculateFloodRisk(ToolboxBase):
 
         # TODO: risico berekenen en evnt. omrekenen per hectare
         # omrekenen naar hectaren (later)
+        self.data_adapter.logger.debug(f"Per hectare ingesteld op: {per_hectare}")
+        self.data_adapter.logger.debug(f"opties: {options}")
         if per_hectare:
-            self.df_out["risk_per_ha"] = self.df_out["risk"] / (
-                self.gdf_in_areas_to_average["geometry"].area / 10000
-            )
+            if "columns_per_hectare" not in options:
+                raise UserWarning(
+                    "Als per_hectare is ingesteld op True, moet ook columns_per_hectare in de options worden opgegeven."
+                )
+            columns_per_hectare = options["columns_per_hectare"]
+            if not isinstance(columns_per_hectare, list):
+                raise UserWarning(
+                    "In de options moet bij per_hectare ook columns_per_hectare opgegeven worden als lijst van kolomnamen."
+                )
+            for column_per_hectare in columns_per_hectare:
+                if column_per_hectare in self.df_out.columns:
+                    self.df_out[f"{column_per_hectare}_per_ha"] = self.df_out[
+                        column_per_hectare
+                    ] / (self.gdf_in_areas_to_average["geometry"].area / 10000)
+                else:
+                    self.data_adapter.logger.warning(
+                        f"Kolom {column_per_hectare} niet gevonden in output dataframe, kan niet omrekenen per hectare."
+                    )
         self.data_adapter.output(output=output, df=self.df_out)
-        return dict_segments_out

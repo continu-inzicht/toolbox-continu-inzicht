@@ -40,7 +40,7 @@ Hiervoor is de gecombineerde faalkans per dijkvak nodig en een mapping van dijkv
 ## Configuratie
 ```yaml
 GlobalVariables:
-    rootdir: "data_sets/7.flood_scenarios"
+    rootdir: "data_sets"
     moments: [-24,0,24,48]
 
 DataAdapter:
@@ -89,7 +89,7 @@ Met de fragilitycurve worden de hydraulische belastingen bepaald voor de deeltra
 ## Configuratie
 ```yaml
 GlobalVariables:
-    rootdir: "data_sets/7.flood_scenarios"
+    rootdir: "data_sets"
     moments: [-24,0,24,48]
 
 DataAdapter:
@@ -107,7 +107,7 @@ DataAdapter:
         file: "fragility_curve_multi_section.csv"
     flood_scenario_load_resultaten:
         type: csv
-        path: "hidden_flood_scenario_load_resultaten.csv"
+        path: "flood_scenario_load_resultaten.csv"
 ```
 ## Code
 ```python
@@ -138,13 +138,30 @@ Hiervoor is metadata per bres nodig. Hierbij wordt voor de volgende functie alva
 
 De eerste data adapter is de output van `LoadFromFloodScenarioProbability` met daarin per dijktraject id (`segment_id`) de bijbehorende belasting en bres id (`hydraulicload`,`breach_id`).
 
-De tweede data adapter bevat per bres id (`breach_id`) een bijbehorende maximale belasting waarvoor een scenario geldig is (`hydraulicload_upperboundary`). Op basis van deze belasting wordt een koppeling gemaakt van de huidige belasting naar een scenario. Hierbij is de standaard optie om maar één resultaat per dijktraject terug te geven. Hierbij moet de waterstand overschreden zijn waarbij het scenario hoort. Om het mogelijk te maken voor de gebruiker om te kiezen tussen twee scenarios kan de optie `return_two_scenarios` op `True` worden gezet, in dit geval worden de onder en bovengrens teruggegeven. Hiermee is het ook mogelijk om tussen de twee scenarios te kiezen. De data adapter moet ook een naam bevatten voor waterdiepte, slachtoffers, schade, natte voeten en getroffenen. Deze worden meegenomen naar het output bestand, wat gebruikt wordt in de input van de functie `CalculateFloodRisk`.
+De tweede data adapter bevat per bres id (`breach_id`) een bijbehorende maximale belasting waarvoor een scenario geldig is (`hydraulicload_upperboundary`).
+Op basis van deze belasting wordt een koppeling gemaakt van de huidige belasting naar een scenario.
+Hierbij is de standaardoptie om maar één resultaat per dijktraject terug te geven.
+Hierbij moet de waterstand overschreden zijn waarbij het scenario hoort.
+Om het mogelijk te maken voor de gebruiker om te kiezen tussen twee scenario's kan de optie `return_two_scenarios` op `True` worden gezet.
+In dit geval worden de onder- en bovengrens teruggegeven.
+Hiermee is het ook mogelijk om tussen de twee scenario's te kiezen.
+
+De data adapter moet minimaal 1 kolom met een grid naam bevatten die eindigt op `_grid`.
+
+Standaard worden 4 namen gebruikt:
+
+- slachtoffers (`casualties_grid`)
+- schade (`damage_grid`)
+- plaatgebonden overstromingskans (`flooding_grid`)
+- getroffenen (`affected_people_grid`)
+
+Deze worden meegenomen naar het output bestand, wat gebruikt wordt in de input van de functie `CalculateFloodRisk`.
 
 ::: {.panel-tabset}
 ## Configuratie
 ```yaml
 GlobalVariables:
-    rootdir: "data_sets/7.flood_scenarios"
+    rootdir: "data_sets"
     moments: [ -24, 0, 24, 48 ]
     SelectFloodScenarioFromLoad:
         return_two_scenarios: False # Default
@@ -180,6 +197,97 @@ select_flood_scenario_from_load.run(
         "breach_location_metadata",
     ],
     output="flood_scenario_load_resultaten",
+)
+```
+:::
+
+
+## CalculateFloodRisk{sec-CalculateFloodRisk}
+
+CalculateFloodRisk brengt alle functies tot nu toe samen om het actuele overstromingsrisco in kaart te brengen voor een gegeven gebied.
+
+De eerste data adapter is de output van `SelectFloodScenarioFromLoad` met daarin per dijktraject id (`segment_id`) de bijbehorende faalkans.
+
+De tweede data adapter bevat per dijktraject id (`segment_id`) de bijbehorende grids. Ook hier mogen de namen alles zijn wat eindigt op `_grid`.
+
+Deze naamgeving wordt hergebruikt in de output. De standaardinstellingen voor het middelen zijn:
+
+|Kolomnaam|Variable|Type middeling|
+|--|--|--|
+|casualties_grid|casualties|sum|
+|damage_grid|damage|sum|
+|flooding_grid|flooding|median|
+|affected_people_grid|affectedpeople|sum|
+
+Mocht de gebruiker een andere kolom naam willen, dan kan deze in de globalvariable worden opgegeven zoals hieronder in het configuratie voorbeeld wordt getoond.
+
+Als derde adapter moet een shapefile worden opgegeven waarover wordt gemiddeld. Hier is de kolom `area_id` verplicht, met een uniek id naast de `geometry` kolom.
+
+Ook moet een pad worden opgegeven waar de scenario's staan.
+
+Hier zijn 4 opties:
+ - een absoluut pad
+ - relatief pad ten opzichte van de `rootdir`
+ - relatief pad ten opzichte van de `current work directory` waaruit het script wordt gedraaid
+ - los in de data dir zelf
+
+De output van de functie kan ook aangepast worden om het resultaat per hectaren terug te geven. In dat geval moet `per_hectare` op `true` worden gezet en moet `columns_per_hectare` worden gevuld met een lijst van de kolom namen die per hectaren worden berekend. In de output wordt `_per_ha` toegevoegd om verwarring te voorkomen.
+```yaml
+per_hectare: False
+columns_per_hectare:
+  - casualties
+  - damage
+  - affected_people
+  - flooding
+```
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [ -24, 0, 24, 48 ]
+    CalculateFloodRisk:
+        scenario_path: 'flood_scenarios'
+        averaging_methods: # default waardes
+            casualties: sum
+            damage: sum
+            flooding: median
+            affectedpeople: sum
+        per_hectare: False
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    segment_failure_probability:
+        type: csv
+        path: "segment_failure_probability.csv"
+    flood_scenario_grids:
+        type: csv
+        path: "flood_scenario_grids.csv"
+    areas_to_average:
+        type: shape
+        path: "areas_to_average.geojson"
+    flood_risk_results:
+        type: csv
+        path: "flood_risk_results.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.flood_scenarios import CalculateFloodRisk
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+calculate_flood_risk = CalculateFloodRisk(data_adapter=data_adapter)
+calculate_flood_risk.run(
+    input=[
+        "segment_failure_probability",
+        "flood_scenario_grids",
+        "areas_to_average",
+    ],
+    output="flood_risk_results",
 )
 ```
 :::

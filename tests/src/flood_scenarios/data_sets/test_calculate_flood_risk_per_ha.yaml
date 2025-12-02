@@ -2,7 +2,7 @@ GlobalVariables:
     rootdir: "tests/src/flood_scenarios/data_sets"
     moments: [ -24, 0, 24, 48 ]
     CalculateFloodRisk:
-        scenario_path: "flood_scenarios"
+        scenario_path: "docs/examples/notebooks/data_sets/7.flood_scenarios/flood_scenarios"
         averaging_methods:
             # these are default values, can be overridden in config
             casualties: sum
@@ -10,7 +10,12 @@ GlobalVariables:
             flooding: median
             affectedpeople: sum
             waterdepth: sum
-        per_hectare: False
+        per_hectare: True
+        columns_per_hectare:
+          - casualties
+          - damage
+          - affected_people
+          - flooding
 
 DataAdapter:
     default_options:

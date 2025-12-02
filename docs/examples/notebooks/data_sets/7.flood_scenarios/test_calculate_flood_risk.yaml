@@ -3,7 +3,13 @@ GlobalVariables:
     moments: [ -24, 0, 24, 48 ]
     CalculateFloodRisk:
         scenario_path: 'flood_scenarios'
-        averging_method: 'mean'
+        averaging_methods:
+            # these are default values, can be overridden in config
+            casualties: sum
+            damage: sum
+            flooding: median
+            affectedpeople: sum
+            waterdepth: sum
         per_hectare: False
 
 DataAdapter:
