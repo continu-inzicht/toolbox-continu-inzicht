@@ -35,6 +35,32 @@ def test_load_from_flood_scenario():
     assert "hydaulicload_upperboundary" in df_out.columns
     assert len(df_out) == len(df_in)
     assert df_out["hydaulicload_upperboundary"].to_list() == [2.948, 2.93]
+    assert len(df_out.columns) == 7  # 4 grids + 3 other columns
+
+
+def test_load_from_flood_scenario_one_grid():
+    """test of flexibiliteit er ook is met maar 1 _grid waarde"""
+    data_adapter = helper_create_data_adapter(
+        "test_select_flood_scenario_from_load.yaml"
+    )
+    select_flood_scenario_from_load = SelectFloodScenarioFromLoad(
+        data_adapter=data_adapter
+    )
+    select_flood_scenario_from_load.run(
+        input=[
+            "flood_scenario_loads",
+            "breach_location_metadata_one_grid",
+        ],
+        output="flood_scenario_grids",
+    )
+
+    df_in = data_adapter.input("flood_scenario_loads")
+    df_out = select_flood_scenario_from_load.df_out
+    assert not df_out.empty
+    assert "hydaulicload_upperboundary" in df_out.columns
+    assert len(df_out) == len(df_in)
+    assert df_out["hydaulicload_upperboundary"].to_list() == [2.948, 2.93]
+    assert len(df_out.columns) == 4  # only one grid + 3 other columns
 
 
 def test_load_from_flood_scenario_two_large():

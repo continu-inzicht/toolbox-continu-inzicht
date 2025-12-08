@@ -103,6 +103,9 @@ probabilistic-piping = "==0.0.5"
 [environments]
 default = { features = ["common","tests", "dev"] }
 prod = { features = ["common", "tests"] }
+
+[dependencies]
+rasterstats = ">=0.20.0,<0.21"
 ## check python versions - makes pixi large so only to test locally
 #py311 = { features = ["common","tests", "py311"] }
 #py312 = { features = ["common","tests", "py312"] }

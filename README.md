@@ -76,6 +76,18 @@ Of selecteer de juiste Python-instantie: `.pixi\envs\default\python.exe` in je o
 
 Voor het berekenen van Fragility Curves worden twee packages gebruikt: [Pydra Core](https://github.com/HKV-products-services/pydra_core) voor GEKB en [Probabilistic piping](https://github.com/HKV-products-services/probabilistic_piping) voor STPH. Deze worden los ontwikkeld door HKV.
 
+#### LFS
+
+Voor een aantal bestanden wordt gebruik gemaakt van [Git LFS](https://git-lfs.com/). Zorg ervoor dat dit geïnstalleerd is om de repository goed te kunnen clonen.
+
+Het gaat hierbij om kaarten als GeoTIFFs die groter zijn dan 1MB voor de voorbeelden en tests.
+
+Gebruik bij het pushen van grote bestanden het volgende commando:
+
+```bash
+git lfs push origin {branchnaam} --all
+```
+
 ## License
 
 Copyright (c) 2024 - 2025, HKV lijn in Water

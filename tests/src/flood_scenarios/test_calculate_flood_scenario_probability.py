@@ -22,7 +22,10 @@ def test_calculate_flood_scenario_probability():
     )
     calculate_flood_scenario_probability.run(
         input=["combined_failure_probability_data", "section_id_to_segment_id"],
-        output="flood_scenario_probability_resultaten",
+        output=[
+            "flood_scenario_probability_resultaten",
+            "gecombineerde_faalkans_dijkvakken",
+        ],
     )
     df_out = calculate_flood_scenario_probability.df_out
     df_out.set_index("segment_id", inplace=True)
@@ -35,3 +38,24 @@ def test_calculate_flood_scenario_probability():
         df_out.loc[34003, "failure_probability"],
         hand_calc,
     )
+
+
+def test_calculate_flood_scenario_probability_check_combined():
+    """test vergelijking handmatig met code"""
+    data_adapter = helper_create_data_adapter("test_calculate_flood_scenario.yaml")
+    calculate_flood_scenario_probability = CalculateFloodScenarioProbability(
+        data_adapter=data_adapter
+    )
+    calculate_flood_scenario_probability.run(
+        input=["combined_failure_probability_data", "section_id_to_segment_id"],
+        output=[
+            "flood_scenario_probability_resultaten",
+            "gecombineerde_faalkans_dijkvakken",
+        ],
+    )
+    df_out_combined_failure = (
+        calculate_flood_scenario_probability.df_out_combined_failure
+    )
+    assert np.isclose(
+        df_out_combined_failure.loc[0, "combined_failure_probability"], 0.044382
+    )  # as calculated in sprint 6 - 27-11-25

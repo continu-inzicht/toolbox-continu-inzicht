@@ -22,6 +22,8 @@ class CalculateFloodScenarioProbability(ToolboxBase):
         Dataframe met koppeling van dijkvakken naar deeltrajecten
     df_out : Optional[pd.DataFrame] | None
         Dataframe met gecombineerde deeltrajectkansen.
+    df_out_combined_failure: Optional[pd.DataFrame] | None
+        Dataframe met gecombineerde dijkvakkansen over alle dijkvakken
     schema_sections_to_segment : ClassVar[dict[str, str]]
         Schema voor de input dataframe met koppeling van dijkvakken naar deeltrajecten
     schema_grouped_sections_failure_probability : ClassVar[dict[str, str]]
@@ -42,10 +44,10 @@ class CalculateFloodScenarioProbability(ToolboxBase):
     """
 
     data_adapter: DataAdapter
-
     df_in_grouped_sections_failure_probability: Optional[pd.DataFrame] | None = None
     df_in_sections_to_segment: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
+    df_out_combined_failure: Optional[pd.DataFrame] | None = None
     schema_sections_to_segment: ClassVar[dict[str, str]] = {
         "section_id": "int",
         "segment_id": "int",
@@ -69,6 +71,8 @@ class CalculateFloodScenarioProbability(ToolboxBase):
 
         if not len(input) == 2:
             raise UserWarning("Input variabele moet 2 string waarden bevatten.")
+        if not len(output) == 2:
+            raise UserWarning("Output variabele moet 2 string waarden bevatten.")
 
         # drempelwaarden per meetlocatie
         self.df_in_grouped_sections_failure_probability = self.data_adapter.input(
@@ -81,44 +85,76 @@ class CalculateFloodScenarioProbability(ToolboxBase):
         )
 
         segments = self.df_in_sections_to_segment["segment_id"].unique()
-        segments = self.df_in_sections_to_segment["segment_id"].unique()
         segment_failure = {}
         for segment in segments:
             # sections die horen bij een segment
             df_sections = self.df_in_sections_to_segment[
                 self.df_in_sections_to_segment["segment_id"] == segment
             ]
-            dict_sections_to_length = dict(
-                zip(df_sections["section_id"], df_sections["length"])
+            # hier alleen voor de sections die bij een segment horen:
+            failure = self.calculate_segment_failure_probability_for_given_sections(
+                df_sections=df_sections,
             )
-            # haal voor die sections de bijbehorende kansen op
-            df_prob = self.df_in_grouped_sections_failure_probability.copy()
-            df_prob_segment = df_prob[
-                df_prob["section_id"].apply(
-                    lambda x: x in dict_sections_to_length.keys()
-                )
-            ].copy()
-            # zoek in de input section de lengte op
-            df_prob_segment["length"] = df_prob_segment.apply(
-                lambda row: dict_sections_to_length[row["section_id"]], axis=1
-            )
-            # deze kansen wegen we nu naar lengte
-            total_length = df_prob_segment["length"].sum()
-            df_prob_segment["weighted_failure_probability"] = (
-                df_prob_segment["failure_probability"]
-                * df_prob_segment["length"]
-                / total_length
-            )
-            """Combineer onafhankelijk: P(fail,comb|h) = 1 - PROD(1 - P(fail,i|h))"""
-            failure = 1 - (1 - df_prob_segment["weighted_failure_probability"]).prod()
             segment_failure[segment] = failure
 
-        # placeholder
+        # herhaal voor alle segmenten bij elkaar: overstromingskans gebied toe
+        df_all_sections = self.df_in_sections_to_segment.copy()
+        # in dat geval geven we alle sections mee
+        combined_dike_failure = (
+            self.calculate_segment_failure_probability_for_given_sections(
+                df_sections=df_all_sections,
+            )
+        )
+        self.df_out_combined_failure = pd.DataFrame.from_dict(
+            {0: combined_dike_failure},
+            orient="index",
+            columns=["combined_failure_probability"],
+        )
 
         self.df_out = pd.DataFrame.from_dict(
             segment_failure, orient="index", columns=["failure_probability"]
         ).reset_index()
         self.df_out = self.df_out.rename(columns={"index": "segment_id"})
 
-        # TODO: voeg overstromingskans gebied toe
-        self.data_adapter.output(output=output, df=self.df_out)
+        self.data_adapter.output(output=output[0], df=self.df_out)
+        self.data_adapter.output(output=output[1], df=self.df_out_combined_failure)
+
+    def calculate_segment_failure_probability_for_given_sections(
+        self,
+        df_sections: pd.DataFrame,
+    ) -> float:
+        """
+        Bereken de faalkans voor een segment door de faalkansen van de bijbehorende sections te combineren.
+        Laat hergebruik van de onderstaande code toe.
+
+        parameters
+        ----------
+        df_sections: pd.DataFrame
+            Dataframe met de sections die horen bij een segment
+        returns
+        -------
+        float
+            Faalkans voor het segment
+        """
+        dict_sections_to_length = dict(
+            zip(df_sections["section_id"], df_sections["length"])
+        )
+        # haal voor die sections de bijbehorende kansen op
+        df_prob = self.df_in_grouped_sections_failure_probability.copy()
+        df_prob_segment = df_prob[
+            df_prob["section_id"].apply(lambda x: x in dict_sections_to_length.keys())
+        ].copy()
+        # zoek in de input section de lengte op
+        df_prob_segment["length"] = df_prob_segment.apply(
+            lambda row: dict_sections_to_length[row["section_id"]], axis=1
+        )
+        # deze kansen wegen we nu naar lengte
+        total_length = df_prob_segment["length"].sum()
+        df_prob_segment["weighted_failure_probability"] = (
+            df_prob_segment["failure_probability"]
+            * df_prob_segment["length"]
+            / total_length
+        )
+        """Combineer onafhankelijk: P(fail,comb|h) = 1 - PROD(1 - P(fail,i|h))"""
+        failure = 1 - (1 - df_prob_segment["weighted_failure_probability"]).prod()
+        return failure

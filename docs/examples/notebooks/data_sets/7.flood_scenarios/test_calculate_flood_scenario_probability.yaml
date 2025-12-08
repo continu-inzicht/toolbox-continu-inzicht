@@ -15,3 +15,6 @@ DataAdapter:
     segment_failure_probability:
         type: csv
         file: "segment_failure_probability.csv"
+    gecombineerde_faalkans_dijkvakken:
+        type: csv
+        file: "hidden_gecombineerde_faalkans_dijkvakken.csv"
