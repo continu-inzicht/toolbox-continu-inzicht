@@ -10,7 +10,7 @@ from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 
-def import_raster_librariers():
+def import_raster_libraries():
     try:
         from rasterstats import zonal_stats
         import rasterio
@@ -184,7 +184,7 @@ class CalculateFloodRisk(ToolboxBase):
             scenario_path = global_variables["used_root_dir"]
 
         # unconventional way to ensure that the libraries are imported only when needed allowing for lighter installations
-        zonal_stats, rasterio = import_raster_librariers()
+        zonal_stats, rasterio = import_raster_libraries()
         dict_segments_out = {}
         for _, row in self.df_in_flood_scenario_grids.iterrows():
             # load grids
@@ -218,7 +218,7 @@ class CalculateFloodRisk(ToolboxBase):
                 stat = averaging_methods[grid_name]
                 zs = zonal_stats(
                     vectors=self.gdf_in_areas_to_average["geometry"],
-                    raster=array_msk.data,
+                    raster=array_msk,
                     affine=affine,
                     stats=[stat],
                     all_touched=False,
