@@ -33,6 +33,10 @@ quarto-check = { cmd = "quarto check all", depends-on = ["quartodoc-build"] }
 quarto-render = { cmd = "export QUARTO_PYTHON=python && quarto render docs --to html --execute", depends-on = [
     "quartodoc-build",
 ] }
+# packing the environment
+## When building with pixi pack: `pixi run pack`, you first need to remove tbci
+pack = {cmd = "pixi exec pixi-pack ."}
+
 # Lint
 pre-commit = "pre-commit run --all-files"
 lint = { depends-on = ["pre-commit"] }
@@ -87,6 +91,7 @@ tomli-w = "*"
 types-requests = "*"
 types-pyyaml = "*"
 matplotlib = "*"
+pixi-pack = ">=0.7.5,<0.8"
 
 ## check specific python versions
 #[feature.py311.dependencies]
@@ -100,12 +105,13 @@ matplotlib = "*"
 toolbox_continu_inzicht = { path = "src", editable = true }
 pydra-core = "==0.0.9"
 probabilistic-piping = "==0.0.5"
+build = ">=1.3.0, <2"
 
 [environments]
 default = { features = ["common","tests", "dev"] }
 prod = { features = ["common", "tests"] }
 
-[dependencies]
+[pypi-dependencies]
 ## check python versions - makes pixi large so only to test locally
 #py311 = { features = ["common","tests", "py311"] }
 #py312 = { features = ["common","tests", "py312"] }

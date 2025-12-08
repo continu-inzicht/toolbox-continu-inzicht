@@ -19,7 +19,7 @@ def import_raster_libraries():
         zonal_stats = None
         rasterio = None
         raise ImportError(
-            "Folium is not installed, use the dev pixi environment or install folium"
+            "Rasterio or zonalstats is not installed, use the dev pixi environment or install rasterio and rasterstats"
         )
     return zonal_stats, rasterio
 

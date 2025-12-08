@@ -1,29 +1,31 @@
 name: Toolbox_continu_inzicht
 channels:
-  - conda-forge
+- conda-forge
 dependencies:
 # bare minimum dependencies
-  - pandas
-  - pydantic>=2
-  - python-dotenv>=1.0.1
-  - requests
-  - httpx
-  - pyyaml
-  # io dependencies
-  - pyarrow
-  - sqlalchemy
-  - psycopg2
-  - xarray
-  - netcdf4>=1.7.1
-  - openpyxl
-  # flood_scenarios
-  - rasterstats>=0.20.0
-  # geospatial dependencies
-  - fiona
-  - geopandas
-  - pyogrio
-  - shapely
-  # daughter package dependencies
-  - openturns>=1.23
-  - probabilistic_piping==0.0.5
-  - pydra_core==0.0.9
+- pandas
+- pydantic>=2
+- python-dotenv>=1.0.1
+- requests
+- httpx
+- pyyaml
+# io dependencies
+- pyarrow
+- sqlalchemy
+- psycopg2
+- xarray
+- netcdf4>=1.7.1
+- openpyxl
+# flood_scenarios
+- rasterstats>=0.20.0
+# geospatial dependencies
+- fiona
+- geopandas
+- pyogrio
+- shapely
+
+## pypi komt met de pip instal TBCI meey
+# - openturns>=1.23
+# daughter package dependencies
+# - probabilistic_piping==0.0.5
+# - pydra_core==0.0.9

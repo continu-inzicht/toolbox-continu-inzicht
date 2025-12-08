@@ -15,12 +15,12 @@ from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 # hier de hoofd modules, sub modules in de mapjes zelf
 from toolbox_continu_inzicht import (
     base,
-    loads,
-    sections,
-    fragility_curves,
-    proof_of_concept,
-    inspections,
-    flood_scenarios,
+    # loads,
+    # sections,
+    # fragility_curves,
+    # proof_of_concept,
+    # inspections,
+    # flood_scenarios,
 )
 
 
@@ -34,10 +34,11 @@ __all__ = [
     "fragility_curve",
     "FragilityCurve",
     "base",
-    "loads",
-    "sections",
-    "fragility_curves",
-    "proof_of_concept",
-    "inspections",
-    "flood_scenarios",
+    ### moet om optional deps mogelijk te maken
+    # "loads",
+    # "sections",
+    # "fragility_curves",
+    # "proof_of_concept",
+    # "inspections",
+    # "flood_scenarios",
 ]
