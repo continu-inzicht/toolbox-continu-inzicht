@@ -99,7 +99,6 @@ quartodoc:
       contents:
        - Config
        - DataAdapter
-       - proof_of_concept.example_module
        - FragilityCurve
     - title: Belastingen
       desc: Functies die belastingen inladen, classificeren of toekennen.

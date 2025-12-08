@@ -34,11 +34,11 @@ __all__ = [
     "fragility_curve",
     "FragilityCurve",
     "base",
+    "proof_of_concept",
     ### moet om optional deps mogelijk te maken
     # "loads",
     # "sections",
     # "fragility_curves",
-    # "proof_of_concept",
     # "inspections",
     # "flood_scenarios",
 ]
