@@ -9895,7 +9895,7 @@ packages:
 - pypi: ./src
   name: toolbox-continu-inzicht
   version: 0.1.2
-  sha256: a06651df38b1eb3fb1f183e87241340d35d867d8236ca2de50bac78e475666f4
+  sha256: d00970a807ddad009cda5dcf998ef25f4ebd82a614da5d1b9df8479929769a7f
   requires_dist:
   - pandas
   - pydantic>=2
@@ -9912,11 +9912,14 @@ packages:
   - pyarrow ; extra == 'all'
   - pydra-core==0.0.9 ; extra == 'all'
   - pyogrio ; extra == 'all'
+  - rasterstats>=0.20.0 ; extra == 'all'
   - requests ; extra == 'all'
   - scipy ; extra == 'all'
   - shapely ; extra == 'all'
   - sqlalchemy ; extra == 'all'
   - xarray ; extra == 'all'
+  - geopandas ; extra == 'flood-scenarios'
+  - rasterstats>=0.20.0 ; extra == 'flood-scenarios'
   - openturns>=1.23 ; extra == 'fragility-curves'
   - probabilistic-piping==0.0.5 ; extra == 'fragility-curves'
   - pydra-core==0.0.9 ; extra == 'fragility-curves'
@@ -9935,6 +9938,7 @@ packages:
   - pyarrow ; extra == 'io'
   - sqlalchemy ; extra == 'io'
   - xarray ; extra == 'io'
+  - geopandas ; extra == 'loads'
   - httpx ; extra == 'loads'
   - netcdf4>=1.7.1 ; extra == 'loads'
   - requests ; extra == 'loads'

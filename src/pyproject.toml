@@ -38,11 +38,17 @@ fragility_curves = [
     "pydra_core==0.0.9",
 ]
 
+flood_scenarios = [
+    "geopandas",
+    "rasterstats>=0.20.0"
+]
+
 loads = [
     "requests",
     "httpx",
     "netcdf4>=1.7.1",
     "xarray",
+    "geopandas",
 ]
 
 inspections = [
@@ -71,6 +77,7 @@ all = [
     "toolbox_continu_inzicht[inspections]",
     "toolbox_continu_inzicht[sections]",
     "toolbox_continu_inzicht[io]",
+    "toolbox_continu_inzicht[flood_scenarios]",
 ]
 
 [tool.hatch.version]
