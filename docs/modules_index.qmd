@@ -2,14 +2,14 @@
 title: "Modules"
 ---
 
-De Toolbox Continu Inzicht is in sprints ontwikkeld waarbij één of meerdere modules is ontwikkeld.
+De Toolbox Continu Inzicht is in sprints ontwikkeld waarbij per keer één of meerdere modules zijn ontwikkeld.
 Voor elke module worden Python-scripts ontwikkeld waarmee een functie kan worden uitgevoerd.
 Deze modules kunnen los gebruikt worden of vormen samen een geheel.
 Naast de functies is per module een beschrijving beschikbaar en zijn er voorbeelden hoe de code gebruikt kan worden met uitleg.
 
 1.  [Basis architectuur Toolbox Continu Inzicht](modules/architectuur.qmd)
 
-    In de toolbox continu inzicht is een belangrijk uitgangspunt dat verschillende data formaten gebruikt kunnen worden, de functie zijn zo opgezet dat elk formaat als in of uitvoer kan dienen.
+    In de Toolbox Continu Inzicht is een belangrijk uitgangspunt dat verschillende bestandsformaten gebruikt kunnen worden.De functies zijn zo opgezet dat elk formaat als in- of uitvoer kan dienen.
 
 2.  [Belastingen inlezen en classificeren](modules/belastingen.qmd)
 
@@ -31,8 +31,8 @@ Naast de functies is per module een beschrijving beschikbaar en zijn er voorbeel
 
 6.  [Impactanalyse: effect nieuwe statistiek en rekenregels op de faalkans](modules/impactanalyse.qmd)
 
-    Een fragility curve beschrijft de conditionele kans gegeven een belasting, zoals een waterstand. Om inzicht te krijgen in de faalkans per jaar moet de fragility curve gecombineerd worden met de kans van voorkomen van verschillende waterstanden (overschrijdingsfrequentielijn waterstanden). Hiermee is het mogelijk om het effect van veranderingen in de statistiek van de belasting, bijvoorbeeld door klimaatverandering, een systeemmaatregel zoals rivierverruiming of nieuwe rekenregels, op de faalkans per jaar te vergelijken met een referentiesituatie. De duiding van de verandering van de faalkans is in klassen van grote kansafname tot grote kanstoename. Deze klassen zijn door de gebruiker zelf te definieren.
+    Een fragility curve beschrijft de conditionele kans gegeven een belasting, zoals een waterstand. Om inzicht te krijgen in de faalkans per jaar moet de fragility curve gecombineerd worden met de kans van voorkomen van verschillende waterstanden (overschrijdingsfrequentielijn waterstanden). Dit maakt het mogelijk om het effect van veranderingen in de belastingstatistiek - bijvoorbeeld door klimaatverandering, een systeemmaatregel zoals rivierverruiming of nieuwe rekenregels - op de faalkans per jaar te vergelijken met een referentiesituatie. De duiding van de verandering van de faalkans is in klassen van grote kansafname tot grote kanstoename. Deze klassen zijn door de gebruiker zelf te definiëren.
 
 7.  [Inspectieresultaten inlezen en weergeven](modules/inspectieresultaten.qmd)
 
-    Het statusbeeld van de dijken op basis van fragility curves, eventueel bijgesteld met een beheerdersoordeel, is te verrijken met informatie uit de inspecties. Dit kunnen historische waarnemingen zijn, maar ook de voorjaarsinspectie of een melding tijdens een calamiteiteninspectie. Met de Toolbox Continu Inzicht is het mogelijk om de inspectiedata te filteren, classificeren en kaart te tonen in de viewer van de Toolbox Continu Inzicht.
+    Het statusbeeld van de dijken op basis van fragility curves, eventueel bijgesteld met een beheerdersoordeel, is te verrijken met informatie uit de inspecties. Dit kunnen historische waarnemingen zijn, maar ook de voorjaarsinspectie of een melding tijdens een calamiteiteninspectie. Met de Toolbox Continu Inzicht is het mogelijk om de inspectiedata te filteren, classificeren en op de kaart te tonen in de viewer van de Toolbox Continu Inzicht.

@@ -96,24 +96,24 @@ def _get_mu_sigma(EX: float, SDX: float) -> Tuple[float, float]:
     """
     Verkrijg mu en sigma voor de normaalverdeling van de
     onderliggende log-normal verdeling.
-    - EX en SDX zijn de verwachting of standaard deviatie van de log-normaal verdeling
-    - mu2 en sigma2 zijn de verwachting of standaard deviatie van de onderliggende normaalverdeling
-    (de gebruikelijke parameters van de log-normaal verdeling)
+    - EX en SDX zijn de verwachting of standaarddeviatie van de lognormaal verdeling
+    - mu2 en sigma2 zijn de verwachting of standaarddeviatie van de onderliggende normaalverdeling
+    (de gebruikelijke parameters van de lognormaal verdeling)
     http://stackoverflow.com/questions/41464753/generate-random-numbers-from-lognormal-distribution-in-python
 
     Parameters
     ----------
     EX : float
-        Verwachting van de log-normaal verdeling
+        Verwachting van de lognormaal verdeling
     SDX : float
-        Standaardverdeling van de log-normaal verdeling
+        Standaardverdeling van de lognormaal verdeling
 
     Returns
     -------
     mu2 : float
-        Verwachting van de onderliggende normal verdeling
+        Verwachting van de onderliggende normale verdeling
     sigma2 : float
-         Standaardverdeling van de onderliggende normal verdeling
+         Standaardverdeling van de onderliggende normale verdeling
     """
     # Variatiecoëfficiënt:
     Vx = SDX / EX
@@ -129,7 +129,7 @@ def _get_mu_sigma(EX: float, SDX: float) -> Tuple[float, float]:
 
 def get_qcr_dist(Hs: float, grass_quality: str) -> Tuple[float, float]:
     """
-    Verkrijg de verdeling voor de kritieke overtopping afvoer
+    Verkrijg de verdeling voor de kritieke overtoppingafvoer
     gebaseerd op significante golfhoogte
 
     Parameters
@@ -142,7 +142,7 @@ def get_qcr_dist(Hs: float, grass_quality: str) -> Tuple[float, float]:
     Raises
     ------
     ValueError
-        Als Graskwaliteit niet klopt, moet be "open" of  "closed" zijn.
+        Als Graskwaliteit niet klopt, moet deze "open" of  "closed" zijn.
 
     Returns
     -------

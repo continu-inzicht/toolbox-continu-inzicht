@@ -173,7 +173,7 @@ def test_create_dataframe():
         calc_time=calc_time,
         json_data=json_data,
         locations=locations,
-        global_variables={"aquo_allias": {"WNSHDB1": "WATHTE"}},
+        global_variables={"aquo_alias": {"WNSHDB1": "WATHTE"}},
     )
     assert df_out is not None
     assert len(df_out) == 1

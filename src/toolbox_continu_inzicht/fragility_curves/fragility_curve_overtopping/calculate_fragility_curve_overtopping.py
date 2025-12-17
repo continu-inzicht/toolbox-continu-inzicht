@@ -118,7 +118,7 @@ class WaveOvertoppingCalculation:
         bedlevel = np.interp(windrichtingen, richtingen, bodemhoogte, period=360)
         fetch = np.interp(windrichtingen, richtingen, strijklengte, period=360)
 
-        # Voor dominante windrichting bepalen gebruik(te)/(en) we het profiel zonder voorland
+        # Voor het bepalen van de dominante windrichting wordt het profiel zonder voorland gebruikt
         basis_profiel.closing_situation = (
             closing_situation  # niet zo netjes maar het werkt
         )
@@ -248,8 +248,8 @@ class WaveOvertoppingCalculation:
         # Leidt golfcondities af voor de richting
         cl_rnd = np.round(crestlevel / hstap) * hstap  # crest level rounded
         # Verfijn het raster rond crest level
-        # `waterlevels` is eigenlijk hydraulicload, gekozen om hier te laten omdat bij een GEKB curve
-        # je altijd een waterstand hebt.
+        # `waterlevels` is eigenlijk hydraulicload, gekozen om hier te laten omdat er bij een GEKB-curve
+        # altijd een waterstand is.
         waterlevels = np.r_[
             np.arange(
                 cl_rnd - lower_limit_coarse, cl_rnd - upper_limit_coarse, hstap * 2

@@ -3,8 +3,8 @@
 title: "Aquo grootheden"
 ---
 
-Bij het inladen van belastingen wordt rekening gehouden met de Aquo standaard.
-Voor toolbox continu inzicht kan het soms lastig zijn omdat de termen binnen de Aquo standaard valt.
+Bij het inladen van belastingen wordt rekening gehouden met de Aquo-standaard.
+Voor Toolbox Continu Inzicht kan het soms lastig zijn, omdat de termen binnen de Aquo-standaard valt.
 Binnen de toolbox wordt de volgende meta data gebruikt:
 
 | voorkeurslabel     | omschrijving       | id                                                                              | grootheid   | groep     | label              | definitie                                                                                                                                                                                                                                      | label_en              | units                                  |
@@ -31,4 +31,4 @@ Binnen de toolbox wordt de volgende meta data gebruikt:
 | Astronomisch getij | Astronomisch getij | -3.0                                                                            | GETIJ       |           |                    |                                                                                                                                                                                                                                                | astronomical tide     | cm tov MSL                             |
 | Grondwaterstand    | Grondwaterstand    | -4.0                                                                            | WATGRD      |           |                    |                                                                                                                                                                                                                                                | groundwater level     | m+NAP                                  |
 
- _Dit is een automatisch gegenereerde tabel, zie de [bron code voor meer informatie](https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/src/toolbox_continu_inzicht/base/aquo_meta_data)_
+ _Dit is een automatisch gegenereerde tabel, zie de [broncode voor meer informatie](https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/src/toolbox_continu_inzicht/base/aquo_meta_data)_
