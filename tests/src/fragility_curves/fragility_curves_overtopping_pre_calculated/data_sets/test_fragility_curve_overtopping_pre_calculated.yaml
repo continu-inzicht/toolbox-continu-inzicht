@@ -1,0 +1,29 @@
+GlobalVariables:
+    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping_pre_calculated/data_sets"
+    moments: [ -24, 0, 24, 48 ]
+
+    FragilityCurveOvertoppingPreCalculated:
+        pre_calculated_filter_data_adapter_name: "pre_calculated_filter"
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes_5.csv"
+    profiles:
+        type: csv
+        file: "profiles_new.csv"
+    bedlevel_fetch:
+        type: csv
+        file: "bedlevelfetch_11.csv"
+    bedlevel_fetch_unique:
+        type: csv_pre_calculated_unique
+        file: "bedlevelfetch_11.csv"
+    pre_calculated_filter:
+        type: csv_pre_calculated_filter
+        file: "bedlevelfetch_11.csv"
+    fragility_curves:
+        type: csv
+        file: "fragility_curves_5.csv"
