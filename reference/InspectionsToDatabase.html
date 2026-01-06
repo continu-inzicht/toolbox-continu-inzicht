@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>inspectionstodatabase – Toolbox continu inzicht</title>
+<title>inspectionstodatabase – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Toolbox continu inzicht</span>
+    <span class="navbar-title">Toolbox Continu Inzicht</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -200,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>InspectionsToDatabase</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>inspections.InspectionsToDatabase()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Combineert de inspectieresultaten met de opmaak en slaat deze op in de database.</p>
-<p>Met deze functie wordt de gehele geojson onderdeel van 1 tabel in de database. Bij grote lagen is het aan te raden om deze als aparte tabel op te slaan, de aanpak voor het opslaan van grotere lagen in de database is te vinden onder modules <code>inspectieresultaten</code> in de documentatie.</p>
+<p>Met deze functie wordt de gehele geojson onderdeel van 1 tabel in de database. Bij grote lagen is het aan te raden om deze als aparte tabel op te slaan. De aanpak voor het opslaan van grotere lagen in de database is te vinden onder Modules <code>Inspectieresultaten inlezen en weergeven</code> in de documentatie.</p>
 <section id="attributes" class="level2 doc-section doc-section-attributes">
 <h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="caption-top table">
@@ -245,12 +245,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td>legend_schema</td>
 <td>ClassVar[dict[str, str]]</td>
-<td>Schema DataFrame met de opmaak informatie</td>
+<td>Schema DataFrame met de opmaakinformatie</td>
 </tr>
 <tr class="odd">
 <td>layer_schema</td>
 <td>ClassVar[dict[str, str]]</td>
-<td>Schema DataFrame met de layer informatie</td>
+<td>Schema DataFrame met de lagen informatie</td>
 </tr>
 </tbody>
 </table>
@@ -259,10 +259,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
 <p>Default waarden te overschrijven in de global variables:</p>
 <ul>
-<li>max_rows = 10, Maximale toegestane rijen geodata in een database veld</li>
+<li>max_rows = 10, Maximale toegestane rijen geodata in een databaseveld</li>
 <li>index = 0, Index van df_in_layers waarin de geodata wordt opgeslagen</li>
 </ul>
-<p>De layers tabel geeft de mogelijkheid om de meer configuratie door te geven aan de viewer. Als deze niet aanwezig is, worden standaard opties gebruikt. Hier moet minimaal de volgende kolommen in zitten:</p>
+<p>De layers tabel geeft de mogelijkheid om de meer configuratie door te geven aan de viewer. Als deze niet aanwezig is, worden standaardopties gebruikt. Hier moet minimaal de volgende kolommen in zitten:</p>
 <ul>
 <li>group_name: naam van de groep in de viewer waar de layer toegevoegd wordt.</li>
 <li>layer_name: naam van de laag in de viewer.</li>
@@ -270,9 +270,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Optionele kolommen voor de df_in_layers zijn:</p>
 <ul>
-<li>layer_type: type van de laag, wordt standaard gevuld als geojson.</li>
-<li>layer_tabel: naam van een overige tabel in de database die met geodaata is gevuld.</li>
-<li>layer_wms_url: str URL van een WMS service die gebruikt kan worden voor de laag. Bij het inladen worden de volgende lagen opgehaald:
+<li><p>layer_type: type van de laag, wordt standaard gevuld als geojson.</p></li>
+<li><p>layer_tabel: naam van een overige tabel in de database die met geodata is gevuld.</p></li>
+<li><p>layer_wms_url: str URL van een WMS service die gebruikt kan worden voor de laag. Bij het inladen worden de volgende lagen opgehaald:</p>
 <ul>
 <li>layer_wms_layer: str</li>
 <li>layer_wms_style: str</li>
@@ -598,7 +598,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <colgroup>
 <col style="width: 3%">
 <col style="width: 5%">
-<col style="width: 87%">
+<col style="width: 86%">
 <col style="width: 4%">
 </colgroup>
 <thead>
@@ -613,13 +613,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>input</td>
 <td>list[str]</td>
-<td>Naam van de Data Adapters met inspectieresultaten, opmaak en lagen (in die volgorde). Resultaten en opmaak zijn verplicht, lagen zijn optioneel. Indien er geen informatie is meegegeven, worden standaard waardes gebruikt.</td>
+<td>Naam van de DataAdapters met inspectieresultaten, opmaak en lagen (in die volgorde). Resultaten en opmaak zijn verplicht, lagen zijn optioneel. Indien er geen informatie is meegegeven, worden standaardwaardes gebruikt.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td>output</td>
 <td>str</td>
-<td>Naam van Data adapter voor de output</td>
+<td>Naam van DataAdapter voor de output</td>
 <td><em>required</em></td>
 </tr>
 </tbody>

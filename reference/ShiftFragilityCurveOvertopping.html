@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>shiftfragilitycurveovertopping – Toolbox continu inzicht</title>
+<title>shiftfragilitycurveovertopping – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Toolbox continu inzicht</span>
+    <span class="navbar-title">Toolbox Continu Inzicht</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -281,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.calculate_fragility_curve">calculate_fragility_curve</a></td>
-<td>Bereken de fragility scurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</td>
+<td>Bereken de fragility curve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</td>
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.check_monotonic_curve">check_monotonic_curve</a></td>
@@ -317,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run">run</a></td>
-<td>Runt de berekening van de fragility curve voor golfoverslag &amp; shift de curve met een gegeven effect</td>
+<td>Runt de berekening van de fragility curve voor golfoverslag &amp; verschuift de curve met een gegeven effect</td>
 </tr>
 <tr class="odd">
 <td><a href="#toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.shift">shift</a></td>
@@ -345,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    output,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Bereken de fragility scurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</p>
+<p>Bereken de fragility curve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
@@ -367,13 +367,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>input</td>
 <td>list[str]</td>
-<td>Lijst namen van de input dataadapters: slopes, profile en bed_levels</td>
+<td>Lijst namen van de input DataAdapters: slopes, profile en bed_levels</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td>output</td>
 <td>str</td>
-<td>Naam van de dataadapter Fragility curve output</td>
+<td>Naam van de DataAdapter Fragility curve output</td>
 <td><em>required</em></td>
 </tr>
 </tbody>
@@ -556,14 +556,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.ShiftFragilityCurveOvertopping.run">run</h3>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.ShiftFragilityCurveOvertopping.run(<span class="bu">input</span>, output, effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Runt de berekening van de fragility curve voor golfoverslag &amp; shift de curve met een gegeven effect</p>
+<p>Runt de berekening van de fragility curve voor golfoverslag &amp; verschuift de curve met een gegeven effect</p>
 <section id="parameters-3" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-3">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 7%">
 <col style="width: 12%">
-<col style="width: 68%">
+<col style="width: 67%">
 <col style="width: 11%">
 </colgroup>
 <thead>
@@ -578,13 +578,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>input</td>
 <td>list[str]</td>
-<td>Lijst namen van de input data adapters: slopes, profile en bed_levels</td>
+<td>Lijst namen van de input DataAdapters: slopes, profile en bed_levels</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td>output</td>
 <td>str</td>
-<td>Naam van de dataadapter Fragility curve output</td>
+<td>Naam van de DataAdapter Fragility curve output</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
@@ -598,28 +598,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="notes" class="level4 doc-section doc-section-notes">
 <h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h4>
-<p>Deze input volgorde is wat specifiek, vandaar de extra details. Waar geen type is opgegeven moet het type float zijn. De eerste (slopes) data adapter moet de volgende kolommen bevatten:</p>
+<p>De inputvolgorde is vrij specifiek, vandaar de extra details. Als er geen type is opgegeven, wordt standaard het type float gebruikt.</p>
+<p>De eerste (slopes) DataAdapter met hellingsdata moet de volgende kolommen bevatten:</p>
 <ol type="1">
 <li>x, x-co�rdinaat</li>
 <li>y, y-co�rdinaat</li>
 <li>r, roughness</li>
-<li>slopetypeid, id de helling type (int, 1: dike or 2: slope)</li>
+<li>slopetypeid, id van het hellingtype (int, 1: dike or 2: slope)</li>
 </ol>
-<p>De tweede (profile) data adapter met profieldata moet de volgende kolommen bevatten:</p>
+<p>De tweede (profile) DataAdapter met profieldata moet de volgende kolommen bevatten:</p>
 <ol type="1">
 <li>windspeed, windsnelheid</li>
 <li>sectormin, de minimale sectorhoek.</li>
 <li>sectorsize, de grootte van de sectorhoek.</li>
-<li>orientation, orientatie van het profiel in graden</li>
+<li>orientation, ori�ntatie van het profiel in graden</li>
 <li>crestlevel, kruinhoogte in meters</li>
 <li>dam, wel of geen dam (int, 0: geen dam or 1: dam)</li>
 <li>damheight, dam hoogte in meters</li>
 <li>qcr, mag een van 3 zijn: een waarde in m^3/s (float), open of niet (str: close | open) of de waarden van mu en sigma (tuple).</li>
 </ol>
-<p>De derde (Bedlevelfetch) data adapter met bodem data moet de volgende kolommen bevatten:</p>
+<p>De derde (Bedlevelfetch) DataAdapter met bodemdata moet de volgende kolommen bevatten:</p>
 <ol type="1">
 <li>direction, windrichtingen</li>
-<li>bedlevel, bodem profielen</li>
+<li>bedlevel, bodemprofielen</li>
 <li>fetch, lengte van fetch in meters</li>
 </ol>
 </section>

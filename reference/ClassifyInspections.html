@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>classifyinspections – Toolbox continu inzicht</title>
+<title>classifyinspections – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Toolbox continu inzicht</span>
+    <span class="navbar-title">Toolbox Continu Inzicht</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -205,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table">
 <colgroup>
 <col style="width: 7%">
-<col style="width: 20%">
+<col style="width: 21%">
 <col style="width: 71%">
 </colgroup>
 <thead>
@@ -229,12 +229,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>df_styling</td>
 <td>Optional[pd.DataFrame] | None</td>
-<td>Input DataFrame met opmaak informatie</td>
+<td>Input DataFrame met opmaakinformatie</td>
 </tr>
 <tr class="even">
 <td>df_default_styling</td>
 <td>Optional[pd.DataFrame] | None</td>
-<td>DataFrame met standaard opmaak informatie, wordt gebruikt als er geen opmaak informatie is meegegeven Beschikbaar via get_default_styling() en te vervangen met set_default_styling(df)</td>
+<td>DataFrame met standaard opmaakinformatie, wordt gebruikt als er geen opmaakinformatie is meegegeven Beschikbaar via get_default_styling() en te vervangen met set_default_styling(df)</td>
 </tr>
 <tr class="odd">
 <td>df_out</td>
@@ -249,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>styling_schema</td>
 <td>ClassVar[dict[str, str]]</td>
-<td>Schema DataFrame met de opmaak informatie</td>
+<td>Schema DataFrame met de opmaakinformatie</td>
 </tr>
 </tbody>
 </table>
@@ -257,14 +257,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="notes" class="level2 doc-section doc-section-notes">
 <h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
 <p>Het classificeren van inspectieresultaten gebeurt op basis van de kolom ‘classify_column’ die is opgegeven in de global variables. De classificatie wordt gedaan op basis van de kolommen ‘upper_boundary’ en ‘lower_boundary’ in de opmaak DataFrame, deze wordt meegegeven als tweede input. Waardes die niet geclassificeerd kunnen worden, krijgen de opmaak van de rij zonder waardes in de upper_boundary en lower_boundary kolommen. Als er geen opmaak DataFrame wordt meegegeven, wordt de standaard opmaak gebruikt voor alle waardes. De standaard opmaak is op te halen met get_default_styling() en te vervangen met set_default_styling(df).</p>
-<p>Er zijn drie manier om geodata mee te geven. Deze wordt gebruik voor de opmaak. Alle projecties worden ondersteund, maar wordt omgezet naar EPSG:4326 voor de viewer.</p>
+<p>Er zijn drie manieren om geodata mee te geven. Deze wordt gebruik voor de opmaak. Alle projecties worden ondersteund, maar worden omgezet naar EPSG:4326 voor de viewer.</p>
 <p>In de Global Variables kan de projectie worden aangepast, standaard is EPSG:4326, alle andere projecties worden omgezet naar deze projectie.</p>
 <ul>
-<li>Bij het mee geven van een <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html">GeoDataFrame</a>, wordt de opmaak toegepast op de geometrie van het GeoDataFrame.</li>
+<li>Bij het meegeven van een <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html">GeoDataFrame</a> wordt de opmaak toegepast op de geometrie van het GeoDataFrame.</li>
 <li>Als er een ‘geometry’ kolom is in de DataFrame, wordt deze gebruikt om een GeoDataFrame te maken.</li>
 <li>Indien beide bovenstaande niet het geval is, wordt gezocht naar een kolom met x en met y co�rdinaten en deze wordt gebruikt om een GeoDataFrame te maken.</li>
 </ul>
-<p>Het type geometry wordt automatisch bepaald, maar kan ook meegegeven worden in de Global Variables. Slechts een type per tabel is toe gestaan.</p>
+<p>Het type geometry wordt automatisch bepaald, maar kan ook meegegeven worden in de Global Variables. Slechts een type per tabel is toegestaan.</p>
 <p>De opties zijn:</p>
 <ul>
 <li>Polygon</li>
@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>CircleMarker</li>
 <li>Marker</li>
 </ul>
-<p>De output DataFrame bevat de opmaak informatie die is toegepast op de inspectieresultaten. Als er geen opmaak informatie is meegegeven, wordt de standaard opmaak gebruikt. De output kan een met alleen geclassificeerde resultaten of twee DataFrames met de inspectieresultaten en een met de legenda informatie. Ontbrekende kolommen in de opmaak DataFrame worden aangevuld met de standaard opmaak.</p>
+<p>De output DataFrame bevat de opmaakinformatie die is toegepast op de inspectieresultaten. Als er geen opmaakinformatie is meegegeven, wordt de standaard opmaak gebruikt. De output kan een met alleen geclassificeerde resultaten of twee DataFrames met de inspectieresultaten en een met de legenda-informatie. Ontbrekende kolommen in de opmaak DataFrame worden aangevuld met de standaard opmaak.</p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
@@ -610,13 +610,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>input</td>
 <td>str | list[str]</td>
-<td>Naam van de Data Adapters met inspectieresultaten en legenda met opmaak (indien gewenst), in die volgorde.</td>
+<td>Naam van de DataAdapters met inspectieresultaten en legenda met opmaak (indien gewenst), in die volgorde.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td>output</td>
 <td>str | list[str]</td>
-<td>Naam van Data adapter voor de output</td>
+<td>Naam van DataAdapter voor de output</td>
 <td><em>required</em></td>
 </tr>
 </tbody>
@@ -625,7 +625,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="notes-2" class="level4 doc-section doc-section-notes">
 <h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes-2">Notes</h4>
 <p>De input DataAdapters moet minimaal ‘Inspectieresultaten’ bevatten die worden geclassificeerd. De classificatie wordt gedaan op basis van de kolom ‘classify_column’ opgegeven in de global variables. Deze classificatiewaardes kunnen zowel numeriek zijn als text.</p>
-<p>Indien gewenst kan ook opmaak opties worden meegegeven. Als deze niet meegegeven wordt, wordt de standaard opmaak gebruikt. Deze is op te halen met get_default_styling() en te vervangen (geavanceerd) met set_default_styling(df).</p>
+<p>Indien gewenst kunnen ook opmaakopties worden meegegeven. Als deze niet meegegeven worden, wordt de standaard opmaak gebruikt. Deze is op te halen met get_default_styling() en te vervangen (geavanceerd) met set_default_styling(df).</p>
 <p>Deze moet de volgende kolommen bevatten:</p>
 <ul>
 <li>‘color’: kleur van de classificatie in hexadecimaal formaat</li>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Belastingen inlezen en classificeren – Toolbox continu inzicht</title>
+<title>Belastingen inlezen en classificeren – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Toolbox continu inzicht</span>
+    <span class="navbar-title">Toolbox Continu Inzicht</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -278,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <section id="aquo-standaard" class="level4">
 <h4 class="anchored" data-anchor-id="aquo-standaard">Aquo standaard</h4>
-<p>De standaard ondersteunde belastingen zetten de parameters om in het <a href="www.aquo.nl">Aquo standaard</a> formaat met parameter id, code en omschrijving (naam). Elke functie roept de functie <code>base.aquo.read_aquo()</code> aan, hierbij wordt ook gekeken naar de <code>GlobalVariables</code> voor een <code>aquo_allias</code>. Op die manier is het ook mogelijk om andere parameters, bijvoorbeeld uit FEWS, te koppelen aan een Aquo grootheid. De meta data die gebruikt wordt voor deze standaard is te vinden onder <a href="../overig/aquo_grootheid.html">Aquo grootheden</a>.</p>
+<p>De standaard ondersteunde belastingen zetten de parameters om in het <a href="www.aquo.nl">Aquo standaard</a> formaat met parameter id, code en omschrijving (naam). Elke functie roept de functie <code>base.aquo.read_aquo()</code> aan, hierbij wordt ook gekeken naar de <code>GlobalVariables</code> voor een <code>aquo_alias</code>. Op die manier is het ook mogelijk om andere parameters, bijvoorbeeld uit FEWS, te koppelen aan een Aquo grootheid. De meta data die gebruikt wordt voor deze standaard is te vinden onder <a href="../overig/aquo_grootheid.html">Aquo grootheden</a>.</p>
 </section>
 <section id="sec-delft-fews" class="level4">
 <h4 class="anchored" data-anchor-id="sec-delft-fews">Delft-FEWS</h4>
@@ -286,7 +286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span><span class="at"> </span><span class="er">&nbsp;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">&nbsp; &nbsp; </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">aquo_allias</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">aquo_alias</span><span class="kw">:</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">WNSHDB1</span><span class="kw">:</span><span class="at"> </span><span class="st">"WATHTE"</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
