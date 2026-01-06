@@ -19,7 +19,7 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.calcul
 @dataclass(config={"arbitrary_types_allowed": True})
 class FragilityCurveOvertopping(FragilityCurve):
     """
-    Maakt een enkele fragility curve voor golf overslag.
+    Maakt een enkele fragility curve voor golfoverslag.
     Attributes
     ----------
     data_adapter: DataAdapter
@@ -35,7 +35,7 @@ class FragilityCurveOvertopping(FragilityCurve):
 
     Notes
     -----
-    Via de configuratie kunnen de volgende opties worden ingesteld, deze zijn float ten zij anders aangegeven.
+    Via de configuratie kunnen de volgende opties worden ingesteld, deze zijn float tenzij anders aangegeven.
     Onzekerheden:
 
     1. gh_onz_mu, GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
@@ -43,13 +43,13 @@ class FragilityCurveOvertopping(FragilityCurve):
     1. gp_onz_mu_tp, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
     1. gp_onz_sigma_tp, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gp_onz_mu_tspec, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-    1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+    1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gh_onz_aantal, Aantal onzekerheden in de golfhoogte (standaard 7)
     1. gp_onz_aantal, Aantal onzekerheden in de golfperiode (standaard 7)
 
-    tp_tspec, de verhouding tussen de piek periode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
+    tp_tspec, de verhouding tussen de piekperiode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
 
-    De waterniveaus waarmee probabilistisch gerekend wordt is verdeeld in twee delen: grof en fijn.
+    De waterniveaus waarmee probabilistisch gerekend wordt, is verdeeld in twee delen: grof en fijn.
 
     1. lower_limit_coarse, De ondergrens van de waterstanden waarvoor de fragility curve wordt berekend in grove stappen (standaard 4.0m onder de kruin)
     1. upper_limit_coarse, De bovengrens van de waterstanden waarvoor de fragility curve wordt berekend in grove stappen (standaard 2.0m onder de kruin). Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.
@@ -71,50 +71,51 @@ class FragilityCurveOvertopping(FragilityCurve):
         Parameters
         ----------
         input: list[str]
-            Lijst namen van de input dataadapters: slopes, profile en bed_levels
+            Lijst namen van de input DataAdapters: slopes, profile en bed_levels
         output: str
-            Naam van de dataadapter Fragility curve output
+            Naam van de DataAdapter Fragility curve output
 
         Notes
         -----
-        Deze input volgorde is wat specifiek, vandaar de extra details.
-        Waar geen type is opgegeven moet het type float zijn.
-        De eerste (slopes) data adapter moet de volgende kolommen bevatten:
+        De inputvolgorde is vrij specifiek, vandaar de extra details.
+        Als er geen type is opgegeven, wordt standaard het type float gebruikt.
+
+        De eerste (slopes) DataAdapter met hellingsdata moet de volgende kolommen bevatten:
 
         1. x, x-coördinaat
         1. y, y-coördinaat
         1. r, roughness
         1. slopetypeid, id de helling type (int, 1: dike or 2: slope)
 
-        De tweede (profile) data adapter met profiel data moet de volgende kolommen bevatten:
+        De tweede (profile) DataAdapter met profieldata moet de volgende kolommen bevatten:
 
         1. windspeed, windsnelheid
         1. sectormin, de minimale sectorhoek.
         1. sectorsize, de grootte van de sectorhoek.
-        1. orientation, orientatie van het profiel in graden
+        1. orientation, oriëntatie van het profiel in graden
         1. crestlevel, kruinhoogte in meters
         1. dam, wel of geen dam (int, 0: geen dam or 1: dam)
         1. damheight, dam hoogte in meters
         1. qcr, mag een van 3 zijn: een waarde in m^3/s (float), open of niet (str: close | open) of de waarden van mu en sigma (tuple).
 
-        De derde (Bedlevelfetch) data adapter met bodem data moet de volgende kolommen bevatten:
+        De derde (Bedlevelfetch) DataAdapter met bodemdata moet de volgende kolommen bevatten:
 
         1. direction, windrichtingen
-        1. bedlevel, bodem profielen
+        1. bedlevel, bodemprofielen
         1. fetch, lengte van fetch in meters
         """
         self.calculate_fragility_curve(input, output)
 
     def calculate_fragility_curve(self, input: list[str], output: str) -> None:
         """
-        Bereken de fragility scurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
+        Bereken de fragility curve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
 
         Parameters
         ----------
         input: list[str]
-            Lijst namen van de input dataadapters: slopes, profile en bed_levels
+            Lijst namen van de input DataAdapters: slopes, profile en bed_levels
         output: str
-            Naam van de dataadapter Fragility curve output
+            Naam van de DataAdapter Fragility curve output
 
         Raises
         ------
@@ -167,7 +168,7 @@ class FragilityCurveOvertopping(FragilityCurve):
 
         basis_profiel = pydra_core.Profile.from_dictionary(profiel_dict)
 
-        # Voorland wordt nu even apart gedaan, zodat deze hetzelfde is als de originele versie van Pydra
+        # Voorland wordt apart gedaan, zodat deze hetzelfde is als de originele versie van Pydra
         foreland_profile = {}
         df_slope_foreland = self.df_slopes.loc[self.df_slopes["slopetypeid"] == 2]
         if len(df_slope_foreland) > 0:
@@ -236,26 +237,26 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
 
     Notes
     -----
-    Via de configuratie kunnen de volgende opties worden ingesteld, deze zijn float ten zij anders aangegeven.
+    Via de configuratie kunnen de volgende opties worden ingesteld, deze zijn float tenzij anders aangegeven.
     Onzekerheden:
 
     1. gh_onz_mu, GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
-    1. gh_onz_sigma, GolfHoogte onzekerheid sigma: standaard afwijking waarde (standaard 0.27)
+    1. gh_onz_sigma, GolfHoogte onzekerheid sigma: standaardafwijking waarde (standaard 0.27)
     1. gp_onz_mu_tp, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-    1. gp_onz_sigma_tp, GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+    1. gp_onz_sigma_tp, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gp_onz_mu_tspec, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-    1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaard afwijking waarde (standaard 0.13)
+    1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gh_onz_aantal, Aantal onzekerheden in de golfhoogte (standaard 7)
     1. gp_onz_aantal, Aantal onzekerheden in de golfperiode (standaard 7)
 
-    tp_tspec, de verhouding tussen de piek periode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
+    tp_tspec, de verhouding tussen de piekperiode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
 
     De waterniveaus waarmee probablistisch gerekend wordt. Dit is verdeeld in twee delen: grof en fijn.
 
-    1. lower_limit_coarse, De ondergrens van de waterstanden waarvoor de fragility scurve wordt berekend in grove stappen (standaard 4.0m onder de kruin)
-    1. upper_limit_coarse, De bovengrens van de waterstanden waarvoor de fragility scurve wordt berekend in grove stappen (standaard 2.0m onder de kruin). Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.
-    1. upper_limit_fine, De bovengrens van de waterstanden waarvoor de fragility scurve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)
-    1. hstap, De fijne stapgrootte van de waterstanden waarvoor de fragility scurve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.
+    1. lower_limit_coarse, De ondergrens van de waterstanden waarvoor de fragility curve wordt berekend in grove stappen (standaard 4.0m onder de kruin)
+    1. upper_limit_coarse, De bovengrens van de waterstanden waarvoor de fragility curve wordt berekend in grove stappen (standaard 2.0m onder de kruin). Er is geen lower_limit_fine omdat deze altijd gelijk is aan upper_limit_coarse.
+    1. upper_limit_fine, De bovengrens van de waterstanden waarvoor de fragility curve wordt berekend in fijne stappen (standaard 1.01m boven de kruin)
+    1. hstap, De fijne stapgrootte van de waterstanden waarvoor de fragility curve wordt berekend (standaard 0.05), de grove stapgrootte is 2 * hstap.
 
     """
 
@@ -276,21 +277,21 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
         Parameters
         ----------
         input: list[str]
-            Lijst namen van de input dataadapters: slopes, profile en bed_levels
+            Lijst namen van de input DataAdapters: slopes, profile en bed_levels
         output: str
         """
         self.calculate_fragility_curve(input, output)
 
     def calculate_fragility_curve(self, input: list[str], output: str) -> None:
         """
-        Bereken de fragility scurve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
+        Bereken de fragility curve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
 
         Parameters
         ----------
         input: list[str]
-            Lijst namen van de input dataadapters: slopes, profile en bed_levels
+            Lijst namen van de input DataAdapters: slopes, profile en bed_levels
         output: str
-            Naam van de dataadapter Fragility curve output
+            Naam van de DataAdapter Fragility curve output
         """
         # haal input op
         self.df_slopes = self.data_adapter.input(input[0])
@@ -312,9 +313,7 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
                 self.df_bed_levels["section_id"] == section_id
             ]
 
-            # maak een placeholder dataadapter aan, dit zorgt dat je de modules ook los kan aanroepen
-            # dit is lelijk, ik heb er nu voor een tweede keer naar gekeken en ik kan het niet mooier maken...
-            # functionaliteit is mooier dan mooie code imo
+            # maak een placeholder DataAdapter aan, dit zorgt dat je de modules ook los kan aanroepen
 
             temp_config = Config(config_path=Path.cwd())
             temp_data_adapter = DataAdapter(config=temp_config)

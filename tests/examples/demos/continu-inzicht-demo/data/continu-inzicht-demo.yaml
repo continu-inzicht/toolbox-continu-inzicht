@@ -2,7 +2,7 @@ GlobalVariables:
     rootdir: "data"
     calc_time: "2024-11-19"
     moments: [-24,0,24,48]
-    aquo_allias:
+    aquo_alias:
         WATHTE [m][NAP][OW]: "WATHTE"
 
     LoadsWaterinfo:
