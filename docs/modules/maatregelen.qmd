@@ -3,8 +3,8 @@ title: "Maatregelen"
 ---
 
 Tijdens crisissituaties kunnen maatregelen worden getroffen, om in dat soort situaties ook de actuele kansen inzichtelijk te maken kunnen de fragility curves worden aangepast. Voor alle fragility curves kunnen worden verschoven. Voor GEKB-curves die in de toolbox 'on the fly' worden berekend kan de kruinhoogte worden aangepast, zie de module [bijstellen](./bijstellen_fragility_curves.qmd) voor meer informatie.
-Als de fragility curves van tevoren zijn berekend met een bepaalde maatregel, kunnen we de huidige curve vervangen met een voorberekende curve die past bij de maatregel.
-Als de curve er niet is die past bij de maatregel, verschuiven we de originele curve. Hiervoor is ook een koppeling nodig tussen maatregel en effect.
+Als de fragility curves van tevoren zijn berekend met een bepaalde maatregel, kunnen we de huidige curve vervangen met een voorberekende curve die past bij de maatregel. Deze voorberekende curve komt dan uit een 'cache', in de meeste gevallen is dit een database maar dit kan ook in het geheugen zijn bijvoorbeeld.
+Als de curve die past bij de maatregel niet in de cache zit, verschuiven we de originele curve. Hiervoor is ook een koppeling nodig tussen maatregel en effect.
 
 De standaard manier is om voor alle dijkvakken en faalmechanismes in een keer alles aan te passen.
 
