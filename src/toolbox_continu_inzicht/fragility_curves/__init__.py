@@ -2,6 +2,9 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.fragil
     FragilityCurveOvertopping,
     FragilityCurveOvertoppingMultiple,
 )
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.fragility_curve_overtopping_pre_calculated import (
+    FragilityCurveOvertoppingPreCalculated,
+)
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.add_effect import (
     ShiftFragilityCurveOvertopping,
     ChangeCrestHeightFragilityCurveOvertopping,
@@ -34,6 +37,7 @@ from toolbox_continu_inzicht.fragility_curves.integrate_fragility_curves import 
 __all__ = [
     "FragilityCurveOvertopping",
     "FragilityCurveOvertoppingMultiple",
+    "FragilityCurveOvertoppingPreCalculated",
     "ShiftFragilityCurveOvertopping",
     "ChangeCrestHeightFragilityCurveOvertopping",
     "FragilityCurvePipingMultiple",
