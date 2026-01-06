@@ -243,7 +243,7 @@ class LoadsFews(ToolboxBase):
                             message = f"""
                             {e=}
                             Fews parameters kunnen niet worden vertaald naar Aquo standaard, geef dit zelf op via
-                            \nGlobalVariables:\n\taquo_allias\n\t\tFEWS_param: 'Aquo_param'
+                            \nGlobalVariables:\n\taquo_alias\n\t\tFEWS_param: 'Aquo_param'
                             Default waarde parameter:{parameter_code} en id:4724 is nu gebruikt.
                             """
                             warnings.warn(message)

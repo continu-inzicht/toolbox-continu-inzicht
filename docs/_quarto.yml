@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Toolbox continu inzicht"
+  title: "Toolbox Continu Inzicht"
   navbar:
     logo: https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png
     left:

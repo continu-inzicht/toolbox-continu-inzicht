@@ -23,16 +23,16 @@ class ClassifyInspections(ToolboxBase):
     df_in: Optional[pd.DataFrame | gpd.GeoDataFrame] | None
         Input DataFrame om te classificeren
     df_styling: Optional[pd.DataFrame] | None
-        Input DataFrame met opmaak informatie
+        Input DataFrame met opmaakinformatie
     df_default_styling: Optional[pd.DataFrame] | None
-        DataFrame met standaard opmaak informatie, wordt gebruikt als er geen opmaak informatie is meegegeven
+        DataFrame met standaard opmaakinformatie, wordt gebruikt als er geen opmaakinformatie is meegegeven
         Beschikbaar via get_default_styling() en te vervangen met set_default_styling(df)
     df_out: Optional[gpd.GeoDataFrame] | None
         Output DataFrame containing the filtered DataFrame.
     df_legend_out: Optional[pd.DataFrame] | None
         Output DataFrame containing the legend information.
     styling_schema: ClassVar[dict[str, str]]
-        Schema DataFrame met de opmaak informatie
+        Schema DataFrame met de opmaakinformatie
 
     Notes
     -----
@@ -42,17 +42,17 @@ class ClassifyInspections(ToolboxBase):
     Als er geen opmaak DataFrame wordt meegegeven, wordt de standaard opmaak gebruikt voor alle waardes.
     De standaard opmaak is op te halen met get_default_styling() en te vervangen met set_default_styling(df).
 
-    Er zijn drie manier om geodata mee te geven. Deze wordt gebruik voor de opmaak.
-    Alle projecties worden ondersteund, maar wordt omgezet naar EPSG:4326 voor de viewer.
+    Er zijn drie manieren om geodata mee te geven. Deze wordt gebruik voor de opmaak.
+    Alle projecties worden ondersteund, maar worden omgezet naar EPSG:4326 voor de viewer.
 
     In de Global Variables kan de projectie worden aangepast, standaard is EPSG:4326, alle andere projecties worden omgezet naar deze projectie.
 
-    - Bij het mee geven van een [GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html), wordt de opmaak toegepast op de geometrie van het GeoDataFrame.
+    - Bij het meegeven van een [GeoDataFrame](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html) wordt de opmaak toegepast op de geometrie van het GeoDataFrame.
     - Als er een 'geometry' kolom is in de DataFrame, wordt deze gebruikt om een GeoDataFrame te maken.
     - Indien beide bovenstaande niet het geval is, wordt gezocht naar een kolom met x en met y coördinaten en deze wordt gebruikt om een GeoDataFrame te maken.
 
     Het type geometry wordt automatisch bepaald, maar kan ook meegegeven worden in de Global Variables.
-    Slechts een type per tabel is toe gestaan.
+    Slechts een type per tabel is toegestaan.
 
     De opties zijn:
 
@@ -61,9 +61,9 @@ class ClassifyInspections(ToolboxBase):
     - CircleMarker
     - Marker
 
-    De output DataFrame bevat de opmaak informatie die is toegepast op de inspectieresultaten.
-    Als er geen opmaak informatie is meegegeven, wordt de standaard opmaak gebruikt.
-    De output kan een met alleen geclassificeerde resultaten of twee DataFrames met de inspectieresultaten en een met de legenda informatie.
+    De output DataFrame bevat de opmaakinformatie die is toegepast op de inspectieresultaten.
+    Als er geen opmaakinformatie is meegegeven, wordt de standaard opmaak gebruikt.
+    De output kan een met alleen geclassificeerde resultaten of twee DataFrames met de inspectieresultaten en een met de legenda-informatie.
     Ontbrekende kolommen in de opmaak DataFrame worden aangevuld met de standaard opmaak.
     """
 
@@ -84,10 +84,10 @@ class ClassifyInspections(ToolboxBase):
         Parameters
         ----------
         input: str | list[str]
-            Naam van de Data Adapters met inspectieresultaten en legenda met opmaak (indien gewenst), in die volgorde.
+            Naam van de DataAdapters met inspectieresultaten en legenda met opmaak (indien gewenst), in die volgorde.
 
         output: str | list[str]
-            Naam van Data adapter voor de output
+            Naam van DataAdapter voor de output
 
         Notes
         -----
@@ -95,8 +95,8 @@ class ClassifyInspections(ToolboxBase):
         De classificatie wordt gedaan op basis van de kolom 'classify_column' opgegeven in de global variables.
         Deze classificatiewaardes kunnen zowel numeriek zijn als text.
 
-        Indien gewenst kan ook opmaak opties worden meegegeven.
-        Als deze niet meegegeven wordt, wordt de standaard opmaak gebruikt.
+        Indien gewenst kunnen ook opmaakopties worden meegegeven.
+        Als deze niet meegegeven worden, wordt de standaard opmaak gebruikt.
         Deze is op te halen met get_default_styling() en te vervangen (geavanceerd) met set_default_styling(df).
 
         Deze moet de volgende kolommen bevatten:
@@ -164,7 +164,7 @@ class ClassifyInspections(ToolboxBase):
         }
         if classify_columns is not None and classify_columns not in self.df_in.columns:
             raise KeyError(
-                f"De kolom '{classify_columns}' is niet aanwezig in de input data"
+                f"De kolom '{classify_columns}' is niet aanwezig in de inputdata"
             )
         projection = options.get("projection", "EPSG:4326")
         geometry_type = options.get("geometry_type", None)
@@ -201,7 +201,7 @@ class ClassifyInspections(ToolboxBase):
                 geometry_type_list = self.df_in.geometry.type.unique()
 
             assert len(geometry_type_list) == 1, (
-                "Er zijn meerdere geometrie types gevonden in de data, geef een type geometrie soort mee"
+                "Er zijn meerdere geometrietypes gevonden in de data, geef een type geometrie soort mee"
             )
             geometry_type = geometry_type_list[0]
             map_geometry_type = {
@@ -322,7 +322,7 @@ class ClassifyInspections(ToolboxBase):
             # self.df_out[column] = self.df_out[column].astype(type(replacement))
             self.df_out.loc[index_values_to_be_replaced, column] = replacement
 
-        # exporteer ook de legenda als er een tweede data adapter is meegegeven
+        # exporteer ook de legenda als er een tweede DataAdapter is meegegeven
         if isinstance(output, str):
             self.data_adapter.output(output, self.df_out)
         else:
@@ -579,8 +579,8 @@ class InspectionsToDatabase(ClassifyInspections):
     """Combineert de inspectieresultaten met de opmaak en slaat deze op in de database.
 
     Met deze functie wordt de gehele geojson onderdeel van 1 tabel in de database.
-    Bij grote lagen is het aan te raden om deze als aparte tabel op te slaan,
-    de aanpak voor het opslaan van grotere lagen in de database is te vinden onder modules `inspectieresultaten` in de documentatie.
+    Bij grote lagen is het aan te raden om deze als aparte tabel op te slaan.
+    De aanpak voor het opslaan van grotere lagen in de database is te vinden onder Modules `Inspectieresultaten inlezen en weergeven` in de documentatie.
 
     Attributes
     ----------
@@ -595,18 +595,18 @@ class InspectionsToDatabase(ClassifyInspections):
     df_out: Optional[pd.DataFrame] | None
         Output DataFrame containing the filtered DataFrame.
     legend_schema: ClassVar[dict[str, str]]
-        Schema DataFrame met de opmaak informatie
+        Schema DataFrame met de opmaakinformatie
     layer_schema: ClassVar[dict[str, str]]
-        Schema DataFrame met de layer informatie
+        Schema DataFrame met de lagen informatie
 
     Notes
     -----
     Default waarden te overschrijven in de global variables:
 
-    - max_rows = 10, Maximale toegestane rijen geodata in een database veld
+    - max_rows = 10, Maximale toegestane rijen geodata in een databaseveld
     - index = 0, Index van df_in_layers waarin de geodata wordt opgeslagen
 
-    De layers tabel geeft de mogelijkheid om de meer configuratie door te geven aan de viewer. Als deze niet aanwezig is, worden standaard opties gebruikt.
+    De layers tabel geeft de mogelijkheid om de meer configuratie door te geven aan de viewer. Als deze niet aanwezig is, worden standaardopties gebruikt.
     Hier moet minimaal de volgende kolommen in zitten:
 
     - group_name: naam van de groep in de viewer waar de layer toegevoegd wordt.
@@ -616,10 +616,11 @@ class InspectionsToDatabase(ClassifyInspections):
     Optionele kolommen voor de df_in_layers zijn:
 
     - layer_type: type van de laag, wordt standaard gevuld als geojson.
-    - layer_tabel: naam van een overige tabel in de database die met geodaata is gevuld.
+    - layer_tabel: naam van een overige tabel in de database die met geodata is gevuld.
     - layer_wms_url: str
     URL van een WMS service die gebruikt kan worden voor de laag.
     Bij het inladen worden de volgende lagen opgehaald:
+
         - layer_wms_layer: str
         - layer_wms_style: str
     """
@@ -646,11 +647,11 @@ class InspectionsToDatabase(ClassifyInspections):
         Parameters
         ----------
         input: list[str]
-            Naam van de Data Adapters met inspectieresultaten, opmaak en lagen (in die volgorde).
-            Resultaten en opmaak zijn verplicht, lagen zijn optioneel. Indien er geen informatie is meegegeven, worden standaard waardes gebruikt.
+            Naam van de DataAdapters met inspectieresultaten, opmaak en lagen (in die volgorde).
+            Resultaten en opmaak zijn verplicht, lagen zijn optioneel. Indien er geen informatie is meegegeven, worden standaardwaardes gebruikt.
 
         output: str
-            Naam van Data adapter voor de output
+            Naam van DataAdapter voor de output
 
         Notes
         -----
@@ -695,7 +696,7 @@ class InspectionsToDatabase(ClassifyInspections):
                 self.df_in_inspections, geometry=self.df_in_inspections["geometry"]
             )
 
-        # voor een mooie popup in de legenda willen we de styling in een 'style' kolom
+        # voor een mooie popup in de legenda willen we de styling in een 'style'-kolom
         style_columns = self.get_possible_styling()
         style_columns += ["x", "y", "symbol"]
         style_dicts = []
@@ -717,7 +718,7 @@ class InspectionsToDatabase(ClassifyInspections):
         self.df_out["layer_data"] = ""
         self.df_out.loc[insert_layer_index, "layer_data"] = json.dumps(output_json)
 
-        # if upper and lower boundary are present, combine them into a name
+        # Als upper en lower boundary aanwezig zijn, combineer deze in een 'name'
         if (
             set(["lower_boundary", "upper_boundary"]).issubset(
                 self.df_in_legend.columns
@@ -749,10 +750,10 @@ class InspectionsToDatabase(ClassifyInspections):
 
     def set_default_styling():
         raise NotImplementedError(
-            "De standaard opmaak is niet van toepassing voor deze functie."
+            "De standaardopmaak is niet van toepassing voor deze functie."
         )
 
     def get_default_styling():
         raise NotImplementedError(
-            "De standaard opmaak is niet van toepassing voor deze functie."
+            "De standaardopmaak is niet van toepassing voor deze functie."
         )

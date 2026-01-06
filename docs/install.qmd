@@ -64,6 +64,6 @@ Met het `Pixi` commando in powershell kun je vervolgens de juiste python bestand
  pixi install
 ```
 
-Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand op de juiste packages te laden en zet deze in de `.pixi` map.
+Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand om de juiste packages te laden en zet deze in de `.pixi` map.
 
 Zie de ['Richtlijnen voor bijdragen aan Toolbox Continu Inzicht'](https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html) voor meer informatie.

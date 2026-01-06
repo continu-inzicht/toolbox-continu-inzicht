@@ -1,7 +1,7 @@
 GlobalVariables:
     rootdir: "tests/src/loads/data_sets"
     moments: [-24,0,24,48]
-    aquo_allias:
+    aquo_alias:
         WATHTE [m][NAP][OW]: "WATHTE"
 
     LoadsFews:
