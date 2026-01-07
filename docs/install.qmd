@@ -39,6 +39,8 @@ Om deze reden kunnen de verschillende modules ook los worden geinstalleerd:
 
 Het commando `pip install toolbox-continu-inzicht[all]` doet voert alle bovenstaande commandos uit.
 
+Om te testen of dit goed werkt staat een test plan beschreven in de repo [test-package-installation](https://github.com/continu-inzicht/test-package-installation).
+
 ## Als ontwikkelaar
 
 We maken gebruik van [pixi](https://pixi.sh/latest/) om de conda environment te beheren en delen, dit kent een wat steilere leer curve en wordt daarom vooral aan ontwikkelaar aangeboden.
@@ -60,10 +62,19 @@ curl -fsSL https://pixi.sh/install.sh | bash
 Met het `Pixi` commando in powershell kun je vervolgens de juiste python bestanden installeren:
 
 ```bash
- cd ..../toolbox-continu-inzicht
+ cd ..\toolbox-continu-inzicht
  pixi install
 ```
 
 Dit kan even duren, Pixi gebruikt het `pixi.lock` bestand om de juiste packages te laden en zet deze in de `.pixi` map.
+
+#### JupyterLab
+
+```bash
+pixi run jupyter lab
+```
+
+Of selecteer de juiste Python-instantie: `..\.pixi\envs\default\python.exe` in je ontwikkelomgeving.
+In VS Code kan dit met `Ctrl + shift + p` dan `Python: Select Interpreter`.
 
 Zie de ['Richtlijnen voor bijdragen aan Toolbox Continu Inzicht'](https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html) voor meer informatie.

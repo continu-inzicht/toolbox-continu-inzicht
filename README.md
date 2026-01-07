@@ -70,7 +70,8 @@ Pixi gebruikt het `pixi.lock` bestand om de juiste packages te laden en zet deze
 pixi run jupyter lab
 ```
 
-Of selecteer de juiste Python-instantie: `.pixi\envs\default\python.exe` in je ontwikkelomgeving.
+Of selecteer de juiste Python-instantie: `..\.pixi\envs\default\python.exe` in je ontwikkelomgeving.
+In VS Code kan dit met `Ctrl + shift + p` dan `Python: Select Interpreter`.  
 
 #### Afhankelijkheden
 

@@ -7,69 +7,69 @@ website:
   navbar:
     logo: https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png
     left:
-      - text: "Installeren"
-        file: install.qmd
-      - text: "Voorbeelden"
-        file: "voorbeelden.qmd"
-      - text: "Modules"
-        file: modules_index.qmd
-      - text: "Python API"
-        file: reference/index.qmd
-      - text: "Overig"
-        file: overig/contact.qmd
+    - text: "Installeren"
+      file: install.qmd
+    - text: "Voorbeelden"
+      file: "voorbeelden.qmd"
+    - text: "Modules"
+      file: modules_index.qmd
+    - text: "Python API"
+      file: reference/index.qmd
+    - text: "Overig"
+      file: overig/contact.qmd
 
     right:
-      - text: "Bijdragen"
-        file: contributing.qmd
-      - icon: github
-        href: https://github.com/continu-inzicht/toolbox
-        aria-label: GitHub
+    - text: "Bijdragen"
+      file: contributing.qmd
+    - icon: github
+      href: https://github.com/continu-inzicht/toolbox
+      aria-label: GitHub
 
   sidebar:
-      - title: "Installeren"
-        contents:
-          - install.qmd
+  - title: "Installeren"
+    contents:
+    - install.qmd
 
-      - title: "Voorbeelden"
-        contents:
-          - "voorbeelden.qmd"
-          - "examples/notebooks/1.proof_of_concept.ipynb"
-          - "examples/notebooks/2.belastingen_inladen.ipynb"
-          - "examples/notebooks/3.fragility_curve_overtopping.ipynb"
-          - "examples/notebooks/4.adjust_integrated_statistics.ipynb"
-          - "examples/notebooks/5.inspectieresultaten.ipynb"
-          - "examples/notebooks/6.fragility_curve_from_cache.ipynb"
-          - "examples/notebooks/100.logging.ipynb"
-          - "examples/notebooks/101.WMS_laag_naar_database.ipynb"
+  - title: "Voorbeelden"
+    contents:
+    - "voorbeelden.qmd"
+    - "examples/notebooks/1.proof_of_concept.ipynb"
+    - "examples/notebooks/2.belastingen_inladen.ipynb"
+    - "examples/notebooks/3.fragility_curve_overtopping.ipynb"
+    - "examples/notebooks/4.adjust_integrated_statistics.ipynb"
+    - "examples/notebooks/5.inspectieresultaten.ipynb"
+    - "examples/notebooks/6.fragility_curve_from_cache.ipynb"
+    - "examples/notebooks/100.logging.ipynb"
+    - "examples/notebooks/101.WMS_laag_naar_database.ipynb"
 
-      - title: "Modules"
-        contents:
-          - modules_index.qmd
-          - modules/architectuur.qmd
-          - modules/belastingen.qmd
-          - modules/bepalen_fragility_curves.qmd
-          - modules/bijstellen_fragility_curves.qmd
-          - modules/kansen_en_status_per_sectie.qmd
-          - modules/impactanalyse.qmd
-          - modules/inspectieresultaten.qmd
-          - modules/maatregelen.qmd
+  - title: "Modules"
+    contents:
+    - modules_index.qmd
+    - modules/architectuur.qmd
+    - modules/belastingen.qmd
+    - modules/bepalen_fragility_curves.qmd
+    - modules/bijstellen_fragility_curves.qmd
+    - modules/kansen_en_status_per_sectie.qmd
+    - modules/impactanalyse.qmd
+    - modules/inspectieresultaten.qmd
+    - modules/maatregelen.qmd
+    - modules/flood_scenario.qmd
 
-      - title: "Python API"
-        contents:
-          - reference/index.qmd
+  - title: "Python API"
+    contents:
+    - reference/index.qmd
 
-      - title: "Overig"
-        contents:
-          - overig/contact.qmd
-          - overig/tests.qmd
-          - overig/changelog.qmd
-          - overig/translations.qmd
-          - overig/aquo_grootheid.qmd
+  - title: "Overig"
+    contents:
+    - overig/contact.qmd
+    - overig/tests.qmd
+    - overig/changelog.qmd
+    - overig/translations.qmd
+    - overig/aquo_grootheid.qmd
 
-      - title: "Bijdragen"
-        contents:
-          - contributing.qmd
-
+  - title: "Bijdragen"
+    contents:
+    - contributing.qmd
 
 format:
   html:
@@ -93,73 +93,73 @@ quartodoc:
     include_classes: true
     include_functions: true
   sections:
-    - title: Basis
-      desc: Basis functionaliteit waar andere functies op verder bouwen
-      package: toolbox_continu_inzicht
-      contents:
-       - Config
-       - DataAdapter
-       - FragilityCurve
-    - title: Belastingen
-      desc: Functies die belastingen inladen, classificeren of toekennen.
-      package: toolbox_continu_inzicht.loads
-      contents:
-       - LoadsCIWhatIf
-       - LoadsClassify
-       - LoadsFews
-       - get_fews_locations
-       - get_fews_thresholds
-       - LoadsMatroos
-       - get_matroos_locations
-       - get_matroos_locations_map
-       - LoadsWaterwebservicesRWS
-       - get_rws_webservices_locations
-       - LoadsToMoments
-       - LoadsWaterinfo
-       - get_waterinfo_locations
-       - get_waterinfo_thresholds
-    - title: Dijkvak
-      desc: Functies die betrekking hebben op dijkvakken
-      package: toolbox_continu_inzicht.sections
-      contents:
-       - SectionsLoads
-       - SectionsCriticalFailureprobability
-       - SectionsTechnicalFailureprobability
-       - SectionsMeasureFailureprobability
-       - SectionsClassify
-    - title: Fragility curves
-      desc: Functies voor het berekenen en aanpassen van Fragility curve
-      package: toolbox_continu_inzicht.fragility_curves
-      contents:
-       - FragilityCurveOvertopping
-       - FragilityCurveOvertoppingMultiple
-       - ShiftFragilityCurveOvertopping
-       - ChangeCrestHeightFragilityCurveOvertopping
-       - FragilityCurvePipingFixedWaterlevel
-       - FragilityCurvePipingMultiple
-       - CombineFragilityCurvesIndependent
-       - CombineFragilityCurvesDependent
-       - CombineFragilityCurvesWeightedSum
-       - IntegrateFragilityCurve
-       - IntegrateFragilityCurveMultiple
-    - title: Inspectieresultaten
-      desc: Invoer, verwerken en tonen van inspectieresultaten
-      package: toolbox_continu_inzicht.inspections
-      contents:
-        - Filter
-        - InspectionsToDatabase
-        - ClassifyInspections
-    - title: Continu Inzicht Adapters (invoer)
-      desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
-      package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql
-      contents:
-       - input_measuringstation   # measuringstation
-       - input_section            # section
-       - input_fragilitycurve     # fragilitycurve
-    - title: Continu Inzicht Adapters (uitvoer)
-      desc: Uitvoer adapters voor Continu Inzicht meetstations/ dijkvak
-      package: toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql
-      contents:
-       - output_measuringstation  # measuringstation
-       - output_section           # section
-       - output_calculation       # calculation
+  - title: Basis
+    desc: Basis functionaliteit waar andere functies op verder bouwen
+    package: toolbox_continu_inzicht
+    contents:
+    - Config
+    - DataAdapter
+    - FragilityCurve
+  - title: Belastingen
+    desc: Functies die belastingen inladen, classificeren of toekennen.
+    package: toolbox_continu_inzicht.loads
+    contents:
+    - LoadsCIWhatIf
+    - LoadsClassify
+    - LoadsFews
+    - get_fews_locations
+    - get_fews_thresholds
+    - LoadsMatroos
+    - get_matroos_locations
+    - get_matroos_locations_map
+    - LoadsWaterwebservicesRWS
+    - get_rws_webservices_locations
+    - LoadsToMoments
+    - LoadsWaterinfo
+    - get_waterinfo_locations
+    - get_waterinfo_thresholds
+  - title: Dijkvak
+    desc: Functies die betrekking hebben op dijkvakken
+    package: toolbox_continu_inzicht.sections
+    contents:
+    - SectionsLoads
+    - SectionsCriticalFailureprobability
+    - SectionsTechnicalFailureprobability
+    - SectionsMeasureFailureprobability
+    - SectionsClassify
+  - title: Fragility curves
+    desc: Functies voor het berekenen en aanpassen van Fragility curve
+    package: toolbox_continu_inzicht.fragility_curves
+    contents:
+    - FragilityCurveOvertopping
+    - FragilityCurveOvertoppingMultiple
+    - ShiftFragilityCurveOvertopping
+    - ChangeCrestHeightFragilityCurveOvertopping
+    - FragilityCurvePipingFixedWaterlevel
+    - FragilityCurvePipingMultiple
+    - CombineFragilityCurvesIndependent
+    - CombineFragilityCurvesDependent
+    - CombineFragilityCurvesWeightedSum
+    - IntegrateFragilityCurve
+    - IntegrateFragilityCurveMultiple
+  - title: Inspectieresultaten
+    desc: Invoer, verwerken en tonen van inspectieresultaten
+    package: toolbox_continu_inzicht.inspections
+    contents:
+    - Filter
+    - InspectionsToDatabase
+    - ClassifyInspections
+  - title: Continu Inzicht Adapters (invoer)
+    desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
+    package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql
+    contents:
+    - input_measuringstation # measuringstation
+    - input_section # section
+    - input_fragilitycurve # fragilitycurve
+  - title: Continu Inzicht Adapters (uitvoer)
+    desc: Uitvoer adapters voor Continu Inzicht meetstations/ dijkvak
+    package: toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql
+    contents:
+    - output_measuringstation # measuringstation
+    - output_section # section
+    - output_calculation # calculation
