@@ -2,7 +2,10 @@ GlobalVariables:
     rootdir: "tests/src/flood_scenarios/data_sets"
     moments: [ -24, 0, 24, 48 ]
     CalculateFloodRisk:
-        scenario_path: "docs/examples/notebooks/data_sets/7.flood_scenarios/flood_scenarios"
+        # willekeurig pad kan ook maar dan ben je in testen altijd afhankelijk van docs
+        # daarom toch niet op deze manier in de tests opnemen.
+        # scenario_path: "docs/examples/notebooks/data_sets/7.flood_scenarios/flood_scenarios"
+        scenario_path: "flood_scenarios"
         averaging_methods:
             # these are default values, can be overridden in config
             casualties: sum
