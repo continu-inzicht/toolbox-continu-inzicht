@@ -9958,7 +9958,7 @@ packages:
 - pypi: ./src
   name: toolbox-continu-inzicht
   version: 0.1.2
-  sha256: aba7089cee22f0c994e9adcdab6e4cf734a2ff91662450a8039c2f2801cfd071
+  sha256: 82fa4e5f1a7ca6be27d5d97f5459b8d7088610f67d6bc775674c954954d97778
   requires_dist:
   - pandas
   - pydantic>=2
@@ -9973,7 +9973,7 @@ packages:
   - probabilistic-piping==0.0.5 ; extra == 'all'
   - psycopg2 ; extra == 'all'
   - pyarrow ; extra == 'all'
-  - pydra-core==0.0.10 ; extra == 'all'
+  - pydra-core==0.0.9 ; extra == 'all'
   - pyogrio ; extra == 'all'
   - rasterstats>=0.20.0 ; extra == 'all'
   - requests ; extra == 'all'
@@ -9987,7 +9987,7 @@ packages:
   - openpyxl ; extra == 'fragility-curves'
   - openturns>=1.23 ; extra == 'fragility-curves'
   - probabilistic-piping==0.0.5 ; extra == 'fragility-curves'
-  - pydra-core==0.0.10 ; extra == 'fragility-curves'
+  - pydra-core==0.0.9 ; extra == 'fragility-curves'
   - scipy ; extra == 'fragility-curves'
   - fiona ; extra == 'inspections'
   - geopandas ; extra == 'inspections'
