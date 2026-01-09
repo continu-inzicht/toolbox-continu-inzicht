@@ -23,7 +23,7 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
         Dataframe met de geselecteerde flood scenario's.
     schema_segment_flood_scenario_load : ClassVar[dict[str, str]]
         Schema voor de input dataframe met belastingen & doobraaklocatie id per deeltraject.
-    sechema_flood_scenario_metadata : ClassVar[dict[str, str]]
+    schema_flood_scenario_metadata : ClassVar[dict[str, str]]
         Schema voor de input dataframe met koppeling van Bresen naar deeltrajecten en maatgevende fragility curves
 
     Notes
@@ -50,7 +50,7 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
         "hydraulicload": "float",
         "breach_id": "int",
     }
-    sechema_flood_scenario_metadata: ClassVar[dict[str, str]] = {
+    schema_flood_scenario_metadata: ClassVar[dict[str, str]] = {
         "breach_id": "int",
         "hydaulicload_upperboundary": "float",
         # can contain nans so object dtype is used, we dont stricly check on them
@@ -80,7 +80,7 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
         )
         # drempelwaarden per meetlocatie``
         self.df_in_flood_scenario_metadata = self.data_adapter.input(
-            input[1], schema=self.sechema_flood_scenario_metadata
+            input[1], schema=self.schema_flood_scenario_metadata
         )
         columns_grid = [
             col.replace("_grid", "")

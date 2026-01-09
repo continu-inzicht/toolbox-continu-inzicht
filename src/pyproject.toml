@@ -36,11 +36,13 @@ fragility_curves = [
     "openturns>=1.23",
     "probabilistic_piping==0.0.5",
     "pydra_core==0.0.9",
+    "openpyxl", # used in tests
 ]
 
 flood_scenarios = [
     "geopandas",
-    "rasterstats>=0.20.0"
+    "rasterstats>=0.20.0",
+    "sqlalchemy",
 ]
 
 loads = [
@@ -53,11 +55,12 @@ loads = [
 
 inspections = [
     "fiona",
-    "geopandas",
     "pyogrio",
     "shapely",
-    "toolbox_continu_inzicht[loads]"
+    "sqlalchemy",
+    "toolbox_continu_inzicht[loads]",
 ]
+# de test van de DA van 'shape' niet vinden, nog uitzoeken
 
 sections = ["scipy"]
 
@@ -67,6 +70,7 @@ io = [
     "sqlalchemy",
     "psycopg2",
     "xarray",
+    "scipy", # try set backend of netcdf to xarray?
     "netcdf4>=1.7.1",
     "openpyxl",
 ]

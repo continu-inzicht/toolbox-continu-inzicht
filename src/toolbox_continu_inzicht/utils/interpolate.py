@@ -1,6 +1,17 @@
 import numpy as np
-from scipy.stats import norm
 from typing import Callable
+
+
+def import_scipy():
+    """Import scipy.stats.norm, raise ImportError if scipy is not installed but still lets the program run."""
+    try:
+        from scipy.stats import norm
+    except ImportError:
+        norm = None
+        raise ImportError(
+            "Scipy is not installed, use the dev pixi environment or install scipy"
+        )
+    return norm
 
 
 def _interpolate_1d(x, xp, fp, side="left", sorter=None):
@@ -172,6 +183,7 @@ def beta_x_interpolate_1d(
     np.array
         geinterpoleerde vector
     """
+    norm = import_scipy()
     return _transformed_x_interpolate_1d(
         x, xp, fp, ll, clip01, ftransform=norm.isf, finvtransform=norm.sf
     )
@@ -228,4 +240,5 @@ def beta_y_interpolate_1d(
     np.array
         geinterpoleerde vector
     """
+    norm = import_scipy()
     return _transformed_y_interpolate_1d(y, xp, fp, ll, ftransform=norm.isf)
