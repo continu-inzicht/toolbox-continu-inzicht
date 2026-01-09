@@ -93,26 +93,13 @@ types-pyyaml = "*"
 matplotlib = "*"
 pixi-pack = ">=0.7.5,<0.8"
 
-## check specific python versions
-#[feature.py311.dependencies]
-#python = "3.11.*"
-#[feature.py312.dependencies]
-#python = "3.12.*"
-#[feature.py313.dependencies]
-#python = "3.13.*"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
-pydra-core = "==0.0.9"
+pydra-core = "==0.0.10"
 probabilistic-piping = "==0.0.5"
 build = ">=1.3.0, <2"
 
 [environments]
 default = { features = ["common","tests", "dev"] }
 prod = { features = ["common", "tests"] }
-
-[pypi-dependencies]
-## check python versions - makes pixi large so only to test locally
-#py311 = { features = ["common","tests", "py311"] }
-#py312 = { features = ["common","tests", "py312"] }
-#py313 = { features = ["common","tests", "py313"] }
