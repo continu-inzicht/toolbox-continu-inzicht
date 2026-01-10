@@ -4,15 +4,17 @@ from typing import Optional
 import pandas as pd
 
 # pydra_core=0.0.1
-import pydra_core
-import pydra_core.common
-import pydra_core.common.enum
-import pydra_core.location
 from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht import ToolboxBase, Config, DataAdapter, FragilityCurve
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.calculate_fragility_curve_overtopping import (
     WaveOvertoppingCalculation,
+)
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
+    build_pydra_profiles,
+    get_overtopping_options,
+    parse_profile_dataframe,
+    validate_slopes,
 )
 
 
@@ -117,80 +119,26 @@ class FragilityCurveOvertopping(FragilityCurve):
         output: str
             Naam van de DataAdapter Fragility curve output
 
-        Raises
-        ------
-        UserWarning
-            Slopes should have a slopetypeid of 1 or 2
         """
         # haal input op
         self.df_slopes = self.data_adapter.input(input[0])
         self.df_profile = self.data_adapter.input(input[1])
         self.df_bed_levels = self.data_adapter.input(input[2])
 
-        # nabewerking op profiel
-        if "parameters" in self.df_profile:
-            self.df_profile.set_index("parameters", inplace=True)
-
-        profile_series = self.df_profile["values"]
-        # converteer naar numeriek indien mogelijk, dit komt doordat de kolom zowel strings als floats bevat
-        # qcr kan string, float of tuple zijn
-        for k in profile_series.index:
-            try:
-                profile_series.at[k] = float(profile_series.at[k])
-            except ValueError:
-                pass
+        profile_series = parse_profile_dataframe(self.df_profile)
 
         global_variables = self.data_adapter.config.global_variables
-        options = global_variables.get("FragilityCurveOvertopping", {})
+        options = get_overtopping_options(global_variables, "FragilityCurveOvertopping")
 
         windspeed = profile_series["windspeed"]
         sectormin = profile_series["sectormin"]
         sectorsize = profile_series["sectorsize"]
 
-        if not all(
-            [
-                slopetype in [1, 2]
-                for slopetype in self.df_slopes["slopetypeid"].unique()
-            ]
-        ):
-            raise UserWarning("Hellingen moeten van slopetypeid 1 of 2 zijn")
+        validate_slopes(self.df_slopes)
 
-        # Formateer de data uit het DataFrame voor Pydra
-        df_slope_dike = self.df_slopes[self.df_slopes["slopetypeid"] == 1]
-        profiel_dict = {
-            "profile_name": "profiel_CI",
-            "dike_x_coordinates": df_slope_dike["x"].tolist(),
-            "dike_y_coordinates": df_slope_dike["y"].tolist(),
-            "dike_roughness": df_slope_dike["r"].tolist(),
-            "dike_orientation": profile_series["orientation"],
-            "dike_crest_level": profile_series["crestlevel"],
-        }
-
-        basis_profiel = pydra_core.Profile.from_dictionary(profiel_dict)
-
-        # Voorland wordt apart gedaan, zodat deze hetzelfde is als de originele versie van Pydra
-        foreland_profile = {}
-        df_slope_foreland = self.df_slopes.loc[self.df_slopes["slopetypeid"] == 2]
-        if len(df_slope_foreland) > 0:
-            foreland_profile["foreland_x_coordinates"] = list(
-                df_slope_foreland["x"].to_numpy()
-            )
-            foreland_profile["foreland_y_coordinates"] = list(
-                df_slope_foreland["y"].to_numpy()
-            )
-
-        profiel_dict.update(foreland_profile)
-
-        overtopping = pydra_core.Profile.from_dictionary(profiel_dict)
-
-        if profile_series["dam"] != 0.0:
-            breakwater_type = pydra_core.common.enum.Breakwater(
-                int(profile_series["dam"])
-            )
-            overtopping.set_breakwater(
-                breakwater_type=breakwater_type,
-                breakwater_level=profile_series["damheight"],
-            )
+        basis_profiel, overtopping = build_pydra_profiles(
+            self.df_slopes, profile_series
+        )
 
         # Bereken curve
         niveaus, ovkansqcr = WaveOvertoppingCalculation.calculate_overtopping_curve(
