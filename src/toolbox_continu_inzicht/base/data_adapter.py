@@ -1,3 +1,5 @@
+from contextlib import contextmanager
+import copy
 from pathlib import Path
 from pydantic import BaseModel as PydanticBaseModel
 import pandas as pd
@@ -203,6 +205,31 @@ class DataAdapter(PydanticBaseModel):
         # Roep de bijbehorende functie bij het datatype aan en geef het input pad mee.
         bijbehorende_functie = self.output_types[data_type]
         bijbehorende_functie(functie_output_config, df)
+
+    @contextmanager
+    def temporary_adapter_config(self, adapter_name: str, overrides: dict):
+        """
+        Tijdelijk overschrijven van adapter config waardes.
+
+        Parameters:
+        -----------
+        adapter_name: str
+            Naam van de DataAdapter zoals opgegeven in de configuratie-YAML.
+        overrides: dict
+            Waarden die tijdelijk overschreven moeten worden.
+        """
+        if adapter_name not in self.config.data_adapters:
+            msg = f"Adapter met de naam '{adapter_name}' niet gevonden in de configuratie (yaml)."
+            self.logger.warning(msg)
+            warnings.warn(msg, UserWarning)
+
+        original = copy.deepcopy(self.config.data_adapters[adapter_name])
+        try:
+            self.config.data_adapters[adapter_name].update(overrides)
+            yield
+        finally:
+            self.config.data_adapters[adapter_name].clear()
+            self.config.data_adapters[adapter_name].update(original)
 
     def set_global_variable(self, key: str, value: Any):
         """
