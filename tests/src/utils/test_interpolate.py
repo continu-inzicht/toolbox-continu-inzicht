@@ -4,6 +4,7 @@ from toolbox_continu_inzicht.utils.interpolate import (
     beta_x_interpolate_1d,
     log_x_interpolate_1d,
     log_y_interpolate_1d,
+    circular_interpolate_1d,
 )
 import numpy as np
 from test_interpolate_data import fragility_curve_data
@@ -116,3 +117,27 @@ def test_interp_x_fc():
     # plt.yscale("log")
     # plt.show()
     # new_x
+
+
+def test_circular_interpolate_wrap():
+    wdv = np.array([10.0, 350.0])
+    grid_wd = np.array([10.0, 350.0])
+    wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
+    grid_wd_ext = np.concatenate([grid_wd, grid_wd, grid_wd])
+    windrichtingen = np.array([0.0])
+
+    angle = circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext)
+
+    assert np.isclose(angle[0], 0.0, atol=1e-6)
+
+
+def test_circular_interpolate_non_boundary():
+    wdv = np.array([90.0, 110.0])
+    grid_wd = np.array([90.0, 110.0])
+    wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
+    grid_wd_ext = np.concatenate([grid_wd, grid_wd, grid_wd])
+    windrichtingen = np.array([100.0])
+
+    angle = circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext)
+
+    assert np.isclose(angle[0], 100.0, atol=1e-6)
