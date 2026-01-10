@@ -74,9 +74,7 @@ def build_pydra_profiles(
     return basis_profiel, overtopping
 
 
-def build_waterlevel_grid(
-    crestlevel: float, options: dict
-) -> np.ndarray:
+def build_waterlevel_grid(crestlevel: float, options: dict) -> np.ndarray:
     hstap = options.get("hstap", 0.05)
     lower_limit_coarse = options.get("lower_limit_coarse", 4)
     upper_limit_coarse = options.get("upper_limit_coarse", 2)
