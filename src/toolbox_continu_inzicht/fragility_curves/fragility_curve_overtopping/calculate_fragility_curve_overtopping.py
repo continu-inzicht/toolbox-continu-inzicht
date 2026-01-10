@@ -2,8 +2,6 @@ from typing import Any, Dict, List, Tuple
 import numpy as np
 import pandas as pd
 
-from scipy.stats import lognorm
-
 import pydra_core
 import pydra_core.location
 from pydra_core.location.model.statistics.stochastics.model_uncertainty import (
@@ -12,7 +10,10 @@ from pydra_core.location.model.statistics.stochastics.model_uncertainty import (
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.pydra_legacy import (
     bretschneider,
-    get_qcr_dist,
+)
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
+    build_waterlevel_grid,
+    compute_failure_probability,
 )
 
 
@@ -241,21 +242,7 @@ class WaveOvertoppingCalculation:
             Een tuple met de niveaus en overloopkansen.
         """
         # Stel standaardwaarden in
-        hstap = options.get("hstap", 0.05)
-        lower_limit_coarse = options.get("lower_limit_coarse", 4)
-        upper_limit_coarse = options.get("upper_limit_coarse", 2)
-        upper_limit_fine = options.get("upper_limit_fine", 1.01)
-        # Leidt golfcondities af voor de richting
-        cl_rnd = np.round(crestlevel / hstap) * hstap  # crest level rounded
-        # Verfijn het raster rond crest level
-        # `waterlevels` is eigenlijk hydraulicload, gekozen om hier te laten omdat er bij een GEKB-curve
-        # altijd een waterstand is.
-        waterlevels = np.r_[
-            np.arange(
-                cl_rnd - lower_limit_coarse, cl_rnd - upper_limit_coarse, hstap * 2
-            ),
-            np.arange(cl_rnd - upper_limit_coarse, cl_rnd + upper_limit_fine, hstap),
-        ][:, None]
+        waterlevels = build_waterlevel_grid(crestlevel, options)[:, None]
 
         # Bereken de golfhoogte en piekgolfperiode met Bretschneider
         hs_dw, tp_dw = bretschneider(
@@ -268,8 +255,6 @@ class WaveOvertoppingCalculation:
 
         # Alloceer lege array om kansen aan toe te kennen
         ovkansqcr = np.zeros(len(waterlevels))
-
-        prob_qcr = not isinstance(qcr, int | float | np.integer)
 
         # Voor elke combinatie van modelonzekerheid
         for (
@@ -292,25 +277,9 @@ class WaveOvertoppingCalculation:
                 tp_tspec=t_tspec,
                 dll_settings=None,
             )
-            self.qov.append(np.array(qov) * 1000)
-            # Als overslagdebiet probabilistisch
-            if prob_qcr:
-                qov = np.array(qov) * 1000
-                # Bepaal per overslagdebiet de faalkans
-                hs_1d = hs.ravel()
-                for lower, upper in zip([0.0, 1.0, 2.0], [1.0, 2.0, np.inf]):
-                    idx = (hs_1d >= lower) & (hs_1d < upper) & (qov > 0.0)
-                    if not idx.any():
-                        continue
-
-                    mu, sigma = get_qcr_dist(lower + 0.5, qcr)
-                    ovkansqcr[idx] += (
-                        lognorm._cdf(qov[idx] / np.exp(mu), sigma) * onzkans
-                    )
-
-            # Als deterministisch
-            else:
-                ovkansqcr[np.array(qov) > qcr] += onzkans
+            qov = np.array(qov)
+            self.qov.append(qov * 1000)
+            ovkansqcr += compute_failure_probability(qov, qcr, hs, onzkans)
         return waterlevels.squeeze(), ovkansqcr
 
 

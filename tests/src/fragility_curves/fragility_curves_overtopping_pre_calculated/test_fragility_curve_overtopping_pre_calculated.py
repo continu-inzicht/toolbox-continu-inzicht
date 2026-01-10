@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import pandas as pd
-
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.fragility_curves import (
@@ -21,7 +20,14 @@ def test_fragility_curves_pre_calculated():
         data_adapter=data_adapter
     )
     fragility_curve_overtopping.run(
-        input=["slopes", "profiles", "bedlevel_fetch_unique"],
+        input=[
+            "slopes",
+            "profiles",
+            "waveval_unique_windspeed",
+            "waveval_unique_winddir",
+            "waveval_unique_waveval_id",
+            "pre_calculated_filter",
+        ],
         output="fragility_curves",
     )
     df_out = data_adapter.input("fragility_curves")
