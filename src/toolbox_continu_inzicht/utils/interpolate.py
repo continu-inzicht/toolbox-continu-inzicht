@@ -124,6 +124,39 @@ def interpolate_1d(
     return _transformed_x_interpolate_1d(x, xp, fp, ll, clip01)
 
 
+def circular_interpolate_1d(
+    x: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float = -np.inf,
+) -> np.ndarray:
+    """
+    Interpoleer circulaire waardes (graden) met behoud van 0/360 wrap.
+
+    Parameters
+    ----------
+    x : np.ndarray
+        X-waardes waarop geinterpoleerd moet worden
+    xp : np.ndarray
+        Referentievector van x-waardes
+    fp : np.ndarray
+        Referentievector van hoekwaardes (in graden)
+    ll : float
+        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
+
+    Returns
+    -------
+    np.array
+        geinterpoleerde hoekwaardes in graden binnen [0, 360)
+    """
+    angles = np.deg2rad(fp)
+    x_vals = np.cos(angles)
+    y_vals = np.sin(angles)
+    x_i = interpolate_1d(x, xp, x_vals, ll=ll)
+    y_i = interpolate_1d(x, xp, y_vals, ll=ll)
+    return (np.rad2deg(np.arctan2(y_i, x_i)) + 360.0) % 360.0
+
+
 def log_x_interpolate_1d(
     x: np.ndarray,
     xp: np.ndarray,
