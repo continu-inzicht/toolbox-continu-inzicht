@@ -183,7 +183,7 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
         DataFrame met bed level data.
     df_out: Optional[pd.DataFrame] | None
         DataFrame met de resultaten van de berekening.
-    fragility_curve_function: FragilityCurve
+    fc_function: FragilityCurve
         FragilityCurve object
     effect: float | None
         Effect van de maatregel (niet gebruikt)
@@ -221,7 +221,7 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
     df_bed_levels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    fragility_curve_function: FragilityCurve = FragilityCurveOvertopping
+    fc_function: FragilityCurve = FragilityCurveOvertopping
     effect: float | None = None
     measure_id: int | None = None
 
@@ -281,48 +281,35 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
             df_profile = df_profile.to_frame().rename(
                 columns={df_profile.name: "values"}
             )
-            slopes_name, profile_name, bed_levels_name = input
-            with (
-                temp_data_adapter.temporary_adapter_config(
-                    slopes_name,
-                    {"type": "python", "dataframe_from_python": df_slopes},
-                ),
-                temp_data_adapter.temporary_adapter_config(
-                    profile_name,
-                    {"type": "python", "dataframe_from_python": df_profile},
-                ),
-                temp_data_adapter.temporary_adapter_config(
-                    bed_levels_name,
-                    {"type": "python", "dataframe_from_python": df_bed_levels},
-                ),
-                temp_data_adapter.temporary_adapter_config(
-                    "output",
-                    {"type": "python", "dataframe_from_python": pd.DataFrame()},
-                ),
-            ):
-                fragility_curve_overtopping = self.fragility_curve_function(
-                    data_adapter=temp_data_adapter
-                )
+
+            overrides = {
+                input[0]: {"type": "python", "dataframe_from_python": df_slopes},
+                input[1]: {"type": "python", "dataframe_from_python": df_profile},
+                input[2]: {"type": "python", "dataframe_from_python": df_bed_levels},
+                "output": {"type": "python", "dataframe_from_python": pd.DataFrame()},
+            }
+            with temp_data_adapter.temporary_adapters(overrides):
                 # dit zorgt ervoor dat het beheerdersoordeel ook mee kan worden genomen
+                fc_overtopping = self.fc_function(data_adapter=temp_data_adapter)
                 if self.effect is not None:
-                    fragility_curve_overtopping.run(
-                        input=[slopes_name, profile_name, bed_levels_name],
+                    fc_overtopping.run(
+                        input=[input[0], input[1], input[2]],
                         output="output",
                         effect=self.effect,
                     )
                 else:
-                    fragility_curve_overtopping.run(
-                        input=[slopes_name, profile_name, bed_levels_name],
+                    fc_overtopping.run(
+                        input=[input[0], input[1], input[2]],
                         output="output",
                     )
 
-            df_fragility_curve_overtopping = fragility_curve_overtopping.as_dataframe()
-            df_fragility_curve_overtopping["section_id"] = section_id
+            df_fc_overtopping = fc_overtopping.as_dataframe()
+            df_fc_overtopping["section_id"] = section_id
 
             if len(self.df_out) == 0:
-                self.df_out = df_fragility_curve_overtopping
+                self.df_out = df_fc_overtopping
             else:
-                self.df_out = pd.concat([self.df_out, df_fragility_curve_overtopping])
+                self.df_out = pd.concat([self.df_out, df_fc_overtopping])
 
         self.df_out["failuremechanismid"] = 2  # GEKB: komt uit de
         if self.measure_id is not None:
