@@ -67,7 +67,7 @@ sections = ["scipy"]
 # io dependencies separate for now
 io = [
     "pyarrow",
-    "sqlalchemy",
+    #"sqlalchemy",
     "psycopg2",
     "xarray",
     "scipy", # try set backend of netcdf to xarray?
