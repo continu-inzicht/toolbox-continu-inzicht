@@ -48,7 +48,9 @@ def test_bretschneider_wave_provider_matches_bretschneider():
     fetch_interp = np.interp([direction], windrichtingen, fetch, period=360)[0]
     depth = waterlevels - bedlevel_interp
     hs_exp, tp_exp = bretschneider(
-        d=depth, fe=np.ones_like(waterlevels) * fetch_interp, u=np.ones_like(waterlevels) * windspeed
+        d=depth,
+        fe=np.ones_like(waterlevels) * fetch_interp,
+        u=np.ones_like(waterlevels) * windspeed,
     )
     tspec_exp = tp_exp / tp_tspec
 
@@ -130,4 +132,3 @@ def test_pre_calculated_wave_provider_circular_direction():
     )
 
     assert np.isclose(wave_dir[0], 0.0, atol=1e-6)
-
