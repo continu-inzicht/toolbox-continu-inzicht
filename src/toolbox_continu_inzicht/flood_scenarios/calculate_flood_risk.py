@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import ClassVar, Optional
 from pydantic.dataclasses import dataclass
 
@@ -10,18 +9,15 @@ from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 
 
-def import_raster_libraries():
+def import_rasterstats():
     try:
         from rasterstats import zonal_stats
-        import rasterio
-
     except ImportError:
         zonal_stats = None
-        rasterio = None
         raise ImportError(
             "Rasterio or zonalstats is not installed, use the dev pixi environment or install rasterio and rasterstats"
         )
-    return zonal_stats, rasterio
+    return zonal_stats
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -75,14 +71,14 @@ class CalculateFloodRisk(ToolboxBase):
         "segment_id": "int",
         "breach_id": "int",
         "hydaulicload_upperboundary": "float",
-        # can contain nans so object dtype is used, we dont stricly check on them
+        ### can contain nans so object dtype is used, we dont stricly check on them
         # "casualties_grid": "object",
         # "damage_grid": "object",
         # "flooding_grid": "object",
         # "affected_people_grid": "object",
     }
     schema_areas_to_average: ClassVar[dict[str, str]] = {
-        # these are useful later on but not used now
+        #### these are useful later on but not used now
         "area_id": "int32",
         # "name": "object",
         # "code": "object",
@@ -104,8 +100,8 @@ class CalculateFloodRisk(ToolboxBase):
             Data adapter voor output van scenario kansen per deeltraject
         """
 
-        if not len(input) == 3:
-            raise UserWarning("Input variabele moet 3 string waarden bevatten.")
+        if not len(input) == 4:
+            raise UserWarning("Input variabele moet 4 string waarden bevatten.")
 
         self.df_in_segment_failure_probability = self.data_adapter.input(
             input=input[0],
@@ -152,39 +148,8 @@ class CalculateFloodRisk(ToolboxBase):
         #     `sum` for risk based grids
         #     `median` for probability based grids
 
-        # TODO: meer flexibiliteit voor grids: waarom niet andere bronnen?
-        # 4 opties om het pad naar de scenario grids te bepalen:
-        # absoluut
-        # relatief onder de data dir
-        # relatief tov werkdirectory
-        # in de data dir (niet aanbevolen)
-        scenario_path_abs = Path(options["scenario_path"])
-        scenario_path_rel = global_variables["used_root_dir"] / Path(
-            options["scenario_path"]
-        )
-        scenario_path_cwd_rel = Path.cwd() / Path(options["scenario_path"])
-        if scenario_path_abs.is_absolute() and scenario_path_abs.exists():
-            self.data_adapter.logger.debug(
-                f"Gebruik absolute pad voor scenario grids: {scenario_path_abs}"
-            )
-            scenario_path = scenario_path_abs
-
-        elif scenario_path_rel.exists():
-            self.data_adapter.logger.debug(
-                f"Gebruik relatieve pad voor scenario grids: {scenario_path_rel}"
-            )
-            scenario_path = scenario_path_rel
-        elif scenario_path_cwd_rel.exists():
-            self.data_adapter.logger.debug(
-                f"Gebruik relatieve pad tov werkdirectory voor scenario grids: {scenario_path_cwd_rel}"
-            )
-            scenario_path = scenario_path_cwd_rel
-        else:
-            self.data_adapter.logger.info("Gebruik data directory voor scenario grids.")
-            scenario_path = global_variables["used_root_dir"]
-
         # unconventional way to ensure that the libraries are imported only when needed allowing for lighter installations
-        zonal_stats, rasterio = import_raster_libraries()
+        zonal_stats = import_rasterstats()
         dict_segments_out = {}
         for _, row in self.df_in_flood_scenario_grids.iterrows():
             # load grids
@@ -204,14 +169,13 @@ class CalculateFloodRisk(ToolboxBase):
                 # slaan over als er een nan in de tif waarde staat.
                 if pd.isna(grid_file):
                     continue
+                self.data_adapter.config.data_adapters[input[3]]["grid_file"] = (
+                    grid_file
+                )
 
-                grid_path = scenario_path / grid_file
-                if not grid_path.exists():
-                    raise UserWarning(f"Grid file {grid_path} bestaat niet.")
-
-                with rasterio.open(grid_path) as src:
-                    array_msk = src.read(1, masked=True)
-                    affine = src.transform
+                affine, array_msk = self.data_adapter.input(
+                    input=input[3],
+                )
 
                 # kans vermenigvuldigen met raster
                 array_msk *= failure_probability_segment

@@ -223,13 +223,17 @@ Mocht de gebruiker een andere kolom naam willen, dan kan deze in de globalvariab
 
 Als derde adapter moet een shapefile worden opgegeven waarover wordt gemiddeld. Hier is de kolom `area_id` verplicht, met een uniek id naast de `geometry` kolom.
 
-Ook moet een pad worden opgegeven waar de scenario's staan.
+De vierde adapter is voor het inladen van de grid bestanden.
+Deze is iets anders dan anders om twee redenen.
+- Ten eerste wordt inplaats van een (geo)dataframe een numpy array met het grid er in en de grid definitie teruggegeven.
+- Daarnaast wordt de data adapter hergebruikt per grid in de functie. Het gridnaam (`grid_name`) wordt toegevoegd aan de data adapter. Hiermee kunnen verschillende grids geladen worden vanaf elke denkbare locatie.
 
-Hier zijn 4 opties:
- - een absoluut pad
- - relatief pad ten opzichte van de `rootdir`
- - relatief pad ten opzichte van de `current work directory` waaruit het script wordt gedraaid
- - los in de data dir zelf
+
+De adapter `input_flood_risk_local_file` is een voorbeeld hoe dit vanaf een locatie op locale schijf kan. Daarbij zijn zijn 4 opties op de map te defineren:
+ - Een absoluut pad: dit kan met de optie `abs_path_user`
+ - Relatief pad ten opzichte van de `rootdir`, hier voor moet wel `path: ''` worden gedefineerd. De onderliggende mapstructuur kan met `scenario_path: ..` worden gedefineerd.
+ - Relatief pad ten opzichte van de `current work directory` waaruit het script wordt gedraaid
+ - Los in de data dir zelf.
 
 De output van de functie kan ook aangepast worden om het resultaat per hectaren terug te geven. In dat geval moet `per_hectare` op `true` worden gezet en moet `columns_per_hectare` worden gevuld met een lijst van de kolom namen die per hectaren worden berekend. In de output wordt `_per_ha` toegevoegd om verwarring te voorkomen.
 ```yaml
@@ -248,7 +252,6 @@ GlobalVariables:
     rootdir: "data_sets"
     moments: [ -24, 0, 24, 48 ]
     CalculateFloodRisk:
-        scenario_path: 'flood_scenarios'
         averaging_methods: # default waardes
             casualties: sum
             damage: sum
@@ -269,6 +272,11 @@ DataAdapter:
     areas_to_average:
         type: shape
         path: "areas_to_average.geojson"
+    flood_risk_local_file:
+        type: flood_risk_local_file
+        path: '' # gebruik de data_dir
+        scenario_path: "flood_scenarios" # en een map dieper kijk in de floodscenarios dir
+        #abs_path_user: "C:/../toolbox-continu-inzicht/tests/src/flood_scenarios/data_sets/flood_scenarios" # alternatively
     flood_risk_results:
         type: csv
         path: "flood_risk_results.csv"
@@ -286,6 +294,7 @@ calculate_flood_risk.run(
         "segment_failure_probability",
         "flood_scenario_grids",
         "areas_to_average",
+        "flood_risk_local_file",
     ],
     output="flood_risk_results",
 )

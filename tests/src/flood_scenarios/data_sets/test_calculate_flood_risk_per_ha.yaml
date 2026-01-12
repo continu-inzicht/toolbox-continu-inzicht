@@ -40,6 +40,11 @@ DataAdapter:
     areas_to_average:
         type: shape
         path: "areas_to_average.geojson"
+    flood_risk_local_file:
+        type: flood_risk_local_file
+        path: '' # gebruik de data_dir
+        scenario_path: "flood_scenarios" # en een map dieper kijk in de floodscenarios dir
+        #abs_path_user: "tests/src/flood_scenarios/data_sets/flood_scenarios" # but this could also be used
     flood_risk_results:
         type: csv
         path: "hidden_flood_risk_results.csv"

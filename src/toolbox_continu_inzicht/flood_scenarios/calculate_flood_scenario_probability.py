@@ -74,12 +74,12 @@ class CalculateFloodScenarioProbability(ToolboxBase):
         if not len(output) == 2:
             raise UserWarning("Output variabele moet 2 string waarden bevatten.")
 
-        # drempelwaarden per meetlocatie
+        # failure probability per meetlocatie
         self.df_in_grouped_sections_failure_probability = self.data_adapter.input(
             input[0], schema=self.schema_grouped_sections_failure_probability
         )
 
-        # belasting per moment per meetlocaties
+        # sections to segment mapping
         self.df_in_sections_to_segment = self.data_adapter.input(
             input[1], schema=self.schema_sections_to_segment
         )
