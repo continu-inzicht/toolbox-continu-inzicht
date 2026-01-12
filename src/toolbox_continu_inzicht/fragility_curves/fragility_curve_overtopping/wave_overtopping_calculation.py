@@ -8,23 +8,26 @@ from pydra_core.location.model.statistics.stochastics.model_uncertainty import (
     ModelUncertainty,
     DistributionUncertainty,
 )
-from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.pydra_legacy import (
-    bretschneider,
-)
+
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
     build_waterlevel_grid,
     compute_failure_probability,
+)
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
+    WaveProvider,
 )
 
 
 class WaveOvertoppingCalculation:
     """
     Variant op de Pydra-berekening die gebruikt wordt om on-the-fly
-    fragility curves te berekenen voor Continu Inzicht Rivierenland
+    fragility curves te berekenen voor Continu Inzicht Rivierenland.
+    De golfcondities worden geleverd via een WaveProvider.
     """
 
-    def __init__(self, profile, options):
+    def __init__(self, profile, options, wave_provider: WaveProvider):
         self.profile: pydra_core.Profile = profile
+        self.wave_provider = wave_provider
         # Stel standaardonzekerheden voor Bretschneider in
         standaard_model_onzekerheden = {}
         # gh =  golfhoogte onzekerheid mu/sigma/aantal;
@@ -63,11 +66,9 @@ class WaveOvertoppingCalculation:
         overtopping: object,
         basis_profiel: object,
         qcr: float,
-        richtingen: List[float],
-        bodemhoogte: List[float],
-        strijklengte: List[float],
         closing_situation: object,
         options: Dict[str, Any],
+        wave_provider: WaveProvider,
     ) -> Tuple[List[float], List[float]]:
         """
         Berekent de overloopcurve voor overtopping.
@@ -87,16 +88,12 @@ class WaveOvertoppingCalculation:
             Het basisprofiel object.
         qcr : float
             De kritieke afvoer.
-        richtingen : List[float]
-            De windrichtingen.
-        bodemhoogte : List[float]
-            De bodemhoogtes.
-        strijklengte : List[float]
-            De strijklengtes.
         closing_situation : object
             De sluitsituatie.
         options : Dict[str, Any]
             Optionele parameters uit de config.
+        wave_provider : WaveProvider
+            Leverancier van golfcondities.
 
         Returns:
         --------
@@ -110,21 +107,18 @@ class WaveOvertoppingCalculation:
             closing_situation  # niet zo netjes maar het werkt
         )
         # Berekening
-        berekening = cls(overtopping, options)
+        berekening = cls(overtopping, options, wave_provider)
 
         # Bereken fragility curve
         windrichtingen = (
             np.linspace(sectormin, sectormin + sectorsize, int(round(sectorsize))) % 360
         )
-        bedlevel = np.interp(windrichtingen, richtingen, bodemhoogte, period=360)
-        fetch = np.interp(windrichtingen, richtingen, strijklengte, period=360)
-
         # Voor het bepalen van de dominante windrichting wordt het profiel zonder voorland gebruikt
         basis_profiel.closing_situation = (
             closing_situation  # niet zo netjes maar het werkt
         )
         # Maak een berekeningobject met het basisprofiel aan (WaveOvertoppingCalculation)
-        berekening_basis = cls(basis_profiel, options)
+        berekening_basis = cls(basis_profiel, options, wave_provider)
         t_tspec = 1.1
         if "tp_tspec" in options:
             t_tspec = options["tp_tspec"]
@@ -134,16 +128,12 @@ class WaveOvertoppingCalculation:
             overtopping.dike_crest_level - 0.5,
             windspeed,
             windrichtingen,
-            bedlevel,
-            fetch,
             t_tspec,
         )
         # Bereken fragility curve
         niveaus, ovkansqcr = berekening.bereken_fc_cond(
             richting=windrichtingen[ir],
             windsnelheid=windspeed,
-            bedlevel=bedlevel[ir],
-            fetch=fetch[ir],
             qcr=qcr,
             crestlevel=overtopping.dike_crest_level,
             closing_situation=closing_situation,
@@ -158,8 +148,6 @@ class WaveOvertoppingCalculation:
         level: float,
         windspeed: float,
         richtingen: List[float],
-        bedlevels: List[float],
-        fetches: List[float],
         t_tspec: float,
     ) -> int:
         """
@@ -171,10 +159,6 @@ class WaveOvertoppingCalculation:
             De windsnelheid.
         richtingen : List[float]
             De array met richtingen.
-        bedlevels : List[float]
-            De array met bodemhoogtes.
-        fetches : List[float]
-            De array met strijklengtes.
         t_tspec : float
             De spectrale golfperiode.
         Returns
@@ -182,18 +166,19 @@ class WaveOvertoppingCalculation:
         int
             De index van de dominante richting.
         """
-        # Bereken golfcondities met Bretschneider
-        hss, tps = bretschneider(
-            d=level - bedlevels, fe=fetches, u=np.ones_like(bedlevels) * windspeed
+        hss, tspec, wave_direction = self.wave_provider.get_wave_conditions_for_directions(
+            windspeed=windspeed,
+            windrichtingen=np.asarray(richtingen, dtype=float),
+            waterlevel=level,
         )
         # Bereken overslagdebieten
         qov = []
-        for r, hs, tp in zip(richtingen, hss, tps):
+        for r, hs, tp in zip(wave_direction, hss, tspec):
             qov.append(
                 self.profile.calculate_overtopping(
                     water_level=level,
                     significant_wave_height=hs,
-                    spectral_wave_period=tp / t_tspec,
+                    spectral_wave_period=tp,
                     wave_direction=r,
                 )
             )
@@ -204,8 +189,6 @@ class WaveOvertoppingCalculation:
         self,
         richting: float,
         windsnelheid: float,
-        bedlevel: float,
-        fetch: float,
         qcr: float,
         t_tspec: float,
         crestlevel: float,
@@ -221,10 +204,6 @@ class WaveOvertoppingCalculation:
             De windrichting.
         windsnelheid : float
             De windsnelheid.
-        bedlevel : float
-            De bodemhoogte.
-        fetch : float
-            De strijklengte.
         qcr : float
             De kritieke afvoer.
         t_tspec : float
@@ -244,14 +223,11 @@ class WaveOvertoppingCalculation:
         # Stel standaardwaarden in
         waterlevels = build_waterlevel_grid(crestlevel, options)[:, None]
 
-        # Bereken de golfhoogte en piekgolfperiode met Bretschneider
-        hs_dw, tp_dw = bretschneider(
-            d=waterlevels - bedlevel,
-            fe=np.ones_like(waterlevels) * fetch,
-            u=np.ones_like(waterlevels) * windsnelheid,
+        hs_dw, tspec_dw, richting = self.wave_provider.get_wave_conditions_for_levels(
+            windspeed=windsnelheid,
+            direction=richting,
+            waterlevels=waterlevels,
         )
-        tspec_dw = tp_dw / t_tspec
-        richting = np.ones_like(waterlevels) * richting
 
         # Alloceer lege array om kansen aan toe te kennen
         ovkansqcr = np.zeros(len(waterlevels))

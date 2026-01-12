@@ -5,6 +5,7 @@ from toolbox_continu_inzicht.utils.interpolate import (
     log_x_interpolate_1d,
     log_y_interpolate_1d,
     circular_interpolate_1d,
+    bracketing_indices,
 )
 import numpy as np
 from test_interpolate_data import fragility_curve_data
@@ -141,3 +142,11 @@ def test_circular_interpolate_non_boundary():
     angle = circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext)
 
     assert np.isclose(angle[0], 100.0, atol=1e-6)
+
+
+def test_bracketing_indices_wrap():
+    xvec = np.array([0.0, 90.0, 180.0, 270.0])
+    i0, i1, f = bracketing_indices(xvec, 350.0, wrap=True)
+
+    assert (i0, i1) == (3, 0)
+    assert np.isclose(f, (350.0 - 270.0) / 90.0)

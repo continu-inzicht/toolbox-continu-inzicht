@@ -157,6 +157,44 @@ def circular_interpolate_1d(
     return (np.rad2deg(np.arctan2(y_i, x_i)) + 360.0) % 360.0
 
 
+def bracketing_indices(xvec: np.ndarray, x: float, wrap: bool = False):
+    n = xvec.size
+    if n < 2:
+        raise ValueError("x_vec must contain at least two values")
+
+    x = x % 360 if wrap else float(x)
+    pos = np.searchsorted(xvec, x, side="left")
+
+    if wrap:
+        i0 = (pos - 1) % n
+        i1 = pos % n
+        a0 = xvec[i0]
+        a1 = xvec[i1]
+        span = (a1 - a0) % 360.0
+        if span == 0.0:
+            return int(i0), int(i1), 0.0
+
+        dt = (x - a0) % 360.0
+        f = dt / span
+    else:
+        if pos <= 0:
+            i0, i1 = 0, 1
+        elif pos >= n:
+            i0, i1 = n - 2, n - 1
+        else:
+            i0, i1 = pos - 1, pos
+
+        a0 = xvec[i0]
+        a1 = xvec[i1]
+        denom = a1 - a0
+        if denom == 0.0:
+            return int(i0), int(i1), 0.0
+
+        f = (x - a0) / denom
+
+    return int(i0), int(i1), float(f)
+
+
 def log_x_interpolate_1d(
     x: np.ndarray,
     xp: np.ndarray,
