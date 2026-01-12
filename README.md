@@ -91,6 +91,6 @@ git lfs push origin {branchnaam} --all
 
 ## License
 
-Copyright (c) 2024 - 2025, HKV lijn in Water
+Copyright (c) 2024 - 2026, HKV lijn in Water
 
 GPL 3.0 or later
