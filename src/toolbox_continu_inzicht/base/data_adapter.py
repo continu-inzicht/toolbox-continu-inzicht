@@ -231,6 +231,33 @@ class DataAdapter(PydanticBaseModel):
             self.config.data_adapters[adapter_name].clear()
             self.config.data_adapters[adapter_name].update(original)
 
+    @contextmanager
+    def temporary_adapters(self, overrides: dict[str, dict]):
+        """
+        Tijdelijk overschrijven van meerdere adapter config waardes.
+
+        Parameters:
+        -----------
+        overrides: dict[str, dict]
+            Mapping van adapternaam naar overschrijfwaarden.
+        """
+        originals: dict[str, dict] = {}
+        try:
+            for adapter_name, adapter_overrides in overrides.items():
+                if adapter_name not in self.config.data_adapters:
+                    raise UserWarning(
+                        f"Adapter met de naam '{adapter_name}' niet gevonden in de configuratie (yaml)."
+                    )
+                originals[adapter_name] = copy.deepcopy(
+                    self.config.data_adapters[adapter_name]
+                )
+                self.config.data_adapters[adapter_name].update(adapter_overrides)
+            yield
+        finally:
+            for adapter_name, original in originals.items():
+                self.config.data_adapters[adapter_name].clear()
+                self.config.data_adapters[adapter_name].update(original)
+
     def set_global_variable(self, key: str, value: Any):
         """
         Functie voor het dynamisch overschrijven van global variabelen.
