@@ -198,9 +198,9 @@ class PreCalculatedWaveProvider(WaveProvider):
 
         wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
         grid_wd_ext = np.concatenate([grid_wdwl, grid_wdwl, grid_wdwl], axis=0)
-        grid_wl = interpolate_1d(np.array([direction]), wd_ext, grid_wd_ext, ll=-np.inf)[
-            0
-        ]
+        grid_wl = interpolate_1d(
+            np.array([direction]), wd_ext, grid_wd_ext, ll=-np.inf
+        )[0]
 
         if waveval_type == 7:
             return circular_interpolate_1d(waterlevels, wlv, grid_wl, ll=-np.inf)
