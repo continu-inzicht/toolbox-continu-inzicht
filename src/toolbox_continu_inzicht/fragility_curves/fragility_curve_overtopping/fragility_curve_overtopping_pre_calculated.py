@@ -3,7 +3,7 @@ from typing import Optional
 import pandas as pd
 import numpy as np
 from pydantic.dataclasses import dataclass
-from toolbox_continu_inzicht import DataAdapter, FragilityCurve
+from toolbox_continu_inzicht import DataAdapter, FragilityCurve, ToolboxBase
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_overtopping_calculation import (
     WaveOvertoppingCalculation,
 )
@@ -191,3 +191,112 @@ class FragilityCurveOvertoppingPreCalculated(FragilityCurve):
         self.failure_probability = ovkansqcr
 
         self.data_adapter.output(output=output, df=self.as_dataframe())
+
+
+@dataclass(config={"arbitrary_types_allowed": True})
+class FragilityCurveOvertoppingPreCalculatedMultiple(ToolboxBase):
+    """
+    Maakt een set van fragility curves voor golfoverslag (pre-berekend) voor een dijkvak.
+
+    Attributes
+    ----------
+    data_adapter: DataAdapter
+        DataAdapter object
+    df_slopes: Optional[pd.DataFrame] | None
+        DataFrame met helling data.
+    df_profile: Optional[pd.DataFrame] | None
+        DataFrame met profiel data.
+    df_waveval_id: Optional[pd.DataFrame] | None
+        DataFrame met waveval_id data.
+    df_waveval: Optional[pd.DataFrame] | None
+        DataFrame met waveval data.
+    df_out: Optional[pd.DataFrame] | None
+        DataFrame met de resultaten van de berekening.
+    fc_function: FragilityCurve
+        FragilityCurve object
+    measure_id: int | None
+        Maatregel id (niet gebruikt)
+    """
+
+    data_adapter: DataAdapter
+    df_slopes: Optional[pd.DataFrame] | None = None
+    df_profile: Optional[pd.DataFrame] | None = None
+    df_waveval_id: Optional[pd.DataFrame] | None = None
+    df_waveval: Optional[pd.DataFrame] | None = None
+    df_out: Optional[pd.DataFrame] | None = None
+
+    fc_function: FragilityCurve = FragilityCurveOvertoppingPreCalculated
+    measure_id: int | None = None
+
+    def run(self, input: list[str], output: str) -> None:
+        self.calculate_fragility_curve(input, output)
+
+    def calculate_fragility_curve(self, input: list[str], output: str) -> None:
+        self.df_slopes = self.data_adapter.input(input[0])
+        self.df_profile = self.data_adapter.input(input[1])
+        self.df_waveval_id = self.data_adapter.input(input[4])
+        self.df_waveval = self.data_adapter.input(input[5])
+
+        section_ids = self.df_profile.section_id.unique()
+
+        global_variables = self.data_adapter.config.global_variables
+        options = get_overtopping_options(
+            global_variables, "FragilityCurveOvertoppingPreCalculated"
+        )
+
+        self.df_out: pd.DataFrame = pd.DataFrame(
+            columns=["section_id", "hydraulicload", "failure_probability"]
+        )
+
+        for section_id in section_ids:
+            df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
+            df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
+            df_waveval_id = self.df_waveval_id[
+                self.df_waveval_id["section_id"] == section_id
+            ]
+            df_waveval = (
+                self.df_waveval[self.df_waveval["section_id"] == section_id]
+                if "section_id" in self.df_waveval.columns
+                else self.df_waveval
+            )
+
+            df_profile = df_profile.iloc[0].T
+            df_profile = df_profile.to_frame().rename(
+                columns={df_profile.name: "values"}
+            )
+
+            df_uniq_ws = pd.DataFrame(
+                {"windspeed": np.sort(df_waveval_id["windspeed"].unique())}
+            )
+            df_uniq_wd = pd.DataFrame(
+                {"winddir": np.sort(df_waveval_id["winddir"].unique())}
+            )
+
+            overrides = {
+                input[0]: {"type": "python", "dataframe_from_python": df_slopes},
+                input[1]: {"type": "python", "dataframe_from_python": df_profile},
+                input[2]: {"type": "python", "dataframe_from_python": df_uniq_ws},
+                input[3]: {"type": "python", "dataframe_from_python": df_uniq_wd},
+                input[4]: {"type": "python", "dataframe_from_python": df_waveval_id},
+                input[5]: {"type": "python", "dataframe_from_python": df_waveval},
+                output: {"type": "python", "dataframe_from_python": pd.DataFrame()},
+            }
+            with self.data_adapter.temporary_adapters(overrides):
+                self.data_adapter.config.global_variables[
+                    "FragilityCurveOvertoppingPreCalculated"
+                ] = options
+                fc_overtopping = self.fc_function(data_adapter=self.data_adapter)
+                fc_overtopping.run(input=input, output=output)
+
+                df_fc_overtopping = fc_overtopping.as_dataframe()
+                df_fc_overtopping["section_id"] = section_id
+
+                if len(self.df_out) == 0:
+                    self.df_out = df_fc_overtopping
+                else:
+                    self.df_out = pd.concat([self.df_out, df_fc_overtopping])
+
+        self.df_out["failuremechanismid"] = 2
+        if self.measure_id is not None:
+            self.df_out["measureid"] = self.measure_id
+        self.data_adapter.output(output=output, df=self.df_out)
