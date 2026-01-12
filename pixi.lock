@@ -9958,7 +9958,7 @@ packages:
 - pypi: ./src
   name: toolbox-continu-inzicht
   version: 0.1.2
-  sha256: f8abbc059a122efb4728c592471b74ead7506156d630826d0d46bbafa03e94e5
+  sha256: aba7089cee22f0c994e9adcdab6e4cf734a2ff91662450a8039c2f2801cfd071
   requires_dist:
   - pandas
   - pydantic>=2
@@ -10003,6 +10003,7 @@ packages:
   - psycopg2 ; extra == 'io'
   - pyarrow ; extra == 'io'
   - scipy ; extra == 'io'
+  - sqlalchemy ; extra == 'io'
   - xarray ; extra == 'io'
   - geopandas ; extra == 'loads'
   - httpx ; extra == 'loads'
