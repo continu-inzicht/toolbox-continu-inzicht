@@ -166,10 +166,12 @@ class WaveOvertoppingCalculation:
         int
             De index van de dominante richting.
         """
-        hss, tspec, wave_direction = self.wave_provider.get_wave_conditions_for_directions(
-            windspeed=windspeed,
-            windrichtingen=np.asarray(richtingen, dtype=float),
-            waterlevel=level,
+        hss, tspec, wave_direction = (
+            self.wave_provider.get_wave_conditions_for_directions(
+                windspeed=windspeed,
+                windrichtingen=np.asarray(richtingen, dtype=float),
+                waterlevel=level,
+            )
         )
         # Bereken overslagdebieten
         qov = []
