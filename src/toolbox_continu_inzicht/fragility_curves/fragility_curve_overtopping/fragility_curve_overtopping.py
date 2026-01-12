@@ -7,7 +7,7 @@ import pandas as pd
 from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht import ToolboxBase, Config, DataAdapter, FragilityCurve
-from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.calculate_fragility_curve_overtopping import (
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_overtopping_calculation import (
     WaveOvertoppingCalculation,
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
@@ -15,6 +15,9 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overto
     get_overtopping_options,
     parse_profile_dataframe,
     validate_slopes,
+)
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
+    BretschneiderWaveProvider,
 )
 
 
@@ -140,6 +143,13 @@ class FragilityCurveOvertopping(FragilityCurve):
             self.df_slopes, profile_series
         )
 
+        wave_provider = BretschneiderWaveProvider(
+            bedlevel=self.df_bed_levels["bedlevel"],
+            fetch=self.df_bed_levels["fetch"],
+            windrichtingen=self.df_bed_levels["direction"],
+            tp_tspec=options.get("tp_tspec", 1.1),
+        )
+
         # Bereken curve
         niveaus, ovkansqcr = WaveOvertoppingCalculation.calculate_overtopping_curve(
             windspeed,
@@ -148,11 +158,9 @@ class FragilityCurveOvertopping(FragilityCurve):
             overtopping,
             basis_profiel,
             qcr=profile_series["qcr"],
-            richtingen=self.df_bed_levels["direction"],
-            bodemhoogte=self.df_bed_levels["bedlevel"],
-            strijklengte=self.df_bed_levels["fetch"],
             closing_situation=profile_series["closing_situation"],
             options=options,
+            wave_provider=wave_provider,
         )
 
         self.hydraulicload = niveaus
