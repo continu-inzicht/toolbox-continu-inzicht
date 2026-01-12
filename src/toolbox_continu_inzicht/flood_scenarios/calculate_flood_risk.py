@@ -65,7 +65,7 @@ class CalculateFloodRisk(ToolboxBase):
     df_out: Optional[pd.DataFrame] | None = None
     schema_segment_failure_probability: ClassVar[dict[str, str]] = {
         "segment_id": "int",
-        "failure_probability": "float",
+        "scenario_failure_probability": "float",
     }
     schema_flood_scenario_grids: ClassVar[dict[str, str]] = {
         "segment_id": "int",
@@ -161,7 +161,7 @@ class CalculateFloodRisk(ToolboxBase):
             }
             segment_id = row["segment_id"]
             failure_probability_segment = self.df_in_segment_failure_probability.loc[
-                segment_id, "failure_probability"
+                segment_id, "scenario_failure_probability"
             ]
             dict_segments_out[segment_id] = self.gdf_in_areas_to_average.copy()
             dict_segments_out[segment_id].loc[:, "segment_id"] = segment_id

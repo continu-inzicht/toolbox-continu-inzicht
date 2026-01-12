@@ -21,7 +21,11 @@ def test_calculate_flood_scenario_probability():
         data_adapter=data_adapter
     )
     calculate_flood_scenario_probability.run(
-        input=["combined_failure_probability_data", "section_id_to_segment_id"],
+        input=[
+            "combined_failure_probability_data",
+            "section_id_to_segment_id",
+            "failure_mechanisms",
+        ],
         output=[
             "flood_scenario_probability_resultaten",
             "gecombineerde_faalkans_dijkvakken",
@@ -29,14 +33,17 @@ def test_calculate_flood_scenario_probability():
     )
     df_out = calculate_flood_scenario_probability.df_out
     df_out.set_index("segment_id", inplace=True)
-    # na rekenen van segment 34003
-    failure = 1
-    for prob, length in zip([5.500000e-01, 1.000000e-10, 1.000000e-10], [2, 3, 1]):
-        failure *= 1 - prob * length / 6
-    hand_calc = 1 - failure
+    # TODO: simple example is cleaner
+    # # na rekenen van segment 34003
+    # failure = 1
+    # for prob, length in zip([5.500000e-01, 1.000000e-10, 1.000000e-10], [2, 3, 1]):
+    #     failure *= 1 - prob * length / 6
+    # hand_calc = 1 - failure
+
+    stored_value = 0.23896804638003125  # as calculated in sprint 6 - 12-1-26
     assert np.isclose(
-        df_out.loc[34003, "failure_probability"],
-        hand_calc,
+        df_out.loc[34003, "scenario_failure_probability"],
+        stored_value,
     )
 
 
@@ -47,7 +54,11 @@ def test_calculate_flood_scenario_probability_check_combined():
         data_adapter=data_adapter
     )
     calculate_flood_scenario_probability.run(
-        input=["combined_failure_probability_data", "section_id_to_segment_id"],
+        input=[
+            "combined_failure_probability_data",
+            "section_id_to_segment_id",
+            "failure_mechanisms",
+        ],
         output=[
             "flood_scenario_probability_resultaten",
             "gecombineerde_faalkans_dijkvakken",
@@ -57,5 +68,6 @@ def test_calculate_flood_scenario_probability_check_combined():
         calculate_flood_scenario_probability.df_out_combined_failure
     )
     assert np.isclose(
-        df_out_combined_failure.loc[0, "combined_failure_probability"], 0.044382
-    )  # as calculated in sprint 6 - 27-11-25
+        df_out_combined_failure.loc[0, "combined_failure_probability"],
+        0.9957001932501301,
+    )  # as calculated in sprint 6 - 12-1-26

@@ -16,7 +16,7 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
     ----------
     data_adapter : DataAdapter
         De data adapter die wordt gebruikt om de data in te laden en op te slaan.
-    df_in_segment_failure_probability : Optional[pd.DataFrame] | None
+    df_in_segment_scenario_failure_probability : Optional[pd.DataFrame] | None
         Dataframe met deeltrajectkansen
     df_in_breach_to_segment_risk : Optional[pd.DataFrame] | None
         Dataframe met koppeling van Bresen naar deeltrajecten en maatgevende fragility curves
@@ -24,7 +24,7 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
         Dataframe met koppeling van dijkvakken naar deeltrajecten
     df_out : Optional[pd.DataFrame] | None
         Dataframe met belastingen per dijkvak en bijbehorende bres locaties id.
-    schema_segment_failure_probability : ClassVar[dict[str, str]]
+    schema_segment_scenario_failure_probability : ClassVar[dict[str, str]]
         Schema voor de input dataframe met deeltrajectkansen
     schema_breach_to_segment_risk : ClassVar[dict[str, str]]
         Schema voor de input dataframe met koppeling van Bresen naar deeltrajecten en maatgevende fragility curves
@@ -47,13 +47,13 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
 
     data_adapter: DataAdapter
 
-    df_in_segment_failure_probability: Optional[pd.DataFrame] | None = None
+    df_in_segment_scenario_failure_probability: Optional[pd.DataFrame] | None = None
     df_in_breach_to_segment_risk: Optional[pd.DataFrame] | None = None
     df_in_fragility_curves: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
-    schema_segment_failure_probability: ClassVar[dict[str, str]] = {
+    schema_segment_scenario_failure_probability: ClassVar[dict[str, str]] = {
         "segment_id": "int",
-        "failure_probability": "float",
+        "scenario_failure_probability": "float",
     }
     schema_breach_to_segment_risk: ClassVar[dict[str, str]] = {
         "segment_id": "int",
@@ -62,7 +62,9 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
     }
     schema_grouped_sections_failure_probability: ClassVar[dict[str, str]] = {
         "section_id": "int",
+        "measure_id": "int",
         "failure_probability": "float",
+        "hydraulicload": "float",
     }
 
     def run(self, input: list[str], output: str) -> None:
@@ -80,10 +82,12 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
         if not len(input) == 3:
             raise UserWarning("Input variabele moet 3 string waarden bevatten.")
 
-        self.df_in_segment_failure_probability = self.data_adapter.input(
-            input[0], schema=self.schema_segment_failure_probability
+        self.df_in_segment_scenario_failure_probability = self.data_adapter.input(
+            input[0], schema=self.schema_segment_scenario_failure_probability
         )
-        self.df_in_segment_failure_probability.set_index("segment_id", inplace=True)
+        self.df_in_segment_scenario_failure_probability.set_index(
+            "segment_id", inplace=True
+        )
 
         # drempelwaarden per meetlocatie``
         self.df_in_breach_to_segment_risk = self.data_adapter.input(
@@ -99,9 +103,11 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
         segments = self.df_in_breach_to_segment_risk["segment_id"].unique()
         load_per_segment = {}
         for segment in segments:
-            segment_failure_probability = self.df_in_segment_failure_probability.loc[
-                segment, "failure_probability"
-            ]
+            segment_failure_probability = (
+                self.df_in_segment_scenario_failure_probability.loc[
+                    segment, "scenario_failure_probability"
+                ]
+            )
             fragility_curve_id = df_segment_to_curve.loc[
                 segment, "representative_section_id_fragilitycurve"
             ]

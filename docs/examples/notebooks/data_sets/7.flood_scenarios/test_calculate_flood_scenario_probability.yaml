@@ -12,6 +12,9 @@ DataAdapter:
     section_id_to_segment_id:
         type: csv
         file: "section_id_to_segment_id.csv"
+    failure_mechanisms:
+        type: csv
+        file: failuremechanism.csv
     segment_failure_probability:
         type: csv
         file: "segment_failure_probability.csv"
