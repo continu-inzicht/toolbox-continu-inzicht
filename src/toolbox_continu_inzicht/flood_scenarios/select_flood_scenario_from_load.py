@@ -15,45 +15,52 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
     ----------
     data_adapter : DataAdapter
         De data adapter die wordt gebruikt om de data in te laden en op te slaan.
-    df_in_segment_flood_scenario_load : Optional[pd.DataFrame] | None
-        Dataframe met belastingen per deeltraject & doobraaklocatie id per deeltraject.
-    df_in_flood_scenario_metadata : Optional[pd.DataFrame] | None
-        Dataframe met metadata van de Bresen locaties
-    df_out : Optional[pd.DataFrame] | None
-        Dataframe met de geselecteerde flood scenario's.
-    schema_segment_flood_scenario_load : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met belastingen & doobraaklocatie id per deeltraject.
-    schema_flood_scenario_metadata : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met koppeling van Bresen naar deeltrajecten en maatgevende fragility curves
+    df_in_scenarios_loads : Optional[pd.DataFrame] | None
+        Dataframe met belastingen per scenario/deeltraject (segment)
+    df_in_consequences_loads : Optional[pd.DataFrame] | None
+        Dataframe met gevolgberekeningen (grids) per hydraulische belastingniveau (voor verschillende type risico's)
+    df_out_scenario_consequences_grids : Optional[pd.DataFrame] | None
+        Dataframe met de geselecteerde scenario grids.
+    schema_scenarios_loads : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met belastingen per scenario/deeltraject (segment)
+    schema_consequences_loads : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met gevolgberekeningen (grids) per hydraulische belastingniveau (voor verschillende type risico's)
 
     Notes
     -----
 
-    schema voor sections_to_segment
-
-    - section_id: int
+    schema voor scenarios_loads
     - segment_id: int
+    - hydraulicload: float
 
-    schema voor grouped_sections_failure_probability
+    schema voor consequences_loads
+    - segment_id: int
     - section_id: int
-    - failure_probability: float
-
+    - hydraulicload_upperboundary: float
+    - waterdepth_grid
+    - casualties_grid
+    - damage_grid
+    - flooding_grid
+    - affected_people_grid
     """
 
     data_adapter: DataAdapter
 
-    df_in_segment_flood_scenario_load: Optional[pd.DataFrame] | None = None
-    df_in_flood_scenario_metadata: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
-    schema_segment_flood_scenario_load: ClassVar[dict[str, str]] = {
+    df_in_scenarios_loads: Optional[pd.DataFrame] | None = None
+    df_in_consequences_loads: Optional[pd.DataFrame] | None = None
+    df_out_scenario_consequences_grids: Optional[pd.DataFrame] | None = None
+
+    # schemas voor de input dataframes
+    schema_scenarios_loads: ClassVar[dict[str, str]] = {
         "segment_id": "int",
         "hydraulicload": "float",
-        "breach_id": "int",
     }
-    schema_flood_scenario_metadata: ClassVar[dict[str, str]] = {
-        "breach_id": "int",
-        "hydaulicload_upperboundary": "float",
+    schema_consequences_loads: ClassVar[dict[str, str]] = {
+        "segment_id": "int",
+        "section_id": "int",
+        "hydraulicload_upperboundary": "float",
         # can contain nans so object dtype is used, we dont stricly check on them
+        # "waterdepth_grid": "object",
         # "casualties_grid": "object",
         # "damage_grid": "object",
         # "flooding_grid": "object",
@@ -67,88 +74,105 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
         parameters
         ----------
         input: list[str]
-            Lijst met namen van de data adapter voor
+            Lijst met namen van de data adapter
         output: str
-            Data adapter voor output van scenario kansen per deeltraject
+            Data adapter voor output van gevolgen grids per scenario/deeltraject (segment)
         """
 
         if not len(input) == 2:
             raise UserWarning("Input variabele moet 2 string waarden bevatten.")
+        if not len(output) == 1:
+            raise UserWarning("Output variabele moet 1 string waarde bevatten.")
 
-        self.df_in_segment_flood_scenario_load = self.data_adapter.input(
-            input[0], schema=self.schema_segment_flood_scenario_load
+        # hydraulische belastingen per deeltraject (segment) behorende bij scenariokans
+        self.df_in_scenarios_loads = self.data_adapter.input(
+            input[0], schema=self.schema_scenarios_loads
         )
-        # drempelwaarden per meetlocatie``
-        self.df_in_flood_scenario_metadata = self.data_adapter.input(
-            input[1], schema=self.schema_flood_scenario_metadata
+        # gevolgberekeningen (grids) per hydraulische belastingniveau
+        self.df_in_consequences_loads = self.data_adapter.input(
+            input[1], schema=self.schema_consequences_loads
         )
         columns_grid = [
             col.replace("_grid", "")
-            for col in self.df_in_flood_scenario_metadata.columns
+            for col in self.df_in_consequences_loads.columns
             if col.endswith("_grid")
         ]
         if len(columns_grid) < 1:
             raise UserWarning(
-                "Er zijn geen grid kolommen gevonden in de flood scenario metadata input, dit moet er minimaal 1 zijn."
+                "Er zijn geen grid kolommen gevonden, dit moet er minimaal 1 zijn."
             )
+
+        # lees de opties in
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("SelectFloodScenarioFromLoad", {})
         return_two_scenarios = options.get("return_two_scenarios", False)
 
-        segments = self.df_in_segment_flood_scenario_load["segment_id"].unique()
-        self.df_in_segment_flood_scenario_load.set_index("segment_id", inplace=True)
-        meta_data = self.df_in_flood_scenario_metadata.copy()
+        # bepaal de segmenten
+        segments = self.df_in_scenarios_loads["segment_id"].unique()
+        self.df_in_scenarios_loads.set_index("segment_id", inplace=True)
+
+        # lees de gevolgberekeningen in
+        consequences = self.df_in_consequences_loads.copy()
+
         selected_grids = []
         for segment in segments:
-            segment_series = self.df_in_segment_flood_scenario_load.loc[segment]
+            segment_series = self.df_in_scenarios_loads.loc[segment]
             hydraulic_load = segment_series["hydraulicload"]
-            breach_id = segment_series["breach_id"]
-            current_breach_data = meta_data[meta_data["breach_id"] == breach_id].copy()
-            smallest_load = current_breach_data["hydaulicload_upperboundary"].min()
+            current_consequence_data = consequences[
+                consequences["segment_id"] == segment
+            ].copy()
+            smallest_load = current_consequence_data[
+                "hydraulicload_upperboundary"
+            ].min()
             if hydraulic_load <= smallest_load:
-                # in cases where the hydaulic load is smaller than the smallest boundary, select the smallest boundary
-                # in most cases this will be a no breach scenario
-                grids_series = current_breach_data[
-                    current_breach_data["hydaulicload_upperboundary"] == smallest_load
+                # Er wordt altijd vanuit gegaan dat er een hydraulische belasting moet overschreden worden om risico te berekenen (er moet een overstroming/doorbraak zijn), anders is het risico gelijk aan 0
+                grids_series = current_consequence_data[
+                    current_consequence_data["hydraulicload_upperboundary"]
+                    == smallest_load
                 ]
             else:
                 smaller_loads = (
-                    current_breach_data["hydaulicload_upperboundary"] < hydraulic_load
+                    current_consequence_data["hydraulicload_upperboundary"]
+                    < hydraulic_load
                 )
-                subs_election = current_breach_data[smaller_loads]
-                # by default we take the lower bound
-                idx_lowerbound = subs_election["hydaulicload_upperboundary"].idxmax()
-                grids_series = current_breach_data.loc[[idx_lowerbound]]
+                subs_selection = current_consequence_data[smaller_loads]
+                # standaard de grootste lagere belasting kiezen als representatief scenario
+                idx_lowerbound = subs_selection["hydraulicload_upperboundary"].idxmax()
+                grids_series = current_consequence_data.loc[[idx_lowerbound]]
 
-                # if requested, also find the upper bound
+                # indien gewenst ook de kleinste hogere belasting kiezen als representatief scenario
                 if return_two_scenarios:
-                    largest_load = current_breach_data[
-                        "hydaulicload_upperboundary"
+                    largest_load = current_consequence_data[
+                        "hydraulicload_upperboundary"
                     ].max()
                     if hydraulic_load <= largest_load:
                         larger_loads = (
-                            current_breach_data["hydaulicload_upperboundary"]
+                            current_consequence_data["hydraulicload_upperboundary"]
                             >= hydraulic_load
                         )
-                        larger_sub_selection = current_breach_data[larger_loads]
+                        larger_sub_selection = current_consequence_data[larger_loads]
                         idx_upperbound = larger_sub_selection[
-                            "hydaulicload_upperboundary"
+                            "hydraulicload_upperboundary"
                         ].idxmin()
-                        grids_series = current_breach_data.loc[
+                        grids_series = current_consequence_data.loc[
                             [idx_lowerbound, idx_upperbound]
                         ]
                     else:
-                        pass  # in this case we do not have an upper bound
+                        pass  # als er geen upper bound is, dan alleen de lower bound teruggeven
 
             grids_series["segment_id"] = segment
             selected_grids.append(grids_series)
 
-        self.df_out = pd.concat(selected_grids, axis=0)
+        self.df_out_scenario_consequences_grids = pd.concat(selected_grids, axis=0)
 
-        # reorder columns to have segment_id first - nit pik
-        columns = self.df_out.columns.tolist()
+        # herschik de kolommen zodat segment_id vooraan staat
+        columns = self.df_out_scenario_consequences_grids.columns.tolist()
         columns.remove("segment_id")
         columns = ["segment_id"] + columns
-        self.df_out = self.df_out[columns]
+        self.df_out_scenario_consequences_grids = (
+            self.df_out_scenario_consequences_grids[columns]
+        )
 
-        self.data_adapter.output(output=output, df=self.df_out)
+        self.data_adapter.output(
+            output=output[0], df=self.df_out_scenario_consequences_grids
+        )

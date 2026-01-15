@@ -10,137 +10,159 @@ from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
 @dataclass(config={"arbitrary_types_allowed": True})
 class LoadFromFloodScenarioProbability(ToolboxBase):
     """
-    Met deze functie wordt de belasting van een scenario bepaald.
+    Met deze functie wordt de belasting van een scenario bepaald
 
     Attributes
     ----------
     data_adapter : DataAdapter
         De data adapter die wordt gebruikt om de data in te laden en op te slaan.
-    df_in_segment_scenario_failure_probability : Optional[pd.DataFrame] | None
-        Dataframe met deeltrajectkansen
-    df_in_breach_to_segment_risk : Optional[pd.DataFrame] | None
-        Dataframe met koppeling van Bresen naar deeltrajecten en maatgevende fragility curves
-    df_in_fragility_curves : Optional[pd.DataFrame] | None
-        Dataframe met koppeling van dijkvakken naar deeltrajecten
-    df_out : Optional[pd.DataFrame] | None
-        Dataframe met belastingen per dijkvak en bijbehorende bres locaties id.
-    schema_segment_scenario_failure_probability : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met deeltrajectkansen
-    schema_breach_to_segment_risk : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met koppeling van Bresen naar deeltrajecten en maatgevende fragility curves
-    schema_grouped_sections_failure_probability : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met gecombineerde dijkvakkansen
+    df_in_scenario_failure_probability : Optional[pd.DataFrame] | None
+        Dataframe met scenariokansen per deeltraject (segment)
+    df_in_section_to_segment : Optional[pd.DataFrame] | None
+        Dataframe met koppeling van sectie naar deeltrajecten voor representatieve fragility curves
+    df_in_section_fragility_curves : Optional[pd.DataFrame] | None
+        Dataframe met fragility curves per sectie en per faalmechanisme
+    df_out_scenario_loads : Optional[pd.DataFrame] | None
+        Dataframe met belastingen scenario (waarmee gevolgen kunnen worden geselecteerd)
+    schema_scenario_failure_probability : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met scenariokansen per deeltraject (segment)
+    schema_section_to_segment : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met koppeling van sectie naar deeltrajecten voor representatieve fragility curves
+    schema_section_fragility_curves : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met fragility curves per sectie en per faalmechanisme
 
     Notes
     -----
+    schema voor scenario_failure_probability
+    - segment_id: int
+    - scenario_failure_probability: float
 
     schema voor sections_to_segment
-
-    - section_id: int
     - segment_id: int
-
-    schema voor grouped_sections_failure_probability
     - section_id: int
+    - length: float
+
+    schema voor section_fragility_curves
+    - section_id: int
+    - failuremechanism_id: int
+    - measure_id: int
+    - hydraulicload: float
     - failure_probability: float
 
     """
 
     data_adapter: DataAdapter
 
-    df_in_segment_scenario_failure_probability: Optional[pd.DataFrame] | None = None
-    df_in_breach_to_segment_risk: Optional[pd.DataFrame] | None = None
-    df_in_fragility_curves: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
-    schema_segment_scenario_failure_probability: ClassVar[dict[str, str]] = {
+    df_in_scenario_failure_probability: Optional[pd.DataFrame] | None = None
+    df_in_section_to_segment: Optional[pd.DataFrame] | None = None
+    df_in_section_fragility_curves: Optional[pd.DataFrame] | None = None
+    df_out_scenario_loads: Optional[pd.DataFrame] | None = None
+
+    # schemas voor de input dataframes
+    schema_scenario_failure_probability: ClassVar[dict[str, str]] = {
         "segment_id": "int",
         "scenario_failure_probability": "float",
     }
-    schema_breach_to_segment_risk: ClassVar[dict[str, str]] = {
+    schema_section_to_segment: ClassVar[dict[str, str]] = {
         "segment_id": "int",
-        "breach_id": "int",
-        "representative_section_id_fragilitycurve": "int",
-    }
-    schema_grouped_sections_failure_probability: ClassVar[dict[str, str]] = {
         "section_id": "int",
+        "length": "float",
+    }
+    schema_section_fragility_curves: ClassVar[dict[str, str]] = {
+        "section_id": "int",
+        "failuremechanism_id": "int",
         "measure_id": "int",
-        "failure_probability": "float",
         "hydraulicload": "float",
+        "failure_probability": "float",
     }
 
     def run(self, input: list[str], output: str) -> None:
         """
-        De runner van de Calculate Flood Scenario Probability module.
+        De runner van de Load From Flood Scenario Probability module.
 
         parameters
         ----------
         input: list[str]
-            Lijst met namen van de data adapter voor
+            Lijst met namen van de data adapters
         output: str
-            Data adapter voor output van scenario kansen per deeltraject
+            Data adapter voor output van hydraulische belasting per scenario [deeltraject (segment)]
         """
 
         if not len(input) == 3:
             raise UserWarning("Input variabele moet 3 string waarden bevatten.")
+        if not len(output) == 1:
+            raise UserWarning("Output variabele moet 1 string waarde bevatten.")
 
-        self.df_in_segment_scenario_failure_probability = self.data_adapter.input(
-            input[0], schema=self.schema_segment_scenario_failure_probability
+        # scenariokansen per deeltraject (segment)
+        self.df_in_scenario_failure_probability = self.data_adapter.input(
+            input[0], schema=self.schema_scenario_failure_probability
         )
-        self.df_in_segment_scenario_failure_probability.set_index(
-            "segment_id", inplace=True
-        )
+        # zet index op segment_id
+        self.df_in_scenario_failure_probability.set_index("segment_id", inplace=True)
 
-        # drempelwaarden per meetlocatie``
-        self.df_in_breach_to_segment_risk = self.data_adapter.input(
-            input[1], schema=self.schema_breach_to_segment_risk
+        # koppeling van sectie naar deeltrajecten voor representatieve fragility curves
+        self.df_in_section_to_segment = self.data_adapter.input(
+            input[1], schema=self.schema_section_to_segment
         )
-        df_segment_to_curve = self.df_in_breach_to_segment_risk.set_index("segment_id")
+        df_segment_to_curve = self.df_in_section_to_segment.set_index("segment_id")
+
         # belasting per moment per meetlocaties
         self.df_in_fragility_curves = self.data_adapter.input(
-            input[2], schema=self.schema_grouped_sections_failure_probability
+            input[2], schema=self.schema_section_fragility_curves
         )
         self.df_in_fragility_curves.set_index("section_id", inplace=True)
 
-        segments = self.df_in_breach_to_segment_risk["segment_id"].unique()
+        segments = self.df_in_section_to_segment["segment_id"].unique()
         load_per_segment = {}
         for segment in segments:
-            segment_failure_probability = (
-                self.df_in_segment_scenario_failure_probability.loc[
-                    segment, "scenario_failure_probability"
-                ]
-            )
-            fragility_curve_id = df_segment_to_curve.loc[
-                segment, "representative_section_id_fragilitycurve"
+            segment_failure_probability = self.df_in_scenario_failure_probability.loc[
+                segment, "scenario_failure_probability"
             ]
-            # load curve based on fragility_curve_id
+            fragility_curve_id = df_segment_to_curve.loc[segment, "section_id"]
+
+            # TODO moeten we hier niet ook nog een selectie maken op faalmechanisme_id (altijd COMB) en measure_id (deze is afhankelijk van de maatregel)?
+            # voor nu altijd measure_id 0 (geen maatregel) en faalmechanisme_id 1 (combinatie)
+            fragility_curve_data = self.df_in_fragility_curves.loc[fragility_curve_id][
+                (
+                    self.df_in_fragility_curves.loc[fragility_curve_id][
+                        "failuremechanism_id"
+                    ]
+                    == 1
+                )
+                & (
+                    self.df_in_fragility_curves.loc[fragility_curve_id]["measure_id"]
+                    == 0
+                )
+            ]
+
+            # fragility curve object aanmaken en vullen met data uit dataframe
             fragility_curve = FragilityCurve(data_adapter=self.data_adapter)
             fragility_curve.lower_limit = (
                 1e-500  # FC defailt was 1e-200, we have smaller values here so adjust
             )
             try:
-                fragility_curve.from_dataframe(
-                    self.df_in_fragility_curves.loc[fragility_curve_id]
-                )
+                fragility_curve.from_dataframe(fragility_curve_data)
             except KeyError:
                 self.data_adapter.logger.warning(
                     f"Geen fragility curve gevonden voor segment {segment} "
                     f"met fragility_curve_id {fragility_curve_id}. "
                     f"Zorg dat de fragility curves correct zijn ingeladen, en de mapping van segment naar fragility_curve_id klopt."
                 )
-            hydraulic_load, error = (
-                fragility_curve.water_level_from_failure_probability(
-                    segment_failure_probability
-                )
+
+            # bepaal de hydraulische belasting behorende bij de scenariokans
+            hydraulic_load = fragility_curve.hydraulic_load_from_failure_probability(
+                segment_failure_probability
             )
             self.data_adapter.logger.debug(
                 f"Segment {segment}: failure_probability {segment_failure_probability}, "
-                f"hydraulicload {hydraulic_load}, error {error}"
+                f"hydraulicload {hydraulic_load}"
             )
-            breach_id = df_segment_to_curve.loc[segment, "breach_id"]
-            load_per_segment[segment] = [hydraulic_load, breach_id]
 
-        self.df_out = pd.DataFrame.from_dict(
-            load_per_segment, orient="index", columns=["hydraulicload", "breach_id"]
+            load_per_segment[segment] = [hydraulic_load]
+
+        self.df_out_scenario_loads = pd.DataFrame.from_dict(
+            load_per_segment, orient="index", columns=["hydraulicload"]
         )
-        self.df_out.index.name = "segment_id"
+        self.df_out_scenario_loads.index.name = "segment_id"
 
-        self.data_adapter.output(output=output, df=self.df_out)
+        self.data_adapter.output(output=output[0], df=self.df_out_scenario_loads)

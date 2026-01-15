@@ -29,25 +29,24 @@ class CalculateFloodRisk(ToolboxBase):
     ----------
     data_adapter : DataAdapter
         De data adapter die wordt gebruikt om de data in te laden en op te slaan.
-    df_in_segment_failure_probability : Optional[pd.DataFrame] | None
-        Dataframe met deeltrajectkansen
-    df_in_flood_scenario_grids: Optional[pd.DataFrame] | None
-        Dataframe met namen van grids per trajectedeel.
-    gdf_in_areas_to_average : Optional[gpd.GeoDataFrame] | None
-        GeoDataframe met gebieden om te middelen.
-    df_out : Optional[pd.DataFrame] | None
-        Dataframe met de geselecteerde flood scenario's.
-    schema_segment_failure_probability : ClassVar[dict[str, str]]
+    df_in_scenario_failure_prob_segments : Optional[pd.DataFrame] | None
+        Dataframe met scenariokansen
+    df_in_scenario_consequences_grids: Optional[pd.DataFrame] | None
+        Dataframe met gevolgengrids behorende bij de scenariokansen per deeltraject (segment)
+    gdf_in_areas_to_aggregate : Optional[gpd.GeoDataFrame] | None
+        GeoDataframe met gebieden te aggregeren
+    df_out_flood_risk_results : Optional[pd.DataFrame] | None
+        Dataframe met de risico resultaten
+    schema_scenario_failure_prob_segments : ClassVar[dict[str, str]]
         Schema voor de input dataframe met deeltrajectkansen
-    schema_flood_scenario_grids : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met namen van grids per trajectedeel.
-    schema_areas_to_average : ClassVar[dict[str, str]]
-        Schema voor de input geodataframe met gebieden om te middelen.
+    schema_scenario_consequences_grids : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met gevolgengrids behorende bij de scenariokansen per deeltraject (segment)
+    schema_areas_to_aggregate : ClassVar[dict[str, str]]
+        Schema voor de input geodataframe met gebieden te aggregeren.
     Notes
-    -----
+    ----------
 
     schema voor sections_to_segment
-
     - section_id: int
     - segment_id: int
 
@@ -59,25 +58,28 @@ class CalculateFloodRisk(ToolboxBase):
 
     data_adapter: DataAdapter
 
-    df_in_segment_failure_probability: Optional[pd.DataFrame] | None = None
-    df_in_flood_scenario_grids: Optional[pd.DataFrame] | None = None
-    gdf_in_areas_to_average: Optional[gpd.GeoDataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
-    schema_segment_failure_probability: ClassVar[dict[str, str]] = {
+    df_in_scenario_failure_prob_segments: Optional[pd.DataFrame] | None = None
+    df_in_scenario_consequences_grids: Optional[pd.DataFrame] | None = None
+    gdf_in_areas_to_aggregate: Optional[gpd.GeoDataFrame] | None = None
+    df_out_flood_risk_results: Optional[pd.DataFrame] | None = None
+
+    # schemas voor de input dataframes
+    schema_scenario_failure_prob_segments: ClassVar[dict[str, str]] = {
         "segment_id": "int",
         "scenario_failure_probability": "float",
     }
-    schema_flood_scenario_grids: ClassVar[dict[str, str]] = {
+    schema_scenario_consequences_grids: ClassVar[dict[str, str]] = {
         "segment_id": "int",
-        "breach_id": "int",
-        "hydaulicload_upperboundary": "float",
-        ### can contain nans so object dtype is used, we dont stricly check on them
-        # "casualties_grid": "object",
-        # "damage_grid": "object",
-        # "flooding_grid": "object",
-        # "affected_people_grid": "object",
+        "section_id": "int",
+        "hydraulicload_upperboundary": "float",
+        # Kunnen NAN waarden bevatten en daarom wordt het object dtype gebruikt, we controleren hier niet strikt op
+        "waterdepth_grid": "object",
+        "casualties_grid": "object",
+        "damage_grid": "object",
+        "flooding_grid": "object",
+        "affected_people_grid": "object",
     }
-    schema_areas_to_average: ClassVar[dict[str, str]] = {
+    schema_areas_to_aggregate: ClassVar[dict[str, str]] = {
         #### these are useful later on but not used now
         "area_id": "int32",
         # "name": "object",
@@ -90,83 +92,101 @@ class CalculateFloodRisk(ToolboxBase):
 
     def run(self, input: list[str], output: str) -> None:
         """
-        De runner van de Select Flood Scenario From Load module.
+        De runner van de Calculate Flood Risk module.
 
         parameters
         ----------
         input: list[str]
-            Lijst met namen van de data adapter voor
+            Lijst met namen van de data adapter
         output: str
-            Data adapter voor output van scenario kansen per deeltraject
+            Data adapter voor output van overstromingsrisico resultaten
         """
 
         if not len(input) == 4:
             raise UserWarning("Input variabele moet 4 string waarden bevatten.")
+        if not len(output) == 1:
+            raise UserWarning("Output variabele moet 1 string waarde bevatten.")
 
-        self.df_in_segment_failure_probability = self.data_adapter.input(
+        # inladen van scenariokansen per deeltraject (segment)
+        self.df_in_scenario_failure_prob_segments = self.data_adapter.input(
             input=input[0],
-            schema=self.schema_segment_failure_probability,
+            schema=self.schema_scenario_failure_prob_segments,
         )
-        self.df_in_segment_failure_probability.set_index("segment_id", inplace=True)
-        self.df_in_flood_scenario_grids = self.data_adapter.input(
+        self.df_in_scenario_failure_prob_segments.set_index("segment_id", inplace=True)
+
+        # inladen van gevolgengrids behorende bij de scenariokansen per deeltraject (segment)
+        self.df_in_scenario_consequences_grids = self.data_adapter.input(
             input=input[1],
-            schema=self.schema_flood_scenario_grids,
+            schema=self.schema_scenario_consequences_grids,
         )
         columns_grid = [
             col.replace("_grid", "")
-            for col in self.df_in_flood_scenario_grids.columns
+            for col in self.df_in_scenario_consequences_grids.columns
             if col.endswith("_grid")
         ]
         if len(columns_grid) < 1:
             raise UserWarning(
                 "Er zijn geen grid kolommen gevonden in de flood scenario grids input, dit moet er minimaal 1 zijn."
             )
-        self.gdf_in_areas_to_average = self.data_adapter.input(
+
+        # inladen van gebieden om te aggregeren
+        self.gdf_in_areas_to_aggregate = self.data_adapter.input(
             input=input[2],
         )
 
+        # lees de opties in
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("CalculateFloodRisk", {})
-        per_hectare = options.get("per_hectare", False)
+        per_hectare = options.get(
+            "per_hectare", False
+        )  # de mogelijkheid om de output per hectare te krijgen TODO: nog niet getest
 
-        user_set_averaging_methods = options.get("averaging_methods", {})
-        averaging_methods = {
+        # stel de aggregatie methodes in
+        # TODO nog methode voor plaatsgebonden kansen toevoegen
+        user_set_aggregate_methods = options.get("aggregate_methods", {})
+        aggregate_methods = {
             "casualties": "sum",
             "damage": "sum",
             "flooding": "median",
             "affected_people": "sum",
         }
-        averaging_methods.update(user_set_averaging_methods)
+        aggregate_methods.update(user_set_aggregate_methods)
         if not set(columns_grid).issubset(
-            set(averaging_methods.keys())
-        ):  # check of alle grid columns een averaging method hebben
+            set(aggregate_methods.keys())
+        ):  # controleer of alle grid columns een aggregate methode hebben
             raise UserWarning(
-                "Niet alle grid kolommen hebben een bijbehorende averging method in de options."
+                "Niet alle grid kolommen hebben een bijbehorende aggregate methode in de options."
             )
         # type statistics (`mean`, `sum`, `median`, `min`, `max`, `count`)
         #     see: https://pythonhosted.org/rasterstats/manual.html#zonal-statistics
         #     `sum` for risk based grids
         #     `median` for probability based grids
 
-        # unconventional way to ensure that the libraries are imported only when needed allowing for lighter installations
+        # onconventionele manier om ervoor te zorgen dat de bibliotheken alleen worden geïmporteerd wanneer dat nodig is, wat lichtere installaties mogelijk maakt
         zonal_stats = import_rasterstats()
         dict_segments_out = {}
-        for _, row in self.df_in_flood_scenario_grids.iterrows():
-            # load grids
-            # Dynamically create grid_files dict from columns ending with '_grid'
+        for _, row in self.df_in_scenario_consequences_grids.iterrows():
+            # Grids met gevolgen laden
+            # Dynamisch grid_files dict maken van kolommen die eindigen op '_grid'
             grid_files = {
                 col.replace("_grid", ""): row[col]
-                for col in self.df_in_flood_scenario_grids.columns
+                for col in self.df_in_scenario_consequences_grids.columns
                 if col.endswith("_grid")
             }
+
+            # scenariokans voor segment ophalen
             segment_id = row["segment_id"]
-            failure_probability_segment = self.df_in_segment_failure_probability.loc[
+            failure_probability_segment = self.df_in_scenario_failure_prob_segments.loc[
                 segment_id, "scenario_failure_probability"
             ]
-            dict_segments_out[segment_id] = self.gdf_in_areas_to_average.copy()
+
+            # maak een kopie van de gebieden om te aggregeren voor dit segment
+            dict_segments_out[segment_id] = self.gdf_in_areas_to_aggregate.copy()
             dict_segments_out[segment_id].loc[:, "segment_id"] = segment_id
+
+            # loop door alle grids en bereken het risico
             for grid_name, grid_file in grid_files.items():
-                # slaan over als er een nan in de tif waarde staat.
+                # sla over als er een NAN waarde is voor het grid bestand (dan geen risico berekenen)
                 if pd.isna(grid_file):
                     continue
                 self.data_adapter.config.data_adapters[input[3]]["grid_file"] = (
@@ -176,12 +196,15 @@ class CalculateFloodRisk(ToolboxBase):
                 affine, array_msk = self.data_adapter.input(
                     input=input[3],
                 )
+                assert str(array_msk.data.dtype) in "float", (
+                    "De grid data moet van float type zijn, zorg dat dit afgevangen wordt in de data adapter."
+                )
 
                 # kans vermenigvuldigen met raster
                 array_msk *= failure_probability_segment
-                stat = averaging_methods[grid_name]
+                stat = aggregate_methods[grid_name]
                 zs = zonal_stats(
-                    vectors=self.gdf_in_areas_to_average["geometry"],
+                    vectors=self.gdf_in_areas_to_aggregate["geometry"],
                     raster=array_msk,
                     affine=affine,
                     stats=[stat],

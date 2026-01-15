@@ -243,7 +243,7 @@ class FragilityCurve(ToolboxBase):
             fp_grid[~sel_update] = (fp_grid[~sel_update] - F_update) / (1 - F_update)
             self.failure_probability = fp_grid
 
-    def water_level_from_failure_probability(
+    def hydraulic_load_from_failure_probability(
         self, failure_probability_value: float
     ) -> float:
         """Zoek de hydraulische belasting behorende bij een faalkans
@@ -258,17 +258,12 @@ class FragilityCurve(ToolboxBase):
         float
             Hydraulische belasting behorende bij de faalkans
         """
-        failure_probability = np.array(
-            sorted(list(self.failure_probability) + [failure_probability_value])
-        )
-        waterlevel = self._interpolate_water_for_failure_probability(
+        failure_probability = np.array([failure_probability_value])
+        hydraulic_load = self._interpolate_water_for_failure_probability(
             failure_probability
         )
 
-        index = np.argmin(np.abs(self.failure_probability - failure_probability_value))
-        error = failure_probability_value - self.failure_probability[index]
-        waterlevel = self.hydraulicload[index]
-        return waterlevel, error
+        return hydraulic_load[0]
 
     def _interpolate_water_for_failure_probability(
         self, new_failure_probability: np.ndarray

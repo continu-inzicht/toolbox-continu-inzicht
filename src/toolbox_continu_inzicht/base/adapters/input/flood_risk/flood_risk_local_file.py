@@ -50,8 +50,13 @@ def input_flood_risk_local_file(
         raise UserWarning(f"Grid file {grid_path} bestaat niet.")
 
     # inlezen raster
-    with rasterio.open(grid_path, **kwargs) as src:
-        array_msk = src.read(1, masked=True)
+    with rasterio.open(grid_path, **kwargs, dtype="float32") as src:
+        array_msk = src.read(
+            1,
+            masked=True,
+        )
         affine = src.transform
+
+    # TODO: fix dat de data van de masked array altijd float is
 
     return affine, array_msk

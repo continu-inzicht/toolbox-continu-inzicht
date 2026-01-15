@@ -1,0 +1,25 @@
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [-24,0,24,36]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    input_failuremechanism:
+        type: csv
+        file: "rekentest_failuremechanism.csv"
+    input_probabilities_failuremechanisme_sections:
+        type: csv
+        file: "rekentest_probabilities_failuremechanisme_sections.csv"
+    input_sections_in_segment:
+        type: csv
+        file: "rekentest_sections_in_segment.csv"
+    output_scenario_failure_prob_segments:
+        type: csv
+        index: false
+        file: "hidden_rekentest_scenario_failure_prob_segments.csv"
+    output_combined_failure_prob_all_sections:
+        type: csv
+        index: false
+        file: "hidden_rekentest_combined_failure_prob_all_sections.csv"
