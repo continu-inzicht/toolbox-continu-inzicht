@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from enum import Enum
 from typing import Protocol
 
 import numpy as np
@@ -13,6 +14,12 @@ from toolbox_continu_inzicht.utils.interpolate import (
     circular_interpolate_1d,
     interpolate_1d,
 )
+
+
+class WaveType(Enum):
+    SIGNIFICANT_WAVEHEIGHT = 2
+    SPECTRAL_WAVEPERIOD = 6
+    WAVEDIRECTION = 7
 
 
 class WaveProvider(Protocol):
@@ -132,14 +139,18 @@ class BretschneiderWaveProvider(WaveProvider):
 
 class PreCalculatedWaveProvider(WaveProvider):
     """
-    WaveProvider implementatie op basis van pre-berekende golfcondities.
+    WaveProvider implementatie op basis van voorberekende golfcondities.
     """
 
-    def __init__(self, waveval_df: pd.DataFrame) -> None:
-        self.waveval_by_type = {
-            int(waveval_type): group.copy()
-            for waveval_type, group in waveval_df.groupby("waveval_type")
-        }
+    def __init__(self, df_waveval_id: pd.DataFrame, df_waveval: pd.DataFrame) -> None:
+        self.waveval_by_type = {}
+        for wvt, group in df_waveval_id.groupby("waveval_type"):
+            self.waveval_by_type[int(wvt)] = group.merge(df_waveval, on="waveval_id")
+
+        # Check that all required wavevaltypes are present
+        for required_wvt in WaveType:
+            if required_wvt not in self.waveval_by_type:
+                raise KeyError(f"{required_wvt} is not present in df_waveval_id")
 
     def _interpolate_type_for_directions(
         self,
@@ -169,7 +180,7 @@ class PreCalculatedWaveProvider(WaveProvider):
 
         wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
         grid_wd_ext = np.concatenate([grid_wd, grid_wd, grid_wd])
-        if waveval_type == 7:
+        if waveval_type == WaveType.WAVEDIRECTION:
             return circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext)
         return interpolate_1d(windrichtingen, wd_ext, grid_wd_ext, ll=-np.inf)
 
@@ -202,7 +213,7 @@ class PreCalculatedWaveProvider(WaveProvider):
             np.array([direction]), wd_ext, grid_wd_ext, ll=-np.inf
         )[0]
 
-        if waveval_type == 7:
+        if waveval_type == WaveType.WAVEDIRECTION:
             return circular_interpolate_1d(waterlevels, wlv, grid_wl, ll=-np.inf)
         return interpolate_1d(waterlevels, wlv, grid_wl, ll=-np.inf)
 
@@ -213,13 +224,13 @@ class PreCalculatedWaveProvider(WaveProvider):
         waterlevel: float,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         hs = self._interpolate_type_for_directions(
-            2, windspeed, windrichtingen, waterlevel
+            WaveType.SIGNIFICANT_WAVEHEIGHT, windspeed, windrichtingen, waterlevel
         )
         tspec = self._interpolate_type_for_directions(
-            6, windspeed, windrichtingen, waterlevel
+            WaveType.SPECTRAL_WAVEPERIOD, windspeed, windrichtingen, waterlevel
         )
         wave_direction = self._interpolate_type_for_directions(
-            7, windspeed, windrichtingen, waterlevel
+            WaveType.WAVEDIRECTION, windspeed, windrichtingen, waterlevel
         )
         return hs, tspec, wave_direction
 
@@ -229,9 +240,13 @@ class PreCalculatedWaveProvider(WaveProvider):
         direction: float,
         waterlevels: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        hs = self._interpolate_type_for_levels(2, windspeed, direction, waterlevels)
-        tspec = self._interpolate_type_for_levels(6, windspeed, direction, waterlevels)
+        hs = self._interpolate_type_for_levels(
+            WaveType.SIGNIFICANT_WAVEHEIGHT, windspeed, direction, waterlevels
+        )
+        tspec = self._interpolate_type_for_levels(
+            WaveType.SPECTRAL_WAVEPERIOD, windspeed, direction, waterlevels
+        )
         wave_direction = self._interpolate_type_for_levels(
-            7, windspeed, direction, waterlevels
+            WaveType.WAVEDIRECTION, windspeed, direction, waterlevels
         )
         return hs, tspec, wave_direction
