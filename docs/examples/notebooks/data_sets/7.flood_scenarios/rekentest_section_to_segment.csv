@@ -1,3 +1,3 @@
-segment_id,section_id,length
-2,34003024,3346.94
-7,34002010,2610.69
+segment_id,section_id,length,measure_id
+2,34003024,3346.94,0
+7,34002010,2610.69,0

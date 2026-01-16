@@ -30,7 +30,6 @@ def test_load_from_flood_scenario():
         ],
         output="scenario_loads",
     )
-    # todo: segment to dikesystem
     df_out = load_from_flood_scenario_probability.df_out_scenario_loads
     assert not df_out.empty
     assert "hydraulicload" in df_out.columns

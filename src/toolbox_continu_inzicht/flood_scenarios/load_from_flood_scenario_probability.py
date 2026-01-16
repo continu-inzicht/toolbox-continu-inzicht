@@ -91,6 +91,10 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
         if not len(input) == 3:
             raise UserWarning("Input variabele moet 3 string waarden bevatten.")
 
+        global_variables = self.data_adapter.config.global_variables
+        options = global_variables.get("LoadFromFloodScenarioProbability", {})
+        failuremechanism_id_combined = options.get("failuremechanism_id_combined", 1)
+
         # scenariokansen per deeltraject (segment)
         self.df_in_scenario_failure_probability = self.data_adapter.input(
             input[0], schema=self.schema_scenario_failure_probability
@@ -117,13 +121,15 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
                 segment, "scenario_failure_probability"
             ]
             fragility_curve_id = df_segment_to_curve.loc[segment, "section_id"]
+            measure_id = df_segment_to_curve.loc[segment, "measure_id"]
             fragility_curves = self.df_in_fragility_curves.loc[fragility_curve_id]
-            # TODO moeten we hier niet ook nog een selectie maken op faalmechanisme_id (altijd COMB) en measure_id (deze is afhankelijk van de maatregel)?
-            # voor nu altijd measure_id 0 (geen maatregel) en faalmechanisme_id 1 (combinatie)
-            mechanism_comb = fragility_curves["failuremechanism_id"] == 1
-            measure_id = fragility_curves["measure_id"] == 0
-            fragility_curve_data = fragility_curves[mechanism_comb & measure_id]
-
+            mechanism_comb_bool = (
+                fragility_curves["failuremechanism_id"] == failuremechanism_id_combined
+            )
+            measure_id_bool = fragility_curves["measure_id"] == measure_id
+            fragility_curve_data = fragility_curves[
+                mechanism_comb_bool & measure_id_bool
+            ]
             if fragility_curve_data.empty:
                 raise UserWarning(
                     f"Geen fragility curve data gevonden voor segment {segment} "
