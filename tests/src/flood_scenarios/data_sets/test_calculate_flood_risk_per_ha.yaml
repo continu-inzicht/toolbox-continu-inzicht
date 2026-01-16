@@ -6,7 +6,7 @@ GlobalVariables:
         # daarom toch niet op deze manier in de tests opnemen.
         # scenario_path: "docs/examples/notebooks/data_sets/7.flood_scenarios/flood_scenarios"
         scenario_path: "flood_scenarios"
-        averaging_methods:
+        aggregate_methods:
             # these are default values, can be overridden in config
             casualties: sum
             damage: sum

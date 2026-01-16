@@ -22,25 +22,19 @@ def test_calculate_flood_scenario_probability():
     )
     calculate_flood_scenario_probability.run(
         input=[
+            "failure_mechanisms",
             "combined_failure_probability_data",
             "section_id_to_segment_id",
-            "failure_mechanisms",
         ],
         output=[
             "flood_scenario_probability_resultaten",
             "gecombineerde_faalkans_dijkvakken",
         ],
     )
-    df_out = calculate_flood_scenario_probability.df_out
+    df_out = calculate_flood_scenario_probability.df_out_scenario_failure_prob_segments
     df_out.set_index("segment_id", inplace=True)
-    # TODO: simple example is cleaner
-    # # na rekenen van segment 34003
-    # failure = 1
-    # for prob, length in zip([5.500000e-01, 1.000000e-10, 1.000000e-10], [2, 3, 1]):
-    #     failure *= 1 - prob * length / 6
-    # hand_calc = 1 - failure
 
-    stored_value = 0.23896804638003125  # as calculated in sprint 6 - 12-1-26
+    stored_value = 0.9368214976337139  # as calculated in sprint 6 - 12-1-26
     assert np.isclose(
         df_out.loc[34003, "scenario_failure_probability"],
         stored_value,
@@ -55,9 +49,9 @@ def test_calculate_flood_scenario_probability_check_combined():
     )
     calculate_flood_scenario_probability.run(
         input=[
+            "failure_mechanisms",
             "combined_failure_probability_data",
             "section_id_to_segment_id",
-            "failure_mechanisms",
         ],
         output=[
             "flood_scenario_probability_resultaten",
@@ -65,9 +59,9 @@ def test_calculate_flood_scenario_probability_check_combined():
         ],
     )
     df_out_combined_failure = (
-        calculate_flood_scenario_probability.df_out_combined_failure
+        calculate_flood_scenario_probability.df_out_combined_failure_prob_all_sections
     )
     assert np.isclose(
         df_out_combined_failure.loc[0, "combined_failure_probability"],
-        0.9957001932501301,
+        0.9921032,
     )  # as calculated in sprint 6 - 12-1-26

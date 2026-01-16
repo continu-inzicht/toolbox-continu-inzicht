@@ -22,18 +22,16 @@ class CalculateFloodScenarioProbability(ToolboxBase):
         Dataframe met kansen per sectie en per faalmechanisme
     df_in_sections_in_segment : Optional[pd.DataFrame] | None
         Dataframe met secties per deeltraject (segment)
-    df_in_section_to_segment : Optional[pd.DataFrame] | None
-        Dataframe met koppeling van een (reprensentatieve) sectie aan een deeltraject (segment) en lengte per deeltraject (segment)
     df_out_scenario_failure_prob_segments: Optional[pd.DataFrame] | None
         Dataframe met scenariokansen over alle secties per deeltraject (segment) en faalmechanismen
     df_out_combined_failure_prob_all_sections: Optional[pd.DataFrame] | None
         Dataframe met gecombineerde kansen over alle secties en faalmechanismen
-    schema_sections_failure_probability : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met kansen per sectie en per faalmechanisme
-    schema_sections_to_segment : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met koppeling van dijkvakken en deeltrajecten (segmenten)
     schema_failuremechanism : ClassVar[dict[str, str]]
         Schema voor de input dataframe met faalmechanismen
+    schema_sections_failure_probability : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met kansen per sectie en per faalmechanisme
+    schema_sections_in_segment : ClassVar[dict[str, str]]
+        Schema voor de input dataframe met koppeling van dijkvakken en deeltrajecten (segmenten)
 
     Notes
     -----
@@ -71,11 +69,6 @@ class CalculateFloodScenarioProbability(ToolboxBase):
         "section_id": "int",
         "failuremechanism_id": "int",
         "failure_probability": "float",
-    }
-    schema_section_to_segment: ClassVar[dict[str, str]] = {
-        "segment_id": "int",
-        "section_id": "int",
-        "length": "float",
     }
     schema_sections_in_segment: ClassVar[dict[str, str]] = {
         "section_id": "int",

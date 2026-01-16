@@ -23,14 +23,14 @@ def test_load_from_flood_scenario():
     load_from_flood_scenario_probability.run(
         input=[
             "segment_failure_probability",
-            "breach_id_to_segment_id",
+            "section_id_to_segment_id",
             "section_failure_probability_data",
         ],
         output="flood_scenario_load_resultaten",
     )
     # todo: segment to dikesystem
-    df_out = load_from_flood_scenario_probability.df_out
+    df_out = load_from_flood_scenario_probability.df_out_scenario_loads
     assert not df_out.empty
     assert "hydraulicload" in df_out.columns
-    assert np.isclose(df_out["hydraulicload"].max(), 14.95)
-    assert np.isclose(df_out["hydraulicload"].min(), 4.0)
+    assert np.isclose(df_out.loc[34003, "hydraulicload"].max(), 14.949605)
+    assert np.isclose(df_out.loc[34002, "hydraulicload"].min(), 3.970147)

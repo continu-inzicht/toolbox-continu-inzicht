@@ -11,9 +11,9 @@ DataAdapter:
     segment_failure_probability:
         type: csv
         file: "segment_failure_probability.csv"
-    breach_id_to_segment_id:
+    section_id_to_segment_id:
         type: csv
-        file: "breach_id_to_segment_id.csv"
+        file: "section_id_to_segment_id.csv"
     section_failure_probability_data:
         type: csv
         file: "fragility_curve_multi_section.csv"

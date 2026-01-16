@@ -39,6 +39,7 @@ website:
     - "examples/notebooks/4.adjust_integrated_statistics.ipynb"
     - "examples/notebooks/5.inspectieresultaten.ipynb"
     - "examples/notebooks/6.fragility_curve_from_cache.ipynb"
+    - "examples/notebooks/7.rekentest_flood_scenarios.ipynb"
     - "examples/notebooks/100.logging.ipynb"
     - "examples/notebooks/101.WMS_laag_naar_database.ipynb"
 
@@ -142,6 +143,9 @@ quartodoc:
     - CombineFragilityCurvesWeightedSum
     - IntegrateFragilityCurve
     - IntegrateFragilityCurveMultiple
+    - LoadCachedFragilityCurveOneFailureMechanism
+    - LoadCachedFragilityCurve
+    - LoadCachedFragilityCurveMultiple
   - title: Inspectieresultaten
     desc: Invoer, verwerken en tonen van inspectieresultaten
     package: toolbox_continu_inzicht.inspections
@@ -149,6 +153,13 @@ quartodoc:
     - Filter
     - InspectionsToDatabase
     - ClassifyInspections
+  - title: Overstromingsrisico
+    package: toolbox_continu_inzicht.flood_scenarios
+    contents:
+    - CalculateFloodScenarioProbability
+    - LoadFromFloodScenarioProbability
+    - SelectFloodScenarioFromLoad
+    - CalculateFloodRisk
   - title: Continu Inzicht Adapters (invoer)
     desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
     package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql

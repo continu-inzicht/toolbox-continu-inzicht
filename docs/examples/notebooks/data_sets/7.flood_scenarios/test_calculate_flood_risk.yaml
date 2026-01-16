@@ -2,7 +2,7 @@ GlobalVariables:
     rootdir: "data_sets/7.flood_scenarios"
     moments: [ -24, 0, 24, 48 ]
     CalculateFloodRisk:
-        averaging_methods:
+        aggregate_methods:
             # these are default values, can be overridden in config
             casualties: sum
             damage: sum

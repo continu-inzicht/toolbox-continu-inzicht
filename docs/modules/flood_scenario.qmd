@@ -80,7 +80,7 @@ calculate_flood_scenario_probability.run(
 
 Met de faalkansen per trajectdeel kunnen met de `LoadFromFloodScenarioProbability` de belastingen per trajectdeel worden bepaald.
 Hiermee kan een bijpassend overstromingsscenario worden geselecteerd.
-Met de input van de vorige stap `segment_failure_probability`, kan een koppeling worden gemaakt naar de bijbehorende bres en fragilitycurve die representatief is voor een deeltraject met de tabel `breach_id_to_segment_id`.
+Met de input van de vorige stap `segment_failure_probability`, kan een koppeling worden gemaakt naar de bijbehorende bres en fragilitycurve die representatief is voor een deeltraject met de tabel `section_id_to_segment_id`.
 Zolang de koppeling van deze id's overeenkomt, is deze door de gebruiker te configureren. De bestaande vak-indelingen kunnen worden gebruikt, maar er kunnen ook andere curves worden gebruikt.
 Deze `representative_section_id_fragilitycurve` kan vervolgens uit de data van de curves in `section_failure_probability_data` worden gehaald.
 Met de fragilitycurve worden de hydraulische belastingen bepaald voor de deeltrajecten.
@@ -99,9 +99,9 @@ DataAdapter:
     segment_failure_probability:
         type: csv
         file: "segment_failure_probability.csv"
-    breach_id_to_segment_id:
+    section_id_to_segment_id:
         type: csv
-        file: "breach_id_to_segment_id.csv"
+        file: "section_id_to_segment_id.csv"
     section_failure_probability_data:
         type: csv
         file: "fragility_curve_multi_section.csv"
@@ -123,7 +123,7 @@ load_from_flood_scenario_probability = LoadFromFloodScenarioProbability(
 load_from_flood_scenario_probability.run(
     input=[
         "segment_failure_probability",
-        "breach_id_to_segment_id",
+        "section_id_to_segment_id",
         "section_failure_probability_data",
     ],
     output="flood_scenario_load_resultaten",
@@ -136,9 +136,9 @@ load_from_flood_scenario_probability.run(
 Met de maatgevende belastingen per trajectdeel (resultaat van [LoadFromFloodScenarioProbability](#sec-LoadFromFloodScenarioProbability)), kan een bijbehorend scenario worden geselecteerd.
 Hiervoor is metadata per bres nodig. Hierbij wordt voor de volgende functie alvast de koppeling gemaakt met de bijbehorende grids. Deze grids per scenario worden in [CalculateFloodRisk](#sec-CalculateFloodRisk) gebruikt om het overstromingsrisico te bepalen gegeven de huidige belasting.
 
-De eerste data adapter is de output van `LoadFromFloodScenarioProbability` met daarin per dijktraject id (`segment_id`) de bijbehorende belasting en bres id (`hydraulicload`,`breach_id`).
+De eerste data adapter is de output van `LoadFromFloodScenarioProbability` met daarin per dijktraject id (`segment_id`) de bijbehorende belasting en bres id (`hydraulicload`,`section_id`).
 
-De tweede data adapter bevat per bres id (`breach_id`) een bijbehorende maximale belasting waarvoor een scenario geldig is (`hydraulicload_upperboundary`).
+De tweede data adapter bevat per bres id (`section_id`) een bijbehorende maximale belasting waarvoor een scenario geldig is (`hydraulicload_upperboundary`).
 Op basis van deze belasting wordt een koppeling gemaakt van de huidige belasting naar een scenario.
 Hierbij is de standaardoptie om maar één resultaat per dijktraject terug te geven.
 Hierbij moet de waterstand overschreden zijn waarbij het scenario hoort.
@@ -252,7 +252,7 @@ GlobalVariables:
     rootdir: "data_sets"
     moments: [ -24, 0, 24, 48 ]
     CalculateFloodRisk:
-        averaging_methods: # default waardes
+        aggregate_methods: # default waardes
             casualties: sum
             damage: sum
             flooding: median

@@ -43,16 +43,20 @@ class CalculateFloodRisk(ToolboxBase):
         Schema voor de input dataframe met gevolgengrids behorende bij de scenariokansen per deeltraject (segment)
     schema_areas_to_aggregate : ClassVar[dict[str, str]]
         Schema voor de input geodataframe met gebieden te aggregeren.
+
+
     Notes
-    ----------
+    -----
 
     schema voor sections_to_segment
-    - section_id: int
-    - segment_id: int
+
+        - section_id: int
+        - segment_id: int
 
     schema voor grouped_sections_failure_probability
-    - section_id: int
-    - failure_probability: float
+
+        - section_id: int
+        - failure_probability: float
 
     """
 
@@ -72,12 +76,13 @@ class CalculateFloodRisk(ToolboxBase):
         "segment_id": "int",
         "section_id": "int",
         "hydraulicload_upperboundary": "float",
-        # Kunnen NAN waarden bevatten en daarom wordt het object dtype gebruikt, we controleren hier niet strikt op
-        "waterdepth_grid": "object",
-        "casualties_grid": "object",
-        "damage_grid": "object",
-        "flooding_grid": "object",
-        "affected_people_grid": "object",
+        ## Kunnen NAN waarden bevatten en daarom wordt het object dtype gebruikt, we controleren hier niet strikt op
+        ## Gebruikers kunnen zelf aangeven welke grids ze willen gebruiken, dus express een niet stricte  controle
+        # "waterdepth_grid": "object",
+        # "casualties_grid": "object",
+        # "damage_grid": "object",
+        # "flooding_grid": "object",
+        # "affected_people_grid": "object",
     }
     schema_areas_to_aggregate: ClassVar[dict[str, str]] = {
         #### these are useful later on but not used now
@@ -104,8 +109,6 @@ class CalculateFloodRisk(ToolboxBase):
 
         if not len(input) == 4:
             raise UserWarning("Input variabele moet 4 string waarden bevatten.")
-        if not len(output) == 1:
-            raise UserWarning("Output variabele moet 1 string waarde bevatten.")
 
         # inladen van scenariokansen per deeltraject (segment)
         self.df_in_scenario_failure_prob_segments = self.data_adapter.input(
@@ -149,6 +152,7 @@ class CalculateFloodRisk(ToolboxBase):
             "damage": "sum",
             "flooding": "median",
             "affected_people": "sum",
+            "waterdepth": "sum",
         }
         aggregate_methods.update(user_set_aggregate_methods)
         if not set(columns_grid).issubset(
@@ -193,19 +197,19 @@ class CalculateFloodRisk(ToolboxBase):
                     grid_file
                 )
 
-                affine, array_msk = self.data_adapter.input(
+                array_masked_grid, affine = self.data_adapter.input(
                     input=input[3],
                 )
-                assert str(array_msk.data.dtype) in "float", (
+                assert np.issubdtype(array_masked_grid.data.dtype, np.floating), (
                     "De grid data moet van float type zijn, zorg dat dit afgevangen wordt in de data adapter."
                 )
 
                 # kans vermenigvuldigen met raster
-                array_msk *= failure_probability_segment
+                array_masked_grid *= failure_probability_segment
                 stat = aggregate_methods[grid_name]
                 zs = zonal_stats(
                     vectors=self.gdf_in_areas_to_aggregate["geometry"],
-                    raster=array_msk,
+                    raster=array_masked_grid,
                     affine=affine,
                     stats=[stat],
                     all_touched=False,
@@ -249,7 +253,7 @@ class CalculateFloodRisk(ToolboxBase):
         df_out = all_segments_df.groupby("area_id", as_index=False).agg(agg_dict)
         self.df_out = gpd.GeoDataFrame(df_out)
 
-        # TODO: risico berekenen en evnt. omrekenen per hectare
+        # risico berekenen en evnt. omrekenen per hectare
         # omrekenen naar hectaren (later)
         self.data_adapter.logger.debug(f"Per hectare ingesteld op: {per_hectare}")
         self.data_adapter.logger.debug(f"opties: {options}")
@@ -267,7 +271,7 @@ class CalculateFloodRisk(ToolboxBase):
                 if column_per_hectare in self.df_out.columns:
                     self.df_out[f"{column_per_hectare}_per_ha"] = self.df_out[
                         column_per_hectare
-                    ] / (self.gdf_in_areas_to_average["geometry"].area / 10000)
+                    ] / (self.gdf_in_areas_to_aggregate["geometry"].area / 10000)
                 else:
                     self.data_adapter.logger.warning(
                         f"Kolom {column_per_hectare} niet gevonden in output dataframe, kan niet omrekenen per hectare."
