@@ -90,8 +90,6 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
 
         if not len(input) == 3:
             raise UserWarning("Input variabele moet 3 string waarden bevatten.")
-        if not len(output) == 1:
-            raise UserWarning("Output variabele moet 1 string waarde bevatten.")
 
         # scenariokansen per deeltraject (segment)
         self.df_in_scenario_failure_probability = self.data_adapter.input(
@@ -165,4 +163,4 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
         )
         self.df_out_scenario_loads.index.name = "segment_id"
 
-        self.data_adapter.output(output=output[0], df=self.df_out_scenario_loads)
+        self.data_adapter.output(output=output, df=self.df_out_scenario_loads)

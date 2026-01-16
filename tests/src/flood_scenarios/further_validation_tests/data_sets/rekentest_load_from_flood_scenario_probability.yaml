@@ -1,0 +1,20 @@
+GlobalVariables:
+    rootdir: "tests/src/flood_scenarios/further_validation_tests/data_sets"
+    moments: [ -24, 0, 24, 36 ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    scenario_failure_prob_segments:
+        type: csv
+        file: "hidden_rekentest_scenario_failure_prob_segments.csv"
+    section_to_segment:
+        type: csv
+        file: "rekentest_section_to_segment.csv"
+    section_fragility_curves:
+        type: csv
+        file: "rekentest_fragilitycurves.csv"
+    scenario_loads:
+        type: csv
+        path: "hidden_rekentest_scenario_loads.csv"

@@ -81,8 +81,6 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
 
         if not len(input) == 2:
             raise UserWarning("Input variabele moet 2 string waarden bevatten.")
-        if not len(output) == 1:
-            raise UserWarning("Output variabele moet 1 string waarde bevatten.")
 
         # hydraulische belastingen per deeltraject (segment) behorende bij scenariokans
         self.df_in_scenarios_loads = self.data_adapter.input(
@@ -174,5 +172,5 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
         )
 
         self.data_adapter.output(
-            output=output[0], df=self.df_out_scenario_consequences_grids
+            output=output, df=self.df_out_scenario_consequences_grids
         )
