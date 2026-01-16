@@ -8,12 +8,27 @@ from toolbox_continu_inzicht.base.adapters.data_adapter_utils import get_kwargs
 
 def input_flood_risk_local_file(
     input_config: dict,
-) -> Tuple[np.array, rasterio.Affine]:
+) -> Tuple[np.ma.masked_array[np.float32], rasterio.Affine]:
     """Laadt een rasterbestand (bijv. tiff) in, gegeven een lokaal pad
+
+    Options in input_config:
+    ------------------------
+    abs_path_user: str
+        Absoluut pad naar de scenario directory (overschrijft andere paden als deze bestaat)
+    scenario_path: str
+        Relatief pad naar de scenario directory (t.o.v. data dir)
+        zet in dat geval `path: ''`
+    grid_file: str
+        Naam van het rasterbestand binnen de scenario directory
+        Deze wordt in de code toegevoegd aan het pad
+    band: int
+        Band nummer om in te lezen (standaard 1)
+    nodata: float
+        NoData waarde in het rasterbestand (standaard -9999)
 
     Returns:
     --------
-    Tuple[np.array, rasterio.Affine]
+    Tuple[np.ma.masked_array, rasterio.Affine]
     """
 
     kwargs = get_kwargs(rasterio.open, input_config)
@@ -50,13 +65,26 @@ def input_flood_risk_local_file(
         raise UserWarning(f"Grid file {grid_path} bestaat niet.")
 
     # inlezen raster
+    band = input_config.get("band", 1)
+    nodata = input_config.get("nodata", -9999)
     with rasterio.open(grid_path, **kwargs, dtype="float32") as src:
-        array_msk = src.read(
-            1,
+        array_masked_grid_input = src.read(
+            band,
             masked=True,
+            fill_value=nodata,
         )
         affine = src.transform
 
+    data = array_masked_grid_input.data
+    data = data.astype(np.float32)
+    # correctly handle the user set nodata value
+    data[np.where(data == nodata)] = np.nan
+    array_masked_grid = np.ma.masked_array(
+        data,
+        mask=array_masked_grid_input.mask,
+        dtype=np.float32,
+    )
+
     # TODO: fix dat de data van de masked array altijd float is
 
-    return affine, array_msk
+    return array_masked_grid, affine
