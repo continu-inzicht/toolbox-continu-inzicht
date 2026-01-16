@@ -133,6 +133,11 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
                 )
             ]
 
+            if fragility_curve_data.empty:
+                raise UserWarning(
+                    f"Geen fragility curve data gevonden voor segment {segment} "
+                    f"Zorg dat de fragility curves correct zijn ingeladen."
+                )
             # fragility curve object aanmaken en vullen met data uit dataframe
             fragility_curve = FragilityCurve(data_adapter=self.data_adapter)
             fragility_curve.lower_limit = (

@@ -76,12 +76,13 @@ class CalculateFloodRisk(ToolboxBase):
         "segment_id": "int",
         "section_id": "int",
         "hydraulicload_upperboundary": "float",
-        # Kunnen NAN waarden bevatten en daarom wordt het object dtype gebruikt, we controleren hier niet strikt op
-        "waterdepth_grid": "object",
-        "casualties_grid": "object",
-        "damage_grid": "object",
-        "flooding_grid": "object",
-        "affected_people_grid": "object",
+        ## Kunnen NAN waarden bevatten en daarom wordt het object dtype gebruikt, we controleren hier niet strikt op
+        ## Gebruikers kunnen zelf aangeven welke grids ze willen gebruiken, dus express een niet stricte  controle
+        # "waterdepth_grid": "object",
+        # "casualties_grid": "object",
+        # "damage_grid": "object",
+        # "flooding_grid": "object",
+        # "affected_people_grid": "object",
     }
     schema_areas_to_aggregate: ClassVar[dict[str, str]] = {
         #### these are useful later on but not used now
@@ -151,6 +152,7 @@ class CalculateFloodRisk(ToolboxBase):
             "damage": "sum",
             "flooding": "median",
             "affected_people": "sum",
+            "waterdepth": "sum",
         }
         aggregate_methods.update(user_set_aggregate_methods)
         if not set(columns_grid).issubset(

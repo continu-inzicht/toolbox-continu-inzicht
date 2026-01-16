@@ -76,7 +76,7 @@ def test_calculate_flood_risk_different_name():
     data_adapter = helper_create_data_adapter("test_calculate_flood_risk.yaml")
     updated_averaging = {"custom_name": "sum"}
     data_adapter.config.global_variables["CalculateFloodRisk"][
-        "averaging_methods"
+        "aggregate_methods"
     ].update(updated_averaging)
     calculate_flood_risk = CalculateFloodRisk(data_adapter=data_adapter)
     calculate_flood_risk.run(
@@ -108,7 +108,7 @@ def test_calculate_flood_risk_different_name_fail():
     # correctly raises UserWarning if averaging method is not specified for a grid column
     with pytest.raises(
         UserWarning,
-        match="Niet alle grid kolommen hebben een bijbehorende averging method in de options.",
+        match="Niet alle grid kolommen hebben een bijbehorende aggregate methode in de options.",
     ):
         calculate_flood_risk.run(
             input=[
