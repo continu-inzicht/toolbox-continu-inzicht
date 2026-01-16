@@ -149,7 +149,7 @@ class PreCalculatedWaveProvider(WaveProvider):
 
         # Check that all required wavevaltypes are present
         for required_wvt in WaveType:
-            if required_wvt not in self.waveval_by_type:
+            if required_wvt.value not in self.waveval_by_type:
                 raise KeyError(f"{required_wvt} is not present in df_waveval_id")
 
     def _interpolate_type_for_directions(
@@ -180,7 +180,7 @@ class PreCalculatedWaveProvider(WaveProvider):
 
         wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
         grid_wd_ext = np.concatenate([grid_wd, grid_wd, grid_wd])
-        if waveval_type == WaveType.WAVEDIRECTION:
+        if waveval_type == WaveType.WAVEDIRECTION.value:
             return circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext)
         return interpolate_1d(windrichtingen, wd_ext, grid_wd_ext, ll=-np.inf)
 
@@ -213,7 +213,7 @@ class PreCalculatedWaveProvider(WaveProvider):
             np.array([direction]), wd_ext, grid_wd_ext, ll=-np.inf
         )[0]
 
-        if waveval_type == WaveType.WAVEDIRECTION:
+        if waveval_type == WaveType.WAVEDIRECTION.value:
             return circular_interpolate_1d(waterlevels, wlv, grid_wl, ll=-np.inf)
         return interpolate_1d(waterlevels, wlv, grid_wl, ll=-np.inf)
 
@@ -224,13 +224,13 @@ class PreCalculatedWaveProvider(WaveProvider):
         waterlevel: float,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         hs = self._interpolate_type_for_directions(
-            WaveType.SIGNIFICANT_WAVEHEIGHT, windspeed, windrichtingen, waterlevel
+            WaveType.SIGNIFICANT_WAVEHEIGHT.value, windspeed, windrichtingen, waterlevel
         )
         tspec = self._interpolate_type_for_directions(
-            WaveType.SPECTRAL_WAVEPERIOD, windspeed, windrichtingen, waterlevel
+            WaveType.SPECTRAL_WAVEPERIOD.value, windspeed, windrichtingen, waterlevel
         )
         wave_direction = self._interpolate_type_for_directions(
-            WaveType.WAVEDIRECTION, windspeed, windrichtingen, waterlevel
+            WaveType.WAVEDIRECTION.value, windspeed, windrichtingen, waterlevel
         )
         return hs, tspec, wave_direction
 
@@ -241,12 +241,12 @@ class PreCalculatedWaveProvider(WaveProvider):
         waterlevels: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         hs = self._interpolate_type_for_levels(
-            WaveType.SIGNIFICANT_WAVEHEIGHT, windspeed, direction, waterlevels
+            WaveType.SIGNIFICANT_WAVEHEIGHT.value, windspeed, direction, waterlevels
         )
         tspec = self._interpolate_type_for_levels(
-            WaveType.SPECTRAL_WAVEPERIOD, windspeed, direction, waterlevels
+            WaveType.SPECTRAL_WAVEPERIOD.value, windspeed, direction, waterlevels
         )
         wave_direction = self._interpolate_type_for_levels(
-            WaveType.WAVEDIRECTION, windspeed, direction, waterlevels
+            WaveType.WAVEDIRECTION.value, windspeed, direction, waterlevels
         )
         return hs, tspec, wave_direction
