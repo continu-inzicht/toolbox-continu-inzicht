@@ -2,7 +2,8 @@ GlobalVariables:
     rootdir: "tests/src/flood_scenarios/further_validation_tests/data_sets"
     moments: [ -24, 0, 24, 36 ]
     CalculateFloodRisk:
-        aggregate_methods: # dit zijn de standaard aggregatie-methoden per risicomaat (kunnen worden overschreven in de config)
+        aggregate_methods:
+            # dit zijn de standaard aggregatie-methoden per risicomaat (kunnen worden overschreven in de config)
             casualties: sum
             damage: sum
             flooding: median
@@ -17,10 +18,10 @@ DataAdapter:
             Index: False
     scenario_failure_prob_segments:
         type: csv
-        path: "hidden_rekentest_scenario_failure_prob_segments.csv"
+        path: "rekentest_scenario_failure_prob_segments.csv"
     scenario_consequences_grids:
         type: csv
-        path: "hidden_rekentest_scenario_consequences_grids.csv"
+        path: "rekentest_scenario_consequences_grids.csv"
     areas_to_aggregate:
         type: shape
         path: "rekentest_areas_to_aggregate.geojson"
