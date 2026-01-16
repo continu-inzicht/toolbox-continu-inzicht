@@ -33,12 +33,6 @@ def test_calculate_flood_scenario_probability():
     )
     df_out = calculate_flood_scenario_probability.df_out_scenario_failure_prob_segments
     df_out.set_index("segment_id", inplace=True)
-    # TODO: simple example is cleaner
-    # # na rekenen van segment 34003
-    # failure = 1
-    # for prob, length in zip([5.500000e-01, 1.000000e-10, 1.000000e-10], [2, 3, 1]):
-    #     failure *= 1 - prob * length / 6
-    # hand_calc = 1 - failure
 
     stored_value = 0.9368214976337139  # as calculated in sprint 6 - 12-1-26
     assert np.isclose(

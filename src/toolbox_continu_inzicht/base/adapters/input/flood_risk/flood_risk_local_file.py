@@ -76,15 +76,13 @@ def input_flood_risk_local_file(
         affine = src.transform
 
     data = array_masked_grid_input.data
+    # Zorg data de gebruiker gedefineerde nodata value correct wordt behandeld
     data = data.astype(np.float32)
-    # correctly handle the user set nodata value
     data[np.where(data == nodata)] = np.nan
     array_masked_grid = np.ma.masked_array(
         data,
         mask=array_masked_grid_input.mask,
         dtype=np.float32,
     )
-
-    # TODO: fix dat de data van de masked array altijd float is
 
     return array_masked_grid, affine

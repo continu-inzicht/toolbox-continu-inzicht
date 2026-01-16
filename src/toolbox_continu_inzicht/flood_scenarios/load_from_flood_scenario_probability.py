@@ -117,21 +117,12 @@ class LoadFromFloodScenarioProbability(ToolboxBase):
                 segment, "scenario_failure_probability"
             ]
             fragility_curve_id = df_segment_to_curve.loc[segment, "section_id"]
-
+            fragility_curves = self.df_in_fragility_curves.loc[fragility_curve_id]
             # TODO moeten we hier niet ook nog een selectie maken op faalmechanisme_id (altijd COMB) en measure_id (deze is afhankelijk van de maatregel)?
             # voor nu altijd measure_id 0 (geen maatregel) en faalmechanisme_id 1 (combinatie)
-            fragility_curve_data = self.df_in_fragility_curves.loc[fragility_curve_id][
-                (
-                    self.df_in_fragility_curves.loc[fragility_curve_id][
-                        "failuremechanism_id"
-                    ]
-                    == 1
-                )
-                & (
-                    self.df_in_fragility_curves.loc[fragility_curve_id]["measure_id"]
-                    == 0
-                )
-            ]
+            mechanism_comb = fragility_curves["failuremechanism_id"] == 1
+            measure_id = fragility_curves["measure_id"] == 0
+            fragility_curve_data = fragility_curves[mechanism_comb & measure_id]
 
             if fragility_curve_data.empty:
                 raise UserWarning(

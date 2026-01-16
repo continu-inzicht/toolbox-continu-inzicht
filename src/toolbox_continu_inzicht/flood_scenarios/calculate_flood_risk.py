@@ -253,7 +253,7 @@ class CalculateFloodRisk(ToolboxBase):
         df_out = all_segments_df.groupby("area_id", as_index=False).agg(agg_dict)
         self.df_out = gpd.GeoDataFrame(df_out)
 
-        # TODO: risico berekenen en evnt. omrekenen per hectare
+        # risico berekenen en evnt. omrekenen per hectare
         # omrekenen naar hectaren (later)
         self.data_adapter.logger.debug(f"Per hectare ingesteld op: {per_hectare}")
         self.data_adapter.logger.debug(f"opties: {options}")
