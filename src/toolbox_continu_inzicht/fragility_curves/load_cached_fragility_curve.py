@@ -191,6 +191,8 @@ class LoadCachedFragilityCurve(LoadCachedFragilityCurveOneFailureMechanism):
 
     """
 
+    data_adapter: DataAdapter
+
     # inherit everything from LoadCachedFragilityCurveOneFailureMechanism
     cache_fragility_curve_schema: ClassVar[dict[str, str]] = {
         "failuremechanism_id": "int",
@@ -346,6 +348,7 @@ class LoadCachedFragilityCurveMultiple(LoadCachedFragilityCurve):
 
     """
 
+    data_adapter: DataAdapter
     # inherit everything from LoadCachedFragilityCurve
     cache_fragility_curve_schema: ClassVar[dict[str, str]] = {
         "section_id": "int",
