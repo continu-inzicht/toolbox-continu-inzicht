@@ -1,8 +1,0 @@
-failure_mechanism_id,name,description
-1,"COMB","Combinatie faalmechanismen"
-2,"GEKB","Overloop en overslag"
-3,"STPH","Opbarsten en piping"
-4,"STBI","Stabiliteit binnenwaarts dijken"
-5,"HTKW","Overloop en overslag langsconstructies"
-6,"STKWl","Stabiliteit langsconstructies"
-7,"PKW","Piping langsconstructies"

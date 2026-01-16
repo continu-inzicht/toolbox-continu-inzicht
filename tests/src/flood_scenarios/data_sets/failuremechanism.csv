@@ -1,4 +1,4 @@
-failure_mechanism_id,name,description
+failuremechanism_id,name,description
 1,"COMB","Combinatie faalmechanismen"
 2,"GEKB","Overloop en overslag"
 3,"STPH","Opbarsten en piping"
