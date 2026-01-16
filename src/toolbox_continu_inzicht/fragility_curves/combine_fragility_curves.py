@@ -8,7 +8,7 @@ from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
-from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
+from toolbox_continu_inzicht.utils.interpolate import log_x_interpolate_1d
 
 
 def combine_independent(lst_fragility_curves, **kwargs):
@@ -83,7 +83,7 @@ class CombineFragilityCurvesIndependent(ToolboxBase):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
-    interp_func: Callable = log_interpolate_1d
+    interp_func: Callable = log_x_interpolate_1d
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -205,7 +205,7 @@ class CombineFragilityCurvesDependent(CombineFragilityCurvesIndependent):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
-    interp_func: Callable = log_interpolate_1d
+    interp_func: Callable = log_x_interpolate_1d
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -250,7 +250,7 @@ class CombineFragilityCurvesWeightedSum(CombineFragilityCurvesIndependent):
         "hydraulicload": "float",
         "failure_probability": "float",
     }
-    interp_func: Callable = log_interpolate_1d
+    interp_func: Callable = log_x_interpolate_1d
 
     def run(self, input: list[str], output: str):
         """

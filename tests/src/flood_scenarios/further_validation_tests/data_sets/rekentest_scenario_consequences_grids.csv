@@ -1,0 +1,3 @@
+,segment_id,section_id,hydraulicload_upperboundary,waterdepth_grid,casualties_grid,damage_grid,flooding_grid,affected_people_grid
+1,2,34003024,3.497,2_waterdiepteTP-1D.asc,2_slachtoffersTP-1D.asc,2_schadeTP-1D.asc,2_nattevoetenTP-1D.asc,2_getroffenenTP-1D.asc
+4,7,34002010,4.4,,,,,

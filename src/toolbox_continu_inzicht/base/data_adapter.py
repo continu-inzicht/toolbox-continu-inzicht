@@ -100,7 +100,9 @@ class DataAdapter(PydanticBaseModel):
             # leidt het datatype af
             data_type = function_input_config["type"]
 
-            check_rootdir(self.config.global_variables)
+            used_root_dir = check_rootdir(self.config.global_variables)
+            self.config.global_variables.update({"used_root_dir": used_root_dir})
+
             check_file_and_path(function_input_config, self.config.global_variables)
             # self.init_logging()
 
@@ -175,7 +177,8 @@ class DataAdapter(PydanticBaseModel):
         data_type = functie_output_config["type"]
 
         # Check of de rootdir bestaat
-        check_rootdir(self.config.global_variables)
+        used_root_dir = check_rootdir(self.config.global_variables)
+        self.config.global_variables.update({"used_root_dir": used_root_dir})
         check_file_and_path(functie_output_config, self.config.global_variables)
         # self.init_logging()
 

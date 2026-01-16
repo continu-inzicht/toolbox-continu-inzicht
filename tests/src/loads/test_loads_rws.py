@@ -11,9 +11,18 @@ def test_BelastingWaterwebservicesRWS():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     c = Config(config_path=test_data_sets_path / "test_loads_rws_8420_config.yaml")
     c.lees_config()
-    data = DataAdapter(config=c)
+    data_adapter = DataAdapter(config=c)
+    # set calc time as to not be so dependent on outage
+    data_adapter.config.global_variables["calc_time"] = datetime(
+        2025,
+        6,
+        22,
+        16,
+        0,
+        0,
+    ).replace(tzinfo=timezone.utc)
 
-    RWS_webservice = LoadsWaterwebservicesRWS(data_adapter=data)
+    RWS_webservice = LoadsWaterwebservicesRWS(data_adapter=data_adapter)
     RWS_webservice.run(input="BelastingLocaties", output="Waterstanden")
 
     assert len(RWS_webservice.df_out) > 50

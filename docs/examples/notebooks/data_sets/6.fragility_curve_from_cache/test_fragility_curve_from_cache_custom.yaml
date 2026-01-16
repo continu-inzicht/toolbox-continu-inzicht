@@ -1,0 +1,26 @@
+GlobalVariables:
+    rootdir: "data_sets/6.fragility_curve_from_cache"
+    moments: [-24,0,24,48]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    fragility_curve_initial:
+        type: csv
+        file: "fragility_curve_initial.csv"
+    fragility_curve_cache_1:
+        type: csv
+        file: "fragility_curve_cache_1.csv"
+    fragility_curve_cache_2:
+        type: csv
+        file: "fragility_curve_cache_2.csv"
+    fragility_curve_cache_3:
+        type: csv
+        file: "fragility_curve_cache_3.csv"
+    fragility_curve_cache_4:
+        type: csv
+        file: "fragility_curve_cache_4.csv"
+    resulting_fragility_curve:
+        type: csv
+        file: "hidden_resulting_fragility.csv"

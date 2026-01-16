@@ -11,10 +11,10 @@ De Toolbox Continu Inzicht is een Python-toolbox voor waterkeringbeheerders om r
 
 ## Gebruik van de toolbox
 
-De toolbox kan geïnstalleerd worden met:
+De volledige toolbox kan geïnstalleerd worden met:
 
 ```bash
-pip install toolbox-continu-inzicht
+pip install toolbox-continu-inzicht[all]
 ```
 
 Het gebruik van een conda environment wordt sterk aanbevolen, hiervoor kan je gebruik maken van het volgende commando:

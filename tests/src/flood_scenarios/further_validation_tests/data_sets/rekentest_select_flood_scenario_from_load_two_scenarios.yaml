@@ -1,0 +1,19 @@
+GlobalVariables:
+    rootdir: "tests/src/flood_scenarios/further_validation_tests/data_sets"
+    moments: [ -24, 0, 24, 36 ]
+    SelectFloodScenarioFromLoad:
+        return_two_scenarios: True
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    scenarios_loads:
+        type: csv
+        path: "hidden_rekentest_scenario_loads.csv"
+    consequences_loads:
+        type: csv
+        path: "rekentest_consequences_loads.csv"
+    scenario_consequences_grids:
+        type: csv
+        path: "hidden_rekentest_scenario_consequences_grids.csv"

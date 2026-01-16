@@ -1,0 +1,12 @@
+GlobalVariables:
+    rootdir: 'data_sets/1.proof_of_concept'
+    logging:
+        level: DEBUG
+
+DataAdapter:
+    mycsv_in:
+        type: csv
+        file: 'test_csv_in.csv'
+    mycsv_out:
+        type: csv
+        file: 'test_csv_out.csv'

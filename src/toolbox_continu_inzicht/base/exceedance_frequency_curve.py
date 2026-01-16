@@ -4,7 +4,7 @@ import pandas as pd
 from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht import ToolboxBase, DataAdapter
-from toolbox_continu_inzicht.utils.interpolate import log_interpolate_1d
+from toolbox_continu_inzicht.utils.interpolate import log_x_interpolate_1d
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -60,7 +60,7 @@ class ExceedanceFrequencyCurve(ToolboxBase):
         df_new = pd.DataFrame(
             {
                 "hydraulicload": hydraulicload,
-                "probability_exceedance": log_interpolate_1d(
+                "probability_exceedance": log_x_interpolate_1d(
                     hydraulicload,
                     self.df_out["hydraulicload"].to_numpy(),
                     self.df_out["probability_exceedance"].to_numpy(),

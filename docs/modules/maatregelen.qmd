@@ -1,0 +1,235 @@
+---
+title: "Maatregelen"
+---
+
+Tijdens crisissituaties kunnen maatregelen worden getroffen, om in dat soort situaties ook de actuele kansen inzichtelijk te maken kunnen de fragility curves worden aangepast. Voor alle fragility curves kunnen worden verschoven. Voor GEKB-curves die in de toolbox 'on the fly' worden berekend kan de kruinhoogte worden aangepast, zie de module [bijstellen](./bijstellen_fragility_curves.qmd) voor meer informatie.
+Als de fragility curves van tevoren zijn berekend met een bepaalde maatregel, kunnen we de huidige curve vervangen met een voorberekende curve die past bij de maatregel. Deze voorberekende curve komt dan uit een 'cache', in de meeste gevallen is dit een database maar dit kan ook in het geheugen zijn bijvoorbeeld.
+Als de curve die past bij de maatregel niet in de cache zit, verschuiven we de originele curve. Hiervoor is ook een koppeling nodig tussen maatregel en effect.
+
+De standaard manier is om voor alle dijkvakken en faalmechanismes in een keer alles aan te passen.
+
+1. Voor alle dijkvakken en faalmechanismes in één keer alle fragility curves aanpassen met [`LoadCachedFragilityCurveMultiple`](#sec-LoadCachedFragilityCurveMultiple).
+
+Daarnaast zijn er nog 3 opties om fragility curves aan te passen als je het niet op de standaard manier wilt doen.
+Deze opties zijn afhankelijk van je toepassing.
+
+1. Voor een dijkvak, maar voor alle faalmechanismen in een keer de fragility curves aanpassen met [`LoadCachedFragilityCurve`](#sec-LoadCachedFragilityCurve).
+
+1. De fragility curve kan per dijkvak aangepast worden voor één mechanisme met [`LoadCachedFragilityCurveOneFailureMechanism`](#sec-LoadCachedFragilityCurveOneFailureMechanism). Hierbij is de aanpassing het mees
+
+1. Zelf logica in python implementeren om de bijbehorende fragility curve aan te passen door de `FragilityCurve` class te gebruiken.
+
+### Voor alle vakken en alle faalmechanismes de aanpassingen maken {#sec-LoadCachedFragilityCurveMultiple}
+
+Om voor alle vakken de fragility curve van alle faalmechanismes aan te passen kan de functie `LoadCachedFragilityCurveMultiple` worden gebruikt.
+Hier moet naast [`measure_id`](#sec-LoadCachedFragilityCurveOneFailureMechanism) en [`failuremechanism_id`](#sec-LoadCachedFragilityCurve) ook de `section_id` worden opgegeven.
+De eerste data adapter moet naast de `hydraulicload` en `failure_probability` van de fragilitycurve ook `measure_id`, `failuremechanism_id` en `section_id` bevatten.
+
+De tweede data adapter moet de koppeling van `measure_id` met effect zijn, indien er geen voorberekende curve beschikbaar is, wordt de curve met deze hoeveelheid verschoven.
+
+Per dijkvak (section) wordt dan de fragility curve aangepast naar de fragility curve met de bijbehorende maatregel. Op deze manier worden dan alle vakken aangepast naar de gegeven maatregel.
+
+Om een koppeling te maken van vak en faalmechanisme naar maatregel is een extra tabel nodig.
+Hiervoor moet als derde een data adapter met `section_id`,`failuremechanism_id` en `measure_id` worden meegegeven.
+
+In deze eerste data adapter staan dus meerdere curves met maatregelen en faalmechanismes. Standaard heeft de fragilitycurve zonder maatregel een id `0`.
+Deze standaard waarde kan worden aangepast met `default_measure_id` in de `yaml`.
+Omdat de 3 functies `LoadCachedFragilityCurve*` functionaliteit delen moet dit altijd onder het kopje van `LoadCachedFragilityCurve`.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    LoadCachedFragilityCurve:
+        default_measure_id: 0
+
+DataAdapter:
+    fragility_curve_multi_section_multi_failure:
+        type: csv
+        file: "fragility_curve_multi_section_multi_failure.csv"
+    measures_to_effect:
+        type: csv
+        file: "measures_to_effect.csv"
+    section_id_to_measure_id:
+        type: csv
+        file: "section_id_to_measure_id.csv"
+    resulting_fragility_curve:
+        type: csv
+        file: "hidden_resulting_fragility_one_section_multi_failure.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import LoadCachedFragilityCurveMultiple
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+load_cached_fragility_curve = LoadCachedFragilityCurveMultiple(
+    data_adapter=data_adapter
+)
+load_cached_fragility_curve.run(
+    input=["fragility_curve_one_section_one_failure","section_id_to_measure_id"],
+    output="resulting_fragility_curve"
+)
+```
+:::
+
+### Per vak voor alle faalmechanismes de fragility curve aanpassen{#sec-LoadCachedFragilityCurve}
+
+Om voor één vak de fragility curve van alle faalmechanismes aan te passen kan de functie `LoadCachedFragilityCurve` worden gebruikt.
+De eerste data adapter moet naast de `hydraulicload` en `failure_probability` van de fragilitycurve ook `measure_id` en `failuremechanism_id` bevatten.
+Per faalmechanisme wordt dan de fragility curve aangepast naar de fragility curve met het bijbehorende maatregel.
+De tweede data adapter moet de koppeling van `measure_id` met effect zijn, indien er geen voorberekende curve beschikbaar is, wordt de curve met deze hoeveelheid verschoven.
+Om de aanpassing te doen moet een koppeling worden gemaakt tussen het faalmechanisme: (`failuremechanism_id`) en de maatregel  (`measure_id`), deze wordt als derde data adapter opgegeven.
+
+In deze eerste data adapter staan dus meerdere curves met maatregelen en faalmechanismes. Standaard heeft de fragilitycurve zonder maatregel een id `0`.
+Deze standaard waarde kan worden aangepast met `default_measure_id` in de `yaml`.
+Omdat de 3 functies `LoadCachedFragilityCurve*` functionaliteit delen moet dit altijd onder het kopje van `LoadCachedFragilityCurve`.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    LoadCachedFragilityCurve:
+        default_measure_id: 0
+
+DataAdapter:
+    fragility_curve_one_section_multi_failure:
+        type: csv
+        file: "fragility_curve_one_section_multi_failure.csv"
+    measures_to_effect:
+        type: csv
+        file: "measures_to_effect.csv"
+    failuremechanism_id_to_measure_id:
+        type: csv
+        file: "failuremechanism_id_to_measure_id.csv"
+    resulting_fragility_curve:
+        type: csv
+        file: "hidden_resulting_fragility_one_section_multi_failure.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import LoadCachedFragilityCurve
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+
+load_cached_fragility_curve = LoadCachedFragilityCurve(data_adapter=data_adapter)
+load_cached_fragility_curve.run(
+    input=[
+        "fragility_curve_one_section_multi_failure",
+        "failuremechanism_id_to_measure_id",
+    ],
+    output="resulting_fragility_curve"
+)
+```
+:::
+
+### Per vak & per faalmechanisme de fragility curve aanpassen{#sec-LoadCachedFragilityCurveOneFailureMechanism}
+
+Om voor één vak de fragility curve van één faalmechanisme aan te passen kan de functie `LoadCachedFragilityCurveOneFailureMechanism` worden gebruikt.
+De eerste data adapter moet naast de `hydraulicload` en `failure_probability` van de fragilitycurve ook `measure_id` bevatten.
+De tweede data adapter moet de koppeling van `measure_id` met effect zijn, indien er geen voorberekende curve beschikbaar is, wordt de curve met deze hoeveelheid verschoven.
+In het input bestand staan meerdere curves met maatregelen, standaard heeft de fragilitycurve zonder maatregel een id `0`.
+Deze standaard waarde kan worden aangepast met `default_measure_id` in de `yaml`.
+Omdat de 3 functies `LoadCachedFragilityCurve*` functionaliteit delen moet dit altijd onder het kopje van `LoadCachedFragilityCurve`.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+    LoadCachedFragilityCurve:
+        default_measure_id: 0
+
+DataAdapter:
+    fragility_curve_one_section_one_failure:
+        type: csv
+        file: "fragility_curve_one_section_one_failure.csv"
+    measures_to_effect:
+        type: csv
+        file: "measures_to_effect.csv"
+    resulting_fragility_curve:
+        type: csv
+        file: "hidden_resulting_fragility_one_section_one_failure.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.fragility_curves import LoadCachedFragilityCurveOneFailureMechanism
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+load_cached_fragility_curve = LoadCachedFragilityCurveOneFailureMechanism(
+    data_adapter=data_adapter
+)
+load_cached_fragility_curve.run(
+    input="fragility_curve_one_section_one_failure",
+    output="resulting_fragility_curve",
+    measure_id=1,
+)
+```
+:::
+
+### FragilityCurve{#sec-FragilityCurve}
+
+Als laatste kan ook gekozen worden voor een eigen implementatie. Dit kan handig zijn als de keuze van de `measure_id` af hangt van een fysieke waarde: bijv. de windrichting. Hiervoor gebruik je de class `FragilityCurve`. _Let op: deze functionaliteit is voor de geavanceerde gebruiker_.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets"
+
+DataAdapter:
+    fragility_curve_initial:
+        type: csv
+        file: "fragility_curve_initial.csv"
+    fragility_curve_cache_1:
+        type: csv
+        file: "fragility_curve_cache_1.csv"
+    fragility_curve_cache_2:
+        type: csv
+        file: "fragility_curve_cache_2.csv"
+    fragility_curve_cache_3:
+        type: csv
+        file: "fragility_curve_cache_3.csv"
+    fragility_curve_cache_4:
+        type: csv
+        file: "fragility_curve_cache_4.csv"
+    resulting_fragility_curve:
+        type: csv
+        file: "hidden_resulting_fragility.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.base.fragility_curve import FragilityCurve
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+fragility_curve = FragilityCurve(data_adapter)
+fragility_curve.load("fragility_curve_initial")
+fragility_curve.cached_fragility_curves = {
+    0: "fragility_curve_cache_1",
+    1: "fragility_curve_cache_2",
+    2: "fragility_curve_cache_3",
+    3: "fragility_curve_cache_4",
+}
+## voeg hier je keuze toe, bijv:
+# if wind_dir < 100:
+#   index = 1
+# else:
+#   index = 2
+index = 1
+fragility_curve.load_effect_from_data_adapter(index)
+data_adapter.output("resulting_fragility_curve", fragility_curve.as_dataframe())
+```
+:::

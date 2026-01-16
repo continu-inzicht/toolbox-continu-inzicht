@@ -22,6 +22,7 @@ DataAdapter:
     MyNetCDF_in:
         type: netcdf
         path: 'test_netcdf_in.nc'
+        engine: netcdf4
     MyNetCDF_out:
         type: netcdf
         path: 'test_netcdf_out.nc'
