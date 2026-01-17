@@ -1,8 +1,12 @@
 from toolbox_continu_inzicht import DataAdapter
-from toolbox_continu_inzicht.fragility_curves import FragilityCurveOvertopping
+from toolbox_continu_inzicht.fragility_curves import (
+    FragilityCurveOvertoppingBedlevelFetch,
+)
 
 
-class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
+class ShiftFragilityCurveOvertoppingBedlevelFetch(
+    FragilityCurveOvertoppingBedlevelFetch
+):
     """Verschuift de fragility curve met een gegeven effect"""
 
     data_adapter: DataAdapter
@@ -54,7 +58,9 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
         self.data_adapter.output(output=output, df=self.as_dataframe())
 
 
-class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
+class ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch(
+    FragilityCurveOvertoppingBedlevelFetch
+):
     """Verschuift de kruinhoogte met het gegeven effect en berekent de fragility curve"""
 
     data_adapter: DataAdapter
@@ -121,4 +127,4 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
         )
 
 
-# TODO: ChangeCrestHeightFragilityCurveOvertoppingMultiple
+# TODO: ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetchMultiple

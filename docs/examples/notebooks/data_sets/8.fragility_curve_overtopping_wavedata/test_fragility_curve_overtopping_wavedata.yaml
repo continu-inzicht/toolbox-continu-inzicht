@@ -1,9 +1,6 @@
 GlobalVariables:
-    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping_pre_calculated/data_sets"
+    rootdir: "data_sets/8.fragility_curve_overtopping_wavedata"
     moments: [ -24, 0, 24, 48 ]
-
-    FragilityCurveOvertoppingPreCalculated:
-        pre_calculated_filter_data_adapter_name: "pre_calculated_filter"
 
 DataAdapter:
     default_options:

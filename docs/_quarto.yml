@@ -30,18 +30,19 @@ website:
     contents:
     - install.qmd
 
-  - title: "Voorbeelden"
-    contents:
-    - "voorbeelden.qmd"
-    - "examples/notebooks/1.proof_of_concept.ipynb"
-    - "examples/notebooks/2.belastingen_inladen.ipynb"
-    - "examples/notebooks/3.fragility_curve_overtopping.ipynb"
-    - "examples/notebooks/4.adjust_integrated_statistics.ipynb"
-    - "examples/notebooks/5.inspectieresultaten.ipynb"
-    - "examples/notebooks/6.fragility_curve_from_cache.ipynb"
-    - "examples/notebooks/7.rekentest_flood_scenarios.ipynb"
-    - "examples/notebooks/100.logging.ipynb"
-    - "examples/notebooks/101.WMS_laag_naar_database.ipynb"
+      - title: "Voorbeelden"
+        contents:
+          - "voorbeelden.qmd"
+          - "examples/notebooks/1.proof_of_concept.ipynb"
+          - "examples/notebooks/2.belastingen_inladen.ipynb"
+          - "examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.ipynb"
+          - "examples/notebooks/4.adjust_integrated_statistics.ipynb"
+          - "examples/notebooks/5.inspectieresultaten.ipynb"
+          - "examples/notebooks/6.fragility_curve_from_cache.ipynb"
+          - "examples/notebooks/7.rekentest_flood_scenarios.ipynb"
+          - "examples/notebooks/8.fragility_curve_overtopping_wavedata.ipynb"
+          - "examples/notebooks/100.logging.ipynb"
+          - "examples/notebooks/101.WMS_laag_naar_database.ipynb"
 
   - title: "Modules"
     contents:
@@ -132,10 +133,12 @@ quartodoc:
     desc: Functies voor het berekenen en aanpassen van Fragility curve
     package: toolbox_continu_inzicht.fragility_curves
     contents:
-    - FragilityCurveOvertopping
-    - FragilityCurveOvertoppingMultiple
-    - ShiftFragilityCurveOvertopping
-    - ChangeCrestHeightFragilityCurveOvertopping
+    - FragilityCurveOvertoppingBedlevelFetch
+       - FragilityCurveOvertoppingBedlevelFetchMultiple
+       - FragilityCurveOvertoppingWaveData
+    - FragilityCurveOvertoppingWaveDataMultiple
+    - ShiftFragilityCurveOvertoppingBedlevelFetch
+    - ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch
     - FragilityCurvePipingFixedWaterlevel
     - FragilityCurvePipingMultiple
     - CombineFragilityCurvesIndependent
