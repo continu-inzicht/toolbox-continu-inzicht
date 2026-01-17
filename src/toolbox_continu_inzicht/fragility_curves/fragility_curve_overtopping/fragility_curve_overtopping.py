@@ -5,15 +5,15 @@ import pandas as pd
 # pydra_core=0.0.1
 from pydantic.dataclasses import dataclass
 
-from toolbox_continu_inzicht import ToolboxBase, DataAdapter, FragilityCurve
-from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_overtopping_calculation import (
-    WaveOvertoppingCalculation,
-)
+from toolbox_continu_inzicht import DataAdapter, FragilityCurve, ToolboxBase
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
     build_pydra_profiles,
     get_overtopping_options,
     parse_profile_dataframe,
     validate_slopes,
+)
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_overtopping_calculation import (
+    WaveOvertoppingCalculation,
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
     BretschneiderWaveProvider,
@@ -258,14 +258,12 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("FragilityCurveOvertoppingMultiple", {})
 
-        self.df_out: pd.DataFrame = pd.DataFrame(
-            columns=["section_id", "hydraulicload", "failure_probability"]
-        )
         temp_data_adapter = self.data_adapter
         temp_data_adapter.set_dataframe_adapter(
             "output", pd.DataFrame(), if_not_exist="create"
         )
 
+        df_out = []
         for section_id in section_ids:
             df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
             df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
@@ -285,8 +283,14 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
             overrides = {
                 input[0]: {"type": "python", "dataframe_from_python": df_slopes},
                 input[1]: {"type": "python", "dataframe_from_python": df_profile},
-                input[2]: {"type": "python", "dataframe_from_python": df_bed_levels},
-                "output": {"type": "python", "dataframe_from_python": pd.DataFrame()},
+                input[2]: {
+                    "type": "python",
+                    "dataframe_from_python": df_bed_levels,
+                },
+                "output": {
+                    "type": "python",
+                    "dataframe_from_python": pd.DataFrame(),
+                },
             }
             with temp_data_adapter.temporary_adapters(overrides):
                 # dit zorgt ervoor dat het beheerdersoordeel ook mee kan worden genomen
@@ -305,12 +309,9 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
 
             df_fc_overtopping = fc_overtopping.as_dataframe()
             df_fc_overtopping["section_id"] = section_id
+            df_out.append(df_fc_overtopping)
 
-            if len(self.df_out) == 0:
-                self.df_out = df_fc_overtopping
-            else:
-                self.df_out = pd.concat([self.df_out, df_fc_overtopping])
-
+        self.df_out = pd.concat(df_out, ignore_index=True)
         self.df_out["failuremechanismid"] = 2  # GEKB: komt uit de
         if self.measure_id is not None:
             self.df_out["measureid"] = self.measure_id
