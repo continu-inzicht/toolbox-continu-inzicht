@@ -9,6 +9,8 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.fragil
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.add_effect import (
     ShiftFragilityCurveOvertoppingBedlevelFetch,
     ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch,
+    ShiftFragilityCurveOvertoppingWaveData,
+    ChangeCrestHeightFragilityCurveOvertoppingWaveData,
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_piping.fragility_curve_piping import (
     FragilityCurvePipingMultiple,
@@ -42,6 +44,8 @@ __all__ = [
     "FragilityCurveOvertoppingWaveDataMultiple",
     "ShiftFragilityCurveOvertoppingBedlevelFetch",
     "ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch",
+    "ShiftFragilityCurveOvertoppingWaveData",
+    "ChangeCrestHeightFragilityCurveOvertoppingWaveData",
     "FragilityCurvePipingMultiple",
     "FragilityCurvePipingFixedWaterlevel",
     "ShiftFragilityCurvePipingFixedWaterlevel",
