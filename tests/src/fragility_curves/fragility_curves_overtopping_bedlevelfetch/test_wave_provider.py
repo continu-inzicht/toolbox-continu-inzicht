@@ -6,7 +6,7 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.pydra_
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
     BretschneiderWaveProvider,
-    PreCalculatedWaveProvider,
+    WaveDataProvider,
 )
 
 
@@ -59,7 +59,7 @@ def test_bretschneider_wave_provider_matches_bretschneider():
     assert np.allclose(wave_dir_lvl, np.ones_like(waterlevels) * direction)
 
 
-def test_pre_calculated_wave_provider_interpolation():
+def test_wavedata_wave_provider_interpolation():
     rows = []
     for waveval_type in [2, 6, 7]:
         for ws in [10.0, 20.0]:
@@ -81,7 +81,13 @@ def test_pre_calculated_wave_provider_interpolation():
                         }
                     )
     waveval_df = pd.DataFrame(rows)
-    provider = PreCalculatedWaveProvider(waveval_df)
+    id_cols = ["waveval_type", "windspeed", "winddir"]
+    waveval_id_df = waveval_df[id_cols].drop_duplicates().reset_index(drop=True)
+    waveval_id_df["waveval_id"] = np.arange(len(waveval_id_df))
+    waveval_df = waveval_df.merge(waveval_id_df, on=id_cols)[
+        ["waveval_id", "waterlevel", "waveval"]
+    ]
+    provider = WaveDataProvider(waveval_id_df, waveval_df)
 
     windspeed = 10.0
     windrichtingen = np.array([0.0, 90.0])
@@ -105,7 +111,7 @@ def test_pre_calculated_wave_provider_interpolation():
     assert np.allclose(wave_dir_lvl, np.zeros_like(waterlevels))
 
 
-def test_pre_calculated_wave_provider_circular_direction():
+def test_wavedata_wave_provider_circular_direction():
     rows = []
     for waveval_type in [2, 6, 7]:
         for ws in [10.0, 20.0]:
@@ -122,7 +128,13 @@ def test_pre_calculated_wave_provider_circular_direction():
                         }
                     )
     waveval_df = pd.DataFrame(rows)
-    provider = PreCalculatedWaveProvider(waveval_df)
+    id_cols = ["waveval_type", "windspeed", "winddir"]
+    waveval_id_df = waveval_df[id_cols].drop_duplicates().reset_index(drop=True)
+    waveval_id_df["waveval_id"] = np.arange(len(waveval_id_df))
+    waveval_df = waveval_df.merge(waveval_id_df, on=id_cols)[
+        ["waveval_id", "waterlevel", "waveval"]
+    ]
+    provider = WaveDataProvider(waveval_id_df, waveval_df)
 
     windspeed = 10.0
     windrichtingen = np.array([0.0])

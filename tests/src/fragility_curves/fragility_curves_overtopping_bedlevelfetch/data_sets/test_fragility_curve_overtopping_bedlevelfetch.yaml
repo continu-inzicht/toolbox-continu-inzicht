@@ -1,8 +1,8 @@
 GlobalVariables:
-    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping/data_sets"
+    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping_bedlevelfetch/data_sets"
     moments: [-24,0,24,48]
 
-    FragilityCurveOvertopping:
+    FragilityCurveOvertoppingBedlevelFetch:
         gh_onz_mu: 0.96  # default waardes, kunnen worden overschreven
         gh_onz_sigma: 0.27
         gp_onz_mu_tp: 1.03

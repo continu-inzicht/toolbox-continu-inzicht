@@ -12,7 +12,7 @@ De fragility curves voor GEKB kunnen 'on-the-fly' worden berekend, afhankelijk v
 
 Voor het bereken van fragility curves voor GEKB wordt gebruik gemaakt van de Python module [`pydra-core`](https://pypi.org/project/pydra-core/). Deze losstaande Python module is ontwikkeld door HKV en openbaar beschikbaar gemaakt op [GitHub](https://github.com/HKV-products-services/pydra_core). De documentatie is op deze GitHub pagina te vinden.
 
-Een fragility curve kan berekend worden door de functie `FragilityCurveOvertopping` aan te roepen. Hier zijn drie DataFrames voor nodig: het eerste DataFrame met informatie over de hellingen, het tweede over het profiel en als laatste informatie over de bodem en strijklengte. In de berekening wordt modelonzekerheid meegenomen. Voor de modelonzekerheid zijn acht standaardwaardes gebruikt voor [bretschneider](https://www.stowa.nl/sites/default/files/assets/PUBLICATIES/Publicaties%202015/STOWA%202015-15A/B4%20Validatie%20Golfgroei_D1.pdf), waarmee de golfhoogte en golfperiode worden bepaald. Deze kunnen aangepast worden als opties in de `config.yaml`, zoals te zien in het voorbeeld met `gh_onz_mu`. Naast onzekerheden kan ook de verhouding tussen de piekperiode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) worden aangepast met `tp_tspec` (standaard 1.1). Ook zijn er rekeninstellingen waarmee wordt gerekend, waarvan vier rekeninstellingen zijn aan te passen. De probabilistische berekening wordt gemaakt voor verschillende stapgroottes van de waterstand: grof en fijn. De standaardinstelling is een fijne stapgrootte van 0.05m (`hstap`) van 2m onder de kruin (`upper_limit_coarse`) tot 1.01m boven de kruin (`upper_limit_fine`). De standaardinstelling is een grove stapgrootte van 4m onder de kruin (`lower_limit_coarse`) tot 2m onder de kruin (`upper_limit_coarse`) met stappen van twee keer zo groot (2 * `hstap` = 0.1). Al deze variabele zijn los te configureren. Als de gebruiker deze niet opgeeft, dan wordt uitgegaan van de genoemde standaardwaardes.
+Een fragility curve kan berekend worden door de functie `FragilityCurveOvertoppingBedlevelFetch` aan te roepen. Hier zijn drie DataFrames voor nodig: het eerste DataFrame met informatie over de hellingen, het tweede over het profiel en als laatste informatie over de bodem en strijklengte. In de berekening wordt modelonzekerheid meegenomen. Voor de modelonzekerheid zijn acht standaardwaardes gebruikt voor [bretschneider](https://www.stowa.nl/sites/default/files/assets/PUBLICATIES/Publicaties%202015/STOWA%202015-15A/B4%20Validatie%20Golfgroei_D1.pdf), waarmee de golfhoogte en golfperiode worden bepaald. Deze kunnen aangepast worden als opties in de `config.yaml`, zoals te zien in het voorbeeld met `gh_onz_mu`. Naast onzekerheden kan ook de verhouding tussen de piekperiode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) worden aangepast met `tp_tspec` (standaard 1.1). Ook zijn er rekeninstellingen waarmee wordt gerekend, waarvan vier rekeninstellingen zijn aan te passen. De probabilistische berekening wordt gemaakt voor verschillende stapgroottes van de waterstand: grof en fijn. De standaardinstelling is een fijne stapgrootte van 0.05m (`hstap`) van 2m onder de kruin (`upper_limit_coarse`) tot 1.01m boven de kruin (`upper_limit_fine`). De standaardinstelling is een grove stapgrootte van 4m onder de kruin (`lower_limit_coarse`) tot 2m onder de kruin (`upper_limit_coarse`) met stappen van twee keer zo groot (2 * `hstap` = 0.1). Al deze variabele zijn los te configureren. Als de gebruiker deze niet opgeeft, dan wordt uitgegaan van de genoemde standaardwaardes.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -20,7 +20,7 @@ Een fragility curve kan berekend worden door de functie `FragilityCurveOvertoppi
 GlobalVariables:
     rootdir: "data_sets"
     # default waardes, kunnen worden overschreven
-    FragilityCurveOvertopping:
+    FragilityCurveOvertoppingBedlevelFetch:
         gh_onz_mu: 0.96
         gh_onz_sigma: 0.27
         gp_onz_mu_tp: 1.03
@@ -56,12 +56,12 @@ DataAdapter:
 ## Code
 ```python
 from toolbox_continu_inzicht import Config, DataAdapter
-from toolbox_continu_inzicht.fragility_curves import FragilityCurveOvertopping
+from toolbox_continu_inzicht.fragility_curves import FragilityCurveOvertoppingBedlevelFetch
 
 config = Config(config_path="config.yaml")
 config.lees_config()
 data_adapter = DataAdapter(config=config)
-fragility_curve_overtopping = FragilityCurveOvertopping(data_adapter=data_adapter)
+fragility_curve_overtopping = FragilityCurveOvertoppingBedlevelFetch(data_adapter=data_adapter)
 fragility_curve_overtopping.run(
     input=["slopes", "profiles", "bedlevel_fetch"],
     output="fragility_curves",

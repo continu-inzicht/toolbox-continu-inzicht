@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping_pre_calculated/data_sets"
+    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping_wavedata/data_sets"
     moments: [ -24, 0, 24, 48 ]
 
 DataAdapter:
@@ -21,11 +21,11 @@ DataAdapter:
         file: "waveval_uncert_multi.csv"
         index_col: false
     waveval_id:
-        type: csv_pre_calculated_unique_ids
+        type: csv_wavedata_unique_ids
         file: "waveval_id_multi.csv"
         index_col: false
     waveval:
-        type: csv_pre_calculated_filter
+        type: csv_wavedata_filter
         file: "waveval_multi.csv"
         index_col: false
     fragility_curves:

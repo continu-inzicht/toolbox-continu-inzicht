@@ -3,7 +3,7 @@ GlobalVariables:
     calc_time: "1901-01-01"
     moments: [-24,0,24,48]
 
-    FragilityCurveOvertoppingMultiple:
+    FragilityCurveOvertoppingBedlevelFetchMultiple:
         gh_onz_mu: 0.96 # default waardes, kunnen worden overschreven
         gh_onz_sigma: 0.27
         gp_onz_mu_tp: 1.03

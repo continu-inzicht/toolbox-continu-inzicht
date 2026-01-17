@@ -16,13 +16,13 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_o
     WaveOvertoppingCalculation,
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
-    PreCalculatedWaveProvider,
+    WaveDataProvider,
 )
 from toolbox_continu_inzicht.utils.interpolate import bracketing_indices
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurveOvertoppingPreCalculated(FragilityCurve):
+class FragilityCurveOvertoppingWaveData(FragilityCurve):
     """
     Maakt een enkele fragility curve voor golfoverslag.
     Attributes
@@ -46,7 +46,7 @@ class FragilityCurveOvertoppingPreCalculated(FragilityCurve):
     -----
     Deze implementatie gebruikt voorberekende golfcondities (Hs, Tm-1,0 en
     golfrichting) via DataAdapters i.p.v. Bretschneider. De berekening
-    loopt via WaveOvertoppingCalculation met een PreCalculatedWaveProvider.
+    loopt via WaveOvertoppingCalculation met een WaveDataProvider.
 
     """
 
@@ -121,7 +121,7 @@ class FragilityCurveOvertoppingPreCalculated(FragilityCurve):
         input: list[str]
             Lijst namen van de input DataAdapters:
             slopes, profile, waveval_unique_windspeed, waveval_unique_winddir,
-            waveval_unique_waveval_id en pre_calculated_filter
+            waveval_unique_waveval_id en wavedata_filter
         output: str
             Naam van de DataAdapter Fragility curve output
 
@@ -139,14 +139,14 @@ class FragilityCurveOvertoppingPreCalculated(FragilityCurve):
 
         global_variables = da.config.global_variables
         options = get_overtopping_options(
-            global_variables, "FragilityCurveOvertoppingPreCalculated"
+            global_variables, "FragilityCurveOvertoppingWaveData"
         )
 
         basis_profiel, overtopping = build_pydra_profiles(
             self.df_slopes, profile_series
         )
 
-        wave_provider = PreCalculatedWaveProvider(
+        wave_provider = WaveDataProvider(
             self.df_waveval_id,
             self.df_waveval,
         )
@@ -171,7 +171,7 @@ class FragilityCurveOvertoppingPreCalculated(FragilityCurve):
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurveOvertoppingPreCalculatedMultiple(ToolboxBase):
+class FragilityCurveOvertoppingWaveDataMultiple(ToolboxBase):
     """
     Maakt een set van fragility curves voor golfoverslag (voorberekend) voor een dijkvak.
 
@@ -208,7 +208,7 @@ class FragilityCurveOvertoppingPreCalculatedMultiple(ToolboxBase):
     df_waveval: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    fc_function: FragilityCurve = FragilityCurveOvertoppingPreCalculated
+    fc_function: FragilityCurve = FragilityCurveOvertoppingWaveData
     measure_id: int | None = None
 
     def run(self, input: list[str], output: str) -> None:
@@ -225,7 +225,7 @@ class FragilityCurveOvertoppingPreCalculatedMultiple(ToolboxBase):
 
         global_variables = da.config.global_variables
         options = get_overtopping_options(
-            global_variables, "FragilityCurveOvertoppingPreCalculated"
+            global_variables, "FragilityCurveOvertoppingWaveData"
         )
 
         df_out = []
@@ -289,7 +289,7 @@ class FragilityCurveOvertoppingPreCalculatedMultiple(ToolboxBase):
                 output: {"type": "python", "dataframe_from_python": pd.DataFrame()},
             }
             with da.temporary_adapters(overrides):
-                da.config.global_variables["FragilityCurveOvertoppingPreCalculated"] = (
+                da.config.global_variables["FragilityCurveOvertoppingWaveData"] = (
                     options
                 )
                 fc_overtopping = self.fc_function(data_adapter=da)

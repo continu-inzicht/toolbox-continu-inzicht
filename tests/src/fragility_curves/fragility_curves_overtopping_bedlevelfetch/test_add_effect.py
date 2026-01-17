@@ -3,9 +3,9 @@ from pathlib import Path
 import pandas as pd
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter, Config
 from toolbox_continu_inzicht.fragility_curves import (
-    FragilityCurveOvertopping,
-    ShiftFragilityCurveOvertopping,
-    ChangeCrestHeightFragilityCurveOvertopping,
+    FragilityCurveOvertoppingBedlevelFetch,
+    ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch,
+    ShiftFragilityCurveOvertoppingBedlevelFetch,
 )
 
 # %%
@@ -95,7 +95,7 @@ def setup_data_adapter():
     df_bed_levels = pd.DataFrame(bed_levels)
     fragility_curves = pd.DataFrame()
     data_adapter = DataAdapter(config=Config(config_path=Path.cwd()))
-    data_adapter.config.global_variables["FragilityCurveOvertopping"] = {}
+    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"] = {}
     data_adapter.set_dataframe_adapter("slopes", df_slopes, if_not_exist="create")
     data_adapter.set_dataframe_adapter("profiles", df_profiles, if_not_exist="create")
     data_adapter.set_dataframe_adapter(
@@ -111,11 +111,13 @@ def test_ShiftFragilityCurveOvertopping():
     data_adapter = setup_data_adapter()
     input_val = ["slopes", "profiles", "bed_levels"]
     output_val = "fragility_curves"
-    fragility_curve_overtopping = FragilityCurveOvertopping(data_adapter=data_adapter)
+    fragility_curve_overtopping = FragilityCurveOvertoppingBedlevelFetch(
+        data_adapter=data_adapter
+    )
     fragility_curve_overtopping.run(input=input_val, output=output_val)
     fragility_curve_overtopping_df = fragility_curve_overtopping.as_dataframe()
 
-    shift_fragility_curve_overtopping = ShiftFragilityCurveOvertopping(
+    shift_fragility_curve_overtopping = ShiftFragilityCurveOvertoppingBedlevelFetch(
         data_adapter=data_adapter
     )
 
@@ -150,14 +152,18 @@ def test_ChangeCrestHeightFragilityCurveOvertopping():
     data_adapter = setup_data_adapter()
     input_val = ["slopes", "profiles", "bed_levels"]
     output_val = "fragility_curves"
-    fragility_curve_overtopping = FragilityCurveOvertopping(data_adapter=data_adapter)
+    fragility_curve_overtopping = FragilityCurveOvertoppingBedlevelFetch(
+        data_adapter=data_adapter
+    )
     fragility_curve_overtopping.run(input=input_val, output=output_val)
     result_fragility_curve_overtopping = (
         fragility_curve_overtopping.failure_probability[50:57]
     )
 
     change_crest_height_fragility_curve_overtopping = (
-        ChangeCrestHeightFragilityCurveOvertopping(data_adapter=data_adapter)
+        ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch(
+            data_adapter=data_adapter
+        )
     )
 
     change_crest_height_fragility_curve_overtopping.run(

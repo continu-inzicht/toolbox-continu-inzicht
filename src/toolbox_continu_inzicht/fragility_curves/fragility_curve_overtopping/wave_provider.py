@@ -137,7 +137,7 @@ class BretschneiderWaveProvider(WaveProvider):
         return hss, tspec, wave_direction
 
 
-class PreCalculatedWaveProvider(WaveProvider):
+class WaveDataProvider(WaveProvider):
     """
     WaveProvider implementatie op basis van voorberekende golfcondities.
     """

@@ -2,7 +2,7 @@ import pandas as pd
 from toolbox_continu_inzicht.base.adapters.data_adapter_utils import get_kwargs
 
 
-def input_csv_pre_calculated_unique_ids(input_config: dict) -> pd.DataFrame:
+def input_csv_wavedata_unique_ids(input_config: dict) -> pd.DataFrame:
     """Laadt een CSV-bestand in gegeven een pad
 
     Returns:
@@ -19,7 +19,7 @@ def input_csv_pre_calculated_unique_ids(input_config: dict) -> pd.DataFrame:
     return df
 
 
-def input_csv_pre_calculated_filter(input_config: dict) -> pd.DataFrame:
+def input_csv_wavedata_filter(input_config: dict) -> pd.DataFrame:
     """Laadt een CSV-bestand in gegeven een pad
 
     Returns:

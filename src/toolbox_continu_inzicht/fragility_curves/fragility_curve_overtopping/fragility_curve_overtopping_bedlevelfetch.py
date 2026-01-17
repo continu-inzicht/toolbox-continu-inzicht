@@ -21,7 +21,7 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_p
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurveOvertopping(FragilityCurve):
+class FragilityCurveOvertoppingBedlevelFetch(FragilityCurve):
     """
     Maakt een enkele fragility curve voor golfoverslag.
     Attributes
@@ -130,7 +130,9 @@ class FragilityCurveOvertopping(FragilityCurve):
         profile_series = parse_profile_dataframe(self.df_profile)
 
         global_variables = self.data_adapter.config.global_variables
-        options = get_overtopping_options(global_variables, "FragilityCurveOvertopping")
+        options = get_overtopping_options(
+            global_variables, "FragilityCurveOvertoppingBedlevelFetch"
+        )
 
         windspeed = profile_series["windspeed"]
         sectormin = profile_series["sectormin"]
@@ -169,7 +171,7 @@ class FragilityCurveOvertopping(FragilityCurve):
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurveOvertoppingMultiple(ToolboxBase):
+class FragilityCurveOvertoppingBedlevelFetchMultiple(ToolboxBase):
     """
     Maakt een set van fragility curves voor golfoverslag voor een dijkvak.
 
@@ -221,7 +223,7 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
     df_bed_levels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    fc_function: FragilityCurve = FragilityCurveOvertopping
+    fc_function: FragilityCurve = FragilityCurveOvertoppingBedlevelFetch
     effect: float | None = None
     measure_id: int | None = None
 
@@ -256,7 +258,9 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
         section_ids = self.df_profile.section_id.unique()
 
         global_variables = self.data_adapter.config.global_variables
-        options = global_variables.get("FragilityCurveOvertoppingMultiple", {})
+        options = global_variables.get(
+            "FragilityCurveOvertoppingBedlevelFetchMultiple", {}
+        )
 
         temp_data_adapter = self.data_adapter
         temp_data_adapter.set_dataframe_adapter(
@@ -271,9 +275,9 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
                 self.df_bed_levels["section_id"] == section_id
             ]
 
-            temp_data_adapter.config.global_variables["FragilityCurveOvertopping"] = (
-                options
-            )
+            temp_data_adapter.config.global_variables[
+                "FragilityCurveOvertoppingBedlevelFetch"
+            ] = options
 
             df_profile = df_profile.iloc[0].T
             df_profile = df_profile.to_frame().rename(
