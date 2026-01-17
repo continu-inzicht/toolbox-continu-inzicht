@@ -23,12 +23,13 @@ def test_fragility_curves_pre_calculated():
         input=[
             "slopes",
             "profiles",
-            "waveval_unique_windspeed",
-            "waveval_unique_winddir",
-            "waveval_unique_waveval_id",
-            "pre_calculated_filter",
+            "waveval_uncert",
+            "waveval_id",
+            "waveval",
         ],
         output="fragility_curves",
     )
     df_out = data_adapter.input("fragility_curves")
+
+    # @TODO proper assert
     assert isinstance(df_out, pd.DataFrame)

@@ -1,17 +1,18 @@
 from typing import Any, Dict, List, Tuple
+
 import numpy as np
 import pandas as pd
-
 import pydra_core
 import pydra_core.location
 from pydra_core.location.model.statistics.stochastics.model_uncertainty import (
-    ModelUncertainty,
     DistributionUncertainty,
+    ModelUncertainty,
 )
 
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
     build_waterlevel_grid,
     compute_failure_probability,
+    make_winddirections,
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
     WaveProvider,
@@ -109,10 +110,9 @@ class WaveOvertoppingCalculation:
         # Berekening
         berekening = cls(overtopping, options, wave_provider)
 
-        # Bereken fragility curve
-        windrichtingen = (
-            np.linspace(sectormin, sectormin + sectorsize, int(round(sectorsize))) % 360
-        )
+        # Maak windrichtingen
+        windrichtingen = make_winddirections(sectormin, sectorsize)
+
         # Voor het bepalen van de dominante windrichting wordt het profiel zonder voorland gebruikt
         basis_profiel.closing_situation = (
             closing_situation  # niet zo netjes maar het werkt

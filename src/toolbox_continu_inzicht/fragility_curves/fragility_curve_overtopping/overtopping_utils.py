@@ -12,9 +12,13 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.pydra_
 )
 
 
+def make_winddirections(sectormin: float | int, sectorsize: float | int):
+    return np.linspace(sectormin, sectormin + sectorsize, int(round(sectorsize))) % 360
+
+
 def parse_profile_dataframe(df_profile: pd.DataFrame) -> pd.Series:
     """
-    Parseer het profiel dataframe naar een Series met parameters.
+    Parse het profiel dataframe naar een Series met parameters.
     """
     if "parameters" in df_profile:
         df_profile.set_index("parameters", inplace=True)
