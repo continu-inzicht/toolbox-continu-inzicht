@@ -2,6 +2,10 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.fragil
     FragilityCurveOvertopping,
     FragilityCurveOvertoppingMultiple,
 )
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.fragility_curve_overtopping_pre_calculated import (
+    FragilityCurveOvertoppingPreCalculated,
+    FragilityCurveOvertoppingPreCalculatedMultiple,
+)
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.add_effect import (
     ShiftFragilityCurveOvertopping,
     ChangeCrestHeightFragilityCurveOvertopping,
@@ -15,6 +19,11 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_piping.add_effect 
     ShiftFragilityCurvePipingFixedWaterlevel,
 )
 
+from toolbox_continu_inzicht.fragility_curves.load_cached_fragility_curve import (
+    LoadCachedFragilityCurveOneFailureMechanism,
+    LoadCachedFragilityCurve,
+    LoadCachedFragilityCurveMultiple,
+)
 
 from toolbox_continu_inzicht.fragility_curves.combine_fragility_curves import (
     CombineFragilityCurvesIndependent,
@@ -29,6 +38,8 @@ from toolbox_continu_inzicht.fragility_curves.integrate_fragility_curves import 
 __all__ = [
     "FragilityCurveOvertopping",
     "FragilityCurveOvertoppingMultiple",
+    "FragilityCurveOvertoppingPreCalculated",
+    "FragilityCurveOvertoppingPreCalculatedMultiple",
     "ShiftFragilityCurveOvertopping",
     "ChangeCrestHeightFragilityCurveOvertopping",
     "FragilityCurvePipingMultiple",
@@ -41,4 +52,7 @@ __all__ = [
     "CombineFragilityCurvesWeightedSum",
     "IntegrateFragilityCurve",
     "IntegrateFragilityCurveMultiple",
+    "LoadCachedFragilityCurveOneFailureMechanism",
+    "LoadCachedFragilityCurve",
+    "LoadCachedFragilityCurveMultiple",
 ]

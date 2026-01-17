@@ -1,18 +1,22 @@
-from pathlib import Path
 from typing import Optional
 
 import pandas as pd
 
 # pydra_core=0.0.1
-import pydra_core
-import pydra_core.common
-import pydra_core.common.enum
-import pydra_core.location
 from pydantic.dataclasses import dataclass
 
-from toolbox_continu_inzicht import ToolboxBase, Config, DataAdapter, FragilityCurve
-from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.calculate_fragility_curve_overtopping import (
+from toolbox_continu_inzicht import DataAdapter, FragilityCurve, ToolboxBase
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
+    build_pydra_profiles,
+    get_overtopping_options,
+    parse_profile_dataframe,
+    validate_slopes,
+)
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_overtopping_calculation import (
     WaveOvertoppingCalculation,
+)
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
+    BretschneiderWaveProvider,
 )
 
 
@@ -117,80 +121,33 @@ class FragilityCurveOvertopping(FragilityCurve):
         output: str
             Naam van de DataAdapter Fragility curve output
 
-        Raises
-        ------
-        UserWarning
-            Slopes should have a slopetypeid of 1 or 2
         """
         # haal input op
         self.df_slopes = self.data_adapter.input(input[0])
         self.df_profile = self.data_adapter.input(input[1])
         self.df_bed_levels = self.data_adapter.input(input[2])
 
-        # nabewerking op profiel
-        if "parameters" in self.df_profile:
-            self.df_profile.set_index("parameters", inplace=True)
-
-        profile_series = self.df_profile["values"]
-        # converteer naar numeriek indien mogelijk, dit komt doordat de kolom zowel strings als floats bevat
-        # qcr kan string, float of tuple zijn
-        for k in profile_series.index:
-            try:
-                profile_series.at[k] = float(profile_series.at[k])
-            except ValueError:
-                pass
+        profile_series = parse_profile_dataframe(self.df_profile)
 
         global_variables = self.data_adapter.config.global_variables
-        options = global_variables.get("FragilityCurveOvertopping", {})
+        options = get_overtopping_options(global_variables, "FragilityCurveOvertopping")
 
         windspeed = profile_series["windspeed"]
         sectormin = profile_series["sectormin"]
         sectorsize = profile_series["sectorsize"]
 
-        if not all(
-            [
-                slopetype in [1, 2]
-                for slopetype in self.df_slopes["slopetypeid"].unique()
-            ]
-        ):
-            raise UserWarning("Hellingen moeten van slopetypeid 1 of 2 zijn")
+        validate_slopes(self.df_slopes)
 
-        # Formateer de data uit het DataFrame voor Pydra
-        df_slope_dike = self.df_slopes[self.df_slopes["slopetypeid"] == 1]
-        profiel_dict = {
-            "profile_name": "profiel_CI",
-            "dike_x_coordinates": df_slope_dike["x"].tolist(),
-            "dike_y_coordinates": df_slope_dike["y"].tolist(),
-            "dike_roughness": df_slope_dike["r"].tolist(),
-            "dike_orientation": profile_series["orientation"],
-            "dike_crest_level": profile_series["crestlevel"],
-        }
+        basis_profiel, overtopping = build_pydra_profiles(
+            self.df_slopes, profile_series
+        )
 
-        basis_profiel = pydra_core.Profile.from_dictionary(profiel_dict)
-
-        # Voorland wordt apart gedaan, zodat deze hetzelfde is als de originele versie van Pydra
-        foreland_profile = {}
-        df_slope_foreland = self.df_slopes.loc[self.df_slopes["slopetypeid"] == 2]
-        if len(df_slope_foreland) > 0:
-            foreland_profile["foreland_x_coordinates"] = list(
-                df_slope_foreland["x"].to_numpy()
-            )
-            foreland_profile["foreland_y_coordinates"] = list(
-                df_slope_foreland["y"].to_numpy()
-            )
-
-        profiel_dict.update(foreland_profile)
-
-        overtopping = pydra_core.Profile.from_dictionary(profiel_dict)
-
-        if profile_series["dam"] != 0.0:
-            breakwater_type = pydra_core.common.enum.Breakwater(
-                int(profile_series["dam"])
-            )
-            overtopping.set_breakwater(
-                breakwater_type=breakwater_type,
-                breakwater_level=profile_series["damheight"],
-            )
+        wave_provider = BretschneiderWaveProvider(
+            bedlevel=self.df_bed_levels["bedlevel"],
+            fetch=self.df_bed_levels["fetch"],
+            windrichtingen=self.df_bed_levels["direction"],
+            tp_tspec=options.get("tp_tspec", 1.1),
+        )
 
         # Bereken curve
         niveaus, ovkansqcr = WaveOvertoppingCalculation.calculate_overtopping_curve(
@@ -200,11 +157,9 @@ class FragilityCurveOvertopping(FragilityCurve):
             overtopping,
             basis_profiel,
             qcr=profile_series["qcr"],
-            richtingen=self.df_bed_levels["direction"],
-            bodemhoogte=self.df_bed_levels["bedlevel"],
-            strijklengte=self.df_bed_levels["fetch"],
             closing_situation=profile_series["closing_situation"],
             options=options,
+            wave_provider=wave_provider,
         )
 
         self.hydraulicload = niveaus
@@ -228,7 +183,7 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
         DataFrame met bed level data.
     df_out: Optional[pd.DataFrame] | None
         DataFrame met de resultaten van de berekening.
-    fragility_curve_function: FragilityCurve
+    fc_function: FragilityCurve
         FragilityCurve object
     effect: float | None
         Effect van de maatregel (niet gebruikt)
@@ -266,7 +221,7 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
     df_bed_levels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    fragility_curve_function: FragilityCurve = FragilityCurveOvertopping
+    fc_function: FragilityCurve = FragilityCurveOvertopping
     effect: float | None = None
     measure_id: int | None = None
 
@@ -303,9 +258,12 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("FragilityCurveOvertoppingMultiple", {})
 
-        self.df_out: pd.DataFrame = pd.DataFrame(
-            columns=["section_id", "hydraulicload", "failure_probability"]
+        temp_data_adapter = self.data_adapter
+        temp_data_adapter.set_dataframe_adapter(
+            "output", pd.DataFrame(), if_not_exist="create"
         )
+
+        df_out = []
         for section_id in section_ids:
             df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
             df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
@@ -313,53 +271,47 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
                 self.df_bed_levels["section_id"] == section_id
             ]
 
-            # maak een placeholder DataAdapter aan, dit zorgt dat je de modules ook los kan aanroepen
-
-            temp_config = Config(config_path=Path.cwd())
-            temp_data_adapter = DataAdapter(config=temp_config)
             temp_data_adapter.config.global_variables["FragilityCurveOvertopping"] = (
                 options
             )
 
-            temp_data_adapter.set_dataframe_adapter(
-                "df_slopes", df_slopes, if_not_exist="create"
-            )
             df_profile = df_profile.iloc[0].T
             df_profile = df_profile.to_frame().rename(
                 columns={df_profile.name: "values"}
             )
-            temp_data_adapter.set_dataframe_adapter(
-                "df_profile", df_profile, if_not_exist="create"
-            )
-            temp_data_adapter.set_dataframe_adapter(
-                "df_bed_levels", df_bed_levels, if_not_exist="create"
-            )
-            temp_data_adapter.set_dataframe_adapter(
-                "output", pd.DataFrame(), if_not_exist="create"
-            )
-            fragility_curve_overtopping = self.fragility_curve_function(
-                data_adapter=temp_data_adapter
-            )
-            # dit zorgt ervoor dat het beheerdersoordeel ook mee kan worden genomen
-            if self.effect is not None:
-                fragility_curve_overtopping.run(
-                    input=["df_slopes", "df_profile", "df_bed_levels"],
-                    output="output",
-                    effect=self.effect,
-                )
-            else:
-                fragility_curve_overtopping.run(
-                    input=["df_slopes", "df_profile", "df_bed_levels"], output="output"
-                )
 
-            df_fragility_curve_overtopping = fragility_curve_overtopping.as_dataframe()
-            df_fragility_curve_overtopping["section_id"] = section_id
+            overrides = {
+                input[0]: {"type": "python", "dataframe_from_python": df_slopes},
+                input[1]: {"type": "python", "dataframe_from_python": df_profile},
+                input[2]: {
+                    "type": "python",
+                    "dataframe_from_python": df_bed_levels,
+                },
+                "output": {
+                    "type": "python",
+                    "dataframe_from_python": pd.DataFrame(),
+                },
+            }
+            with temp_data_adapter.temporary_adapters(overrides):
+                # dit zorgt ervoor dat het beheerdersoordeel ook mee kan worden genomen
+                fc_overtopping = self.fc_function(data_adapter=temp_data_adapter)
+                if self.effect is not None:
+                    fc_overtopping.run(
+                        input=[input[0], input[1], input[2]],
+                        output="output",
+                        effect=self.effect,
+                    )
+                else:
+                    fc_overtopping.run(
+                        input=[input[0], input[1], input[2]],
+                        output="output",
+                    )
 
-            if len(self.df_out) == 0:
-                self.df_out = df_fragility_curve_overtopping
-            else:
-                self.df_out = pd.concat([self.df_out, df_fragility_curve_overtopping])
+            df_fc_overtopping = fc_overtopping.as_dataframe()
+            df_fc_overtopping["section_id"] = section_id
+            df_out.append(df_fc_overtopping)
 
+        self.df_out = pd.concat(df_out, ignore_index=True)
         self.df_out["failuremechanismid"] = 2  # GEKB: komt uit de
         if self.measure_id is not None:
             self.df_out["measureid"] = self.measure_id

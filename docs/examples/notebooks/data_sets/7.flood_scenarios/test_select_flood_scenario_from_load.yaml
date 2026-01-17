@@ -1,0 +1,17 @@
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 48 ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    flood_scenario_loads:
+        type: csv
+        path: "flood_scenario_load_resultaten.csv"
+    breach_location_metadata:
+        type: csv
+        path: "breach_location_metadata.csv"
+    flood_scenario_grids:
+        type: csv
+        path: "hidden_flood_scenario_grids.csv"

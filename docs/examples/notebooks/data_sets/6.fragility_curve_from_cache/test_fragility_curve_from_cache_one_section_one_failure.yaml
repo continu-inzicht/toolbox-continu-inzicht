@@ -1,0 +1,19 @@
+GlobalVariables:
+    rootdir: "data_sets/6.fragility_curve_from_cache"
+    moments: [-24,0,24,48]
+    LoadCachedFragilityCurve:
+        default_measure_id: 0
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    fragility_curve_one_section_one_failure:
+        type: csv
+        file: "fragility_curve_one_section_one_failure.csv"
+    measures_to_effect:
+        type: csv
+        file: "measures_to_effect.csv"
+    resulting_fragility_curve:
+        type: csv
+        file: "hidden_resulting_fragility_one_section_one_failure.csv"

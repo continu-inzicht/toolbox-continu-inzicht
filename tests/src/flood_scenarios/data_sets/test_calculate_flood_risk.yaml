@@ -1,0 +1,37 @@
+GlobalVariables:
+    rootdir: "tests/src/flood_scenarios/data_sets"
+    moments: [ -24, 0, 24, 48 ]
+    CalculateFloodRisk:
+        scenario_path: "flood_scenarios"
+        averaging_methods:
+            # these are default values, can be overridden in config
+            casualties: sum
+            damage: sum
+            flooding: median
+            affectedpeople: sum
+            waterdepth: sum
+        per_hectare: False
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+            index: False
+    segment_failure_probability:
+        type: csv
+        path: "segment_failure_probability.csv"
+    flood_scenario_grids:
+        type: csv
+        path: "flood_scenario_grids.csv"
+    flood_scenario_grids_one_gridfile:
+        type: csv
+        path: "flood_scenario_grids_one_gridfile.csv"
+    flood_scenario_grids_one_gridfile_different_name:
+        type: csv
+        path: "flood_scenario_grids_one_gridfile_different_name.csv"
+    areas_to_average:
+        type: shape
+        path: "areas_to_average.geojson"
+    flood_risk_results:
+        type: csv
+        path: "hidden_flood_risk_results.csv"

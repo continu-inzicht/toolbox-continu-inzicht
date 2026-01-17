@@ -113,4 +113,30 @@ De logging gebruikt een nieuwe 'baseClass': `ToolboxBase`, inherit deze om loggi
 
 ### V0.1.2 [[0.1.2](https://pypi.org/project/toolbox-continu-inzicht/0.1.2/)]
 
-Kleine aanpassingen om onnodige packages op te ruimen en folium optioneel te maken.
+### Inhoudelijk
+
+Alle aanpassingen zijn te vinden in pull request [#57](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/57)
+
+In sprint 6 (na jaar 2025) zijn twee onderwerpen opgepakt: Toepassen van maatregelen en toevoegen van Overstromingsrisico’s
+
+### Maatregelen
+
+Het is nu mogelijk om gegeven een maatregel de fragility curve in een vak aan te passen naar een voorberekende curve.
+Indien de voorberekende curve er niet is, wordt de huidige curve verschoven.
+
+### Overstromingsrisico’s
+
+Met de overstromingsscenario's kan de huidige overstromingskans uitgedrukt worden in een overstromingsrisico door de gevolgen in kaart te brengen.
+Deze kans kan geaggregeerd worden naar een gebied.
+
+#### Technisch
+
+Om de test-kaarten van overstromingsrisico ook op dezelfde plek op te slaan, gebruiken we Git LFS.
+Wellicht moet als de hoeveelheid test-data blijft groeien, dit naar een andere repo.
+Dit is echter alleen voor development van belang.
+
+De documentatie-map is wat opgeschoond met één map per notebook, zo kan je de relevante data sneller vinden.
+
+Kleine aanpassing in de data adapter (`check_rootdir`) om nu ook de rootdir op te slaan in de global variables.
+Deze kan dan later gebruikt worden; voor de overstromingsscenario kaarten was dit handig.
+In de toekomst is het misschien beter om daar later een speciaal type adapter voor te maken.

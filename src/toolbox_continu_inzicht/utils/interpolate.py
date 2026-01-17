@@ -3,9 +3,19 @@ from scipy.stats import norm
 from typing import Callable
 
 
-def _interpolate_1d(x, xp, fp):
-    # Bepaal lower bounds
-    intidx = np.minimum(np.maximum(0, np.searchsorted(xp, x) - 1), len(xp) - 2)
+def _interpolate_1d(x, xp, fp, side="left", sorter=None):
+    # Computes the index of the lower bracket in xp to use for linear
+    # interpolation of x. First np.searchsorted(xp, x) finds where each value
+    # in x would be inserted into the (assumed sorted) array xp to keep order;
+    # subtracting 1 turns that insertion index into the index of the element
+    # just below (the lower neighbor).
+    # Because searchsorted can return 0 or len(xp), the expression wraps that
+    # result with clamps to keep intidx in the valid range: it never drops
+    # below 0 and never exceeds len(xp) - 2. The upper clamp is len(xp) - 2 so
+    # that later code can safely access xp[intidx + 1].
+    intidx = np.searchsorted(xp, x, side=side, sorter=sorter) - 1
+    intidx = np.clip(intidx, 0, len(xp) - 2)
+
     # Bepaal stapgrootte van de gegeven x-waarden. Om delen door 0 te voorkomen
     # gebruiken we een kleine waarde in plaats van 0
     xstep = xp[intidx + 1] - xp[intidx]
@@ -18,7 +28,7 @@ def _interpolate_1d(x, xp, fp):
     return f
 
 
-def _transformed_interpolate_1d(
+def _transformed_x_interpolate_1d(
     x: np.ndarray,
     xp: np.ndarray,
     fp: np.ndarray,
@@ -34,9 +44,9 @@ def _transformed_interpolate_1d(
 
     if ftransform is not None and finvtransform is not None:
         # Transformeer de fp-waarden
-        f = finvtransform(_interpolate_1d(x, xp, ftransform(fp)))
+        f = finvtransform(_interpolate_1d(x, xp, ftransform(fp), side="left"))
     else:
-        f = _interpolate_1d(x, xp, fp)
+        f = _interpolate_1d(x, xp, fp, side="left")
 
     if ll > 0:
         # Reset lower limit naar 0
@@ -45,6 +55,28 @@ def _transformed_interpolate_1d(
 
     if clip01:
         f = np.clip(f, 0, 1)
+
+    return f
+
+
+def _transformed_y_interpolate_1d(
+    y: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float,
+    ftransform: Callable | None = None,
+):
+    if ll > 0:
+        fp = np.copy(fp)
+        fp[fp < ll] = ll
+        y = np.copy(y)
+        y[y < ll] = ll
+
+    if ftransform is not None:
+        # Transformeer de fp-waarden
+        f = _interpolate_1d(ftransform(y), ftransform(fp), xp, side="right")
+    else:
+        f = _interpolate_1d(y, fp, xp, side="right")
 
     return f
 
@@ -78,10 +110,81 @@ def interpolate_1d(
     np.array
         geinterpoleerde vector
     """
-    return _transformed_interpolate_1d(x, xp, fp, ll, clip01)
+    return _transformed_x_interpolate_1d(x, xp, fp, ll, clip01)
 
 
-def log_interpolate_1d(
+def circular_interpolate_1d(
+    x: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float = -np.inf,
+) -> np.ndarray:
+    """
+    Interpoleer circulaire waardes (graden) met behoud van 0/360 wrap.
+
+    Parameters
+    ----------
+    x : np.ndarray
+        X-waardes waarop geinterpoleerd moet worden
+    xp : np.ndarray
+        Referentievector van x-waardes
+    fp : np.ndarray
+        Referentievector van hoekwaardes (in graden)
+    ll : float
+        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
+
+    Returns
+    -------
+    np.array
+        geinterpoleerde hoekwaardes in graden binnen [0, 360)
+    """
+    angles = np.deg2rad(fp)
+    x_vals = np.cos(angles)
+    y_vals = np.sin(angles)
+    x_i = interpolate_1d(x, xp, x_vals, ll=ll)
+    y_i = interpolate_1d(x, xp, y_vals, ll=ll)
+    return (np.rad2deg(np.arctan2(y_i, x_i)) + 360.0) % 360.0
+
+
+def bracketing_indices(xvec: np.ndarray, x: float, wrap: bool = False):
+    n = xvec.size
+    if n < 2:
+        raise ValueError("x_vec must contain at least two values")
+
+    x = x % 360 if wrap else float(x)
+    pos = np.searchsorted(xvec, x, side="left")
+
+    if wrap:
+        i0 = (pos - 1) % n
+        i1 = pos % n
+        a0 = xvec[i0]
+        a1 = xvec[i1]
+        span = (a1 - a0) % 360.0
+        if span == 0.0:
+            return int(i0), int(i1), 0.0
+
+        dt = (x - a0) % 360.0
+        f = dt / span
+    else:
+        if pos <= 0:
+            i0, i1 = 0, 1
+        elif pos >= n:
+            i0, i1 = n - 2, n - 1
+        else:
+            i0, i1 = pos - 1, pos
+
+        a0 = xvec[i0]
+        a1 = xvec[i1]
+        denom = a1 - a0
+        if denom == 0.0:
+            return int(i0), int(i1), 0.0
+
+        f = (x - a0) / denom
+
+    return int(i0), int(i1), float(f)
+
+
+def log_x_interpolate_1d(
     x: np.ndarray,
     xp: np.ndarray,
     fp: np.ndarray,
@@ -108,12 +211,12 @@ def log_interpolate_1d(
     np.array
         geinterpoleerde vector
     """
-    return _transformed_interpolate_1d(
+    return _transformed_x_interpolate_1d(
         x, xp, fp, ll, clip01, ftransform=np.log, finvtransform=np.exp
     )
 
 
-def beta_interpolate_1d(
+def beta_x_interpolate_1d(
     x: np.ndarray,
     xp: np.ndarray,
     fp: np.ndarray,
@@ -140,6 +243,60 @@ def beta_interpolate_1d(
     np.array
         geinterpoleerde vector
     """
-    return _transformed_interpolate_1d(
+    return _transformed_x_interpolate_1d(
         x, xp, fp, ll, clip01, ftransform=norm.isf, finvtransform=norm.sf
     )
+
+
+def log_y_interpolate_1d(
+    y: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float = 1e-200,
+) -> np.ndarray:
+    """interpolate_1d met x-waardes omgezet naar log-waardes
+
+    Parameters
+    ----------
+    y : np.ndarray
+        Y-waardes waarop geinterpoleerd moet worden
+    xp : np.ndarray
+        Referentievector van x-waardes
+    fp : np.ndarray
+        Referentievector van y-waardes
+    ll : float
+        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
+
+    Returns
+    -------
+    np.array
+        geinterpoleerde vector
+    """
+    return _transformed_y_interpolate_1d(y, xp, fp, ll, ftransform=np.log)
+
+
+def beta_y_interpolate_1d(
+    y: np.ndarray,
+    xp: np.ndarray,
+    fp: np.ndarray,
+    ll: float = 1e-200,
+) -> np.ndarray:
+    """interpolate_1d met y-waardes omgezet naar beta-waardes
+
+    Parameters
+    ----------
+    y : np.ndarray
+        Y-waardes waarop geinterpoleerd moet worden
+    xp : np.ndarray
+        Referentievector van x-waardes
+    fp : np.ndarray
+        Referentievector van y-waardes
+    ll : float
+        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
+
+    Returns
+    -------
+    np.array
+        geinterpoleerde vector
+    """
+    return _transformed_y_interpolate_1d(y, xp, fp, ll, ftransform=norm.isf)

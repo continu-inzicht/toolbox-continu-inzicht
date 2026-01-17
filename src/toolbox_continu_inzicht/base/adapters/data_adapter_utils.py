@@ -23,12 +23,20 @@ def check_rootdir(global_variables: dict) -> None | UserWarning:
     Checkt of de rootdir bestaat
     """
     if "rootdir" in global_variables:
-        condition1 = not Path(global_variables["rootdir"]).exists()
-        condition2 = not (Path.cwd() / global_variables["rootdir"]).exists()
-        if condition1 or condition2:
+        path1 = Path(global_variables["rootdir"])
+        path2 = Path.cwd() / global_variables["rootdir"]
+        condition1 = path1.exists()
+        condition2 = path2.exists()
+        if not condition1 and not condition2:  # both missing
             raise UserWarning(
                 f"De rootdir-map '{global_variables['rootdir']}' bestaat niet"
             )
+        if condition1:  # preference to absolute path
+            return path1
+        else:  # then not condition2
+            return path2
+    else:
+        return None
 
 
 def check_file_and_path(function_config: dict, global_vars: dict) -> None:
