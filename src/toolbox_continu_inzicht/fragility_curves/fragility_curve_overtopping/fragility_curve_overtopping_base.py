@@ -52,7 +52,9 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
         profile_series = parse_profile_dataframe(self.df_profile)
         validate_slopes(self.df_slopes)
 
-        options = get_overtopping_options(da.config.global_variables, self._get_options_key())
+        options = get_overtopping_options(
+            da.config.global_variables, self._get_options_key()
+        )
 
         basis_profiel, overtopping = build_pydra_profiles(
             self.df_slopes, profile_series
