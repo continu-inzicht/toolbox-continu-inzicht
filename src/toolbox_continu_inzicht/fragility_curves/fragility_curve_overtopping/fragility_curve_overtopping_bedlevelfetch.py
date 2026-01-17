@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import ClassVar, Optional
 
 import pandas as pd
 
@@ -6,14 +6,8 @@ import pandas as pd
 from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht import DataAdapter, FragilityCurve, ToolboxBase
-from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
-    build_pydra_profiles,
-    get_overtopping_options,
-    parse_profile_dataframe,
-    validate_slopes,
-)
-from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_overtopping_calculation import (
-    WaveOvertoppingCalculation,
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.fragility_curve_overtopping_base import (
+    FragilityCurveOvertoppingBase,
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
     BretschneiderWaveProvider,
@@ -21,21 +15,17 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_p
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurveOvertoppingBedlevelFetch(FragilityCurve):
+class FragilityCurveOvertoppingBedlevelFetch(FragilityCurveOvertoppingBase):
     """
     Maakt een enkele fragility curve voor golfoverslag.
     Attributes
     ----------
     data_adapter: DataAdapter
         DataAdapter object
-    df_slopes: Optional[pd.DataFrame] | None
-        DataFrame met helling data.
-    df_profile: Optional[pd.DataFrame] | None
-        DataFrame met profiel data.
     df_bed_levels: Optional[pd.DataFrame] | None
         DataFrame met bed level data.
-    df_out: Optional[pd.DataFrame] | None
-        DataFrame met de resultaten van de berekening.
+    options_key: ClassVar[str]
+        Config key voor overtopping opties.
 
     Notes
     -----
@@ -63,10 +53,8 @@ class FragilityCurveOvertoppingBedlevelFetch(FragilityCurve):
     """
 
     data_adapter: DataAdapter
-    df_slopes: Optional[pd.DataFrame] | None = None
-    df_profile: Optional[pd.DataFrame] | None = None
     df_bed_levels: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
+    options_key: ClassVar[str] = "FragilityCurveOvertoppingBedlevelFetch"
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -110,64 +98,18 @@ class FragilityCurveOvertoppingBedlevelFetch(FragilityCurve):
         """
         self.calculate_fragility_curve(input, output)
 
-    def calculate_fragility_curve(self, input: list[str], output: str) -> None:
-        """
-        Bereken de fragility curve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
-
-        Parameters
-        ----------
-        input: list[str]
-            Lijst namen van de input DataAdapters: slopes, profile en bed_levels
-        output: str
-            Naam van de DataAdapter Fragility curve output
-
-        """
-        # haal input op
+    def _load_inputs(self, input: list[str]) -> None:
         self.df_slopes = self.data_adapter.input(input[0])
         self.df_profile = self.data_adapter.input(input[1])
         self.df_bed_levels = self.data_adapter.input(input[2])
 
-        profile_series = parse_profile_dataframe(self.df_profile)
-
-        global_variables = self.data_adapter.config.global_variables
-        options = get_overtopping_options(
-            global_variables, "FragilityCurveOvertoppingBedlevelFetch"
-        )
-
-        windspeed = profile_series["windspeed"]
-        sectormin = profile_series["sectormin"]
-        sectorsize = profile_series["sectorsize"]
-
-        validate_slopes(self.df_slopes)
-
-        basis_profiel, overtopping = build_pydra_profiles(
-            self.df_slopes, profile_series
-        )
-
-        wave_provider = BretschneiderWaveProvider(
+    def _build_wave_provider(self, options: dict) -> BretschneiderWaveProvider:
+        return BretschneiderWaveProvider(
             bedlevel=self.df_bed_levels["bedlevel"],
             fetch=self.df_bed_levels["fetch"],
             windrichtingen=self.df_bed_levels["direction"],
             tp_tspec=options.get("tp_tspec", 1.1),
         )
-
-        # Bereken curve
-        niveaus, ovkansqcr = WaveOvertoppingCalculation.calculate_overtopping_curve(
-            windspeed,
-            sectormin,
-            sectorsize,
-            overtopping,
-            basis_profiel,
-            qcr=profile_series["qcr"],
-            closing_situation=profile_series["closing_situation"],
-            options=options,
-            wave_provider=wave_provider,
-        )
-
-        self.hydraulicload = niveaus
-        self.failure_probability = ovkansqcr
-
-        self.data_adapter.output(output=output, df=self.as_dataframe())
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -181,6 +123,8 @@ class FragilityCurveOvertoppingBedlevelFetchMultiple(ToolboxBase):
         DataAdapter object
     df_slopes: Optional[pd.DataFrame] | None
         DataFrame met hellingsdata.
+    df_profile: Optional[pd.DataFrame] | None
+        DataFrame met profiel data.
     df_bed_levels: Optional[pd.DataFrame] | None
         DataFrame met bed level data.
     df_out: Optional[pd.DataFrame] | None
@@ -220,6 +164,7 @@ class FragilityCurveOvertoppingBedlevelFetchMultiple(ToolboxBase):
     # df_slopes, df_bed_levels, df_out, lower_limit, effect, measure_id
     data_adapter: DataAdapter
     df_slopes: Optional[pd.DataFrame] | None = None
+    df_profile: Optional[pd.DataFrame] | None = None
     df_bed_levels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
@@ -267,56 +212,69 @@ class FragilityCurveOvertoppingBedlevelFetchMultiple(ToolboxBase):
             "output", pd.DataFrame(), if_not_exist="create"
         )
 
-        df_out = []
-        for section_id in section_ids:
-            df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
-            df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
-            df_bed_levels = self.df_bed_levels[
-                self.df_bed_levels["section_id"] == section_id
-            ]
-
-            temp_data_adapter.config.global_variables[
-                "FragilityCurveOvertoppingBedlevelFetch"
-            ] = options
-
-            df_profile = df_profile.iloc[0].T
-            df_profile = df_profile.to_frame().rename(
-                columns={df_profile.name: "values"}
+        df_out = [
+            self._calculate_section(
+                section_id=section_id,
+                input=input,
+                options=options,
+                temp_data_adapter=temp_data_adapter,
             )
-
-            overrides = {
-                input[0]: {"type": "python", "dataframe_from_python": df_slopes},
-                input[1]: {"type": "python", "dataframe_from_python": df_profile},
-                input[2]: {
-                    "type": "python",
-                    "dataframe_from_python": df_bed_levels,
-                },
-                "output": {
-                    "type": "python",
-                    "dataframe_from_python": pd.DataFrame(),
-                },
-            }
-            with temp_data_adapter.temporary_adapters(overrides):
-                # dit zorgt ervoor dat het beheerdersoordeel ook mee kan worden genomen
-                fc_overtopping = self.fc_function(data_adapter=temp_data_adapter)
-                if self.effect is not None:
-                    fc_overtopping.run(
-                        input=[input[0], input[1], input[2]],
-                        output="output",
-                        effect=self.effect,
-                    )
-                else:
-                    fc_overtopping.run(
-                        input=[input[0], input[1], input[2]],
-                        output="output",
-                    )
-
-            df_fc_overtopping = fc_overtopping.as_dataframe()
-            df_fc_overtopping["section_id"] = section_id
-            df_out.append(df_fc_overtopping)
+            for section_id in section_ids
+        ]
 
         self.df_out = pd.concat(df_out, ignore_index=True)
         self.df_out["failuremechanismid"] = 2  # GEKB: komt uit de
         if self.measure_id is not None:
             self.df_out["measureid"] = self.measure_id
         self.data_adapter.output(output=output, df=self.df_out)
+
+    def _calculate_section(
+        self,
+        section_id: int,
+        input: list[str],
+        options: dict,
+        temp_data_adapter: DataAdapter,
+    ) -> pd.DataFrame:
+        df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
+        df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
+        df_bed_levels = self.df_bed_levels[
+            self.df_bed_levels["section_id"] == section_id
+        ]
+
+        temp_data_adapter.config.global_variables[
+            "FragilityCurveOvertoppingBedlevelFetch"
+        ] = options
+
+        df_profile = df_profile.iloc[0].T
+        df_profile = df_profile.to_frame().rename(columns={df_profile.name: "values"})
+
+        overrides = {
+            input[0]: {"type": "python", "dataframe_from_python": df_slopes},
+            input[1]: {"type": "python", "dataframe_from_python": df_profile},
+            input[2]: {
+                "type": "python",
+                "dataframe_from_python": df_bed_levels,
+            },
+            "output": {
+                "type": "python",
+                "dataframe_from_python": pd.DataFrame(),
+            },
+        }
+        with temp_data_adapter.temporary_adapters(overrides):
+            # dit zorgt ervoor dat het beheerdersoordeel ook mee kan worden genomen
+            fc_overtopping = self.fc_function(data_adapter=temp_data_adapter)
+            if self.effect is not None:
+                fc_overtopping.run(
+                    input=[input[0], input[1], input[2]],
+                    output="output",
+                    effect=self.effect,
+                )
+            else:
+                fc_overtopping.run(
+                    input=[input[0], input[1], input[2]],
+                    output="output",
+                )
+
+        df_fc_overtopping = fc_overtopping.as_dataframe()
+        df_fc_overtopping["section_id"] = section_id
+        return df_fc_overtopping

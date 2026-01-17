@@ -1,19 +1,17 @@
-from typing import Optional
+from typing import ClassVar, Optional
 
 import numpy as np
 import pandas as pd
 from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht import DataAdapter, FragilityCurve, ToolboxBase
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.fragility_curve_overtopping_base import (
+    FragilityCurveOvertoppingBase,
+)
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
-    build_pydra_profiles,
     get_overtopping_options,
     make_winddirections,
     parse_profile_dataframe,
-    validate_slopes,
-)
-from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_overtopping_calculation import (
-    WaveOvertoppingCalculation,
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
     WaveDataProvider,
@@ -22,25 +20,21 @@ from toolbox_continu_inzicht.utils.interpolate import bracketing_indices
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurveOvertoppingWaveData(FragilityCurve):
+class FragilityCurveOvertoppingWaveData(FragilityCurveOvertoppingBase):
     """
     Maakt een enkele fragility curve voor golfoverslag.
     Attributes
     ----------
     data_adapter: DataAdapter
         DataAdapter object
-    df_slopes: Optional[pd.DataFrame] | None
-        DataFrame met helling data.
-    df_profile: Optional[pd.DataFrame] | None
-        DataFrame met profiel data.
     df_waveval_uncert: Optional[pd.DataFrame] | None
         DataFrame met golfonzekerheden.
     df_waveval_id: Optional[pd.DataFrame] | None
         DataFrame met golf metadata.
     df_waveval: Optional[pd.DataFrame] | None
         DataFrame met golfdata.
-    df_out: Optional[pd.DataFrame] | None
-        DataFrame met de resultaten van de berekening.
+    options_key: ClassVar[str]
+        Config key voor overtopping opties.
 
     Notes
     -----
@@ -51,12 +45,10 @@ class FragilityCurveOvertoppingWaveData(FragilityCurve):
     """
 
     data_adapter: DataAdapter
-    df_slopes: Optional[pd.DataFrame] | None = None
-    df_profile: Optional[pd.DataFrame] | None = None
     df_waveval_uncert: Optional[pd.DataFrame] | None = None
     df_waveval_id: Optional[pd.DataFrame] | None = None
     df_waveval: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
+    options_key: ClassVar[str] = "FragilityCurveOvertoppingWaveData"
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -112,21 +104,7 @@ class FragilityCurveOvertoppingWaveData(FragilityCurve):
         """
         self.calculate_fragility_curve(input, output)
 
-    def calculate_fragility_curve(self, input: list[str], output: str) -> None:
-        """
-        Bereken de fragility curve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
-
-        Parameters
-        ----------
-        input: list[str]
-            Lijst namen van de input DataAdapters:
-            slopes, profile, waveval_unique_windspeed, waveval_unique_winddir,
-            waveval_unique_waveval_id en wavedata_filter
-        output: str
-            Naam van de DataAdapter Fragility curve output
-
-        """
-        # haal input op
+    def _load_inputs(self, input: list[str]) -> None:
         da = self.data_adapter
         self.df_slopes = da.input(input[0])
         self.df_profile = da.input(input[1])
@@ -134,40 +112,8 @@ class FragilityCurveOvertoppingWaveData(FragilityCurve):
         self.df_waveval_id = da.input(input[3])
         self.df_waveval = da.input(input[4])
 
-        profile_series = parse_profile_dataframe(self.df_profile)
-        validate_slopes(self.df_slopes)
-
-        global_variables = da.config.global_variables
-        options = get_overtopping_options(
-            global_variables, "FragilityCurveOvertoppingWaveData"
-        )
-
-        basis_profiel, overtopping = build_pydra_profiles(
-            self.df_slopes, profile_series
-        )
-
-        wave_provider = WaveDataProvider(
-            self.df_waveval_id,
-            self.df_waveval,
-        )
-
-        # Bereken curve
-        niveaus, ovkansqcr = WaveOvertoppingCalculation.calculate_overtopping_curve(
-            profile_series["windspeed"],
-            profile_series["sectormin"],
-            profile_series["sectorsize"],
-            overtopping,
-            basis_profiel,
-            qcr=profile_series["qcr"],
-            closing_situation=profile_series["closing_situation"],
-            options=options,
-            wave_provider=wave_provider,
-        )
-
-        self.hydraulicload = niveaus
-        self.failure_probability = ovkansqcr
-
-        da.output(output=output, df=self.as_dataframe())
+    def _build_wave_provider(self, options: dict) -> WaveDataProvider:
+        return WaveDataProvider(self.df_waveval_id, self.df_waveval)
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -228,79 +174,16 @@ class FragilityCurveOvertoppingWaveDataMultiple(ToolboxBase):
             global_variables, "FragilityCurveOvertoppingWaveData"
         )
 
-        df_out = []
         section_ids = self.df_profile.section_id.unique()
-        for section_id in section_ids:
-            df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
-            df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
-            hr_loc = int(self.df_section_hrloc["hr_locid"].at[(section_id, 2)])
-
-            # Wavevval model uncertainty
-            df_wv_uncert = self.df_wv_uncert[self.df_wv_uncert["hr_locid"] == hr_loc]
-
-            # Create profile series
-            df_profile = df_profile.iloc[0].T
-            df_profile = df_profile.to_frame().rename(
-                columns={df_profile.name: "values"}
+        df_out = [
+            self._calculate_section(
+                section_id=section_id,
+                input=input,
+                output=output,
+                options=options,
             )
-            profile_series = parse_profile_dataframe(df_profile)
-
-            # Determine windspeed bracket
-            windspeed = profile_series["windspeed"]
-            windrichtingen = make_winddirections(
-                profile_series["sectormin"],
-                profile_series["sectorsize"],
-            )
-
-            # Query waveval_id table for this hr location
-            with da.temporary_adapter_config(input[4], {"hr_locid": hr_loc}):
-                df_wvid = da.input(input[4])
-
-            # Unique windspeeds and winddirections for this hr location
-            uniq_windspeed = np.sort(df_wvid["windspeed"].unique())
-            uniq_winddir = np.sort(df_wvid["winddir"].unique())
-
-            # Get brackets for the governing windspeed and winddirection
-            i1a, i1b, _ = bracketing_indices(uniq_windspeed, windspeed)
-            ws_bracket = uniq_windspeed[[i1a, i1b]]
-            wd_bracket = []
-            for winddir in windrichtingen:
-                i2a, i2b, _ = bracketing_indices(uniq_winddir, winddir, wrap=True)
-                wd_bracket += [i2a, i2b]
-            wd_bracket = uniq_winddir[np.unique(wd_bracket)]
-
-            # Reduce waveval_id to the found brackets
-            df_wvid = df_wvid[
-                df_wvid.windspeed.isin(ws_bracket) & df_wvid.winddir.isin(wd_bracket)
-            ]
-
-            # Query waveval based on the found waveval_ids
-            uniq_wid = np.sort(df_wvid["waveval_id"].unique())
-            with da.temporary_adapter_config(input[5], {"waveval_bracket": uniq_wid}):
-                df_waveval = da.input(input[5])
-
-            # Calculate fragility curve
-            overrides = {
-                input[0]: {"type": "python", "dataframe_from_python": df_slopes},
-                input[1]: {"type": "python", "dataframe_from_python": df_profile},
-                input[3]: {"type": "python", "dataframe_from_python": df_wv_uncert},
-                input[4]: {"type": "python", "dataframe_from_python": df_wvid},
-                input[5]: {"type": "python", "dataframe_from_python": df_waveval},
-                output: {"type": "python", "dataframe_from_python": pd.DataFrame()},
-            }
-            with da.temporary_adapters(overrides):
-                da.config.global_variables["FragilityCurveOvertoppingWaveData"] = (
-                    options
-                )
-                fc_overtopping = self.fc_function(data_adapter=da)
-                fc_overtopping.run(
-                    input=[input[0], input[1], input[3], input[4], input[5]],
-                    output=output,
-                )
-
-                df_fc_overtopping = fc_overtopping.as_dataframe()
-                df_fc_overtopping["section_id"] = section_id
-                df_out.append(df_fc_overtopping)
+            for section_id in section_ids
+        ]
 
         # Concat fragility curves and add mechanism and measure id
         self.df_out = pd.concat(df_out, ignore_index=True)
@@ -309,3 +192,78 @@ class FragilityCurveOvertoppingWaveDataMultiple(ToolboxBase):
             self.df_out["measureid"] = self.measure_id
 
         da.output(output=output, df=self.df_out)
+
+    def _calculate_section(
+        self,
+        section_id: int,
+        input: list[str],
+        output: str,
+        options: dict,
+    ) -> pd.DataFrame:
+        da = self.data_adapter
+        df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
+        df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
+        hr_loc = int(self.df_section_hrloc["hr_locid"].at[(section_id, 2)])
+
+        # Wavevval model uncertainty
+        df_wv_uncert = self.df_wv_uncert[self.df_wv_uncert["hr_locid"] == hr_loc]
+
+        # Create profile series
+        df_profile = df_profile.iloc[0].T
+        df_profile = df_profile.to_frame().rename(columns={df_profile.name: "values"})
+        profile_series = parse_profile_dataframe(df_profile)
+
+        # Determine windspeed bracket
+        windspeed = profile_series["windspeed"]
+        windrichtingen = make_winddirections(
+            profile_series["sectormin"],
+            profile_series["sectorsize"],
+        )
+
+        # Query waveval_id table for this hr location
+        with da.temporary_adapter_config(input[4], {"hr_locid": hr_loc}):
+            df_wvid = da.input(input[4])
+
+        # Unique windspeeds and winddirections for this hr location
+        uniq_windspeed = np.sort(df_wvid["windspeed"].unique())
+        uniq_winddir = np.sort(df_wvid["winddir"].unique())
+
+        # Get brackets for the governing windspeed and winddirection
+        i1a, i1b, _ = bracketing_indices(uniq_windspeed, windspeed)
+        ws_bracket = uniq_windspeed[[i1a, i1b]]
+        wd_bracket = []
+        for winddir in windrichtingen:
+            i2a, i2b, _ = bracketing_indices(uniq_winddir, winddir, wrap=True)
+            wd_bracket += [i2a, i2b]
+        wd_bracket = uniq_winddir[np.unique(wd_bracket)]
+
+        # Reduce waveval_id to the found brackets
+        df_wvid = df_wvid[
+            df_wvid.windspeed.isin(ws_bracket) & df_wvid.winddir.isin(wd_bracket)
+        ]
+
+        # Query waveval based on the found waveval_ids
+        uniq_wid = np.sort(df_wvid["waveval_id"].unique())
+        with da.temporary_adapter_config(input[5], {"waveval_bracket": uniq_wid}):
+            df_waveval = da.input(input[5])
+
+        # Calculate fragility curve
+        overrides = {
+            input[0]: {"type": "python", "dataframe_from_python": df_slopes},
+            input[1]: {"type": "python", "dataframe_from_python": df_profile},
+            input[3]: {"type": "python", "dataframe_from_python": df_wv_uncert},
+            input[4]: {"type": "python", "dataframe_from_python": df_wvid},
+            input[5]: {"type": "python", "dataframe_from_python": df_waveval},
+            output: {"type": "python", "dataframe_from_python": pd.DataFrame()},
+        }
+        with da.temporary_adapters(overrides):
+            da.config.global_variables["FragilityCurveOvertoppingWaveData"] = options
+            fc_overtopping = self.fc_function(data_adapter=da)
+            fc_overtopping.run(
+                input=[input[0], input[1], input[3], input[4], input[5]],
+                output=output,
+            )
+
+            df_fc_overtopping = fc_overtopping.as_dataframe()
+            df_fc_overtopping["section_id"] = section_id
+            return df_fc_overtopping
