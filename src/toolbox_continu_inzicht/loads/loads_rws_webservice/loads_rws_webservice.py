@@ -95,11 +95,15 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
             else:
                 raise UserWarning("measurement_location_code moeten getallen zijn")
 
+        # TODO: omgooien zodat we met codes werken ipv ids net als matroos
         # we werken nu nog op basis van de locaties ids, met de niewue api kan dit beter naar codes
         # met de meet locatie code's selecteren we de informatie uit de catalogus
         wanted_locations = df_available_locations.loc[wanted_measuringstationcode_ints]
-        # voeg de wanted_location toe aan de global variables toe
+        self.df_in["measurement_location_code"] = self.df_in[
+            "measurement_location_code"
+        ].astype(int)
         self.df_in.set_index("measurement_location_code", inplace=True)
+        # voeg de wanted_location toe aan de global variables toe
         for index in wanted_measuringstationcode_ints:
             self.df_in.loc[index, "measurement_location_code_name"] = (
                 wanted_locations.loc[index, "Code"]
@@ -108,7 +112,7 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
         # zet tijd goed
         calc_time = global_variables["calc_time"]
 
-        # TODO: DIT GAAT VERANDEREN - zie TBCI-154
+        # DIT is VERANDERd - zie TBCI-154
         # https://rijkswaterstaatdata.nl/projecten/beta-waterwebservices/#:~:text=00.000%2B01%3A00%22%7D%7D-,Voorbeelden,-Een%20aantal%20specifieke
         # Verwachte waterstand over een uur
         # Elke 6 uur worden er waterstanden voorspeld op basis van het weer.
@@ -217,9 +221,12 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
                 # dit is een beetje verwarrend, moet nog worden aangepast
                 # TODO: streamline use of code, id an code_name -> move to only code like in the new api
                 measurement_location_code = serie["Locatie"]["Code"]
-                measurement_location_id = df_in[
+                measurement_location_code_df = df_in[
                     df_in["measurement_location_code_name"] == measurement_location_code
-                ].iloc[0]["measurement_location_id"]
+                ]
+                measurement_location_id = measurement_location_code_df.iloc[0][
+                    "measurement_location_id"
+                ]
 
                 measurement_location_name = serie["Locatie"]["Naam"]
                 parameter_code = serie["AquoMetadata"]["Grootheid"]["Code"]

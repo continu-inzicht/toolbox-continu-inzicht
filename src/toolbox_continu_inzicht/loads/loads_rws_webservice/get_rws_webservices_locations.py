@@ -2,6 +2,7 @@ import pandas as pd
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
 
+# TODO: add caching for debugging: assumption that on a given day the locations do not change
 def get_rws_webservices_locations():
     """Haal locaties op die bekend zijn bij de RWS webservice."""
 
