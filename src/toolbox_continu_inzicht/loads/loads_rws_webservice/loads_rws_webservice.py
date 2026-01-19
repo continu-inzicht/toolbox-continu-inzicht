@@ -21,7 +21,7 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
 
     Notes
     -----
-    Link: [https://waterwebservices.rijkswaterstaat.nl/](https://waterwebservices.rijkswaterstaat.nl/)
+    Link: [https://ddapi20-waterwebservices.rijkswaterstaat.nl/](https://ddapi20-waterwebservices.rijkswaterstaat.nl/)
 
     Attributes
     ----------
@@ -41,7 +41,7 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    url_retrieve_observations: str = "https://waterwebservices.rijkswaterstaat.nl/ONLINEWAARNEMINGENSERVICES_DBO/OphalenWaarnemingen"
+    url_retrieve_observations: str = "https://ddapi20-waterwebservices.rijkswaterstaat.nl/ONLINEWAARNEMINGENSERVICES/OphalenWaarnemingen"
 
     def run(self, input: str, output: str) -> None:
         """
@@ -95,8 +95,15 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
             else:
                 raise UserWarning("measurement_location_code moeten getallen zijn")
 
+        # we werken nu nog op basis van de locaties ids, met de niewue api kan dit beter naar codes
         # met de meet locatie code's selecteren we de informatie uit de catalogus
         wanted_locations = df_available_locations.loc[wanted_measuringstationcode_ints]
+        # voeg de wanted_location toe aan de global variables toe
+        self.df_in.set_index("measurement_location_code", inplace=True)
+        for index in wanted_measuringstationcode_ints:
+            self.df_in.loc[index, "measurement_location_code_name"] = (
+                wanted_locations.loc[index, "Code"]
+            )
 
         # zet tijd goed
         calc_time = global_variables["calc_time"]
@@ -111,12 +118,20 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
 
         # maak een lijst met jsons met de info die we opvragen aan de API
         # herhaal dit ook met waarmeningen, niet alleen verwachtingen
+
+        # https://rijkswaterstaatdata.nl/projecten/waterwebservices-overschakeling/
+        # De speciale grootheden ‘WATHTEVERWACHT’ en 'QVERWACHT' komen niet meer voor. I
         lst_json = []
-        if "WATHTE" in options["parameters"]:
-            options["parameters"].append("WATHTEVERWACHT")
+        # if "WATHTE" in options["parameters"]:
+        #     options["parameters"].append("WATHTEVERWACHT")
+
+        # Filter op procestype. Zoals meting, astronomisch of verwacht;
+        # Als je bij het opvragen van gegevens enkel metingen wil (en geen modelverwachtingen)
+        # kun je het volgende filter aan je request toevoegen;
+        proces_type = options.get("proces_type", None)
         for parameter in options["parameters"]:
             lst_json += self.create_json_list(
-                parameter, calc_time, global_variables, wanted_locations
+                parameter, calc_time, global_variables, wanted_locations, proces_type
             )
 
         # haal de de data op & maak een dataframe
@@ -199,13 +214,12 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
             # als er geen data is, zit er geen waarnemingen lijst in
             if "WaarnemingenLijst" in serie_in:
                 serie = serie_in["WaarnemingenLijst"][0]
-                # dit is een beetje verwarrend, maar de Location_MessageID is wel uniek, de CODE niet: vandaar dat we de id en code hier wisselen.
-                measurement_location_id = serie["Locatie"]["Locatie_MessageID"]
+                # dit is een beetje verwarrend, moet nog worden aangepast
+                # TODO: streamline use of code, id an code_name -> move to only code like in the new api
+                measurement_location_code = serie["Locatie"]["Code"]
                 measurement_location_id = df_in[
-                    df_in["measurement_location_code"].apply(lambda x: str(x))
-                    == str(measurement_location_id)
+                    df_in["measurement_location_code_name"] == measurement_location_code
                 ].iloc[0]["measurement_location_id"]
-                measurement_location_code = serie["Locatie"]["Locatie_MessageID"]
 
                 measurement_location_name = serie["Locatie"]["Naam"]
                 parameter_code = serie["AquoMetadata"]["Grootheid"]["Code"]
@@ -254,6 +268,7 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
         calc_time: datetime,
         global_variables: dict,
         locations: pd.DataFrame,
+        proces_type: str | None = None,
     ) -> list:
         """
         Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.
@@ -268,6 +283,8 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
             De globale variabelen uit de invoer yaml.
         locations : pd.DataFrame
             Dataframe met de gewenste locaties.
+        proces_type : str | None, optional
+            Het proces type (zoals meting, astronomisch of verwacht), by default None
 
         Returns
         -------
@@ -276,25 +293,26 @@ class LoadsWaterwebservicesRWS(ToolboxBase):
         """
         lst_json = []
         moments = global_variables["moments"]
-        code_eenheid = "cm"
+        # code_eenheid = "cm"
         code_compartiment = "OW"
-
+        proces_type = global_variables.get("procestype", None)
         for _, row in locations.iterrows():
             if len(moments) > 0:
                 starttime = calc_time + timedelta(hours=int(moments[0]))
                 endtime = calc_time + timedelta(hours=int(moments[-1]))
-                x = getattr(row, "X")
-                y = getattr(row, "Y")
+                # x = getattr(row, "Lat")
+                # y = getattr(row, "Lon")
                 locatie = getattr(row, "Code")
+                aquo_meta_data = {
+                    "Compartiment": {"Code": code_compartiment},
+                    "Grootheid": {"Code": measurement},
+                    # "Eenheid": {"Code": code_eenheid},
+                }
+                if proces_type:
+                    aquo_meta_data["Procestype"] = proces_type
                 json = {
-                    "Locatie": {"X": x, "Y": y, "Code": locatie},
-                    "AquoPlusWaarnemingMetadata": {
-                        "AquoMetadata": {
-                            "Compartiment": {"Code": code_compartiment},
-                            "Grootheid": {"Code": measurement},
-                            "Eenheid": {"Code": code_eenheid},
-                        }
-                    },
+                    "Locatie": {"Code": locatie},
+                    "AquoPlusWaarnemingMetadata": {"AquoMetadata": aquo_meta_data},
                     "Periode": {
                         "Begindatumtijd": starttime.strftime(
                             "%Y-%m-%dT%H:%M:%S.000+00:00"
