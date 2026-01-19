@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -200,7 +200,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#installatie-instructies" id="toc-installatie-instructies" class="nav-link active" data-scroll-target="#installatie-instructies">Installatie-instructies</a>
   <ul class="collapse">
   <li><a href="#vervanging" id="toc-vervanging" class="nav-link" data-scroll-target="#vervanging">Vervanging</a></li>
-  <li><a href="#losstaande-modules" id="toc-losstaande-modules" class="nav-link" data-scroll-target="#losstaande-modules">Losstaande modules</a></li>
+  <li><a href="#losstaande-modules" id="toc-losstaande-modules" class="nav-link" data-scroll-target="#losstaande-modules">Losstaande modules</a>
+  <ul class="collapse">
+  <li><a href="#alleen-delen-van-de-toolbox-gebruiken" id="toc-alleen-delen-van-de-toolbox-gebruiken" class="nav-link" data-scroll-target="#alleen-delen-van-de-toolbox-gebruiken">Alleen delen van de toolbox gebruiken</a></li>
+  </ul></li>
   <li><a href="#als-ontwikkelaar" id="toc-als-ontwikkelaar" class="nav-link" data-scroll-target="#als-ontwikkelaar">Als ontwikkelaar</a></li>
   </ul></li>
   </ul>
@@ -227,9 +230,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="losstaande-modules" class="level2">
 <h2 class="anchored" data-anchor-id="losstaande-modules">Losstaande modules</h2>
 <p>Om de toolbox als losstaande modules te gebruiken kan je de code downloaden van <a href="https://pypi.org/project/toolbox-continu-inzicht/">PyPi</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install toolbox<span class="op">-</span>continu<span class="op">-</span>inzicht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install toolbox<span class="op">-</span>continu<span class="op">-</span>inzicht[<span class="bu">all</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Vanwege het aantal afhankelijkheden is het aan te raden om een nieuwe conda environment te gebruiken. Hiervoor kan gebruik gemaakt worden van de <code>requirements.yaml</code> in de source map op GitHub. Met het volgende conda commando kan deze worden geïnstalleerd.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--file</span><span class="op">=</span>https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/refs/heads/main/src/requirements.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="alleen-delen-van-de-toolbox-gebruiken" class="level3">
+<h3 class="anchored" data-anchor-id="alleen-delen-van-de-toolbox-gebruiken">Alleen delen van de toolbox gebruiken</h3>
+<p>Verschillende modules hebben ook verschillende afhankelijkheden, voor geavanceerde gebuikers kan het fijn zijn om niet alle afhankelijkeheden te instaleren. Om deze reden kunnen de verschillende modules ook los worden geinstalleerd:</p>
+<ul>
+<li><code>pip install toolbox_continu_inzicht[fragility_curves]</code></li>
+<li><code>pip install toolbox_continu_inzicht[loads]</code></li>
+<li><code>pip install toolbox_continu_inzicht[inspections]</code></li>
+<li><code>pip install toolbox_continu_inzicht[sections]</code></li>
+<li><code>pip install toolbox_continu_inzicht[io]</code></li>
+<li><code>pip install toolbox_continu_inzicht[flood_scenarios]</code></li>
+</ul>
+<p>Het commando <code>pip install toolbox-continu-inzicht[all]</code> doet voert alle bovenstaande commandos uit.</p>
+<p>Om te testen of dit goed werkt staat een test plan beschreven in de repo <a href="https://github.com/continu-inzicht/test-package-installation">test-package-installation</a>.</p>
+</section>
 </section>
 <section id="als-ontwikkelaar" class="level2">
 <h2 class="anchored" data-anchor-id="als-ontwikkelaar">Als ontwikkelaar</h2>
@@ -245,9 +262,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="installeer-python-packages-met-pixi" class="level4">
 <h4 class="anchored" data-anchor-id="installeer-python-packages-met-pixi">Installeer python packages met pixi</h4>
 <p>Met het <code>Pixi</code> commando in powershell kun je vervolgens de juiste python bestanden installeren:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="bu">cd</span> ..../toolbox-continu-inzicht</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="bu">cd</span> ..<span class="dt">\t</span>oolbox-continu-inzicht</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">pixi</span> install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Dit kan even duren, Pixi gebruikt het <code>pixi.lock</code> bestand om de juiste packages te laden en zet deze in de <code>.pixi</code> map.</p>
+</section>
+<section id="jupyterlab" class="level4">
+<h4 class="anchored" data-anchor-id="jupyterlab">JupyterLab</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run jupyter lab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Of selecteer de juiste Python-instantie: <code>..\.pixi\envs\default\python.exe</code> in je ontwikkelomgeving. In VS Code kan dit met <code>Ctrl + shift + p</code> dan <code>Python: Select Interpreter</code>.</p>
 <p>Zie de <a href="https://continu-inzicht.github.io/toolbox-continu-inzicht/contributing.html">‘Richtlijnen voor bijdragen aan Toolbox Continu Inzicht’</a> voor meer informatie.</p>
 
 

@@ -69,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -169,6 +169,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#dijkvak" id="toc-dijkvak" class="nav-link" data-scroll-target="#dijkvak">Dijkvak</a></li>
   <li><a href="#fragility-curves" id="toc-fragility-curves" class="nav-link" data-scroll-target="#fragility-curves">Fragility curves</a></li>
   <li><a href="#inspectieresultaten" id="toc-inspectieresultaten" class="nav-link" data-scroll-target="#inspectieresultaten">Inspectieresultaten</a></li>
+  <li><a href="#overstromingsrisico" id="toc-overstromingsrisico" class="nav-link" data-scroll-target="#overstromingsrisico">Overstromingsrisico</a></li>
   <li><a href="#continu-inzicht-adapters-invoer" id="toc-continu-inzicht-adapters-invoer" class="nav-link" data-scroll-target="#continu-inzicht-adapters-invoer">Continu Inzicht Adapters (invoer)</a></li>
   <li><a href="#continu-inzicht-adapters-uitvoer" id="toc-continu-inzicht-adapters-uitvoer" class="nav-link" data-scroll-target="#continu-inzicht-adapters-uitvoer">Continu Inzicht Adapters (uitvoer)</a></li>
   </ul></li>
@@ -197,10 +198,6 @@ ul.task-list li input[type="checkbox"] {
 <td>Basis DataAdapter</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/proof_of_concept.example_module.html#toolbox_continu_inzicht.proof_of_concept.example_module">proof_of_concept.example_module</a></td>
-<td></td>
-</tr>
-<tr class="even">
 <td><a href="../reference/FragilityCurve.html#toolbox_continu_inzicht.FragilityCurve">FragilityCurve</a></td>
 <td>Class met een aantal gemakkelijke methoden om fragility curves</td>
 </tr>
@@ -348,6 +345,18 @@ ul.task-list li input[type="checkbox"] {
 <td><a href="../reference/IntegrateFragilityCurveMultiple.html#toolbox_continu_inzicht.fragility_curves.IntegrateFragilityCurveMultiple">IntegrateFragilityCurveMultiple</a></td>
 <td>Integreert een waterniveau overschrijdingsfrequentielijn met een fragility curve voor reeks aan secties</td>
 </tr>
+<tr class="even">
+<td><a href="../reference/LoadCachedFragilityCurveOneFailureMechanism.html#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurveOneFailureMechanism">LoadCachedFragilityCurveOneFailureMechanism</a></td>
+<td>Maakt het mogelijk om een vooraf berekende (cached) fragility curve in te laden.</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/LoadCachedFragilityCurve.html#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve">LoadCachedFragilityCurve</a></td>
+<td>Maakt het mogelijk om een vooraf berekende (cached) fragility curve in te laden.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/LoadCachedFragilityCurveMultiple.html#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurveMultiple">LoadCachedFragilityCurveMultiple</a></td>
+<td>Maakt het mogelijk om een vooraf berekende (cached) fragility curve in te laden.</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -367,6 +376,29 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td><a href="../reference/ClassifyInspections.html#toolbox_continu_inzicht.inspections.ClassifyInspections">ClassifyInspections</a></td>
 <td>Classificeert inspectieresultaten om weer te geven in de viewer.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="overstromingsrisico" class="level2">
+<h2 class="anchored" data-anchor-id="overstromingsrisico">Overstromingsrisico</h2>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><a href="../reference/CalculateFloodScenarioProbability.html#toolbox_continu_inzicht.flood_scenarios.CalculateFloodScenarioProbability">CalculateFloodScenarioProbability</a></td>
+<td>Met deze functie worden scenariokansen berekend uit de kansen per sectie en per faalmechanisme.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/LoadFromFloodScenarioProbability.html#toolbox_continu_inzicht.flood_scenarios.LoadFromFloodScenarioProbability">LoadFromFloodScenarioProbability</a></td>
+<td>Met deze functie wordt de belasting van een scenario bepaald</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/SelectFloodScenarioFromLoad.html#toolbox_continu_inzicht.flood_scenarios.SelectFloodScenarioFromLoad">SelectFloodScenarioFromLoad</a></td>
+<td>Met deze functie wordt een representatief scenario bepaald gegeven een belasting.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/CalculateFloodRisk.html#toolbox_continu_inzicht.flood_scenarios.CalculateFloodRisk">CalculateFloodRisk</a></td>
+<td>Met deze functie wordt een representatief scenario bepaald gegeven een belasting.</td>
 </tr>
 </tbody>
 </table>

@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Belastinggegevens ophalen van rijkswaterstaat waterwebservices</p>
 <section id="notes" class="level2 doc-section doc-section-notes">
 <h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
-<p>Link: <a href="https://waterwebservices.rijkswaterstaat.nl/">https://waterwebservices.rijkswaterstaat.nl/</a></p>
+<p>Link: <a href="https://ddapi20-waterwebservices.rijkswaterstaat.nl/">https://ddapi20-waterwebservices.rijkswaterstaat.nl/</a></p>
 </section>
 <section id="attributes" class="level2 doc-section doc-section-attributes">
 <h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
@@ -358,16 +358,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    calc_time,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    global_variables,</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    locations,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    proces_type<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Maak een lijst van FEWS parameters om mee te sturen bij het ophalen van data.</p>
 <section id="parameters-1" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 19%">
 <col style="width: 15%">
-<col style="width: 51%">
-<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 63%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -401,6 +402,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>pd.DataFrame</td>
 <td>Dataframe met de gewenste locaties.</td>
 <td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>proces_type</td>
+<td>str | None</td>
+<td>Het proces type (zoals meting, astronomisch of verwacht), by default None</td>
+<td><code>None</code></td>
 </tr>
 </tbody>
 </table>

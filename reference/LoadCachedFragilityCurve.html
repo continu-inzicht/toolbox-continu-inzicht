@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>proof_of_concept.example_module – Toolbox Continu Inzicht</title>
+<title>loadcachedfragilitycurve – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -174,12 +174,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#toolbox_continu_inzicht.proof_of_concept.example_module" id="toc-toolbox_continu_inzicht.proof_of_concept.example_module" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.proof_of_concept.example_module">proof_of_concept.example_module</a>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve" id="toc-toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve">LoadCachedFragilityCurve</a>
   <ul class="collapse">
-  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo" id="toc-toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo">ValuesDivideTwo</a></li>
-  <li><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo" id="toc-toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo">ValuesTimesTwo</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.log_exceptions" id="toc-toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.log_exceptions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.log_exceptions">log_exceptions</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache" id="toc-toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache">retrieve_cache</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache_for_multiple_failure_mechanisms" id="toc-toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache_for_multiple_failure_mechanisms" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache_for_multiple_failure_mechanisms">retrieve_cache_for_multiple_failure_mechanisms</a></li>
+  <li><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.run" id="toc-toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.run">run</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -191,11 +195,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module" class="level1">
-<h1>proof_of_concept.example_module</h1>
-<p><code>proof_of_concept.example_module</code></p>
-<section id="classes" class="level2">
-<h2 class="anchored" data-anchor-id="classes">Classes</h2>
+<section id="toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve" class="level1">
+<h1>LoadCachedFragilityCurve</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.LoadCachedFragilityCurve()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Maakt het mogelijk om een vooraf berekende (cached) fragility curve in te laden.</p>
+<p>Deze class doet het voor een enkel vak curve, voor een meerdere faalmechanisme.</p>
+<hr>
+<p>data_adapter : DataAdapter Adapter for handling data input and output operations. df_in : Optional[pd.DataFrame] | None Input DataFrame containing fragility curves with multiple measure_ids df_out : Optional[pd.DataFrame] | None Output DataFrame containing the final fragility curve loaded_curve : Optional[FragilityCurve] | None Ingeladen fragility curve met cached curves cache_fragility_curve_schema : ClassVar[dict[str, str]] Schema waaraan de fragility curve moet voldoen.</p>
+<pre><code>- failure_mechanism_id: int,
+- measure_id: int,
+- hydraulicload: float,
+- failure_probability: float</code></pre>
+<p>measure_id_to_failuremechanism_id_schema : ClassVar[dict[str, str]] Schema waaraan de koppelingstabel tussen measure_id en failuremechanism_id moet voldoen.</p>
+<pre><code>- failure_mechanism_id: int,
+- measure_id: int</code></pre>
+<section id="notes" class="level2 doc-section doc-section-notes">
+<h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
+<p>Default waarden te overschrijven in de global variables:</p>
+<ul>
+<li>default_measure_id: int Standaard measure_id die gebruikt wordt als basis fragility curve, standaard 0.</li>
+</ul>
+</section>
+<section id="attributes" class="level2">
+<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -205,26 +227,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo">ValuesDivideTwo</a></td>
-<td>Voorbeeld class die laat zien hoe de architectuur werkt door waardes delen door twee te doen</td>
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.cache_fragility_curve_schema">cache_fragility_curve_schema</a></td>
+<td>dict() -&gt; new empty dictionary</td>
 </tr>
 <tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo">ValuesTimesTwo</a></td>
-<td>Voorbeeld class die laat zien hoe de architectuur werkt door waardes keer twee te doen</td>
+<td><a href="#toolbox_continu_inzicht.fragility_curves.load_cached_fragility_curve.LoadCachedFragilityCurve.data_adapter">data_adapter</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.df_in">df_in</a></td>
+<td>The type of the None singleton.</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.df_out">df_out</a></td>
+<td>The type of the None singleton.</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.failuremechanism_id_to_measure_id_schema">failuremechanism_id_to_measure_id_schema</a></td>
+<td>dict() -&gt; new empty dictionary</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.loaded_curve">loaded_curve</a></td>
+<td>The type of the None singleton.</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.measure_to_effect_schema">measure_to_effect_schema</a></td>
+<td>dict() -&gt; new empty dictionary</td>
 </tr>
 </tbody>
 </table>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo">ValuesDivideTwo</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Voorbeeld class die laat zien hoe de architectuur werkt door waardes delen door twee te doen</p>
-<section id="attributes" class="level4 doc-section doc-section-attributes">
-<h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h4>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache">retrieve_cache</a></td>
+<td>Functie om hergebruik toe te staan van LoadCachedFragilityCurveOneFailureMechanism door LoadCachedFragilityCurve</td>
+</tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache_for_multiple_failure_mechanisms">retrieve_cache_for_multiple_failure_mechanisms</a></td>
+<td>Functie om hergebruik toe te staan van LoadCachedFragilityCurve door LoadCachedFragilityCurveMultiple</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.run">run</a></td>
+<td>Runt de het ophalen van een voorberekende fragility curve voor een enkel vak, voor een meerdere faalmechanisme.</td>
+</tr>
+</tbody>
+</table>
+<section id="toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.log_exceptions" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.log_exceptions">log_exceptions</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.LoadCachedFragilityCurve.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache">retrieve_cache</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.LoadCachedFragilityCurve.retrieve_cache(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    df_fragility_curves,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    df_measures_to_effect,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    measure_id,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Functie om hergebruik toe te staan van LoadCachedFragilityCurveOneFailureMechanism door LoadCachedFragilityCurve</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache_for_multiple_failure_mechanisms" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.retrieve_cache_for_multiple_failure_mechanisms">retrieve_cache_for_multiple_failure_mechanisms</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.LoadCachedFragilityCurve.retrieve_cache_for_multiple_failure_mechanisms(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df_fragility_curves,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    df_measures_to_effect,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    measure_id,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Functie om hergebruik toe te staan van LoadCachedFragilityCurve door LoadCachedFragilityCurveMultiple</p>
+</section>
+<section id="toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.fragility_curves.LoadCachedFragilityCurve.run">run</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fragility_curves.LoadCachedFragilityCurve.run(<span class="bu">input</span>, output, measure_id<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Runt de het ophalen van een voorberekende fragility curve voor een enkel vak, voor een meerdere faalmechanisme.</p>
+<section id="parameters" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 35%">
-<col style="width: 49%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 92%">
+<col style="width: 2%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>input</td>
+<td>list[str]</td>
+<td>- Als string: Naam van de input dataadapter: fragility curves, hierbij zijn de fragility curves voor een faalmechanisme en dijkvak, maar meerdere measureids. - Als list van strings: 1. Naam van de input dataadapter: fragility curves, hierbij zijn de fragility curves voor een faalmechanisme en dijkvak, maar meerdere measureids. 2. Naam van de input dataadapter: koppelingstabel tussen measure_id en failuremechanism_id</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>output</td>
+<td>str</td>
+<td>Naam van de dataadapter voor de enkele Fragility curve output.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>measure_id</td>
+<td>int | None</td>
+<td>Measure_id van de fragility curve die ingeladen moet worden.</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="raises" class="level4 doc-section doc-section-raises">
+<h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises">Raises</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 20%">
+<col style="width: 69%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -235,153 +368,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td>data_adapter</td>
-<td>DataAdapter</td>
-<td>De data adapter die de input en output regelt</td>
-</tr>
-<tr class="even">
-<td>df_in</td>
-<td>Optional[pd.DataFrame] | None</td>
-<td>De input data</td>
-</tr>
-<tr class="odd">
-<td>df_out</td>
-<td>Optional[pd.DataFrame] | None</td>
-<td>De output data</td>
-</tr>
-<tr class="even">
-<td>input_schema</td>
-<td>ClassVar[dict[str, str]]</td>
-<td>De input schema</td>
+<td></td>
+<td>AssertionError</td>
+<td>Als <code>input</code> een string is, maar <code>measure_id</code> is None.</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="methods" class="level4">
-<h4 class="anchored" data-anchor-id="methods">Methods</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.divide_two">divide_two</a></td>
-<td>Vermenigvuldigd de meetstation waardes met 2 als voorbeeld</td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.log_exceptions">log_exceptions</a></td>
-<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.run">run</a></td>
-<td>Runt de functies en stuur de df terug</td>
-</tr>
-</tbody>
-</table>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.divide_two" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.divide_two">divide_two</h5>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo.divide_two(dataframe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Vermenigvuldigd de meetstation waardes met 2 als voorbeeld</p>
-</section>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.log_exceptions" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.log_exceptions">log_exceptions</h5>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
-</section>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.run" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesDivideTwo.run">run</h5>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesDivideTwo.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Runt de functies en stuur de df terug</p>
-</section>
-</section>
-</section>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo">ValuesTimesTwo</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Voorbeeld class die laat zien hoe de architectuur werkt door waardes keer twee te doen</p>
-<section id="attributes-1" class="level4 doc-section doc-section-attributes">
-<h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-1">Attributes</h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 35%">
-<col style="width: 49%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>data_adapter</td>
-<td>DataAdapter</td>
-<td>De data adapter die de input en output regelt</td>
-</tr>
-<tr class="even">
-<td>df_in</td>
-<td>Optional[pd.DataFrame] | None</td>
-<td>De input data</td>
-</tr>
-<tr class="odd">
-<td>df_out</td>
-<td>Optional[pd.DataFrame] | None</td>
-<td>De output data</td>
-</tr>
-<tr class="even">
-<td>input_schema</td>
-<td>ClassVar[dict[str, str]]</td>
-<td>De input schema</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="methods-1" class="level4">
-<h4 class="anchored" data-anchor-id="methods-1">Methods</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.log_exceptions">log_exceptions</a></td>
-<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
-</tr>
-<tr class="even">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.run">run</a></td>
-<td>Runt de funcies en stuur de df terug</td>
-</tr>
-<tr class="odd">
-<td><a href="#toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.times_two">times_two</a></td>
-<td>Deelt de meetstation waardes door 2 als voorbeeld</td>
-</tr>
-</tbody>
-</table>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.log_exceptions" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.log_exceptions">log_exceptions</h5>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
-</section>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.run" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.run">run</h5>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Runt de funcies en stuur de df terug</p>
-</section>
-<section id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.times_two" class="level5">
-<h5 class="anchored" data-anchor-id="toolbox_continu_inzicht.proof_of_concept.example_module.ValuesTimesTwo.times_two">times_two</h5>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>proof_of_concept.example_module.ValuesTimesTwo.times_two(dataframe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Deelt de meetstation waardes door 2 als voorbeeld</p>
+<section id="notes-1" class="level4 doc-section doc-section-notes">
+<h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes-1">Notes</h4>
 
 
-</section>
 </section>
 </section>
 </section>

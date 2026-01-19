@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../../assets/styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -222,6 +222,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/6.fragility_curve_from_cache.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fragility Curve uit een cache</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/7.rekentest_flood_scenarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Real-time of what-if overstromingsrisico’s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gebruik van logging</span></a>
   </div>
@@ -297,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="voorbeeld-met-csv">Voorbeeld met CSV</h2>
 <p>Het uitgangspunt van een architectuur is dat de verschillende functies werken met verschillende data formaten. Om dit mogelijk te maken wordt gebruik gemaakt van data adapters. Deze lezen data die de functie in gaat en schrijven het vervolgens weg. Om duidelijk te maken in welk formaat je weg wilt schrijven of wilt inlezen wordt gebruik gemaakt van een configuratie bestand. Dit is een <code>.yaml</code> bestand, hieronder wordt een voorbeeld gegeven hoe je dit zou opzetten met het configuratie bestand <code>test_config.yaml</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/1.proof_of_concept"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
@@ -320,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Een heel aantal data adapters worden standaard ondersteund en je kan makkelijk je eigen data adapter toevoegen. Onder het kopje <a href="../../modules/architectuur.html">modules/architectuur</a> in de documentatie vindt je meer informatie over data adapters.</p>
 <p>Onder <code>GlobalVariables</code> zijn instellingen voor specifieke functies te vinden, maar ook instellingen die in meerdere functies gebruikt worden. Bijvoorbeeld de huidige berekening tijd (<code>calc_time</code>) of de tijden waarvoor voorspellingen worden berekend (<code>moments</code>).</p>
 <p>De configuratie kunnen we inlezen:</p>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"data_sets/test_config.yaml"</span>)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"data_sets/1.proof_of_concept/test_config.yaml"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>En de config mee geven aan de data adapter die we gebruiken</p>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> DataAdapter</span>

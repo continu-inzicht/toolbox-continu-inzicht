@@ -69,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -196,6 +196,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#sprint-4-0.1.0" id="toc-sprint-4-0.1.0" class="nav-link" data-scroll-target="#sprint-4-0.1.0">Sprint 4 [0.1.0]</a></li>
   <li><a href="#sprint-5-0.1.1" id="toc-sprint-5-0.1.1" class="nav-link" data-scroll-target="#sprint-5-0.1.1">Sprint 5 [0.1.1]</a></li>
   <li><a href="#v0.1.2-0.1.2" id="toc-v0.1.2-0.1.2" class="nav-link" data-scroll-target="#v0.1.2-0.1.2">V0.1.2 [0.1.2]</a></li>
+  <li><a href="#inhoudelijk-3" id="toc-inhoudelijk-3" class="nav-link" data-scroll-target="#inhoudelijk-3">Inhoudelijk</a></li>
+  <li><a href="#maatregelen" id="toc-maatregelen" class="nav-link" data-scroll-target="#maatregelen">Maatregelen</a></li>
+  <li><a href="#overstromingsrisicos" id="toc-overstromingsrisicos" class="nav-link" data-scroll-target="#overstromingsrisicos">Overstromingsrisico’s</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -311,9 +314,27 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="v0.1.2-0.1.2" class="level3">
 <h3 class="anchored" data-anchor-id="v0.1.2-0.1.2">V0.1.2 [<a href="https://pypi.org/project/toolbox-continu-inzicht/0.1.2/">0.1.2</a>]</h3>
-<p>Kleine aanpassingen om onnodige packages op te ruimen en folium optioneel te maken.</p>
+</section>
+<section id="inhoudelijk-3" class="level3">
+<h3 class="anchored" data-anchor-id="inhoudelijk-3">Inhoudelijk</h3>
+<p>Alle aanpassingen zijn te vinden in pull request <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/57">#57</a></p>
+<p>In sprint 6 (na jaar 2025) zijn twee onderwerpen opgepakt: Toepassen van maatregelen en toevoegen van Overstromingsrisico’s</p>
+</section>
+<section id="maatregelen" class="level3">
+<h3 class="anchored" data-anchor-id="maatregelen">Maatregelen</h3>
+<p>Het is nu mogelijk om gegeven een maatregel de fragility curve in een vak aan te passen naar een voorberekende curve. Indien de voorberekende curve er niet is, wordt de huidige curve verschoven.</p>
+</section>
+<section id="overstromingsrisicos" class="level3">
+<h3 class="anchored" data-anchor-id="overstromingsrisicos">Overstromingsrisico’s</h3>
+<p>Met de overstromingsscenario’s kan de huidige overstromingskans uitgedrukt worden in een overstromingsrisico door de gevolgen in kaart te brengen. Deze kans kan geaggregeerd worden naar een gebied.</p>
+<section id="technisch-1" class="level4">
+<h4 class="anchored" data-anchor-id="technisch-1">Technisch</h4>
+<p>Om de test-kaarten van overstromingsrisico ook op dezelfde plek op te slaan, gebruiken we Git LFS. Wellicht moet als de hoeveelheid test-data blijft groeien, dit naar een andere repo. Dit is echter alleen voor development van belang.</p>
+<p>De documentatie-map is wat opgeschoond met één map per notebook, zo kan je de relevante data sneller vinden.</p>
+<p>Kleine aanpassing in de data adapter (<code>check_rootdir</code>) om nu ook de rootdir op te slaan in de global variables. Deze kan dan later gebruikt worden; voor de overstromingsscenario kaarten was dit handig. In de toekomst is het misschien beter om daar later een speciaal type adapter voor te maken.</p>
 
 
+</section>
 </section>
 </section>
 </section>

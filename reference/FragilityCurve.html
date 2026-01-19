@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -183,10 +183,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#toolbox_continu_inzicht.FragilityCurve.as_dataframe" id="toc-toolbox_continu_inzicht.FragilityCurve.as_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.as_dataframe">as_dataframe</a></li>
   <li><a href="#toolbox_continu_inzicht.FragilityCurve.calculate_fragility_curve" id="toc-toolbox_continu_inzicht.FragilityCurve.calculate_fragility_curve" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.calculate_fragility_curve">calculate_fragility_curve</a></li>
   <li><a href="#toolbox_continu_inzicht.FragilityCurve.check_monotonic_curve" id="toc-toolbox_continu_inzicht.FragilityCurve.check_monotonic_curve" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.check_monotonic_curve">check_monotonic_curve</a></li>
+  <li><a href="#toolbox_continu_inzicht.FragilityCurve.copy" id="toc-toolbox_continu_inzicht.FragilityCurve.copy" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.copy">copy</a></li>
   <li><a href="#toolbox_continu_inzicht.FragilityCurve.find_jump_indices" id="toc-toolbox_continu_inzicht.FragilityCurve.find_jump_indices" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.find_jump_indices">find_jump_indices</a></li>
   <li><a href="#toolbox_continu_inzicht.FragilityCurve.from_dataframe" id="toc-toolbox_continu_inzicht.FragilityCurve.from_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.from_dataframe">from_dataframe</a></li>
-  <li><a href="#toolbox_continu_inzicht.FragilityCurve.interp_func" id="toc-toolbox_continu_inzicht.FragilityCurve.interp_func" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.interp_func">interp_func</a></li>
+  <li><a href="#toolbox_continu_inzicht.FragilityCurve.hydraulic_load_from_failure_probability" id="toc-toolbox_continu_inzicht.FragilityCurve.hydraulic_load_from_failure_probability" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.hydraulic_load_from_failure_probability">hydraulic_load_from_failure_probability</a></li>
+  <li><a href="#toolbox_continu_inzicht.FragilityCurve.interp_x_func" id="toc-toolbox_continu_inzicht.FragilityCurve.interp_x_func" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.interp_x_func">interp_x_func</a></li>
+  <li><a href="#toolbox_continu_inzicht.FragilityCurve.interp_y_func" id="toc-toolbox_continu_inzicht.FragilityCurve.interp_y_func" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.interp_y_func">interp_y_func</a></li>
   <li><a href="#toolbox_continu_inzicht.FragilityCurve.load" id="toc-toolbox_continu_inzicht.FragilityCurve.load" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.load">load</a></li>
+  <li><a href="#toolbox_continu_inzicht.FragilityCurve.load_effect_from_data_adapter" id="toc-toolbox_continu_inzicht.FragilityCurve.load_effect_from_data_adapter" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.load_effect_from_data_adapter">load_effect_from_data_adapter</a></li>
+  <li><a href="#toolbox_continu_inzicht.FragilityCurve.load_effect_from_dataframe" id="toc-toolbox_continu_inzicht.FragilityCurve.load_effect_from_dataframe" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.load_effect_from_dataframe">load_effect_from_dataframe</a></li>
   <li><a href="#toolbox_continu_inzicht.FragilityCurve.log_exceptions" id="toc-toolbox_continu_inzicht.FragilityCurve.log_exceptions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.log_exceptions">log_exceptions</a></li>
   <li><a href="#toolbox_continu_inzicht.FragilityCurve.refine" id="toc-toolbox_continu_inzicht.FragilityCurve.refine" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.refine">refine</a></li>
   <li><a href="#toolbox_continu_inzicht.FragilityCurve.reliability_update" id="toc-toolbox_continu_inzicht.FragilityCurve.reliability_update" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.FragilityCurve.reliability_update">reliability_update</a></li>
@@ -212,9 +217,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 15%">
-<col style="width: 20%">
-<col style="width: 63%">
+<col style="width: 5%">
+<col style="width: 13%">
+<col style="width: 80%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -245,19 +250,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Ondergrens voor de interpolatie van de faalkans, standaard 1e-200</td>
 </tr>
 <tr class="odd">
-<td>interp_func</td>
+<td>interp_x_func</td>
 <td>Callable</td>
-<td>Functie waarmee geinterpoleerd wordt</td>
+<td>Functie waarmee x waardes geinterpoleerd worden</td>
 </tr>
 <tr class="even">
+<td>interp_y_func</td>
+<td>Callable</td>
+<td>Functie waarmee y waardes geinterpoleerd worden</td>
+</tr>
+<tr class="odd">
 <td>enforce_monotonic</td>
 <td>bool</td>
 <td>Forceert monotoon stijgende faalkansen, standaard True</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>fragility_curve_schema</td>
 <td>ClassVar[dict[str, str]]</td>
 <td>Schema waaraan de fragility curve moet voldoen:{hydraulicload: float, failure_probability: float}</td>
+</tr>
+<tr class="odd">
+<td>cached_fragility_curves</td>
+<td>Optional[dict[str | int, str | pd.DataFrame]] | None</td>
+<td>Cache voor fragility curves die al zijn berekend, de key is een string of int met een bijbehorende DataAdapter naam Afhankelijk van de implementatie kan deze cache worden gebruikt om fragility curves in te laden zonder deze opnieuw te berekenen. De logica om de selectie van de cache te kiezen moet op een hoger abstractieniveau worden ge�mplementeerd.</td>
+</tr>
+<tr class="even">
+<td>measure_to_effect</td>
+<td>Optional[dict[str | int, float]] | None</td>
+<td>Mapping van maatregel id’s naar effect waarden (float) om verschuivingen van de fragility curve te bepalen. Deze mapping kan worden gebruikt in combinatie met de ‘shift’ methode om fragility curves aan te passen op basis van specifieke maatregelen.</td>
 </tr>
 </tbody>
 </table>
@@ -289,42 +309,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Forceert monotoon stijgende faalkansen</td>
 </tr>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.FragilityCurve.copy">copy</a></td>
+<td>Maak een kopie van de fragility curve</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.FragilityCurve.find_jump_indices">find_jump_indices</a></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.FragilityCurve.from_dataframe">from_dataframe</a></td>
 <td>Zet een dataframe om naar een fragility curve</td>
 </tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.FragilityCurve.hydraulic_load_from_failure_probability">hydraulic_load_from_failure_probability</a></td>
+<td>Zoek de hydraulische belasting behorende bij een faalkans</td>
+</tr>
 <tr class="odd">
-<td><a href="#toolbox_continu_inzicht.FragilityCurve.interp_func">interp_func</a></td>
+<td><a href="#toolbox_continu_inzicht.FragilityCurve.interp_x_func">interp_x_func</a></td>
 <td>interpolate_1d met y-waardes omgezet naar log-waardes</td>
 </tr>
 <tr class="even">
+<td><a href="#toolbox_continu_inzicht.FragilityCurve.interp_y_func">interp_y_func</a></td>
+<td>interpolate_1d met x-waardes omgezet naar log-waardes</td>
+</tr>
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.FragilityCurve.load">load</a></td>
 <td>Laadt een fragility curve in</td>
 </tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.FragilityCurve.load_effect_from_data_adapter">load_effect_from_data_adapter</a></td>
+<td>Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden</td>
+</tr>
 <tr class="odd">
+<td><a href="#toolbox_continu_inzicht.FragilityCurve.load_effect_from_dataframe">load_effect_from_dataframe</a></td>
+<td>Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden</td>
+</tr>
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.FragilityCurve.log_exceptions">log_exceptions</a></td>
 <td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.FragilityCurve.refine">refine</a></td>
 <td>Interpoleert de fragility curve op de gegeven waterstanden</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.FragilityCurve.reliability_update">reliability_update</a></td>
 <td>Voer een versimpelde reliability updating uit</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.FragilityCurve.run">run</a></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#toolbox_continu_inzicht.FragilityCurve.shift">shift</a></td>
 <td>Schuift de hydraulische belasting van de fragility curve op om</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#toolbox_continu_inzicht.FragilityCurve.sort_curve">sort_curve</a></td>
 <td>Sorteert de fragility curve eerst op waterstand en vervolgens op faalkans</td>
 </tr>
@@ -349,21 +389,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.check_monotonic_curve()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Forceert monotoon stijgende faalkansen</p>
 </section>
+<section id="toolbox_continu_inzicht.FragilityCurve.copy" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.copy">copy</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Maak een kopie van de fragility curve</p>
+</section>
 <section id="toolbox_continu_inzicht.FragilityCurve.find_jump_indices" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.find_jump_indices">find_jump_indices</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.find_jump_indices()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.find_jump_indices()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.from_dataframe" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.from_dataframe">from_dataframe</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.from_dataframe(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.from_dataframe(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Zet een dataframe om naar een fragility curve</p>
 </section>
-<section id="toolbox_continu_inzicht.FragilityCurve.interp_func" class="level3">
-<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.interp_func">interp_func</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.interp_func(x, xp, fp, ll<span class="op">=</span><span class="fl">1e-200</span>, clip01<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>interpolate_1d met y-waardes omgezet naar log-waardes</p>
+<section id="toolbox_continu_inzicht.FragilityCurve.hydraulic_load_from_failure_probability" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.hydraulic_load_from_failure_probability">hydraulic_load_from_failure_probability</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.hydraulic_load_from_failure_probability(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    failure_probability_value,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Zoek de hydraulische belasting behorende bij een faalkans</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 7%">
+<col style="width: 55%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>failure_probability_value</td>
+<td>float</td>
+<td>Faalkans waarvoor de hydraulische belasting gezocht wordt</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>float</td>
+<td>Hydraulische belasting behorende bij de faalkans</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.FragilityCurve.interp_x_func" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.interp_x_func">interp_x_func</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.interp_x_func(x, xp, fp, ll<span class="op">=</span><span class="fl">1e-200</span>, clip01<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>interpolate_1d met y-waardes omgezet naar log-waardes</p>
+<section id="parameters-1" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 7%">
@@ -413,8 +511,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="returns" class="level4 doc-section doc-section-returns">
-<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<section id="returns-1" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-1">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>np.array</td>
+<td>geinterpoleerde vector</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.FragilityCurve.interp_y_func" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.interp_y_func">interp_y_func</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.interp_y_func(y, xp, fp, ll<span class="op">=</span><span class="fl">1e-200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>interpolate_1d met x-waardes omgezet naar log-waardes</p>
+<section id="parameters-2" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 70%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>y</td>
+<td>np.ndarray</td>
+<td>Y-waardes waarop geinterpoleerd moet worden</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>xp</td>
+<td>np.ndarray</td>
+<td>Referentievector van x-waardes</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td>fp</td>
+<td>np.ndarray</td>
+<td>Referentievector van y-waardes</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>ll</td>
+<td>float</td>
+<td>Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien</td>
+<td><code>1e-200</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns-2" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-2">Returns</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -435,25 +602,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.load" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.load">load</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.load(<span class="bu">input</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.load(<span class="bu">input</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Laadt een fragility curve in</p>
+</section>
+<section id="toolbox_continu_inzicht.FragilityCurve.load_effect_from_data_adapter" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.load_effect_from_data_adapter">load_effect_from_data_adapter</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.load_effect_from_data_adapter(cached_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden</p>
+</section>
+<section id="toolbox_continu_inzicht.FragilityCurve.load_effect_from_dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.load_effect_from_dataframe">load_effect_from_dataframe</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.load_effect_from_dataframe(cached_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Gebruik een zelf opgegeven DataAdapter om de fragility curve in te laden</p>
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.log_exceptions" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.log_exceptions">log_exceptions</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.refine" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.refine">refine</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.refine(new_hydraulicload, add_steps<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.refine(new_hydraulicload, add_steps<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Interpoleert de fragility curve op de gegeven waterstanden</p>
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.reliability_update" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.reliability_update">reliability_update</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.reliability_update(update_level, trust_factor<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.reliability_update(update_level, trust_factor<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Voer een versimpelde reliability updating uit</p>
-<section id="parameters-1" class="level4 doc-section doc-section-parameters">
-<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
+<section id="parameters-3" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-3">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 13%">
@@ -488,16 +665,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.run" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.run">run</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.run(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.run(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.shift" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.shift">shift</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.shift(effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.shift(effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Schuift de hydraulische belasting van de fragility curve op om bijvoorbeeld het effect van een noodmaatregel te implementeren. Een positieve verschuiving levert bij dezelfde faalkans dan een hogere hydraulische belasting op. Of bij dezelfde hydraulische belasting een lagere faalkans.</p>
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.sort_curve" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.sort_curve">sort_curve</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.sort_curve()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.sort_curve()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Sorteert de fragility curve eerst op waterstand en vervolgens op faalkans</p>
 
 

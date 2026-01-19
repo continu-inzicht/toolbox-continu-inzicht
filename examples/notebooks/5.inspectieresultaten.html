@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../../assets/styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -222,6 +222,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/6.fragility_curve_from_cache.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fragility Curve uit een cache</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/7.rekentest_flood_scenarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Real-time of what-if overstromingsrisico’s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gebruik van logging</span></a>
   </div>
@@ -262,21 +274,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.config <span class="im">import</span> Config</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> DataAdapter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-2" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"5.inspectieresultaten"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"example_inspection.yaml"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"inspections_results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -342,8 +348,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 
-</div>
-</div>
 </div>
 <p>Filter resultaten uit de input tabel:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
@@ -355,16 +359,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">drop_columns</span><span class="kw">:</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> </span><span class="st">"waterschap"</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> </span><span class="st">"location_id"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-5" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.inspections.<span class="bu">filter</span> <span class="im">import</span> Filter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">filter</span> <span class="op">=</span> Filter(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">filter</span>.run(<span class="bu">input</span><span class="op">=</span><span class="st">"inspections_results"</span>, output<span class="op">=</span><span class="st">"filter_resultaten"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">filter</span>.df_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -412,19 +410,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
 <p>De gefilterde tabel kunnen we vervolgens classificeren<br> Als we geen opmaak informatie meegeven in de input wordt de standaard opmaak toegepast</p>
-<div id="cell-9" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.inspections.inspections <span class="im">import</span> ClassifyInspections</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-10" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>classify_inspections <span class="op">=</span> ClassifyInspections(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>classify_inspections.run(<span class="bu">input</span><span class="op">=</span><span class="st">"filter_resultaten"</span>, output<span class="op">=</span><span class="st">"classify_resultaten"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-11" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>classify_inspections.df_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -440,13 +430,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">tijd</th>
 <th data-quarto-table-cell-role="th">geometry</th>
 <th data-quarto-table-cell-role="th">symbol</th>
-<th data-quarto-table-cell-role="th">opacity</th>
 <th data-quarto-table-cell-role="th">weight</th>
-<th data-quarto-table-cell-role="th">fillOpacity</th>
-<th data-quarto-table-cell-role="th">color</th>
-<th data-quarto-table-cell-role="th">fillColor</th>
 <th data-quarto-table-cell-role="th">radius</th>
+<th data-quarto-table-cell-role="th">fillOpacity</th>
 <th data-quarto-table-cell-role="th">dashArray</th>
+<th data-quarto-table-cell-role="th">fillColor</th>
+<th data-quarto-table-cell-role="th">opacity</th>
+<th data-quarto-table-cell-role="th">color</th>
 </tr>
 </thead>
 <tbody>
@@ -460,13 +450,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>15:48</td>
 <td>POINT (5.4516 52.5407)</td>
 <td>CircleMarker</td>
-<td>1.0</td>
 <td>3.0</td>
-<td>0.2</td>
-<td>#9e9e9e</td>
-<td>#9e9e9e</td>
 <td>10.0</td>
+<td>0.2</td>
 <td>NaN</td>
+<td>#9e9e9e</td>
+<td>1.0</td>
+<td>#9e9e9e</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -478,13 +468,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>15:50</td>
 <td>POINT (5.4076 52.49764)</td>
 <td>CircleMarker</td>
-<td>1.0</td>
 <td>3.0</td>
-<td>0.2</td>
-<td>#9e9e9e</td>
-<td>#9e9e9e</td>
 <td>10.0</td>
+<td>0.2</td>
 <td>NaN</td>
+<td>#9e9e9e</td>
+<td>1.0</td>
+<td>#9e9e9e</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -496,24 +486,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>09:02</td>
 <td>POINT (5.61624 52.60279)</td>
 <td>CircleMarker</td>
-<td>1.0</td>
 <td>3.0</td>
-<td>0.2</td>
-<td>#9e9e9e</td>
-<td>#9e9e9e</td>
 <td>10.0</td>
+<td>0.2</td>
 <td>NaN</td>
+<td>#9e9e9e</td>
+<td>1.0</td>
+<td>#9e9e9e</td>
 </tr>
 </tbody>
 </table>
 
 </div>
-</div>
-</div>
 <p>Als we wel styling mee geven wordt dit toegepast</p>
-<div id="cell-13" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"styling_example"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -570,8 +556,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
 <p>In de config moeten we alleen de kolom opgeven waarop geclassificeerd wordt.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
@@ -579,15 +563,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ClassifyInspections</span><span class="kw">:</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">classify_column</span><span class="kw">:</span><span class="at"> </span><span class="st">"prioriteit"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-15" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>classify_inspections_styling <span class="op">=</span> ClassifyInspections(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>classify_inspections_styling.run(</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"filter_resultaten"</span>, <span class="st">"styling_example"</span>], output<span class="op">=</span><span class="st">"classify_resultaten"</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-16" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>classify_inspections_styling.df_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
 
@@ -604,12 +584,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">geometry</th>
 <th data-quarto-table-cell-role="th">symbol</th>
 <th data-quarto-table-cell-role="th">color</th>
-<th data-quarto-table-cell-role="th">fillOpacity</th>
-<th data-quarto-table-cell-role="th">opacity</th>
-<th data-quarto-table-cell-role="th">fillColor</th>
 <th data-quarto-table-cell-role="th">radius</th>
-<th data-quarto-table-cell-role="th">weight</th>
+<th data-quarto-table-cell-role="th">fillOpacity</th>
 <th data-quarto-table-cell-role="th">dashArray</th>
+<th data-quarto-table-cell-role="th">fillColor</th>
+<th data-quarto-table-cell-role="th">opacity</th>
+<th data-quarto-table-cell-role="th">weight</th>
 </tr>
 </thead>
 <tbody>
@@ -624,12 +604,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>POINT (5.4516 52.5407)</td>
 <td>CircleMarker</td>
 <td>#a9070f</td>
-<td>0.2</td>
-<td>1.0</td>
-<td>#9e9e9e</td>
 <td>10.0</td>
-<td>3.0</td>
+<td>0.2</td>
 <td>NaN</td>
+<td>#9e9e9e</td>
+<td>1.0</td>
+<td>3.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -642,12 +622,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>POINT (5.4076 52.49764)</td>
 <td>CircleMarker</td>
 <td>#0760a9</td>
-<td>0.2</td>
-<td>1.0</td>
-<td>#9e9e9e</td>
 <td>10.0</td>
-<td>3.0</td>
+<td>0.2</td>
 <td>NaN</td>
+<td>#9e9e9e</td>
+<td>1.0</td>
+<td>3.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -660,23 +640,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>POINT (5.61624 52.60279)</td>
 <td>CircleMarker</td>
 <td>#9e9e9e</td>
-<td>0.2</td>
-<td>1.0</td>
-<td>#9e9e9e</td>
 <td>10.0</td>
-<td>3.0</td>
+<td>0.2</td>
 <td>NaN</td>
+<td>#9e9e9e</td>
+<td>1.0</td>
+<td>3.0</td>
 </tr>
 </tbody>
 </table>
 
 </div>
-</div>
-</div>
 <p>Stel we willen naast <code>color</code> ook <code>fillColor</code> toevoegen en een Marker met symbool in plaats van rondje, dan zetten we deze kolom ook in de opmaak tabel</p>
-<div id="cell-18" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"more_styling_example"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -743,18 +719,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
-<div id="cell-19" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>classify_inspections_more_styling <span class="op">=</span> ClassifyInspections(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>classify_inspections_more_styling.run(</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"filter_resultaten"</span>, <span class="st">"more_styling_example"</span>], output<span class="op">=</span><span class="st">"classify_resultaten"</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>En dan zien we dat fillColor nu ook geclassificeerd is:</p>
-<div id="cell-21" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"inspections_results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
 <div>
 
 
@@ -821,11 +791,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
-<div id="cell-22" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>classify_inspections_more_styling.df_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -841,8 +807,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">tijd</th>
 <th data-quarto-table-cell-role="th">geometry</th>
 <th data-quarto-table-cell-role="th">symbol</th>
-<th data-quarto-table-cell-role="th">color</th>
 <th data-quarto-table-cell-role="th">fillColor</th>
+<th data-quarto-table-cell-role="th">color</th>
 <th data-quarto-table-cell-role="th">opacity</th>
 </tr>
 </thead>
@@ -893,36 +859,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
 <p>Dit is al een geo object wat we hier kunnen tonen</p>
-<div id="cell-24" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-25" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> classify_inspections_more_styling.df_out.plot()</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>gpd.read_file(path <span class="op">/</span> <span class="st">"provincie_flevoland.geojson"</span>).plot(</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">"white"</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>, zorder<span class="op">=-</span><span class="dv">1</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="5.inspectieresultaten_files/figure-html/cell-19-output-1.png" width="420" height="411" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
+<p><img src="5.inspectieresultaten_files/figure-html/cell-19-output-1.png" width="420" height="411"></p>
 <p>Voor de viewer is een legenda tabel ook nuttig, deze kan als extra output worden opgegeven</p>
-<div id="cell-27" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>classify_inspections_more_styling <span class="op">=</span> ClassifyInspections(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>classify_inspections_more_styling.run(</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"filter_resultaten"</span>, <span class="st">"more_styling_example"</span>],</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>[<span class="st">"classify_resultaten"</span>, <span class="st">"legenda"</span>],</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-28" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>classify_inspections_more_styling.df_legend_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 
 
@@ -994,25 +944,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
 <p>Vervolgens kan de output van de inspecties klaar gezet worden voor de database</p>
-<div id="cell-30" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.inspections.inspections <span class="im">import</span> InspectionsToDatabase</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-31" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>inspections_to_database <span class="op">=</span> InspectionsToDatabase(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>inspections_to_database.run(</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"classify_resultaten"</span>, <span class="st">"legenda"</span>],</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"example_to_database"</span>,</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
 <pre><code>Skipping field tijd: unsupported OGR type: 10</code></pre>
-</div>
-</div>
-<div id="cell-32" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>inspections_to_database.df_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
 <div>
 
 
@@ -1042,12 +982,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
 <p>Als we niks op geven in de als <code>layers</code> wordt er automatisch een aantal standaard opties overgenomen</p>
-<div id="cell-34" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>inspections_to_database.df_in_layers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
 
@@ -1073,12 +1009,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
 <p>Deze kan ook uitgebreider</p>
-<div id="cell-36" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"layers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
 <div>
 
 
@@ -1145,8 +1077,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 
-</div>
-</div>
 </div>
 <div class="sourceCode" id="cb29"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
@@ -1154,19 +1084,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">InspectionsToDatabase</span><span class="kw">:</span></span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">index</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-38" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>inspections_to_database <span class="op">=</span> InspectionsToDatabase(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>inspections_to_database.run(</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"classify_resultaten"</span>, <span class="st">"legenda"</span>, <span class="st">"layers"</span>],</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"example_to_database"</span>,</span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
 <pre><code>Skipping field tijd: unsupported OGR type: 10</code></pre>
-</div>
-</div>
-<div id="cell-39" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>inspections_to_database.df_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="27">
 <div>
 
 
@@ -1234,18 +1158,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
 <p>Tot nu toe was alles lokaal naar csv, maar dit kan juist naar de database</p>
-<div id="cell-41" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"example_inspection_db.yaml"</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-42" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"example_inspection_db.yaml"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>inspections_to_database.df_in_layers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="29">
 <div>
 
 
@@ -1313,16 +1230,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-</div>
-</div>
 <p><em>Omdat database interactie op GitHub niet mogelijk wordt de onderstaande cell niet uitgevoerd, lokaal kan dit uiteraard wel</em></p>
-<div id="cell-44" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspections_to_database = InspectionsToDatabase(data_adapter=data_adapter)</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># inspections_to_database.run(</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     input=["classify_resultaten", "legenda", "layers"],</span></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     output="to_ci_database",</span></span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
 
