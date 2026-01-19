@@ -6,7 +6,6 @@ from pathlib import Path
 alias_dict = {
     "waterlevel": "WATHTE",
     "water height": "WATHTE",
-    "WATHTEVERWACHT": "WATHTE",
     "waterhoogte": "WATHTE",
     "wind": "WINDSHD",
     "golfhoogte": "GOLFHTE",

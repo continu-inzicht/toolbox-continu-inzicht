@@ -1,4 +1,4 @@
-"""Belasting module for toolbox continu inzicht"""
+# Belasting module for toolbox continu inzicht
 
 # op alfabetische volgorde van module toevoegen
 from toolbox_continu_inzicht.loads.loads_ci_whatif.loads_ci_whatif import (

@@ -1,0 +1,314 @@
+---
+title: "Overstromingsrisico scenarios"
+---
+
+Risico's worden berekend door kansen te combineren met gevolgen. In de toolbox Continu Inzicht worden fragilitycurves gebruikt om de conditionele kans op falen van een sectie (per faalmechanisme) te bepalen. De gevolgen van een overstroming worden bepaald met behulp van overstromingsscenarioberekeningen, ook wel aangeduid met scenario's. Uit een overstroomd gebied worden gevolgen afgeleid zoals economische schade, slachtoffers, en getroffenen. <br>
+Door conditionele kansen met gevolgen te combineren kunnen conditionele risico's worden bepaald, bestaande uit de verwachte economische schade van een gebied, het verwachte aantal slachtoffers en/of getroffen in een gebied en/of de plaatsgebonden overstromingskans van een locatie. <br>
+
+Deze risico's kunnen helpen om prioriteiten te stellen tijdens een hoogewatern, waarbij er niet alleen een kans of een afzonderlijk gevolg wordt beschouwd. <br>
+
+Om de scenarios te kunnen combineren moeten er een aantal stappen worden doorlopen:
+- Omrekenen van dijkvakkansen naar trajectdeelkansen ([CalculateFloodScenarioProbability](#sec-CalculateFloodScenarioProbability))
+- Belasting per deeltraject bepalen ([LoadFromFloodScenarioProbabilit](#sec-LoadFromFloodScenarioProbabilit))
+- Met de belasting een bijpassende overstromingscenario selecteren ([SelectFloodScenarioFromLoad ](#sec-SelectFloodScenarioFromLoad))
+- Van het scenario en de curve een geagregeerd risico bepalen ([CalculateFloodRisk](#sec-CalculateFloodRisk))
+
+
+```mermaid
+graph TD
+    A[CalculateFloodScenarioProbability] --> B[LoadFromFloodScenarioProbabilit]
+    B --> C[SelectFloodScenarioFromLoad]
+    C --> D[CalculateFloodRisk]
+```
+
+## CalculateFloodScenarioProbability{sec-CalculateFloodScenarioProbability}
+
+Voor het berekenen van overstromingsrisico scenarios moeten de faalkansen van vakken gecobineerd worden tot faalkansen die vergeleken kunnen worden met de kansen van overstromingsscenario's. Hierbij wordt gebruik gemaakt van de gecombineerde kans van het vak en deze worden gecombineerd naar traject delen.
+
+```mermaid
+graph TD
+    A1[Dijkvak/section] --> D[Dijktraject deel/segment]
+    B1[Dijkvak/section] --> D
+    B2[Dijkvak/section] --> D
+    C1[Dijkvak/section] --> E[Dijktraject deel/segment]
+    C2[Dijkvak/section] --> E
+    E --> F
+    D --> F[Overstromingskans gebied/Dikesystem]
+```
+
+Dit voorbeeld laat zien hoe met behulp van de `CalculateFloodScenarioProbability` scenariokansen berekend worden uit kansen per sectie en per faalmachanisme. <br>
+Eerst worden de kansen per sectie en faalmachanisme ingeladen `input_probabilities_failuremechanisme_sections`, daarna worden deze gecombineerd naar een kans over alle secties (voorheen aangeduid als de ringkans) per faalmechanisme. Daarna worden de kansen over alle secties per faalmechanisme gecombineerd naar 1 kans over alle secties en over alle faalmechanismen. <br>
+Deze volgorde (eerst combineren over alle sectie en daarna over alle faalmechanismen) is bewust gekozen omdat per faalmechanisme verschillende met andere correlaties wordt gerekend. Voor het faalmechanisme GEKB wordt verondersteld dat alle secties volledig afhankelijk falen en voor de overige faalmechanismen wordt verondersteld dat de secties volledig onafhankelijk falen. Door gekozen volgorde bij het combineren van faalkansen aan te houden, kan dit onderscheid geborgd worden. Tussen de verschillende faalmechanismen wordt volledige onafhankelijkheid verondersteld. N.B. in een volledige probabilistische berekening (waarbij niet met fragility curves wordt gerekend) kan de daadwerkelijke correlatie worden berekend en is het ook mogelijk om te rekenen met gedeeltelijke afhankelijkheid. Dat is in een werkwijze met fragilitycurves niet mogelijk. <br>
+
+
+::: {.panel-tabset}
+## Configuratie
+```yaml|
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [-24,0,24,36]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    input_failuremechanism:
+        type: csv
+        file: "failuremechanism.csv"
+    input_probabilities_failuremechanisme_sections:
+        type: csv
+        file: "probabilities_failuremechanisme_sections.csv"
+    input_sections_in_segment:
+        type: csv
+        file: "sections_in_segment.csv"
+    output_scenario_failure_prob_segments:
+        type: csv
+        index: false
+        file: "scenario_failure_prob_segments.csv"
+    output_combined_failure_prob_all_sections:
+        type: csv
+        index: false
+        file: "combined_failure_prob_all_sections.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.flood_scenarios import CalculateFloodScenarioProbability
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+calculate_flood_scenario_probability = CalculateFloodScenarioProbability(
+    data_adapter=data_adapter
+)
+calculate_flood_scenario_probability.run(
+    input=[
+        "input_failuremechanism",
+        "input_probabilities_failuremechanisme_sections",
+        "input_sections_in_segment",
+    ],
+    output=[
+        "output_scenario_failure_prob_segments",
+        "output_combined_failure_prob_all_sections",
+    ],
+)
+```
+:::
+
+
+## LoadFromFloodScenarioProbability{sec-LoadFromFloodScenarioProbability}
+
+Voor het bepalen van de risico van een overstroming is het nodig om een bijpassend overstromingsscenario te selecteren. Er zijn meerdere overstromingsscenario's beschikbaar die verschillende hydraulische belastingen representeren. <br>
+In de vorige stap `CalculateFloodScenarioProbability` is een scenariokans van een deeltraject (segment) berekend `scenario_failure_prob_segments`. Hiermee kan een bijpassend overstromingsscenario worden geselecteerd. Hiertoe is het nodig om de hydraulische belasting per deeltraject te bepalen met de `LoadFromFloodScenarioProbability`. Dat gebeurt met behulp van de fragilitycurves. Hiertoe is het noodzakelijk om 1 representatieve fragilitycurve per deeltraject te selecteren uit `section_fragility_curves`. Dat doen we door voor elk deeltraject (segment) 1 sectie te selecteren `section_to_segment`. De fragilitycurve van deze sectie wordt dan gebruikt om de scenariekans van het deeltraject (segement) om te zetten in een hydraulische belasting, die daarna gebruikt kan worden om een bijpassend overstromingsscenario te selecteren voor het deeltraject (segment).
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 36 ]
+    LoadFromFloodScenarioProbability:
+        failuremechanism_id_combined: 1
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    scenario_failure_prob_segments:
+        type: csv
+        file: "scenario_failure_prob_segments.csv"
+    section_to_segment:
+        type: csv
+        file: "section_to_segment.csv"
+    section_fragility_curves:
+        type: csv
+        file: "fragilitycurves.csv"
+    output_scenario_loads:
+        type: csv
+        path: "scenario_loads.csv"
+
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.flood_scenarios import LoadFromFloodScenarioProbability
+
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+load_from_flood_scenario_probability = LoadFromFloodScenarioProbability(
+    data_adapter=data_adapter
+
+load_from_flood_scenario_probability.run(
+    input=[
+        "input_scenario_failure_prob_segments",
+        "input_section_to_segment",
+        "input_section_fragility_curves",
+    ],
+    output="output_scenario_loads",
+)
+```
+:::
+
+## SelectFloodScenarioFromLoad{sec-SelectFloodScenarioFromLoad}
+
+Met de maatgevende belastingen per trajectdeel (resultaat van [LoadFromFloodScenarioProbability](#sec-LoadFromFloodScenarioProbability)), kan een bijbehorend scenario worden geselecteerd.
+Hiervoor is metadata per bres nodig. Hierbij wordt voor de volgende functie alvast de koppeling gemaakt met de bijbehorende grids. Deze grids per scenario worden in [CalculateFloodRisk](#sec-CalculateFloodRisk) gebruikt om het overstromingsrisico te bepalen gegeven de huidige belasting.
+
+De eerste data adapter is de output van `LoadFromFloodScenarioProbability` met daarin per dijktraject id (`segment_id`) de bijbehorende belasting en bres id (`hydraulicload`,`section_id`).
+
+De tweede data adapter bevat per bres id (`section_id`) een bijbehorende maximale belasting waarvoor een scenario geldig is (`hydraulicload_upperboundary`).
+Op basis van deze belasting wordt een koppeling gemaakt van de huidige belasting naar een scenario.
+Hierbij is de standaardoptie om maar één resultaat per dijktraject terug te geven.
+Hierbij moet de waterstand overschreden zijn waarbij het scenario hoort.
+Om het mogelijk te maken voor de gebruiker om te kiezen tussen twee scenario's kan de optie `return_two_scenarios` op `True` worden gezet.
+In dit geval worden de onder- en bovengrens teruggegeven.
+Hiermee is het ook mogelijk om tussen de twee scenario's te kiezen.
+
+De data adapter moet minimaal 1 kolom met een grid naam bevatten die eindigt op `_grid`.
+
+Standaard worden 4 namen gebruikt:
+
+- slachtoffers (`casualties_grid`)
+- schade (`damage_grid`)
+- plaatgebonden overstromingskans (`flooding_grid`)
+- getroffenen (`affected_people_grid`)
+
+Deze worden meegenomen naar het output bestand, wat gebruikt wordt in de input van de functie `CalculateFloodRisk`.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 36 ]
+    SelectFloodScenarioFromLoad:
+        return_two_scenarios: False # Default
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    input_scenarios_loads:
+        type: csv
+        path: "scenario_loads.csv"
+    input_consequences_loads:
+        type: csv
+        path: "consequences_loads.csv"
+    output_scenario_consequences_grids:
+        type: csv
+        path: "scenario_consequences_grids.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.flood_scenarios import SelectFloodScenarioFromLoad
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+select_flood_scenario_from_load = SelectFloodScenarioFromLoad(
+    data_adapter=data_adapter
+)
+select_flood_scenario_from_load.run(
+    input=[
+        "input_scenarios_loads",
+        "input_consequences_loads",
+    ],
+    output="output_scenario_consequences_grids",
+)
+```
+:::
+
+
+## CalculateFloodRisk{sec-CalculateFloodRisk}
+
+CalculateFloodRisk brengt alle functies tot nu toe samen om het actuele overstromingsrisco in kaart te brengen voor een gegeven gebied.
+
+De eerste data adapter is de output van `SelectFloodScenarioFromLoad` met daarin per dijktraject id (`segment_id`) de bijbehorende faalkans.
+
+De tweede data adapter bevat per dijktraject id (`segment_id`) de bijbehorende grids. Ook hier mogen de namen alles zijn wat eindigt op `_grid`.
+
+Deze naamgeving wordt hergebruikt in de output. De standaardinstellingen voor het middelen zijn:
+
+|Kolomnaam|Variable|Type middeling|
+|--|--|--|
+|casualties_grid|casualties|sum|
+|damage_grid|damage|sum|
+|flooding_grid|flooding|median|
+|affected_people_grid|affectedpeople|sum|
+
+Mocht de gebruiker een andere kolom naam willen, dan kan deze in de globalvariable worden opgegeven zoals hieronder in het configuratie voorbeeld wordt getoond.
+
+Als derde adapter moet een shapefile worden opgegeven waarover wordt gemiddeld. Hier is de kolom `area_id` verplicht, met een uniek id naast de `geometry` kolom.
+
+De vierde adapter is voor het inladen van de grid bestanden.
+Deze data adapter is iets anders dan andere om twee redenen.
+- Ten eerste wordt inplaats van een (geo)dataframe een numpy array met het grid er in en de grid definitie teruggegeven.
+- Daarnaast wordt de data adapter hergebruikt per grid in de functie. Het gridnaam (`grid_name`) wordt toegevoegd aan de data adapter. Hiermee kunnen verschillende grids geladen worden vanaf elke denkbare locatie.
+
+De adapter `input_flood_risk_local_file` is een voorbeeld hoe dit vanaf een locatie op locale schijf kan. Daarbij zijn zijn 4 opties op de map te defineren:
+ - Een absoluut pad: dit kan met de optie `abs_path_user`
+ - Relatief pad ten opzichte van de `rootdir`, hier voor moet wel `path: ''` worden gedefineerd. De onderliggende mapstructuur kan met `scenario_path: ..` worden gedefineerd.
+ - Relatief pad ten opzichte van de `current work directory` waaruit het script wordt gedraaid
+ - Los in de data dir zelf.
+
+De output van de functie kan ook aangepast worden om het resultaat per hectaren terug te geven. In dat geval moet `per_hectare` op `True` worden gezet en moet `columns_per_hectare` worden gevuld met een lijst van de kolom namen die per hectaren worden berekend. In de output wordt `_per_ha` toegevoegd om verwarring te voorkomen.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 36 ]
+    CalculateFloodRisk:
+        aggregate_methods: # dit zijn de standaard aggregatie-methoden per risicomaat (kunnen worden overschreven in de config)
+            casualties: sum
+            damage: sum
+            flooding: median
+            affectedpeople: sum
+            waterdepth: sum
+        per_hectare: False
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+            Index: False
+    input_scenario_failure_prob_segments:
+        type: csv
+        path: "scenario_failure_prob_segments.csv"
+    input_scenario_consequences_grids:
+        type: csv
+        path: "scenario_consequences_grids.csv"
+    input_areas_to_aggregate:
+        type: shape
+        path: "areas_to_aggregate.geojson"
+    flood_risk_local_file:
+        type: flood_risk_local_file
+        path: '' # gebruik de data_dir
+        scenario_path: "flood_scenarios" # en een map dieper kijk in de floodscenarios dir
+        #abs_path_user: "tests/src/flood_scenarios/data_sets/flood_scenarios" # dit kan ook gebruikt worden
+    output_flood_risk_results:
+        type: csv
+        path: "hidden_rekentest_flood_risk_results.csv"
+
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.flood_scenarios import CalculateFloodRisk
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+calculate_flood_risk = CalculateFloodRisk(data_adapter=data_adapter)
+calculate_flood_risk.run(
+    input=[
+        "input_scenario_failure_prob_segments",
+        "input_scenario_consequences_grids",
+        "input_areas_to_aggregate",
+        "flood_risk_local_file",
+    ],
+    output="output_flood_risk_results",
+)
+```
+:::

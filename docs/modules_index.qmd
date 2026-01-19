@@ -36,3 +36,7 @@ Naast de functies is per module een beschrijving beschikbaar en zijn er voorbeel
 7.  [Inspectieresultaten inlezen en weergeven](modules/inspectieresultaten.qmd)
 
     Het statusbeeld van de dijken op basis van fragility curves, eventueel bijgesteld met een beheerdersoordeel, is te verrijken met informatie uit de inspecties. Dit kunnen historische waarnemingen zijn, maar ook de voorjaarsinspectie of een melding tijdens een calamiteiteninspectie. Met de Toolbox Continu Inzicht is het mogelijk om de inspectiedata te filteren, classificeren en op de kaart te tonen in de viewer van de Toolbox Continu Inzicht.
+
+8. [Maatregelen](modules/maatregelen.qmd)
+
+    Tijdens crisissituaties kunnen maatregelen worden genomen om een dijk tijdelijk te versterken. In dat geval moet de fragility curve aangepast worden zodat het nog representatief is voor de gegeven situatie. Deze aangepastcurve kan uit een bibliotheek van bestaande curves worden gehaald of als deze niet beschikbaar is kan de curve aangepast worden door deze te verschuiven.

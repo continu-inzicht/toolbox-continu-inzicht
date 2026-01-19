@@ -51,6 +51,7 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
         """
         self.calculate_fragility_curve(input, output)
         self.shift(effect)
+        self.data_adapter.output(output=output, df=self.as_dataframe())
 
 
 class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
@@ -118,3 +119,6 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
         self.calculate_fragility_curve(
             [input[0], "changed_crest_profile", input[2]], output
         )
+
+
+# TODO: ChangeCrestHeightFragilityCurveOvertoppingMultiple

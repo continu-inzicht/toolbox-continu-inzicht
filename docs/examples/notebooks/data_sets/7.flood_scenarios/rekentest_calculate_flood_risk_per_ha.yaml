@@ -1,0 +1,39 @@
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 36 ]
+    CalculateFloodRisk:
+        aggregate_methods:
+            # dit zijn de standaard aggregatie-methoden per risicomaat (kunnen worden overschreven in de config)
+            casualties: sum
+            damage: sum
+            flooding: median
+            affectedpeople: sum
+            waterdepth: sum
+        per_hectare: True
+        columns_per_hectare:
+          - casualties
+          - damage
+          - affected_people
+          - flooding
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+            Index: False
+    input_scenario_failure_prob_segments:
+        type: csv
+        path: "hidden_rekentest_scenario_failure_prob_segments.csv"
+    input_scenario_consequences_grids:
+        type: csv
+        path: "hidden_rekentest_scenario_consequences_grids.csv"
+    input_areas_to_aggregate:
+        type: shape
+        path: "rekentest_areas_to_aggregate.geojson"
+    flood_risk_local_file:
+        type: flood_risk_local_file
+        path: '' # gebruik de data_dir
+        scenario_path: "flood_scenarios" # en een map dieper kijk in de floodscenarios dir
+        #abs_path_user: "tests/src/flood_scenarios/data_sets/flood_scenarios" # dit kan ook gebruikt worden
+    output_flood_risk_results:
+        type: csv
+        path: "hidden_rekentest_flood_risk_results.csv"

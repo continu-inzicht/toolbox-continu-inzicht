@@ -1,0 +1,63 @@
+GlobalVariables:
+    rootdir: "data_sets/2.belastingen_inladen"
+    moments: [-24,0,24,48]
+    aquo_alias:
+        WATHTE [m][NAP][OW]: "WATHTE"
+
+    LoadsWaterinfo:
+        parameters: ["waterhoogte"]
+        MISSING_VALUE: 999
+
+    LoadsFews:
+        host: "https://fews.hhnk.nl"
+        port: 443
+        region: "fewspiservice"
+        version: "1.25"
+        filter: "HHNK_WEB"
+        parameters: ["WATHTE [m][NAP][OW]"]
+        MISSING_VALUE: 999
+
+    LoadsMatroos:
+        website: "noos"
+        model: "dcsm6_kf"
+        parameters: ["WATHTE"]
+        MISSING_VALUE: 999
+
+    LoadsWaterwebservicesRWS:
+        parameters: ["WATHTE"]
+        MISSING_VALUE: 999
+
+DataAdapter:
+    default_options:
+        csv_source:
+            sep: ";"
+        csv:
+            sep: ","
+    BelastingLocaties_WaterInfo:
+        type: csv_source
+        filter: "WaterInfo"
+        path: "locaties.csv"
+    Waterstanden_WaterInfo:
+        type: csv
+        path: "hidden_waterstanden_waterinfo.csv"
+    BelastingLocaties_FEWS:
+        type: csv_source
+        filter: "FEWS"
+        path: "locaties.csv"
+    Waterstanden_FEWS:
+        type: csv
+        path: "waterstanden_fews.csv"
+    BelastingLocaties_Matroos:
+        type: csv_source
+        filter: "NOOS Matroos"
+        path: "locaties.csv"
+    Waterstanden_Matroos:
+        type: csv
+        path: "hidden_waterstanden_matroos.csv"
+    BelastingLocaties_Waterwebservices_RWS:
+        type: csv_source
+        filter: "RWS Waterwebservices"
+        path: "locaties.csv"
+    Waterstanden_Waterwebservices_RWS:
+        type: csv
+        path: "hidden_waterstanden_waterwebservices_rws.csv"

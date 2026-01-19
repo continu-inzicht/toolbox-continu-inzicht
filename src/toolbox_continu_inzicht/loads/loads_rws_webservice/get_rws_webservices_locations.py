@@ -2,13 +2,25 @@ import pandas as pd
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_post
 
 
+# TODO: add caching for debugging: assumption that on a given day the locations do not change
 def get_rws_webservices_locations():
     """Haal locaties op die bekend zijn bij de RWS webservice."""
 
-    url_catalog: str = "https://waterwebservices.rijkswaterstaat.nl/METADATASERVICES_DBO/OphalenCatalogus"
+    url_catalog: str = "https://ddapi20-waterwebservices.rijkswaterstaat.nl/METADATASERVICES/OphalenCatalogus"
     # haal voor all locaties de informatie op: catalogus met data
     body_catalog: dict = {
-        "CatalogusFilter": {"Compartimenten": True, "Grootheden": True}
+        "CatalogusFilter": {
+            "Compartimenten": True,
+            "Grootheden": True,
+            "Eenheden": True,
+            ### mogelijke opties
+            # "Hoedanigheden": True,
+            # "Typeringen": True,
+            # "WaardeBewerkingsMethoden": True,
+            # "BioTaxon": True,
+            # "Organen": True,
+            # "ProcesTypes": True,
+        }
     }
 
     status, catalog_data = fetch_data_post(url_catalog, body_catalog, mime_type="json")

@@ -1,0 +1,23 @@
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 48 ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    combined_failure_probability_data:
+        type: csv
+        file: "combined_failure_probability_data.csv"
+    section_id_to_segment_id:
+        type: csv
+        file: "section_id_to_segment_id.csv"
+    failure_mechanisms:
+        type: csv
+        file: failuremechanism.csv
+    segment_failure_probability:
+        type: csv
+        file: "segment_failure_probability.csv"
+    gecombineerde_faalkans_dijkvakken:
+        type: csv
+        file: "hidden_gecombineerde_faalkans_dijkvakken.csv"

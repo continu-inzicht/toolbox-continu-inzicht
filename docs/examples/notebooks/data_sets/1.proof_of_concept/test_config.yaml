@@ -1,0 +1,23 @@
+GlobalVariables:
+    rootdir: 'data_sets/1.proof_of_concept'
+
+DataAdapter:
+    default_options:
+        postgresql_database:
+            database: 'citoolbox'
+            schema: 'citoolbox_schema'
+    my_csv_in:
+        type: csv
+        file: 'test_csv_in.csv'
+    my_csv_out:
+        type: csv
+        file: 'test_csv_out.csv'
+    my_postgresql:
+        type: postgresql_database
+        table: data
+    my_netcdf_in:
+        type: netcdf
+        file: 'test_netcdf_in.nc'
+    my_netcdf_out:
+        type: netcdf
+        file: 'test_netcdf_out.nc'
