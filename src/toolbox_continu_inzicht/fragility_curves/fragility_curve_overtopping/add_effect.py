@@ -8,7 +8,7 @@ from toolbox_continu_inzicht.fragility_curves import (
 class _ShiftFragilityCurveOvertoppingMixin:
     """Verschuift de fragility curve met een gegeven effect"""
 
-    data_adapter: DataAdapter
+    data_adapter: DataAdapter | None = None
 
     def run(self, input: list[str], output: str, effect: float) -> None:
         """
@@ -60,7 +60,7 @@ class _ShiftFragilityCurveOvertoppingMixin:
 class _ChangeCrestHeightFragilityCurveOvertoppingMixin:
     """Verschuift de kruinhoogte met het gegeven effect en berekent de fragility curve"""
 
-    data_adapter: DataAdapter
+    data_adapter: DataAdapter | None = None
 
     def run(self, input: list[str], output: str, effect: float) -> None:
         """
