@@ -115,25 +115,3 @@ def compute_failure_probability(
         inc[idx] = lognorm._cdf(qov[idx] / np.exp(mu), sigma) * onzkans
 
     return inc
-
-
-def get_overtopping_options(global_variables: dict, key: str) -> dict:
-    options = global_variables.get(key, {})
-    defaults = {
-        "gh_onz_mu": 0.96,
-        "gh_onz_sigma": 0.27,
-        "gp_onz_mu_tp": 1.03,
-        "gp_onz_sigma_tp": 0.13,
-        "gp_onz_mu_tspec": 1.03,
-        "gp_onz_sigma_tspec": 0.13,
-        "gh_onz_aantal": 7,
-        "gp_onz_aantal": 7,
-        "tp_tspec": 1.1,
-        "lower_limit_coarse": 4.0,
-        "upper_limit_coarse": 2.0,
-        "upper_limit_fine": 1.01,
-        "hstap": 0.05,
-    }
-    merged = defaults.copy()
-    merged.update(options)
-    return merged

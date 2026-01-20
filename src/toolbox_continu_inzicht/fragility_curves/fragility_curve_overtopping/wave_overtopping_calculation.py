@@ -36,9 +36,6 @@ class WaveOvertoppingCalculation:
         standaard_model_onzekerheden["gh_onz_mu"] = 0.96
         standaard_model_onzekerheden["gh_onz_sigma"] = 0.27
 
-        standaard_model_onzekerheden["gp_onz_mu_tp"] = 1.03
-        standaard_model_onzekerheden["gp_onz_sigma_tp"] = 0.13
-
         standaard_model_onzekerheden["gp_onz_mu_tspec"] = 1.03
         standaard_model_onzekerheden["gp_onz_sigma_tspec"] = 0.13
 
@@ -57,6 +54,29 @@ class WaveOvertoppingCalculation:
         )
         self.qov = []
         self.kansen = []
+
+    @staticmethod
+    def get_model_uncertainty_options(global_variables: dict, key: str) -> dict:
+        options = global_variables.get(key, {})
+        required_keys = [
+            "gh_onz_mu",
+            "gh_onz_sigma",
+            "gh_onz_aantal",
+            "gp_onz_mu_tspec",
+            "gp_onz_sigma_tspec",
+            "gp_onz_aantal",
+        ]
+        missing = [
+            required_key
+            for required_key in required_keys
+            if required_key not in options
+        ]
+        if missing:
+            missing_str = ", ".join(missing)
+            raise KeyError(
+                f"Missing overtopping model uncertainty option(s) for '{key}': {missing_str}"
+            )
+        return {required_key: options[required_key] for required_key in required_keys}
 
     @classmethod
     def calculate_overtopping_curve(
@@ -288,17 +308,12 @@ class CustomModelUncertainty(ModelUncertainty):
         mu.loc[0, "stdev"] = standaard_model_onzekerheden["gh_onz_sigma"]
 
         mu.loc[1, "k"] = standaard_model_onzekerheden["closing_situation"]
-        mu.loc[1, "rvid"] = "tp"
-        mu.loc[1, "mean"] = standaard_model_onzekerheden["gp_onz_mu_tp"]
-        mu.loc[1, "stdev"] = standaard_model_onzekerheden["gp_onz_sigma_tp"]
-
-        mu.loc[2, "k"] = standaard_model_onzekerheden["closing_situation"]
-        mu.loc[2, "rvid"] = "tspec"
-        mu.loc[2, "mean"] = standaard_model_onzekerheden["gp_onz_mu_tspec"]
-        mu.loc[2, "stdev"] = standaard_model_onzekerheden["gp_onz_sigma_tspec"]
+        mu.loc[1, "rvid"] = "tspec"
+        mu.loc[1, "mean"] = standaard_model_onzekerheden["gp_onz_mu_tspec"]
+        mu.loc[1, "stdev"] = standaard_model_onzekerheden["gp_onz_sigma_tspec"]
 
         # Zorg ervoor dat de index voor alle punten hetzelfde is, zodat deze overeenkomt met de oorspronkelijke implementatie
-        mu.index = [0, 0, 0]
+        mu.index = [0, 0]
         mu.index.name = "HRDLocationId"
 
         for comb, uncertainty in mu.groupby(["k", "rvid"]):

@@ -9,12 +9,12 @@ from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.fragil
     FragilityCurveOvertoppingBase,
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
-    get_overtopping_options,
     make_winddirections,
     parse_profile_dataframe,
 )
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
     WaveDataProvider,
+    WaveType,
 )
 from toolbox_continu_inzicht.utils.interpolate import bracketing_indices
 
@@ -86,13 +86,15 @@ class FragilityCurveOvertoppingWaveData(FragilityCurveOvertoppingBase):
 
         De derde (df_waveval_uncert) DataAdapter moet de volgende kolommen bevatten:
 
-        1.
-        1.
+        1. closing_situation, sluitsituatie (int)
+        1. waveval_type, (int, 2: Hs, 6: Tm1,0 of 7: golfrichting)
+        1. mean, gemiddelde (float)
+        1. stddev standaardafwijking (float)
 
         De vierde (waveval_id) DataAdapter moet de volgende kolommen bevatten:
 
         1. waveval_id, golfcombinatie id (int)
-        1. waveval_type, (int, 2: Hs, 6: Tm10 of 7: Wave direction)
+        1. waveval_type, (int, 2: Hs, 6: Tm1,0 of 7: golfrichting)
         1. winddir, windrichting in graden
         1. windspeed windsnelheid in m/s
 
@@ -114,6 +116,50 @@ class FragilityCurveOvertoppingWaveData(FragilityCurveOvertoppingBase):
 
     def _build_wave_provider(self, options: dict) -> WaveDataProvider:
         return WaveDataProvider(self.df_waveval_id, self.df_waveval)
+
+    def _build_options(self) -> dict:
+        options_raw = self.data_adapter.config.global_variables.get(
+            self._get_options_key(), {}
+        )
+        closing_situation = options_raw.get("closing_situation")
+        overrides, context = self._get_waveval_uncertainty_overrides(closing_situation)
+        return super()._build_options(overrides=overrides, context=context)
+
+    def _get_waveval_uncertainty_overrides(
+        self, closing_situation: int | None
+    ) -> tuple[dict, dict]:
+        if self.df_waveval_uncert is None or self.df_waveval_uncert.empty:
+            return {}, {}
+
+        df_uncert = self.df_waveval_uncert
+        df_uncert = df_uncert[df_uncert["closing_situation"] == closing_situation]
+
+        if df_uncert.empty:
+            return {}, {}
+
+        mapping = {
+            WaveType.SIGNIFICANT_WAVEHEIGHT.value: ("gh_onz_mu", "gh_onz_sigma"),
+            WaveType.SPECTRAL_WAVEPERIOD.value: (
+                "gp_onz_mu_tspec",
+                "gp_onz_sigma_tspec",
+            ),
+        }
+        overrides = {}
+        for waveval_type, (mu_key, sigma_key) in mapping.items():
+            subset = df_uncert[df_uncert["waveval_type"] == waveval_type]
+            if subset.empty:
+                continue
+            row = subset.iloc[0]
+            mean_value = row["mean"]
+            std_value = row["stddev"]
+            if pd.isna(mean_value) or pd.isna(std_value):
+                continue
+            overrides[mu_key] = float(mean_value)
+            overrides[sigma_key] = float(std_value)
+        context = {"closing_situation": closing_situation}
+        if "hr_locid" in df_uncert:
+            context["hr_locid"] = df_uncert["hr_locid"].iloc[0]
+        return overrides, context
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -170,8 +216,9 @@ class FragilityCurveOvertoppingWaveDataMultiple(ToolboxBase):
         self.df_wv_uncert = da.input(input[3])
 
         global_variables = da.config.global_variables
-        options = get_overtopping_options(
-            global_variables, "FragilityCurveOvertoppingWaveData"
+        defaults = FragilityCurveOvertoppingBase.get_default_options()
+        options = FragilityCurveOvertoppingBase.get_overtopping_options(
+            global_variables, "FragilityCurveOvertoppingWaveData", defaults
         )
 
         section_ids = self.df_profile.section_id.unique()
@@ -201,6 +248,11 @@ class FragilityCurveOvertoppingWaveDataMultiple(ToolboxBase):
         options: dict,
     ) -> pd.DataFrame:
         da = self.data_adapter
+        da.logger.info(
+            "Calculating overtopping curve using wave data for section_id=%s",
+            section_id,
+        )
+
         df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
         df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
         hr_loc = int(self.df_section_hrloc["hr_locid"].at[(section_id, 2)])

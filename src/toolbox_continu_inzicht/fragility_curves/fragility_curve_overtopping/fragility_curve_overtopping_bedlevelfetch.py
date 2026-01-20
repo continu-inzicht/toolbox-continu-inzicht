@@ -34,14 +34,14 @@ class FragilityCurveOvertoppingBedlevelFetch(FragilityCurveOvertoppingBase):
 
     1. gh_onz_mu, GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
     1. gh_onz_sigma, GolfHoogte onzekerheid sigma: standaardafwijking waarde (standaard 0.27)
-    1. gp_onz_mu_tp, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-    1. gp_onz_sigma_tp, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gp_onz_mu_tspec, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
     1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gh_onz_aantal, Aantal onzekerheden in de golfhoogte (standaard 7)
     1. gp_onz_aantal, Aantal onzekerheden in de golfperiode (standaard 7)
 
     tp_tspec, de verhouding tussen de piekperiode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
+    closing_situation moet expliciet via config worden opgegeven. Als onzekerheden niet zijn opgegeven,
+    worden Bretschneider-standaardwaarden gebruikt.
 
     De waterniveaus waarmee probabilistisch gerekend wordt, is verdeeld in twee delen: grof en fijn.
 
@@ -111,6 +111,21 @@ class FragilityCurveOvertoppingBedlevelFetch(FragilityCurveOvertoppingBase):
             tp_tspec=options.get("tp_tspec", 1.1),
         )
 
+    def _get_base_options(self) -> dict:
+        options = self._get_default_options()
+        options.update(
+            self.data_adapter.config.global_variables.get(self._get_options_key(), {})
+        )
+        model_defaults = {
+            "gh_onz_mu": 0.96,
+            "gh_onz_sigma": 0.27,
+            "gp_onz_mu_tspec": 1.03,
+            "gp_onz_sigma_tspec": 0.13,
+        }
+        for key_name, value in model_defaults.items():
+            options.setdefault(key_name, value)
+        return options
+
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class FragilityCurveOvertoppingBedlevelFetchMultiple(ToolboxBase):
@@ -143,14 +158,14 @@ class FragilityCurveOvertoppingBedlevelFetchMultiple(ToolboxBase):
 
     1. gh_onz_mu, GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
     1. gh_onz_sigma, GolfHoogte onzekerheid sigma: standaardafwijking waarde (standaard 0.27)
-    1. gp_onz_mu_tp, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-    1. gp_onz_sigma_tp, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gp_onz_mu_tspec, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
     1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gh_onz_aantal, Aantal onzekerheden in de golfhoogte (standaard 7)
     1. gp_onz_aantal, Aantal onzekerheden in de golfperiode (standaard 7)
 
     tp_tspec, de verhouding tussen de piekperiode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
+    closing_situation moet expliciet via config worden opgegeven. Als onzekerheden niet zijn opgegeven,
+    worden Bretschneider-standaardwaarden gebruikt.
 
     De waterniveaus waarmee probablistisch gerekend wordt. Dit is verdeeld in twee delen: grof en fijn.
 
@@ -235,6 +250,11 @@ class FragilityCurveOvertoppingBedlevelFetchMultiple(ToolboxBase):
         options: dict,
         temp_data_adapter: DataAdapter,
     ) -> pd.DataFrame:
+        temp_data_adapter.logger.info(
+            "Calculating overtopping curve using bedlevel/fetch for section_id=%s",
+            section_id,
+        )
+
         df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
         df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
         df_bed_levels = self.df_bed_levels[
