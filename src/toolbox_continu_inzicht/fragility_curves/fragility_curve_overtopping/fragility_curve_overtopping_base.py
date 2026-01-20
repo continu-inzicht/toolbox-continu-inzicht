@@ -48,11 +48,6 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
     def _build_wave_provider(self, options: dict) -> WaveProvider:
         raise NotImplementedError
 
-    def _get_options_key(self) -> str:
-        if self.options_key:
-            return self.options_key
-        return type(self).__name__
-
     @classmethod
     def get_overtopping_options(
         cls, global_variables: dict, key: str, defaults: dict
@@ -65,31 +60,20 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
         options.update(model_uncertainties)
         return options
 
-    @classmethod
-    def get_default_options(cls) -> dict:
-        return cls.default_options.copy()
-
-    def _get_default_options(self) -> dict:
-        return type(self).get_default_options()
-
-    def _get_base_options(self) -> dict:
-        defaults = self._get_default_options()
-        return self.get_overtopping_options(
-            self.data_adapter.config.global_variables, self._get_options_key(), defaults
-        )
-
     def _build_options(
         self,
         overrides: dict | None = None,
         context: dict | None = None,
     ) -> dict:
-        options = self._get_base_options()
+        options_key = self.options_key
+        defaults = self.__class__.default_options.copy()
+        options = self.get_overtopping_options(
+            self.data_adapter.config.global_variables, options_key, defaults
+        )
         if not overrides:
             return options
 
-        should_log = (
-            self._get_options_key() in self.data_adapter.config.global_variables
-        )
+        should_log = options_key in self.data_adapter.config.global_variables
         logger = self.data_adapter.logger
         closing_situation = None
         if context:
@@ -119,7 +103,7 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
         closing_situation = options.get("closing_situation")
         if closing_situation is None:
             raise KeyError(
-                f"Missing overtopping config option 'closing_situation' for '{self._get_options_key()}'."
+                f"Missing overtopping config option 'closing_situation' for '{self.options_key}'."
             )
 
         basis_profiel, overtopping = build_pydra_profiles(
