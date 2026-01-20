@@ -119,7 +119,7 @@ class FragilityCurveOvertoppingWaveData(FragilityCurveOvertoppingBase):
 
     def _build_options(self) -> dict:
         options_raw = self.data_adapter.config.global_variables.get(
-            self._get_options_key(), {}
+            self.options_key, {}
         )
         closing_situation = options_raw.get("closing_situation")
         overrides, context = self._get_waveval_uncertainty_overrides(closing_situation)
@@ -216,7 +216,7 @@ class FragilityCurveOvertoppingWaveDataMultiple(ToolboxBase):
         self.df_wv_uncert = da.input(input[3])
 
         global_variables = da.config.global_variables
-        defaults = FragilityCurveOvertoppingBase.get_default_options()
+        defaults = FragilityCurveOvertoppingBase.default_options.copy()
         options = FragilityCurveOvertoppingBase.get_overtopping_options(
             global_variables, "FragilityCurveOvertoppingWaveData", defaults
         )

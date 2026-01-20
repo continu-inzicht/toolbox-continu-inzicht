@@ -111,11 +111,12 @@ class FragilityCurveOvertoppingBedlevelFetch(FragilityCurveOvertoppingBase):
             tp_tspec=options.get("tp_tspec", 1.1),
         )
 
-    def _get_base_options(self) -> dict:
-        options = self._get_default_options()
-        options.update(
-            self.data_adapter.config.global_variables.get(self._get_options_key(), {})
-        )
+    @classmethod
+    def get_overtopping_options(
+        cls, global_variables: dict, key: str, defaults: dict
+    ) -> dict:
+        options = defaults.copy()
+        options.update(global_variables.get(key, {}))
         model_defaults = {
             "gh_onz_mu": 0.96,
             "gh_onz_sigma": 0.27,
