@@ -1,6 +1,10 @@
 GlobalVariables:
     rootdir: "data_sets/8.fragility_curve_overtopping_wavedata"
     moments: [ -24, 0, 24, 48 ]
+    logging:
+        level: INFO
+    FragilityCurveOvertoppingWaveData:
+        closing_situation: 1
 
 DataAdapter:
     default_options:

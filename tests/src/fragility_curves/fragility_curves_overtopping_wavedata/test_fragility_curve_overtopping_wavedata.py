@@ -12,7 +12,7 @@ from toolbox_continu_inzicht.fragility_curves import (
 )
 
 
-def test_fragility_curves_wavedata():
+def test_fragility_curve_wavedata():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path
@@ -55,21 +55,21 @@ def test_fragility_curves_wavedata():
                 59: 14.600000000000028,
             },
             "failure_probability": {
-                45: 0.9856298185333292,
-                46: 0.98727710716003,
-                47: 0.9887935175533384,
-                48: 0.990199917728394,
-                49: 0.9914985065751,
-                50: 0.9926953244176774,
-                51: 0.9937871163380972,
-                52: 0.9947748288639996,
-                53: 0.9956560922037287,
-                54: 0.9964329002732534,
-                55: 0.9971069700341127,
-                56: 0.99768372250868,
-                57: 0.9981693426946874,
-                58: 0.9985717609805274,
-                59: 0.9989002603490952,
+                45: 0.9986696272514936,
+                46: 0.9990196494868108,
+                47: 0.9992763514940018,
+                48: 0.9994679225755082,
+                49: 0.9996080479961704,
+                50: 0.999712318122948,
+                51: 0.9997884309706284,
+                52: 0.9998449345619188,
+                53: 0.9998861140972078,
+                54: 0.9999166250771254,
+                55: 0.9999388335723852,
+                56: 0.9999552619255846,
+                57: 0.9999672887559596,
+                58: 0.9999760332954022,
+                59: 0.999982487771726,
             },
         }
     )
@@ -77,7 +77,7 @@ def test_fragility_curves_wavedata():
     pd.testing.assert_frame_equal(df_actual, df_expected, rtol=1e-12)
 
 
-def test_fragility_curves_wavedata_effects():
+def test_fragility_curve_wavedata_effects():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path
@@ -122,9 +122,18 @@ def test_waveval_uncertainty_overrides_applied():
     )
     config.lees_config()
     data_adapter = DataAdapter(config=config)
-    data_adapter.config.global_variables["FragilityCurveOvertoppingWaveData"][
-        "closing_situation"
-    ] = 1
+    options = data_adapter.config.global_variables.setdefault(
+        "FragilityCurveOvertoppingWaveData", {}
+    )
+    options.update(
+        {
+            "closing_situation": 1,
+            "gh_onz_mu": 0.5,
+            "gh_onz_sigma": 0.05,
+            "gp_onz_mu_tspec": 0.8,
+            "gp_onz_sigma_tspec": 0.08,
+        }
+    )
 
     fragility_curve_overtopping = FragilityCurveOvertoppingWaveData(
         data_adapter=data_adapter
