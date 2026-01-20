@@ -114,7 +114,7 @@ def test_fragility_curve_wavedata_effects():
     assert not np.allclose(base_fp, crest_fp)
 
 
-def test_waveval_uncertainty_overrides_applied():
+def test_waveval_uncertainty_overrides_applied_with_globals():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
         config_path=test_data_sets_path
@@ -134,6 +134,38 @@ def test_waveval_uncertainty_overrides_applied():
             "gp_onz_sigma_tspec": 0.08,
         }
     )
+
+    fragility_curve_overtopping = FragilityCurveOvertoppingWaveData(
+        data_adapter=data_adapter
+    )
+    fragility_curve_overtopping._load_inputs(
+        [
+            "slopes",
+            "profiles",
+            "waveval_uncert",
+            "waveval_id",
+            "waveval",
+        ]
+    )
+    options = fragility_curve_overtopping._build_options()
+
+    assert options["gh_onz_mu"] == pytest.approx(0.94)
+    assert options["gh_onz_sigma"] == pytest.approx(0.15)
+    assert options["gp_onz_mu_tspec"] == pytest.approx(0.89)
+    assert options["gp_onz_sigma_tspec"] == pytest.approx(0.04)
+
+
+def test_waveval_uncertainty_overrides_applied_without_globals():
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(
+        config_path=test_data_sets_path
+        / "test_fragility_curve_overtopping_wavedata.yaml"
+    )
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
+    data_adapter.config.global_variables["FragilityCurveOvertoppingWaveData"] = {
+        "closing_situation": 1
+    }
 
     fragility_curve_overtopping = FragilityCurveOvertoppingWaveData(
         data_adapter=data_adapter
