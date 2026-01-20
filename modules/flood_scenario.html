@@ -102,6 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../assets/styles.css">
@@ -251,10 +254,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability" id="toc-calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability" class="nav-link active" data-scroll-target="#calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability">CalculateFloodScenarioProbability{sec-CalculateFloodScenarioProbability}</a></li>
-  <li><a href="#loadfromfloodscenarioprobabilitysec-loadfromfloodscenarioprobability" id="toc-loadfromfloodscenarioprobabilitysec-loadfromfloodscenarioprobability" class="nav-link" data-scroll-target="#loadfromfloodscenarioprobabilitysec-loadfromfloodscenarioprobability">LoadFromFloodScenarioProbability{sec-LoadFromFloodScenarioProbability}</a></li>
-  <li><a href="#selectfloodscenariofromloadsec-selectfloodscenariofromload" id="toc-selectfloodscenariofromloadsec-selectfloodscenariofromload" class="nav-link" data-scroll-target="#selectfloodscenariofromloadsec-selectfloodscenariofromload">SelectFloodScenarioFromLoad{sec-SelectFloodScenarioFromLoad}</a></li>
-  <li><a href="#calculatefloodrisksec-calculatefloodrisk" id="toc-calculatefloodrisksec-calculatefloodrisk" class="nav-link" data-scroll-target="#calculatefloodrisksec-calculatefloodrisk">CalculateFloodRisk{sec-CalculateFloodRisk}</a></li>
+  <li><a href="#sec-CalculateFloodScenarioProbability" id="toc-sec-CalculateFloodScenarioProbability" class="nav-link active" data-scroll-target="#sec-CalculateFloodScenarioProbability">CalculateFloodScenarioProbability</a></li>
+  <li><a href="#sec-LoadFromFloodScenarioProbability" id="toc-sec-LoadFromFloodScenarioProbability" class="nav-link" data-scroll-target="#sec-LoadFromFloodScenarioProbability">LoadFromFloodScenarioProbability</a></li>
+  <li><a href="#sec-SelectFloodScenarioFromLoad" id="toc-sec-SelectFloodScenarioFromLoad" class="nav-link" data-scroll-target="#sec-SelectFloodScenarioFromLoad">SelectFloodScenarioFromLoad</a></li>
+  <li><a href="#sec-CalculateFloodRisk" id="toc-sec-CalculateFloodRisk" class="nav-link" data-scroll-target="#sec-CalculateFloodRisk">CalculateFloodRisk</a></li>
   </ul>
 </nav>
     </div>
@@ -283,131 +286,153 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Risico’s worden berekend door kansen te combineren met gevolgen. In de toolbox Continu Inzicht worden fragilitycurves gebruikt om de conditionele kans op falen van een sectie (per faalmechanisme) te bepalen. De gevolgen van een overstroming worden bepaald met behulp van overstromingsscenarioberekeningen, ook wel aangeduid met scenario’s. Uit een overstroomd gebied worden gevolgen afgeleid zoals economische schade, slachtoffers, en getroffenen. <br> Door conditionele kansen met gevolgen te combineren kunnen conditionele risico’s worden bepaald, bestaande uit de verwachte economische schade van een gebied, het verwachte aantal slachtoffers en/of getroffen in een gebied en/of de plaatsgebonden overstromingskans van een locatie. <br></p>
 <p>Deze risico’s kunnen helpen om prioriteiten te stellen tijdens hoogwater, waarbij er niet alleen een kans of een afzonderlijk gevolg wordt beschouwd. <br></p>
 <p>Om de scenarios te kunnen combineren moeten er een aantal stappen worden doorlopen: - Omrekenen van dijkvakkansen naar trajectdeelkansen (<a href="#sec-CalculateFloodScenarioProbability">CalculateFloodScenarioProbability</a>) - Belasting per deeltraject bepalen (<a href="#sec-LoadFromFloodScenarioProbabilit">LoadFromFloodScenarioProbabilit</a>) - Met de belasting een bijpassende overstromingscenario selecteren (<a href="#sec-SelectFloodScenarioFromLoad">SelectFloodScenarioFromLoad</a>) - Van het scenario en de curve een geagregeerd risico bepalen (<a href="#sec-CalculateFloodRisk">CalculateFloodRisk</a>)</p>
-<pre class="mermaid"><code>graph TD
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
     A[CalculateFloodScenarioProbability] --&gt; B[LoadFromFloodScenarioProbabilit]
     B --&gt; C[SelectFloodScenarioFromLoad]
-    C --&gt; D[CalculateFloodRisk]</code></pre>
-<section id="calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability" class="level2">
-<h2 class="anchored" data-anchor-id="calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability">CalculateFloodScenarioProbability{sec-CalculateFloodScenarioProbability}</h2>
+    C --&gt; D[CalculateFloodRisk]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="sec-CalculateFloodScenarioProbability" class="level2">
+<h2 class="anchored" data-anchor-id="sec-CalculateFloodScenarioProbability">CalculateFloodScenarioProbability</h2>
 <p>Voor het berekenen van overstromingsrisico scenarios moeten de faalkansen van vakken gecobineerd worden tot faalkansen die vergeleken kunnen worden met de kansen van overstromingsscenario’s. Hierbij wordt gebruik gemaakt van de gecombineerde kans van het vak en deze worden gecombineerd naar traject delen.</p>
-<pre class="mermaid"><code>graph TD
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
     A1[Dijkvak/section] --&gt; D[Dijktraject deel/segment]
     B1[Dijkvak/section] --&gt; D
     B2[Dijkvak/section] --&gt; D
     C1[Dijkvak/section] --&gt; E[Dijktraject deel/segment]
     C2[Dijkvak/section] --&gt; E
     E --&gt; F
-    D --&gt; F[Overstromingskans gebied/Dikesystem]</code></pre>
+    D --&gt; F[Overstromingskans gebied/Dikesystem]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>Dit voorbeeld laat zien hoe met behulp van de <code>CalculateFloodScenarioProbability</code> scenariokansen berekend worden uit kansen per sectie en per faalmachanisme. <br> Eerst worden de kansen per sectie en faalmachanisme ingeladen <code>input_probabilities_failuremechanisme_sections</code>, daarna worden deze gecombineerd naar een kans over alle secties (voorheen aangeduid als de ringkans) per faalmechanisme. Daarna worden de kansen over alle secties per faalmechanisme gecombineerd naar 1 kans over alle secties en over alle faalmechanismen. <br> Deze volgorde (eerst combineren over alle sectie en daarna over alle faalmechanismen) is bewust gekozen omdat per faalmechanisme verschillende met andere correlaties wordt gerekend. Voor het faalmechanisme GEKB wordt verondersteld dat alle secties volledig afhankelijk falen en voor de overige faalmechanismen wordt verondersteld dat de secties volledig onafhankelijk falen. Door gekozen volgorde bij het combineren van faalkansen aan te houden, kan dit onderscheid geborgd worden. Tussen de verschillende faalmechanismen wordt volledige onafhankelijkheid verondersteld. N.B. in een volledige probabilistische berekening (waarbij niet met fragility curves wordt gerekend) kan de daadwerkelijke correlatie worden berekend en is het ook mogelijk om te rekenen met gedeeltelijke afhankelijkheid. Dat is in een werkwijze met fragilitycurves niet mogelijk. <br></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<pre class="yaml|"><code>GlobalVariables:
-    rootdir: "data_sets/7.flood_scenarios"
-    moments: [-24,0,24,36]
-
-DataAdapter:
-    default_options:
-        csv:
-            sep: ","
-    input_failuremechanism:
-        type: csv
-        file: "failuremechanism.csv"
-    input_probabilities_failuremechanisme_sections:
-        type: csv
-        file: "probabilities_failuremechanisme_sections.csv"
-    input_sections_in_segment:
-        type: csv
-        file: "sections_in_segment.csv"
-    output_scenario_failure_prob_segments:
-        type: csv
-        index: false
-        file: "scenario_failure_prob_segments.csv"
-    output_combined_failure_prob_all_sections:
-        type: csv
-        index: false
-        file: "combined_failure_prob_all_sections.csv"</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">36</span><span class="kw">]</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_failuremechanism</span><span class="kw">:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"failuremechanism.csv"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_probabilities_failuremechanisme_sections</span><span class="kw">:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"probabilities_failuremechanisme_sections.csv"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_sections_in_segment</span><span class="kw">:</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"sections_in_segment.csv"</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_scenario_failure_prob_segments</span><span class="kw">:</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">index</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_failure_prob_segments.csv"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_combined_failure_prob_all_sections</span><span class="kw">:</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">index</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"combined_failure_prob_all_sections.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> CalculateFloodScenarioProbability</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>calculate_flood_scenario_probability <span class="op">=</span> CalculateFloodScenarioProbability(</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>calculate_flood_scenario_probability.run(</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_failuremechanism"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_probabilities_failuremechanisme_sections"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_sections_in_segment"</span>,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>[</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"output_scenario_failure_prob_segments"</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"output_combined_failure_prob_all_sections"</span>,</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> CalculateFloodScenarioProbability</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>calculate_flood_scenario_probability <span class="op">=</span> CalculateFloodScenarioProbability(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>calculate_flood_scenario_probability.run(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_failuremechanism"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_probabilities_failuremechanisme_sections"</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_sections_in_segment"</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>[</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"output_scenario_failure_prob_segments"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"output_combined_failure_prob_all_sections"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="loadfromfloodscenarioprobabilitysec-loadfromfloodscenarioprobability" class="level2">
-<h2 class="anchored" data-anchor-id="loadfromfloodscenarioprobabilitysec-loadfromfloodscenarioprobability">LoadFromFloodScenarioProbability{sec-LoadFromFloodScenarioProbability}</h2>
+<section id="sec-LoadFromFloodScenarioProbability" class="level2">
+<h2 class="anchored" data-anchor-id="sec-LoadFromFloodScenarioProbability">LoadFromFloodScenarioProbability</h2>
 <p>Voor het bepalen van de risico van een overstroming is het nodig om een bijpassend overstromingsscenario te selecteren. Er zijn meerdere overstromingsscenario’s beschikbaar die verschillende hydraulische belastingen representeren. <br> In de vorige stap <code>CalculateFloodScenarioProbability</code> is een scenariokans van een deeltraject (segment) berekend <code>scenario_failure_prob_segments</code>. Hiermee kan een bijpassend overstromingsscenario worden geselecteerd. Hiertoe is het nodig om de hydraulische belasting per deeltraject te bepalen met de <code>LoadFromFloodScenarioProbability</code>. Dat gebeurt met behulp van de fragilitycurves. Hiertoe is het noodzakelijk om 1 representatieve fragilitycurve per deeltraject te selecteren uit <code>section_fragility_curves</code>. Dat doen we door voor elk deeltraject (segment) 1 sectie te selecteren <code>section_to_segment</code>. De fragilitycurve van deze sectie wordt dan gebruikt om de scenariekans van het deeltraject (segement) om te zetten in een hydraulische belasting, die daarna gebruikt kan worden om een bijpassend overstromingsscenario te selecteren voor het deeltraject (segment).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="dv">-24</span><span class="kw">,</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span><span class="at"> </span><span class="dv">24</span><span class="kw">,</span><span class="at"> </span><span class="dv">36</span><span class="at"> </span><span class="kw">]</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">LoadFromFloodScenarioProbability</span><span class="kw">:</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">failuremechanism_id_combined</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">scenario_failure_prob_segments</span><span class="kw">:</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_failure_prob_segments.csv"</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">section_to_segment</span><span class="kw">:</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"section_to_segment.csv"</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">section_fragility_curves</span><span class="kw">:</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"fragilitycurves.csv"</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_scenario_loads</span><span class="kw">:</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_loads.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="dv">-24</span><span class="kw">,</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span><span class="at"> </span><span class="dv">24</span><span class="kw">,</span><span class="at"> </span><span class="dv">36</span><span class="at"> </span><span class="kw">]</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">LoadFromFloodScenarioProbability</span><span class="kw">:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">failuremechanism_id_combined</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">scenario_failure_prob_segments</span><span class="kw">:</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_failure_prob_segments.csv"</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">section_to_segment</span><span class="kw">:</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"section_to_segment.csv"</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">section_fragility_curves</span><span class="kw">:</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"fragilitycurves.csv"</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_scenario_loads</span><span class="kw">:</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_loads.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> LoadFromFloodScenarioProbability</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>load_from_flood_scenario_probability <span class="op">=</span> LoadFromFloodScenarioProbability(</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>load_from_flood_scenario_probability.run(</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_scenario_failure_prob_segments"</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_section_to_segment"</span>,</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_section_fragility_curves"</span>,</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_scenario_loads"</span>,</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> LoadFromFloodScenarioProbability</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>load_from_flood_scenario_probability <span class="op">=</span> LoadFromFloodScenarioProbability(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>load_from_flood_scenario_probability.run(</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_scenario_failure_prob_segments"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_section_to_segment"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_section_fragility_curves"</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_scenario_loads"</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="selectfloodscenariofromloadsec-selectfloodscenariofromload" class="level2">
-<h2 class="anchored" data-anchor-id="selectfloodscenariofromloadsec-selectfloodscenariofromload">SelectFloodScenarioFromLoad{sec-SelectFloodScenarioFromLoad}</h2>
+<section id="sec-SelectFloodScenarioFromLoad" class="level2">
+<h2 class="anchored" data-anchor-id="sec-SelectFloodScenarioFromLoad">SelectFloodScenarioFromLoad</h2>
 <p>Met de maatgevende belastingen per trajectdeel (resultaat van <a href="#sec-LoadFromFloodScenarioProbability">LoadFromFloodScenarioProbability</a>), kan een bijbehorend scenario worden geselecteerd. Hiervoor is metadata per bres nodig. Hierbij wordt voor de volgende functie alvast de koppeling gemaakt met de bijbehorende grids. Deze grids per scenario worden in <a href="#sec-CalculateFloodRisk">CalculateFloodRisk</a> gebruikt om het overstromingsrisico te bepalen gegeven de huidige belasting.</p>
 <p>De eerste data adapter is de output van <code>LoadFromFloodScenarioProbability</code> met daarin per dijktraject id (<code>segment_id</code>) de bijbehorende belasting en bres id (<code>hydraulicload</code>,<code>section_id</code>).</p>
 <p>De tweede data adapter bevat per bres id (<code>section_id</code>) een bijbehorende maximale belasting waarvoor een scenario geldig is (<code>hydraulicload_upperboundary</code>). Op basis van deze belasting wordt een koppeling gemaakt van de huidige belasting naar een scenario. Hierbij is de standaardoptie om maar één resultaat per dijktraject terug te geven. Hierbij moet de waterstand overschreden zijn waarbij het scenario hoort. Om het mogelijk te maken voor de gebruiker om te kiezen tussen twee scenario’s kan de optie <code>return_two_scenarios</code> op <code>True</code> worden gezet. In dit geval worden de onder- en bovengrens teruggegeven. Hiermee is het ook mogelijk om tussen de twee scenario’s te kiezen.</p>
@@ -424,48 +449,48 @@ DataAdapter:
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="dv">-24</span><span class="kw">,</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span><span class="at"> </span><span class="dv">24</span><span class="kw">,</span><span class="at"> </span><span class="dv">36</span><span class="at"> </span><span class="kw">]</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">SelectFloodScenarioFromLoad</span><span class="kw">:</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">return_two_scenarios</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span><span class="co"> # Default</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_scenarios_loads</span><span class="kw">:</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_loads.csv"</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_consequences_loads</span><span class="kw">:</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"consequences_loads.csv"</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_scenario_consequences_grids</span><span class="kw">:</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_consequences_grids.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="dv">-24</span><span class="kw">,</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span><span class="at"> </span><span class="dv">24</span><span class="kw">,</span><span class="at"> </span><span class="dv">36</span><span class="at"> </span><span class="kw">]</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">SelectFloodScenarioFromLoad</span><span class="kw">:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">return_two_scenarios</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span><span class="co"> # Default</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_scenarios_loads</span><span class="kw">:</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_loads.csv"</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_consequences_loads</span><span class="kw">:</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"consequences_loads.csv"</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_scenario_consequences_grids</span><span class="kw">:</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_consequences_grids.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> SelectFloodScenarioFromLoad</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load <span class="op">=</span> SelectFloodScenarioFromLoad(</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load.run(</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_scenarios_loads"</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_consequences_loads"</span>,</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_scenario_consequences_grids"</span>,</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> SelectFloodScenarioFromLoad</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load <span class="op">=</span> SelectFloodScenarioFromLoad(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load.run(</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_scenarios_loads"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_consequences_loads"</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_scenario_consequences_grids"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="calculatefloodrisksec-calculatefloodrisk" class="level2">
-<h2 class="anchored" data-anchor-id="calculatefloodrisksec-calculatefloodrisk">CalculateFloodRisk{sec-CalculateFloodRisk}</h2>
+<section id="sec-CalculateFloodRisk" class="level2">
+<h2 class="anchored" data-anchor-id="sec-CalculateFloodRisk">CalculateFloodRisk</h2>
 <p>CalculateFloodRisk brengt alle functies tot nu toe samen om het actuele overstromingsrisco in kaart te brengen voor een gegeven gebied.</p>
 <p>De eerste data adapter is de output van <code>SelectFloodScenarioFromLoad</code> met daarin per dijktraject id (<code>segment_id</code>) de bijbehorende faalkans.</p>
 <p>De tweede data adapter bevat per dijktraject id (<code>segment_id</code>) de bijbehorende grids. Ook hier mogen de namen alles zijn wat eindigt op <code>_grid</code>.</p>
@@ -510,57 +535,57 @@ DataAdapter:
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="dv">-24</span><span class="kw">,</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span><span class="at"> </span><span class="dv">24</span><span class="kw">,</span><span class="at"> </span><span class="dv">36</span><span class="at"> </span><span class="kw">]</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">CalculateFloodRisk</span><span class="kw">:</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">aggregate_methods</span><span class="kw">:</span><span class="co"> # dit zijn de standaard aggregatie-methoden per risicomaat (kunnen worden overschreven in de config)</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">casualties</span><span class="kw">:</span><span class="at"> sum</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">damage</span><span class="kw">:</span><span class="at"> sum</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">flooding</span><span class="kw">:</span><span class="at"> median</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">affectedpeople</span><span class="kw">:</span><span class="at"> sum</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">waterdepth</span><span class="kw">:</span><span class="at"> sum</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">per_hectare</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">Index</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_scenario_failure_prob_segments</span><span class="kw">:</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_failure_prob_segments.csv"</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_scenario_consequences_grids</span><span class="kw">:</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_consequences_grids.csv"</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_areas_to_aggregate</span><span class="kw">:</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> shape</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"areas_to_aggregate.geojson"</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">flood_risk_local_file</span><span class="kw">:</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> flood_risk_local_file</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">''</span><span class="co"> # gebruik de data_dir</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">scenario_path</span><span class="kw">:</span><span class="at"> </span><span class="st">"flood_scenarios"</span><span class="co"> # en een map dieper kijk in de floodscenarios dir</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">        #abs_path_user: "tests/src/flood_scenarios/data_sets/flood_scenarios" # dit kan ook gebruikt worden</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_flood_risk_results</span><span class="kw">:</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_flood_risk_results.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="dv">-24</span><span class="kw">,</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span><span class="at"> </span><span class="dv">24</span><span class="kw">,</span><span class="at"> </span><span class="dv">36</span><span class="at"> </span><span class="kw">]</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">CalculateFloodRisk</span><span class="kw">:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">aggregate_methods</span><span class="kw">:</span><span class="co"> # dit zijn de standaard aggregatie-methoden per risicomaat (kunnen worden overschreven in de config)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">casualties</span><span class="kw">:</span><span class="at"> sum</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">damage</span><span class="kw">:</span><span class="at"> sum</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">flooding</span><span class="kw">:</span><span class="at"> median</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">affectedpeople</span><span class="kw">:</span><span class="at"> sum</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">waterdepth</span><span class="kw">:</span><span class="at"> sum</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">per_hectare</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">Index</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_scenario_failure_prob_segments</span><span class="kw">:</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_failure_prob_segments.csv"</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_scenario_consequences_grids</span><span class="kw">:</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"scenario_consequences_grids.csv"</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_areas_to_aggregate</span><span class="kw">:</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> shape</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"areas_to_aggregate.geojson"</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">flood_risk_local_file</span><span class="kw">:</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> flood_risk_local_file</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">''</span><span class="co"> # gebruik de data_dir</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">scenario_path</span><span class="kw">:</span><span class="at"> </span><span class="st">"flood_scenarios"</span><span class="co"> # en een map dieper kijk in de floodscenarios dir</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">        #abs_path_user: "tests/src/flood_scenarios/data_sets/flood_scenarios" # dit kan ook gebruikt worden</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_flood_risk_results</span><span class="kw">:</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_flood_risk_results.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> CalculateFloodRisk</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>calculate_flood_risk <span class="op">=</span> CalculateFloodRisk(data_adapter<span class="op">=</span>data_adapter)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>calculate_flood_risk.run(</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_scenario_failure_prob_segments"</span>,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_scenario_consequences_grids"</span>,</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_areas_to_aggregate"</span>,</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flood_risk_local_file"</span>,</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_flood_risk_results"</span>,</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> CalculateFloodRisk</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>calculate_flood_risk <span class="op">=</span> CalculateFloodRisk(data_adapter<span class="op">=</span>data_adapter)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>calculate_flood_risk.run(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_scenario_failure_prob_segments"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_scenario_consequences_grids"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_areas_to_aggregate"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flood_risk_local_file"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_flood_risk_results"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
