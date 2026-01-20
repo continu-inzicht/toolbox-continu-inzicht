@@ -273,10 +273,9 @@ class CustomModelUncertainty(ModelUncertainty):
         Een dictionary met modelonzekerheden.
     """
 
-    model_uncertainties = {}
-    correlations = {}
-
     def __init__(self, standaard_model_onzekerheden):
+        self.model_uncertainties = {}
+        self.correlations = {}
         self.step_size = {
             "hs": standaard_model_onzekerheden["gh_onz_aantal"],
             "tspec": standaard_model_onzekerheden["gp_onz_aantal"],
