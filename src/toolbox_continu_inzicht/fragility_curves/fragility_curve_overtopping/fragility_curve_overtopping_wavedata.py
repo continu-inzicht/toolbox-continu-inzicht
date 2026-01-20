@@ -138,7 +138,10 @@ class FragilityCurveOvertoppingWaveData(FragilityCurveOvertoppingBase):
             return {}, {}
 
         mapping = {
-            WaveType.SIGNIFICANT_WAVEHEIGHT.value: ("gh_onz_mu", "gh_onz_sigma"),
+            WaveType.SIGNIFICANT_WAVEHEIGHT.value: (
+                "gh_onz_mu",
+                "gh_onz_sigma",
+            ),
             WaveType.SPECTRAL_WAVEPERIOD.value: (
                 "gp_onz_mu_tspec",
                 "gp_onz_sigma_tspec",

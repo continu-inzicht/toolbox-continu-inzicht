@@ -78,6 +78,27 @@ class WaveOvertoppingCalculation:
             )
         return {required_key: options[required_key] for required_key in required_keys}
 
+    @staticmethod
+    def validate_model_uncertainty_options(options: dict, key: str) -> None:
+        required_keys = [
+            "gh_onz_mu",
+            "gh_onz_sigma",
+            "gh_onz_aantal",
+            "gp_onz_mu_tspec",
+            "gp_onz_sigma_tspec",
+            "gp_onz_aantal",
+        ]
+        missing = [
+            required_key
+            for required_key in required_keys
+            if required_key not in options
+        ]
+        if missing:
+            missing_str = ", ".join(missing)
+            raise KeyError(
+                f"Missing overtopping model uncertainty option(s) for '{key}': {missing_str}"
+            )
+
     @classmethod
     def calculate_overtopping_curve(
         cls,
