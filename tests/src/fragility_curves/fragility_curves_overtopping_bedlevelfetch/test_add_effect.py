@@ -95,7 +95,9 @@ def setup_data_adapter():
     df_bed_levels = pd.DataFrame(bed_levels)
     fragility_curves = pd.DataFrame()
     data_adapter = DataAdapter(config=Config(config_path=Path.cwd()))
-    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"] = {}
+    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"] = {
+        "closing_situation": 0
+    }
     data_adapter.set_dataframe_adapter("slopes", df_slopes, if_not_exist="create")
     data_adapter.set_dataframe_adapter("profiles", df_profiles, if_not_exist="create")
     data_adapter.set_dataframe_adapter(

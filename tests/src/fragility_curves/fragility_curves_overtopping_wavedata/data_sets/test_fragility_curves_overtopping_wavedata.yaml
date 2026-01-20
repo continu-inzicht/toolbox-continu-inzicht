@@ -2,6 +2,15 @@ GlobalVariables:
     rootdir: "tests/src/fragility_curves/fragility_curves_overtopping_wavedata/data_sets"
     moments: [ -24, 0, 24, 48 ]
 
+    FragilityCurveOvertoppingWaveData:
+        gh_onz_mu: 0.96
+        gh_onz_sigma: 0.27
+        gp_onz_mu_tspec: 1.03
+        gp_onz_sigma_tspec: 0.13
+        gh_onz_aantal: 7
+        gp_onz_aantal: 7
+        closing_situation: 0
+
 DataAdapter:
     default_options:
         csv:

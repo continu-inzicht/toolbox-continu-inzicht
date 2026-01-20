@@ -257,7 +257,9 @@ def test_fragility_curves_wave_overtopping_vary_standard_values():
     config.lees_config()
     data_adapter = DataAdapter(config=config)
 
-    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"] = {}
+    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"] = {
+        "closing_situation": 0
+    }
     data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"][
         "gh_onz_mu"
     ] = 0.96
@@ -310,7 +312,9 @@ def test_fragility_curves_wave_overtopping_parametric(
     """Test de functie FragilityCurveOvertoppingBedlevelFetchMultiple met verschillende parameter combinaties"""
     config = Config(config_path=Path.cwd())
     data_adapter = DataAdapter(config=config)
-    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"] = {}
+    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"] = {
+        "closing_situation": closing_situation
+    }
 
     df_slopes = pd.DataFrame(slopes)
 

@@ -4,6 +4,7 @@ GlobalVariables:
 
     FragilityCurveOvertoppingBedlevelFetchMultiple:
         gh_onz_mu: 0.96 # default waarde
+        closing_situation: 0
 
     IntegrateFragilityCurve:
         refine_step_size: 0.2
