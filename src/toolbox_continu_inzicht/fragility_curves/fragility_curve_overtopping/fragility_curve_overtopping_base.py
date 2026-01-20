@@ -8,7 +8,6 @@ from pydantic.dataclasses import dataclass
 from toolbox_continu_inzicht import DataAdapter, FragilityCurve
 from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.overtopping_utils import (
     build_pydra_profiles,
-    get_overtopping_options,
     parse_profile_dataframe,
     validate_slopes,
 )
@@ -33,6 +32,15 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
     df_out: Optional[pd.DataFrame] | None = None
 
     options_key: ClassVar[str] = ""
+    default_options: ClassVar[dict] = {
+        "tp_tspec": 1.1,
+        "lower_limit_coarse": 4.0,
+        "upper_limit_coarse": 2.0,
+        "upper_limit_fine": 1.01,
+        "hstap": 0.05,
+        "gh_onz_aantal": 7,
+        "gp_onz_aantal": 7,
+    }
 
     def _load_inputs(self, input: list[str]) -> None:
         raise NotImplementedError
@@ -45,6 +53,61 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
             return self.options_key
         return type(self).__name__
 
+    @classmethod
+    def get_overtopping_options(
+        cls, global_variables: dict, key: str, defaults: dict
+    ) -> dict:
+        options = defaults.copy()
+        options.update(global_variables.get(key, {}))
+        model_uncertainties = WaveOvertoppingCalculation.get_model_uncertainty_options(
+            global_variables, key
+        )
+        options.update(model_uncertainties)
+        return options
+
+    @classmethod
+    def get_default_options(cls) -> dict:
+        return cls.default_options.copy()
+
+    def _get_default_options(self) -> dict:
+        return type(self).get_default_options()
+
+    def _get_base_options(self) -> dict:
+        defaults = self._get_default_options()
+        return self.get_overtopping_options(
+            self.data_adapter.config.global_variables, self._get_options_key(), defaults
+        )
+
+    def _build_options(
+        self,
+        overrides: dict | None = None,
+        context: dict | None = None,
+    ) -> dict:
+        options = self._get_base_options()
+        if not overrides:
+            return options
+
+        should_log = (
+            self._get_options_key() in self.data_adapter.config.global_variables
+        )
+        logger = self.data_adapter.logger
+        closing_situation = None
+        if context:
+            closing_situation = context.get("closing_situation")
+
+        for key, value in overrides.items():
+            if should_log and logger is not None:
+                logger.info(
+                    "Overtopping model uncertainty override: closing_situation=%s, "
+                    "key=%s, global=%s, override=%s",
+                    closing_situation,
+                    key,
+                    options.get(key),
+                    value,
+                )
+            options[key] = value
+        return options
+
     def calculate_fragility_curve(self, input: list[str], output: str) -> None:
         da = self.data_adapter
         self._load_inputs(input)
@@ -52,9 +115,12 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
         profile_series = parse_profile_dataframe(self.df_profile)
         validate_slopes(self.df_slopes)
 
-        options = get_overtopping_options(
-            da.config.global_variables, self._get_options_key()
-        )
+        options = self._build_options()
+        closing_situation = options.get("closing_situation")
+        if closing_situation is None:
+            raise KeyError(
+                f"Missing overtopping config option 'closing_situation' for '{self._get_options_key()}'."
+            )
 
         basis_profiel, overtopping = build_pydra_profiles(
             self.df_slopes, profile_series
@@ -68,7 +134,7 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
             overtopping,
             basis_profiel,
             qcr=profile_series["qcr"],
-            closing_situation=profile_series["closing_situation"],
+            closing_situation=closing_situation,
             options=options,
             wave_provider=wave_provider,
         )
