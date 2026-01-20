@@ -14,18 +14,18 @@ Om de scenarios te kunnen combineren moeten er een aantal stappen worden doorlop
 - Van het scenario en de curve een geagregeerd risico bepalen ([CalculateFloodRisk](#sec-CalculateFloodRisk))
 
 
-```mermaid
+```{mermaid}
 graph TD
     A[CalculateFloodScenarioProbability] --> B[LoadFromFloodScenarioProbabilit]
     B --> C[SelectFloodScenarioFromLoad]
     C --> D[CalculateFloodRisk]
 ```
 
-## CalculateFloodScenarioProbability{sec-CalculateFloodScenarioProbability}
+## CalculateFloodScenarioProbability{#sec-CalculateFloodScenarioProbability}
 
 Voor het berekenen van overstromingsrisico scenarios moeten de faalkansen van vakken gecobineerd worden tot faalkansen die vergeleken kunnen worden met de kansen van overstromingsscenario's. Hierbij wordt gebruik gemaakt van de gecombineerde kans van het vak en deze worden gecombineerd naar traject delen.
 
-```mermaid
+```{mermaid}
 graph TD
     A1[Dijkvak/section] --> D[Dijktraject deel/segment]
     B1[Dijkvak/section] --> D
@@ -43,7 +43,7 @@ Deze volgorde (eerst combineren over alle sectie en daarna over alle faalmechani
 
 ::: {.panel-tabset}
 ## Configuratie
-```yaml|
+```yaml
 GlobalVariables:
     rootdir: "data_sets/7.flood_scenarios"
     moments: [-24,0,24,36]
@@ -96,7 +96,7 @@ calculate_flood_scenario_probability.run(
 :::
 
 
-## LoadFromFloodScenarioProbability{sec-LoadFromFloodScenarioProbability}
+## LoadFromFloodScenarioProbability{#sec-LoadFromFloodScenarioProbability}
 
 Voor het bepalen van de risico van een overstroming is het nodig om een bijpassend overstromingsscenario te selecteren. Er zijn meerdere overstromingsscenario's beschikbaar die verschillende hydraulische belastingen representeren. <br>
 In de vorige stap `CalculateFloodScenarioProbability` is een scenariokans van een deeltraject (segment) berekend `scenario_failure_prob_segments`. Hiermee kan een bijpassend overstromingsscenario worden geselecteerd. Hiertoe is het nodig om de hydraulische belasting per deeltraject te bepalen met de `LoadFromFloodScenarioProbability`. Dat gebeurt met behulp van de fragilitycurves. Hiertoe is het noodzakelijk om 1 representatieve fragilitycurve per deeltraject te selecteren uit `section_fragility_curves`. Dat doen we door voor elk deeltraject (segment) 1 sectie te selecteren `section_to_segment`. De fragilitycurve van deze sectie wordt dan gebruikt om de scenariekans van het deeltraject (segement) om te zetten in een hydraulische belasting, die daarna gebruikt kan worden om een bijpassend overstromingsscenario te selecteren voor het deeltraject (segment).
@@ -150,7 +150,7 @@ load_from_flood_scenario_probability.run(
 ```
 :::
 
-## SelectFloodScenarioFromLoad{sec-SelectFloodScenarioFromLoad}
+## SelectFloodScenarioFromLoad{#sec-SelectFloodScenarioFromLoad}
 
 Met de maatgevende belastingen per trajectdeel (resultaat van [LoadFromFloodScenarioProbability](#sec-LoadFromFloodScenarioProbability)), kan een bijbehorend scenario worden geselecteerd.
 Hiervoor is metadata per bres nodig. Hierbij wordt voor de volgende functie alvast de koppeling gemaakt met de bijbehorende grids. Deze grids per scenario worden in [CalculateFloodRisk](#sec-CalculateFloodRisk) gebruikt om het overstromingsrisico te bepalen gegeven de huidige belasting.
@@ -220,7 +220,7 @@ select_flood_scenario_from_load.run(
 :::
 
 
-## CalculateFloodRisk{sec-CalculateFloodRisk}
+## CalculateFloodRisk{#sec-CalculateFloodRisk}
 
 CalculateFloodRisk brengt alle functies tot nu toe samen om het actuele overstromingsrisco in kaart te brengen voor een gegeven gebied.
 
