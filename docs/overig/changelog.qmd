@@ -115,7 +115,7 @@ De logging gebruikt een nieuwe 'baseClass': `ToolboxBase`, inherit deze om loggi
 
 ### Inhoudelijk
 
-Alle aanpassingen zijn te vinden in pull request [#57](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/57)
+Alle aanpassingen zijn te vinden in pull request [#73](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/73)
 
 In sprint 6 (na jaar 2025) zijn twee onderwerpen opgepakt: Toepassen van maatregelen en toevoegen van Overstromingsrisico’s
 
