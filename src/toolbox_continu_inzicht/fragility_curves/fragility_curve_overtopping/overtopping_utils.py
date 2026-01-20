@@ -20,6 +20,7 @@ def parse_profile_dataframe(df_profile: pd.DataFrame) -> pd.Series:
     """
     Parse het profiel dataframe naar een Series met parameters.
     """
+    df_profile = df_profile.copy()
     if "parameters" in df_profile:
         df_profile.set_index("parameters", inplace=True)
 
