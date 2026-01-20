@@ -54,10 +54,6 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
     ) -> dict:
         options = defaults.copy()
         options.update(global_variables.get(key, {}))
-        model_uncertainties = WaveOvertoppingCalculation.get_model_uncertainty_options(
-            global_variables, key
-        )
-        options.update(model_uncertainties)
         return options
 
     def _build_options(
@@ -71,6 +67,9 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
             self.data_adapter.config.global_variables, options_key, defaults
         )
         if not overrides:
+            WaveOvertoppingCalculation.validate_model_uncertainty_options(
+                options, options_key
+            )
             return options
 
         should_log = options_key in self.data_adapter.config.global_variables
@@ -90,6 +89,9 @@ class FragilityCurveOvertoppingBase(FragilityCurve):
                     value,
                 )
             options[key] = value
+        WaveOvertoppingCalculation.validate_model_uncertainty_options(
+            options, options_key
+        )
         return options
 
     def calculate_fragility_curve(self, input: list[str], output: str) -> None:
