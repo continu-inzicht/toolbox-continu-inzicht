@@ -219,10 +219,10 @@ class FragilityCurveOvertoppingWaveDataMultiple(ToolboxBase):
         self.df_wv_uncert = da.input(input[3])
 
         global_variables = da.config.global_variables
-        defaults = FragilityCurveOvertoppingBase.default_options.copy()
-        options = FragilityCurveOvertoppingBase.get_overtopping_options(
-            global_variables, "FragilityCurveOvertoppingWaveData", defaults
-        )
+        options = FragilityCurveOvertoppingBase.default_options.copy()
+        options_key = self.fc_function.options_key
+        options.update(global_variables.get(f"{options_key}Multiple", {}))
+        options.update(global_variables.get(options_key, {}))
 
         section_ids = self.df_profile.section_id.unique()
         df_out = [
