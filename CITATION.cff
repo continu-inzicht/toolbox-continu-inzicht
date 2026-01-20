@@ -25,11 +25,15 @@ authors:
     family-names: Thonus
     given-names: Bart
   -
-    ffiliation: "HKV lijn in water"
+    affiliation: "HKV lijn in water"
     family-names: Zethof
     given-names: Marit
+  -
+    affiliation: "HKV lijn in water"
+    family-names: de Wit
+    given-names: Sam
 
-cff-version: "0.0.1"
+cff-version: "0.0.2"
 keywords:
   - Waterveiligheid
 license: "GPL-3.0-or-later"

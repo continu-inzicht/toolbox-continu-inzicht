@@ -11,7 +11,7 @@ DataAdapter:
             sep: ","
     BelastingLocaties:
         type: csv
-        path: "test_loads_rws_8420.csv"
+        path: "test_loads_rws_one.csv"
     Waterstanden:
         type: csv
         path: "hidden_waterstanden.csv"

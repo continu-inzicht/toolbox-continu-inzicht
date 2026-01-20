@@ -40,3 +40,7 @@ Naast de functies is per module een beschrijving beschikbaar en zijn er voorbeel
 8. [Maatregelen](modules/maatregelen.qmd)
 
     Tijdens crisissituaties kunnen maatregelen worden genomen om een dijk tijdelijk te versterken. In dat geval moet de fragility curve aangepast worden zodat het nog representatief is voor de gegeven situatie. Deze aangepastcurve kan uit een bibliotheek van bestaande curves worden gehaald of als deze niet beschikbaar is kan de curve aangepast worden door deze te verschuiven.
+
+9. [Overstromingsrisico](modules/flood_scenario.qmd)
+
+    Om inzicht te geven in de actuele risico kunnen overstromingsscenarios worden gebruik. Deze risico's kunnen helpen om prioriteiten te stellen tijdens hoogwater, waarbij er niet alleen een kans of een afzonderlijk gevolg wordt beschouwd. De gevolgen kunnen bijvoorbeeld worden uitgedrukt in economische schade, slachtoffers en getroffenen.
