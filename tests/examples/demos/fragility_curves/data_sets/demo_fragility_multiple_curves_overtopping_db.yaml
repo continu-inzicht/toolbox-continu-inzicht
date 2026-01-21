@@ -2,8 +2,9 @@ GlobalVariables:
     rootdir: "data_sets"
     moments: [-24,0,24,48]
 
-    FragilityCurveOvertoppingMultiple:
+    FragilityCurveOvertoppingBedlevelFetchMultiple:
         gh_onz_mu: 0.96 # default waarde
+        closing_situation: 0
 
 DataAdapter:
     slopes:

@@ -1,37 +1,31 @@
-from pathlib import Path
-from typing import Optional
+from typing import ClassVar, Optional
 
 import pandas as pd
 
 # pydra_core=0.0.1
-import pydra_core
-import pydra_core.common
-import pydra_core.common.enum
-import pydra_core.location
 from pydantic.dataclasses import dataclass
 
-from toolbox_continu_inzicht import ToolboxBase, Config, DataAdapter, FragilityCurve
-from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.calculate_fragility_curve_overtopping import (
-    WaveOvertoppingCalculation,
+from toolbox_continu_inzicht import DataAdapter, FragilityCurve, ToolboxBase
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.fragility_curve_overtopping_base import (
+    FragilityCurveOvertoppingBase,
+)
+from toolbox_continu_inzicht.fragility_curves.fragility_curve_overtopping.wave_provider import (
+    BretschneiderWaveProvider,
 )
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurveOvertopping(FragilityCurve):
+class FragilityCurveOvertoppingBedlevelFetch(FragilityCurveOvertoppingBase):
     """
     Maakt een enkele fragility curve voor golfoverslag.
     Attributes
     ----------
     data_adapter: DataAdapter
         DataAdapter object
-    df_slopes: Optional[pd.DataFrame] | None
-        DataFrame met helling data.
-    df_profile: Optional[pd.DataFrame] | None
-        DataFrame met profiel data.
     df_bed_levels: Optional[pd.DataFrame] | None
         DataFrame met bed level data.
-    df_out: Optional[pd.DataFrame] | None
-        DataFrame met de resultaten van de berekening.
+    options_key: ClassVar[str]
+        Config key voor overtopping opties.
 
     Notes
     -----
@@ -40,14 +34,14 @@ class FragilityCurveOvertopping(FragilityCurve):
 
     1. gh_onz_mu, GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
     1. gh_onz_sigma, GolfHoogte onzekerheid sigma: standaardafwijking waarde (standaard 0.27)
-    1. gp_onz_mu_tp, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-    1. gp_onz_sigma_tp, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gp_onz_mu_tspec, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
     1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gh_onz_aantal, Aantal onzekerheden in de golfhoogte (standaard 7)
     1. gp_onz_aantal, Aantal onzekerheden in de golfperiode (standaard 7)
 
     tp_tspec, de verhouding tussen de piekperiode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
+    closing_situation moet expliciet via config worden opgegeven. Als onzekerheden niet zijn opgegeven,
+    worden Bretschneider-standaardwaarden gebruikt.
 
     De waterniveaus waarmee probabilistisch gerekend wordt, is verdeeld in twee delen: grof en fijn.
 
@@ -59,10 +53,8 @@ class FragilityCurveOvertopping(FragilityCurve):
     """
 
     data_adapter: DataAdapter
-    df_slopes: Optional[pd.DataFrame] | None = None
-    df_profile: Optional[pd.DataFrame] | None = None
     df_bed_levels: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
+    options_key: ClassVar[str] = "FragilityCurveOvertoppingBedlevelFetch"
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -106,115 +98,38 @@ class FragilityCurveOvertopping(FragilityCurve):
         """
         self.calculate_fragility_curve(input, output)
 
-    def calculate_fragility_curve(self, input: list[str], output: str) -> None:
-        """
-        Bereken de fragility curve op basis van de opgegeven input en sla het resultaat op in het opgegeven outputbestand.
-
-        Parameters
-        ----------
-        input: list[str]
-            Lijst namen van de input DataAdapters: slopes, profile en bed_levels
-        output: str
-            Naam van de DataAdapter Fragility curve output
-
-        Raises
-        ------
-        UserWarning
-            Slopes should have a slopetypeid of 1 or 2
-        """
-        # haal input op
+    def _load_inputs(self, input: list[str]) -> None:
         self.df_slopes = self.data_adapter.input(input[0])
         self.df_profile = self.data_adapter.input(input[1])
         self.df_bed_levels = self.data_adapter.input(input[2])
 
-        # nabewerking op profiel
-        if "parameters" in self.df_profile:
-            self.df_profile.set_index("parameters", inplace=True)
-
-        profile_series = self.df_profile["values"]
-        # converteer naar numeriek indien mogelijk, dit komt doordat de kolom zowel strings als floats bevat
-        # qcr kan string, float of tuple zijn
-        for k in profile_series.index:
-            try:
-                profile_series.at[k] = float(profile_series.at[k])
-            except ValueError:
-                pass
-
-        global_variables = self.data_adapter.config.global_variables
-        options = global_variables.get("FragilityCurveOvertopping", {})
-
-        windspeed = profile_series["windspeed"]
-        sectormin = profile_series["sectormin"]
-        sectorsize = profile_series["sectorsize"]
-
-        if not all(
-            [
-                slopetype in [1, 2]
-                for slopetype in self.df_slopes["slopetypeid"].unique()
-            ]
-        ):
-            raise UserWarning("Hellingen moeten van slopetypeid 1 of 2 zijn")
-
-        # Formateer de data uit het DataFrame voor Pydra
-        df_slope_dike = self.df_slopes[self.df_slopes["slopetypeid"] == 1]
-        profiel_dict = {
-            "profile_name": "profiel_CI",
-            "dike_x_coordinates": df_slope_dike["x"].tolist(),
-            "dike_y_coordinates": df_slope_dike["y"].tolist(),
-            "dike_roughness": df_slope_dike["r"].tolist(),
-            "dike_orientation": profile_series["orientation"],
-            "dike_crest_level": profile_series["crestlevel"],
-        }
-
-        basis_profiel = pydra_core.Profile.from_dictionary(profiel_dict)
-
-        # Voorland wordt apart gedaan, zodat deze hetzelfde is als de originele versie van Pydra
-        foreland_profile = {}
-        df_slope_foreland = self.df_slopes.loc[self.df_slopes["slopetypeid"] == 2]
-        if len(df_slope_foreland) > 0:
-            foreland_profile["foreland_x_coordinates"] = list(
-                df_slope_foreland["x"].to_numpy()
-            )
-            foreland_profile["foreland_y_coordinates"] = list(
-                df_slope_foreland["y"].to_numpy()
-            )
-
-        profiel_dict.update(foreland_profile)
-
-        overtopping = pydra_core.Profile.from_dictionary(profiel_dict)
-
-        if profile_series["dam"] != 0.0:
-            breakwater_type = pydra_core.common.enum.Breakwater(
-                int(profile_series["dam"])
-            )
-            overtopping.set_breakwater(
-                breakwater_type=breakwater_type,
-                breakwater_level=profile_series["damheight"],
-            )
-
-        # Bereken curve
-        niveaus, ovkansqcr = WaveOvertoppingCalculation.calculate_overtopping_curve(
-            windspeed,
-            sectormin,
-            sectorsize,
-            overtopping,
-            basis_profiel,
-            qcr=profile_series["qcr"],
-            richtingen=self.df_bed_levels["direction"],
-            bodemhoogte=self.df_bed_levels["bedlevel"],
-            strijklengte=self.df_bed_levels["fetch"],
-            closing_situation=profile_series["closing_situation"],
-            options=options,
+    def _build_wave_provider(self, options: dict) -> BretschneiderWaveProvider:
+        return BretschneiderWaveProvider(
+            bedlevel=self.df_bed_levels["bedlevel"],
+            fetch=self.df_bed_levels["fetch"],
+            windrichtingen=self.df_bed_levels["direction"],
+            tp_tspec=options.get("tp_tspec", 1.1),
         )
 
-        self.hydraulicload = niveaus
-        self.failure_probability = ovkansqcr
-
-        self.data_adapter.output(output=output, df=self.as_dataframe())
+    @classmethod
+    def get_overtopping_options(
+        cls, global_variables: dict, key: str, defaults: dict
+    ) -> dict:
+        options = defaults.copy()
+        options.update(global_variables.get(key, {}))
+        model_defaults = {
+            "gh_onz_mu": 0.96,
+            "gh_onz_sigma": 0.27,
+            "gp_onz_mu_tspec": 1.03,
+            "gp_onz_sigma_tspec": 0.13,
+        }
+        for key_name, value in model_defaults.items():
+            options.setdefault(key_name, value)
+        return options
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class FragilityCurveOvertoppingMultiple(ToolboxBase):
+class FragilityCurveOvertoppingBedlevelFetchMultiple(ToolboxBase):
     """
     Maakt een set van fragility curves voor golfoverslag voor een dijkvak.
 
@@ -224,11 +139,13 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
         DataAdapter object
     df_slopes: Optional[pd.DataFrame] | None
         DataFrame met hellingsdata.
+    df_profile: Optional[pd.DataFrame] | None
+        DataFrame met profiel data.
     df_bed_levels: Optional[pd.DataFrame] | None
         DataFrame met bed level data.
     df_out: Optional[pd.DataFrame] | None
         DataFrame met de resultaten van de berekening.
-    fragility_curve_function: FragilityCurve
+    fc_function: FragilityCurve
         FragilityCurve object
     effect: float | None
         Effect van de maatregel (niet gebruikt)
@@ -242,14 +159,14 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
 
     1. gh_onz_mu, GolfHoogte onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfhoogte (standaard 0.96)
     1. gh_onz_sigma, GolfHoogte onzekerheid sigma: standaardafwijking waarde (standaard 0.27)
-    1. gp_onz_mu_tp, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
-    1. gp_onz_sigma_tp, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gp_onz_mu_tspec, GolfPerioden onzekerheid mu: gemiddelde waarde van de onzekerheid van de golfperiode (standaard 1.03)
     1. gp_onz_sigma_tspec, GolfPerioden onzekerheid sigma: standaardafwijking waarde (standaard 0.13)
     1. gh_onz_aantal, Aantal onzekerheden in de golfhoogte (standaard 7)
     1. gp_onz_aantal, Aantal onzekerheden in de golfperiode (standaard 7)
 
     tp_tspec, de verhouding tussen de piekperiode van de golf (`$T_p$`) en de spectrale golfperiode (`$Tm_{-1,0}$`) (standaard 1.1).
+    closing_situation moet expliciet via config worden opgegeven. Als onzekerheden niet zijn opgegeven,
+    worden Bretschneider-standaardwaarden gebruikt.
 
     De waterniveaus waarmee probablistisch gerekend wordt. Dit is verdeeld in twee delen: grof en fijn.
 
@@ -263,10 +180,11 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
     # df_slopes, df_bed_levels, df_out, lower_limit, effect, measure_id
     data_adapter: DataAdapter
     df_slopes: Optional[pd.DataFrame] | None = None
+    df_profile: Optional[pd.DataFrame] | None = None
     df_bed_levels: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    fragility_curve_function: FragilityCurve = FragilityCurveOvertopping
+    fc_function: FragilityCurve = FragilityCurveOvertoppingBedlevelFetch
     effect: float | None = None
     measure_id: int | None = None
 
@@ -301,66 +219,83 @@ class FragilityCurveOvertoppingMultiple(ToolboxBase):
         section_ids = self.df_profile.section_id.unique()
 
         global_variables = self.data_adapter.config.global_variables
-        options = global_variables.get("FragilityCurveOvertoppingMultiple", {})
-
-        self.df_out: pd.DataFrame = pd.DataFrame(
-            columns=["section_id", "hydraulicload", "failure_probability"]
+        options = global_variables.get(
+            "FragilityCurveOvertoppingBedlevelFetchMultiple", {}
         )
-        for section_id in section_ids:
-            df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
-            df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
-            df_bed_levels = self.df_bed_levels[
-                self.df_bed_levels["section_id"] == section_id
-            ]
 
-            # maak een placeholder DataAdapter aan, dit zorgt dat je de modules ook los kan aanroepen
+        temp_data_adapter = self.data_adapter
+        temp_data_adapter.set_dataframe_adapter(
+            "output", pd.DataFrame(), if_not_exist="create"
+        )
 
-            temp_config = Config(config_path=Path.cwd())
-            temp_data_adapter = DataAdapter(config=temp_config)
-            temp_data_adapter.config.global_variables["FragilityCurveOvertopping"] = (
-                options
+        df_out = [
+            self._calculate_section(
+                section_id=section_id,
+                input=input,
+                options=options,
+                temp_data_adapter=temp_data_adapter,
             )
+            for section_id in section_ids
+        ]
 
-            temp_data_adapter.set_dataframe_adapter(
-                "df_slopes", df_slopes, if_not_exist="create"
-            )
-            df_profile = df_profile.iloc[0].T
-            df_profile = df_profile.to_frame().rename(
-                columns={df_profile.name: "values"}
-            )
-            temp_data_adapter.set_dataframe_adapter(
-                "df_profile", df_profile, if_not_exist="create"
-            )
-            temp_data_adapter.set_dataframe_adapter(
-                "df_bed_levels", df_bed_levels, if_not_exist="create"
-            )
-            temp_data_adapter.set_dataframe_adapter(
-                "output", pd.DataFrame(), if_not_exist="create"
-            )
-            fragility_curve_overtopping = self.fragility_curve_function(
-                data_adapter=temp_data_adapter
-            )
-            # dit zorgt ervoor dat het beheerdersoordeel ook mee kan worden genomen
-            if self.effect is not None:
-                fragility_curve_overtopping.run(
-                    input=["df_slopes", "df_profile", "df_bed_levels"],
-                    output="output",
-                    effect=self.effect,
-                )
-            else:
-                fragility_curve_overtopping.run(
-                    input=["df_slopes", "df_profile", "df_bed_levels"], output="output"
-                )
-
-            df_fragility_curve_overtopping = fragility_curve_overtopping.as_dataframe()
-            df_fragility_curve_overtopping["section_id"] = section_id
-
-            if len(self.df_out) == 0:
-                self.df_out = df_fragility_curve_overtopping
-            else:
-                self.df_out = pd.concat([self.df_out, df_fragility_curve_overtopping])
-
+        self.df_out = pd.concat(df_out, ignore_index=True)
         self.df_out["failuremechanismid"] = 2  # GEKB: komt uit de
         if self.measure_id is not None:
             self.df_out["measureid"] = self.measure_id
         self.data_adapter.output(output=output, df=self.df_out)
+
+    def _calculate_section(
+        self,
+        section_id: int,
+        input: list[str],
+        options: dict,
+        temp_data_adapter: DataAdapter,
+    ) -> pd.DataFrame:
+        temp_data_adapter.logger.info(
+            "Calculating overtopping curve using bedlevel/fetch for section_id=%s",
+            section_id,
+        )
+
+        df_slopes = self.df_slopes[self.df_slopes["section_id"] == section_id]
+        df_profile = self.df_profile[self.df_profile["section_id"] == section_id]
+        df_bed_levels = self.df_bed_levels[
+            self.df_bed_levels["section_id"] == section_id
+        ]
+
+        temp_data_adapter.config.global_variables[
+            "FragilityCurveOvertoppingBedlevelFetch"
+        ] = options
+
+        df_profile = df_profile.iloc[0].T
+        df_profile = df_profile.to_frame().rename(columns={df_profile.name: "values"})
+
+        overrides = {
+            input[0]: {"type": "python", "dataframe_from_python": df_slopes},
+            input[1]: {"type": "python", "dataframe_from_python": df_profile},
+            input[2]: {
+                "type": "python",
+                "dataframe_from_python": df_bed_levels,
+            },
+            "output": {
+                "type": "python",
+                "dataframe_from_python": pd.DataFrame(),
+            },
+        }
+        with temp_data_adapter.temporary_adapters(overrides):
+            # dit zorgt ervoor dat het beheerdersoordeel ook mee kan worden genomen
+            fc_overtopping = self.fc_function(data_adapter=temp_data_adapter)
+            if self.effect is not None:
+                fc_overtopping.run(
+                    input=[input[0], input[1], input[2]],
+                    output="output",
+                    effect=self.effect,
+                )
+            else:
+                fc_overtopping.run(
+                    input=[input[0], input[1], input[2]],
+                    output="output",
+                )
+
+        df_fc_overtopping = fc_overtopping.as_dataframe()
+        df_fc_overtopping["section_id"] = section_id
+        return df_fc_overtopping
