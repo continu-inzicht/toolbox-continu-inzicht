@@ -120,9 +120,9 @@ class DataAdapter(PydanticBaseModel):
             if load_dotenv(dotenv_path=dotenv_path):
                 environmental_variables = dict(dotenv_values(dotenv_path=dotenv_path))
             # in sommige gevallen kan je niet werken met een .env bestand, maar zijn de variabelen al in de config gezet
-            elif "environmental_variables" in self.config.global_variables:
+            elif "custom_environmental_variables" in self.config.global_variables:
                 environmental_variables = self.config.global_variables[
-                    "environmental_variables"
+                    "custom_environmental_variables"
                 ]
             else:
                 msg = "Het bestand `.env` is niet aanwezig in de hoofdmap, code negeert deze melding."
