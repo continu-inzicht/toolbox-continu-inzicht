@@ -212,7 +212,13 @@ class DataAdapter(PydanticBaseModel):
         functie_output_config.update(environmental_variables)
 
         # Roep de bijbehorende functie bij het datatype aan en geef het input pad mee.
-        bijbehorende_functie = self.output_types[data_type]
+        try:
+            bijbehorende_functie = self.output_types[data_type]
+        except KeyError:
+            # Adapter bestaat niet
+            message = f"Adapter van het type '{data_type}' niet gevonden, alleen {list(self.output_types.keys())}."
+            self.logger.warning(message)
+            raise UserWarning(message)
         bijbehorende_functie(functie_output_config, df)
 
     @contextmanager
