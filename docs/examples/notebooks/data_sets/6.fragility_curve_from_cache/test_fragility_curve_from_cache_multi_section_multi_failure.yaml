@@ -8,19 +8,19 @@ DataAdapter:
     default_options:
         csv:
             sep: ","
-    fragility_curve_multi_section_multi_failure:
+    input_fragility_curve_multi_section_multi_failure:
         type: csv
         file: "fragility_curve_multi_section_multi_failure.csv"
-    measures_to_effect:
+    input_measures_to_effect:
         type: csv
         file: "measures_to_effect.csv"
-    section_id_to_measure_id:
+    input_section_id_to_measure_id:
         type: csv
         file: "section_id_to_measure_id.csv"
-    resulting_fragility_curve:
+    output_resulting_fragility_curve:
         type: csv
         file: "hidden_resulting_fragility_one_section_multi_failure.csv"
-    section_id_to_measure_id_not_cached:
+    input_section_id_to_measure_id_not_cached:
         type: csv
         file: "section_id_to_measure_id_not_cached.csv"
     # only used to create shifted curves
