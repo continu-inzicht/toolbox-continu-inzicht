@@ -88,8 +88,14 @@ def test_load_from_flood_scenario_two_large():
     df_out = select_flood_scenario_from_load.df_out_scenario_consequences_grids
     assert not df_out.empty
     assert "hydraulicload_upperboundary" in df_out.columns
-    assert len(df_out) == len(df_in)
-    assert df_out["hydraulicload_upperboundary"].to_list() == [2.948, 2.93]
+    assert len(df_out) == 2 * len(df_in)
+
+    assert df_out["hydraulicload_upperboundary"].to_list() == [
+        2.726,
+        2.948,
+        2.723,
+        2.93,
+    ]
 
 
 def test_load_from_flood_scenario_two_small():
@@ -116,8 +122,8 @@ def test_load_from_flood_scenario_two_small():
     df_in = data_adapter.input("flood_scenario_loads")
     df_out = select_flood_scenario_from_load.df_out_scenario_consequences_grids
     assert not df_out.empty
-    assert "hydraulicload_upperboundary" in df_out.columns
     assert len(df_out) == 2 * len(df_in)
+    assert "hydraulicload_upperboundary" in df_out.columns
     assert df_out["hydraulicload_upperboundary"].to_list() == [
         2.506,
         2.726,
