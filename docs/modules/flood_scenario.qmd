@@ -162,8 +162,8 @@ Op basis van deze belasting wordt een koppeling gemaakt van de huidige belasting
 Hierbij is de standaardoptie om maar één resultaat per dijktraject terug te geven.
 Hierbij is de waterstand de bovengrens belasting voor het bijbehorende scenario.
 Om het mogelijk te maken voor de gebruiker om te kiezen tussen twee scenario's kan de optie `return_two_scenarios` op `True` worden gezet.
-In dit geval worden de onder- en bovengrens teruggegeven.
-Hiermee is het ook mogelijk om tussen de twee scenario's te kiezen.
+In dit geval worden de naast de bovengrens scenario, ook het scenario er onder teruggegeven.
+Hiermee is het ook mogelijk om tussen de twee scenario's te kiezen, of beide te gebruiken en interpoleren.
 
 De data adapter moet minimaal 1 kolom met een grid naam bevatten die eindigt op `_grid`.
 
