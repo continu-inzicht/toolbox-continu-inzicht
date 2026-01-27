@@ -254,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability" id="toc-calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability" class="nav-link active" data-scroll-target="#calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability">CalculateFloodScenarioProbability{sec-CalculateFloodScenarioProbability}</a></li>
+  <li><a href="#sec-CalculateFloodScenarioProbability" id="toc-sec-CalculateFloodScenarioProbability" class="nav-link active" data-scroll-target="#sec-CalculateFloodScenarioProbability">CalculateFloodScenarioProbability</a></li>
   <li><a href="#loadfromfloodscenarioprobability" id="toc-loadfromfloodscenarioprobability" class="nav-link" data-scroll-target="#loadfromfloodscenarioprobability">LoadFromFloodScenarioProbability</a></li>
   <li><a href="#selectfloodscenariofromload" id="toc-selectfloodscenariofromload" class="nav-link" data-scroll-target="#selectfloodscenariofromload">SelectFloodScenarioFromLoad</a>
   <ul class="collapse">
@@ -296,35 +296,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.config <span class="im">import</span> Config</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> DataAdapter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability" class="level2">
-<h2 class="anchored" data-anchor-id="calculatefloodscenarioprobabilitysec-calculatefloodscenarioprobability">CalculateFloodScenarioProbability{sec-CalculateFloodScenarioProbability}</h2>
+<section id="sec-CalculateFloodScenarioProbability" class="level2">
+<h2 class="anchored" data-anchor-id="sec-CalculateFloodScenarioProbability">CalculateFloodScenarioProbability</h2>
 <p>Dit voorbeeld laat zien hoe met behulp van de <code>CalculateFloodScenarioProbability</code> scenariokansen berekend worden uit kansen per sectie en per faalmachanisme. <br> Eerst worden de kansen per sectie en faalmachanisme ingeladen, daarna worden deze gecombineerd naar een kans over alle secties (voorheen aangeduid als de ringkans) per faalmechanisme. Daarna worden de kansen over alle secties per faalmechanisme gecombineerd naar 1 kans over alle secties en over alle faalmechanismen. <br> Deze volgorde (eerst combineren over alle sectie en daarna over alle faalmechanismen) is bewust gekozen omdat per faalmechanisme verschillende met andere correlaties wordt gerekend. Voor het faalmechanisme GEKB wordt verondersteld dat alle secties volledig afhankelijk falen en voor de overige faalmechanismen wordt verondersteld dat de secties volledig onafhankelijk falsen. Door gekozen volgorde bij het combineren van faalkansen aan te houden, kan dit onderscheid geborgd worden. Tussen de verschillende faalmechanismen wordt volledige onafhankelijkheid verondersteld. N.B. in een volledige probabilistische berekening (waarbij niet met fragility curves wordt gerekend) kan de daadwerkelijke correlatie worden berekend en is het ook mogelijk om te rekenen met gedeeltelijke afhankelijkheid. Dat is in een werkwijze met fragilitycurves niet mogelijk. <br></p>
-<pre class="yaml|"><code>GlobalVariables:
-    rootdir: "data_sets/7.flood_scenarios"
-    moments: [-24,0,24,36]
-
-DataAdapter:
-    default_options:
-        csv:
-            sep: ","
-    input_failuremechanism:
-        type: csv
-        file: "rekentest_failuremechanism.csv"
-    input_probabilities_failuremechanisme_sections:
-        type: csv
-        file: "rekentest_probabilities_failuremechanisme_sections.csv"
-    input_sections_in_segment:
-        type: csv
-        file: "rekentest_sections_in_segment.csv"
-    output_scenario_failure_prob_segments:
-        type: csv
-        index: false
-        file: "hidden_rekentest_scenario_failure_prob_segments.csv"
-    output_combined_failure_prob_all_sections:
-        type: csv
-        index: false
-        file: "hidden_rekentest_combined_failure_prob_all_sections.csv"</code></pre>
-<p>#TODO - loop over momenten inbouwen - nog een lengte-effect factor verwerken in de bepalen van de faalkans per segment</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">36</span><span class="kw">]</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_failuremechanism</span><span class="kw">:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"rekentest_failuremechanism.csv"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_probabilities_failuremechanisme_sections</span><span class="kw">:</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"rekentest_probabilities_failuremechanisme_sections.csv"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">input_sections_in_segment</span><span class="kw">:</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"rekentest_sections_in_segment.csv"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_scenario_failure_prob_segments</span><span class="kw">:</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">index</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_scenario_failure_prob_segments.csv"</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_combined_failure_prob_all_sections</span><span class="kw">:</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">index</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_combined_failure_prob_all_sections.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Op dit momemt moet het voorbeeld nog worden uitgebreid met: - loop over momenten inbouwen - Mee nemen van een lengte-effect factor bij het bepalen van de faalkans per segment</p>
 <div id="cell-5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># laadt de configuratie en initialiseer de data adapter</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"7.flood_scenarios"</span></span>
@@ -728,8 +728,7 @@ DataAdapter:
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_scenario_loads.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Dit is specifiek voor een moment, over meerdere momenten loopen moet op een hoger viveau.</p>
-<p>#TODO - <del>loop over momenten inbouwen</del> - <del>bij selectie van fragilitycurves rekening houden met faalmechanisme_id (COMB) en met maatregel_id (actieve maatregel)!</del> &gt; Tests nog nalopen</p>
-<div id="cell-17" class="cell" data-execution_count="11">
+<div id="cell-16" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># laadt de configuratie en initialiseer de data adapter</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"7.flood_scenarios"</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(</span>
@@ -738,7 +737,7 @@ DataAdapter:
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="12">
+<div id="cell-17" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de scenariokansen per segment af</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_scenario_failure_prob_segments"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -770,7 +769,7 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="13">
+<div id="cell-18" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de mapping van sectie naar segment af</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_section_to_segment"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -808,7 +807,7 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="14">
+<div id="cell-19" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de fragiliteitscurves per faalmechanisme af</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_section_fragility_curves"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
@@ -922,11 +921,11 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="15">
+<div id="cell-20" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importeer en initialiseer de module voor het bepalen van de belastingen vanuit scenariokansen</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> LoadFromFloodScenarioProbability</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="16">
+<div id="cell-21" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># voer de bepaling van de hydraulische belastingen uit</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>load_from_flood_scenario_probability <span class="op">=</span> LoadFromFloodScenarioProbability(</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
@@ -940,7 +939,7 @@ DataAdapter:
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_scenario_loads"</span>,</span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="17">
+<div id="cell-22" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de belastingen overeenkomstig de scenariokansen (per segment) af</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>load_from_flood_scenario_probability.df_out_scenario_loads</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
@@ -994,14 +993,14 @@ DataAdapter:
 <span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_scenario_consequences_grids</span><span class="kw">:</span></span>
 <span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
 <span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_scenario_consequences_grids.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-25" class="cell" data-execution_count="18">
+<div id="cell-24" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># laadt de configuratie en initialiseer de data adapter</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"7.flood_scenarios"</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"rekentest_select_flood_scenario_from_load.yaml"</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="19">
+<div id="cell-25" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de belastingen overeenkomstig de scenariokansen (per segment) af</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_scenarios_loads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
@@ -1033,7 +1032,7 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-27" class="cell" data-execution_count="20">
+<div id="cell-26" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de gevolgen voor verschillende hydraulische belastingniveau's af</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_consequences_loads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
@@ -1103,7 +1102,7 @@ DataAdapter:
 <td data-quarto-table-cell-role="th">4</td>
 <td>7</td>
 <td>34002010</td>
-<td>4.400</td>
+<td>3.400</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -1114,7 +1113,7 @@ DataAdapter:
 <td data-quarto-table-cell-role="th">5</td>
 <td>7</td>
 <td>34002010</td>
-<td>4.603</td>
+<td>3.603</td>
 <td>7_waterdiepteTP-1D.asc</td>
 <td>7_slachtoffersTP-1D.asc</td>
 <td>7_schadeTP-1D.asc</td>
@@ -1125,7 +1124,7 @@ DataAdapter:
 <td data-quarto-table-cell-role="th">6</td>
 <td>7</td>
 <td>34002010</td>
-<td>5.811</td>
+<td>4.811</td>
 <td>7_waterdiepteTP.asc</td>
 <td>7_slachtoffersTP.asc</td>
 <td>7_schadeTP.asc</td>
@@ -1149,11 +1148,11 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="21">
+<div id="cell-27" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importeer en initialiseer de module voor het bepalen van de bijbehorende scenario's vanuit belastingen</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> SelectFloodScenarioFromLoad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="22">
+<div id="cell-28" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># voer de bepaling van het bijbehorende gevolggrid uit</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load <span class="op">=</span> SelectFloodScenarioFromLoad(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load.run(</span>
@@ -1164,7 +1163,7 @@ DataAdapter:
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_scenario_consequences_grids"</span>,</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="23">
+<div id="cell-29" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de bijbehorende gevolgen per scenario af</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load.df_out_scenario_consequences_grids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
@@ -1187,26 +1186,26 @@ DataAdapter:
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">1</td>
+<td data-quarto-table-cell-role="th">2</td>
 <td>2</td>
 <td>34003024</td>
-<td>3.497</td>
-<td>2_waterdiepteTP-1D.asc</td>
-<td>2_slachtoffersTP-1D.asc</td>
-<td>2_schadeTP-1D.asc</td>
-<td>2_nattevoetenTP-1D.asc</td>
-<td>2_getroffenenTP-1D.asc</td>
+<td>4.723</td>
+<td>2_waterdiepteTP.asc</td>
+<td>2_slachtoffersTP.asc</td>
+<td>2_schadeTP.asc</td>
+<td>2_nattevoetenTP.asc</td>
+<td>2_getroffenenTP.asc</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">4</td>
+<td data-quarto-table-cell-role="th">6</td>
 <td>7</td>
 <td>34002010</td>
-<td>4.400</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
+<td>4.811</td>
+<td>7_waterdiepteTP.asc</td>
+<td>7_slachtoffersTP.asc</td>
+<td>7_schadeTP.asc</td>
+<td>7_nattevoetenTP.asc</td>
+<td>7_getroffenenTP.asc</td>
 </tr>
 </tbody>
 </table>
@@ -1236,7 +1235,7 @@ DataAdapter:
 <span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_scenario_consequences_grids</span><span class="kw">:</span></span>
 <span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
 <span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_scenario_consequences_grids.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-32" class="cell" data-execution_count="24">
+<div id="cell-31" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># laadt de configuratie en initialiseer de data adapter</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"7.flood_scenarios"</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(</span>
@@ -1245,7 +1244,7 @@ DataAdapter:
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="25">
+<div id="cell-32" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de belastingen overeenkomstig de scenariokansen (per segment) af</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_scenarios_loads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
@@ -1277,7 +1276,7 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="26">
+<div id="cell-33" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de gevolgen voor verschillende hydraulische belastingniveau's af</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_consequences_loads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
@@ -1347,7 +1346,7 @@ DataAdapter:
 <td data-quarto-table-cell-role="th">4</td>
 <td>7</td>
 <td>34002010</td>
-<td>4.400</td>
+<td>3.400</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -1358,7 +1357,7 @@ DataAdapter:
 <td data-quarto-table-cell-role="th">5</td>
 <td>7</td>
 <td>34002010</td>
-<td>4.603</td>
+<td>3.603</td>
 <td>7_waterdiepteTP-1D.asc</td>
 <td>7_slachtoffersTP-1D.asc</td>
 <td>7_schadeTP-1D.asc</td>
@@ -1369,7 +1368,7 @@ DataAdapter:
 <td data-quarto-table-cell-role="th">6</td>
 <td>7</td>
 <td>34002010</td>
-<td>5.811</td>
+<td>4.811</td>
 <td>7_waterdiepteTP.asc</td>
 <td>7_slachtoffersTP.asc</td>
 <td>7_schadeTP.asc</td>
@@ -1393,11 +1392,11 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="27">
+<div id="cell-34" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importeer en initialiseer de module voor het bepalen van de bijbehorende scenario's vanuit belastingen</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> SelectFloodScenarioFromLoad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="28">
+<div id="cell-35" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># voer de bepaling van het bijbehorende gevolggrid uit</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load <span class="op">=</span> SelectFloodScenarioFromLoad(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load.run(</span>
@@ -1408,7 +1407,7 @@ DataAdapter:
 <span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_scenario_consequences_grids"</span>,</span>
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-37" class="cell" data-execution_count="29">
+<div id="cell-36" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de bijbehorende gevolgen per scenario af</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> verwijder de index kolom in de CSV output</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>select_flood_scenario_from_load.df_out_scenario_consequences_grids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1454,26 +1453,26 @@ DataAdapter:
 <td>2_getroffenenTP.asc</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>7</td>
-<td>34002010</td>
-<td>4.400</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
 <td>7</td>
 <td>34002010</td>
-<td>4.603</td>
+<td>3.603</td>
 <td>7_waterdiepteTP-1D.asc</td>
 <td>7_slachtoffersTP-1D.asc</td>
 <td>7_schadeTP-1D.asc</td>
 <td>7_nattevoetenTP-1D.asc</td>
 <td>7_getroffenenTP-1D.asc</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">6</td>
+<td>7</td>
+<td>34002010</td>
+<td>4.811</td>
+<td>7_waterdiepteTP.asc</td>
+<td>7_slachtoffersTP.asc</td>
+<td>7_schadeTP.asc</td>
+<td>7_nattevoetenTP.asc</td>
+<td>7_getroffenenTP.asc</td>
 </tr>
 </tbody>
 </table>
@@ -1485,7 +1484,7 @@ DataAdapter:
 </section>
 <section id="calculatefloodrisk" class="level2">
 <h2 class="anchored" data-anchor-id="calculatefloodrisk">CalculateFloodRisk</h2>
-<p>Het (conditionele) risico wordt bepaald door de (conditionele) kans te combineren met het gevolg. In dit geval worden de gevolgen van een overstroming gecombineerd met de scenariokans van een deeltraject (segment). <br> Met behulp van de <code>CalculateFloodRisk</code> module worden risico’s berekend voor 4 verschillende risicomate: (1) verwachte economische schade, (2) verwacht aantal slachtoffers, (3) verwacht aantal getroffenen, en (4) plaatsgebonden overstromingskans. <br> In eerste instantie wordt het risico berekend per gridcel. Daarna worden de risico’s geaggregeerd naar gebieden die gedefinieerd zijn in een shape-bestand. <br></p>
+<p>Het (conditionele) risico wordt bepaald door de (conditionele) kans te combineren met het gevolg. In dit geval worden de gevolgen van een overstroming gecombineerd met de scenariokans van een deeltraject (segment). <br> Met behulp van de <code>CalculateFloodRisk</code> module worden risico’s berekend voor 4 verschillende risicomate: (1) verwachte economische schade, (2) verwacht aantal slachtoffers, (3) verwacht aantal getroffenen, en (4) plaatsgebonden overstromingskans. <br> In eerste instantie wordt het risico berekend per gridcel. Daarna worden de risico’s geaggregeerd naar gebieden die gedefinieerd zijn in een shape-bestand.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="dv">-24</span><span class="kw">,</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span><span class="at"> </span><span class="dv">24</span><span class="kw">,</span><span class="at"> </span><span class="dv">36</span><span class="at"> </span><span class="kw">]</span></span>
@@ -1520,14 +1519,14 @@ DataAdapter:
 <span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_flood_risk_results</span><span class="kw">:</span></span>
 <span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
 <span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_flood_risk_results.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-39" class="cell" data-execution_count="30">
+<div id="cell-38" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># laadt de configuratie en initialiseer de data adapter</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"7.flood_scenarios"</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"rekentest_calculate_flood_risk.yaml"</span>)</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="31">
+<div id="cell-39" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de scenariokansen per segment af</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_scenario_failure_prob_segments"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
@@ -1559,7 +1558,7 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-41" class="cell" data-execution_count="32">
+<div id="cell-40" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk een overzicht van de bijbehorende gevolgen per scenario af</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_scenario_consequences_grids"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
@@ -1608,27 +1607,27 @@ DataAdapter:
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>4</td>
-<td>7</td>
-<td>34002010</td>
-<td>4.400</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
 <td>5</td>
 <td>7</td>
 <td>34002010</td>
-<td>4.603</td>
+<td>3.603</td>
 <td>7_waterdiepteTP-1D.asc</td>
 <td>7_slachtoffersTP-1D.asc</td>
 <td>7_schadeTP-1D.asc</td>
 <td>7_nattevoetenTP-1D.asc</td>
 <td>7_getroffenenTP-1D.asc</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>6</td>
+<td>7</td>
+<td>34002010</td>
+<td>4.811</td>
+<td>7_waterdiepteTP.asc</td>
+<td>7_slachtoffersTP.asc</td>
+<td>7_schadeTP.asc</td>
+<td>7_nattevoetenTP.asc</td>
+<td>7_getroffenenTP.asc</td>
 </tr>
 </tbody>
 </table>
@@ -1636,7 +1635,7 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-42" class="cell" data-execution_count="33">
+<div id="cell-41" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># druk de gebieden af waarvoor het overstromingsrisico wordt geaggregeerd</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"input_areas_to_aggregate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
@@ -1658,117 +1657,62 @@ DataAdapter:
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>Reimerswaal: Verspreide huizen Rilland</td>
-<td>4411</td>
-<td>BU07030409</td>
-<td>350</td>
-<td>MULTIPOLYGON (((77015.367 383978.469, 75592.57...</td>
+<td>186</td>
+<td>Halderberge: Verspreide huizen ten noorden van...</td>
+<td>4731</td>
+<td>BU16550308</td>
+<td>305</td>
+<td>MULTIPOLYGON (((95314.731 402999.933, 95331.09...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>Tholen: Verspreide huizen Tholen</td>
-<td>4691</td>
-<td>BU07160009</td>
-<td>330</td>
-<td>MULTIPOLYGON (((74409.716 389477.932, 74369.68...</td>
+<td>192</td>
+<td>Halderberge: Verspreide huizen ten noorden van...</td>
+<td>4741</td>
+<td>BU16550409</td>
+<td>340</td>
+<td>MULTIPOLYGON (((98494.454 404932.353, 98495.21...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>Bergen op Zoom: Centrum</td>
-<td>4611</td>
-<td>BU07480000</td>
-<td>3680</td>
-<td>MULTIPOLYGON (((79072.117 390186.354, 79057.62...</td>
+<td>254</td>
+<td>Moerdijk: Verspreide huizen Standdaarbuiten</td>
+<td>4758</td>
+<td>BU17090609</td>
+<td>110</td>
+<td>MULTIPOLYGON (((94404.609 405082.688, 94395.00...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>Bergen op Zoom: Havenkwartier</td>
-<td>4611</td>
-<td>BU07480001</td>
-<td>1660</td>
-<td>MULTIPOLYGON (((78201.945 390663.602, 78258.17...</td>
+<td>265</td>
+<td>Moerdijk: Verspreide huizen Willemstad</td>
+<td>4797</td>
+<td>BU17090909</td>
+<td>360</td>
+<td>MULTIPOLYGON (((86797.283 410996.469, 87302.21...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>5</td>
-<td>Bergen op Zoom: Vestinggronden-Noord</td>
-<td>4611</td>
-<td>BU07480002</td>
-<td>1240</td>
-<td>MULTIPOLYGON (((79118.446 390639.63, 79200.734...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">286</td>
-<td>287</td>
-<td>Alphen-Chaam: Verspreide huizen Strijbeek</td>
-<td>4856</td>
-<td>BU17230209</td>
-<td>230</td>
-<td>MULTIPOLYGON (((113941.872 391918.392, 113463....</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">287</td>
-<td>288</td>
-<td>Alphen-Chaam: Verspreide huizen Ulvenhout</td>
-<td>4858</td>
-<td>BU17230809</td>
-<td>430</td>
-<td>MULTIPOLYGON (((116697.282 394139.449, 115341....</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">288</td>
-<td>289</td>
-<td>Alphen-Chaam: Verspreide huizen Bavel</td>
-<td>4859</td>
-<td>BU17230909</td>
-<td>45</td>
-<td>MULTIPOLYGON (((118323.09 396538.616, 118282 3...</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">289</td>
-<td>290</td>
-<td>Steenbergen:</td>
-<td>-99999999</td>
-<td>BU08519997</td>
-<td>-99999999</td>
-<td>MULTIPOLYGON (((76590.153 404733.102, 76598.56...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">290</td>
-<td>291</td>
-<td>Moerdijk:</td>
-<td>-99999999</td>
-<td>BU17099997</td>
-<td>-99999999</td>
-<td>MULTIPOLYGON (((85049.092 407497.296, 85067.70...</td>
+<td>280</td>
+<td>Drimmelen: Verspreide huizen Lage Zwaluwe</td>
+<td>4926</td>
+<td>BU17190409</td>
+<td>175</td>
+<td>MULTIPOLYGON (((104046.224 413901.621, 104096....</td>
 </tr>
 </tbody>
 </table>
 
-<p>291 rows × 6 columns</p>
 </div>
 </div>
 </div>
-<div id="cell-43" class="cell" data-execution_count="34">
+<div id="cell-42" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importeer en initialiseer de module voor het berekenen van het overstromingsrisico in 4 verschillende formaten</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios.calculate_flood_risk <span class="im">import</span> (</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    CalculateFloodRisk,</span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="35">
+<div id="cell-43" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># voer de berekening van het risico op grid niveau uit</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>calculate_flood_risk <span class="op">=</span> CalculateFloodRisk(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>calculate_flood_risk.run(</span>
@@ -1781,7 +1725,7 @@ DataAdapter:
 <span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_flood_risk_results"</span>,</span>
 <span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-45" class="cell" data-execution_count="36">
+<div id="cell-44" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"flood_risk_local_file"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="36">
 <pre><code>(masked_array(
@@ -1805,7 +1749,7 @@ DataAdapter:
         0.0, -100.0, 424400.0))</code></pre>
 </div>
 </div>
-<div id="cell-46" class="cell" data-execution_count="37">
+<div id="cell-45" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>calculate_flood_risk.df_out.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="37">
 <div>
@@ -1831,73 +1775,73 @@ DataAdapter:
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>Reimerswaal: Verspreide huizen Rilland</td>
-<td>BU07030409</td>
-<td>4411</td>
-<td>350</td>
-<td>MULTIPOLYGON (((77015.367 383978.469, 75592.57...</td>
+<td>186</td>
+<td>22.398926</td>
+<td>28.155577</td>
+<td>3.011630e+05</td>
+<td>0.625679</td>
+<td>56.311153</td>
+<td>Halderberge: Verspreide huizen ten noorden van...</td>
+<td>BU16550308</td>
+<td>4731</td>
+<td>305</td>
+<td>MULTIPOLYGON (((95314.731 402999.933, 95331.09...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>Tholen: Verspreide huizen Tholen</td>
-<td>BU07160009</td>
-<td>4691</td>
-<td>330</td>
-<td>MULTIPOLYGON (((74409.716 389477.932, 74369.68...</td>
+<td>192</td>
+<td>79.640625</td>
+<td>100.108719</td>
+<td>1.070802e+06</td>
+<td>0.625679</td>
+<td>200.217438</td>
+<td>Halderberge: Verspreide huizen ten noorden van...</td>
+<td>BU16550409</td>
+<td>4741</td>
+<td>340</td>
+<td>MULTIPOLYGON (((98494.454 404932.353, 98495.21...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>Bergen op Zoom: Centrum</td>
-<td>BU07480000</td>
-<td>4611</td>
-<td>3680</td>
-<td>MULTIPOLYGON (((79072.117 390186.354, 79057.62...</td>
+<td>254</td>
+<td>146.837402</td>
+<td>184.575451</td>
+<td>1.974291e+06</td>
+<td>0.625679</td>
+<td>369.150902</td>
+<td>Moerdijk: Verspreide huizen Standdaarbuiten</td>
+<td>BU17090609</td>
+<td>4758</td>
+<td>110</td>
+<td>MULTIPOLYGON (((94404.609 405082.688, 94395.00...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>Bergen op Zoom: Havenkwartier</td>
-<td>BU07480001</td>
-<td>4611</td>
-<td>1660</td>
-<td>MULTIPOLYGON (((78201.945 390663.602, 78258.17...</td>
+<td>265</td>
+<td>78.301575</td>
+<td>783.015747</td>
+<td>5.220105e+05</td>
+<td>0.203910</td>
+<td>1044.020996</td>
+<td>Moerdijk: Verspreide huizen Willemstad</td>
+<td>BU17090909</td>
+<td>4797</td>
+<td>360</td>
+<td>MULTIPOLYGON (((86797.283 410996.469, 87302.21...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>5</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>Bergen op Zoom: Vestinggronden-Noord</td>
-<td>BU07480002</td>
-<td>4611</td>
-<td>1240</td>
-<td>MULTIPOLYGON (((79118.446 390639.63, 79200.734...</td>
+<td>280</td>
+<td>80.979675</td>
+<td>809.796692</td>
+<td>1.619593e+06</td>
+<td>0.421769</td>
+<td>1349.661133</td>
+<td>Drimmelen: Verspreide huizen Lage Zwaluwe</td>
+<td>BU17190409</td>
+<td>4926</td>
+<td>175</td>
+<td>MULTIPOLYGON (((104046.224 413901.621, 104096....</td>
 </tr>
 </tbody>
 </table>
@@ -1905,7 +1849,7 @@ DataAdapter:
 </div>
 </div>
 </div>
-<div id="cell-47" class="cell" data-execution_count="38">
+<div id="cell-46" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>gdf_results <span class="op">=</span> calculate_flood_risk.df_out</span>
@@ -1927,7 +1871,7 @@ DataAdapter:
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="7.rekentest_flood_scenarios_files/figure-html/cell-39-output-1.png" width="645" height="470" class="figure-img"></p>
+<p><img src="7.rekentest_flood_scenarios_files/figure-html/cell-39-output-1.png" width="653" height="469" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1942,7 +1886,7 @@ DataAdapter:
 <span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> casualties</span></span>
 <span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> damage</span></span>
 <span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> affectedpeople</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cell-49" class="cell" data-execution_count="39">
+<div id="cell-48" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"rekentest_calculate_flood_risk_per_ha.yaml"</span>)</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
@@ -1957,7 +1901,7 @@ DataAdapter:
 <span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_flood_risk_results"</span>,</span>
 <span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-50" class="cell" data-execution_count="40">
+<div id="cell-49" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>gdf_results <span class="op">=</span> calculate_flood_risk.df_out</span>
