@@ -7,7 +7,7 @@ import pytest
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.fragility_curves import (
-    FragilityCurveOvertopping,
+    FragilityCurveOvertoppingBedlevelFetch,
 )
 
 # %%
@@ -207,11 +207,12 @@ parameters = [
 def test_fragility_curves_wave_overtopping_csv():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
-        config_path=test_data_sets_path / "test_fragility_curve_overtopping.yaml"
+        config_path=test_data_sets_path
+        / "test_fragility_curve_overtopping_bedlevelfetch.yaml"
     )
     config.lees_config()
     data_adapter = DataAdapter(config=config)
-    wave_overtopping_fragility_curve = FragilityCurveOvertopping(
+    wave_overtopping_fragility_curve = FragilityCurveOvertoppingBedlevelFetch(
         data_adapter=data_adapter
     )
     wave_overtopping_fragility_curve.run(
@@ -250,17 +251,20 @@ def test_fragility_curves_wave_overtopping_csv():
 def test_fragility_curves_wave_overtopping_vary_standard_values():
     test_data_sets_path = Path(__file__).parent / "data_sets"
     config = Config(
-        config_path=test_data_sets_path / "test_fragility_curve_overtopping.yaml"
+        config_path=test_data_sets_path
+        / "test_fragility_curve_overtopping_bedlevelfetch.yaml"
     )
     config.lees_config()
     data_adapter = DataAdapter(config=config)
 
-    data_adapter.config.global_variables["FragilityCurveOvertopping"] = {}
-    data_adapter.config.global_variables["FragilityCurveOvertopping"]["gh_onz_mu"] = (
-        0.96
-    )
+    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"] = {
+        "closing_situation": 0
+    }
+    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"][
+        "gh_onz_mu"
+    ] = 0.96
 
-    wave_overtopping_fragility_curve = FragilityCurveOvertopping(
+    wave_overtopping_fragility_curve = FragilityCurveOvertoppingBedlevelFetch(
         data_adapter=data_adapter
     )
     wave_overtopping_fragility_curve.run(
@@ -305,10 +309,12 @@ def test_fragility_curves_wave_overtopping_vary_standard_values():
 def test_fragility_curves_wave_overtopping_parametric(
     windspeed, sectormin, sectorsize, closing_situation, foreshore, qcr, expected
 ):
-    """Test de functie FragilityCurveOvertoppingMultiple met verschillende parameter combinaties"""
+    """Test de functie FragilityCurveOvertoppingBedlevelFetchMultiple met verschillende parameter combinaties"""
     config = Config(config_path=Path.cwd())
     data_adapter = DataAdapter(config=config)
-    data_adapter.config.global_variables["FragilityCurveOvertopping"] = {}
+    data_adapter.config.global_variables["FragilityCurveOvertoppingBedlevelFetch"] = {
+        "closing_situation": closing_situation
+    }
 
     df_slopes = pd.DataFrame(slopes)
 
@@ -340,7 +346,7 @@ def test_fragility_curves_wave_overtopping_parametric(
         "fragility_curves", fragility_curves, if_not_exist="create"
     )
 
-    wave_overtopping_fragility_curve = FragilityCurveOvertopping(
+    wave_overtopping_fragility_curve = FragilityCurveOvertoppingBedlevelFetch(
         data_adapter=data_adapter
     )
 

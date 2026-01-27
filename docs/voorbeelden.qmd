@@ -13,11 +13,12 @@ De voorbeelden zijn:
 
 - [Architectuur voorbeeld](examples/notebooks/1.proof_of_concept.ipynb)
 - [Inladen van belastingen](examples/notebooks/2.belastingen_inladen.ipynb)
-- [Fragility curve overtopping](examples/notebooks/3.fragility_curve_overtopping.ipynb)
+- [Fragility curve overtopping met bodemhoogte/strijklengte](examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.ipynb)
 - [Aanpassen van geïntegreerde faalkans](examples/notebooks/4.adjust_integrated_statistics.ipynb)
 - [Inspectieresultaten](examples/notebooks/5.inspectieresultaten.ipynb)
 - [Maatregelen](examples/notebooks/6.fragility_curve_from_cache.ipynb)
 - [Overstromingsrisico](examples/notebooks/7.rekentest_flood_scenarios.ipynb)
+- [Fragility curve overtopping met golfdata](examples/notebooks/8.fragility_curve_overtopping_wavedata.ipynb)
 
 Daarnaast zijn er ook notebooks met meer technische uitleg over aspecten van de toolbox:
 
