@@ -16,6 +16,8 @@ De voorbeelden zijn:
 - [Fragility curve overtopping](examples/notebooks/3.fragility_curve_overtopping.ipynb)
 - [Aanpassen van geïntegreerde faalkans](examples/notebooks/4.adjust_integrated_statistics.ipynb)
 - [Inspectieresultaten](examples/notebooks/5.inspectieresultaten.ipynb)
+- [Maatregelen](examples/notebooks/6.fragility_curve_from_cache.ipynb)
+- [Overstromingsrisico](examples/notebooks/7.rekentest_flood_scenarios.ipynb)
 
 Daarnaast zijn er ook notebooks met meer technische uitleg over aspecten van de toolbox:
 

@@ -34,5 +34,5 @@ def test_load_from_flood_scenario():
     assert not df_out.empty
     assert "hydraulicload_upperboundary" in df_out.columns
     assert len(df_out) == len(df_in)
-    assert df_out["hydraulicload_upperboundary"].to_list() == [3.497, 4.4]
+    assert df_out["hydraulicload_upperboundary"].to_list() == [4.723, 4.603]
     assert len(df_out.columns) == 8  # 4 grids + 3 other columns

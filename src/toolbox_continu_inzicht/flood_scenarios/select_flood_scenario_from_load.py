@@ -122,41 +122,41 @@ class SelectFloodScenarioFromLoad(ToolboxBase):
             smallest_load = current_consequence_data[
                 "hydraulicload_upperboundary"
             ].min()
+            largest_load = current_consequence_data["hydraulicload_upperboundary"].max()
             if hydraulic_load <= smallest_load:
                 # Er wordt altijd vanuit gegaan dat er een hydraulische belasting moet overschreden worden om risico te berekenen (er moet een overstroming/doorbraak zijn), anders is het risico gelijk aan 0
-                grids_series = current_consequence_data[
-                    current_consequence_data["hydraulicload_upperboundary"]
-                    == smallest_load
-                ]
-            else:
-                smaller_loads = (
-                    current_consequence_data["hydraulicload_upperboundary"]
-                    < hydraulic_load
-                )
-                subs_selection = current_consequence_data[smaller_loads]
-                # standaard de grootste lagere belasting kiezen als representatief scenario
-                idx_lowerbound = subs_selection["hydraulicload_upperboundary"].idxmax()
-                grids_series = current_consequence_data.loc[[idx_lowerbound]]
+                idx_selected_scenario = current_consequence_data[
+                    "hydraulicload_upperboundary"
+                ].idxmin()
+            elif hydraulic_load >= largest_load:
+                idx_selected_scenario = current_consequence_data[
+                    "hydraulicload_upperboundary"
+                ].idxmax()
 
-                # indien gewenst ook de kleinste hogere belasting kiezen als representatief scenario
-                if return_two_scenarios:
-                    largest_load = current_consequence_data[
-                        "hydraulicload_upperboundary"
-                    ].max()
-                    if hydraulic_load <= largest_load:
-                        larger_loads = (
-                            current_consequence_data["hydraulicload_upperboundary"]
-                            >= hydraulic_load
-                        )
-                        larger_sub_selection = current_consequence_data[larger_loads]
-                        idx_upperbound = larger_sub_selection[
-                            "hydraulicload_upperboundary"
-                        ].idxmin()
-                        grids_series = current_consequence_data.loc[
-                            [idx_lowerbound, idx_upperbound]
-                        ]
-                    else:
-                        pass  # als er geen upper bound is, dan alleen de lower bound teruggeven
+            else:
+                larger_loads = (
+                    current_consequence_data["hydraulicload_upperboundary"]
+                    >= hydraulic_load
+                )
+                subs_selection = current_consequence_data[larger_loads]
+                # standaard de laagste hogere belasting kiezen als representatief scenario
+                idx_selected_scenario = subs_selection[
+                    "hydraulicload_upperboundary"
+                ].idxmin()
+
+            grids_series = current_consequence_data.loc[[idx_selected_scenario]]
+
+            # indien gewenst ook de kleinste hogere belasting kiezen als representatief scenario
+            if return_two_scenarios:
+                # alleen als er een hogere belasting is
+                if (
+                    idx_selected_scenario
+                    > current_consequence_data["hydraulicload_upperboundary"].idxmin()
+                ):
+                    idx_lower_scenarios = idx_selected_scenario - 1
+                    grids_series = current_consequence_data.loc[
+                        [idx_lower_scenarios, idx_selected_scenario]
+                    ]
 
             grids_series["segment_id"] = segment
             selected_grids.append(grids_series)

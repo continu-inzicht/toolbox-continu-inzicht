@@ -24,7 +24,7 @@ conda env create --file=https://raw.githubusercontent.com/continu-inzicht/toolbo
 ```
 
 Onder [Installeren](https://continu-inzicht.github.io/toolbox-continu-inzicht/install.html) op de wiki vindt je meer informatie.
-Zie [Modules](https://continu-inzicht.github.io/toolbox-continu-inzicht/modules.html) voor een beschrijving van de mogelijkheden van de bouwstenen van de Toolbox Continu Inzicht of bekijk het [voorbeeld](https://continu-inzicht.github.io/toolbox-continu-inzicht/examples/notebooks/proof_of_concept.html).
+Zie [Modules](https://continu-inzicht.github.io/toolbox-continu-inzicht/modules_index.html) voor een beschrijving van de mogelijkheden van de bouwstenen van de Toolbox Continu Inzicht of bekijk de [voorbeelden](https://continu-inzicht.github.io/toolbox-continu-inzicht/voorbeelden.html).
 
 ## Bijdragen aan de toolbox
 
