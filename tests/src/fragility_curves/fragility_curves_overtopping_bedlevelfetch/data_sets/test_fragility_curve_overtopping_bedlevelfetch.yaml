@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data_sets"
+    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping_bedlevelfetch/data_sets"
     moments: [-24,0,24,48]
 
     FragilityCurveOvertoppingBedlevelFetch:
@@ -22,13 +22,13 @@ DataAdapter:
             sep: ","
     slopes:
         type: csv
-        file: "slopes_multiple.csv"
+        file: "slopes_5.csv"
     profiles:
         type: csv
-        file: "profiles_multiple.csv"
+        file: "profiles_new.csv"
     bedlevel_fetch:
         type: csv
-        file: "bedlevelfetch_multiple.csv"
+        file: "bedlevelfetch_11.csv"
     fragility_curves:
         type: csv
-        file: "fragility_curves_multiple.csv"
+        file: "fragility_curves_5.csv"

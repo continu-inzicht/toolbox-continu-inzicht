@@ -1,0 +1,37 @@
+GlobalVariables:
+    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping_wavedata/data_sets"
+    moments: [ -24, 0, 24, 48 ]
+    logging:
+        level: INFO
+    FragilityCurveOvertoppingWaveDataMultiple:
+        closing_situation: 1
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    slopes:
+        type: csv
+        file: "slopes_multiple.csv"
+    profiles:
+        type: csv
+        file: "profiles_multiple.csv"
+    section_hrloc:
+        type: csv
+        file: "section_hrloc.csv"
+        index_col: false
+    waveval_uncert:
+        type: csv
+        file: "waveval_uncert_multi.csv"
+        index_col: false
+    waveval_id:
+        type: csv_wavedata_unique_ids
+        file: "waveval_id_multi.csv"
+        index_col: false
+    waveval:
+        type: csv_wavedata_filter
+        file: "waveval_multi.csv"
+        index_col: false
+    fragility_curves:
+        type: csv
+        file: "fragility_curves_multi.csv"

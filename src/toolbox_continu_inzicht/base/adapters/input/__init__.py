@@ -2,6 +2,7 @@ import warnings
 from toolbox_continu_inzicht.base.adapters.input.csv import *  # noqa: F403
 from toolbox_continu_inzicht.base.adapters.input.python import *  # noqa: F403
 
+# t
 try:
     from toolbox_continu_inzicht.base.adapters.input.netcdf import *  # noqa: F403
 except ImportError as e:
@@ -21,5 +22,10 @@ except ImportError as e:
 
 try:
     from toolbox_continu_inzicht.base.adapters.input.flood_risk import *  # noqa: F403
+except ImportError as e:
+    warnings.warn(f"{e}.\n Some features may not be available.")
+
+try:
+    from toolbox_continu_inzicht.base.adapters.input.wavedata import *  # noqa: F403
 except ImportError as e:
     warnings.warn(f"{e}.\n Some features may not be available.")

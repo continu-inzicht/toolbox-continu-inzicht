@@ -1,11 +1,14 @@
 from toolbox_continu_inzicht import DataAdapter
-from toolbox_continu_inzicht.fragility_curves import FragilityCurveOvertopping
+from toolbox_continu_inzicht.fragility_curves import (
+    FragilityCurveOvertoppingBedlevelFetch,
+    FragilityCurveOvertoppingWaveData,
+)
 
 
-class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
+class _ShiftFragilityCurveOvertoppingMixin:
     """Verschuift de fragility curve met een gegeven effect"""
 
-    data_adapter: DataAdapter
+    data_adapter: DataAdapter | None = None
 
     def run(self, input: list[str], output: str, effect: float) -> None:
         """
@@ -54,10 +57,10 @@ class ShiftFragilityCurveOvertopping(FragilityCurveOvertopping):
         self.data_adapter.output(output=output, df=self.as_dataframe())
 
 
-class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
+class _ChangeCrestHeightFragilityCurveOvertoppingMixin:
     """Verschuift de kruinhoogte met het gegeven effect en berekent de fragility curve"""
 
-    data_adapter: DataAdapter
+    data_adapter: DataAdapter | None = None
 
     def run(self, input: list[str], output: str, effect: float) -> None:
         """
@@ -116,9 +119,37 @@ class ChangeCrestHeightFragilityCurveOvertopping(FragilityCurveOvertopping):
         self.data_adapter.set_dataframe_adapter(
             "changed_crest_profile", df_profile, if_not_exist="create"
         )
-        self.calculate_fragility_curve(
-            [input[0], "changed_crest_profile", input[2]], output
-        )
+        updated_input = list(input)
+        updated_input[1] = "changed_crest_profile"
+        self.calculate_fragility_curve(updated_input, output)
 
 
-# TODO: ChangeCrestHeightFragilityCurveOvertoppingMultiple
+class ShiftFragilityCurveOvertoppingBedlevelFetch(
+    _ShiftFragilityCurveOvertoppingMixin,
+    FragilityCurveOvertoppingBedlevelFetch,
+):
+    """Verschuift de fragility curve met een gegeven effect"""
+
+
+class ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch(
+    _ChangeCrestHeightFragilityCurveOvertoppingMixin,
+    FragilityCurveOvertoppingBedlevelFetch,
+):
+    """Verschuift de kruinhoogte met het gegeven effect en berekent de fragility curve"""
+
+
+class ShiftFragilityCurveOvertoppingWaveData(
+    _ShiftFragilityCurveOvertoppingMixin,
+    FragilityCurveOvertoppingWaveData,
+):
+    """Verschuift de fragility curve met een gegeven effect"""
+
+
+class ChangeCrestHeightFragilityCurveOvertoppingWaveData(
+    _ChangeCrestHeightFragilityCurveOvertoppingMixin,
+    FragilityCurveOvertoppingWaveData,
+):
+    """Verschuift de kruinhoogte met het gegeven effect en berekent de fragility curve"""
+
+
+# TODO: ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetchMultiple

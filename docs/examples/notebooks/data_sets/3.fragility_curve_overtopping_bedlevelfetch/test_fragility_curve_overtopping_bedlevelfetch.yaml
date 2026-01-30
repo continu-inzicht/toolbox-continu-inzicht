@@ -1,16 +1,15 @@
 GlobalVariables:
-    rootdir: "tests/src/fragility_curves/fragility_curves_overtopping/data_sets"
+    rootdir: "data_sets/3.fragility_curve_overtopping_bedlevelfetch"
     moments: [-24,0,24,48]
 
-    FragilityCurveOvertopping:
-        gh_onz_mu: 0.96  # default waardes, kunnen worden overschreven
+    FragilityCurveOvertoppingBedlevelFetch:
+        gh_onz_mu: 0.96 # default waardes, kunnen worden overschreven
         gh_onz_sigma: 0.27
-        gp_onz_mu_tp: 1.03
-        gp_onz_sigma_tp: 0.13
         gp_onz_mu_tspec: 1.03
         gp_onz_sigma_tspec: 0.13
         gh_onz_aantal: 7
         gp_onz_aantal: 7
+        closing_situation: 0
         tp_tspec: 1.1
         lower_limit_coarse: 4.0
         upper_limit_coarse: 2.0

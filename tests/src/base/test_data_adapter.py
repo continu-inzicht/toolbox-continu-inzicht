@@ -174,3 +174,21 @@ def test_env_path():
     data_adapter.input("MyCSV_in")
 
     assert config.global_variables["DUMMY_VARIABLE"] == "DUMMY_VALUE"
+
+
+def test_DataAdapter_temporary_adapter_config():
+    test_data_sets_path = Path(__file__).parent / "data_sets"
+    config = Config(config_path=test_data_sets_path / "test_config.yaml")
+    config.lees_config()
+
+    data_adapter = DataAdapter(config=config)
+    adapter_name = "MyCSV_in"
+    original = data_adapter.config.data_adapters[adapter_name].copy()
+
+    overrides = {"location": "test_location", "path": "temp.csv"}
+    with data_adapter.temporary_adapter_config(adapter_name, overrides):
+        current = data_adapter.config.data_adapters[adapter_name]
+        assert current["location"] == "test_location"
+        assert current["path"] == "temp.csv"
+
+    assert data_adapter.config.data_adapters[adapter_name] == original
