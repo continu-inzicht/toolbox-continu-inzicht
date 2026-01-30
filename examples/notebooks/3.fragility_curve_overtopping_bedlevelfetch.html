@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/3.fragility_curve_overtopping.html">Fragility Curve Overtopping</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.html">Fragility Curve Overtopping</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -204,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/3.fragility_curve_overtopping.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Fragility Curve Overtopping</span></a>
   </div>
 </li>
@@ -230,6 +230,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/7.rekentest_flood_scenarios.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Real-time of what-if overstromingsrisico’s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/8.fragility_curve_overtopping_wavedata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fragility Curve Overtopping</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -281,23 +287,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.fragility_curves <span class="im">import</span> (</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    ChangeCrestHeightFragilityCurveOvertopping,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    FragilityCurveOvertopping,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    ShiftFragilityCurveOvertopping,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    FragilityCurveOvertoppingBedlevelFetch,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    ShiftFragilityCurveOvertoppingBedlevelFetch,</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> Config, DataAdapter</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"3.fragility_curve_overtopping"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"test_fragility_curve_overtopping.yaml"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"3.fragility_curve_overtopping_bedlevelfetch"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"test_fragility_curve_overtopping_bedlevelfetch.yaml"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>De volgende configuratie wordt gebruikt voor het maken van een GEKB curve</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/3.fragility_curve_overtopping"</span><span class="at"> </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/3.fragility_curve_overtopping_bedlevelfetch"</span><span class="at"> </span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">-24</span><span class="kw">,</span><span class="dv">0</span><span class="kw">,</span><span class="dv">24</span><span class="kw">,</span><span class="dv">48</span><span class="kw">]</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">    # default waardes, kunnen hier worden overschreven</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">FragilityCurveOvertopping</span><span class="kw">:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">FragilityCurveOvertoppingBedlevelFetch</span><span class="kw">:</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">gh_onz_mu</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.96</span><span class="at"> </span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">gh_onz_sigma</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.27</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">gp_onz_mu_tp</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.03</span></span>
@@ -502,19 +510,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 
 </div>
-<p>Deze informatie wordt mee gegeven aan de FragilityCurveOvertopping voor het genereren van een curve</p>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping <span class="op">=</span> FragilityCurveOvertopping(data_adapter<span class="op">=</span>data_adapter)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping.run(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"slopes"</span>, <span class="st">"profiles"</span>, <span class="st">"bedlevel_fetch"</span>],</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"fragility_curves"</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Deze informatie wordt mee gegeven aan de FragilityCurveOvertoppingBedlevelFetch voor het genereren van een curve</p>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping <span class="op">=</span> FragilityCurveOvertoppingBedlevelFetch(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping.run(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"slopes"</span>, <span class="st">"profiles"</span>, <span class="st">"bedlevel_fetch"</span>],</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"fragility_curves"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Deze curve kunnen we vervolgens weergeven:</p>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping.as_dataframe().set_index(<span class="st">"hydraulicload"</span>).plot(ax<span class="op">=</span>ax)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Failure probability"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="3.fragility_curve_overtopping_files/figure-html/cell-8-output-1.png" width="589" height="429"></p>
-<p>In sommige gevallen wil je een fragility curve ook aan kunnen passen, om dit mogelijk te maken zijn verschillende functie beschikbaar die het zelfde doen als de originele functie maar een kleine, door de gebruiker opgelegde, aanpassingen doen. <br> Zo verschuift de functie <code>ShiftFragilityCurveOvertopping</code> de fragility curve met een effect.</p>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>shift_fragility_curve_overtopping <span class="op">=</span> ShiftFragilityCurveOvertopping(</span>
+<p><img src="3.fragility_curve_overtopping_bedlevelfetch_files/figure-html/cell-8-output-1.png" width="589" height="429"></p>
+<p>In sommige gevallen wil je een fragility curve ook aan kunnen passen, om dit mogelijk te maken zijn verschillende functie beschikbaar die het zelfde doen als de originele functie maar een kleine, door de gebruiker opgelegde, aanpassingen doen. <br> Zo verschuift de functie <code>ShiftFragilityCurveOvertoppingBedlevelFetch</code> de fragility curve met een effect.</p>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>shift_fragility_curve_overtopping <span class="op">=</span> ShiftFragilityCurveOvertoppingBedlevelFetch(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>shift_fragility_curve_overtopping.run(</span>
@@ -540,10 +550,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>df_overtopping.plot(ax<span class="op">=</span>ax)</span>
 <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>df_overtopping_shift.plot(ax<span class="op">=</span>ax, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"shifted"</span>)</span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Failure probability"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="3.fragility_curve_overtopping_files/figure-html/cell-10-output-1.png" width="589" height="429"></p>
-<p>Waar verschuiven een relatief simple nabewerking op de data is, kunnen aanpassingen aan de berekening zelf ‘on-the-fly’ plaatsvinden. <br> Zo kan als maatregel de kruinhoogte worden verhoogt, met de functie <code>ChangeCrestHeightFragilityCurveOvertopping</code> is dit mogelijk.</p>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>change_crest_fragility_curve_overtopping <span class="op">=</span> ChangeCrestHeightFragilityCurveOvertopping(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
+<p><img src="3.fragility_curve_overtopping_bedlevelfetch_files/figure-html/cell-10-output-1.png" width="589" height="429"></p>
+<p>Waar verschuiven een relatief simple nabewerking op de data is, kunnen aanpassingen aan de berekening zelf ‘on-the-fly’ plaatsvinden. <br> Zo kan als maatregel de kruinhoogte worden verhoogt, met de functie <code>ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch</code> is dit mogelijk.</p>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>change_crest_fragility_curve_overtopping <span class="op">=</span> (</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>change_crest_fragility_curve_overtopping.run(</span>
@@ -564,7 +574,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>df_overtopping.plot(ax<span class="op">=</span>ax)</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>df_overtopping_change_crest.plot(ax<span class="op">=</span>ax, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Failure probability"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="3.fragility_curve_overtopping_files/figure-html/cell-12-output-1.png" width="589" height="429"></p>
+<p><img src="3.fragility_curve_overtopping_bedlevelfetch_files/figure-html/cell-12-output-1.png" width="589" height="429"></p>
 
 
 

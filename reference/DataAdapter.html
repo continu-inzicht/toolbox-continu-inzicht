@@ -187,6 +187,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#toolbox_continu_inzicht.DataAdapter.output" id="toc-toolbox_continu_inzicht.DataAdapter.output" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.DataAdapter.output">output</a></li>
   <li><a href="#toolbox_continu_inzicht.DataAdapter.set_dataframe_adapter" id="toc-toolbox_continu_inzicht.DataAdapter.set_dataframe_adapter" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.DataAdapter.set_dataframe_adapter">set_dataframe_adapter</a></li>
   <li><a href="#toolbox_continu_inzicht.DataAdapter.set_global_variable" id="toc-toolbox_continu_inzicht.DataAdapter.set_global_variable" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.DataAdapter.set_global_variable">set_global_variable</a></li>
+  <li><a href="#toolbox_continu_inzicht.DataAdapter.temporary_adapter_config" id="toc-toolbox_continu_inzicht.DataAdapter.temporary_adapter_config" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.DataAdapter.temporary_adapter_config">temporary_adapter_config</a></li>
+  <li><a href="#toolbox_continu_inzicht.DataAdapter.temporary_adapters" id="toc-toolbox_continu_inzicht.DataAdapter.temporary_adapters" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.DataAdapter.temporary_adapters">temporary_adapters</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -273,6 +275,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><a href="#toolbox_continu_inzicht.DataAdapter.set_global_variable">set_global_variable</a></td>
 <td>Functie voor het dynamisch overschrijven van global variabelen.</td>
 </tr>
+<tr class="odd">
+<td><a href="#toolbox_continu_inzicht.DataAdapter.temporary_adapter_config">temporary_adapter_config</a></td>
+<td>Tijdelijk overschrijven van adapter config waardes.</td>
+</tr>
+<tr class="even">
+<td><a href="#toolbox_continu_inzicht.DataAdapter.temporary_adapters">temporary_adapters</a></td>
+<td>Tijdelijk overschrijven van meerdere adapter config waardes.</td>
+</tr>
 </tbody>
 </table>
 <section id="toolbox_continu_inzicht.DataAdapter.get_global_variable" class="level3">
@@ -342,6 +352,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-4">Parameters:</h4>
 <p>key: str Naam van de waarde om te overschrijven.</p>
 <p>value: Any Object om mee te geven.</p>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.DataAdapter.temporary_adapter_config" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.DataAdapter.temporary_adapter_config">temporary_adapter_config</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>DataAdapter.temporary_adapter_config(adapter_name, overrides)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Tijdelijk overschrijven van adapter config waardes.</p>
+<section id="parameters-5" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-5">Parameters:</h4>
+<p>adapter_name: str Naam van de DataAdapter zoals opgegeven in de configuratie-YAML. overrides: dict Waarden die tijdelijk overschreven moeten worden.</p>
+</section>
+</section>
+<section id="toolbox_continu_inzicht.DataAdapter.temporary_adapters" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.DataAdapter.temporary_adapters">temporary_adapters</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>DataAdapter.temporary_adapters(overrides)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Tijdelijk overschrijven van meerdere adapter config waardes.</p>
+<section id="parameters-6" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-6">Parameters:</h4>
+<p>overrides: dict[str, dict] Mapping van adapternaam naar overschrijfwaarden.</p>
 
 
 </section>
