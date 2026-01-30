@@ -123,6 +123,18 @@ def output_ci_postgresql_measuringstation_to_data(
             index=False,
         )
 
+        # with engine.connect() as connection:
+        #     connection.execute(
+        #         sqlalchemy.text(f"""
+        #             UPDATE {schema}.data
+        #             SET parameterid=1
+        #             WHERE data.calculating=true AND data.objecttype='measuringstation' AND data.datetime = (
+        #                 SELECT calctime FROM {schema}.moments WHERE id=0 LIMIT 1
+        #             );
+        #         """)
+        #     )
+        #     connection.commit()  # commit the transaction
+
         # verbinding opruimen
         engine.dispose()
 

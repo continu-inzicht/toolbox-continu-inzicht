@@ -2,6 +2,7 @@
 DataAdapters voor het lezen van data uit de Continu Inzicht database
 """
 
+from typing import List
 import pandas as pd
 import sqlalchemy
 from toolbox_continu_inzicht.base.adapters.input.postgresql import (
@@ -64,7 +65,7 @@ def input_ci_postgresql_measure_fragilitycurves_table(
         f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
     )
 
-    schema = input_config["schema"]
+    schema: str = input_config["schema"]
 
     timedep = 0
     if "timedep" in input_config:
@@ -797,4 +798,95 @@ def input_ci_postgresql_probablistic_piping(input_config: dict) -> pd.DataFrame:
     input_config["table"] = "probabilisticpiping"
     df = input_postgresql_database(input_config)
     df.rename(columns=db_to_continu_inzicht, inplace=True)
+    return df
+
+
+def input_ci_postgresql_fragility_curve_multi_section_multi_failure(
+    input_config: dict,
+) -> pd.DataFrame:
+    """
+    Ophalen fragilitycurves voor alle dijkvakken, faalmechanismes en opgegeven maatregel
+
+    YAML voorbeeld:\n
+        type: ci_postgresql_fragility_curve_multi_section_multi_failure
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+        measureid: 0
+
+    Args:\n
+    input_config (dict): configuratie-opties
+
+    **Opmerking:**\n
+    In het `.env`-bestand moeten de volgende parameters staan:\n
+    - postgresql_user (str): inlog gebruikersnaam van de Continu Inzicht database
+    - postgresql_password (str): inlog wachtwoord van de Continu Inzicht database
+    - postgresql_host (str): servernaam/ ip adres van de Continu Inzicht databaseserver
+    - postgresql_port (str): poort van de Continu Inzicht databaseserver
+
+    In de 'yaml' config moeten de volgende parameters staan:\n
+    - database (str): database van de Continu Inzicht database
+    - schema (str): schema van de Continu Inzicht database
+    - measureid (int64, optioneel): maatregel id, bij geen waarde wordt geen maatregel
+      (measureid=0) gebruikt
+    - timedep (int64, optioneel): tijdsafhankelijk 0=nee, 1=ja
+    - degradatieid (int64, optioneel): rekening houden met degradatie (nog net geïmplementeerd)
+
+    Returns:\n
+    df (DataFrame):\n
+    - section_id: int64             : id van het dijkvak
+    - measure_id: int64             : id van de maatregel
+    - failuremechanism_id: int64    : id van het faalmechanisme
+    - hydraulicload: float64        : belasting van het tijdreeksitem
+    - failureprobability: float64   : faalkans van het tijdreeksitem
+    """
+
+    keys = [
+        "postgresql_user",
+        "postgresql_password",
+        "postgresql_host",
+        "postgresql_port",
+        "database",
+        "schema",
+    ]
+
+    assert all(key in input_config for key in keys)
+
+    # maak verbinding object
+    engine = sqlalchemy.create_engine(
+        f"postgresql://{input_config['postgresql_user']}:{input_config['postgresql_password']}@{input_config['postgresql_host']}:{int(input_config['postgresql_port'])}/{input_config['database']}"
+    )
+
+    schema = input_config["schema"]
+
+    measure_ids: List[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    if "measure_ids" in input_config:
+        measure_ids = input_config["measure_ids"]
+
+    measure_ids_str = ",".join(str(n) for n in measure_ids)
+
+    failuremechanism_ids: List[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    if "failuremechanism_ids" in input_config:
+        failuremechanism_ids = input_config["failuremechanism_ids"]
+
+    failuremechanism_ids_str = ",".join(str(n) for n in failuremechanism_ids)
+
+    query = f"""
+        SELECT
+            sectionid AS section_id,
+            failuremechanismid AS failuremechanism_id,
+            measureid AS measure_id,
+            hydraulicload AS hydraulicload,
+            failureprobability AS failure_probability
+        FROM {schema}.fragilitycurves
+        WHERE measureid IN ({measure_ids_str}) AND failuremechanismid IN ({failuremechanism_ids_str})
+        ORDER BY sectionid,failuremechanismid,measureid,hydraulicload;
+    """
+
+    # qurey uitvoeren op de database
+    with engine.connect() as connection:
+        df = pd.read_sql_query(sql=sqlalchemy.text(query), con=connection)
+
+    # verbinding opruimen
+    engine.dispose()
+
     return df
