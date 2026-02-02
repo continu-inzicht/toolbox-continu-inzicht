@@ -44,6 +44,7 @@ website:
     - "examples/notebooks/100.logging.ipynb"
     - "examples/notebooks/101.WMS_laag_naar_database.ipynb"
     - "examples/notebooks/102.quick_start_guide.ipynb"
+    - "examples/notebooks/103.extract_wavedata_hrdb.ipynb"
 
   - title: "Modules"
     contents:
