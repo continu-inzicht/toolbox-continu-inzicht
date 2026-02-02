@@ -1,7 +1,7 @@
 GlobalVariables:
     rootdir: "data_sets/102.quick_start_guide"
     moments: [ -24, 0, 24, 48 ]
-    calc_time: '2026-02-02 06:53:00'
+    calc_time: '2026-02-01 13:00:00'
 
 DataAdapter:
     default_options:
