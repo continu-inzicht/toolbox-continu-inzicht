@@ -250,6 +250,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">WMS laag toevoegen aan database voor viewer</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/102.quick_start_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quick start guide</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">examples/notebooks/103.all_modules.ipynb</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -690,10 +699,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"fragility_curves"</span>,</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>2026-01-30 08:32:43 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
-2026-01-30 08:32:43 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
-2026-01-30 08:32:43 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
-2026-01-30 08:32:43 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
+<pre><code>2026-02-02 16:01:06 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
+2026-02-02 16:01:06 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
+2026-02-02 16:01:06 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
+2026-02-02 16:01:06 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
 <p>Deze curve kunnen we vervolgens weergeven:</p>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping.as_dataframe().set_index(<span class="st">"hydraulicload"</span>).plot(ax<span class="op">=</span>ax)</span>
@@ -799,10 +808,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"fragility_curves"</span>,</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    effect<span class="op">=</span><span class="fl">0.5</span>,</span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>2026-01-30 08:32:44 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
-2026-01-30 08:32:44 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
-2026-01-30 08:32:44 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
-2026-01-30 08:32:44 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
+<pre><code>2026-02-02 16:01:07 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
+2026-02-02 16:01:07 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
+2026-02-02 16:01:07 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
+2026-02-02 16:01:07 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pas de namen van de kolommen aan voor de plot</span></span>
@@ -838,10 +847,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"fragility_curves"</span>,</span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    effect<span class="op">=</span><span class="fl">1.5</span>,</span>
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>2026-01-30 08:32:45 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
-2026-01-30 08:32:45 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
-2026-01-30 08:32:45 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
-2026-01-30 08:32:45 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
+<pre><code>2026-02-02 16:01:07 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
+2026-02-02 16:01:07 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
+2026-02-02 16:01:07 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
+2026-02-02 16:01:07 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pas de namen van de kolom aan voor de plot</span></span>

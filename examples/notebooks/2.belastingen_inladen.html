@@ -250,6 +250,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">WMS laag toevoegen aan database voor viewer</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/102.quick_start_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quick start guide</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">examples/notebooks/103.all_modules.ipynb</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -381,12 +390,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="geef-config-mee-aan-base.adapter">Geef config mee aan base.Adapter</h3>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> DataAdapter</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Folder met data: </span><span class="sc">{</span>data<span class="sc">.</span>config<span class="sc">.</span>config_path<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Globale variabelen: </span><span class="sc">{</span>data<span class="sc">.</span>config<span class="sc">.</span>global_variables<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> data_adapter <span class="kw">in</span> data.config.data_adapters:</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Data apdater: </span><span class="sc">{</span>data_adapter<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Folder met data: D:-continu-inzicht-continu-inzicht_inzicht_sets\2.belastingen_inladen_sprint2-I.yaml Globale variabelen: {‘rootdir’: ‘data_sets/2.belastingen_inladen’, ‘moments’: [-24, 0, 24, 48], ‘aquo_alias’: {‘WATHTE [m][NAP][OW]’: ‘WATHTE’}, ‘LoadsWaterinfo’: {‘parameters’: [‘waterhoogte’], ‘MISSING_VALUE’: 999}, ‘LoadsFews’: {‘host’: ‘https://fews.hhnk.nl’, ‘port’: 443, ‘region’: ‘fewspiservice’, ‘version’: ‘1.25’, ‘filter’: ‘HHNK_WEB’, ‘parameters’: [‘WATHTE [m][NAP][OW]’], ‘MISSING_VALUE’: 999}, ‘LoadsMatroos’: {‘website’: ‘noos’, ‘model’: ‘dcsm6_kf’, ‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘LoadsWaterwebservicesRWS’: {‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘calc_time’: datetime.datetime(2026, 1, 30, 8, 0, tzinfo=datetime.timezone.utc)} Data apdater: default_options Data apdater: BelastingLocaties_WaterInfo Data apdater: Waterstanden_WaterInfo Data apdater: BelastingLocaties_FEWS Data apdater: Waterstanden_FEWS Data apdater: BelastingLocaties_Matroos Data apdater: Waterstanden_Matroos Data apdater: BelastingLocaties_Waterwebservices_RWS Data apdater: Waterstanden_Waterwebservices_RWS</p>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Folder met data: </span><span class="sc">{</span>data_adapter<span class="sc">.</span>config<span class="sc">.</span>config_path<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Globale variabelen: </span><span class="sc">{</span>data_adapter<span class="sc">.</span>config<span class="sc">.</span>global_variables<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> data <span class="kw">in</span> data_adapter.config.data_adapters:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Data apdater: </span><span class="sc">{</span>data<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Folder met data: D:-continu-inzicht-continu-inzicht_inzicht_sets\2.belastingen_inladen_sprint2-I.yaml Globale variabelen: {‘rootdir’: ‘data_sets/2.belastingen_inladen’, ‘moments’: [-24, 0, 24, 48], ‘aquo_alias’: {‘WATHTE [m][NAP][OW]’: ‘WATHTE’}, ‘LoadsWaterinfo’: {‘parameters’: [‘waterhoogte’], ‘MISSING_VALUE’: 999}, ‘LoadsFews’: {‘host’: ‘https://fews.hhnk.nl’, ‘port’: 443, ‘region’: ‘fewspiservice’, ‘version’: ‘1.25’, ‘filter’: ‘HHNK_WEB’, ‘parameters’: [‘WATHTE [m][NAP][OW]’], ‘MISSING_VALUE’: 999}, ‘LoadsMatroos’: {‘website’: ‘noos’, ‘model’: ‘dcsm6_kf’, ‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘LoadsWaterwebservicesRWS’: {‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘calc_time’: datetime.datetime(2026, 2, 2, 15, 0, tzinfo=datetime.timezone.utc)} Data apdater: default_options Data apdater: BelastingLocaties_WaterInfo Data apdater: Waterstanden_WaterInfo Data apdater: BelastingLocaties_FEWS Data apdater: Waterstanden_FEWS Data apdater: BelastingLocaties_Matroos Data apdater: Waterstanden_Matroos Data apdater: BelastingLocaties_Waterwebservices_RWS Data apdater: Waterstanden_Waterwebservices_RWS</p>
 </section>
 <section id="invoerbestand-csv-met-data-van-belastinglocaties" class="level3">
 <h3 class="anchored" data-anchor-id="invoerbestand-csv-met-data-van-belastinglocaties">Invoerbestand (CSV) met data van belastinglocaties</h3>
@@ -402,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="laad-module-functie-loadswaterinfo-voor-inlezen-belastingen-uit-rws-waterinfo">Laad module (functie) LoadsWaterinfo voor inlezen belastingen uit RWS Waterinfo</h3>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.loads <span class="im">import</span> LoadsWaterinfo</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>waterinfo <span class="op">=</span> LoadsWaterinfo(data_adapter<span class="op">=</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>waterinfo <span class="op">=</span> LoadsWaterinfo(data_adapter<span class="op">=</span>data_adapter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="run-module-functie-loadswaterinfo-voor-inlezen-waterstanden-uit-waterinfo" class="level3">
 <h3 class="anchored" data-anchor-id="run-module-functie-loadswaterinfo-voor-inlezen-waterstanden-uit-waterinfo">Run module (functie) LoadsWaterinfo voor inlezen waterstanden uit Waterinfo</h3>
@@ -460,6 +469,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td data-quarto-table-cell-role="th">144</td>
+<td>1</td>
+<td>Pannerdense-kop(PANN)</td>
+<td>Pannerdense kop</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
+<td>cm</td>
+<td>2026-02-01 15:00:00+00:00</td>
+<td>848.0</td>
+<td>meting</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">145</td>
+<td>1</td>
+<td>Pannerdense-kop(PANN)</td>
+<td>Pannerdense kop</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
+<td>cm</td>
+<td>2026-02-01 15:10:00+00:00</td>
+<td>848.0</td>
+<td>meting</td>
+</tr>
+<tr class="odd">
 <td data-quarto-table-cell-role="th">146</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -468,8 +503,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2026-01-29 08:00:00+00:00</td>
-<td>767.0</td>
+<td>2026-02-01 15:20:00+00:00</td>
+<td>848.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -481,8 +516,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2026-01-29 08:10:00+00:00</td>
-<td>767.0</td>
+<td>2026-02-01 15:30:00+00:00</td>
+<td>848.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -494,34 +529,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2026-01-29 08:20:00+00:00</td>
-<td>769.0</td>
-<td>meting</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">149</td>
-<td>1</td>
-<td>Pannerdense-kop(PANN)</td>
-<td>Pannerdense kop</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
-<td>cm</td>
-<td>2026-01-29 08:30:00+00:00</td>
-<td>767.0</td>
-<td>meting</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">150</td>
-<td>1</td>
-<td>Pannerdense-kop(PANN)</td>
-<td>Pannerdense kop</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
-<td>cm</td>
-<td>2026-01-29 08:40:00+00:00</td>
-<td>767.0</td>
+<td>2026-02-01 15:40:00+00:00</td>
+<td>848.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -538,19 +547,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">571</td>
-<td>1</td>
-<td>Pannerdense-kop(PANN)</td>
-<td>Pannerdense kop</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
-<td>cm</td>
-<td>2026-02-01 05:20:00+00:00</td>
-<td>830.0</td>
-<td>verwachting</td>
-</tr>
-<tr class="even">
 <td data-quarto-table-cell-role="th">572</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -559,11 +555,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
 <td>cm</td>
-<td>2026-02-01 05:30:00+00:00</td>
-<td>830.0</td>
+<td>2026-02-04 04:20:00+00:00</td>
+<td>841.0</td>
 <td>verwachting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td data-quarto-table-cell-role="th">573</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -572,11 +568,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
 <td>cm</td>
-<td>2026-02-01 05:40:00+00:00</td>
-<td>831.0</td>
+<td>2026-02-04 04:30:00+00:00</td>
+<td>841.0</td>
 <td>verwachting</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td data-quarto-table-cell-role="th">574</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -585,11 +581,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
 <td>cm</td>
-<td>2026-02-01 05:50:00+00:00</td>
-<td>831.0</td>
+<td>2026-02-04 04:40:00+00:00</td>
+<td>841.0</td>
 <td>verwachting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td data-quarto-table-cell-role="th">575</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -598,14 +594,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
 <td>cm</td>
-<td>2026-02-01 06:00:00+00:00</td>
-<td>831.0</td>
+<td>2026-02-04 04:50:00+00:00</td>
+<td>841.0</td>
+<td>verwachting</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">576</td>
+<td>1</td>
+<td>Pannerdense-kop(PANN)</td>
+<td>Pannerdense kop</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>Waterhoogte verwacht Oppervlaktewater t.o.v. N...</td>
+<td>cm</td>
+<td>2026-02-04 05:00:00+00:00</td>
+<td>841.0</td>
 <td>verwachting</td>
 </tr>
 </tbody>
 </table>
 
-<p>430 rows × 10 columns</p>
+<p>433 rows × 10 columns</p>
 </div>
 </section>
 <section id="laad-en-run-module-functie-loadsfews-voor-inlezen-belastingen-uit-fews" class="level3">
@@ -614,7 +623,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>FEWS is niet extern bereikbaar en kan dus niet in de documentatie worden getoond</p>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from toolbox_continu_inzicht.loads import LoadsFews</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fews = LoadsFews(data_adapter=data)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fews = LoadsFews(data_adapter=data_adapter)</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ds = fews.run(input="BelastingLocaties_FEWS", output="Waterstanden_FEWS")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># measuringlocations = fews.df_in</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># measuringlocations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -626,7 +635,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Zoek op basis van een measurement_location_code die in (NOOS) Matroos overeenkomt met <a href="https://vitaal.matroos.rws.nl/matroos/php/image_series.php?type=image&amp;source_id=156&amp;loc_id=7&amp;unit_id=1&amp;colors=blue&amp;ymin=0&amp;ymax=0&amp;label=0&amp;alarm=0&amp;alert=0&amp;prealert=0&amp;localtime_offset=0&amp;tcurrent=2024-11-11%2019:38:11&amp;tstart=2024-11-10%2000:00:00&amp;tstop=2024-11-13%2000:00:00&amp;anal_time=2024-11-11%2000:00:00">‘Location’ -&gt; loc_id!</a></p>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.loads <span class="im">import</span> LoadsMatroos</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>matroos <span class="op">=</span> LoadsMatroos(data_adapter<span class="op">=</span>data)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>matroos <span class="op">=</span> LoadsMatroos(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> matroos.run(<span class="bu">input</span><span class="op">=</span><span class="st">"BelastingLocaties_Matroos"</span>, output<span class="op">=</span><span class="st">"Waterstanden_Matroos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>measuringlocations <span class="op">=</span> matroos.df_in</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>measuringlocations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -680,7 +689,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <img src="data_demo/images/WaterWebservicesRWS_Locatie_MessageId.PNG" class="img-fluid" alt="image info"></p>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.loads <span class="im">import</span> LoadsWaterwebservicesRWS</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>waterwebservices_rws <span class="op">=</span> LoadsWaterwebservicesRWS(data_adapter<span class="op">=</span>data)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>waterwebservices_rws <span class="op">=</span> LoadsWaterwebservicesRWS(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> waterwebservices_rws.run(</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span><span class="st">"BelastingLocaties_Waterwebservices_RWS"</span>,</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"Waterstanden_Waterwebservices_RWS"</span>,</span>
@@ -750,9 +759,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-01-29 09:00:00+01:00</td>
+<td>2026-02-01 16:00:00+01:00</td>
 <td>cm</td>
-<td>474.0</td>
+<td>466.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -762,9 +771,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-01-29 09:10:00+01:00</td>
+<td>2026-02-01 16:10:00+01:00</td>
 <td>cm</td>
-<td>473.0</td>
+<td>470.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -774,9 +783,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-01-29 09:20:00+01:00</td>
+<td>2026-02-01 16:20:00+01:00</td>
 <td>cm</td>
-<td>469.0</td>
+<td>470.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -786,9 +795,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-01-29 09:30:00+01:00</td>
+<td>2026-02-01 16:30:00+01:00</td>
 <td>cm</td>
-<td>466.0</td>
+<td>469.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -798,9 +807,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-01-29 09:40:00+01:00</td>
+<td>2026-02-01 16:40:00+01:00</td>
 <td>cm</td>
-<td>479.0</td>
+<td>467.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -816,39 +825,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">142</td>
-<td>4</td>
-<td>rosmalen.hinthamsluis.boven</td>
-<td>Rosmalen Hinthamsluis boven</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>2026-01-30 08:40:00+01:00</td>
-<td>cm</td>
-<td>469.0</td>
-<td>meting</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">143</td>
-<td>4</td>
-<td>rosmalen.hinthamsluis.boven</td>
-<td>Rosmalen Hinthamsluis boven</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>2026-01-30 08:50:00+01:00</td>
-<td>cm</td>
-<td>470.0</td>
-<td>meting</td>
-</tr>
-<tr class="odd">
 <td data-quarto-table-cell-role="th">144</td>
 <td>4</td>
 <td>rosmalen.hinthamsluis.boven</td>
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-01-30 09:00:00+01:00</td>
+<td>2026-02-02 16:00:00+01:00</td>
 <td>cm</td>
-<td>472.0</td>
+<td>469.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -858,9 +843,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-01-30 09:10:00+01:00</td>
+<td>2026-02-02 16:10:00+01:00</td>
 <td>cm</td>
-<td>468.0</td>
+<td>472.0</td>
 <td>verwachting</td>
 </tr>
 <tr class="odd">
@@ -870,15 +855,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-01-30 09:20:00+01:00</td>
+<td>2026-02-02 16:20:00+01:00</td>
 <td>cm</td>
 <td>468.0</td>
+<td>verwachting</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">147</td>
+<td>4</td>
+<td>rosmalen.hinthamsluis.boven</td>
+<td>Rosmalen Hinthamsluis boven</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>2026-02-02 16:30:00+01:00</td>
+<td>cm</td>
+<td>470.0</td>
+<td>verwachting</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">148</td>
+<td>4</td>
+<td>rosmalen.hinthamsluis.boven</td>
+<td>Rosmalen Hinthamsluis boven</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>2026-02-02 16:40:00+01:00</td>
+<td>cm</td>
+<td>467.0</td>
 <td>verwachting</td>
 </tr>
 </tbody>
 </table>
 
-<p>147 rows × 9 columns</p>
+<p>149 rows × 9 columns</p>
 </div>
 
 
