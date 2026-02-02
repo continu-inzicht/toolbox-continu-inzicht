@@ -1,0 +1,6 @@
+measurement_location_id,measurement_location_code,lower_boundary,upper_boundary,color,label,unit
+1,hoekvanholland,,-92.0,#673327,Laagwater (< -92cm),cm
+1,hoekvanholland,-92.0,200.0,#39870C,Normaal (-92 tot 200cm),cm
+1,hoekvanholland,200.0,220.0,#CDDC39,Licht verhoogd (>200cm),cm
+1,hoekvanholland,220.0,280.0,#FFDE12,Verhoogde waterstand (> 220cm),cm
+1,hoekvanholland,280.0,365.0,#E17000,Stormvloed (> 280cm),cm

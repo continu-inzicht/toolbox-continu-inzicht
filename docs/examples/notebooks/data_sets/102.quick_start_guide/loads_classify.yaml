@@ -1,0 +1,20 @@
+GlobalVariables:
+    rootdir: "data_sets/102.quick_start_guide"
+    moments: [ -24, 0, 24, 48 ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ";"
+
+    belasting_locaties_grenzen:
+        type: csv
+        sep: ","
+        path: "belasting_locaties_grenzen.csv"
+    momenten_waterstanden:
+        type: csv
+        path: "momenten_waterstanden.csv"
+    geclassificeerde_waterstanden:
+        type: csv
+        index: False
+        path: "hidden_geclassificeerde_waterstanden.csv"

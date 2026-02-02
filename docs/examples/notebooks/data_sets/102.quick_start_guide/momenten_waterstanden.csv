@@ -1,0 +1,7 @@
+date_time;Unnamed: 0;measurement_location_id;measurement_location_code;measurement_location_description;parameter_id;parameter_code;unit;value;value_type;hours
+2026-02-01 14:00:00+01:00;6;1;hoekvanholland;Hoek van Holland;4724;WATHTE;cm;125.0;meting;0
+2026-02-02 13:40:00+01:00;148;1;hoekvanholland;Hoek van Holland;4724;WATHTE;cm;16.0;verwachting;24
+2026-02-02 13:40:00+01:00;148;1;hoekvanholland;Hoek van Holland;4724;WATHTE;cm;16.0;verwachting;48
+2026-02-01 14:00:00+01:00;6;2;hoekvanholland;Hoek van Holland;4724;WATHTE;cm;129.0;meting;0
+2026-02-02 13:40:00+01:00;148;2;hoekvanholland;Hoek van Holland;4724;WATHTE;cm;20.0;verwachting;24
+2026-02-02 13:40:00+01:00;148;2;hoekvanholland;Hoek van Holland;4724;WATHTE;cm;20.0;verwachting;48
