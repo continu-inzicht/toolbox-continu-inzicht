@@ -1,0 +1,9 @@
+date_time;measurement_location_id;measurement_location_code;measurement_location_description;parameter_id;parameter_code;unit;value;value_type;hours
+2026-02-01 07:00:00+01:00;1;rosmalen.hinthamsluis.boven;Rosmalen Hinthamsluis boven;4724;WATHTE;cm;467.0;meting;-24
+2026-02-02 06:40:00+01:00;1;rosmalen.hinthamsluis.boven;Rosmalen Hinthamsluis boven;4724;WATHTE;cm;468.0;verwachting;0
+2026-02-02 06:40:00+01:00;1;rosmalen.hinthamsluis.boven;Rosmalen Hinthamsluis boven;4724;WATHTE;cm;468.0;verwachting;24
+2026-02-02 06:40:00+01:00;1;rosmalen.hinthamsluis.boven;Rosmalen Hinthamsluis boven;4724;WATHTE;cm;468.0;verwachting;48
+2026-02-01 07:00:00+01:00;2;rosmalen.hinthamsluis.ver.boven;Rosmalen Hinthamsluis boven;4724;WATHTE;cm;487.0;meting;-24
+2026-02-02 06:40:00+01:00;2;rosmalen.hinthamsluis.ver.boven;Rosmalen Hinthamsluis boven;4724;WATHTE;cm;488.0;verwachting;0
+2026-02-02 06:40:00+01:00;2;rosmalen.hinthamsluis.ver.boven;Rosmalen Hinthamsluis boven;4724;WATHTE;cm;488.0;verwachting;24
+2026-02-02 06:40:00+01:00;2;rosmalen.hinthamsluis.ver.boven;Rosmalen Hinthamsluis boven;4724;WATHTE;cm;488.0;verwachting;48

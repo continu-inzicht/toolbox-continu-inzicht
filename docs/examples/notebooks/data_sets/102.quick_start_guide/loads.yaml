@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data_sets/103.quick_start_guide"
+    rootdir: "data_sets/102.quick_start_guide"
     moments: [ -24, 0, 24, 48 ]
     aquo_alias:
         WATHTE [m][NAP][OW]: "WATHTE"
@@ -14,7 +14,7 @@ DataAdapter:
             sep: ";"
     belasting_locaties_waterwebservices_RWS:
         type: csv
-        path: "locaties.csv"
+        path: "belasting_locaties_waterwebservices_RWS.csv"
     waterstanden_waterwebservices:
         type: csv
         path: "hidden_waterstanden_waterwebservices_rws.csv"
