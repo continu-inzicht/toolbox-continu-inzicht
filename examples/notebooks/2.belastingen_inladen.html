@@ -205,7 +205,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fragility Curve Overtopping</span></a>
+ <span class="menu-text">Fragility Curve Overtopping (bedlevel/fetch)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/8.fragility_curve_overtopping_wavedata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fragility Curve Overtopping (wave data)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -234,12 +240,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/8.fragility_curve_overtopping_wavedata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fragility Curve Overtopping</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gebruik van logging</span></a>
   </div>
@@ -254,6 +254,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/102.quick_start_guide.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quick start guide</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/103.extract_wavedata_hrdb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Golfdata van HR-database naar TBCI</span></a>
   </div>
 </li>
     </ul>
@@ -392,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Globale variabelen: </span><span class="sc">{</span>data_adapter<span class="sc">.</span>config<span class="sc">.</span>global_variables<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> data <span class="kw">in</span> data_adapter.config.data_adapters:</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Data apdater: </span><span class="sc">{</span>data<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Folder met data: D:-continu-inzicht-continu-inzicht_inzicht_sets\2.belastingen_inladen_sprint2-I.yaml Globale variabelen: {‘rootdir’: ‘data_sets/2.belastingen_inladen’, ‘moments’: [-24, 0, 24, 48], ‘aquo_alias’: {‘WATHTE [m][NAP][OW]’: ‘WATHTE’}, ‘LoadsWaterinfo’: {‘parameters’: [‘waterhoogte’], ‘MISSING_VALUE’: 999}, ‘LoadsFews’: {‘host’: ‘https://fews.hhnk.nl’, ‘port’: 443, ‘region’: ‘fewspiservice’, ‘version’: ‘1.25’, ‘filter’: ‘HHNK_WEB’, ‘parameters’: [‘WATHTE [m][NAP][OW]’], ‘MISSING_VALUE’: 999}, ‘LoadsMatroos’: {‘website’: ‘noos’, ‘model’: ‘dcsm6_kf’, ‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘LoadsWaterwebservicesRWS’: {‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘calc_time’: datetime.datetime(2026, 2, 3, 9, 0, tzinfo=datetime.timezone.utc)} Data apdater: default_options Data apdater: BelastingLocaties_WaterInfo Data apdater: Waterstanden_WaterInfo Data apdater: BelastingLocaties_FEWS Data apdater: Waterstanden_FEWS Data apdater: BelastingLocaties_Matroos Data apdater: Waterstanden_Matroos Data apdater: BelastingLocaties_Waterwebservices_RWS Data apdater: Waterstanden_Waterwebservices_RWS</p>
+<p>Folder met data: D:-continu-inzicht-continu-inzicht_inzicht_sets\2.belastingen_inladen_sprint2-I.yaml Globale variabelen: {‘rootdir’: ‘data_sets/2.belastingen_inladen’, ‘moments’: [-24, 0, 24, 48], ‘aquo_alias’: {‘WATHTE [m][NAP][OW]’: ‘WATHTE’}, ‘LoadsWaterinfo’: {‘parameters’: [‘waterhoogte’], ‘MISSING_VALUE’: 999}, ‘LoadsFews’: {‘host’: ‘https://fews.hhnk.nl’, ‘port’: 443, ‘region’: ‘fewspiservice’, ‘version’: ‘1.25’, ‘filter’: ‘HHNK_WEB’, ‘parameters’: [‘WATHTE [m][NAP][OW]’], ‘MISSING_VALUE’: 999}, ‘LoadsMatroos’: {‘website’: ‘noos’, ‘model’: ‘dcsm6_kf’, ‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘LoadsWaterwebservicesRWS’: {‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘calc_time’: datetime.datetime(2026, 2, 3, 10, 0, tzinfo=datetime.timezone.utc)} Data apdater: default_options Data apdater: BelastingLocaties_WaterInfo Data apdater: Waterstanden_WaterInfo Data apdater: BelastingLocaties_FEWS Data apdater: Waterstanden_FEWS Data apdater: BelastingLocaties_Matroos Data apdater: Waterstanden_Matroos Data apdater: BelastingLocaties_Waterwebservices_RWS Data apdater: Waterstanden_Waterwebservices_RWS</p>
 </section>
 <section id="invoerbestand-csv-met-data-van-belastinglocaties" class="level3">
 <h3 class="anchored" data-anchor-id="invoerbestand-csv-met-data-van-belastinglocaties">Invoerbestand (CSV) met data van belastinglocaties</h3>
@@ -466,19 +472,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">148</td>
-<td>1</td>
-<td>Pannerdense-kop(PANN)</td>
-<td>Pannerdense kop</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
-<td>cm</td>
-<td>2026-02-02 09:00:00+00:00</td>
-<td>857.0</td>
-<td>meting</td>
-</tr>
-<tr class="even">
 <td data-quarto-table-cell-role="th">149</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -487,11 +480,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2026-02-02 09:10:00+00:00</td>
-<td>858.0</td>
+<td>2026-02-02 10:00:00+00:00</td>
+<td>859.0</td>
 <td>meting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td data-quarto-table-cell-role="th">150</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -500,11 +493,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2026-02-02 09:20:00+00:00</td>
+<td>2026-02-02 10:10:00+00:00</td>
 <td>857.0</td>
 <td>meting</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td data-quarto-table-cell-role="th">151</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -513,11 +506,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2026-02-02 09:30:00+00:00</td>
-<td>858.0</td>
+<td>2026-02-02 10:20:00+00:00</td>
+<td>857.0</td>
 <td>meting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td data-quarto-table-cell-role="th">152</td>
 <td>1</td>
 <td>Pannerdense-kop(PANN)</td>
@@ -526,8 +519,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
 <td>cm</td>
-<td>2026-02-02 09:40:00+00:00</td>
-<td>858.0</td>
+<td>2026-02-02 10:30:00+00:00</td>
+<td>857.0</td>
+<td>meting</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">153</td>
+<td>1</td>
+<td>Pannerdense-kop(PANN)</td>
+<td>Pannerdense kop</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>Waterhoogte Oppervlaktewater t.o.v. Normaal Am...</td>
+<td>cm</td>
+<td>2026-02-02 10:40:00+00:00</td>
+<td>857.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -611,7 +617,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 
-<p>428 rows × 10 columns</p>
+<p>427 rows × 10 columns</p>
 </div>
 </section>
 <section id="laad-en-run-module-functie-loadsfews-voor-inlezen-belastingen-uit-fews" class="level3">
@@ -756,9 +762,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-02-02 10:00:00+01:00</td>
+<td>2026-02-02 11:00:00+01:00</td>
 <td>cm</td>
-<td>467.0</td>
+<td>469.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -768,7 +774,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-02-02 10:10:00+01:00</td>
+<td>2026-02-02 11:10:00+01:00</td>
 <td>cm</td>
 <td>467.0</td>
 <td>meting</td>
@@ -780,9 +786,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-02-02 10:20:00+01:00</td>
+<td>2026-02-02 11:20:00+01:00</td>
 <td>cm</td>
-<td>471.0</td>
+<td>467.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -792,9 +798,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-02-02 10:30:00+01:00</td>
+<td>2026-02-02 11:30:00+01:00</td>
 <td>cm</td>
-<td>468.0</td>
+<td>470.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -804,9 +810,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-02-02 10:40:00+01:00</td>
+<td>2026-02-02 11:40:00+01:00</td>
 <td>cm</td>
-<td>470.0</td>
+<td>471.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -822,69 +828,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
+<td data-quarto-table-cell-role="th">139</td>
+<td>4</td>
+<td>rosmalen.hinthamsluis.boven</td>
+<td>Rosmalen Hinthamsluis boven</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>2026-02-03 10:10:00+01:00</td>
+<td>cm</td>
+<td>471.0</td>
+<td>meting</td>
+</tr>
+<tr class="even">
 <td data-quarto-table-cell-role="th">140</td>
 <td>4</td>
 <td>rosmalen.hinthamsluis.boven</td>
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-02-03 09:20:00+01:00</td>
+<td>2026-02-03 10:20:00+01:00</td>
 <td>cm</td>
-<td>471.0</td>
+<td>472.0</td>
 <td>meting</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td data-quarto-table-cell-role="th">141</td>
 <td>4</td>
 <td>rosmalen.hinthamsluis.boven</td>
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-02-03 09:30:00+01:00</td>
+<td>2026-02-03 10:30:00+01:00</td>
 <td>cm</td>
 <td>471.0</td>
 <td>meting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td data-quarto-table-cell-role="th">142</td>
 <td>4</td>
 <td>rosmalen.hinthamsluis.boven</td>
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-02-03 09:40:00+01:00</td>
+<td>2026-02-03 10:40:00+01:00</td>
 <td>cm</td>
-<td>472.0</td>
+<td>469.0</td>
 <td>meting</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td data-quarto-table-cell-role="th">143</td>
 <td>4</td>
 <td>rosmalen.hinthamsluis.boven</td>
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-02-03 09:50:00+01:00</td>
+<td>2026-02-03 10:50:00+01:00</td>
 <td>cm</td>
-<td>471.0</td>
-<td>meting</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">144</td>
-<td>4</td>
-<td>rosmalen.hinthamsluis.boven</td>
-<td>Rosmalen Hinthamsluis boven</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>2026-02-03 10:00:00+01:00</td>
-<td>cm</td>
-<td>471.0</td>
+<td>470.0</td>
 <td>meting</td>
 </tr>
 </tbody>
 </table>
 
-<p>145 rows × 9 columns</p>
+<p>144 rows × 9 columns</p>
 </div>
 
 

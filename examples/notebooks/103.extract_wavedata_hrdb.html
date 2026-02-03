@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Golfdata van HR-database naar TBCI – Toolbox Continu Inzicht</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-2a9bdf5a123b5cc383b46ed6d004b071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../assets/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Toolbox Continu Inzicht</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../install.html"> 
+<span class="menu-text">Installeren</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../../voorbeelden.html" aria-current="page"> 
+<span class="menu-text">Voorbeelden</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../modules_index.html"> 
+<span class="menu-text">Modules</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../reference/index.html"> 
+<span class="menu-text">Python API</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../overig/contact.html"> 
+<span class="menu-text">Overig</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../contributing.html"> 
+<span class="menu-text">Bijdragen</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/continu-inzicht/toolbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/103.extract_wavedata_hrdb.html">Golfdata van HR-database naar TBCI</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../voorbeelden.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Voorbeelden</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/1.proof_of_concept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Architectuur voorbeeld</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/2.belastingen_inladen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Belastingen inladen</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fragility Curve Overtopping (bedlevel/fetch)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/8.fragility_curve_overtopping_wavedata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fragility Curve Overtopping (wave data)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/4.adjust_integrated_statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aanpassen van geïntegreerde faalkans</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/5.inspectieresultaten.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspectieresultaten</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/6.fragility_curve_from_cache.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fragility Curve uit een cache</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/7.rekentest_flood_scenarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Real-time of what-if overstromingsrisico’s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gebruik van logging</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/101.WMS_laag_naar_database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WMS laag toevoegen aan database voor viewer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/102.quick_start_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quick start guide</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/103.extract_wavedata_hrdb.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Golfdata van HR-database naar TBCI</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#uitlezen-hr-data" id="toc-uitlezen-hr-data" class="nav-link active" data-scroll-target="#uitlezen-hr-data">Uitlezen HR data</a></li>
+  <li><a href="#relevante-golfdata-ophalen" id="toc-relevante-golfdata-ophalen" class="nav-link" data-scroll-target="#relevante-golfdata-ophalen">Relevante golfdata ophalen</a></li>
+  <li><a href="#opslaan-van-golfdata-in-tbci-formaat" id="toc-opslaan-van-golfdata-in-tbci-formaat" class="nav-link" data-scroll-target="#opslaan-van-golfdata-in-tbci-formaat">Opslaan van golfdata in TBCI formaat</a></li>
+  <li><a href="#koppelen-van-hr-locatie-naar-toolbox-locatie" id="toc-koppelen-van-hr-locatie-naar-toolbox-locatie" class="nav-link" data-scroll-target="#koppelen-van-hr-locatie-naar-toolbox-locatie">Koppelen van hr-locatie naar Toolbox locatie</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Golfdata van HR-database naar TBCI</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In dit voorbeeld laten we zien hoe golfdata van een officiële HR database geëxporteerd kan worden naar een formaat wat bruikbaar is voor de <code>FragilityCurveOvertoppingWaveData</code> module. Globaal betekent dit dat we de relevante uit de HR database de relevante data ophalen, interpoleren en/of extrapoleren naar een regelmatig waterstandsgrid en opslaan in een stel CSV bestanden.</p>
+<p>Dit voorbeeld resulteert dan ook in een set aan CSV bestanden. Dit is puur ter illustratie van het voorbeeld, de golfdata kan ook in een database of een ander bestandsformaat opgeslagen worden. Toolbox Continu Inzicht ondersteunt dit ook, maar dat betekent wel dat hiervoor bijbehorende DataAdapters gedefinieerd moeten worden.</p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> ceil</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.interpolate <span class="im">import</span> interp1d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="uitlezen-hr-data" class="level2">
+<h2 class="anchored" data-anchor-id="uitlezen-hr-data">Uitlezen HR data</h2>
+<p>We zetten eerst een verbinding op met een voorbeeld database.</p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    Path.cwd()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span> <span class="st">"data_sets"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span> <span class="st">"103.extract_wavedata_hrdb"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span> <span class="st">"Copy_DEMO_IJsselmeer.sqlite"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In de HR database zijn verschillende tabellen aanwezig die we nodig hebben:</p>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hrd_wind <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM HRDWindDirections"</span>, conn)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>hrd_closingsit <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM ClosingSituations"</span>, conn)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>hrd_inputvar <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM HRDInputVariables"</span>, conn)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>hrd_resultvar <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM HRDResultVariables"</span>, conn)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>hrd_uncert <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM UncertaintyModelFactor"</span>, conn)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>hrd_locs <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM HRDLocations"</span>, conn)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>hrd_locs[<span class="st">"geometry"</span>] <span class="op">=</span> gpd.points_from_xy(hrd_locs.XCoordinate, hrd_locs.YCoordinate)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>hrd_locs <span class="op">=</span> gpd.GeoDataFrame(hrd_locs, geometry<span class="op">=</span><span class="st">"geometry"</span>, crs<span class="op">=</span><span class="st">"epsg:28992"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>display(hrd_locs)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>display(hrd_wind)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>display(hrd_closingsit)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>display(hrd_inputvar)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>display(hrd_resultvar)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>display(hrd_uncert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">HRDLocationId</th>
+<th data-quarto-table-cell-role="th">LocationTypeId</th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">XCoordinate</th>
+<th data-quarto-table-cell-role="th">YCoordinate</th>
+<th data-quarto-table-cell-role="th">WaterLevelCorrection</th>
+<th data-quarto-table-cell-role="th">BedLevel</th>
+<th data-quarto-table-cell-role="th">Acceptatie geometrie</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>4</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>152538.0</td>
+<td>544369.0</td>
+<td>0.0</td>
+<td>-999</td>
+<td>1</td>
+<td>POINT (152538 544369)</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>7</td>
+<td>4</td>
+<td>YM_2_6-2_dk_01184</td>
+<td>154001.0</td>
+<td>562864.0</td>
+<td>0.0</td>
+<td>-999</td>
+<td>1</td>
+<td>POINT (154001 562864)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>56</td>
+<td>4</td>
+<td>YM_2_7-2_dk_00686</td>
+<td>168890.0</td>
+<td>526763.0</td>
+<td>0.0</td>
+<td>-999</td>
+<td>1</td>
+<td>POINT (168890 526763)</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>98</td>
+<td>4</td>
+<td>YM_2_8-3_dk_00537</td>
+<td>165227.0</td>
+<td>510327.0</td>
+<td>0.0</td>
+<td>-999</td>
+<td>1</td>
+<td>POINT (165227 510327)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>111</td>
+<td>4</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>179050.0</td>
+<td>510807.0</td>
+<td>0.0</td>
+<td>-999</td>
+<td>1</td>
+<td>POINT (179050 510807)</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>138</td>
+<td>4</td>
+<td>YM_2_12-2_dk_00072</td>
+<td>136587.0</td>
+<td>540167.0</td>
+<td>0.0</td>
+<td>-999</td>
+<td>1</td>
+<td>POINT (136587 540167)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>151</td>
+<td>4</td>
+<td>YM_2_13-6_dk_00233</td>
+<td>147407.0</td>
+<td>528762.0</td>
+<td>0.0</td>
+<td>-999</td>
+<td>1</td>
+<td>POINT (147407 528762)</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">HRDWindDirectionId</th>
+<th data-quarto-table-cell-role="th">Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>225.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>22.5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>45.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>67.5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>90.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>112.5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>7</td>
+<td>135.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>8</td>
+<td>157.5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>9</td>
+<td>180.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>10</td>
+<td>202.5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>11</td>
+<td>247.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>12</td>
+<td>270.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>13</td>
+<td>292.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>14</td>
+<td>315.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>15</td>
+<td>337.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>16</td>
+<td>360.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ClosingSituationId</th>
+<th data-quarto-table-cell-role="th">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>Regular</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">HRDInputColumnId</th>
+<th data-quarto-table-cell-role="th">ColumnName</th>
+<th data-quarto-table-cell-role="th">InputVariableId</th>
+<th data-quarto-table-cell-role="th">UnitFactor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>WINDS</td>
+<td>9</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>3</td>
+<td>MEERP</td>
+<td>7</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">HRDResultColumnId</th>
+<th data-quarto-table-cell-role="th">ColumnName</th>
+<th data-quarto-table-cell-role="th">ResultVariableId</th>
+<th data-quarto-table-cell-role="th">UnitFactor</th>
+<th data-quarto-table-cell-role="th">RepairNonDecreasingValues</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>ZMAX</td>
+<td>1</td>
+<td>1.0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>Hsign</td>
+<td>2</td>
+<td>1.0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>Tpiek</td>
+<td>4</td>
+<td>1.0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>Dir</td>
+<td>7</td>
+<td>1.0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>8</td>
+<td>Tm-1,0</td>
+<td>6</td>
+<td>1.0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">HRDLocationId</th>
+<th data-quarto-table-cell-role="th">ClosingSituationId</th>
+<th data-quarto-table-cell-role="th">HRDResultColumnId</th>
+<th data-quarto-table-cell-role="th">Mean</th>
+<th data-quarto-table-cell-role="th">Standarddeviation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>111</td>
+<td>1</td>
+<td>1</td>
+<td>0.00</td>
+<td>0.35</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>111</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>111</td>
+<td>1</td>
+<td>3</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>111</td>
+<td>1</td>
+<td>8</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>138</td>
+<td>1</td>
+<td>1</td>
+<td>0.00</td>
+<td>0.15</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>138</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>138</td>
+<td>1</td>
+<td>3</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>138</td>
+<td>1</td>
+<td>8</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>151</td>
+<td>1</td>
+<td>1</td>
+<td>0.00</td>
+<td>0.15</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>151</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>151</td>
+<td>1</td>
+<td>3</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>151</td>
+<td>1</td>
+<td>8</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0.00</td>
+<td>0.15</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>1</td>
+<td>1</td>
+<td>8</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>7</td>
+<td>1</td>
+<td>1</td>
+<td>0.00</td>
+<td>0.30</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>7</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>7</td>
+<td>1</td>
+<td>3</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>7</td>
+<td>1</td>
+<td>8</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>56</td>
+<td>1</td>
+<td>1</td>
+<td>0.00</td>
+<td>0.30</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>56</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>56</td>
+<td>1</td>
+<td>3</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>56</td>
+<td>1</td>
+<td>8</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>98</td>
+<td>1</td>
+<td>1</td>
+<td>0.00</td>
+<td>0.30</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>98</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>98</td>
+<td>1</td>
+<td>3</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>98</td>
+<td>1</td>
+<td>8</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<p>De locaties aanwezig in de database kunnen we snel geografisch weergeven. in dit voorbeeld gaan we voor vijf locaties de golfdata ophalen (oranje locaties in onderstaande plot)</p>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset_hrd_locs = hrd_locs.copy()</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>subset_hrd_locs <span class="op">=</span> hrd_locs.iloc[</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    np.arange(<span class="dv">0</span>, <span class="bu">len</span>(hrd_locs), <span class="bu">int</span>(<span class="bu">len</span>(hrd_locs) <span class="op">/</span> <span class="dv">4</span>)), :</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>].copy()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>subset_hrd_locs <span class="op">=</span> subset_hrd_locs.iloc[<span class="dv">0</span>:<span class="dv">5</span>].copy()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> hrd_locs.plot()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>subset_hrd_locs.plot(ax<span class="op">=</span>ax)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>subset_hrd_locs.Name.tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>['YM_2_6-1_dk_01009',
+ 'YM_2_6-2_dk_01184',
+ 'YM_2_7-2_dk_00686',
+ 'YM_2_8-3_dk_00537',
+ 'KM_2_8-4_dk_00054']</code></pre>
+<p><img src="103.extract_wavedata_hrdb_files/figure-html/cell-5-output-2.png" width="396" height="411"></p>
+</section>
+<section id="relevante-golfdata-ophalen" class="level2">
+<h2 class="anchored" data-anchor-id="relevante-golfdata-ophalen">Relevante golfdata ophalen</h2>
+<p>In de volgende stap gaan we de input- en outputstochasten die aanwezig zijn koppelen met de beschikbare data en locaties. Daarvoor moeten we eerst een aantal objecten definieren: wat de naam is van de lokale waterstand (veelal ZWL) en de namen van de golfparameters. Deze namen hebben default waardes die vaakgebruikt worden, maar het is verstandig om deze namen te checken in de output van de eerder getoonde <code>hrd_inputvar</code> en <code>hrd_resultvar</code>. Tenslotte geven we een vaste stapgrootte op voor het regelmatige waterstandsgrid. In dit voorbeeld gebruiken we daarvoor 0.2 meter, maar dit is vrij instelbaar. Dit is wel een belangrijke parameter voor de uiteindelijke grootte van de data.</p>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># De lokale waterstand koppelen we via id=1 (veelal heet deze ZWL)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>wl_name <span class="op">=</span> hrd_resultvar[hrd_resultvar.ResultVariableId <span class="op">==</span> <span class="dv">1</span>].ColumnName.iat[<span class="dv">0</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>display(<span class="ss">f"</span><span class="sc">{</span>wl_name<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># De golfdata moet de significante golfhoogte, spectrale golfperiode en de golfrichting bevatten.</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Deze koppelen we via id 2, 6, en 7. Veelal heten deze parameters 'Hs', 'Tm-1,0', 'Wave direction'</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>wave_param_names <span class="op">=</span> hrd_resultvar[</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    hrd_resultvar.ResultVariableId.isin([<span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">7</span>])</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>].ColumnName.tolist()</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>display(<span class="ss">f"</span><span class="sc">{</span>wave_param_names<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>ws_name <span class="op">=</span> hrd_inputvar[hrd_inputvar.InputVariableId <span class="op">==</span> <span class="dv">9</span>].ColumnName.iat[<span class="dv">0</span>]</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>display(<span class="ss">f"</span><span class="sc">{</span>ws_name<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Stapgrootte waterstandsgrid (in meters)</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>wl_stepsize <span class="op">=</span> <span class="fl">0.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>"wl_name='ZMAX'"</code></pre>
+<pre><code>"wave_param_names=['Hsign', 'Dir', 'Tm-1,0']"</code></pre>
+<pre><code>"ws_name='WINDS'"</code></pre>
+<p>Het volgende codeblok koppelt de gegevens aan elkaar en geeft per locatie, per golfparameter het aantal datapunten voor interpolatie en na interpolatie. De interpolatie en extrapolatie is lineair. Voor de golfrichting wordt hierbij rekening gehouden met het feit dat het circulaire data is.</p>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>wavevalid <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>all_df <span class="op">=</span> []</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>all_df_red <span class="op">=</span> []</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> locrow <span class="kw">in</span> subset_hrd_locs.itertuples():</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    cases <span class="op">=</span> []</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> hrd_inputvar.itertuples():</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        cases.append(</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"MAX(CASE WHEN i.HRDInputColumnId = </span><span class="sc">{</span>row<span class="sc">.</span>HRDInputColumnId<span class="sc">}</span><span class="ss"> THEN i.Value END) AS '</span><span class="sc">{</span>row<span class="sc">.</span>ColumnName<span class="sc">}</span><span class="ss">'"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> hrd_resultvar.itertuples():</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        cases.append(</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"MAX(CASE WHEN r.HRDResultColumnId  = </span><span class="sc">{</span>row<span class="sc">.</span>HRDResultColumnId<span class="sc">}</span><span class="ss"> THEN r.Value END) AS '</span><span class="sc">{</span>row<span class="sc">.</span>ColumnName<span class="sc">}</span><span class="ss">'"</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    sql <span class="op">=</span> <span class="ss">f"""</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="ss">            d.HydroDynamicDataId,</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="ss">            d.HRDLocationId,</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="ss">            l.Name AS HRDLocationName,</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="ss">            d.ClosingSituationId,</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="ss">            c.Description AS ClosingSituationName,</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="ss">            d.HRDWindDirectionId,</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="ss">            w.Direction AS HRDWindDirectionName,</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="ss">            </span><span class="sc">{</span><span class="st">","</span><span class="sc">.</span>join(cases)<span class="sc">}</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM </span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="ss">            HydroDynamicData d</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="ss">        INNER JOIN </span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="ss">            HRDLocations l ON d.HRDLocationId=l.HRDLocationId</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="ss">        INNER JOIN</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="ss">            ClosingSituations c ON d.ClosingSituationId=c.ClosingSituationId</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="ss">        INNER JOIN</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="ss">            HRDWindDirections w ON d.HRDWindDirectionId = w.HRDWindDirectionId</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="ss">        LEFT JOIN </span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="ss">            HydroDynamicInputData i ON i.HydroDynamicDataId = d.HydroDynamicDataId</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="ss">        LEFT JOIN </span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="ss">            HydroDynamicResultData r ON r.HydroDynamicDataId = d.HydroDynamicDataId</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="ss">        WHERE </span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="ss">            l.Name='</span><span class="sc">{</span>locrow<span class="sc">.</span>Name<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="ss">        GROUP BY</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="ss">            d.HydroDynamicDataId,</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="ss">            d.HRDLocationId,</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="ss">            d.ClosingSituationId,</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="ss">            d.HRDWindDirectionId;</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="ss">    """</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_sql(sql, conn)</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># waterlevel vector</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>    steps <span class="op">=</span> <span class="bu">int</span>(np.ceil((df[wl_name].<span class="bu">max</span>() <span class="op">-</span> df[wl_name].<span class="bu">min</span>()) <span class="op">/</span> wl_stepsize) <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>    wl_vec <span class="op">=</span> np.linspace(df[wl_name].<span class="bu">min</span>(), df[wl_name].<span class="bu">max</span>(), steps)</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>    all_result_vars <span class="op">=</span> hrd_resultvar[hrd_resultvar.ColumnName.isin(wave_param_names)]</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>    nbefore <span class="op">=</span> {k: <span class="dv">0</span> <span class="cf">for</span> k <span class="kw">in</span> all_result_vars.ColumnName.tolist()}</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>    nafter <span class="op">=</span> {k: <span class="dv">0</span> <span class="cf">for</span> k <span class="kw">in</span> all_result_vars.ColumnName.tolist()}</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> resultrow <span class="kw">in</span> all_result_vars.itertuples():</span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>        resultvar <span class="op">=</span> resultrow.ColumnName</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> (winddir_id, winddir, ws), group <span class="kw">in</span> df.groupby(</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>            [<span class="st">"HRDWindDirectionId"</span>, <span class="st">"HRDWindDirectionName"</span>, ws_name]</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>        ):</span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>            wavevalid <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>            winddir_id <span class="op">=</span> <span class="bu">int</span>(winddir_id)</span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>            winddir <span class="op">=</span> <span class="bu">round</span>(<span class="bu">float</span>(winddir), <span class="dv">2</span>)</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>            ws <span class="op">=</span> <span class="bu">float</span>(ws)</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>            data <span class="op">=</span> group[[wl_name, resultvar]].drop_duplicates().to_numpy()</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> resultvar <span class="op">==</span> <span class="st">"Wave direction"</span>:</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>                angles <span class="op">=</span> np.deg2rad(data[:, <span class="dv">1</span>])</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>                sin_interp <span class="op">=</span> interp1d(</span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>                    data[:, <span class="dv">0</span>], np.sin(angles), fill_value<span class="op">=</span><span class="st">"extrapolate"</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>                cos_interp <span class="op">=</span> interp1d(</span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>                    data[:, <span class="dv">0</span>], np.cos(angles), fill_value<span class="op">=</span><span class="st">"extrapolate"</span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>                resultvec <span class="op">=</span> np.rad2deg(</span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>                    np.arctan2(sin_interp(wl_vec), cos_interp(wl_vec))</span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>                resultvec <span class="op">=</span> np.mod(resultvec, <span class="fl">360.0</span>)</span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>                resultvec <span class="op">=</span> interp1d(data[:, <span class="dv">0</span>], data[:, <span class="dv">1</span>], fill_value<span class="op">=</span><span class="st">"extrapolate"</span>)(</span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a>                    wl_vec</span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>                resultvec[resultvec <span class="op">&lt;</span> <span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a>            ws_group_red <span class="op">=</span> np.vstack([wl_vec, resultvec]).T</span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a>            nbefore[resultvar] <span class="op">+=</span> data.shape[<span class="dv">0</span>]</span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a>            nafter[resultvar] <span class="op">+=</span> ws_group_red.shape[<span class="dv">0</span>]</span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a>            df_org <span class="op">=</span> pd.DataFrame(data, columns<span class="op">=</span>[<span class="st">"waterlevel"</span>, <span class="st">"waveval"</span>])</span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a>            df_red <span class="op">=</span> pd.DataFrame(ws_group_red, columns<span class="op">=</span>[<span class="st">"waterlevel"</span>, <span class="st">"waveval"</span>])</span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> append_vec, dfi <span class="kw">in</span> <span class="bu">zip</span>([all_df, all_df_red], [df_org, df_red]):</span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a>                dfi[<span class="st">"winddir"</span>] <span class="op">=</span> winddir</span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>                dfi[<span class="st">"windspeed"</span>] <span class="op">=</span> ws</span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>                dfi[<span class="st">"hr_locid"</span>] <span class="op">=</span> locrow.HRDLocationId</span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a>                dfi[<span class="st">"hr_location"</span>] <span class="op">=</span> locrow.Name</span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a>                dfi[<span class="st">"waveval_type"</span>] <span class="op">=</span> <span class="bu">int</span>(resultrow.ResultVariableId)</span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a>                dfi[<span class="st">"waveval_id"</span>] <span class="op">=</span> wavevalid</span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>                append_vec.append(dfi.copy())</span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>locrow<span class="sc">.</span>Name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>nbefore<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>nafter<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a>all_df <span class="op">=</span> pd.concat(all_df, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>all_df_red <span class="op">=</span> pd.concat(all_df_red, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>all_df_red</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>YM_2_6-1_dk_01009: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 2880, ‘Dir’: 2880, ‘Tm-1,0’: 2880} YM_2_6-2_dk_01184: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 4320, ‘Dir’: 4320, ‘Tm-1,0’: 4320} YM_2_7-2_dk_00686: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 3520, ‘Dir’: 3520, ‘Tm-1,0’: 3520} YM_2_8-3_dk_00537: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 4480, ‘Dir’: 4480, ‘Tm-1,0’: 4480} KM_2_8-4_dk_00054: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 4960, ‘Dir’: 4960, ‘Tm-1,0’: 4960}</p>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">waterlevel</th>
+<th data-quarto-table-cell-role="th">waveval</th>
+<th data-quarto-table-cell-role="th">winddir</th>
+<th data-quarto-table-cell-role="th">windspeed</th>
+<th data-quarto-table-cell-role="th">hr_locid</th>
+<th data-quarto-table-cell-role="th">hr_location</th>
+<th data-quarto-table-cell-role="th">waveval_type</th>
+<th data-quarto-table-cell-role="th">waveval_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>-0.400000</td>
+<td>0.000000</td>
+<td>225.0</td>
+<td>0.0</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>-0.203294</td>
+<td>0.000000</td>
+<td>225.0</td>
+<td>0.0</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>-0.006588</td>
+<td>0.000000</td>
+<td>225.0</td>
+<td>0.0</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>0.190118</td>
+<td>0.000000</td>
+<td>225.0</td>
+<td>0.0</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0.386824</td>
+<td>0.000000</td>
+<td>225.0</td>
+<td>0.0</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60475</td>
+<td>4.712467</td>
+<td>4.825155</td>
+<td>360.0</td>
+<td>42.0</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>6</td>
+<td>2400</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">60476</td>
+<td>4.909100</td>
+<td>4.856465</td>
+<td>360.0</td>
+<td>42.0</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>6</td>
+<td>2400</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60477</td>
+<td>5.105733</td>
+<td>4.887775</td>
+<td>360.0</td>
+<td>42.0</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>6</td>
+<td>2400</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">60478</td>
+<td>5.302367</td>
+<td>4.919085</td>
+<td>360.0</td>
+<td>42.0</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>6</td>
+<td>2400</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60479</td>
+<td>5.499000</td>
+<td>4.950395</td>
+<td>360.0</td>
+<td>42.0</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>6</td>
+<td>2400</td>
+</tr>
+</tbody>
+</table>
+
+<p>60480 rows × 8 columns</p>
+</div>
+<p>Als visuele controle is voor een locatie de eerste golfparameter geplot voor alle windrichtingen en windsnelheden. in rood zijn de geïnterpoleerde/geëxtrapoleerde waardes opgenomen.</p>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>hr_locid <span class="op">=</span> np.sort(all_df_red.hr_locid.unique())[<span class="dv">3</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> all_df[all_df.hr_locid <span class="op">==</span> hr_locid]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> all_df_red[all_df_red.hr_locid <span class="op">==</span> hr_locid]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>nplots <span class="op">=</span> <span class="bu">len</span>(hrd_wind)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>ncols <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>nrows <span class="op">=</span> <span class="bu">int</span>(ceil(nplots <span class="op">/</span> <span class="dv">4</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> waveval_row <span class="kw">in</span> hrd_resultvar.itertuples():</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    resultvar <span class="op">=</span> waveval_row.ColumnName</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resultvar <span class="kw">not</span> <span class="kw">in</span> wave_param_names[<span class="dv">0</span>]:</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    fig, axs <span class="op">=</span> plt.subplots(</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        ncols<span class="op">=</span>ncols, nrows<span class="op">=</span>nrows, figsize<span class="op">=</span>(<span class="dv">4</span> <span class="op">*</span> ncols, <span class="dv">4</span> <span class="op">*</span> nrows), dpi<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> wind_row <span class="kw">in</span> hrd_wind.itertuples():</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        winddir_id <span class="op">=</span> wind_row.HRDWindDirectionId</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        winddir_name <span class="op">=</span> wind_row.Direction</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> ws <span class="kw">in</span> np.sort(df1.windspeed.unique()).tolist():</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>            df1i <span class="op">=</span> df1[</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                (df1.winddir <span class="op">==</span> winddir_name)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>                <span class="op">&amp;</span> (df1.windspeed <span class="op">==</span> ws)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>                <span class="op">&amp;</span> (df1.waveval_type <span class="op">==</span> waveval_row.ResultVariableId)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>            df2i <span class="op">=</span> df2[</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>                (df2.winddir <span class="op">==</span> winddir_name)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>                <span class="op">&amp;</span> (df2.windspeed <span class="op">==</span> ws)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>                <span class="op">&amp;</span> (df2.waveval_type <span class="op">==</span> waveval_row.ResultVariableId)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>            df1i <span class="op">=</span> df1i.rename(columns<span class="op">=</span>{<span class="st">"waveval"</span>: resultvar})</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>            df2i <span class="op">=</span> df2i.rename(columns<span class="op">=</span>{<span class="st">"waveval"</span>: resultvar})</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>            row <span class="op">=</span> <span class="bu">int</span>((winddir_id <span class="op">-</span> <span class="dv">1</span>) <span class="op">/</span> ncols)</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>            col <span class="op">=</span> winddir_id <span class="op">-</span> <span class="dv">1</span> <span class="op">-</span> row <span class="op">*</span> ncols</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>            ax <span class="op">=</span> axs[row, col]</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>            df1i.plot(</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>                ax<span class="op">=</span>ax, x<span class="op">=</span><span class="st">"waterlevel"</span>, y<span class="op">=</span>resultvar, marker<span class="op">=</span><span class="st">"."</span>, lw<span class="op">=</span><span class="dv">0</span>, label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ws<span class="op">=</span><span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>            df2i.plot(</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>                ax<span class="op">=</span>ax,</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>                x<span class="op">=</span><span class="st">"waterlevel"</span>,</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>                y<span class="op">=</span>resultvar,</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>                marker<span class="op">=</span><span class="st">"x"</span>,</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>                lw<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>                color<span class="op">=</span><span class="st">"red"</span>,</span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>                markersize<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>                legend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(resultvar)</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>        ax.set_title(<span class="ss">f"</span><span class="sc">{</span>winddir_name<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(<span class="ss">f"</span><span class="sc">{</span>locrow<span class="sc">.</span>Name<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>resultvar<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="103.extract_wavedata_hrdb_files/figure-html/cell-8-output-1.png" width="1589" height="1573"></p>
+</section>
+<section id="opslaan-van-golfdata-in-tbci-formaat" class="level2">
+<h2 class="anchored" data-anchor-id="opslaan-van-golfdata-in-tbci-formaat">Opslaan van golfdata in TBCI formaat</h2>
+<p>We gaan de golfdata opslaan in drie bestanden: - <code>waveval_id.csv</code>: bevat de ‘metadata’ van een golfgegevenscombinatie (hr-locatie, windrichting, windsnelheid, golfparametertype) - <code>waveval.csv</code>: bevat de daadwerkelijke gegevens per golfgegevenscombinatie. Zal intern gekoppeld worden aan waveval_id via waveval_id kolom. - <code>waveval_uncert.csv</code>: deze bevat per hr-locatie, sluitsituatie en golfparametertype de modelonzekerheden (normale verdeling met mu/sigma). Dit kan ook via de yaml configuratie van de toolbox ‘globaal’ (voor alle locaties) opgegeven worden. In dat geval is deze tabel niet nodig.</p>
+<p>In het volgende codeblok werken we de opgehaalde data om naar <code>waveval_id.csv</code> en <code>waveval_csv</code>.</p>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>groupcols <span class="op">=</span> [</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"waveval_id"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"waveval_type"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hr_locid"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hr_location"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"winddir"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"windspeed"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>waveval_id_table <span class="op">=</span> []</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>waveval_table <span class="op">=</span> []</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> groupvals, group <span class="kw">in</span> all_df_red.groupby(groupcols):</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    waveval_id_table.append(groupvals)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    waveval_table.append(group[[<span class="st">"waveval_id"</span>, <span class="st">"waterlevel"</span>, <span class="st">"waveval"</span>]].copy())</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>waveval_id_table <span class="op">=</span> pd.DataFrame(waveval_id_table, columns<span class="op">=</span>groupcols)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>waveval_table <span class="op">=</span> pd.concat(waveval_table, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>display(waveval_id_table)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>display(waveval_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">waveval_id</th>
+<th data-quarto-table-cell-role="th">waveval_type</th>
+<th data-quarto-table-cell-role="th">hr_locid</th>
+<th data-quarto-table-cell-role="th">hr_location</th>
+<th data-quarto-table-cell-role="th">winddir</th>
+<th data-quarto-table-cell-role="th">windspeed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>225.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>225.0</td>
+<td>14.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>225.0</td>
+<td>19.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>225.0</td>
+<td>22.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>2</td>
+<td>1</td>
+<td>YM_2_6-1_dk_01009</td>
+<td>225.0</td>
+<td>25.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2395</td>
+<td>2396</td>
+<td>6</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>360.0</td>
+<td>28.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2396</td>
+<td>2397</td>
+<td>6</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>360.0</td>
+<td>31.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2397</td>
+<td>2398</td>
+<td>6</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>360.0</td>
+<td>34.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2398</td>
+<td>2399</td>
+<td>6</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>360.0</td>
+<td>38.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2399</td>
+<td>2400</td>
+<td>6</td>
+<td>111</td>
+<td>KM_2_8-4_dk_00054</td>
+<td>360.0</td>
+<td>42.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>2400 rows × 6 columns</p>
+</div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">waveval_id</th>
+<th data-quarto-table-cell-role="th">waterlevel</th>
+<th data-quarto-table-cell-role="th">waveval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>-0.400000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>-0.203294</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1</td>
+<td>-0.006588</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1</td>
+<td>0.190118</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1</td>
+<td>0.386824</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60475</td>
+<td>2400</td>
+<td>4.712467</td>
+<td>4.825155</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">60476</td>
+<td>2400</td>
+<td>4.909100</td>
+<td>4.856465</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60477</td>
+<td>2400</td>
+<td>5.105733</td>
+<td>4.887775</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">60478</td>
+<td>2400</td>
+<td>5.302367</td>
+<td>4.919085</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">60479</td>
+<td>2400</td>
+<td>5.499000</td>
+<td>4.950395</td>
+</tr>
+</tbody>
+</table>
+
+<p>60480 rows × 3 columns</p>
+</div>
+<p>De modelonzekerheden van de golfgegevens willen we ook opslaan en gebruiken in <code>waveval_uncert.csv</code>.</p>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>uncert <span class="op">=</span> hrd_uncert.merge(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    hrd_resultvar[[<span class="st">"HRDResultColumnId"</span>, <span class="st">"ResultVariableId"</span>]], on<span class="op">=</span><span class="st">"HRDResultColumnId"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>uncert <span class="op">=</span> uncert[</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    uncert.ResultVariableId.isin(waveval_id_table.waveval_type.unique())</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> uncert.HRDLocationId.isin(waveval_id_table.hr_locid.unique())</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>].copy()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>uncert <span class="op">=</span> uncert.rename(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"HRDLocationId"</span>: <span class="st">"hr_locid"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ClosingSituationId"</span>: <span class="st">"closing_situation"</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ResultVariableId"</span>: <span class="st">"waveval_type"</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Mean"</span>: <span class="st">"mean"</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Standarddeviation"</span>: <span class="st">"stddev"</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>uncert <span class="op">=</span> uncert[[<span class="st">"hr_locid"</span>, <span class="st">"closing_situation"</span>, <span class="st">"waveval_type"</span>, <span class="st">"mean"</span>, <span class="st">"stddev"</span>]]</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>display(uncert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">hr_locid</th>
+<th data-quarto-table-cell-role="th">closing_situation</th>
+<th data-quarto-table-cell-role="th">waveval_type</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">stddev</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>111</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>111</td>
+<td>1</td>
+<td>6</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>1</td>
+<td>1</td>
+<td>6</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">17</td>
+<td>7</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>7</td>
+<td>1</td>
+<td>6</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">21</td>
+<td>56</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>56</td>
+<td>1</td>
+<td>6</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25</td>
+<td>98</td>
+<td>1</td>
+<td>2</td>
+<td>0.99</td>
+<td>0.19</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>98</td>
+<td>1</td>
+<td>6</td>
+<td>0.96</td>
+<td>0.11</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<p>De bijbehorende dataframes kunnen nu opgeslagen worden als CSV bestanden. Deze CSV bestanden zijn direct bruikbaar in het voorbeeld <code>FragilityCurveOvertoppingWaveData</code> (specifiek voor de class <code>FragilityCurveOvertoppingWaveDataMultiple</code>)</p>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># waveval_table.to_csv("waveval.csv", index=False)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># waveval_id_table.to_csv("waveval_id.csv", index=False)</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># uncert.to_csv("waveval_uncert.csv", index=False)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="koppelen-van-hr-locatie-naar-toolbox-locatie" class="level2">
+<h2 class="anchored" data-anchor-id="koppelen-van-hr-locatie-naar-toolbox-locatie">Koppelen van hr-locatie naar Toolbox locatie</h2>
+<p>De locaties in een HR database moeten we nog koppelen aan toolbox vakken. Hiervoor gebruiken we de zojuist afgeleide <code>hr_locid</code> kolom en koppelen we die aan een Toolbox Continu Inzicht <code>section_id</code> en <code>failuremechanismid</code> (in het geval van GEKB is dit 2).</p>
+<p>De impliciete aanname die hierbij gedaan wordt is dat de waterstand bij een vak gelijk is aan de waterstand van een voorspelpunt van Toolbox Continu Inzicht. Dit klopt niet helemaal, aangezien de voorspelpunten veelal op de as van de rivier liggen en de HR locaties aan de oever liggen en bij de oever bijvoorbeeld scheefstand kan optreden.</p>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_locs <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"section_id"</span>: [<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>],</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"failuremechanismid"</span>: <span class="dv">2</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"hr_locid"</span>: [<span class="dv">13421227</span>, <span class="dv">13421170</span>, <span class="dv">13421114</span>, <span class="dv">13421058</span>, <span class="dv">13421001</span>],</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># df_locs.to_csv("section_hrloc.csv", index=False)</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>display(df_locs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">section_id</th>
+<th data-quarto-table-cell-role="th">failuremechanismid</th>
+<th data-quarto-table-cell-role="th">hr_locid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>10</td>
+<td>2</td>
+<td>13421227</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>11</td>
+<td>2</td>
+<td>13421170</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>12</td>
+<td>2</td>
+<td>13421114</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>13</td>
+<td>2</td>
+<td>13421058</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>14</td>
+<td>2</td>
+<td>13421001</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<p>Het voorbeeld hierboven maakt deze koppeling handmatig tussen section_id en hr_locid. het is ook mogelijk om dit automatisch te doen op basis van bijvoorbeeld de centroide van een vak en de dichtsbijzijnde HR-locatie.</p>
+<p>We merken hierbij op dat bij de beoordeling van een waterkering niet altijd de dichtsbijzijnde HR-locatie is gekozen. Indien de vakken in Toolbox Continu Inzicht overeenkomen met de beoordelingsvakken, is het waardevol om de gekozen koppelingen tussen HR-locatie en dijkvak in ieder geval te beschouwen ook voor Toolbox Continu Inzicht.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> section_row <span class="kw">in</span> df_sections.itertuples():</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    idx_hrloc <span class="op">=</span> hrd_locs.sindex.nearest(section_row.geometry.centroid, return_all<span class="op">=</span><span class="va">False</span>, max_distance<span class="op">=</span><span class="va">None</span>)[<span class="dv">1</span>, <span class="dv">0</span>]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    hr_locid <span class="op">=</span> hrd_locs.HRDLocationId.iat[idx_hrloc]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

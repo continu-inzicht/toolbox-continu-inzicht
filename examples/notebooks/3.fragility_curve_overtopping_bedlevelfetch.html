@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fragility Curve Overtopping – Toolbox Continu Inzicht</title>
+<title>Fragility Curve Overtopping (bedlevel/fetch) – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.html">Fragility Curve Overtopping</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.html">Fragility Curve Overtopping (bedlevel/fetch)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -205,7 +205,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Fragility Curve Overtopping</span></a>
+ <span class="menu-text">Fragility Curve Overtopping (bedlevel/fetch)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/8.fragility_curve_overtopping_wavedata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fragility Curve Overtopping (wave data)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -234,12 +240,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/8.fragility_curve_overtopping_wavedata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fragility Curve Overtopping</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gebruik van logging</span></a>
   </div>
@@ -256,6 +256,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Quick start guide</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/103.extract_wavedata_hrdb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Golfdata van HR-database naar TBCI</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -269,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fragility Curve Overtopping</h1>
+<h1 class="title">Fragility Curve Overtopping (bedlevel/fetch)</h1>
 </div>
 
 
@@ -287,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Voor het berekenen van een fragility curve voor het mechanisme GEKB wordt gebruikt gemaakt van de <a href="https://github.com/HKV-products-services/pydra_core"><code>pydra_core</code></a> module, meer documentatie over de <code>pydra_core</code> module is <a href="https://hkv-products-services.github.io/pydra_core/">hier</a> te vinden.</p>
-<p>De module wordt gebruikt om een overslag debiet te berekenen voor verschillende omstandigheden en op basis hiervan wordt een fragility curve opgesteld.</p>
+<p>De module wordt gebruikt om een overslag debiet te berekenen op basis van bodemhoogtes, strijklengtes en de formule van Bretschneider(<strong>bedlevel/fetch</strong>) voor verschillende omstandigheden. Op basis hiervan wordt een fragility curve opgesteld.</p>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
