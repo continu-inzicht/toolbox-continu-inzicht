@@ -5,3 +5,4 @@
 *.asc filter=lfs diff=lfs merge=lfs -text
 *.geojson filter=lfs diff=lfs merge=lfs -text
 tests/src/loads/data_sets/test_rws_lst_data.txt filter=lfs diff=lfs merge=lfs -text
+docs/examples/notebooks/data_sets/103.extract_wavedata_hrdb/Copy_DEMO_IJsselmeer.sqlite filter=lfs diff=lfs merge=lfs -text

@@ -5,12 +5,11 @@ title: "Voorbeelden"
 
 Op deze pagina staan notebooks met voorbeelden van het gebruik van de toolbox.
 
-De notebooks met bijbehorende data en configuratie zijn beschikbaar op [GitHub](https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/docs/examples/notebooks).
+In de `Quick start guide` staat een basis voorbeeld hoe je het beste kunt starten.
 
-Tijdens het ontwikkelen zijn ook `development` notebooks gemaakt. Op termijn zullen de meeste ook naar deze wiki pagina worden gemigreerd. De notebooks gemaakt voor de demo hebben vaak interactie met de database om zo de viewer te laten zien. Deze zullen hier niet beschikbaar worden gesteld, wel zijn ze te vinden onder [`tests` op GitHub](https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/tests/examples).
+- ['Quick start guide'](examples/notebooks/102.quick_start_guide.ipynb)
 
-
-De van de verschillende modules zijn voorbeelden gemaakt:
+Van verschillende modules zijn voorbeelden gemaakt:
 
 - [Architectuur voorbeeld](examples/notebooks/1.proof_of_concept.ipynb)
 - [Inladen van belastingen](examples/notebooks/2.belastingen_inladen.ipynb)
@@ -21,12 +20,14 @@ De van de verschillende modules zijn voorbeelden gemaakt:
 - [Overstromingsrisico](examples/notebooks/7.rekentest_flood_scenarios.ipynb)
 - [Fragility curve overtopping met golfdata](examples/notebooks/8.fragility_curve_overtopping_wavedata.ipynb)
 
-De modules lopen echter maar 1 module langs, in werkelijkheid worden de verschillende modules gecombineerd.
-
-- ['Quick start guide'](examples/notebooks/102.quick_start_guide.ipynb)
-- [Alle modules op een rij](examples/notebooks/103.all_modules.ipynb)
-
 Daarnaast zijn er ook notebooks met meer technische uitleg over aspecten van de toolbox:
 
 - [Gebruik van logging](examples/notebooks/100.logging.ipynb)
 - [WMS laag instellen in de viewer](examples/notebooks/101.WMS_laag_naar_database.ipynb)
+
+De notebooks met bijbehorende data en configuratie zijn beschikbaar op [GitHub](https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/docs/examples/notebooks).
+
+Tijdens het ontwikkelen zijn ook `development` notebooks gemaakt.
+Op termijn zullen de meeste ook naar deze wiki pagina worden gemigreerd.
+De notebooks gemaakt voor de demo hebben vaak interactie met de database om zo de viewer te laten zien.
+Deze zullen hier niet beschikbaar worden gesteld, wel zijn ze te vinden onder [`tests` op GitHub](https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/tests/examples).
