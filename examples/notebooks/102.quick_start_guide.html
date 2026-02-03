@@ -256,9 +256,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Quick start guide</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
- <span class="menu-text">examples/notebooks/103.all_modules.ipynb</span>
-  </li>
     </ul>
     </div>
 </nav>
@@ -352,12 +349,12 @@ Configuratie
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_waterstanden.plot(</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"date_time"</span>, y<span class="op">=</span><span class="st">"value"</span>, title<span class="op">=</span><span class="st">"Water standen van Waterwebservices"</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="102.quick_start_guide_files/figure-html/cell-5-output-1.png" width="578" height="464"></p>
+<p><img src="102.quick_start_guide_files/figure-html/cell-5-output-1.png" width="587" height="464"></p>
 </section>
 <section id="loads-to-moments" class="level2">
 <h2 class="anchored" data-anchor-id="loads-to-moments">Loads to moments</h2>
-<p>De beslastingen worden gebruikt om een kans uit te rekenen. Deze berekening kan elk moment in de tijd, deze tijdsstippen leggen we vast en heten: ‘moments’. De moments worden (in uren) gedefineerd in de configuratie en zijn relatief ten opzichte van de tijd waarop de functie wordt uitgevoerd. Voor sommige toepassingen is het wenselijk om op een andere manier de tijden te beinvloeden, voor dat geval is de variable <code>calc_time</code> van toepassing, zoals in dit voorbeeld waarbij de data statisch is.</p>
-<p>Om duidelijk te maken welk stukje configuratie bij welke functie hoort, is dit opgeknipt in aparte bestanden. In de praktijk hoeft dit niet zo te zijn en kan je een of een aantal keer de data adapter defineren.</p>
+<p>De beslastingen worden gebruikt om een kans uit te rekenen. Deze berekening kan elk moment in de tijd, deze tijdsstippen leggen we vast en heten: ‘moments’. De moments worden (in uren) gedefineerd in de configuratie en zijn relatief ten opzichte van de tijd waarop de functie wordt uitgevoerd. Voor sommige toepassingen is het wenselijk om op een andere manier de tijden te beinvloeden; voor dat geval is de variable <code>calc_time</code> van toepassing, zoals in dit voorbeeld waarbij de data statisch is.</p>
+<p><em>Om duidelijk te maken welk stukje configuratie bij welke functie hoort, is dit opgeknipt in aparte bestanden. In de praktijk hoeft dit niet zo te zijn en kan je een of een aantal keer de data adapter defineren.</em></p>
 <details>
 <summary>
 Configuratie
@@ -452,7 +449,7 @@ Configuratie
 </section>
 <section id="loads-classify" class="level2">
 <h2 class="anchored" data-anchor-id="loads-classify">Loads classify</h2>
-<p>Hierbij wordt per belastinglocaties een classificatie gemaakt met een bijbehorende kleur of duiding</p>
+<p>Hierbij wordt per belastinglocaties een classificatie gemaakt met een bijbehorende kleur of duiding.</p>
 <details>
 <summary>
 Bijbehorende configuratie
@@ -546,7 +543,7 @@ Bijbehorende configuratie
 </section>
 <section id="sections-loads" class="level2">
 <h2 class="anchored" data-anchor-id="sections-loads">Sections Loads</h2>
-<p>Vervolgens wordt een kopeling gelegd tussen de belastingslocatie en de dijkvakken. Hierbij is interpolatie tussen twee belasting locaties mogelijk</p>
+<p>Vervolgens wordt een kopeling gelegd tussen de belastingslocatie en de dijkvakken. Hierbij is interpolatie tussen twee belasting locaties mogelijk.</p>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"sections_loads.yaml"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -626,7 +623,7 @@ Bijbehorende configuratie
 </section>
 <section id="fragility-curves" class="level2">
 <h2 class="anchored" data-anchor-id="fragility-curves">Fragility Curves</h2>
-<p>Hier zijn een veel verschillende stappen mogelijk om fragility curves te laden, uit te rekenen en combineren. Deze zijn in andere documentatie voorbeelden te vinden. In dit voorbeeld lezen we alleen de gecombineerde curve in en brekenen alleen de technische faalkans.</p>
+<p>Hier zijn een veel verschillende stappen mogelijk om fragility curves te laden, uit te rekenen en combineren. Deze zijn in andere documentatie en voorbeelden te vinden. In dit voorbeeld lezen we alleen de gecombineerde curve in en brekenen alleen de technische faalkans.</p>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"technical_failure_probability.yaml"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -691,7 +688,7 @@ Bijbehorende configuratie
 </table>
 
 </div>
-<p>Nu hebben we per locatie, voor meerdere tijdstappen de belasting opgehaald. Hierbij hebben we de faalkans bepaald op de opgegeven momenten. Vanaf hier kan dit uitgebreid worden naar meerdere faalmechanismes</p>
+<p>In deze ‘quick start guide’ hebben we per locatie, voor meerdere tijdstappen de belasting opgehaald. Ook hebben we de faalkans bepaald op de opgegeven momenten voor een gecombineerde fragility curve. Vanaf hier kan dit voorbeeld uitgebreid worden naar meerdere faalmechanismen of functionaliteiten.</p>
 
 
 </section>
