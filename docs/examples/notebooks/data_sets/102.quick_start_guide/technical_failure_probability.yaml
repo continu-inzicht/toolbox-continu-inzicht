@@ -1,0 +1,19 @@
+GlobalVariables:
+    rootdir: "data_sets/102.quick_start_guide"
+    SectionsLoads:
+        MISSING_VALUE: -9999
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    technical_failure_probability_fragility_curves:
+        type: csv
+        path: "technical_failure_probability_fragility_curves.csv"
+    waterstanden_per_dijkvak:
+        type: csv
+        index: false
+        path: "waterstanden_per_dijkvak.csv"
+    technical_failure_probability_data:
+        type: csv
+        path: "hidden_technical_failure_probability_data.csv"
