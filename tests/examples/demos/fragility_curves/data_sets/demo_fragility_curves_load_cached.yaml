@@ -1,6 +1,6 @@
 GlobalVariables:
-    rootdir: "data_sets/6.1.fragility_curve_database"
-    moments: [-24,0,24,48]
+    rootdir: "data_sets"
+    moments: [ -24, 0, 24, 48 ]
     LoadCachedFragilityCurve:
         default_measure_id: 0
 
