@@ -7,12 +7,16 @@ DataAdapter:
         csv:
             sep: ","
     input_failuremechanism:
-        type: ci_postgresql_failuremechanisms
+        type: ci_postgresql_failuremechanisms_with_description
         database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
     input_probabilities_failuremechanisme_sections:
-        type: csv
-        file: "rekentest_probabilities_failuremechanisme_sections.csv"
+        type: ci_postgresql_failureprobability_per_section
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+        custom_filter:
+          - "measures.id=0"
+          - "parameter.id=5"
     input_sections_in_segment:
         type: ci_postgresql_sections_and_segments
         database: "continuinzicht"
