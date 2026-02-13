@@ -1,0 +1,24 @@
+{
+    "Id": "6",
+    "AnalysisType": "Bishop",
+    "CalculationType": "Deterministic",
+    "ModelFactorMean": 1.0,
+    "ModelFactorStandardDeviation": 0.0,
+    "Bishop": {
+        "Label": null,
+        "Notes": null,
+        "Circle": {
+            "Center": {
+                "X": 42.919535773,
+                "Z": 2.85125
+            },
+            "Radius": 3.72625
+        }
+    },
+    "BishopBruteForce": null,
+    "UpliftVan": null,
+    "UpliftVanParticleSwarm": null,
+    "Spencer": null,
+    "SpencerGenetic": null,
+    "ContentVersion": "2"
+}
