@@ -1,0 +1,28 @@
+GlobalVariables:
+  rootdir: data_sets/stix
+
+DataAdapter:
+  scenarios:
+    type: stages
+    abs_path: data_sets/stix/scenarios
+
+  geometries:
+    type: geometries
+    abs_path: data_sets/stix/geometries
+
+  soillayers:
+    type: soillayers
+    abs_path: data_sets/stix/soillayers
+
+  soils:
+    type: soils
+    abs_path: data_sets/stix/soils.json
+
+  waternets:
+    type: waternets
+    abs_path: data_sets/stix/waternets
+
+  calculationsettings:
+    type: calculationsettings
+    abs_path: data_sets/stix/calculationsettings
+    

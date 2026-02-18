@@ -29,3 +29,8 @@ try:
     from toolbox_continu_inzicht.base.adapters.input.wavedata import *  # noqa: F403
 except ImportError as e:
     warnings.warn(f"{e}.\n Some features may not be available.")
+
+try:
+    from toolbox_continu_inzicht.base.adapters.input.dam_live import *  # noqa: F403
+except ImportError as e:
+    warnings.warn(f"{e}.\n Some features may not be available.")
