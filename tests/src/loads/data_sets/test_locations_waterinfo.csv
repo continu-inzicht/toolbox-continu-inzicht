@@ -1,7 +1,7 @@
 measurement_location_id,measurement_location_description,measurement_location_code
-1,Rottedamse hoek,Rotterdamse-hoek(FL02)-1
-2,Dordrecht,Dordrecht(DORD)
-3,Moerdijk,Moerdijk(MOER)
-4,Pannerdense kop,Pannerdense-kop(PANN)
-5,IJsselkop,IJsselkop(IJSS)
-6,Den helder,Den-Helder(DENH)
+1,Rottedamse hoek,rotterdamsehoek.ijsselmeer
+2,Dordrecht,dordrecht.oudemaas.benedenmerwede
+3,Moerdijk,moerdijk
+4,Lobith Bovenrijn Tolkamer,lobith.bovenrijn.tolkamer
+5,Westervoort IJsselkop,westervoort.ijsselkop
+6,Den helder (Marsdiep),denhelder.marsdiep

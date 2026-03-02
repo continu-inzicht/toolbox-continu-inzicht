@@ -1,0 +1,39 @@
+GlobalVariables:
+  rootdir: data_sets/9.dam_live_parse/WV2030_PU0013_87074-1
+
+DataAdapter:
+  scenario:
+    type: stages
+    path: scenarios
+
+  geometries:
+    type: geometries
+    path: geometries
+
+  soillayers:
+    type: soillayers
+    path: soillayers
+
+  soils:
+    type: soils
+    path: soils.json
+
+  waternets:
+    type: waternets
+    path: waternets
+
+  calculationsettings:
+    type: calculationsettings
+    path: calculationsettings
+
+  merge_soil:
+    type: csv
+    path: merged_soil.csv
+
+  merge_waternet:
+    type: csv
+    path: merged_waternet.csv
+
+  merge_calculations:
+    type: csv
+    path: merged_calculations.csv
