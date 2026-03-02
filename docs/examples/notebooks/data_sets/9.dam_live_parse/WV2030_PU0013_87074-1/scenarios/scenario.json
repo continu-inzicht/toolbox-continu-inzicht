@@ -1,0 +1,33 @@
+{
+    "Id": "42",
+    "Label": "Scenario1",
+    "Notes": null,
+    "Stages": [
+        {
+            "Id": "43",
+            "Label": "Stage1",
+            "Notes": null,
+            "GeometryId": "13",
+            "DecorationsId": null,
+            "SoilLayersId": "30",
+            "WaternetId": "31",
+            "WaternetCreatorSettingsId": null,
+            "WaterMeshId": null,
+            "WaterDefinitionType": "WaterLines",
+            "StateId": null,
+            "StateCorrelationsId": null,
+            "LoadsId": "41",
+            "ReinforcementsId": null
+        }
+    ],
+    "Calculations": [
+        {
+            "Id": "44",
+            "Label": "Calculation1",
+            "Notes": null,
+            "CalculationSettingsId": "12",
+            "ResultId": null
+        }
+    ],
+    "ContentVersion": "2"
+}
