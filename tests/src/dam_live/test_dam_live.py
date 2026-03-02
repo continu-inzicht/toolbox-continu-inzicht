@@ -12,7 +12,7 @@ from toolbox_continu_inzicht.dam_live.merge_stage import StageMerger
 
 def setup_data_adapter():
     test_data_path = Path(__file__).parent / "data_sets"
-    config = Config(config_path=test_data_path / "dam_live_parse_config.yaml")
+    config = Config(config_path=test_data_path / "test_dam_live_parse_config.yaml")
     config.lees_config()
 
     return DataAdapter(config)
@@ -32,6 +32,6 @@ def test_dam_live_parse():
         ],
         output=["merge_soil", "merge_waternet", "merge_calculations"],
     )
-    merge_df.df_merged_soils
-    merge_df.df_merged_waternet
-    merge_df.df_merged_calculations
+    assert len(merge_df.df_merged_soils) > 0
+    assert len(merge_df.df_merged_waternet) > 0
+    assert len(merge_df.df_merged_calculations) > 0
