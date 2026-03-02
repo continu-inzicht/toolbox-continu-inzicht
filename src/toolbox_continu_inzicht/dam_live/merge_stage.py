@@ -14,7 +14,7 @@ class StageMerger(ToolboxBase):
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
 
-    def run(self, input: list, output: list) -> None:
+    def run(self, input: list[str], output: list[str]) -> None:
         """
         Haalt stage-gerelateerde data op via de DataAdapter,
         voert de benodigde merges uit en schrijft de
@@ -22,14 +22,10 @@ class StageMerger(ToolboxBase):
 
         Parameters
         ----------
-        input : list[str]
-            Lijst met namen van DataAdapter-inputs in de volgorde:
-            [stages, geometries, soils, soillayers,
-            waternets, calculationsettings].
-
-        output : list[str]
-            Lijst met namen van DataAdapter-outputs in de volgorde:
-            [merged_soils, merged_waternet, merged_calculations].
+        input: list[str]
+            Lijst met namen van DataAdapter-inputs in de volgorde: [stages, geometries, soils, soillayers, waternets, calculationsettings].
+        output: list[str]
+            Lijst met namen van DataAdapter-outputs in de volgorde: [merged_soils, merged_waternet, merged_calculations].
 
         Raises
         ------

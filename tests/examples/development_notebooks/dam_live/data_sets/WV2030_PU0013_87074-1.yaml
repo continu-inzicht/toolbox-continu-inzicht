@@ -25,7 +25,7 @@ DataAdapter:
   calculationsettings:
     type: calculationsettings
     path: calculationsettings
-  
+
   merge_soil:
     type: csv
     path: merged_soil.csv
@@ -33,7 +33,7 @@ DataAdapter:
   merge_waternet:
     type: csv
     path: merged_waternet.csv
-  
+
   merge_calculations:
     type: csv
     path: merged_calculations.csv

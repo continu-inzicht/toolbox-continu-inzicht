@@ -14,13 +14,20 @@ def input_json_folder(input_config: dict) -> Iterator[Dict[str, Any]]:
         Configuratie met minimaal:
         - "abs_path": pad naar folder met JSON bestanden
 
-    Returns
-    -------
-    Iterator[Dict[str, Any]]
-        Generator die per JSON bestand een dictionary teruggeeft.
+    Yields
+    ------
+    Dict[str, Any]
+        Dictionary met "file_name" en "data" voor elk JSON bestand in de folder.
         Bevat:
         - "file_name": naam van het bestand
         - "data": ingelezen JSON inhoud
+
+    Raises
+    ------
+    FileNotFoundError
+        Als de folder niet bestaat.
+    NotADirectoryError
+        Als het pad geen directory is.
     """
 
     folder_path = Path(input_config["abs_path"])
