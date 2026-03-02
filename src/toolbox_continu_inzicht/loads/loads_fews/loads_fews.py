@@ -154,7 +154,8 @@ class LoadsFews(ToolboxBase):
             starttime = calc_time + timedelta(hours=int(moments[0]))
             endtime = calc_time + timedelta(hours=int(moments[n_moments]))
 
-            params["filterId"] = options["filter"]
+            if "filter" in options:
+                params["filterId"] = options["filter"]
             params["useDisplayUnits"] = False
             params["showThresholds"] = True
             params["omitMissing"] = True
