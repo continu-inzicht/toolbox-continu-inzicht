@@ -37,14 +37,24 @@ def input_soils(input_config: dict) -> pd.DataFrame:
                 "name": soil.get("Name"),
                 "code": code,
                 "color": color,
-                "volumetric_weight_above_phreatic_level": soil.get("VolumetricWeightAbovePhreaticLevel"),
-                "volumetric_weight_below_phreatic_level": soil.get("VolumetricWeightBelowPhreaticLevel"),
-                "shear_strength_model_type_above_phreatic_level": soil.get("ShearStrengthModelTypeAbovePhreaticLevel"),
-                "shear_strength_model_type_below_phreatic_level": soil.get("ShearStrengthModelTypeBelowPhreaticLevel"),
+                "volumetric_weight_above_phreatic_level": soil.get(
+                    "VolumetricWeightAbovePhreaticLevel"
+                ),
+                "volumetric_weight_below_phreatic_level": soil.get(
+                    "VolumetricWeightBelowPhreaticLevel"
+                ),
+                "shear_strength_model_type_above_phreatic_level": soil.get(
+                    "ShearStrengthModelTypeAbovePhreaticLevel"
+                ),
+                "shear_strength_model_type_below_phreatic_level": soil.get(
+                    "ShearStrengthModelTypeBelowPhreaticLevel"
+                ),
                 "mohr_coulomb_advanced_cohesion": mc_adv.get("Cohesion"),
                 "mohr_coulomb_advanced_friction_angle": mc_adv.get("FrictionAngle"),
                 "su_shear_strength_ratio": su_model.get("ShearStrengthRatio"),
-                "su_strength_increase_exponent": su_model.get("StrengthIncreaseExponent"),
+                "su_strength_increase_exponent": su_model.get(
+                    "StrengthIncreaseExponent"
+                ),
                 "content_version": content_version,
             }
         )

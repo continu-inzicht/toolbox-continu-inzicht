@@ -1,0 +1,28 @@
+{
+    "Id": "12",
+    "AnalysisType": "UpliftVan",
+    "CalculationType": "Deterministic",
+    "ModelFactorMean": 1.0,
+    "ModelFactorStandardDeviation": 0.0,
+    "Bishop": null,
+    "BishopBruteForce": null,
+    "UpliftVan": {
+        "Label": null,
+        "Notes": null,
+        "SlipPlane": {
+            "FirstCircleCenter": {
+                "X": 43.455480396213574,
+                "Z": 2.614190904998195
+            },
+            "FirstCircleRadius": 8.644962065039769,
+            "SecondCircleCenter": {
+                "X": 44.19081972917457,
+                "Z": -3.099718758717467
+            }
+        }
+    },
+    "UpliftVanParticleSwarm": null,
+    "Spencer": null,
+    "SpencerGenetic": null,
+    "ContentVersion": "2"
+}

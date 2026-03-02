@@ -1,5 +1,8 @@
-from toolbox_continu_inzicht.base.adapters.input.dam_live.json_folder import input_json_folder
+from toolbox_continu_inzicht.base.adapters.input.dam_live.json_folder import (
+    input_json_folder,
+)
 import pandas as pd
+
 
 def input_waternets(input_config: dict) -> pd.DataFrame:
     rows = []

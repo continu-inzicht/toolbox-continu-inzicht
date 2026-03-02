@@ -1,5 +1,8 @@
 import pandas as pd
-from toolbox_continu_inzicht.base.adapters.input.dam_live.json_folder import input_json_folder
+from toolbox_continu_inzicht.base.adapters.input.dam_live.json_folder import (
+    input_json_folder,
+)
+
 
 def input_soillayers(input_config: dict) -> pd.DataFrame:
     """
@@ -24,7 +27,7 @@ def input_soillayers(input_config: dict) -> pd.DataFrame:
     soil_id
     content_version
     """
-    
+
     rows = []
 
     for item in input_json_folder(input_config):

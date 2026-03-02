@@ -1,6 +1,8 @@
 import pandas as pd
 
-from toolbox_continu_inzicht.base.adapters.input.dam_live.json_folder import input_json_folder
+from toolbox_continu_inzicht.base.adapters.input.dam_live.json_folder import (
+    input_json_folder,
+)
 
 
 def input_stages(input_config: dict) -> pd.DataFrame:
@@ -62,9 +64,7 @@ def input_stages(input_config: dict) -> pd.DataFrame:
                         "calculationsettings_id": (
                             calc.get("CalculationSettingsId") if calc else None
                         ),
-                        "calculation_id": (
-                            calc.get("Id") if calc else None
-                        ),
+                        "calculation_id": (calc.get("Id") if calc else None),
                         "content_version": content_version,
                     }
                 )
