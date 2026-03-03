@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data_sets"
+    rootdir: "data_sets/run_damlive"
     moments: [ 0, 24 ]
     calc_time: "2024-11-06 08:00:00"
     aquo_alias:
@@ -22,9 +22,12 @@ DataAdapter:
         path: "locations_fews.csv"
     waterstanden:
         type: csv
-        path: "hidden_waterstanden_fews.csv"
+        index_col: 0
+        path: "waterstanden_fews.csv"
     waterstanden_xml:
         type: xml_timeseries
         path: "waterstanden_fews.xml"
         parameter_mapping:
             WATHTE: H.meting
+        location_mapping:
+            MPN-N-24: BP

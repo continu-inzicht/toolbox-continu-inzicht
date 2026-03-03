@@ -1,0 +1,25 @@
+GlobalVariables:
+    rootdir: "data_sets/run_damlive"
+    moments: [ 0, 24 ]
+    calc_time: "2024-11-06 08:00:00"
+    UpdateDamLive:
+        DAMLIVE_FILE: 'WV2030_Purmer.damx'
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    waterstanden_xml:
+        type: xml_timeseries
+        path: "waterstanden_fews.xml"
+        parameter_mapping:
+            WATHTE: H.meting
+        location_mapping:
+            MPN-N-24: BP
+    parameters_csv:
+        type: csv
+        index: True
+        path: "parameters.csv"
+    output_file:
+        type: csv
+        name: test.csv

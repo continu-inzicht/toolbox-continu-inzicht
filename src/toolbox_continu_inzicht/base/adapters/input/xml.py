@@ -44,3 +44,48 @@ def input_xml_timeseries(input_config: dict) -> pd.DataFrame:
 
     df = pd.DataFrame(df_list)
     return df
+
+
+def input_xml_calculation_parameters(input_config: dict) -> pd.DataFrame:
+    """Reads an XML calculation parameters file and returns a flattened DataFrame
+
+    Notes:
+    ------
+    Parses XML structure and flattens nested elements into a single row.
+
+    Example XML structure:
+    <?xml version="1.0" encoding="utf-8"?>
+    <XmlCalculationParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <CalculationModules>
+            <StabilityInside>1</StabilityInside>
+            <StabilityOutside>0</StabilityOutside>
+            <PipingBligh>0</PipingBligh>
+            <PipingWti>0</PipingWti>
+        </CalculationModules>
+        <StabilityParameters>
+            <CalculationModel>Bishop</CalculationModel>
+            <SearchMethod>Grid</SearchMethod>
+        </StabilityParameters>
+    </XmlCalculationParameters>
+
+    Returns:
+    --------
+    pd.DataFrame
+    """
+    path = input_config["abs_path"]
+
+    tree = ET.parse(path)
+    root = tree.getroot()
+
+    parameters = {}
+    for module in ["CalculationModules", "StabilityParameters"]:
+        for parent in root.findall(module):
+            for child in parent.iter():
+                # only keep usefule values, skip empty text and newlines
+                if "\n" not in child.text and child.text is not None:
+                    parameters[f"{parent.tag}_{child.tag}"] = child.text
+
+    df = pd.DataFrame([parameters], index=["parameter_values"])
+    df_out = df.T
+    df_out.index.name = "parameter_names"
+    return df_out.reset_index()

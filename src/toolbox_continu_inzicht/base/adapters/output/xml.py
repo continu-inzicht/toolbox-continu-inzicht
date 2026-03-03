@@ -35,6 +35,13 @@ def output_xml_timeseries(output_config: dict, df: pd.DataFrame):
         df["parameter_code"] = (
             df["parameter_code"].map(parameter_mapping).fillna(df["parameter_code"])
         )
+    if "location_mapping" in output_config:
+        location_mapping = output_config["location_mapping"]
+        df["measurement_location_code"] = (
+            df["measurement_location_code"]
+            .map(location_mapping)
+            .fillna(df["measurement_location_code"])
+        )
 
     for location in df["measurement_location_code"].unique():
         df_subset = df[df["measurement_location_code"] == location]
@@ -65,5 +72,65 @@ def output_xml_timeseries(output_config: dict, df: pd.DataFrame):
         output_xml_str += xml_output + "\n"
 
     output_xml_str += "</TimeSeries>"
+    with open(path, "w") as f:
+        f.write(output_xml_str)
+
+
+def output_xml_calculation_parameters(output_config: dict, df) -> None:
+    """writes an XML calculation parameters file given the dataframe
+
+
+    Notes:
+    ------
+    The dataframe should contain two columns: parameters_names and parameters_values.
+
+    The understore in the parameter names will be used to create the XML structure,
+    where the part before the understore is the parent element
+    and the part after the understore is the child element.
+
+    Example input dataframe:
+    Parameter_names,Parameters
+    CalculationModules_StabilityInside,1
+    CalculationModules_StabilityOutside,0
+    CalculationModules_PipingBligh,0
+    CalculationModules_PipingWti,0
+    StabilityParameters_CalculationModel,Bishop
+    StabilityParameters_SearchMethod,Grid
+
+    Example XML structure:
+    <?xml version="1.0" encoding="utf-8"?>
+    <XmlCalculationParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <CalculationModules>
+            <StabilityInside>1</StabilityInside>
+            <StabilityOutside>0</StabilityOutside>
+            <PipingBligh>0</PipingBligh>
+            <PipingWti>0</PipingWti>
+        </CalculationModules>
+        <StabilityParameters>
+            <CalculationModel>Bishop</CalculationModel>
+            <SearchMethod>Grid</SearchMethod>
+        </StabilityParameters>
+    </XmlCalculationParameters>
+    """
+    path = output_config["abs_path"]
+    output_xml_str = """<?xml version="1.0" encoding="utf-8"?>
+    <XmlCalculationParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">"""
+    assert "parameter_names" in df.columns and "parameter_values" in df.columns, (
+        "DataFrame moet een 'parameter_names' en 'parameter_values' kolom bevatten"
+    )
+    assert all(df["parameter_names"].str.contains("_")), (
+        "Alle parameter_names moeten een onderstore bevatten om de XML structuur te bepalen"
+    )
+
+    for parent in df["parameter_names"].str.split("_").str[0].unique():
+        output_xml_str += f"\n    <{parent}>"
+        df_subset = df[df["parameter_names"].str.startswith(parent)]
+        for _, row in df_subset.iterrows():
+            child = row["parameter_names"].split("_")[1]
+            value = row["parameter_values"]
+            output_xml_str += f"\n        <{child}>{value}</{child}>"
+        output_xml_str += f"\n    </{parent}>"
+
+    output_xml_str += "\n</XmlCalculationParameters>"
     with open(path, "w") as f:
         f.write(output_xml_str)
