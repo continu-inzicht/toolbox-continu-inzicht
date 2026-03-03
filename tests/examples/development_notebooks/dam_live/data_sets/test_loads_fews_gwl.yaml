@@ -23,3 +23,8 @@ DataAdapter:
     waterstanden:
         type: csv
         path: "hidden_waterstanden_fews.csv"
+    waterstanden_xml:
+        type: xml_timeseries
+        path: "waterstanden_fews.xml"
+        parameter_mapping:
+            WATHTE: H.meting

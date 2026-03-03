@@ -1,6 +1,7 @@
 import warnings
 from toolbox_continu_inzicht.base.adapters.input.csv import *  # noqa: F403
 from toolbox_continu_inzicht.base.adapters.input.python import *  # noqa: F403
+from toolbox_continu_inzicht.base.adapters.input.xml import *  # noqa: F403
 
 # t
 try:
