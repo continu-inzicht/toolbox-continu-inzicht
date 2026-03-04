@@ -22,4 +22,4 @@ DataAdapter:
         path: "parameters.csv"
     output_file:
         type: csv
-        name: test.csv
+        path: test.csv
