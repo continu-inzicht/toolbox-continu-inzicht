@@ -115,7 +115,8 @@ class UpdateDamLive(ToolboxBase):
             (root_dir / "live.ParametersFile.xml").as_posix(),
         ]
         # start dam live
-        subprocess.run(cmd)
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        self.data_adapter.logger.info(f"DAM LIVE output: {result.stdout}")
 
         self.df_out = self.data_adapter.input(
             input="live.OutputTimeSeries",

@@ -1,4 +1,2500 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <TimeSeries version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.wldelft.nl/fews/PI">
   <timeZone>1</timeZone>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0013_87074-1_DWP001</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="1.0471765385057512" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="1.0470541159624231" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="1.0472525309957152" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="1.0473366133939137" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="1.047520167017073" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="1.047808813087725" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="1.0478716130344263" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="1.0477594210932255" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="1.047721804243947" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="1.0478389255627858" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="1.0481580339087786" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="1.0481147248415386" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="1.048355640534488" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="1.0485974342475064" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="1.0484885073960883" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="1.0485156521909476" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="1.0484761546256263" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="1.048598653425464" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="1.0487314221451074" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="1.0485467426238546" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="1.0488220903564005" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="1.048658938384409" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="1.0484864361589457" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="1.0489109826468301" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="1.0488366625052365" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0021_87074-1_DWP002</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.8468926641804572" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.8466800059449995" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.8469958409593569" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.846728945885605" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.8470828364899866" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.8471868306419877" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.8471726369836771" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.847230946791304" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="0.8472685367291168" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.8473738922270754" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.8476690987300369" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.8476639321577472" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.8478673469983223" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.8479100205126764" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.8478671161415975" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.847867039253924" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="0.8478738067335598" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.8480530050766864" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="0.8481079762349798" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.8479434095815075" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.8483576388584891" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.8480854696687646" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.8478600877848284" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.8483626660031509" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.8481898114412321" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0030_87074-1_DWP003</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.818350919764064" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.8177547602630602" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.8185121590611046" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.817824900789231" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.8183920164093325" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.818316989254711" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.8183303905685065" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.8185588347479368" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="0.8184654766180764" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.8185961225109211" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.8189757321803809" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.819008074608611" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.8189429024648157" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.8187733811232168" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.8190237160073391" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.8188348858566861" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="0.8190184306708853" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.819201590288092" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="0.8193783259684666" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.8188475848652131" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.8198122869609498" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.8193037643309989" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.8184804642317518" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.8191711869426721" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.8188359460172097" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0042+8m_HHNK</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.9463346643898758" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.9467499187362591" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.9464224596656653" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.9469311495135441" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.9469441790224857" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.9478295227176422" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.9477765151681062" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.9473149973253067" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="0.947562802225283" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.947695081934333" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.9482634011464429" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.9482167935155796" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.9490396931510084" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.949451463023973" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.9489483047469838" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.949211008333237" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="0.9489402886613254" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.9491751338519165" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="0.9491034324231155" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.9494261656999333" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.949189334629711" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.949155232914098" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.9497895177513471" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.9502676514322149" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.9503792300728215" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0063_87074-1_DWP004</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="1.1347395115680383" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="1.1348136112061975" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="1.1348860153519718" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="1.1349868428747827" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="1.135291913205305" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="1.1357971084613294" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="1.135749746500665" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="1.1356178110662718" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="1.1357626440082977" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="1.1359051303218541" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="1.1364266988701504" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="1.136430138605235" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="1.1369459989880242" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="1.1371899784395054" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="1.1369016606412365" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="1.1370980172068443" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="1.1369500001602595" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="1.1371838854560834" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="1.1372926310632927" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="1.1372915386162912" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="1.137477876176235" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="1.13728612907055" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="1.1374424471806284" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="1.1380018373741585" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="1.1379791684507912" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0082_87074-1_DWP005</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.7216815081569583" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.7224556138503989" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.7216815081569583" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.7225024624365962" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.7221506764568071" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.7230417570522887" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.7229475987967764" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.7223852089952107" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="0.7226900965904078" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.7226900965904078" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.7230194475428044" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.7230194475428044" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.7237772753555407" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.7241286834189162" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.7235838194769842" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.723914470366259" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="0.7235838194769842" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.7236801727697948" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="0.7234882106650901" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.7241286834189162" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.723349471518383" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.7235838194769842" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.7246826369863408" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.7246656692246339" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.7250168720205243" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0098_87074-1_DWP006</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.9719605913020158" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.968392266631971" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.9719605913020158" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.9683757165762228" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.9682614966890177" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.9685827475388503" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.9685362177295461" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.9683376251569618" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="0.968468404612835" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.968468404612835" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.9685915681221984" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.9685915681221984" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.968887505935743" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.9690020933956771" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.9687915269416292" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.9689156878959402" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="0.9687915269416292" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.9688393006131365" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="0.9687441796471457" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.9690020933956771" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.9687151985087049" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.9687915269416292" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.969214488115744" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.9692257321266874" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.9693405288429118" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0110+27m_HHNK</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.6621551664785534" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.6625697158649652" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.6621551664785534" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.6625787253315741" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.6623971341754007" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.6628726793897025" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.6628164230658434" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.6625181839635028" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="0.6626908684314152" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.6626908684314152" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.6628685510186667" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.6628685510186667" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.663282368988028" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.6634646164719609" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.6631679732463046" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.6633464915690053" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="0.6631679732463046" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.6632250439689316" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="0.6631111553466023" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.6634646164719609" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.6630466091793419" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.6631679732463046" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.6637626186853248" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.6637599822596086" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.6639425705711648" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0119_87074-1_DWP007</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="1.1047897158451705" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="1.1046021315987642" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="1.1048630351996702" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="1.1045987085243374" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="1.104846287702066" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="1.1049414530537387" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="1.1049478433286921" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="1.1049390537216626" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="1.1049601341464155" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="1.1050255908314193" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="1.105248207874283" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="1.1052498557024653" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="1.1054348032889323" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="1.1054569561369756" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="1.1054620264361696" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="1.1053927983908407" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="1.1054190992856738" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="1.1055420992437461" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="1.1055490524196527" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="1.1054236266213644" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="1.1057621817614725" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="1.105521532937724" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="1.105329153167083" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="1.1057343924024685" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="1.1056421701859582" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0128_87074-1_DWP008</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.7100187983427527" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.7100693100729593" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.7100566525460923" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.7101556212755115" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.7101105646398033" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.7104093976516194" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.7104670300979069" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.7102236718944647" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="0.7102089799780852" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.7102146182652713" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.7103960376964148" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.7104175334649961" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.7106560805796918" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.7107782434219163" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.7107726006184901" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.7106906359552189" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="0.7106770691671397" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.7106929559261397" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="0.7107061788883943" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.7106939215096932" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.7107292341747549" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.7106355242252689" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.7106703746958646" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.7108301134042937" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.711004101977797" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0138_87074-1_DWP009</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="1.1150003967641686" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="1.1149617244981462" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="1.1150502188619162" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="1.1152500619901051" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="1.115255865565674" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="1.1155484156654127" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="1.1156518542542209" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="1.115450856671588" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="1.1153548707434233" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="1.1154104811794467" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="1.1156309645748108" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="1.115618524418167" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="1.1157843534084424" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="1.1160079740957887" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="1.1159924206589233" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="1.1159477324845835" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="1.1159341321938516" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="1.1159534273891725" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="1.1160993213221369" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="1.1159318398628242" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="1.1160753671000816" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="1.1159877870011337" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="1.11585291063115" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="1.1160661142692856" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="1.1161670132276698" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0150_87074-1_DWP010</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.5913604813825112" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.5916953371930103" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.5913604813825112" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.5921868264840058" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.591832531920971" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.5922860644946693" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.5924136698584079" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.5920687038730917" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="0.5919315548252587" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.5919315548252587" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.5920403311133983" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.5920403311133983" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.5921310211624822" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.592485962534516" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.5923857758523119" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.5924949698799556" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="0.5923857758523119" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.5922583655670325" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="0.5925132519477213" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.592485962534516" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.592149267925518" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.5923857758523119" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.5925866265250771" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.5923410675139987" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.5926963705423022" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0163_87074-1_DWP011</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.8649207569221892" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.8655640663670107" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.8650255611417552" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.8658662045286302" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.8657003784141576" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.8665783269006112" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.8665346895702888" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.8660779017469162" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="NaN" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.8663071504272888" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.8667926705681102" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.8668448493303778" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.8674908947884084" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.8678638021121892" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.867455090259292" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.8677821005942812" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="NaN" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.8676024863737941" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="NaN" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.8680192383277926" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.8675862088244031" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.8677141564772746" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.8684279575754965" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.868531700548418" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.8689055240744392" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0181_87074-1_DWP012</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="1.176608408489551" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="1.176202937437344" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="1.1767435455698172" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="1.1763964938397427" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="1.1768713068152081" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="1.1768107364809102" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="1.1768388704529231" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="1.1770492074820385" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="1.176968526443348" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="1.1771013012622902" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="1.1739516116176154" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="1.173948243370325" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="1.173877804765206" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="1.177399956402862" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="1.1740459275973316" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="1.1739927970194808" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="1.174086368143925" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="1.1742015606355105" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="1.174493999555308" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="1.1740004782851339" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="1.1746868023511776" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="1.1743888079715863" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="1.1737430745344475" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="1.1742279200428973" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="1.1740061485047368" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0203_87074-1_DWP013</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="0.747104965002745" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="0.7473555412227613" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="0.747104965002745" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="0.7474514771542022" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="0.7473029376480841" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="0.7476034767350143" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="0.7476016817808306" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="0.7474019513390701" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="0.7474546775587833" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="0.7474546775587833" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="0.7475558797682351" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="0.7475558797682351" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="0.7477623219489222" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="0.7479117178274942" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="0.7477568610878635" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="0.7478590033741235" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="0.7477568610878635" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="0.7477594672655504" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="0.7477545031440572" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="0.7479117178274942" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="0.7476574759060238" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="0.7477568610878635" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="0.7480679811128227" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="0.748021810429679" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="0.748171619159468" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0207_87074-1_DWP014</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="1.5950452001752078" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="1.595032456465919" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="1.5950651577924797" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="1.5952181231593066" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="1.5950831717320404" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="1.5955460360544411" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="1.5956989237465942" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="1.5952435567469025" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="1.5951578768991879" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="1.5951695671824624" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="1.5954094898016906" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="1.5953976390690006" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="1.5957541364239811" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="1.5960153443031753" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="1.5960267520414861" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="1.5958144570223705" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="1.5958167364275258" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="1.5958179804062733" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="1.595799699048975" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="1.5957422225327675" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="1.595812185678916" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="1.5956577554771543" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="1.5956275134446516" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="1.5958955988668533" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="1.5961482837207392" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0013_87074-1_DWP001</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="39.66" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="39.66" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="39.66" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="39.66" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="39.66" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="39.66" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="39.66" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="39.66" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="39.66" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="39.66" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0021_87074-1_DWP002</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="43.35" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="43.35" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="43.35" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="43.35" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="43.35" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="43.35" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="43.35" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="43.35" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="43.35" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="43.35" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0030_87074-1_DWP003</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="37.71" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="37.71" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="37.71" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="37.71" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="37.71" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="37.71" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="37.71" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="37.71" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="37.71" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="37.71" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="37.71" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="37.71" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="37.71" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="37.71" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="37.71" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="37.71" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0042+8m_HHNK</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="38.255" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="38.255" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="38.255" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="38.255" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="38.255" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="38.255" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="38.255" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="38.255" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="38.255" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="38.255" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0063_87074-1_DWP004</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="40.02" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="40.02" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="40.02" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="40.02" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="40.02" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="40.02" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="40.02" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="40.02" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="40.02" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="40.02" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0082_87074-1_DWP005</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="41.275" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="41.275" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="41.275" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="41.275" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="41.275" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="41.275" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="41.275" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="41.275" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="41.275" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="41.275" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0098_87074-1_DWP006</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="37.62" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="37.62" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="38.245" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="38.245" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="38.245" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="38.245" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="38.245" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="38.245" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="38.245" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="38.245" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="38.245" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="38.245" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0110+27m_HHNK</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="41.485" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="41.485" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="41.485" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="41.485" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="41.485" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="41.485" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="41.485" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="41.485" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="41.485" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="41.485" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0119_87074-1_DWP007</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="35.585" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="35.585" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="35.585" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="35.585" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="35.585" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="35.585" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="35.585" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="35.585" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="35.585" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="35.585" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0128_87074-1_DWP008</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="43.855" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="43.855" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="43.855" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="43.855" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="43.855" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="43.855" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="43.855" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="43.855" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="43.855" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="43.855" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0138_87074-1_DWP009</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="37.54" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="37.54" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="37.54" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="37.54" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="37.54" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="37.54" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="37.54" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="37.54" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="37.54" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="37.54" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0150_87074-1_DWP010</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="41.69" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="41.69" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="41.69" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="41.69" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="41.69" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="41.69" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="41.69" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="41.69" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="41.69" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="41.69" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0163_87074-1_DWP011</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="NaN" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="37.35" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="NaN" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="37.35" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="NaN" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="37.35" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="37.35" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="37.35" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="37.35" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="37.35" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="37.35" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0181_87074-1_DWP012</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="38.62" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="38.62" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="38.62" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="38.62" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="37.995" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="38.62" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="38.62" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="38.62" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="38.62" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="38.62" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="38.62" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="38.62" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="38.62" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="38.62" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="38.62" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="38.62" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0203_87074-1_DWP013</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="43.44" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="43.44" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="43.44" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="43.44" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="43.44" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="43.44" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="43.44" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="43.44" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="43.44" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="43.44" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0207_87074-1_DWP014</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="44.815" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="44.815" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="44.815" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="44.815" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="44.815" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="44.815" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="44.815" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="44.815" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="44.815" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="44.815" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0013_87074-1_DWP001</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="18.73" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="18.73" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="18.73" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="18.73" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="18.73" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="18.73" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="18.73" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="18.73" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="18.73" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="18.73" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0021_87074-1_DWP002</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="13.075" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="13.075" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="13.075" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="13.075" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="13.075" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="13.075" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="13.075" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="13.075" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="13.075" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="13.075" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0030_87074-1_DWP003</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="13.134461538" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0042+8m_HHNK</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="11.750851064" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0063_87074-1_DWP004</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="12.743552632" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0082_87074-1_DWP005</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="-0.915204082" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0098_87074-1_DWP006</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="-1.393333333" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0110+27m_HHNK</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="-0.566577947" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0119_87074-1_DWP007</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="11.31" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="11.31" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="11.31" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="11.31" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="11.31" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="11.31" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="11.31" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="11.31" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="11.31" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="11.31" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0128_87074-1_DWP008</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="18.588770492" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0138_87074-1_DWP009</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="11.042903226" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0150_87074-1_DWP010</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="1.689920635" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0163_87074-1_DWP011</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="NaN" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="NaN" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="NaN" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="6.874169231" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0181_87074-1_DWP012</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="11.537384342" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="10.912384342" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="12.162384342" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="12.162384342" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0203_87074-1_DWP013</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="-0.409035714" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0207_87074-1_DWP014</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="7.505" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="7.505" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="7.505" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="7.505" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="7.505" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="7.505" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="7.505" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="7.505" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="7.505" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="7.505" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0013_87074-1_DWP001</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="24.68" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="24.68" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="24.68" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="24.68" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="24.68" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="24.68" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="24.68" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="24.68" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="24.68" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="24.68" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0021_87074-1_DWP002</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="19.739107143" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0030_87074-1_DWP003</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="19.071961538" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="19.071961538" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0042+8m_HHNK</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="18.063351064000003" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0063_87074-1_DWP004</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="18.66658027" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0082_87074-1_DWP005</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="3.6597959180000004" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0098_87074-1_DWP006</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="4.568910257" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="4.568910257" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="4.443910257" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0110+27m_HHNK</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="4.695922053" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0119_87074-1_DWP007</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="18.682830882" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0128_87074-1_DWP008</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="27.938770491999996" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0138_87074-1_DWP009</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="18.092903226" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0150_87074-1_DWP010</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="7.764920635" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0163_87074-1_DWP011</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="NaN" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="NaN" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="NaN" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="11.732238851" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0181_87074-1_DWP012</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="17.774884342" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="17.024884342" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="18.399884342" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="18.399884342" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0203_87074-1_DWP013</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="5.618722018000001" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0207_87074-1_DWP014</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="08:00:00" />
+      <endDate date="2024-11-07" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="08:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="09:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="10:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="11:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="12:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="13:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="14:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="15:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="16:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="17:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="18:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="19:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="20:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="21:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="22:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="23:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-07" time="00:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-07" time="01:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-07" time="02:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-07" time="03:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-07" time="04:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-07" time="05:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-07" time="06:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-07" time="07:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-07" time="08:00:00" value="18.6925" flag="0" />
+    <comment></comment>
+  </series>
 </TimeSeries>
