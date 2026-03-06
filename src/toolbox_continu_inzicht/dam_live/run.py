@@ -20,6 +20,11 @@ class UpdateDamLive(ToolboxBase):
     df_in_loads: Optional[pd.DataFrame] | None
         Dataframe met scenariokansen per deeltraject (segment)
     df_in_calculation_settings: Optional[pd.DataFrame] | None
+        Dataframe met instellingen voor Dam Live berekeningen
+    schema_loads: ClassVar[dict[str, str]]
+        Schema voor inladen belastingen
+    schema_calculation_settings: ClassVar[dict[str, str]]
+        Schema voor instellingen voor Dam Live berekeningen
 
     Notes
     -----
@@ -42,7 +47,6 @@ class UpdateDamLive(ToolboxBase):
         "parameter_values": "object",
         "parameter_names": "object",
     }
-    df_in_calculation_settings: Optional[pd.DataFrame] | None = None
 
     def run(self, input: list[str], output: str) -> None:
         """
@@ -114,6 +118,7 @@ class UpdateDamLive(ToolboxBase):
             "-p",
             (root_dir / "live.ParametersFile.xml").as_posix(),
         ]
+        self.data_adapter.logger.debug(f"Running command:\n{' '.join(cmd)}")
         # start dam live
         result = subprocess.run(cmd, capture_output=True, text=True)
         self.data_adapter.logger.info(f"DAM LIVE output: {result.stdout}")

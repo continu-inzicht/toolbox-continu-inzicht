@@ -333,7 +333,7 @@ class DataAdapter(PydanticBaseModel):
                 f"DataAdapter `{key=}` niet gevonden en {if_not_exist=} is ongeldig, dit moet `raise` of `create` zijn"
             )
 
-    def init_logging(self):
+    def init_logging(self, re_initialize: bool = False) -> None:
         """Initialiseer de logger met de configuratie.
 
         Voor logging zijn de volgende instellingen mogelijk:
@@ -347,7 +347,7 @@ class DataAdapter(PydanticBaseModel):
         In het geval dat `file` opgegeven is, maar geen valide pad is, dan wordt er een logfile `hidden_logfile.log` aangemaakt in de rootdir.
         """
 
-        if self.logger is None:
+        if self.logger is None or re_initialize:
             logging_settings: dict = self.config.global_variables.get("logging", {})
             logname = logging_settings.get("name", "toolbox_continu_inzicht")
             level = logging_settings.get("level", "WARNING")
