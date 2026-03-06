@@ -120,8 +120,14 @@ class UpdateDamLive(ToolboxBase):
         ]
         self.data_adapter.logger.debug(f"Running command:\n{' '.join(cmd)}")
         # start dam live
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        self.data_adapter.logger.info(f"DAM LIVE output: {result.stdout}")
+        proc = subprocess.Popen(
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+        )
+        for line in proc.stdout:
+            self.data_adapter.logger.info(line.rstrip())
+        returncode = proc.wait()
+        if returncode != 0:
+            raise subprocess.CalledProcessError(returncode, cmd)
 
         self.df_out = self.data_adapter.input(
             input="live.OutputTimeSeries",
