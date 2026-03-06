@@ -20,7 +20,7 @@ def output_xml_timeseries(output_config: dict, df: pd.DataFrame):
     output_xml_str = """<?xml version="1.0" encoding="UTF-8"?>
 <TimeSeries xmlns="http://www.wldelft.nl/fews/PI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wldelft.nl/fews/PI https://fewsdocs.deltares.nl/schemas/version1.0/pi-schemas/pi_timeseries.xsd" version="1.2">
 	<timeZone>1.0</timeZone>\n"""
-
+    df.reset_index(inplace=True)  # some case datetime is the index
     assert "date_time" in df.columns, "DataFrame moet een 'date_time' kolom bevatten"
     assert "measurement_location_code" in df.columns, (
         "DataFrame moet een 'measurement_location_code' kolom bevatten"

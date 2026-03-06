@@ -4,6 +4,44 @@
     <series>
         <header>
             <type>instantaneous</type>
+            <locationId>BP</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="08:00:00"/>
+            <endDate date="2024-11-07" time="08:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>BP</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="08:00:00" value="-0.484" flag="0"/>
+        <event date="2024-11-06" time="09:00:00" value="-0.488" flag="0"/>
+        <event date="2024-11-06" time="10:00:00" value="-0.486" flag="0"/>
+        <event date="2024-11-06" time="11:00:00" value="-0.48" flag="0"/>
+        <event date="2024-11-06" time="12:00:00" value="-0.474" flag="0"/>
+        <event date="2024-11-06" time="13:00:00" value="-0.481" flag="0"/>
+        <event date="2024-11-06" time="14:00:00" value="-0.483" flag="0"/>
+        <event date="2024-11-06" time="15:00:00" value="-0.472" flag="0"/>
+        <event date="2024-11-06" time="16:00:00" value="-0.471" flag="0"/>
+        <event date="2024-11-06" time="17:00:00" value="-0.466" flag="0"/>
+        <event date="2024-11-06" time="18:00:00" value="-0.468" flag="0"/>
+        <event date="2024-11-06" time="19:00:00" value="-0.474" flag="0"/>
+        <event date="2024-11-06" time="20:00:00" value="-0.48" flag="0"/>
+        <event date="2024-11-06" time="21:00:00" value="-0.474" flag="0"/>
+        <event date="2024-11-06" time="22:00:00" value="-0.485" flag="0"/>
+        <event date="2024-11-06" time="23:00:00" value="-0.473" flag="0"/>
+        <event date="2024-11-07" time="00:00:00" value="-0.477" flag="0"/>
+        <event date="2024-11-07" time="01:00:00" value="-0.473" flag="0"/>
+        <event date="2024-11-07" time="02:00:00" value="-0.471" flag="0"/>
+        <event date="2024-11-07" time="03:00:00" value="-0.472" flag="0"/>
+        <event date="2024-11-07" time="04:00:00" value="-0.473" flag="0"/>
+        <event date="2024-11-07" time="05:00:00" value="-0.467" flag="0"/>
+        <event date="2024-11-07" time="06:00:00" value="-0.468" flag="0"/>
+        <event date="2024-11-07" time="07:00:00" value="-0.466" flag="0"/>
+        <event date="2024-11-07" time="08:00:00" value="-0.484" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
             <locationId>PB-288</locationId>
             <parameterId>H.meting</parameterId>
             <timeStep unit="second" multiplier="3600"/>
@@ -152,115 +190,5 @@
         <event date="2024-11-07" time="06:00:00" value="-1.388" flag="0"/>
         <event date="2024-11-07" time="07:00:00" value="-1.394" flag="0"/>
         <event date="2024-11-07" time="08:00:00" value="-1.393" flag="0"/>
-    </series>
-    <series>
-        <header>
-            <type>instantaneous</type>
-            <locationId>BP</locationId>
-            <parameterId>H.meting</parameterId>
-            <timeStep unit="second" multiplier="900"/>
-            <startDate date="2024-11-06" time="08:00:00"/>
-            <endDate date="2024-11-07" time="08:00:00"/>
-            <missVal>-999.0</missVal>
-            <stationName>BP</stationName>
-            <units>m</units>
-        </header>
-        <event date="2024-11-06" time="08:00:00" value="-0.484" flag="0"/>
-        <event date="2024-11-06" time="08:15:00" value="-0.48" flag="0"/>
-        <event date="2024-11-06" time="08:30:00" value="-0.482" flag="0"/>
-        <event date="2024-11-06" time="08:45:00" value="-0.483" flag="0"/>
-        <event date="2024-11-06" time="09:00:00" value="-0.488" flag="0"/>
-        <event date="2024-11-06" time="09:15:00" value="-0.484" flag="0"/>
-        <event date="2024-11-06" time="09:30:00" value="-0.477" flag="0"/>
-        <event date="2024-11-06" time="09:45:00" value="-0.491" flag="0"/>
-        <event date="2024-11-06" time="10:00:00" value="-0.486" flag="0"/>
-        <event date="2024-11-06" time="10:15:00" value="-0.476" flag="0"/>
-        <event date="2024-11-06" time="10:30:00" value="-0.485" flag="0"/>
-        <event date="2024-11-06" time="10:45:00" value="-0.481" flag="0"/>
-        <event date="2024-11-06" time="11:00:00" value="-0.48" flag="0"/>
-        <event date="2024-11-06" time="11:15:00" value="-0.483" flag="0"/>
-        <event date="2024-11-06" time="11:30:00" value="-0.477" flag="0"/>
-        <event date="2024-11-06" time="11:45:00" value="-0.477" flag="0"/>
-        <event date="2024-11-06" time="12:00:00" value="-0.474" flag="0"/>
-        <event date="2024-11-06" time="12:15:00" value="-0.481" flag="0"/>
-        <event date="2024-11-06" time="12:30:00" value="-0.477" flag="0"/>
-        <event date="2024-11-06" time="12:45:00" value="-0.48" flag="0"/>
-        <event date="2024-11-06" time="13:00:00" value="-0.481" flag="0"/>
-        <event date="2024-11-06" time="13:15:00" value="-0.48" flag="0"/>
-        <event date="2024-11-06" time="13:30:00" value="-0.476" flag="0"/>
-        <event date="2024-11-06" time="13:45:00" value="-0.466" flag="0"/>
-        <event date="2024-11-06" time="14:00:00" value="-0.483" flag="0"/>
-        <event date="2024-11-06" time="14:15:00" value="-0.48" flag="0"/>
-        <event date="2024-11-06" time="14:30:00" value="-0.47" flag="0"/>
-        <event date="2024-11-06" time="14:45:00" value="-0.478" flag="0"/>
-        <event date="2024-11-06" time="15:00:00" value="-0.472" flag="0"/>
-        <event date="2024-11-06" time="15:15:00" value="-0.458" flag="0"/>
-        <event date="2024-11-06" time="15:30:00" value="-0.469" flag="0"/>
-        <event date="2024-11-06" time="15:45:00" value="-0.462" flag="0"/>
-        <event date="2024-11-06" time="16:00:00" value="-0.471" flag="0"/>
-        <event date="2024-11-06" time="16:15:00" value="-0.477" flag="0"/>
-        <event date="2024-11-06" time="16:30:00" value="-0.464" flag="0"/>
-        <event date="2024-11-06" time="16:45:00" value="-0.466" flag="0"/>
-        <event date="2024-11-06" time="17:00:00" value="-0.466" flag="0"/>
-        <event date="2024-11-06" time="17:15:00" value="-0.461" flag="0"/>
-        <event date="2024-11-06" time="17:30:00" value="-0.47" flag="0"/>
-        <event date="2024-11-06" time="17:45:00" value="-0.474" flag="0"/>
-        <event date="2024-11-06" time="18:00:00" value="-0.468" flag="0"/>
-        <event date="2024-11-06" time="18:15:00" value="-0.469" flag="0"/>
-        <event date="2024-11-06" time="18:30:00" value="-0.472" flag="0"/>
-        <event date="2024-11-06" time="18:45:00" value="-0.474" flag="0"/>
-        <event date="2024-11-06" time="19:00:00" value="-0.474" flag="0"/>
-        <event date="2024-11-06" time="19:15:00" value="-0.469" flag="0"/>
-        <event date="2024-11-06" time="19:30:00" value="-0.472" flag="0"/>
-        <event date="2024-11-06" time="19:45:00" value="-0.477" flag="0"/>
-        <event date="2024-11-06" time="20:00:00" value="-0.48" flag="0"/>
-        <event date="2024-11-06" time="20:15:00" value="-0.48" flag="0"/>
-        <event date="2024-11-06" time="20:30:00" value="-0.477" flag="0"/>
-        <event date="2024-11-06" time="20:45:00" value="-0.478" flag="0"/>
-        <event date="2024-11-06" time="21:00:00" value="-0.474" flag="0"/>
-        <event date="2024-11-06" time="21:15:00" value="-0.478" flag="0"/>
-        <event date="2024-11-06" time="21:30:00" value="-0.479" flag="0"/>
-        <event date="2024-11-06" time="21:45:00" value="-0.475" flag="0"/>
-        <event date="2024-11-06" time="22:00:00" value="-0.485" flag="0"/>
-        <event date="2024-11-06" time="22:15:00" value="-0.477" flag="0"/>
-        <event date="2024-11-06" time="22:30:00" value="-0.477" flag="0"/>
-        <event date="2024-11-06" time="22:45:00" value="-0.475" flag="0"/>
-        <event date="2024-11-06" time="23:00:00" value="-0.473" flag="0"/>
-        <event date="2024-11-06" time="23:15:00" value="-0.471" flag="0"/>
-        <event date="2024-11-06" time="23:30:00" value="-0.469" flag="0"/>
-        <event date="2024-11-06" time="23:45:00" value="-0.474" flag="0"/>
-        <event date="2024-11-07" time="00:00:00" value="-0.477" flag="0"/>
-        <event date="2024-11-07" time="00:15:00" value="-0.478" flag="0"/>
-        <event date="2024-11-07" time="00:30:00" value="-0.477" flag="0"/>
-        <event date="2024-11-07" time="00:45:00" value="-0.475" flag="0"/>
-        <event date="2024-11-07" time="01:00:00" value="-0.473" flag="0"/>
-        <event date="2024-11-07" time="01:15:00" value="-0.473" flag="0"/>
-        <event date="2024-11-07" time="01:30:00" value="-0.471" flag="0"/>
-        <event date="2024-11-07" time="01:45:00" value="-0.471" flag="0"/>
-        <event date="2024-11-07" time="02:00:00" value="-0.471" flag="0"/>
-        <event date="2024-11-07" time="02:15:00" value="-0.474" flag="0"/>
-        <event date="2024-11-07" time="02:30:00" value="-0.474" flag="0"/>
-        <event date="2024-11-07" time="02:45:00" value="-0.475" flag="0"/>
-        <event date="2024-11-07" time="03:00:00" value="-0.472" flag="0"/>
-        <event date="2024-11-07" time="03:15:00" value="-0.471" flag="0"/>
-        <event date="2024-11-07" time="03:30:00" value="-0.47" flag="0"/>
-        <event date="2024-11-07" time="03:45:00" value="-0.472" flag="0"/>
-        <event date="2024-11-07" time="04:00:00" value="-0.473" flag="0"/>
-        <event date="2024-11-07" time="04:15:00" value="-0.467" flag="0"/>
-        <event date="2024-11-07" time="04:30:00" value="-0.473" flag="0"/>
-        <event date="2024-11-07" time="04:45:00" value="-0.469" flag="0"/>
-        <event date="2024-11-07" time="05:00:00" value="-0.467" flag="0"/>
-        <event date="2024-11-07" time="05:15:00" value="-0.461" flag="0"/>
-        <event date="2024-11-07" time="05:30:00" value="-0.466" flag="0"/>
-        <event date="2024-11-07" time="05:45:00" value="-0.468" flag="0"/>
-        <event date="2024-11-07" time="06:00:00" value="-0.468" flag="0"/>
-        <event date="2024-11-07" time="06:15:00" value="-0.474" flag="0"/>
-        <event date="2024-11-07" time="06:30:00" value="-0.472" flag="0"/>
-        <event date="2024-11-07" time="06:45:00" value="-0.469" flag="0"/>
-        <event date="2024-11-07" time="07:00:00" value="-0.466" flag="0"/>
-        <event date="2024-11-07" time="07:15:00" value="-0.475" flag="0"/>
-        <event date="2024-11-07" time="07:30:00" value="-0.464" flag="0"/>
-        <event date="2024-11-07" time="07:45:00" value="-0.485" flag="0"/>
-        <event date="2024-11-07" time="08:00:00" value="-0.484" flag="0"/>
     </series>
 </TimeSeries>

@@ -1,4 +1,6 @@
+import os
 import subprocess
+import sys
 from typing import ClassVar, Optional
 from pydantic.dataclasses import dataclass
 
@@ -37,7 +39,7 @@ class UpdateDamLive(ToolboxBase):
     df_in_calculation_settings: Optional[pd.DataFrame] | None = None
 
     schema_loads: ClassVar[dict[str, str]] = {
-        "date_time": "<M8[ns]",
+        "date_time": ["datetime64[ns, UTC]", "datetime64[ns]"],
         "measurement_location_code": "object",
         "parameter_code": "object",
         "unit": "object",
@@ -107,6 +109,11 @@ class UpdateDamLive(ToolboxBase):
         assert damlive_exe is not None, (
             "DAMLIVE_EXE is not set, ensure that it is set in the .env file"
         )
+
+        damlive_name = ".".join(options["DAMLIVE_FILE"].split(".")[:-1]) + ".Calc"
+
+        if (root_dir / damlive_name).exists():
+            remove_dir(root_dir / damlive_name)
         cmd = [
             damlive_exe,
             "-d",
@@ -133,3 +140,17 @@ class UpdateDamLive(ToolboxBase):
             input="live.OutputTimeSeries",
         )
         self.data_adapter.output(output=output, df=self.df_out)
+
+
+def remove_dir(folder):
+    folder = str(folder)
+    if sys.platform == "win32" and not folder.startswith("\\\\?\\"):
+        folder = "\\\\?\\" + folder
+    for root, dirs, files in os.walk(folder, topdown=False):
+        for name in files:
+            filepath = os.path.join(root, name)
+            os.chmod(filepath, 0o666)
+            os.remove(filepath)
+        for name in dirs:
+            os.rmdir(os.path.join(root, name))
+    os.rmdir(folder)

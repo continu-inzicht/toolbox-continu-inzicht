@@ -1,5 +1,6 @@
 import pandas as pd
 import xml.etree.ElementTree as ET
+import datetime
 
 
 def input_xml_timeseries(input_config: dict) -> pd.DataFrame:
@@ -20,6 +21,11 @@ def input_xml_timeseries(input_config: dict) -> pd.DataFrame:
     root = tree.getroot()
 
     namespace = {"ns": "http://www.wldelft.nl/fews/PI"}
+
+    tz_element = root.find("ns:timeZone", namespace)
+    tz_offset = float(tz_element.text) if tz_element is not None else 0.0
+    tz = datetime.timezone(datetime.timedelta(hours=tz_offset))
+
     df_list = []
     for series in root.findall("ns:series", namespace):
         header = series.find("ns:header", namespace)
@@ -34,15 +40,29 @@ def input_xml_timeseries(input_config: dict) -> pd.DataFrame:
 
             df_list.append(
                 {
-                    "date_time": pd.to_datetime(f"{date_str} {time_str}"),
+                    "date_time": pd.to_datetime(f"{date_str} {time_str}")
+                    .tz_localize(tz)
+                    .tz_convert("UTC"),
                     "measurement_location_code": location,
                     "parameter_code": parameter,
+                    "parameter_id": parameter,
                     "unit": unit,
                     "value": float(value),
                 }
             )
 
     df = pd.DataFrame(df_list)
+    if len(df) > 0:
+        for location in df["measurement_location_code"].unique():
+            df.loc[
+                df["measurement_location_code"] == location, "measurement_location_id"
+            ] = int(hash(location) % 10**7)
+        for parameter in df["parameter_code"].unique():
+            df.loc[df["parameter_code"] == parameter, "parameter_id"] = int(
+                hash(parameter) % 10**7
+            )
+        df["measurement_location_id"] = df["measurement_location_id"].astype("int64")
+        df["parameter_id"] = df["parameter_id"].astype("int64")
     return df
 
 

@@ -9,13 +9,9 @@ DataAdapter:
     default_options:
         csv:
             sep: ","
-    waterstanden_xml:
+    waterstanden_xml_uur:
         type: xml_timeseries
-        path: "waterstanden_fews.xml"
-        parameter_mapping:
-            WATHTE: H.meting
-        location_mapping:
-            MPN-N-24: BP
+        path: "waterstanden_fews_hourly.xml"
     parameters_csv:
         type: csv
         index: True
