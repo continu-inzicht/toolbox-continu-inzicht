@@ -1,4 +1,1028 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <TimeSeries version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.wldelft.nl/fews/PI">
   <timeZone>1</timeZone>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0013_87074-1_DWP001</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="1.0470541159624231" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="1.0472525309957152" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0021_87074-1_DWP002</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.8466800059449995" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.8469958409593569" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0030_87074-1_DWP003</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.8177547602630602" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.8185121590611046" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0042+8m_HHNK</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.9467499187362591" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.9464224596656653" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0063_87074-1_DWP004</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="1.1348136112061975" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="1.1348860153519718" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0082_87074-1_DWP005</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.7224556138503989" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.7216815081569583" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0098_87074-1_DWP006</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.968392266631971" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.9719605913020158" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0110+27m_HHNK</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.6625697158649652" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.6621551664785534" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0119_87074-1_DWP007</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="1.1046021315987642" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="1.1048630351996702" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0128_87074-1_DWP008</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.7100693100729593" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.7100566525460923" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0138_87074-1_DWP009</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="1.1149617244981462" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="1.1150502188619162" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0150_87074-1_DWP010</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.5916953371930103" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.5913604813825112" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0163_87074-1_DWP011</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.8655640663670107" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.8650255611417552" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0181_87074-1_DWP012</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="1.176202937437344" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="1.1767435455698172" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0203_87074-1_DWP013</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="0.7473555412227613" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="0.747104965002745" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0207_87074-1_DWP014</locationId>
+      <parameterId>StabilityInsideFactor</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="1.595032456465919" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="1.5950651577924797" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0013_87074-1_DWP001</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="39.66" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="39.66" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0021_87074-1_DWP002</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="43.35" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="43.35" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0030_87074-1_DWP003</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="38.335" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="38.335" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0042+8m_HHNK</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="38.255" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="38.255" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0063_87074-1_DWP004</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="40.02" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="40.02" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0082_87074-1_DWP005</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="41.275" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="41.275" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0098_87074-1_DWP006</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="38.245" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="37.62" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0110+27m_HHNK</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="41.485" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="41.485" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0119_87074-1_DWP007</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="35.585" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="35.585" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0128_87074-1_DWP008</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="43.855" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="43.855" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0138_87074-1_DWP009</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="37.54" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="37.54" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0150_87074-1_DWP010</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="41.69" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="41.69" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0163_87074-1_DWP011</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="37.35" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="37.35" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0181_87074-1_DWP012</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="38.62" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="37.995" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0203_87074-1_DWP013</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="43.44" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="43.44" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0207_87074-1_DWP014</locationId>
+      <parameterId>BishopCircleCentreX</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="44.815" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="44.815" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0013_87074-1_DWP001</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="18.73" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="18.73" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0021_87074-1_DWP002</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="13.075" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="13.075" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0030_87074-1_DWP003</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="13.134461538" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="13.134461538" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0042+8m_HHNK</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="11.750851064" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="11.750851064" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0063_87074-1_DWP004</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="12.743552632" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="12.743552632" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0082_87074-1_DWP005</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="-0.915204082" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="-0.915204082" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0098_87074-1_DWP006</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="-1.393333333" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="-1.393333333" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0110+27m_HHNK</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="-0.566577947" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="-0.566577947" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0119_87074-1_DWP007</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="11.31" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="11.31" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0128_87074-1_DWP008</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="18.588770492" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="18.588770492" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0138_87074-1_DWP009</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="11.042903226" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="11.042903226" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0150_87074-1_DWP010</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="1.689920635" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="1.689920635" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0163_87074-1_DWP011</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="6.874169231" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="6.874169231" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0181_87074-1_DWP012</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="11.537384342" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="10.912384342" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0203_87074-1_DWP013</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="-0.409035714" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="-0.409035714" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0207_87074-1_DWP014</locationId>
+      <parameterId>BishopCircleCentreZ</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="7.505" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="7.505" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0013_87074-1_DWP001</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="24.68" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="24.68" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0021_87074-1_DWP002</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="19.739107143" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="19.739107143" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0030_87074-1_DWP003</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="19.009461538" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="19.009461538" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0042+8m_HHNK</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="18.063351064000003" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="18.063351064000003" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0063_87074-1_DWP004</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="18.66658027" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="18.66658027" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0082_87074-1_DWP005</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="3.6597959180000004" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="3.6597959180000004" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0098_87074-1_DWP006</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="4.443910257" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="4.568910257" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0110+27m_HHNK</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="4.695922053" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="4.695922053" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0119_87074-1_DWP007</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="18.682830882" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="18.682830882" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0128_87074-1_DWP008</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="27.938770491999996" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="27.938770491999996" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0138_87074-1_DWP009</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="18.092903226" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="18.092903226" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0150_87074-1_DWP010</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="7.764920635" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="7.764920635" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0163_87074-1_DWP011</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="11.732238851" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="11.732238851" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0181_87074-1_DWP012</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="17.774884342" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="17.024884342" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0203_87074-1_DWP013</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="5.618722018000001" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="5.618722018000001" flag="0" />
+    <comment></comment>
+  </series>
+  <series>
+    <header>
+      <type>instantaneous</type>
+      <locationId>PU0207_87074-1_DWP014</locationId>
+      <parameterId>BishopCircleRadius</parameterId>
+      <timeStep unit="second" />
+      <startDate date="2024-11-06" time="07:00:00" />
+      <endDate date="2024-11-06" time="08:00:00" />
+      <missVal>-999</missVal>
+      <stationName></stationName>
+      <units>m</units>
+    </header>
+    <event date="2024-11-06" time="07:00:00" value="18.6925" flag="0" />
+    <event date="2024-11-06" time="08:00:00" value="18.6925" flag="0" />
+    <comment></comment>
+  </series>
 </TimeSeries>

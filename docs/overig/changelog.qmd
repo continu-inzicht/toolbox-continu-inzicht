@@ -113,11 +113,12 @@ De logging gebruikt een nieuwe 'baseClass': `ToolboxBase`, inherit deze om loggi
 
 ### V0.1.2 [[0.1.2](https://pypi.org/project/toolbox-continu-inzicht/0.1.2/)]
 
-### Inhoudelijk
+### Sprint 6
+#### Inhoudelijk
 
 Alle aanpassingen zijn te vinden in pull request [#73](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/73)
 
-In sprint 6 (na jaar 2025) zijn twee onderwerpen opgepakt: Toepassen van maatregelen en toevoegen van Overstromingsrisico’s
+In sprint 6 (najaar 2025) zijn twee onderwerpen opgepakt: Toepassen van maatregelen en toevoegen van Overstromingsrisico’s
 
 ### Maatregelen
 
@@ -140,3 +141,26 @@ De documentatie-map is wat opgeschoond met één map per notebook, zo kan je de 
 Kleine aanpassing in de data adapter (`check_rootdir`) om nu ook de rootdir op te slaan in de global variables.
 Deze kan dan later gebruikt worden; voor de overstromingsscenario kaarten was dit handig.
 In de toekomst is het misschien beter om daar later een speciaal type adapter voor te maken.
+
+
+### V0.1.3 [[0.1.3](https://pypi.org/project/toolbox-continu-inzicht/0.1.3/)]
+
+
+### Sprint 7
+
+#### Inhoudelijk
+
+In sprint 7 (voorjaar 2026) is gewerkt aan het opzetten van een koppeling met DamLive.
+DamLive is ontworpen om met FEWS te werken, waarbij metingen in worden meegegeven en door de rekenhart achter DAM (Dijksterkte Analayse Module) een faalkans per tijdstap wordt berekend.
+
+De toolbox vervangt hierbij de rol van FEWS, en DamLive kan vanuit elke bron gevoed worden met metingen.
+Na het runnen van een berekekening kunnne de resultaten van DamLive worden ingelezen en kunnen getoond worden.
+
+#### Waterinfo en waterwebserivces
+
+De namen van waterinfo locaties zijn aangepast omdat RWS overgaat naar [WADAR](https://rijkswaterstaatdata.nl/waterdata/#:~:text=25%20februari%20%2D%20Waterinfo%20stapt%20over%20naar%20WADAR), ook wordt de oude waterwerbservices api vervangen. Voor beide zijn aanpassingen getroffen om deze bronnen te blijven ondersteunen.
+
+
+### Aanpassingen aan Fragility Curve Overtopping
+
+Parallel aan de regulieren sprints is ook een traject geweest om GEKB (overloop en golfoverslag van dijken) fragility curves af te kunnen leiden met HRB (hydraul)

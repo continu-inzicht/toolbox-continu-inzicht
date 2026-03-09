@@ -84,11 +84,11 @@ class UpdateDamLive(ToolboxBase):
         )
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("UpdateDamLive", {})
+        delete_output_folder = options.get("delete_output_folder", False)
 
         assert "DAMLIVE_FILE" in options, (
             "DAMLIVE_FILE {'.damx'}is not set in global variables"
         )
-        self.data_adapter.config.data_adapters
 
         # DAM LIVE verwacht een vast formaat dus daarom worden de data adapters voor deze module hier hard gedefinieerd.
         damlive_data_adapters = {
@@ -123,7 +123,8 @@ class UpdateDamLive(ToolboxBase):
         damlive_name = ".".join(options["DAMLIVE_FILE"].split(".")[:-1]) + ".Calc"
 
         if (root_dir / damlive_name).exists():
-            remove_dir(root_dir / damlive_name)
+            if delete_output_folder:
+                remove_dir(root_dir / damlive_name)
         cmd = [
             damlive_exe,
             "-d",

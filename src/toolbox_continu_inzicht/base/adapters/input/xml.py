@@ -29,9 +29,14 @@ def input_xml_timeseries(input_config: dict) -> pd.DataFrame:
     df_list = []
     for series in root.findall("ns:series", namespace):
         header = series.find("ns:header", namespace)
-        location = header.find("ns:stationName", namespace).text
+        station_name = header.find("ns:stationName", namespace).text
+        location = header.find("ns:locationId", namespace).text
         parameter = header.find("ns:parameterId", namespace).text
         unit = header.find("ns:units", namespace).text
+
+        if station_name != location:
+            if location is None or location == "":
+                location = station_name
 
         for event in series.findall("ns:event", namespace):
             date_str = event.get("date")

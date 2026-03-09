@@ -4,6 +4,7 @@ GlobalVariables:
     calc_time: "2024-11-06 08:00:00"
     UpdateDamLive:
         DAMLIVE_FILE: 'WV2030_Purmer.damx'
+        delete_output_folder: False
 
 DataAdapter:
     default_options:
@@ -19,3 +20,6 @@ DataAdapter:
     output_file:
         type: csv
         path: test.csv
+    test_live.OutputTimeSeries:
+        type: xml_timeseries
+        path: live.OutputTimeSeries.xml
