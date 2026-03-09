@@ -50,12 +50,21 @@ def output_xml_timeseries(output_config: dict, df: pd.DataFrame):
         end_date = df_subset["date_time"].max()
 
         # Create XML for this location
+        # Calculate time delta to determine timeStep multiplier
+        if len(df_subset) > 1:
+            time_delta = (
+                df_subset["date_time"].iloc[1] - df_subset["date_time"].iloc[0]
+            ).total_seconds()
+            multiplier = int(time_delta)
+        else:
+            multiplier = 3600  # default to 1 hour if only one record
+
         xml_output = f"""    <series>
         <header>
             <type>instantaneous</type>
             <locationId>{location}</locationId>
             <parameterId>{df_subset["parameter_code"].iloc[0]}</parameterId>
-            <timeStep unit="second" multiplier="3600"/>
+            <timeStep unit="second" multiplier="{multiplier}"/>
             <startDate date="{start_date.strftime("%Y-%m-%d")}" time="{start_date.strftime("%H:%M:%S")}"/>
             <endDate date="{end_date.strftime("%Y-%m-%d")}" time="{end_date.strftime("%H:%M:%S")}"/>
             <missVal>-999.0</missVal>
