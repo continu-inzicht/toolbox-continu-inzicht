@@ -182,7 +182,9 @@ class DataAdapter(PydanticBaseModel):
 
         # Check of de rootdir bestaat
         used_root_dir = check_rootdir(self.config.global_variables)
-        self.config.global_variables.update({"used_root_dir": used_root_dir.resolve()})
+        if used_root_dir is not None:
+            used_root_dir = used_root_dir.resolve()
+        self.config.global_variables.update({"used_root_dir": used_root_dir})
         check_file_and_path(functie_output_config, self.config.global_variables)
         # self.init_logging()
 
