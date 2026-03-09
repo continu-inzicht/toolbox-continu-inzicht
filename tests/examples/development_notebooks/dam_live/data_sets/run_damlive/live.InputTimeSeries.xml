@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TimeSeries xmlns="http://www.wldelft.nl/fews/PI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wldelft.nl/fews/PI https://fewsdocs.deltares.nl/schemas/version1.0/pi-schemas/pi_timeseries.xsd" version="1.2">
+	<timeZone>1.0</timeZone>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>PB-288</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-07" time="06:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>PB-288</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-2.148" flag="0"/>
+        <event date="2024-11-06" time="08:00:00" value="-2.145" flag="0"/>
+        <event date="2024-11-06" time="09:00:00" value="-2.152" flag="0"/>
+        <event date="2024-11-06" time="10:00:00" value="-2.149" flag="0"/>
+        <event date="2024-11-06" time="11:00:00" value="-2.153" flag="0"/>
+        <event date="2024-11-06" time="12:00:00" value="-2.154" flag="0"/>
+        <event date="2024-11-06" time="13:00:00" value="-2.151" flag="0"/>
+        <event date="2024-11-06" time="14:00:00" value="-2.15" flag="0"/>
+        <event date="2024-11-06" time="15:00:00" value="-2.15" flag="0"/>
+        <event date="2024-11-06" time="16:00:00" value="-2.151" flag="0"/>
+        <event date="2024-11-06" time="17:00:00" value="-2.151" flag="0"/>
+        <event date="2024-11-06" time="18:00:00" value="-2.152" flag="0"/>
+        <event date="2024-11-06" time="19:00:00" value="-2.155" flag="0"/>
+        <event date="2024-11-06" time="20:00:00" value="-2.154" flag="0"/>
+        <event date="2024-11-06" time="21:00:00" value="-2.155" flag="0"/>
+        <event date="2024-11-06" time="22:00:00" value="-2.154" flag="0"/>
+        <event date="2024-11-06" time="23:00:00" value="-2.153" flag="0"/>
+        <event date="2024-11-07" time="00:00:00" value="-2.155" flag="0"/>
+        <event date="2024-11-07" time="01:00:00" value="-2.155" flag="0"/>
+        <event date="2024-11-07" time="02:00:00" value="-2.152" flag="0"/>
+        <event date="2024-11-07" time="03:00:00" value="-2.154" flag="0"/>
+        <event date="2024-11-07" time="04:00:00" value="-2.156" flag="0"/>
+        <event date="2024-11-07" time="05:00:00" value="-2.154" flag="0"/>
+        <event date="2024-11-07" time="06:00:00" value="-2.157" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>PB-286</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-07" time="06:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>PB-286</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-0.428" flag="0"/>
+        <event date="2024-11-06" time="08:00:00" value="-0.428" flag="0"/>
+        <event date="2024-11-06" time="09:00:00" value="-0.43" flag="0"/>
+        <event date="2024-11-06" time="10:00:00" value="-0.429" flag="0"/>
+        <event date="2024-11-06" time="11:00:00" value="-0.432" flag="0"/>
+        <event date="2024-11-06" time="12:00:00" value="-0.433" flag="0"/>
+        <event date="2024-11-06" time="13:00:00" value="-0.43" flag="0"/>
+        <event date="2024-11-06" time="14:00:00" value="-0.43" flag="0"/>
+        <event date="2024-11-06" time="15:00:00" value="-0.431" flag="0"/>
+        <event date="2024-11-06" time="16:00:00" value="-0.432" flag="0"/>
+        <event date="2024-11-06" time="17:00:00" value="-0.43" flag="0"/>
+        <event date="2024-11-06" time="18:00:00" value="-0.433" flag="0"/>
+        <event date="2024-11-06" time="19:00:00" value="-0.437" flag="0"/>
+        <event date="2024-11-06" time="20:00:00" value="-0.434" flag="0"/>
+        <event date="2024-11-06" time="21:00:00" value="-0.434" flag="0"/>
+        <event date="2024-11-06" time="22:00:00" value="-0.433" flag="0"/>
+        <event date="2024-11-06" time="23:00:00" value="-0.434" flag="0"/>
+        <event date="2024-11-07" time="00:00:00" value="-0.432" flag="0"/>
+        <event date="2024-11-07" time="01:00:00" value="-0.433" flag="0"/>
+        <event date="2024-11-07" time="02:00:00" value="-0.432" flag="0"/>
+        <event date="2024-11-07" time="03:00:00" value="-0.432" flag="0"/>
+        <event date="2024-11-07" time="04:00:00" value="-0.433" flag="0"/>
+        <event date="2024-11-07" time="05:00:00" value="-0.436" flag="0"/>
+        <event date="2024-11-07" time="06:00:00" value="-0.434" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>PB-289</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-07" time="06:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>PB-289</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-3.093" flag="0"/>
+        <event date="2024-11-06" time="08:00:00" value="-3.091" flag="0"/>
+        <event date="2024-11-06" time="09:00:00" value="-3.091" flag="0"/>
+        <event date="2024-11-06" time="10:00:00" value="-3.091" flag="0"/>
+        <event date="2024-11-06" time="11:00:00" value="-3.093" flag="0"/>
+        <event date="2024-11-06" time="12:00:00" value="-3.092" flag="0"/>
+        <event date="2024-11-06" time="13:00:00" value="-3.091" flag="0"/>
+        <event date="2024-11-06" time="14:00:00" value="-3.093" flag="0"/>
+        <event date="2024-11-06" time="15:00:00" value="-3.093" flag="0"/>
+        <event date="2024-11-06" time="16:00:00" value="-3.094" flag="0"/>
+        <event date="2024-11-06" time="17:00:00" value="-3.094" flag="0"/>
+        <event date="2024-11-06" time="18:00:00" value="-3.097" flag="0"/>
+        <event date="2024-11-06" time="19:00:00" value="-3.097" flag="0"/>
+        <event date="2024-11-06" time="20:00:00" value="-3.095" flag="0"/>
+        <event date="2024-11-06" time="21:00:00" value="-3.096" flag="0"/>
+        <event date="2024-11-06" time="22:00:00" value="-3.095" flag="0"/>
+        <event date="2024-11-06" time="23:00:00" value="-3.096" flag="0"/>
+        <event date="2024-11-07" time="00:00:00" value="-3.094" flag="0"/>
+        <event date="2024-11-07" time="01:00:00" value="-3.097" flag="0"/>
+        <event date="2024-11-07" time="02:00:00" value="-3.095" flag="0"/>
+        <event date="2024-11-07" time="03:00:00" value="-3.095" flag="0"/>
+        <event date="2024-11-07" time="04:00:00" value="-3.099" flag="0"/>
+        <event date="2024-11-07" time="05:00:00" value="-3.1" flag="0"/>
+        <event date="2024-11-07" time="06:00:00" value="-3.1" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>PB-287</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-07" time="06:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>PB-287</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-1.364" flag="0"/>
+        <event date="2024-11-06" time="08:00:00" value="-1.365" flag="0"/>
+        <event date="2024-11-06" time="09:00:00" value="-1.362" flag="0"/>
+        <event date="2024-11-06" time="10:00:00" value="-1.367" flag="0"/>
+        <event date="2024-11-06" time="11:00:00" value="-1.37" flag="0"/>
+        <event date="2024-11-06" time="12:00:00" value="-1.368" flag="0"/>
+        <event date="2024-11-06" time="13:00:00" value="-1.369" flag="0"/>
+        <event date="2024-11-06" time="14:00:00" value="-1.372" flag="0"/>
+        <event date="2024-11-06" time="15:00:00" value="-1.373" flag="0"/>
+        <event date="2024-11-06" time="16:00:00" value="-1.378" flag="0"/>
+        <event date="2024-11-06" time="17:00:00" value="-1.379" flag="0"/>
+        <event date="2024-11-06" time="18:00:00" value="-1.384" flag="0"/>
+        <event date="2024-11-06" time="19:00:00" value="-1.383" flag="0"/>
+        <event date="2024-11-06" time="20:00:00" value="-1.381" flag="0"/>
+        <event date="2024-11-06" time="21:00:00" value="-1.383" flag="0"/>
+        <event date="2024-11-06" time="22:00:00" value="-1.382" flag="0"/>
+        <event date="2024-11-06" time="23:00:00" value="-1.385" flag="0"/>
+        <event date="2024-11-07" time="00:00:00" value="-1.385" flag="0"/>
+        <event date="2024-11-07" time="01:00:00" value="-1.386" flag="0"/>
+        <event date="2024-11-07" time="02:00:00" value="-1.389" flag="0"/>
+        <event date="2024-11-07" time="03:00:00" value="-1.386" flag="0"/>
+        <event date="2024-11-07" time="04:00:00" value="-1.388" flag="0"/>
+        <event date="2024-11-07" time="05:00:00" value="-1.394" flag="0"/>
+        <event date="2024-11-07" time="06:00:00" value="-1.393" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>BP</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-07" time="06:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>BP</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-0.488" flag="0"/>
+        <event date="2024-11-06" time="08:00:00" value="-0.486" flag="0"/>
+        <event date="2024-11-06" time="09:00:00" value="-0.48" flag="0"/>
+        <event date="2024-11-06" time="10:00:00" value="-0.474" flag="0"/>
+        <event date="2024-11-06" time="11:00:00" value="-0.481" flag="0"/>
+        <event date="2024-11-06" time="12:00:00" value="-0.483" flag="0"/>
+        <event date="2024-11-06" time="13:00:00" value="-0.472" flag="0"/>
+        <event date="2024-11-06" time="14:00:00" value="-0.471" flag="0"/>
+        <event date="2024-11-06" time="15:00:00" value="-0.466" flag="0"/>
+        <event date="2024-11-06" time="16:00:00" value="-0.468" flag="0"/>
+        <event date="2024-11-06" time="17:00:00" value="-0.474" flag="0"/>
+        <event date="2024-11-06" time="18:00:00" value="-0.48" flag="0"/>
+        <event date="2024-11-06" time="19:00:00" value="-0.474" flag="0"/>
+        <event date="2024-11-06" time="20:00:00" value="-0.485" flag="0"/>
+        <event date="2024-11-06" time="21:00:00" value="-0.473" flag="0"/>
+        <event date="2024-11-06" time="22:00:00" value="-0.477" flag="0"/>
+        <event date="2024-11-06" time="23:00:00" value="-0.473" flag="0"/>
+        <event date="2024-11-07" time="00:00:00" value="-0.471" flag="0"/>
+        <event date="2024-11-07" time="01:00:00" value="-0.472" flag="0"/>
+        <event date="2024-11-07" time="02:00:00" value="-0.473" flag="0"/>
+        <event date="2024-11-07" time="03:00:00" value="-0.467" flag="0"/>
+        <event date="2024-11-07" time="04:00:00" value="-0.468" flag="0"/>
+        <event date="2024-11-07" time="05:00:00" value="-0.466" flag="0"/>
+        <event date="2024-11-07" time="06:00:00" value="-0.484" flag="0"/>
+    </series>
+</TimeSeries>

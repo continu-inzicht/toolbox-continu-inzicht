@@ -103,6 +103,8 @@ class DataAdapter(PydanticBaseModel):
             data_type = function_input_config["type"]
 
             used_root_dir = check_rootdir(self.config.global_variables)
+            if used_root_dir is not None:
+                used_root_dir = used_root_dir.resolve()
             self.config.global_variables.update({"used_root_dir": used_root_dir})
 
             check_file_and_path(function_input_config, self.config.global_variables)
@@ -180,6 +182,8 @@ class DataAdapter(PydanticBaseModel):
 
         # Check of de rootdir bestaat
         used_root_dir = check_rootdir(self.config.global_variables)
+        if used_root_dir is not None:
+            used_root_dir = used_root_dir.resolve()
         self.config.global_variables.update({"used_root_dir": used_root_dir})
         check_file_and_path(functie_output_config, self.config.global_variables)
         # self.init_logging()
@@ -331,7 +335,7 @@ class DataAdapter(PydanticBaseModel):
                 f"DataAdapter `{key=}` niet gevonden en {if_not_exist=} is ongeldig, dit moet `raise` of `create` zijn"
             )
 
-    def init_logging(self):
+    def init_logging(self, re_initialize: bool = False) -> None:
         """Initialiseer de logger met de configuratie.
 
         Voor logging zijn de volgende instellingen mogelijk:
@@ -345,7 +349,7 @@ class DataAdapter(PydanticBaseModel):
         In het geval dat `file` opgegeven is, maar geen valide pad is, dan wordt er een logfile `hidden_logfile.log` aangemaakt in de rootdir.
         """
 
-        if self.logger is None:
+        if self.logger is None or re_initialize:
             logging_settings: dict = self.config.global_variables.get("logging", {})
             logname = logging_settings.get("name", "toolbox_continu_inzicht")
             level = logging_settings.get("level", "WARNING")

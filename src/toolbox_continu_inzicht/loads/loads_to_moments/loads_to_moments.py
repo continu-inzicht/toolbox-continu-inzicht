@@ -36,7 +36,6 @@ class LoadsToMoments(ToolboxBase):
     - unit: object
     - date_time: datetime64[ns, UTC] of object
     - value: float64
-    - value_type: object
 
     """
 
@@ -51,7 +50,6 @@ class LoadsToMoments(ToolboxBase):
         "unit": "object",
         "date_time": ["datetime64[ns, UTC]", "object"],
         "value": "float64",
-        "value_type": "object",
     }
 
     def run(self, input: str, output: str) -> None:
