@@ -103,9 +103,9 @@ class DataAdapter(PydanticBaseModel):
             data_type = function_input_config["type"]
 
             used_root_dir = check_rootdir(self.config.global_variables)
-            self.config.global_variables.update(
-                {"used_root_dir": used_root_dir.resolve()}
-            )
+            if used_root_dir is not None:
+                used_root_dir = used_root_dir.resolve()
+            self.config.global_variables.update({"used_root_dir": used_root_dir})
 
             check_file_and_path(function_input_config, self.config.global_variables)
             # self.init_logging()
