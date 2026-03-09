@@ -4,7 +4,7 @@ from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from typing import Optional
 from toolbox_continu_inzicht.base.base_module import ToolboxBase
 import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon, Circle
+from matplotlib.patches import Polygon
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -285,24 +285,47 @@ class StageMerger(ToolboxBase):
         # --------------------
         # GLIJCIRKELS
         # --------------------
+        # plotted_circles = {}
+
+        # for _, row in df_stage_calculations.iterrows():
+        #     if pd.notna(row.get("circle_center_x")) and pd.notna(
+        #         row.get("circle_radius")
+        #     ):
+        #         circle = Circle(
+        #             (row["circle_center_x"], row["circle_center_z"]),
+        #             row["circle_radius"],
+        #             edgecolor="red",
+        #             facecolor="none",
+        #             linewidth=2,
+        #             linestyle="--",
+        #         )
+        #         ax.add_patch(circle)
+
+        #         analysis_type = row["analysis_type"]
+        #         plotted_circles[analysis_type] = row["circle_radius"]
+
+        # --------------------
+        # GLIJCIRKELS (alleen middelpunt)
+        # --------------------
         plotted_circles = {}
 
         for _, row in df_stage_calculations.iterrows():
             if pd.notna(row.get("circle_center_x")) and pd.notna(
-                row.get("circle_radius")
+                row.get("circle_center_z")
             ):
-                circle = Circle(
-                    (row["circle_center_x"], row["circle_center_z"]),
-                    row["circle_radius"],
-                    edgecolor="red",
-                    facecolor="none",
-                    linewidth=2,
-                    linestyle="--",
+                ax.plot(
+                    row["circle_center_x"],
+                    row["circle_center_z"],
+                    marker="o",
+                    color="red",
+                    markersize=6,
                 )
-                ax.add_patch(circle)
 
                 analysis_type = row["analysis_type"]
-                plotted_circles[analysis_type] = row["circle_radius"]
+                plotted_circles[analysis_type] = (
+                    row["circle_center_x"],
+                    row["circle_center_z"],
+                )
 
         # --------------------
         # LEGENDS
@@ -334,7 +357,7 @@ class StageMerger(ToolboxBase):
                 plotted_lines.keys(),
                 title="Water lines",
                 loc="upper right",
-                bbox_to_anchor=(1.0, 0.65),
+                bbox_to_anchor=(1.0, 0.5),
             )
             ax.add_artist(water_legend)
 
@@ -342,18 +365,21 @@ class StageMerger(ToolboxBase):
         circle_legend = None
         if plotted_circles:
             circle_handles = [
-                plt.Line2D([0], [0], color="red", lw=2, linestyle="--")
+                # plt.Line2D([0], [0], color="red", lw=2, linestyle="--") # voor hele cirkel
+                plt.Line2D(
+                    [0], [0], marker="o", color="red", linestyle="None"
+                )  # voor alleen middelpunt
                 for _ in plotted_circles
             ]
             circle_labels = [
-                f"{atype} – R={radius:.2f}" for atype, radius in plotted_circles.items()
+                f"{atype} middelpunten" for atype, (x, z) in plotted_circles.items()
             ]
             circle_legend = ax.legend(
                 circle_handles,
                 circle_labels,
                 title="Slip Circles",
                 loc="upper right",
-                bbox_to_anchor=(1.0, 0.35),
+                bbox_to_anchor=(1.0, 0.15),
             )
             ax.add_artist(circle_legend)
 
