@@ -23,6 +23,8 @@ class UpdateDamLive(ToolboxBase):
         Dataframe met scenariokansen per deeltraject (segment)
     df_in_calculation_settings: Optional[pd.DataFrame] | None
         Dataframe met instellingen voor Dam Live berekeningen
+    df_out: Optional[pd.DataFrame] | None
+        Dataframe met resultaten van Dam Live berekeningen
     schema_loads: ClassVar[dict[str, str]]
         Schema voor inladen belastingen
     schema_calculation_settings: ClassVar[dict[str, str]]
@@ -37,6 +39,7 @@ class UpdateDamLive(ToolboxBase):
 
     df_in_loads: Optional[pd.DataFrame] | None = None
     df_in_calculation_settings: Optional[pd.DataFrame] | None = None
+    df_out: Optional[pd.DataFrame] | None = None
 
     schema_loads: ClassVar[dict[str, str]] = {
         "date_time": ["datetime64[ns, UTC]", "datetime64[ns]"],

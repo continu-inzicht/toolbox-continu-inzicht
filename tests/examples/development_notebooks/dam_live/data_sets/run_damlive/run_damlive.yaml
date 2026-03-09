@@ -13,13 +13,14 @@ DataAdapter:
     waterstanden_xml_uur:
         type: xml_timeseries
         path: "waterstanden_fews_hourly.xml"
-    parameters_csv:
+    parameters_bishop_csv:
         type: csv
         index: True
-        path: "parameters.csv"
+        path: "parameters_bishop.csv"
+    parameters_uplift_csv:
+        type: csv
+        index: True
+        path: "parameters_uplift.csv"
     output_file:
         type: csv
         path: test.csv
-    test_live.OutputTimeSeries:
-        type: xml_timeseries
-        path: live.OutputTimeSeries.xml
