@@ -63,10 +63,20 @@ class UpdateDamLive(ToolboxBase):
         """
 
         # inladen van scenariokansen per deeltraject (segment)
-        self.df_in_loads = self.data_adapter.input(
+        df_in = self.data_adapter.input(
             input=input[0],
             schema=self.schema_loads,
         )
+        # DAMLIVE is gevoelig voor dubbele datums per locatie,
+        # Bij de loads to moments functie kan dit echter wel gebeuren
+        # daarom worden deze hier verwijderd. Er wordt per locatie gefilterd op unieke datums.
+        lst_df_locations: list[pd.DataFrame] = []
+        for loc in df_in["measurement_location_code"].unique():
+            subset = df_in[df_in["measurement_location_code"] == loc].copy()
+            subset.drop_duplicates(subset=["date_time"])
+            lst_df_locations.append(subset)
+
+        self.df_in_loads = pd.concat(lst_df_locations)
 
         self.df_in_calculation_settings = self.data_adapter.input(
             input=input[1],

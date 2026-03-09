@@ -185,8 +185,5 @@
         <event date="2024-11-07" time="05:00:00" value="-0.468" flag="0"/>
         <event date="2024-11-07" time="06:00:00" value="-0.466" flag="0"/>
         <event date="2024-11-07" time="07:00:00" value="-0.484" flag="0"/>
-        <event date="2024-11-07" time="07:00:00" value="-0.484" flag="0"/>
-        <event date="2024-11-07" time="07:00:00" value="-0.484" flag="0"/>
-        <event date="2024-11-07" time="07:00:00" value="-0.484" flag="0"/>
     </series>
 </TimeSeries>
