@@ -1,0 +1,23 @@
+GlobalVariables:
+    rootdir: "data_sets/102.quick_start_guide"
+    SectionsLoads:
+        MISSING_VALUE: -9999
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    dijkvak_namen:
+        type: csv
+        path: "dijkvak_namen.csv"
+    momenten_waterstanden:
+        type: csv
+        sep: ";"
+        path: "momenten_waterstanden.csv"
+    koppeling_dijkvak_belastinglocatie:
+        type: csv
+        path: "koppeling_dijkvak_belastinglocatie.csv"
+    waterstanden_per_dijkvak:
+        type: csv
+        index: false
+        path: "hidden_waterstanden_per_dijkvak.csv"
