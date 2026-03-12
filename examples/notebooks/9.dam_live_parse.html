@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>WMS laag toevoegen aan database voor viewer – Toolbox Continu Inzicht</title>
+<title>Dam Live – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/101.WMS_laag_naar_database.html">WMS laag toevoegen aan database voor viewer</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/9.dam_live_parse.html">Dam Live</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -240,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/9.dam_live_parse.html" class="sidebar-item-text sidebar-link">
+  <a href="../../examples/notebooks/9.dam_live_parse.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Dam Live</span></a>
   </div>
 </li>
@@ -252,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/101.WMS_laag_naar_database.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../examples/notebooks/101.WMS_laag_naar_database.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WMS laag toevoegen aan database voor viewer</span></a>
   </div>
 </li>
@@ -273,15 +273,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-Inladenjson" id="toc-sec-Inladenjson" class="nav-link active" data-scroll-target="#sec-Inladenjson">Parsen .json-bestanden</a></li>
+  <li><a href="#sec-stagemerger" id="toc-sec-stagemerger" class="nav-link" data-scroll-target="#sec-stagemerger">StageMerger</a></li>
+  <li><a href="#sec-plotstage" id="toc-sec-plotstage" class="nav-link" data-scroll-target="#sec-plotstage">Plot stage</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">WMS laag toevoegen aan database voor viewer</h1>
+<h1 class="title">Dam Live</h1>
 </div>
 
 
@@ -298,20 +306,87 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.config <span class="im">import</span> Config</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> DataAdapter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In de toolbox Continu Inzicht wordt DAMlive gebruikt voor het realtime uitvoeren van dijksterkteanalyses. Met DAMlive kunnen voor verschillende scenario’s, op basis van hydraulische belastingen, ondergrondgegevens en de laagopbouw van de dijk, glijcirkels en veiligheidsfactoren worden berekend met behulp van diverse rekenmethodes.</p>
+<p>De informatie en output van deze berekeningen worden door DAMlive weggeschreven in een <code>.stix</code>-bestand. Dit is een zip-bestand waarin verschillende <code>.json</code>-bestanden zijn opgeslagen.</p>
+<p>Om de informatie en resultaten weer te geven in Continu Inzicht worden de <code>.json</code>-bestanden eerst ingelezen en omgezet naar dataframes (<a href="#sec-Inladenjson">parsen .json bestanden</a>). Vervolgens worden de dataframes samengevoegd met <a href="#sec-stagemerger">StageMerger</a>, waarna de resultaten uiteindelijk worden geplot (<a href="#sec-plotstages">Plot stages</a>).</p>
+<div id="2" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initialiseer de (toolbox continu inzicht) modules</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.config <span class="im">import</span> Config</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> DataAdapter</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.dam_live.merge_stage <span class="im">import</span> CombineDamLiveResults</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-2" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"5.inspectieresultaten"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"example_inspection.yaml"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>De configuratie ziet er als volgt uit:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> data_sets/9.dam_live_parse/WV2030_PU0013_87074-1</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">scenario</span><span class="kw">:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> stages</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> scenarios</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">geometries</span><span class="kw">:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> geometries</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> geometries</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soillayers</span><span class="kw">:</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> soillayers</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> soillayers</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soils</span><span class="kw">:</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> soils</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> soils.json</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">waternets</span><span class="kw">:</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> waternets</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> waternets</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">calculationsettings</span><span class="kw">:</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> calculationsettings</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> calculationsettings</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">merge_soil</span><span class="kw">:</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> merged_soil.csv</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">merge_waternet</span><span class="kw">:</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> merged_waternet.csv</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">merge_calculations</span><span class="kw">:</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> merged_calculations.csv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>config_path <span class="op">=</span> (</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"9.dam_live_parse"</span> <span class="op">/</span> <span class="st">"dam_live_parse_config.yaml"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>config_path)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>adapter <span class="op">=</span> DataAdapter(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-3" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"inspections_results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="sec-Inladenjson" class="level2">
+<h2 class="anchored" data-anchor-id="sec-Inladenjson">Parsen .json-bestanden</h2>
+<p>Hier worden de verschillende typen <code>.json</code>-bestanden ingeladen en omgezet naar een <strong>dataframe</strong> met behulp van een parser. Wanneer er meerdere <code>.json</code>-bestanden aanwezig zijn voor een bepaalde outputcategorie, worden deze samengevoegd in één dataframe.</p>
+<p>In het <code>.stix</code>-bestand zijn zes typen bestanden te onderscheiden:</p>
+<ul>
+<li><strong>Scenario</strong>: Bevat de stage-ID’s van de uitgevoerde berekeningen. Aan de stage-ID’s zijn geometrie, laagopbouw, waterlijnen en berekeningsresultaten gekoppeld via ID’s, die later gebruikt worden voor het mergen.<br>
+</li>
+<li><strong>Geometries</strong>: Hier worden de verschillende lagen van de dijk gedefinieerd met lijnen.<br>
+</li>
+<li><strong>Soillayers</strong>: Koppelt de lagen aan een specifieke grondsoort.<br>
+</li>
+<li><strong>Soils</strong>: Bevat de eigenschappen van alle grondsoorten.<br>
+</li>
+<li><strong>Waternets</strong>: Hier worden de waterlijnen gedefinieerd met punten.<br>
+</li>
+<li><strong>CalculationSettings</strong>: Bevat het berekeningstype en het middelpunt en de radius van de berekende glijcirkels.</li>
+</ul>
+<div id="6" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_stages <span class="op">=</span> adapter.<span class="bu">input</span>(<span class="st">"scenario"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df_stages</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
@@ -320,60 +395,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">location_id</th>
-<th data-quarto-table-cell-role="th">prioriteit</th>
-<th data-quarto-table-cell-role="th">x</th>
-<th data-quarto-table-cell-role="th">y</th>
-<th data-quarto-table-cell-role="th">opmerking</th>
-<th data-quarto-table-cell-role="th">datum</th>
-<th data-quarto-table-cell-role="th">tijd</th>
-<th data-quarto-table-cell-role="th">waterschap</th>
+<th data-quarto-table-cell-role="th">stage_id</th>
+<th data-quarto-table-cell-role="th">stage_label</th>
+<th data-quarto-table-cell-role="th">scenario_id</th>
+<th data-quarto-table-cell-role="th">scenario_label</th>
+<th data-quarto-table-cell-role="th">geometry_id</th>
+<th data-quarto-table-cell-role="th">decorations_id</th>
+<th data-quarto-table-cell-role="th">soillayers_id</th>
+<th data-quarto-table-cell-role="th">waternet_id</th>
+<th data-quarto-table-cell-role="th">waternet_creator_settings_id</th>
+<th data-quarto-table-cell-role="th">state_id</th>
+<th data-quarto-table-cell-role="th">state_correlations_id</th>
+<th data-quarto-table-cell-role="th">loads_id</th>
+<th data-quarto-table-cell-role="th">reinforcements_id</th>
+<th data-quarto-table-cell-role="th">calculationsettings_id</th>
+<th data-quarto-table-cell-role="th">calculation_id</th>
+<th data-quarto-table-cell-role="th">content_version</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0</td>
-<td>0</td>
-<td>5.533930</td>
-<td>52.596911</td>
-<td>foutje</td>
-<td>2-4-2025</td>
-<td>09:08</td>
-<td>Zuiderzeeland</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>1</td>
-<td>1</td>
-<td>5.451603</td>
-<td>52.540697</td>
-<td>scheurvorming</td>
-<td>28-3-2025</td>
-<td>15:48</td>
-<td>Zuiderzeeland</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<td>43</td>
+<td>Stage1</td>
+<td>42</td>
+<td>Scenario1</td>
+<td>13</td>
+<td>None</td>
+<td>30</td>
+<td>31</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>41</td>
+<td>None</td>
+<td>12</td>
+<td>44</td>
 <td>2</td>
-<td>3</td>
-<td>5.407599</td>
-<td>52.497642</td>
-<td>opschot</td>
-<td>28-3-2025</td>
-<td>15:50</td>
-<td>Zuiderzeeland</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>3</td>
-<td>11</td>
-<td>5.616243</td>
-<td>52.602794</td>
-<td>beginnende scheurvorming</td>
-<td>31-3-2025</td>
-<td>09:02</td>
-<td>Zuiderzeeland</td>
 </tr>
 </tbody>
 </table>
@@ -381,19 +439,136 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We willen de volgende data toevoegen aan de viewer:</p>
-<div id="cell-5" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://basisinformatie-overstromingen.nl/geoserver/LIWO_Basis/infrastructuur_dijkringen/ows?SERVICE=WMS&amp;"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>legend_url <span class="op">=</span> <span class="st">"https://geodata.basisinformatie-overstromingen.nl/geoserver/LIWO_Basis/infrastructuur_dijkringen/ows?service=WMS&amp;version=1.3.0&amp;request=GetLegendGraphic&amp;format=image/png&amp;width=20&amp;height=20&amp;layer=infrastructuur_dijkringen&amp;"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>layer_wms_layer <span class="op">=</span> <span class="st">"infrastructuur_dijkringen"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>layer_wms_style <span class="op">=</span> <span class="st">"LIWO_Basis_Dijkringen"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_geometries <span class="op">=</span> adapter.<span class="bu">input</span>(<span class="st">"geometries"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_geometries.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">geometry_id</th>
+<th data-quarto-table-cell-role="th">layer_id</th>
+<th data-quarto-table-cell-role="th">layer_label</th>
+<th data-quarto-table-cell-role="th">points</th>
+<th data-quarto-table-cell-role="th">content_version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>13</td>
+<td>14</td>
+<td>Surface 14</td>
+<td>[{'X': 0.0, 'Z': -3.17}, {'X': 0.28, 'Z': -3.1...</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>13</td>
+<td>15</td>
+<td>Surface 15</td>
+<td>[{'X': 15.88, 'Z': -1.16}, {'X': 16.27, 'Z': -...</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>13</td>
+<td>16</td>
+<td>Surface 16</td>
+<td>[{'X': 31.75, 'Z': -0.86}, {'X': 31.94, 'Z': -...</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>13</td>
+<td>17</td>
+<td>Surface 17</td>
+<td>[{'X': 36.800000000000004, 'Z': -2.21}, {'X': ...</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>13</td>
+<td>18</td>
+<td>Surface 18</td>
+<td>[{'X': 43.02, 'Z': -3.98}, {'X': 43.67, 'Z': -...</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<p>Het layers bestand bevat de standaard opties</p>
-<div id="cell-7" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_layers <span class="op">=</span> data_adapter.<span class="bu">input</span>(<span class="st">"layers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_layers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_soillayers <span class="op">=</span> adapter.<span class="bu">input</span>(<span class="st">"soillayers"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df_soillayers.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">soillayers_id</th>
+<th data-quarto-table-cell-role="th">layer_id</th>
+<th data-quarto-table-cell-role="th">soil_id</th>
+<th data-quarto-table-cell-role="th">content_version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>30</td>
+<td>14</td>
+<td>5</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>30</td>
+<td>15</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>30</td>
+<td>16</td>
+<td>7</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>30</td>
+<td>17</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>30</td>
+<td>18</td>
+<td>6</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="9" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_soils <span class="op">=</span> adapter.<span class="bu">input</span>(<span class="st">"soils"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df_soils.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
@@ -402,61 +577,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">group_name</th>
-<th data-quarto-table-cell-role="th">layer_name</th>
-<th data-quarto-table-cell-role="th">layer_visible</th>
-<th data-quarto-table-cell-role="th">layer_type</th>
-<th data-quarto-table-cell-role="th">layer_table</th>
-<th data-quarto-table-cell-role="th">layer_wms_url</th>
-<th data-quarto-table-cell-role="th">layer_wms_layer</th>
-<th data-quarto-table-cell-role="th">layer_wms_style</th>
-<th data-quarto-table-cell-role="th">layer_wms_legend_url</th>
-<th data-quarto-table-cell-role="th">layer_data</th>
-<th data-quarto-table-cell-role="th">layer_legend</th>
+<th data-quarto-table-cell-role="th">soil_id</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">code</th>
+<th data-quarto-table-cell-role="th">color</th>
+<th data-quarto-table-cell-role="th">volumetric_weight_above_phreatic_level</th>
+<th data-quarto-table-cell-role="th">volumetric_weight_below_phreatic_level</th>
+<th data-quarto-table-cell-role="th">shear_strength_model_type_above_phreatic_level</th>
+<th data-quarto-table-cell-role="th">shear_strength_model_type_below_phreatic_level</th>
+<th data-quarto-table-cell-role="th">mohr_coulomb_advanced_cohesion</th>
+<th data-quarto-table-cell-role="th">mohr_coulomb_advanced_friction_angle</th>
+<th data-quarto-table-cell-role="th">su_shear_strength_ratio</th>
+<th data-quarto-table-cell-role="th">su_strength_increase_exponent</th>
+<th data-quarto-table-cell-role="th">content_version</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>Extra Kaartlagen</td>
-<td>Geojson met data</td>
-<td>True</td>
-<td>geojson</td>
+<td>0</td>
+<td>V_Basisveen</td>
+<td>V_Basisveen-0</td>
+<td>gray</td>
+<td>11.5</td>
+<td>11.5</td>
+<td>MohrCoulombAdvanced</td>
+<td>MohrCoulombAdvanced</td>
+<td>0.0</td>
+<td>26.1</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
+<td>2</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>Extra Kaartlagen</td>
-<td>WMS test</td>
-<td>True</td>
-<td>wms</td>
+<td>1</td>
+<td>Z_Boxtel</td>
+<td>Z_Boxtel-1</td>
+<td>gray</td>
+<td>20.0</td>
+<td>18.0</td>
+<td>MohrCoulombAdvanced</td>
+<td>MohrCoulombAdvanced</td>
+<td>0.0</td>
+<td>28.2</td>
 <td>NaN</td>
-<td>https://geo.hkvservices.nl/geoserver/wms</td>
-<td>Waterdiepte</td>
-<td>liwo_waterdiepte_band1</td>
 <td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
+<td>2</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>Extra Kaartlagen</td>
-<td>table test</td>
-<td>True</td>
-<td>table</td>
-<td>areas</td>
+<td>2</td>
+<td>K_Wormer_zandig</td>
+<td>K_Wormer_zandig-2</td>
+<td>gray</td>
+<td>17.5</td>
+<td>17.5</td>
+<td>SigmaTauTable</td>
+<td>SigmaTauTable</td>
+<td>0.0</td>
+<td>29.0</td>
 <td>NaN</td>
 <td>NaN</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>3</td>
+<td>Z_Wormer_kleiig</td>
+<td>Z_Wormer_kleiig-3</td>
+<td>gray</td>
+<td>18.8</td>
+<td>17.0</td>
+<td>MohrCoulombAdvanced</td>
+<td>MohrCoulombAdvanced</td>
+<td>0.0</td>
+<td>29.9</td>
 <td>NaN</td>
 <td>NaN</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>4</td>
+<td>K_Antropogeen</td>
+<td>K_Antropogeen-4</td>
+<td>gray</td>
+<td>16.2</td>
+<td>16.2</td>
+<td>SigmaTauTable</td>
+<td>SigmaTauTable</td>
+<td>0.0</td>
+<td>26.0</td>
 <td>NaN</td>
 <td>NaN</td>
+<td>2</td>
 </tr>
 </tbody>
 </table>
@@ -464,18 +679,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We vullen alleen de eerste kolom met de dijkringen informatie</p>
-<div id="cell-10" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_wms_laag <span class="op">=</span> df_layers.iloc[[<span class="dv">1</span>]].copy()</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df_wms_laag.reset_index(drop<span class="op">=</span><span class="va">True</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"group_name"</span>] <span class="op">=</span> <span class="st">"Dijkringen Nederland"</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_url"</span>] <span class="op">=</span> url</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_layer"</span>] <span class="op">=</span> layer_wms_layer</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_style"</span>] <span class="op">=</span> layer_wms_style</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df_wms_laag[<span class="st">"layer_wms_legend_url"</span>] <span class="op">=</span> df_wms_laag[<span class="st">"layer_legend"</span>].astype(<span class="bu">str</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_legend_url"</span>] <span class="op">=</span> legend_url</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>df_wms_laag <span class="op">=</span> df_wms_laag.fillna(<span class="st">""</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>df_wms_laag</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="10" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_waternets <span class="op">=</span> adapter.<span class="bu">input</span>(<span class="st">"waternets"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df_waternets.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
@@ -484,33 +691,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">group_name</th>
-<th data-quarto-table-cell-role="th">layer_name</th>
-<th data-quarto-table-cell-role="th">layer_visible</th>
-<th data-quarto-table-cell-role="th">layer_type</th>
-<th data-quarto-table-cell-role="th">layer_table</th>
-<th data-quarto-table-cell-role="th">layer_wms_url</th>
-<th data-quarto-table-cell-role="th">layer_wms_layer</th>
-<th data-quarto-table-cell-role="th">layer_wms_style</th>
-<th data-quarto-table-cell-role="th">layer_wms_legend_url</th>
-<th data-quarto-table-cell-role="th">layer_data</th>
-<th data-quarto-table-cell-role="th">layer_legend</th>
+<th data-quarto-table-cell-role="th">waternet_id</th>
+<th data-quarto-table-cell-role="th">line_type</th>
+<th data-quarto-table-cell-role="th">line_id</th>
+<th data-quarto-table-cell-role="th">line_label</th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">z</th>
+<th data-quarto-table-cell-role="th">top_headline_id</th>
+<th data-quarto-table-cell-role="th">bottom_headline_id</th>
+<th data-quarto-table-cell-role="th">content_version</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>Dijkringen Nederland</td>
-<td>WMS test</td>
-<td>True</td>
-<td>wms</td>
-<td></td>
-<td>https://basisinformatie-overstromingen.nl/geos...</td>
-<td>infrastructuur_dijkringen</td>
-<td>LIWO_Basis_Dijkringen</td>
-<td>https://geodata.basisinformatie-overstromingen...</td>
-<td></td>
-<td></td>
+<td>31</td>
+<td>Head</td>
+<td>32</td>
+<td>Phreatic line (PL 1)</td>
+<td>0.000000</td>
+<td>-0.20</td>
+<td>None</td>
+<td>None</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>31</td>
+<td>Head</td>
+<td>32</td>
+<td>Phreatic line (PL 1)</td>
+<td>18.498947</td>
+<td>-0.20</td>
+<td>None</td>
+<td>None</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>31</td>
+<td>Head</td>
+<td>32</td>
+<td>Phreatic line (PL 1)</td>
+<td>22.370000</td>
+<td>-0.20</td>
+<td>None</td>
+<td>None</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>31</td>
+<td>Head</td>
+<td>32</td>
+<td>Phreatic line (PL 1)</td>
+<td>26.950000</td>
+<td>-0.66</td>
+<td>None</td>
+<td>None</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>31</td>
+<td>Head</td>
+<td>32</td>
+<td>Phreatic line (PL 1)</td>
+<td>33.930000</td>
+<td>-1.94</td>
+<td>None</td>
+<td>None</td>
+<td>2</td>
 </tr>
 </tbody>
 </table>
@@ -518,13 +769,107 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p><em>Omdat database interactie op GitHub niet mogelijk wordt de onderstaande cell niet uitgevoerd, lokaal kan dit uiteraard wel</em></p>
-<p>En vervolgens kunnen we deze naar de database zetten</p>
-<div id="cell-12" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data_adapter.output("to_ci_database", df_wms_laag)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="11" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_calculationsettings <span class="op">=</span> adapter.<span class="bu">input</span>(<span class="st">"calculationsettings"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df_calculationsettings.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">calculationsettings_id</th>
+<th data-quarto-table-cell-role="th">analysis_type</th>
+<th data-quarto-table-cell-role="th">calculation_type</th>
+<th data-quarto-table-cell-role="th">model_factor_mean</th>
+<th data-quarto-table-cell-role="th">model_factor_std</th>
+<th data-quarto-table-cell-role="th">circle_center_x</th>
+<th data-quarto-table-cell-role="th">circle_center_z</th>
+<th data-quarto-table-cell-role="th">circle_radius</th>
+<th data-quarto-table-cell-role="th">content_version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>12</td>
+<td>UpliftVan</td>
+<td>Deterministic</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>43.45548</td>
+<td>2.614191</td>
+<td>8.644962</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>12</td>
+<td>UpliftVan</td>
+<td>Deterministic</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>44.19082</td>
+<td>-3.099719</td>
+<td>8.644962</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="sec-stagemerger" class="level2">
+<h2 class="anchored" data-anchor-id="sec-stagemerger">StageMerger</h2>
+<p>Vervolgens worden de tabellen aan elkaar gekoppeld. Hierdoor ontstaan tabellen waarin de <strong>stage-ID</strong> wordt gekoppeld aan de informatie uit de <strong>Geometries</strong>, <strong>Soils</strong>, <strong>SoilLayers</strong>, <strong>WaterNets</strong> en <strong>CalculationSettings</strong> tabellen.</p>
+<p>Er worden drie gekoppelde tabellen gemaakt:</p>
+<ul>
+<li><strong>Soil</strong>: Koppelt de geometrie, laagopbouw en grondtypes aan de stage-ID.<br>
+</li>
+<li><strong>WaterNet</strong>: Koppelt de locaties en typen van de waterlijnen aan de stage-ID.<br>
+</li>
+<li><strong>Calculations</strong>: Koppelt het middelpunt en de radius van de resulterende glijcirkels aan de stage-ID.</li>
+</ul>
+<div id="13" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>merge_df <span class="op">=</span> CombineDamLiveResults(data_adapter<span class="op">=</span>adapter)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>merge_df.run(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"scenario"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"geometries"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"soils"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"soillayers"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"waternets"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"calculationsettings"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>[<span class="st">"merge_soil"</span>, <span class="st">"merge_waternet"</span>, <span class="st">"merge_calculations"</span>],</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sec-plotstage" class="level2">
+<h2 class="anchored" data-anchor-id="sec-plotstage">Plot stage</h2>
+<p>Op basis van een opgegeven stage ID en de gekoppelde tabellen, kunnen de dijkopbouw, waterlijnen en resulterende glijcirkels vervolgens geplot worden</p>
+<div id="15" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>merge_df.plot_stage(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    stage_id<span class="op">=</span><span class="dv">43</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    xlim<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">60</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    ylim<span class="op">=</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">6</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="9.dam_live_parse_files/figure-html/cell-11-output-1.png" width="1429" height="546" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

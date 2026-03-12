@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="toolbox_continu_inzicht.DataAdapter.init_logging" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.DataAdapter.init_logging">init_logging</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DataAdapter.init_logging()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DataAdapter.init_logging(re_initialize<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Initialiseer de logger met de configuratie.</p>
 <p>Voor logging zijn de volgende instellingen mogelijk: - name: naam van de logger - level: logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL) - mode: schrijfwijze van de logfile (w, a) - file: bestands naam om naar weg te schrijven logfile - history_file: logfile voor de history</p>
 <p>Als file en history_file geen absolute path zijn, dan worden ze in de rootdir van de configuratie opgeslagen. In het geval dat <code>file</code> opgegeven is, maar geen valide pad is, dan wordt er een logfile <code>hidden_logfile.log</code> aangemaakt in de rootdir.</p>
