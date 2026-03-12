@@ -1,0 +1,26 @@
+GlobalVariables:
+    rootdir: "data_sets/run_damlive"
+    moments: [ 0, 24 ]
+    calc_time: "2024-11-06 08:00:00"
+    UpdateDamLive:
+        DAMLIVE_FILE: 'WV2030_Purmer.damx'
+        delete_output_folder: False
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    waterstanden_xml_uur:
+        type: xml_timeseries
+        path: "waterstanden_fews_hourly.xml"
+    parameters_bishop_csv:
+        type: csv
+        index: True
+        path: "parameters_bishop.csv"
+    parameters_uplift_csv:
+        type: csv
+        index: True
+        path: "parameters_uplift.csv"
+    output_file:
+        type: csv
+        path: test.csv

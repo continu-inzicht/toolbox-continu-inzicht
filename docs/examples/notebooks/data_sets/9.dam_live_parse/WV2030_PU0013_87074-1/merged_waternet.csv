@@ -1,0 +1,47 @@
+,stage_id,stage_label,scenario_id,scenario_label,waternet_id,line_type,line_id,line_label,x,z,top_headline_id,bottom_headline_id,content_version,color
+0,43,Stage1,42,Scenario1,31,Head,32,Phreatic line (PL 1),0.0,-0.2,,,2,#ff1493
+1,43,Stage1,42,Scenario1,31,Head,32,Phreatic line (PL 1),18.498947368421053,-0.2,,,2,#ff1493
+2,43,Stage1,42,Scenario1,31,Head,32,Phreatic line (PL 1),22.37,-0.2,,,2,#ff1493
+3,43,Stage1,42,Scenario1,31,Head,32,Phreatic line (PL 1),26.95,-0.66,,,2,#ff1493
+4,43,Stage1,42,Scenario1,31,Head,32,Phreatic line (PL 1),33.93,-1.9400000000000002,,,2,#ff1493
+5,43,Stage1,42,Scenario1,31,Head,32,Phreatic line (PL 1),44.71,-4.55,,,2,#ff1493
+6,43,Stage1,42,Scenario1,31,Head,32,Phreatic line (PL 1),45.22111111111111,-4.65,,,2,#ff1493
+7,43,Stage1,42,Scenario1,31,Head,32,Phreatic line (PL 1),46.89,-4.65,,,2,#ff1493
+8,43,Stage1,42,Scenario1,31,Head,32,Phreatic line (PL 1),65.0,-4.65,,,2,#ff1493
+9,43,Stage1,42,Scenario1,31,Head,33,Head line 3 (PL 3),0.0,-3.6,,,2,#ff8c00
+10,43,Stage1,42,Scenario1,31,Head,33,Head line 3 (PL 3),65.0,-3.6,,,2,#ff8c00
+11,43,Stage1,42,Scenario1,31,Head,34,Head line 4 (PL 4),0.0,-2.9,,,2,#cccccc
+12,43,Stage1,42,Scenario1,31,Head,34,Head line 4 (PL 4),65.0,-2.9,,,2,#cccccc
+13,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,0.0,-4.1,32,,2,#00bfff
+14,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,22.5,-4.1,32,,2,#00bfff
+15,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,27.0,-3.3000000000000003,32,,2,#00bfff
+16,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,34.0,-3.2,32,,2,#00bfff
+17,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,37.9,-3.2,32,,2,#00bfff
+18,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,38.95,-3.67,32,,2,#00bfff
+19,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,39.550000000000004,-4.12,32,,2,#00bfff
+20,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,39.9,-4.36,32,,2,#00bfff
+21,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,40.12,-4.38,32,,2,#00bfff
+22,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,40.300000000000004,-4.5600000000000005,32,,2,#00bfff
+23,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,40.480000000000004,-4.95,32,,2,#00bfff
+24,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,40.51,-5.09,32,,2,#00bfff
+25,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,40.72,-5.3500000000000005,32,,2,#00bfff
+26,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,40.86,-5.36,32,,2,#00bfff
+27,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,41.0,-5.3,32,,2,#00bfff
+28,43,Stage1,42,Scenario1,31,Reference,35,Waternet line phreatic line,65.0,-5.3,32,,2,#00bfff
+29,43,Stage1,42,Scenario1,31,Reference,36,Waternet line lower aquifer,0.0,-15.2,33,,2,#00ff7f
+30,43,Stage1,42,Scenario1,31,Reference,36,Waternet line lower aquifer,22.5,-15.2,33,,2,#00ff7f
+31,43,Stage1,42,Scenario1,31,Reference,36,Waternet line lower aquifer,27.0,-15.1,33,,2,#00ff7f
+32,43,Stage1,42,Scenario1,31,Reference,36,Waternet line lower aquifer,34.0,-15.200000000000001,33,,2,#00ff7f
+33,43,Stage1,42,Scenario1,31,Reference,36,Waternet line lower aquifer,65.0,-15.200000000000001,33,,2,#00ff7f
+34,43,Stage1,42,Scenario1,31,Reference,37,Waternet line in-between aquifer top (1),0.0,-7.4,34,,2,#cccccc
+35,43,Stage1,42,Scenario1,31,Reference,37,Waternet line in-between aquifer top (1),22.5,-7.4,34,,2,#cccccc
+36,43,Stage1,42,Scenario1,31,Reference,37,Waternet line in-between aquifer top (1),34.0,-7.8,34,,2,#cccccc
+37,43,Stage1,42,Scenario1,31,Reference,37,Waternet line in-between aquifer top (1),65.0,-7.8,34,,2,#cccccc
+38,43,Stage1,42,Scenario1,31,Reference,38,Waternet line in-between aquifer top (2),0.0,-9.4,34,,2,#cccccc
+39,43,Stage1,42,Scenario1,31,Reference,38,Waternet line in-between aquifer top (2),65.0,-9.4,34,,2,#cccccc
+40,43,Stage1,42,Scenario1,31,Reference,39,Waternet line in-between aquifer bottom (1),0.0,-8.8,34,,2,#cccccc
+41,43,Stage1,42,Scenario1,31,Reference,39,Waternet line in-between aquifer bottom (1),65.0,-8.8,34,,2,#cccccc
+42,43,Stage1,42,Scenario1,31,Reference,40,Waternet line in-between aquifer bottom (2),0.0,-11.3,34,,2,#cccccc
+43,43,Stage1,42,Scenario1,31,Reference,40,Waternet line in-between aquifer bottom (2),22.5,-11.3,34,,2,#cccccc
+44,43,Stage1,42,Scenario1,31,Reference,40,Waternet line in-between aquifer bottom (2),34.0,-10.9,34,,2,#cccccc
+45,43,Stage1,42,Scenario1,31,Reference,40,Waternet line in-between aquifer bottom (2),65.0,-10.9,34,,2,#cccccc

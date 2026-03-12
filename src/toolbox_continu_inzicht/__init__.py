@@ -1,7 +1,7 @@
 ## Voeg later dynamische setuptools toe
 # import pkg_resources  # part of setuptools
 # __version__ = pkg_resources.get_distribution(toolbox_continu_inzicht).version
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 # Hier alleen base functies
 from toolbox_continu_inzicht.base import config
