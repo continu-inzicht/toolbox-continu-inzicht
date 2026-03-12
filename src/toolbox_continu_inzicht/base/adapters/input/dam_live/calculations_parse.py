@@ -7,6 +7,11 @@ from toolbox_continu_inzicht.base.adapters.input.dam_live.json_folder import (
 
 def input_calculationsettings(input_config: dict) -> pd.DataFrame:
     """
+    Parameters:
+    ----------
+    input_config: dict
+        Configuratie voor het inlezen van de calculationsettings JSON bestanden.
+
     Lees alle calculationsettings JSON bestanden in een folder
     en zet deze om naar een flat table.
 
