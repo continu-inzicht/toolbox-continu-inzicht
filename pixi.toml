@@ -1,6 +1,6 @@
 [workspace]
 name = "toolbox-continu-inzicht"
-version = "0.1.2"
+version = "0.1.3"
 description = "Toolbox voor waterkeringbeheerders om risico's in kaart te brengen."
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64"]
