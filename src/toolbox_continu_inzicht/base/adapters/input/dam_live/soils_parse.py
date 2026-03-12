@@ -4,6 +4,11 @@ import pandas as pd
 
 def input_soils(input_config: dict) -> pd.DataFrame:
     """
+    Parameters:
+    ----------
+    input_config: dict
+        Configuratie voor het inlezen van de calculationsettings JSON bestanden.
+
     Lees een losse soils JSON file via input_config dict.
     """
     file_path = input_config["abs_path"]

@@ -3,7 +3,7 @@ from pathlib import Path
 
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.dam_live.merge_stage import StageMerger
+from toolbox_continu_inzicht.dam_live.merge_stage import CombineDamLiveResults
 
 # ## Inladen van .json bestanden{#sec-Inladenjson}
 #
@@ -20,7 +20,7 @@ def setup_data_adapter():
 
 def test_dam_live_parse():
     data_adapter = setup_data_adapter()
-    merge_df = StageMerger(data_adapter=data_adapter)
+    merge_df = CombineDamLiveResults(data_adapter=data_adapter)
     merge_df.run(
         input=[
             "scenario",

@@ -8,7 +8,7 @@ from matplotlib.patches import Polygon
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
-class StageMerger(ToolboxBase):
+class CombineDamLiveResults(ToolboxBase):
     data_adapter: DataAdapter
 
     df_in: Optional[pd.DataFrame] | None = None
