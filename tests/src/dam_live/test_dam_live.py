@@ -3,7 +3,7 @@ from pathlib import Path
 
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.dam_live.merge_stage import CombineDamLiveResults
+from toolbox_continu_inzicht.dam_live.combine_results import CombineDamLiveResults
 
 # ## Inladen van .json bestanden{#sec-Inladenjson}
 #
