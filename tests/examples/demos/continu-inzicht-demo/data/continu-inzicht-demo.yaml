@@ -2,7 +2,7 @@ GlobalVariables:
     rootdir: "data"
     calc_time: "2024-11-19"
     moments: [-24,0,24,48]
-    aquo_alias:
+    aquo_allias:
         WATHTE [m][NAP][OW]: "WATHTE"
 
     LoadsWaterinfo:
@@ -13,6 +13,9 @@ GlobalVariables:
         website: "vitaal"
         model: "fews_rmm_km"
         parameters: ["WATHTE"]
+
+    LoadCachedFragilityCurve:
+        default_measure_id: 0
 
     LoadsFews:
         host: "https://fews.hhnk.nl"
@@ -26,7 +29,8 @@ GlobalVariables:
         addmaxmoment: false
 
     LoadsFewsLimburg:
-        host: "http://109.232.44.231"
+        host_: "http://109.232.44.231"
+        host: "http://fews_limburg"
         port: 443
         region: "fewspiservice"
         version: "1.25"
@@ -283,3 +287,24 @@ DataAdapter:
         type: ci_postgresql_calc_status
         database: "continuinzicht"
         schema: "continuinzicht_demo_realtime"
+
+    in_fragility_curves_loadcachedfragilitycurvemultiple:
+        type: ci_postgresql_fragility_curve_multi_section_multi_failure
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    in_measures_effect_loadcachedfragilitycurvemultiple:
+        type: ci_postgresql_measures_to_effect
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    in_section_measure_loadcachedfragilitycurvemultiple:
+        type: ci_postgresql_section_id_to_measure_id
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    out_fragility_curve_loadcachedfragilitycurvemultiple:
+        type: ci_postgresql_fragilitycurves_table
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+        table: "fragilitycurves"

@@ -15,6 +15,7 @@ alias_dict = {
     "stroming": "STROOMSHD",
     "waterafvoer": "Q",
     "zouten": "SALNTT",
+    "WATHTE [m][NAP][OW]": "WATHTE",
 }
 
 
