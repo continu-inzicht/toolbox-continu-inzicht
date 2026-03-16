@@ -7,7 +7,7 @@
         <PipingWti>0</PipingWti>
     </CalculationModules>
     <StabilityParameters>
-        <CalculationModel>Bishop</CalculationModel>
-        <SearchMethod>Grid</SearchMethod>
+        <CalculationModel>BishopUpliftVan</CalculationModel>
+        <SearchMethod>BeeSwarm</SearchMethod>
     </StabilityParameters>
 </XmlCalculationParameters>

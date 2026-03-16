@@ -160,9 +160,15 @@ class UpdateDamLive(ToolboxBase):
         )
         self.data_adapter.output(output=output, df=self.df_out)
 
-    def unzip_damlive_results(self):
+    def unzip_damlive_results(self) -> None:
         """
         Unzip de resultaten van Dam Live berekeningen.
+
+        Deze gaat er vanuit dat de output naam van DamLive consistent is met:
+
+        Dik(dike)_Loc($LOCATION$)_Stp($STEP$)_Mdl($MODEL$)_$DATETIME$_Pro($PRO$)_result
+
+        Waarbij $LOCATION$ de locatie code is, $STEP$ de tijdstap, $MODEL$ het model en $DATETIME$ het tijdstip van de berekening.
 
         parameters
         ----------
