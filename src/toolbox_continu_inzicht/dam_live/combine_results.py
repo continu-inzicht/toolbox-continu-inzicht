@@ -5,6 +5,9 @@ from typing import Optional
 from toolbox_continu_inzicht.base.base_module import ToolboxBase
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
+import numpy as np
+from shapely.geometry import Polygon as ShapelyPolygon, LineString
+from shapely.ops import unary_union
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -211,6 +214,12 @@ class CombineDamLiveResults(ToolboxBase):
 
         return df_merged
 
+    def _circle_arc(self, cx, cz, r, theta_start, theta_end, n=200):
+        angles = np.linspace(theta_start, theta_end, n)
+        xs = cx + r * np.cos(angles)
+        zs = cz + r * np.sin(angles)
+        return LineString(zip(xs, zs))
+
     def plot_stage(self, stage_id, xlim, ylim):
         """
         Plot de geometrie van een stage inclusief soils,
@@ -240,7 +249,7 @@ class CombineDamLiveResults(ToolboxBase):
         # SOILS
         # --------------------
         plotted_soils = {}
-
+        soil_geoms = []
         for _, row in df_stage_soils.iterrows():
             points = row["points"]
             if not points:
@@ -249,7 +258,7 @@ class CombineDamLiveResults(ToolboxBase):
             polygon_coords = [(p["X"], p["Z"]) for p in points]
             if polygon_coords[0] != polygon_coords[-1]:
                 polygon_coords.append(polygon_coords[0])
-
+            soil_geoms.append(ShapelyPolygon(polygon_coords))
             color = row["color"]
 
             poly = Polygon(
@@ -265,6 +274,7 @@ class CombineDamLiveResults(ToolboxBase):
             if soil_name not in plotted_soils:
                 plotted_soils[soil_name] = color
 
+        soil_union = unary_union(soil_geoms)
         # --------------------
         # WATERLIJNEN
         # --------------------
@@ -285,47 +295,76 @@ class CombineDamLiveResults(ToolboxBase):
         # --------------------
         # GLIJCIRKELS
         # --------------------
-        # plotted_circles = {}
 
-        # for _, row in df_stage_calculations.iterrows():
-        #     if pd.notna(row.get("circle_center_x")) and pd.notna(
-        #         row.get("circle_radius")
-        #     ):
-        #         circle = Circle(
-        #             (row["circle_center_x"], row["circle_center_z"]),
-        #             row["circle_radius"],
-        #             edgecolor="red",
-        #             facecolor="none",
-        #             linewidth=2,
-        #             linestyle="--",
-        #         )
-        #         ax.add_patch(circle)
+        circles = df_stage_calculations.dropna(
+            subset=["circle_center_x", "circle_center_z"]
+        )
 
-        #         analysis_type = row["analysis_type"]
-        #         plotted_circles[analysis_type] = row["circle_radius"]
+        circles = circles.sort_values("circle_center_x")
 
-        # --------------------
-        # GLIJCIRKELS (alleen middelpunt)
-        # --------------------
-        plotted_circles = {}
+        if len(circles) == 1:
+            row = circles.iloc[0]
 
-        for _, row in df_stage_calculations.iterrows():
-            if pd.notna(row.get("circle_center_x")) and pd.notna(
-                row.get("circle_center_z")
-            ):
-                ax.plot(
-                    row["circle_center_x"],
-                    row["circle_center_z"],
-                    marker="o",
-                    color="red",
-                    markersize=6,
-                )
+            cx = row["circle_center_x"]
+            cz = row["circle_center_z"]
+            r = row["circle_radius"]
 
-                analysis_type = row["analysis_type"]
-                plotted_circles[analysis_type] = (
-                    row["circle_center_x"],
-                    row["circle_center_z"],
-                )
+            if pd.notna(r):
+                arc = self._circle_arc(cx, cz, r, -np.pi, 0)
+
+                slip = arc.intersection(soil_union)
+
+                if not slip.is_empty:
+                    if slip.geom_type == "MultiLineString":
+                        for g in slip:
+                            xs, zs = g.xy
+                            ax.plot(xs, zs, color="red", linewidth=2)
+
+                    elif slip.geom_type == "LineString":
+                        xs, zs = slip.xy
+                        ax.plot(xs, zs, color="red", linewidth=2)
+
+        elif len(circles) == 2:
+            row1 = circles.iloc[0]
+            row2 = circles.iloc[1]
+
+            cx1 = row1["circle_center_x"]
+            cz1 = row1["circle_center_z"]
+            r1 = row1["circle_radius"]
+
+            cx2 = row2["circle_center_x"]
+            cz2 = row2["circle_center_z"]
+
+            if pd.notna(r1):
+                # diepste punt cirkel 1
+                z_tangent = cz1 - r1
+
+                # radius cirkel 2
+                r2 = cz2 - z_tangent
+
+                # cirkel 1 (links naar tangent)
+                arc1 = self._circle_arc(cx1, cz1, r1, -np.pi, -np.pi / 2)
+
+                # tangent
+                tangent = LineString([(cx1, z_tangent), (cx2, z_tangent)])
+
+                # cirkel 2 (van tangent omhoog)
+                arc2 = self._circle_arc(cx2, cz2, r2, -np.pi / 2, 0)
+
+                for geom in [arc1, tangent, arc2]:
+                    slip = geom.intersection(soil_union)
+
+                    if slip.is_empty:
+                        continue
+
+                    if slip.geom_type == "MultiLineString":
+                        for g in slip:
+                            xs, zs = g.xy
+                            ax.plot(xs, zs, color="red", linewidth=2)
+
+                    elif slip.geom_type == "LineString":
+                        xs, zs = slip.xy
+                        ax.plot(xs, zs, color="red", linewidth=2)
 
         # --------------------
         # LEGENDS
@@ -361,26 +400,22 @@ class CombineDamLiveResults(ToolboxBase):
             )
             ax.add_artist(water_legend)
 
-        # --- Circle legend ---
+        # --- Slip surface legend ---
         circle_legend = None
-        if plotted_circles:
-            circle_handles = [
-                # plt.Line2D([0], [0], color="red", lw=2, linestyle="--") # voor hele cirkel
-                plt.Line2D(
-                    [0], [0], marker="o", color="red", linestyle="None"
-                )  # voor alleen middelpunt
-                for _ in plotted_circles
-            ]
-            circle_labels = [
-                f"{atype} middelpunten" for atype, (x, z) in plotted_circles.items()
-            ]
+
+        if not circles.empty:
+            circle_handles = [plt.Line2D([0], [0], color="red", lw=2)]
+
+            circle_labels = ["Slip surface"]
+
             circle_legend = ax.legend(
                 circle_handles,
                 circle_labels,
-                title="Slip Circles",
+                title="Slip Surface",
                 loc="upper right",
                 bbox_to_anchor=(1.0, 0.15),
             )
+
             ax.add_artist(circle_legend)
 
         ax.set_xlim(xlim)
@@ -391,4 +426,5 @@ class CombineDamLiveResults(ToolboxBase):
         ax.set_aspect("equal")
         plt.grid(True)
         plt.tight_layout()
+        return fig, ax
         plt.show()
