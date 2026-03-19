@@ -26,6 +26,10 @@ DataAdapter:
     type: calculationsettings
     path: calculationsettings
 
+  colors:
+    type: csv
+    relative_file: data_sets/run_damlive/colors.csv
+
   merge_soil:
     type: csv
     path: merged_soil.csv
