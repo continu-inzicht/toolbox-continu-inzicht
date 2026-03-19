@@ -26,6 +26,10 @@ DataAdapter:
     type: calculationsettings
     path: calculationsettings
 
+  colors:
+    type: csv
+    path: colors.csv
+
   merge_soil:
     type: csv
     path: merged_soil.csv
