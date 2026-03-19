@@ -1,6 +1,4 @@
-import os
 import subprocess
-import sys
 from typing import ClassVar, Optional
 import zipfile
 from pathlib import Path
@@ -92,7 +90,6 @@ class UpdateDamLive(ToolboxBase):
         )
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("UpdateDamLive", {})
-        delete_output_folder = options.get("delete_output_folder", False)
 
         assert "DAMLIVE_FILE" in options, (
             "DAMLIVE_FILE {'.damx'}is not set in global variables"
@@ -128,11 +125,6 @@ class UpdateDamLive(ToolboxBase):
             "DAMLIVE_EXE is not set, ensure that it is set in the .env file"
         )
 
-        damlive_name = ".".join(options["DAMLIVE_FILE"].split(".")[:-1]) + ".Calc"
-
-        if (root_dir / damlive_name).exists():
-            if delete_output_folder:
-                remove_dir(root_dir / damlive_name)
         cmd = [
             damlive_exe,
             "-d",
@@ -200,17 +192,3 @@ class UpdateDamLive(ToolboxBase):
                 lst_unzipped_files.append(output_zip_dir)
 
         self.lst_unzipped_damlive_results = lst_unzipped_files
-
-
-def remove_dir(folder):
-    folder = str(folder)
-    if sys.platform == "win32" and not folder.startswith("\\\\?\\"):
-        folder = "\\\\?\\" + folder
-    for root, dirs, files in os.walk(folder, topdown=False):
-        for name in files:
-            filepath = os.path.join(root, name)
-            os.chmod(filepath, 0o666)
-            os.remove(filepath)
-        for name in dirs:
-            os.rmdir(os.path.join(root, name))
-    os.rmdir(folder)
