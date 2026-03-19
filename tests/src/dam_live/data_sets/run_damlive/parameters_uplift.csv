@@ -1,0 +1,7 @@
+,parameter_names,parameter_values
+0,CalculationModules_StabilityInside,1
+1,CalculationModules_StabilityOutside,0
+2,CalculationModules_PipingBligh,0
+3,CalculationModules_PipingWti,0
+4,StabilityParameters_CalculationModel,BishopUpliftVan
+5,StabilityParameters_SearchMethod,BeeSwarm
