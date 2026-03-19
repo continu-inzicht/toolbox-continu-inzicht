@@ -6,8 +6,9 @@ from toolbox_continu_inzicht.base.base_module import ToolboxBase
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 import numpy as np
-from shapely.geometry import Polygon as ShapelyPolygon, LineString
+from shapely.geometry import Point, Polygon as ShapelyPolygon, LineString
 from shapely.ops import unary_union
+import warnings
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -16,6 +17,8 @@ class CombineDamLiveResults(ToolboxBase):
 
     df_in: Optional[pd.DataFrame] | None = None
     df_out: Optional[pd.DataFrame] | None = None
+    soil_color_map: dict[str, str] = None
+    water_color_map: dict[str, str] = None
 
     def run(self, input: list[str], output: list[str]) -> None:
         """
@@ -77,7 +80,7 @@ class CombineDamLiveResults(ToolboxBase):
             ],
             "geometries": ["geometry_id", "layer_id"],
             "soillayers": ["layer_id", "soil_id"],
-            "soils": ["soil_id", "name", "color"],
+            "soils": ["soil_id", "name"],
             "waternets": [
                 "waternet_id",
                 "line_id",
@@ -104,6 +107,15 @@ class CombineDamLiveResults(ToolboxBase):
         self.data_adapter.output(output[0], self.df_merged_soils)
         self.data_adapter.output(output[1], self.df_merged_waternet)
         self.data_adapter.output(output[2], self.df_merged_calculations)
+
+        df_colors = self.data_adapter.input(input[6])
+        self.soil_color_map = (
+            df_colors[df_colors["type"] == "soil"].set_index("name")["color"].to_dict()
+        )
+
+        self.water_color_map = (
+            df_colors[df_colors["type"] == "water"].set_index("name")["color"].to_dict()
+        )
 
     def merge_calculationsettings(self) -> pd.DataFrame:
         """
@@ -175,7 +187,6 @@ class CombineDamLiveResults(ToolboxBase):
             "soil_id",
             "name",
             "code",
-            "color",
         ]
         columns_order = [col for col in columns_order if col in df_merged.columns]
 
@@ -195,18 +206,6 @@ class CombineDamLiveResults(ToolboxBase):
             self.df_waternets, how="left", on="waternet_id"
         )
 
-        # Voeg kleuren toe per line_label
-        line_color_map = {
-            "Phreatic line (PL 1)": "#ff1493",  # deep pink
-            "Head line 3 (PL 3)": "#ff8c00",  # oranje
-            "Waternet line phreatic line": "#00bfff",  # helder lichtblauw
-            "Waternet line lower aquifer": "#00ff7f",  # fel groen
-        }
-
-        df_merged["color"] = (
-            df_merged["line_label"].map(line_color_map).fillna("#cccccc")
-        )
-
         # Sorteren zodat lijnen netjes doorlopen
         df_merged = df_merged.sort_values(
             by=["stage_id", "line_type", "line_id", "x"]
@@ -219,6 +218,29 @@ class CombineDamLiveResults(ToolboxBase):
         xs = cx + r * np.cos(angles)
         zs = cz + r * np.sin(angles)
         return LineString(zip(xs, zs))
+
+    def _clip_arc_to_soil(self, arc, soil_union):
+        coords = list(arc.coords)
+        filtered_coords = []
+
+        inside = False
+
+        for x, z in coords:
+            point = Point(x, z)
+
+            in_soil = soil_union.buffer(1e-6).intersects(point)
+
+            if in_soil and not inside:
+                inside = True
+                filtered_coords.append((x, z))
+
+            elif in_soil and inside:
+                filtered_coords.append((x, z))
+
+            elif not in_soil and inside:
+                break
+
+        return filtered_coords
 
     def plot_stage(self, stage_id, xlim, ylim):
         """
@@ -259,7 +281,16 @@ class CombineDamLiveResults(ToolboxBase):
             if polygon_coords[0] != polygon_coords[-1]:
                 polygon_coords.append(polygon_coords[0])
             soil_geoms.append(ShapelyPolygon(polygon_coords))
-            color = row["color"]
+            soil_name = row["name"]
+
+            if soil_name in self.soil_color_map:
+                color = self.soil_color_map[soil_name]
+            else:
+                warnings.warn(
+                    f"Geen kleur gevonden voor soil '{soil_name}' in color map.",
+                    stacklevel=2,
+                )
+                color = "#cccccc"  # fallback grijs
 
             poly = Polygon(
                 polygon_coords,
@@ -285,7 +316,15 @@ class CombineDamLiveResults(ToolboxBase):
             zs = df_line["z"].tolist()
 
             line_label = df_line["line_label"].iloc[0]
-            color = df_line["color"].iloc[0]
+
+            if line_label in self.water_color_map:
+                color = self.water_color_map[line_label]
+            else:
+                warnings.warn(
+                    f"Geen kleur gevonden voor waterlijn '{line_label}' in color map. Gebruik fallbackkleur grijs.",
+                    stacklevel=2,
+                )
+                color = "#cccccc"  # fallback grijs
 
             ax.plot(xs, zs, color=color, linewidth=2)
 
@@ -311,18 +350,11 @@ class CombineDamLiveResults(ToolboxBase):
 
             if pd.notna(r):
                 arc = self._circle_arc(cx, cz, r, -np.pi, 0)
+                filtered_coords = self._clip_arc_to_soil(arc, soil_union)
 
-                slip = arc.intersection(soil_union)
-
-                if not slip.is_empty:
-                    if slip.geom_type == "MultiLineString":
-                        for g in slip:
-                            xs, zs = g.xy
-                            ax.plot(xs, zs, color="red", linewidth=2)
-
-                    elif slip.geom_type == "LineString":
-                        xs, zs = slip.xy
-                        ax.plot(xs, zs, color="red", linewidth=2)
+                if len(filtered_coords) > 1:
+                    xs, zs = zip(*filtered_coords)
+                    ax.plot(xs, zs, color="red", linewidth=2)
 
         elif len(circles) == 2:
             row1 = circles.iloc[0]
@@ -351,20 +383,21 @@ class CombineDamLiveResults(ToolboxBase):
                 # cirkel 2 (van tangent omhoog)
                 arc2 = self._circle_arc(cx2, cz2, r2, -np.pi / 2, 0)
 
-                for geom in [arc1, tangent, arc2]:
-                    slip = geom.intersection(soil_union)
+                # cirkel 1
+                filtered_coords1 = self._clip_arc_to_soil(arc1, soil_union)
+                if len(filtered_coords1) > 1:
+                    xs, zs = zip(*filtered_coords1)
+                    ax.plot(xs, zs, color="red", linewidth=2)
 
-                    if slip.is_empty:
-                        continue
+                # tangent
+                xs, zs = tangent.xy
+                ax.plot(xs, zs, color="red", linewidth=2)
 
-                    if slip.geom_type == "MultiLineString":
-                        for g in slip:
-                            xs, zs = g.xy
-                            ax.plot(xs, zs, color="red", linewidth=2)
-
-                    elif slip.geom_type == "LineString":
-                        xs, zs = slip.xy
-                        ax.plot(xs, zs, color="red", linewidth=2)
+                # cirkel 2
+                filtered_coords2 = self._clip_arc_to_soil(arc2, soil_union)
+                if len(filtered_coords2) > 1:
+                    xs, zs = zip(*filtered_coords2)
+                    ax.plot(xs, zs, color="red", linewidth=2)
 
         # --------------------
         # LEGENDS
