@@ -125,6 +125,11 @@ class UpdateDamLive(ToolboxBase):
             "DAMLIVE_EXE is not set, ensure that it is set in the .env file"
         )
 
+        # Indien hier aanpassingen plaatsvinden, ook aanpassen in
+        # tests\src\dam_live\test_dam_live_running_input.py,
+        # gezien er een mock functie is die deze functie nabootst,
+        # maar de rest van de code ook test.
+
         cmd = [
             damlive_exe,
             "-d",

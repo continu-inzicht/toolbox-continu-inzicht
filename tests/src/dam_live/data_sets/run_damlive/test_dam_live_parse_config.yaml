@@ -28,7 +28,7 @@ DataAdapter:
 
   colors:
     type: csv
-    relative_file: data_sets/run_damlive/colors.csv
+    relative_file: tests/src/dam_live/data_sets/run_damlive/colors.csv
 
   merge_soil:
     type: csv

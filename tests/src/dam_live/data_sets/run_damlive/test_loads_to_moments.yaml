@@ -1,5 +1,5 @@
 GlobalVariables:
-    rootdir: "data_sets/run_damlive"
+    rootdir: "tests/src/dam_live/data_sets/run_damlive"
     moments: [ 0, 24 ]
     calc_time: "2024-11-06 08:00:00"
 DataAdapter:
