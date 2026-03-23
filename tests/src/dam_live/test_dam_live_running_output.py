@@ -43,7 +43,7 @@ def test_integration_damlive():
     # na het uitpakken slaan we de resulterende bestandsnamen op, deze kunnen we hier weer inlezen
     # dit is een voorbeeld specifiek voor deze configuratie en je paden, daarom is het niet in de functie verwerkt.
     unziped_dirs = [
-        str(path).split("TBCI\\toolbox-continu-inzicht\\")[1]
+        str(path).split("\\toolbox-continu-inzicht\\")[1]
         for path in update_dam_live.lst_unzipped_damlive_results
     ]
     # uit de bestands namen halen we de locatie en tijdstap, hier koppelen we vervolgens weer met de output dataframe
@@ -109,7 +109,7 @@ def test_integration_damlive():
 
     update_dam_live.unzip_damlive_results()
     unziped_dirs = [
-        str(path).split("TBCI\\toolbox-continu-inzicht\\")[1]
+        str(path).split("\\toolbox-continu-inzicht\\")[1]
         for path in update_dam_live.lst_unzipped_damlive_results
     ]
     loc_time = [

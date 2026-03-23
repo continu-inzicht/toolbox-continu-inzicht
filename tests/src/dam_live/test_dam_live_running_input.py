@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from unittest import mock
 
@@ -29,6 +30,8 @@ def test_integration_damlive_input():
 
     config = Config(config_path=data_sets_path / "test_run_damlive.yaml")
     config.lees_config()
+    # DAMLIVE_EXE is set in the .env file, but we also need to set it here for the test to work,
+    os.environ["DAMLIVE_EXE"] = str(data_sets_path / "DAMLIVE.exe")
 
     data_adapter = DataAdapter(config)
     update_dam_live = UpdateDamLive(data_adapter=data_adapter)
