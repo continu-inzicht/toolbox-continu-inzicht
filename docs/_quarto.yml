@@ -59,6 +59,7 @@ website:
     - modules/inspectieresultaten.qmd
     - modules/maatregelen.qmd
     - modules/flood_scenario.qmd
+    - modules/damlive.qmd
 
   - title: "Python API"
     contents:
