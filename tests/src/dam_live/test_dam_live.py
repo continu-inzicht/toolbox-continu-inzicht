@@ -29,6 +29,7 @@ def test_dam_live_parse():
             "soillayers",
             "waternets",
             "calculationsettings",
+            "colors",
         ],
         output=["merge_soil", "merge_waternet", "merge_calculations"],
     )
