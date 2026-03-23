@@ -39,7 +39,7 @@ Om DamLive te gebruiken moet een `{project_naam}.damx` bestand beschikbaar zijn,
 
 Om DamLive te runnen moeten twee data adapters worden doorgegeven: grondwaterstanden en parameters. De waterstanden moeten voldoen aan het schema voor belastingen, zie ook de module over[belastingen](modules\belastingen.qmd). De parameters zijn specifiek voor DamLive, deze moet bevatten `parameter_names` en `parameter_values`. Bij het voorbeeld staan twee smaken: Bishop en UpliftVan, deze zijn vanuit DamLive xml bestanden, maar zijn in de Toolbox Continu Inzicht csv bestanden. In de csv bestanden in het scheidingsteken`_`, waarbij `<CalculationModules><StabilityInside>` opgeslagen wordt de parameter naam: `CalculationModules_StabilityInside`.
 
-De uitvoer van de berekening zijn `.stix` bestanden, deze kunnen met `UpdateDamLive.unzip_damlive_results` uitgepakt worden naar een verzameling van `.json` bestanden.
+De uitvoer van de berekening zijn `.stix` bestanden, deze kunnen met `UpdateDamLive.unzip_damlive_results` uitgepakt worden naar een verzameling van `.json` bestanden. De json bestanden vormen de input voor de functie `CombineDamLiveResults` hieronder beschreven.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -96,7 +96,7 @@ update_dam_live.unzip_damlive_results()
 
 ### Verwerken output
 
-Met de uitgepakte `.stix` bestanden zijn een verzameling van json bestanden. Deze kunnen met de functie `CombineDamLiveResults` gecombineerd worden tot 3 tabellen. Als de `root_dir` goed staat naar de uigepakte stix map, dan is de onderstaande configuratie voldoende. Een uitzondering is het kleuren schema, deze kan een map hoger dan de stix bestanden worden geplaatst. Hier kan een mapping worden gemaakt met de kollomen: `type`,`name`,`color`, om het figuur weer te geven.
+Met de uitgepakte `.stix` bestanden zijn een verzameling van json bestanden. Deze kunnen met de functie `CombineDamLiveResults` gecombineerd worden tot 3 tabellen. Als de `root_dir` goed staat naar de uitgepakte stix map, dan is de onderstaande configuratie voldoende. Een uitzondering is het kleuren schema, deze kan een map hoger dan de stix bestanden worden geplaatst. Hier kan een mapping worden gemaakt met de kollomen: `type`,`name`,`color`, om het figuur weer te geven.
 Deze tabellen kunnen direct worden gevisualiseerd met `CombineDamLiveResults.plot_stage` of opgeslagen en later worden getoond.
 Een voorbeeld hier van is het volgende figuur:
 ![Figuur van een damlive resultaat](../assets/damlive_plot.png)
