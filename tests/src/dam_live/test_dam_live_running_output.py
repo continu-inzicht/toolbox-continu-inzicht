@@ -3,6 +3,7 @@ from pathlib import Path
 import shutil
 from unittest import mock
 
+
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.dam_live import UpdateDamLive
@@ -43,7 +44,7 @@ def test_integration_damlive():
     # na het uitpakken slaan we de resulterende bestandsnamen op, deze kunnen we hier weer inlezen
     # dit is een voorbeeld specifiek voor deze configuratie en je paden, daarom is het niet in de functie verwerkt.
     unziped_dirs = [
-        str(path).split("\\toolbox-continu-inzicht\\")[1]
+        "tests\\src\\" + str(path).split("toolbox-continu-inzicht\\tests\\src\\")[1]
         for path in update_dam_live.lst_unzipped_damlive_results
     ]
     # uit de bestands namen halen we de locatie en tijdstap, hier koppelen we vervolgens weer met de output dataframe
@@ -51,9 +52,6 @@ def test_integration_damlive():
         (fname.split("\\")[-1].split(".")[0], fname.split("\\")[-1].split(".")[-1])
         for fname in unziped_dirs
     ]
-    print(f"unzipped {len(unziped_dirs)} dirs")
-    unziped_dirs[:5]
-
     # We kunnen nu een van de resultaten bekijken:
     run_index = 1
     config.global_variables["rootdir"] = unziped_dirs[run_index]
@@ -105,7 +103,7 @@ def test_integration_damlive():
             output="output_file",
         )
 
-    update_dam_live.data_adapter.input("output_file").head(5)
+    update_dam_live.data_adapter.input("output_file")
 
     update_dam_live.unzip_damlive_results()
     unziped_dirs = [
@@ -116,7 +114,6 @@ def test_integration_damlive():
         (fname.split("\\")[-1].split(".")[0], fname.split("\\")[-1].split(".")[-1])
         for fname in unziped_dirs
     ]
-    print(f"unzipped {len(unziped_dirs)} dirs")
     fig.savefig(data_sets_path / "test_run_damlive_plot.png")
 
 
