@@ -13,15 +13,6 @@ def input_soils(input_config: dict) -> pd.DataFrame:
     """
     file_path = input_config["abs_path"]
 
-    SOIL_COLOR_MAP = {
-        "ClaS-0": "darkgreen",
-        "PeaU-1": "peru",
-        "SanB-2": "lightgreen",
-        "ClaU-3": "green",
-        "klei-4": "sandybrown",
-        "SanN-5": "yellow",
-    }
-
     with open(file_path, "r") as f:
         data = json.load(f)
 
@@ -34,14 +25,12 @@ def input_soils(input_config: dict) -> pd.DataFrame:
         su_model = soil.get("SuShearStrengthModel", {})
 
         code = soil.get("Code")
-        color = SOIL_COLOR_MAP.get(code, "gray")
 
         rows.append(
             {
                 "soil_id": soil.get("Id"),
                 "name": soil.get("Name"),
                 "code": code,
-                "color": color,
                 "volumetric_weight_above_phreatic_level": soil.get(
                     "VolumetricWeightAbovePhreaticLevel"
                 ),

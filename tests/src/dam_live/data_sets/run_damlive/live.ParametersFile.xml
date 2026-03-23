@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <XmlCalculationParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <CalculationModules>
+        <StabilityInside>1</StabilityInside>
+        <StabilityOutside>0</StabilityOutside>
+        <PipingBligh>0</PipingBligh>
+        <PipingWti>0</PipingWti>
+    </CalculationModules>
+    <StabilityParameters>
+        <CalculationModel>BishopUpliftVan</CalculationModel>
+        <SearchMethod>BeeSwarm</SearchMethod>
+    </StabilityParameters>
+</XmlCalculationParameters>

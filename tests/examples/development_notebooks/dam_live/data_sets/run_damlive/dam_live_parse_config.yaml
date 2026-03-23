@@ -1,5 +1,5 @@
 GlobalVariables:
-  rootdir: "tests/src/dam_live/data_sets/WV2030_PU0013_87074-1"
+  rootdir: "data_sets/run_damlive/Stability"
 
 DataAdapter:
   scenario:
@@ -28,16 +28,16 @@ DataAdapter:
 
   colors:
     type: csv
-    relative_file: tests/src/dam_live/data_sets/colors.csv
+    relative_file: data_sets/run_damlive/colors.csv
 
   merge_soil:
     type: csv
-    path: hidden_merged_soil.csv
+    path: merged_soil.csv
 
   merge_waternet:
     type: csv
-    path: hidden_merged_waternet.csv
+    path: merged_waternet.csv
 
   merge_calculations:
     type: csv
-    path: hidden_merged_calculations.csv
+    path: merged_calculations.csv

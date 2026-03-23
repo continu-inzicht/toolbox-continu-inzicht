@@ -92,9 +92,7 @@ def input_calculationsettings(input_config: dict) -> pd.DataFrame:
                         "model_factor_std": model_factor_std,
                         "circle_center_x": second_center.get("X"),
                         "circle_center_z": second_center.get("Z"),
-                        "circle_radius": second_radius
-                        if second_radius is not None
-                        else first_radius,  # fallback naar first_radius als second_radius niet beschikbaar is
+                        "circle_radius": second_radius,
                         "content_version": content_version,
                     }
                 )

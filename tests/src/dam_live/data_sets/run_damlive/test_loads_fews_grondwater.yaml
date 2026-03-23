@@ -1,0 +1,40 @@
+GlobalVariables:
+    rootdir: "tests/src/dam_live/data_sets/run_damlive"
+    moments: [ 0, 24 ]
+    calc_time: "2024-11-06 08:00:00"
+    aquo_alias:
+        H.meting: "WATHTE"
+        WATHTE [m][NAP][OW]: "WATHTE"
+
+    LoadsFews:
+        host: "https://fews.hhnk.nl"
+        port: 443
+        region: "fewspiservice"
+        version: "1.25"
+        parameters: [ "H.meting", "WATHTE [m][NAP][OW]" ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    locaties:
+        type: csv
+        path: "locations_fews.csv"
+    waterstanden_csv:
+        type: csv
+        index_col: 0
+        path: "waterstanden_fews.csv"
+    waterstanden_xml:
+        type: xml_timeseries
+        path: "waterstanden_fews.xml"
+        parameter_mapping:
+            WATHTE: H.meting
+        location_mapping:
+            MPN-N-24: BP
+    waterstanden_xml_hourly:
+        type: xml_timeseries
+        path: "waterstanden_fews_hourly.xml"
+        parameter_mapping:
+            WATHTE: H.meting
+        location_mapping:
+            MPN-N-24: BP
