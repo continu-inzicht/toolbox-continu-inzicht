@@ -18,6 +18,9 @@ jobs:
     #     environment: [py311, py312, py313]
 
     steps:
+      - name: Support longpaths
+        run: git config --system core.longpaths true
+
       - name: Check out repository
         uses: actions/checkout@v4
         with:
