@@ -98,7 +98,7 @@ def mock_run(self, input, output):
         },
         "live.OutputTimeSeries": {
             "type": "xml_timeseries",
-            "path": "live.OutputTimeSeries.xml",
+            "path": "hidden_live.OutputTimeSeries.xml",
         },
     }
     self.data_adapter.config.data_adapters.update(damlive_data_adapters)
