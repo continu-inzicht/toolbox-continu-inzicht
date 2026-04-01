@@ -22,6 +22,11 @@ except ImportError as e:
     warnings.warn(f"{e}.\n Some features may not be available.")
 
 try:
+    from toolbox_continu_inzicht.base.adapters.input.pastas_models import *  # noqa: F403
+except ImportError as e:
+    warnings.warn(f"{e}.\n Some features may not be available.")
+
+try:
     from toolbox_continu_inzicht.base.adapters.input.flood_risk import *  # noqa: F403
 except ImportError as e:
     warnings.warn(f"{e}.\n Some features may not be available.")
