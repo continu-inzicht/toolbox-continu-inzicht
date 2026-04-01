@@ -1,0 +1,23 @@
+GlobalVariables:
+    rootdir: "tests/src/gwdi/data_sets"
+
+DataAdapter:
+    GwdiInputPrecipitation:
+        type: csv
+        file: "precipitation.csv"
+    GwdiInputEvaporation:
+        type: csv
+        file: "evaporation.csv"
+    GwdiInputLocationInfo:
+        type: csv
+        file: "location_info.csv"
+        dtype:
+            location: object
+            position: object
+    GwdiInputPastasModels:
+        type: pastas_models
+        path: "pastas_models"
+    GwdiInputStatsMinima:
+        type: python
+    GwdiOutput:
+        type: python

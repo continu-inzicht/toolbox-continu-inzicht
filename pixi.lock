@@ -321,6 +321,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pandoc-3.6.3-ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pandocfilters-1.5.0-pyhd8ed1ab_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/parso-0.8.4-pyhd8ed1ab_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/pastas-1.8.0-pyhecae5ae_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pathspec-0.12.1-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pcre2-10.45-hc749103_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pexpect-4.9.0-pyhd8ed1ab_1.conda
@@ -476,7 +477,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/be/d1/a71505918b35f17495d22f56397d4124b625cb34e71e829c7dcd6520ab5a/pydra_core-0.0.10-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/16/e1/3079a9ff9b8e11b846c6ac5c8b5bfb7ff225eee721825310c91b3b50304f/tqdm-4.67.3-py3-none-any.whl
       - pypi: ./src
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/win-64/_openmp_mutex-4.5-2_gnu.conda
@@ -711,6 +712,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/pandoc-3.6.3-h57928b3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pandocfilters-1.5.0-pyhd8ed1ab_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/parso-0.8.4-pyhd8ed1ab_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/pastas-1.8.0-pyhecae5ae_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pathspec-0.12.1-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/pcre2-10.45-h99c9b8b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pickleshare-0.7.5-pyhd8ed1ab_1004.conda
@@ -841,7 +843,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/be/d1/a71505918b35f17495d22f56397d4124b625cb34e71e829c7dcd6520ab5a/pydra_core-0.0.10-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/16/e1/3079a9ff9b8e11b846c6ac5c8b5bfb7ff225eee721825310c91b3b50304f/tqdm-4.67.3-py3-none-any.whl
       - pypi: ./src
   prod:
     channels:
@@ -1061,6 +1063,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/packaging-25.0-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pagmo-2.19.1-h5ebcf57_7.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pandas-2.3.1-py312hf79963d_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/pastas-1.8.0-pyhecae5ae_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pcre2-10.45-hc749103_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pillow-11.3.0-py312h80c1187_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pip-25.2-pyh8b19718_0.conda
@@ -1142,7 +1145,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/be/d1/a71505918b35f17495d22f56397d4124b625cb34e71e829c7dcd6520ab5a/pydra_core-0.0.10-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/16/e1/3079a9ff9b8e11b846c6ac5c8b5bfb7ff225eee721825310c91b3b50304f/tqdm-4.67.3-py3-none-any.whl
       - pypi: ./src
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/win-64/_openmp_mutex-4.5-2_gnu.conda
@@ -1285,6 +1288,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/orc-2.2.0-h0018cbe_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/packaging-25.0-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/pandas-2.3.1-py313hc90dcd4_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/pastas-1.8.0-pyhecae5ae_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/pcre2-10.45-h99c9b8b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/pillow-11.3.0-py313h641beac_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pip-25.2-pyh145f28c_0.conda
@@ -1361,7 +1365,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a4/b6/e020b5032e13299540078c7100cabc9a5d0c07bf0fddfe1c1559f4b1e745/probabilistic_piping-0.0.5-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/be/d1/a71505918b35f17495d22f56397d4124b625cb34e71e829c7dcd6520ab5a/pydra_core-0.0.10-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/16/e1/3079a9ff9b8e11b846c6ac5c8b5bfb7ff225eee721825310c91b3b50304f/tqdm-4.67.3-py3-none-any.whl
       - pypi: ./src
 packages:
 - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
@@ -7928,6 +7932,21 @@ packages:
   - pkg:pypi/parso?source=hash-mapping
   size: 75295
   timestamp: 1733271352153
+- conda: https://conda.anaconda.org/conda-forge/noarch/pastas-1.8.0-pyhecae5ae_1.conda
+  sha256: e104d01a809d3c94ba387c8b6ac6ac54c09414d745af1a10768973b261095c7e
+  md5: 4a93b3aa6b5870de6f2fa41b28a2b94a
+  depends:
+  - matplotlib-base >=2.0
+  - numpy >=2.2.2,<3.0a0
+  - pandas >=0.22
+  - python >=3.10
+  - scipy >=1.0
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/pastas?source=hash-mapping
+  size: 130039
+  timestamp: 1737564345599
 - conda: https://conda.anaconda.org/conda-forge/noarch/pathspec-0.12.1-pyhd8ed1ab_1.conda
   sha256: 9f64009cdf5b8e529995f18e03665b03f5d07c0b17445b8badef45bde76249ee
   md5: 617f15191456cc6a13db418a275435e5
@@ -9957,8 +9976,8 @@ packages:
   timestamp: 1736962345843
 - pypi: ./src
   name: toolbox-continu-inzicht
-  version: 0.1.2
-  sha256: aba7089cee22f0c994e9adcdab6e4cf734a2ff91662450a8039c2f2801cfd071
+  version: 0.1.3
+  sha256: 5663658947827acde769165fe166d5e11815d09eb7b119f8e33dd9dcc9e8ae16
   requires_dist:
   - pandas
   - pydantic>=2
@@ -9966,10 +9985,12 @@ packages:
   - pyyaml
   - fiona ; extra == 'all'
   - geopandas ; extra == 'all'
+  - h5netcdf ; extra == 'all'
   - httpx ; extra == 'all'
   - netcdf4>=1.7.1 ; extra == 'all'
   - openpyxl ; extra == 'all'
   - openturns>=1.23 ; extra == 'all'
+  - pastas ; extra == 'all'
   - probabilistic-piping==0.0.5 ; extra == 'all'
   - psycopg2 ; extra == 'all'
   - pyarrow ; extra == 'all'
@@ -9989,6 +10010,12 @@ packages:
   - probabilistic-piping==0.0.5 ; extra == 'fragility-curves'
   - pydra-core==0.0.10 ; extra == 'fragility-curves'
   - scipy ; extra == 'fragility-curves'
+  - h5netcdf ; extra == 'gwdi'
+  - netcdf4>=1.7.1 ; extra == 'gwdi'
+  - openpyxl ; extra == 'gwdi'
+  - pastas ; extra == 'gwdi'
+  - pyarrow ; extra == 'gwdi'
+  - scipy ; extra == 'gwdi'
   - fiona ; extra == 'inspections'
   - geopandas ; extra == 'inspections'
   - httpx ; extra == 'inspections'
@@ -10012,7 +10039,6 @@ packages:
   - xarray ; extra == 'loads'
   - scipy ; extra == 'sections'
   requires_python: '>=3.11'
-  editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/tornado-6.5.2-py312h4c3975b_0.conda
   sha256: 891965f8e495ad5cef399db03a13df48df7add06ae131f4b77a88749c74b2060
   md5: 82dacd4832dcde0c2b7888248a3b3d7c
@@ -10042,12 +10068,13 @@ packages:
   - pkg:pypi/tornado?source=hash-mapping
   size: 878818
   timestamp: 1754732227288
-- pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
+- pypi: https://files.pythonhosted.org/packages/16/e1/3079a9ff9b8e11b846c6ac5c8b5bfb7ff225eee721825310c91b3b50304f/tqdm-4.67.3-py3-none-any.whl
   name: tqdm
-  version: 4.67.1
-  sha256: 26445eca388f82e72884e0d580d5464cd801a3ea01e63e5601bdff9ba6a48de2
+  version: 4.67.3
+  sha256: ee1e4c0e59148062281c49d80b25b67771a127c85fc9676d3be5f243206826bf
   requires_dist:
   - colorama ; sys_platform == 'win32'
+  - importlib-metadata ; python_full_version < '3.8'
   - pytest>=6 ; extra == 'dev'
   - pytest-cov ; extra == 'dev'
   - pytest-timeout ; extra == 'dev'

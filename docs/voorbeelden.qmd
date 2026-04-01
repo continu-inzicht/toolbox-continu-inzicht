@@ -19,11 +19,16 @@ Van verschillende modules zijn voorbeelden gemaakt:
 - [Maatregelen](examples/notebooks/6.fragility_curve_from_cache.ipynb)
 - [Overstromingsrisico](examples/notebooks/7.rekentest_flood_scenarios.ipynb)
 - [Fragility curve overtopping met golfdata](examples/notebooks/8.fragility_curve_overtopping_wavedata.ipynb)
+- [GWDI eenvoudige berekening](examples/notebooks/10.gwdi_simple_calculation.ipynb)
 
 Daarnaast zijn er ook notebooks met meer technische uitleg over aspecten van de toolbox:
 
 - [Gebruik van logging](examples/notebooks/100.logging.ipynb)
 - [WMS laag instellen in de viewer](examples/notebooks/101.WMS_laag_naar_database.ipynb)
+
+En notebooks met voorbeelden hoe complexere inputdata samengesteld kan worden:
+- [Golfdata van HR-database](examples/notebooks/103.extract_wavedata_hrdb.ipynb)
+- [GWDI referentiestatistiek](examples/notebooks/104.gwdi_reference_stats.ipynb)
 
 De notebooks met bijbehorende data en configuratie zijn beschikbaar op [GitHub](https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/docs/examples/notebooks).
 
