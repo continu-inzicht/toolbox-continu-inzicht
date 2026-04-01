@@ -1,0 +1,7 @@
+GlobalVariables:
+    rootdir: "tests/src/gwdi/data_sets"
+
+DataAdapter:
+    PastasModels:
+        type: pastas_models
+        path: "pastas_models"
