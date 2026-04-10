@@ -1,7 +1,12 @@
-from toolbox_continu_inzicht.gwdi.gwdi_inference import GwdiInference
-from toolbox_continu_inzicht.gwdi.gwdi_model import GwdiModel
+from toolbox_continu_inzicht.gwdi.processing import GwdiInference, GwdiModel
+from toolbox_continu_inzicht.gwdi.retrieval import (
+    GwdiKnmiRetrieval,
+    GwdiWiwbRetrieval,
+)
 
 __all__ = [
     "GwdiInference",
     "GwdiModel",
+    "GwdiKnmiRetrieval",
+    "GwdiWiwbRetrieval",
 ]

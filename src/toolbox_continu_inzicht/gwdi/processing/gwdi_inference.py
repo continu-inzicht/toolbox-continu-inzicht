@@ -15,7 +15,7 @@ from pydantic.dataclasses import dataclass
 
 from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-from toolbox_continu_inzicht.gwdi.gwdi_model import GwdiModel
+from toolbox_continu_inzicht.gwdi.processing.gwdi_model import GwdiModel
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
