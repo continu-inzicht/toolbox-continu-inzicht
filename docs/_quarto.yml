@@ -42,10 +42,12 @@ website:
     - "examples/notebooks/7.rekentest_flood_scenarios.ipynb"
     - "examples/notebooks/8.fragility_curve_overtopping_wavedata.ipynb"
     - "examples/notebooks/9.dam_live_parse.ipynb"
+    - "examples/notebooks/10.gwdi_simple_calculation.ipynb"
     - "examples/notebooks/100.logging.ipynb"
     - "examples/notebooks/101.WMS_laag_naar_database.ipynb"
     - "examples/notebooks/102.quick_start_guide.ipynb"
     - "examples/notebooks/103.extract_wavedata_hrdb.ipynb"
+    - "examples/notebooks/104.gwdi_reference_stats.ipynb"
 
   - title: "Modules"
     contents:
@@ -60,6 +62,7 @@ website:
     - modules/maatregelen.qmd
     - modules/flood_scenario.qmd
     - modules/damlive.qmd
+    - modules/gwdi.qmd
 
   - title: "Python API"
     contents:
@@ -169,6 +172,14 @@ quartodoc:
     - LoadFromFloodScenarioProbability
     - SelectFloodScenarioFromLoad
     - CalculateFloodRisk
+  - title: GWDI
+    desc: Functies voor groundwater drought indicator (GWDI).
+    package: toolbox_continu_inzicht.gwdi
+    contents:
+    - GwdiInference
+    - GwdiModel
+    - GwdiKnmiRetrieval
+    - GwdiWiwbRetrieval
   - title: Continu Inzicht Adapters (invoer)
     desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
     package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql

@@ -44,3 +44,7 @@ Naast de functies is per module een beschrijving beschikbaar en zijn er voorbeel
 9. [Overstromingsrisico](modules/flood_scenario.qmd)
 
     Om inzicht te geven in de actuele risico kunnen overstromingsscenarios worden gebruik. Deze risico's kunnen helpen om prioriteiten te stellen tijdens hoogwater, waarbij er niet alleen een kans of een afzonderlijk gevolg wordt beschouwd. De gevolgen kunnen bijvoorbeeld worden uitgedrukt in economische schade, slachtoffers en getroffenen.
+
+10. [GWDI (grondwaterdroogte-indicator)](modules/gwdi.qmd)
+
+    Met GWDI wordt op basis van neerslag, verdamping, locatie-informatie, Pastas-modellen en referentiestatistiek een actuele droogte-indicator berekend per rastercel.

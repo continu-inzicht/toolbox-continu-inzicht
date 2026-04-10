@@ -1,0 +1,43 @@
+---
+title: "GWDI (grondwaterdroogte-indicator)"
+---
+
+De GWDI-module berekent een actuele grondwaterdroogte-indicator per rastercel (`fid`) op basis van:
+
+- neerslag (`P`) en verdamping (`evaporation`) tijdreeksen,
+- locatie-informatie (`location`, `position`),
+- opgeloste Pastas-modellen,
+- en `df_stats_minima` als referentiestatistiek.
+
+De module-entree in de toolbox is `GwdiInference`. Deze laadt alle invoer via DataAdapters en schrijft de GWDI-uitvoer weg via een output-adapter.
+
+### Invoercontract
+
+`GwdiInference.run(...)` verwacht vijf input-adapters in deze volgorde:
+
+1. `precipitation`
+2. `evaporation`
+3. `location_info`
+4. `pastas_models`
+5. `df_stats_minima`
+
+De GWDI-uitvoer bevat de kolommen:
+
+- `fid`
+- `parameterid`
+- `methodid`
+- `datetime`
+- `value`
+- `peilbuisid`
+
+### Voorbeelden
+
+- Eenvoudige end-to-end run (single fid): [GWDI eenvoudige berekening](../examples/notebooks/10.gwdi_simple_calculation.ipynb)
+- Opbouw van referentiestatistiek (`df_stats_minima`): [GWDI referentiestatistiek](../examples/notebooks/104.gwdi_reference_stats.ipynb)
+
+### Python API
+
+Zie ook de API-reference voor:
+
+- `GwdiInference`
+- `GwdiModel`

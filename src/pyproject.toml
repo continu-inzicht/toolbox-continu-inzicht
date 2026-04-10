@@ -64,6 +64,17 @@ inspections = [
 
 sections = ["scipy"]
 
+gwdi = [
+    "pyarrow",
+    "scipy",
+    "netcdf4>=1.7.1",
+    "openpyxl",
+    "h5netcdf",
+    "pastas",
+    "requests",
+    "xarray",
+]
+
 # io dependencies separate for now
 io = [
     "pyarrow",
@@ -80,6 +91,7 @@ all = [
     "toolbox_continu_inzicht[loads]",
     "toolbox_continu_inzicht[inspections]",
     "toolbox_continu_inzicht[sections]",
+    "toolbox_continu_inzicht[gwdi]",
     "toolbox_continu_inzicht[io]",
     "toolbox_continu_inzicht[flood_scenarios]",
 ]
