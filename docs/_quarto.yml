@@ -178,6 +178,8 @@ quartodoc:
     contents:
     - GwdiInference
     - GwdiModel
+    - GwdiKnmiRetrieval
+    - GwdiWiwbRetrieval
   - title: Continu Inzicht Adapters (invoer)
     desc: Invoer adapters voor Continu Inzicht meetstations/ dijkvak
     package: toolbox_continu_inzicht.base.adapters.input.continu_inzicht_postgresql

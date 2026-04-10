@@ -8,7 +8,7 @@ from toolbox_continu_inzicht.base.adapters.input.pastas_models import (
     input_pastas_models,
 )
 from toolbox_continu_inzicht.gwdi import GwdiInference
-from toolbox_continu_inzicht.gwdi.gwdi_model import GwdiModel
+from toolbox_continu_inzicht.gwdi.processing.gwdi_model import GwdiModel
 
 DATA_SETS_PATH = Path(__file__).parent / "data_sets"
 _SMOKE_SINGLE_PRECIPITATION_PATH = DATA_SETS_PATH / "precipitation_smoke_single_fid.csv"

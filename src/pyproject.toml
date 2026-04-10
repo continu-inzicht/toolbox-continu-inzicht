@@ -71,6 +71,8 @@ gwdi = [
     "openpyxl",
     "h5netcdf",
     "pastas",
+    "requests",
+    "xarray",
 ]
 
 # io dependencies separate for now
