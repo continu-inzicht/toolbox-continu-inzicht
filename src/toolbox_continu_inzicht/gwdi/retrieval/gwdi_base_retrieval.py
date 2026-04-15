@@ -93,3 +93,76 @@ class GwdiWiwbRetrievalBase:
             ds_out = ds_out.drop_vars(drop_coords)
 
         return ds_out
+
+    @staticmethod
+    def resample_timeseries(
+        df: pd.DataFrame,
+        value_column: str,
+        options: dict,
+    ) -> pd.DataFrame:
+        required_columns = {"time", "fid", value_column}
+        if not required_columns.issubset(df.columns):
+            raise UserWarning(
+                f"Resample-input mist verplichte kolommen: {sorted(required_columns)}."
+            )
+
+        df_prepared = df.loc[:, ["time", "fid", value_column]].copy()
+        df_prepared["time"] = pd.to_datetime(df_prepared["time"])
+        df_prepared["fid"] = df_prepared["fid"].astype(int)
+        df_prepared = df_prepared.sort_values(["time", "fid"]).reset_index(drop=True)
+
+        resample_frequency = options.get("resample_frequency")
+        if resample_frequency in (None, ""):
+            if df_prepared[["time", "fid"]].duplicated().any():
+                raise UserWarning("Resample-input bevat dubbele (`time`, `fid`)-rijen.")
+            return df_prepared
+
+        period_start_raw = options.get("resample_period_start")
+        period_end_raw = options.get("resample_period_end")
+        if period_start_raw in (None, "") or period_end_raw in (None, ""):
+            raise UserWarning(
+                "Bij `resample_frequency` zijn ook `resample_period_start` en "
+                "`resample_period_end` verplicht."
+            )
+
+        period_start = pd.Timestamp(period_start_raw)
+        period_end = pd.Timestamp(period_end_raw)
+        if period_start.tz is not None:
+            period_start = period_start.tz_localize(None)
+        if period_end.tz is not None:
+            period_end = period_end.tz_localize(None)
+
+        if period_end < period_start:
+            raise UserWarning(
+                "`resample_period_end` moet groter of gelijk zijn aan "
+                "`resample_period_start`."
+            )
+
+        df_filtered = df_prepared[
+            df_prepared["time"].between(period_start, period_end)
+        ].copy()
+        if len(df_filtered) == 0:
+            raise UserWarning(
+                "Resample-periode bevat geen data (`time` buiten opgegeven venster)."
+            )
+
+        df_resampled = (
+            df_filtered.groupby("fid")
+            .resample(
+                str(resample_frequency),
+                on="time",
+                label="left",
+                closed="left",
+                origin=period_start,
+            )[value_column]
+            .sum()
+            .reset_index()
+        )
+        df_resampled["time"] = pd.to_datetime(df_resampled["time"])
+        df_resampled["fid"] = df_resampled["fid"].astype(int)
+        df_resampled = df_resampled.sort_values(["time", "fid"]).reset_index(drop=True)
+
+        if df_resampled[["time", "fid"]].duplicated().any():
+            raise UserWarning("Resampled data bevat dubbele (`time`, `fid`)-rijen.")
+
+        return df_resampled.loc[:, ["time", "fid", value_column]]

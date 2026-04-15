@@ -45,6 +45,9 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
             "time_name": "time",
             "x_name": "x",
             "y_name": "y",
+            "resample_frequency": None,
+            "resample_period_start": None,
+            "resample_period_end": None,
         }
 
     def run(self, input: str, output: str) -> None:
@@ -68,6 +71,11 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
                 options=options,
                 session=session,
             )
+        df_out = self.resample_timeseries(
+            df=df_out,
+            value_column="evaporation",
+            options=options,
+        )
         if len(df_out) == 0:
             raise UserWarning(
                 "KNMI verdamping bevat geen data voor het publicatievenster."

@@ -197,6 +197,187 @@ def test_sample_points_from_dataset_uses_coordinate_grid():
     assert sampled["P"].sel(fid=200).to_numpy().tolist() == [10.0]
 
 
+def test_resample_timeseries_sum_aggregation_with_period_filter():
+    df = pd.DataFrame(
+        {
+            "time": pd.to_datetime(
+                [
+                    "2025-06-01",
+                    "2025-06-02",
+                    "2025-06-03",
+                    "2025-06-04",
+                ]
+            ),
+            "fid": [100, 100, 100, 100],
+            "P": [1.0, 2.0, 3.0, 4.0],
+        }
+    )
+
+    result = GwdiWiwbRetrievalBase.resample_timeseries(
+        df=df,
+        value_column="P",
+        options={
+            "resample_frequency": "2D",
+            "resample_period_start": "2025-06-01",
+            "resample_period_end": "2025-06-04",
+        },
+    )
+
+    assert result["time"].tolist() == [
+        pd.Timestamp("2025-06-01"),
+        pd.Timestamp("2025-06-03"),
+    ]
+    assert result["P"].tolist() == [3.0, 7.0]
+    assert result["fid"].tolist() == [100, 100]
+
+
+def test_resample_timeseries_missing_period_config_raises():
+    df = pd.DataFrame(
+        {
+            "time": pd.to_datetime(["2025-06-01"]),
+            "fid": [100],
+            "P": [1.0],
+        }
+    )
+
+    with pytest.raises(UserWarning, match="resample_period_start"):
+        GwdiWiwbRetrievalBase.resample_timeseries(
+            df=df,
+            value_column="P",
+            options={"resample_frequency": "D"},
+        )
+
+
+def test_resample_timeseries_invalid_range_raises():
+    df = pd.DataFrame(
+        {
+            "time": pd.to_datetime(["2025-06-01"]),
+            "fid": [100],
+            "P": [1.0],
+        }
+    )
+
+    with pytest.raises(UserWarning, match="resample_period_end"):
+        GwdiWiwbRetrievalBase.resample_timeseries(
+            df=df,
+            value_column="P",
+            options={
+                "resample_frequency": "D",
+                "resample_period_start": "2025-06-03",
+                "resample_period_end": "2025-06-01",
+            },
+        )
+
+
+def test_resample_timeseries_empty_period_raises():
+    df = pd.DataFrame(
+        {
+            "time": pd.to_datetime(["2025-06-01"]),
+            "fid": [100],
+            "P": [1.0],
+        }
+    )
+
+    with pytest.raises(UserWarning, match="bevat geen data"):
+        GwdiWiwbRetrievalBase.resample_timeseries(
+            df=df,
+            value_column="P",
+            options={
+                "resample_frequency": "D",
+                "resample_period_start": "2025-06-02",
+                "resample_period_end": "2025-06-03",
+            },
+        )
+
+
+def test_wiwb_run_applies_resampling_and_returns_sorted_grid(monkeypatch):
+    data_adapter = _load_data_adapter()
+    data_adapter.config.global_variables["GwdiWiwbRetrieval"].update(
+        {
+            "resample_frequency": "2D",
+            "resample_period_start": "2025-06-10",
+            "resample_period_end": "2025-06-12",
+        }
+    )
+    module = GwdiWiwbRetrieval(data_adapter=data_adapter)
+
+    def _fake_retrieve_dataset(
+        self, df_locations, publish_start, publish_end, options, session=None
+    ):
+        return pd.DataFrame(
+            {
+                "time": pd.to_datetime(
+                    ["2025-06-12", "2025-06-11", "2025-06-10", "2025-06-10"]
+                ),
+                "fid": [100, 100, 100, 101],
+                "P": [3.0, 2.0, 1.0, 10.0],
+            }
+        )
+
+    monkeypatch.setattr(
+        GwdiWiwbRetrieval,
+        "_retrieve_dataset",
+        _fake_retrieve_dataset,
+    )
+
+    module.run(input="gwdi_input_locations", output="gwdi_output_precipitation")
+
+    assert module.df_out is not None
+    assert module.df_out.columns.tolist() == ["time", "fid", "P"]
+    assert not module.df_out[["time", "fid"]].duplicated().any()
+    assert module.df_out["time"].tolist() == [
+        pd.Timestamp("2025-06-10"),
+        pd.Timestamp("2025-06-10"),
+        pd.Timestamp("2025-06-12"),
+    ]
+    assert module.df_out["fid"].tolist() == [100, 101, 100]
+    assert module.df_out["P"].tolist() == [3.0, 10.0, 3.0]
+
+
+def test_knmi_run_applies_resampling_and_matches_wiwb_time_grid(monkeypatch):
+    data_adapter = _load_data_adapter()
+    data_adapter.config.global_variables["GwdiKnmiRetrieval"].update(
+        {
+            "resample_frequency": "2D",
+            "resample_period_start": "2025-06-10",
+            "resample_period_end": "2025-06-12",
+        }
+    )
+    module = GwdiKnmiRetrieval(data_adapter=data_adapter)
+
+    def _fake_retrieve_dataset(
+        self, df_locations, publish_start, publish_end, options, session=None
+    ):
+        return pd.DataFrame(
+            {
+                "time": pd.to_datetime(
+                    ["2025-06-12", "2025-06-11", "2025-06-10", "2025-06-10"]
+                ),
+                "fid": [100, 100, 100, 101],
+                "evaporation": [0.3, 0.2, 0.1, 1.0],
+            }
+        )
+
+    monkeypatch.setattr(
+        GwdiKnmiRetrieval,
+        "_retrieve_dataset",
+        _fake_retrieve_dataset,
+    )
+
+    module.run(input="gwdi_input_locations", output="gwdi_output_evaporation")
+
+    assert module.df_out is not None
+    assert module.df_out.columns.tolist() == ["time", "fid", "evaporation"]
+    assert not module.df_out[["time", "fid"]].duplicated().any()
+    assert module.df_out["time"].tolist() == [
+        pd.Timestamp("2025-06-10"),
+        pd.Timestamp("2025-06-10"),
+        pd.Timestamp("2025-06-12"),
+    ]
+    assert module.df_out["fid"].tolist() == [100, 101, 100]
+    assert module.df_out["evaporation"].tolist() == pytest.approx([0.3, 1.0, 0.3])
+
+
 @pytest.mark.skipif(
     os.getenv("GITHUB_ACTIONS") == "true",
     reason="Real-world integration test draait niet in GitHub Actions.",
