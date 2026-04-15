@@ -8,9 +8,9 @@ DataAdapter:
     gwdi_input_evaporation:
         type: csv
         file: "evaporation_single_fid.csv"
-    gwdi_input_location_info:
+    gwdi_input_pastas_mapping:
         type: csv
-        file: "location_info_single.csv"
+        file: "gwdi_pastas_mapping_single.csv"
         dtype:
             location: object
             position: object
@@ -23,3 +23,5 @@ DataAdapter:
         index_col: 0
     gwdi_output:
         type: python
+
+
