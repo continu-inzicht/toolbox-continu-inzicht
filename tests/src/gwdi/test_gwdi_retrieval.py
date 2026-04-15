@@ -211,7 +211,7 @@ def test_sample_points_from_dataset_uses_coordinate_grid():
 )
 def test_wiwb_real_world_retrieval():
     module = GwdiWiwbRetrieval(data_adapter=_load_data_adapter())
-    module.run(input="GwdiInputLocations", output="GwdiOutputPrecipitation")
+    module.run(input="gwdi_input_locations", output="gwdi_output_precipitation")
 
     assert module.df_out is not None
     assert len(module.df_out) > 0
@@ -229,7 +229,7 @@ def test_wiwb_real_world_retrieval():
 )
 def test_knmi_real_world_retrieval():
     module = GwdiKnmiRetrieval(data_adapter=_load_data_adapter())
-    module.run(input="GwdiInputLocations", output="GwdiOutputEvaporation")
+    module.run(input="gwdi_input_locations", output="gwdi_output_evaporation")
 
     assert module.df_out is not None
     assert len(module.df_out) > 0

@@ -12,12 +12,12 @@ GlobalVariables:
         window_days: 3
 
 DataAdapter:
-    GwdiInputLocations:
+    gwdi_input_locations:
         type: csv
         file: "locations.csv"
 
-    GwdiOutputPrecipitation:
+    gwdi_output_precipitation:
         type: python
 
-    GwdiOutputEvaporation:
+    gwdi_output_evaporation:
         type: python

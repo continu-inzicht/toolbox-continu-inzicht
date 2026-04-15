@@ -1,25 +1,25 @@
 GlobalVariables:
-    rootdir: "."
+    rootdir: "data_sets/10.gwdi_simple_calculation"
 
 DataAdapter:
-    GwdiInputPrecipitation:
+    gwdi_input_precipitation:
         type: csv
         file: "precipitation_single_fid.csv"
-    GwdiInputEvaporation:
+    gwdi_input_evaporation:
         type: csv
         file: "evaporation_single_fid.csv"
-    GwdiInputLocationInfo:
+    gwdi_input_location_info:
         type: csv
         file: "location_info_single.csv"
         dtype:
             location: object
             position: object
-    GwdiInputPastasModels:
+    gwdi_input_pastas_models:
         type: pastas_models
         path: "pastas_models"
-    GwdiInputStatsMinima:
+    gwdi_input_stats_minima:
         type: csv
         file: "df_stats_minima_single.csv"
         index_col: 0
-    GwdiOutput:
+    gwdi_output:
         type: python

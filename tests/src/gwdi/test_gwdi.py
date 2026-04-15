@@ -42,16 +42,16 @@ def _make_stats_minima() -> pd.DataFrame:
 
 
 def _set_non_model_inputs(data_adapter: DataAdapter) -> None:
-    data_adapter.set_dataframe_adapter("GwdiInputStatsMinima", _make_stats_minima())
+    data_adapter.set_dataframe_adapter("gwdi_input_stats_minima", _make_stats_minima())
 
 
 def _gwdi_inputs() -> list[str]:
     return [
-        "GwdiInputPrecipitation",
-        "GwdiInputEvaporation",
-        "GwdiInputLocationInfo",
-        "GwdiInputPastasModels",
-        "GwdiInputStatsMinima",
+        "gwdi_input_precipitation",
+        "gwdi_input_evaporation",
+        "gwdi_input_location_info",
+        "gwdi_input_pastas_models",
+        "gwdi_input_stats_minima",
     ]
 
 
@@ -79,7 +79,7 @@ def _load_inference_climate_inputs(
 def test_gwdi_inference_single_fid_run(gwdi_data_adapter: DataAdapter):
     _set_non_model_inputs(gwdi_data_adapter)
     module = GwdiInference(data_adapter=gwdi_data_adapter)
-    module.run(input=_gwdi_inputs(), output="GwdiOutput")
+    module.run(input=_gwdi_inputs(), output="gwdi_output")
 
     assert not module.df_out.empty
     assert module.df_out["fid"].astype(int).unique().tolist() == [100]
@@ -112,24 +112,24 @@ def test_gwdi_inference_fails_early_on_invalid_schema(
 
     module = GwdiInference(data_adapter=gwdi_data_adapter)
     adapter_overrides = {
-        "GwdiInputPrecipitation": {
+        "gwdi_input_precipitation": {
             "type": "python",
             "dataframe_from_python": df_precipitation,
         },
-        "GwdiInputEvaporation": {
+        "gwdi_input_evaporation": {
             "type": "python",
             "dataframe_from_python": df_evaporation,
         },
     }
     if location_info_override is not None:
-        adapter_overrides["GwdiInputLocationInfo"] = {
+        adapter_overrides["gwdi_input_location_info"] = {
             "type": "python",
             "dataframe_from_python": location_info_override,
         }
 
     with gwdi_data_adapter.temporary_adapters(adapter_overrides):
         with pytest.raises(UserWarning, match="Kolommen komen niet overeen"):
-            module.run(input=_gwdi_inputs(), output="GwdiOutput")
+            module.run(input=_gwdi_inputs(), output="gwdi_output")
 
 
 def test_gwdi_inference_runs_for_multiple_fids(
@@ -141,17 +141,17 @@ def test_gwdi_inference_runs_for_multiple_fids(
 
     with gwdi_data_adapter.temporary_adapters(
         {
-            "GwdiInputPrecipitation": {
+            "gwdi_input_precipitation": {
                 "type": "python",
                 "dataframe_from_python": df_precipitation,
             },
-            "GwdiInputEvaporation": {
+            "gwdi_input_evaporation": {
                 "type": "python",
                 "dataframe_from_python": df_evaporation,
             },
         }
     ):
-        module.run(input=_gwdi_inputs(), output="GwdiOutput")
+        module.run(input=_gwdi_inputs(), output="gwdi_output")
 
     assert sorted(module.df_out["fid"].astype(int).unique().tolist()) == [
         100,
@@ -234,22 +234,22 @@ def test_gwdi_inference_fails_on_duplicate_locations(
 
     with gwdi_data_adapter.temporary_adapters(
         {
-            "GwdiInputPrecipitation": {
+            "gwdi_input_precipitation": {
                 "type": "python",
                 "dataframe_from_python": df_precipitation,
             },
-            "GwdiInputEvaporation": {
+            "gwdi_input_evaporation": {
                 "type": "python",
                 "dataframe_from_python": df_evaporation,
             },
-            "GwdiInputLocationInfo": {
+            "gwdi_input_location_info": {
                 "type": "python",
                 "dataframe_from_python": duplicate_location_info,
             },
         }
     ):
         with pytest.raises(UserWarning, match="dubbele `location`-waarden"):
-            module.run(input=_gwdi_inputs(), output="GwdiOutput")
+            module.run(input=_gwdi_inputs(), output="gwdi_output")
 
 
 def test_input_pastas_models_loads_pas_directory(
@@ -299,22 +299,22 @@ def test_gwdi_inference_fails_on_empty_position(
 
     with gwdi_data_adapter.temporary_adapters(
         {
-            "GwdiInputPrecipitation": {
+            "gwdi_input_precipitation": {
                 "type": "python",
                 "dataframe_from_python": df_precipitation,
             },
-            "GwdiInputEvaporation": {
+            "gwdi_input_evaporation": {
                 "type": "python",
                 "dataframe_from_python": df_evaporation,
             },
-            "GwdiInputLocationInfo": {
+            "gwdi_input_location_info": {
                 "type": "python",
                 "dataframe_from_python": df_location_info,
             },
         }
     ):
         with pytest.raises(UserWarning, match="`position`"):
-            module.run(input=_gwdi_inputs(), output="GwdiOutput")
+            module.run(input=_gwdi_inputs(), output="gwdi_output")
 
 
 def test_gwdi_single_fid_matches_standalone_smoke_baseline():
@@ -340,3 +340,4 @@ def test_gwdi_single_fid_matches_standalone_smoke_baseline():
         atol=5e-8,
         rtol=5e-8,
     )
+
