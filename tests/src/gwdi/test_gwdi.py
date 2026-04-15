@@ -340,4 +340,3 @@ def test_gwdi_single_fid_matches_standalone_smoke_baseline():
         atol=5e-8,
         rtol=5e-8,
     )
-
