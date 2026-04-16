@@ -5,6 +5,8 @@ import xarray as xr
 
 
 class GwdiWiwbRetrievalBase:
+    """Shared GWDI retrieval utilities for WIWB and KNMI climate inputs."""
+
     @staticmethod
     def normalize_locations_table(df_locations: pd.DataFrame):
         df_locations_norm = df_locations.copy()
@@ -29,6 +31,7 @@ class GwdiWiwbRetrievalBase:
         publish_days: int | str,
         target_date: pd.Timestamp | str | None = None,
     ) -> tuple[pd.Timestamp, pd.Timestamp]:
+        """Resolve the publish window [publish_start, publish_end] at daily precision."""
         calc_timestamp = pd.Timestamp(calc_time)
         if calc_timestamp.tz is not None:
             calc_timestamp = calc_timestamp.tz_localize(None)
@@ -48,6 +51,31 @@ class GwdiWiwbRetrievalBase:
         return publish_start, publish_end
 
     @staticmethod
+    def resolve_source_window(
+        publish_start: pd.Timestamp,
+        publish_end: pd.Timestamp,
+        options: dict,
+    ) -> tuple[pd.Timestamp, pd.Timestamp]:
+        """Resolve source retrieval window from publish window.
+
+        Simplified model:
+        - `publish_days` defines the target output horizon.
+        - `lag_days` shifts the source window back in time.
+        - no extra `window_days` parameter; source span follows publish span.
+        """
+        lag_days = int(options.get("lag_days", 0))
+        if lag_days < 0:
+            raise UserWarning("`lag_days` moet groter of gelijk zijn aan 0.")
+
+        source_end = publish_end - timedelta(days=lag_days)
+        if source_end < publish_start:
+            raise UserWarning(
+                "Geen bronvenster beschikbaar binnen het publicatievenster."
+            )
+
+        return publish_start, source_end
+
+    @staticmethod
     def sample_points_from_dataset(
         dataset: xr.Dataset,
         locations_table: pd.DataFrame,
@@ -57,7 +85,18 @@ class GwdiWiwbRetrievalBase:
         time_name: str,
         x_name: str,
         y_name: str,
+        input_crs: str | None = None,
     ) -> xr.Dataset:
+        """Sample a gridded dataset at point locations without temporal aggregation.
+
+        This method only:
+        - slices the requested time window
+        - samples nearest grid cells for each location
+        - normalizes output layout
+
+        It intentionally does *not* convert rates to amounts and does not resample
+        in time. Any aggregation/conversion happens in dedicated downstream steps.
+        """
         # 1) Validate input schema on the selected source variable.
         if variable_name not in dataset.data_vars:
             raise UserWarning(f"Variabele `{variable_name}` ontbreekt in brondata.")
@@ -67,11 +106,22 @@ class GwdiWiwbRetrievalBase:
         if x_name not in data_array.coords or y_name not in data_array.coords:
             raise ValueError(f"Brondata mist coördinaten (`{x_name}`/`{y_name}`).")
 
+        locations_for_sampling = (
+            GwdiWiwbRetrievalBase.transform_locations_to_dataset_crs(
+                locations_table=locations_table,
+                dataset=dataset,
+                data_array=data_array,
+                input_crs=input_crs,
+                x_name=x_name,
+                y_name=y_name,
+            )
+        )
+
         # 2) Apply the requested time window and spatial nearest-neighbour sampling.
         data_array = data_array.sel({time_name: slice(window_start, window_end)})
-        sample_x = locations_table["x"].to_numpy(dtype=float)
-        sample_y = locations_table["y"].to_numpy(dtype=float)
-        fid_values = locations_table["fid"].astype(int).to_numpy()
+        sample_x = locations_for_sampling["x"].to_numpy(dtype=float)
+        sample_y = locations_for_sampling["y"].to_numpy(dtype=float)
+        fid_values = locations_for_sampling["fid"].astype(int).to_numpy()
         x_indexer = xr.DataArray(sample_x, dims=("fid",), coords={"fid": fid_values})
         y_indexer = xr.DataArray(sample_y, dims=("fid",), coords={"fid": fid_values})
         data_array = data_array.sel(
@@ -95,74 +145,109 @@ class GwdiWiwbRetrievalBase:
         return ds_out
 
     @staticmethod
-    def resample_timeseries(
-        df: pd.DataFrame,
-        value_column: str,
-        options: dict,
+    def infer_dataset_crs(dataset: xr.Dataset, data_array: xr.DataArray) -> str | None:
+        """Infer dataset CRS from CF grid-mapping metadata."""
+        grid_mapping_name = data_array.attrs.get("grid_mapping")
+        if grid_mapping_name is None:
+            return None
+        if grid_mapping_name not in dataset:
+            return None
+
+        mapping = dataset[grid_mapping_name]
+        mapping_attrs = mapping.attrs
+
+        proj4 = mapping_attrs.get("proj4_params")
+        if isinstance(proj4, str) and proj4.strip() != "":
+            return proj4
+
+        crs_wkt = mapping_attrs.get("crs_wkt") or mapping_attrs.get("spatial_ref")
+        if isinstance(crs_wkt, str) and crs_wkt.strip() != "":
+            return crs_wkt
+
+        # Fallback for datasets that provide only minimal CF metadata.
+        # Build a PROJ string from available grid-mapping attributes.
+        if mapping_attrs.get("grid_mapping_name") == "polar_stereographic":
+            required_keys = {
+                "longitude_of_projection_origin",
+                "latitude_of_projection_origin",
+                "standard_parallel",
+                "false_easting",
+                "false_northing",
+                "semi_major_axis",
+                "semi_minor_axis",
+            }
+            if not required_keys.issubset(mapping_attrs):
+                return None
+
+            lon0 = float(mapping_attrs["longitude_of_projection_origin"])
+            lat0 = float(mapping_attrs["latitude_of_projection_origin"])
+            lat_ts = float(mapping_attrs["standard_parallel"])
+            x0 = float(mapping_attrs["false_easting"])
+            y0 = float(mapping_attrs["false_northing"])
+            a_raw = float(mapping_attrs["semi_major_axis"])
+            b_raw = float(mapping_attrs["semi_minor_axis"])
+
+            # WIWB radar exports often use km-based coordinates and km-sized axes in
+            # the metadata. Convert axes to meters and keep projected units in km.
+            if a_raw < 10000.0 and b_raw < 10000.0:
+                a = a_raw * 1000.0
+                b = b_raw * 1000.0
+                units = "km"
+            else:
+                a = a_raw
+                b = b_raw
+                units = "m"
+
+            return (
+                f"+proj=stere +lat_0={lat0} +lat_ts={lat_ts} +lon_0={lon0} "
+                f"+x_0={x0} +y_0={y0} +a={a} +b={b} +units={units}"
+            )
+
+        return None
+
+    @staticmethod
+    def transform_locations_to_dataset_crs(
+        locations_table: pd.DataFrame,
+        dataset: xr.Dataset,
+        data_array: xr.DataArray,
+        input_crs: str | None,
+        x_name: str,
+        y_name: str,
     ) -> pd.DataFrame:
-        required_columns = {"time", "fid", value_column}
-        if not required_columns.issubset(df.columns):
-            raise UserWarning(
-                f"Resample-input mist verplichte kolommen: {sorted(required_columns)}."
-            )
+        """Transform input x/y points to dataset CRS before nearest-grid sampling."""
+        if input_crs in (None, ""):
+            return locations_table
 
-        df_prepared = df.loc[:, ["time", "fid", value_column]].copy()
-        df_prepared["time"] = pd.to_datetime(df_prepared["time"])
-        df_prepared["fid"] = df_prepared["fid"].astype(int)
-        df_prepared = df_prepared.sort_values(["time", "fid"]).reset_index(drop=True)
-
-        resample_frequency = options.get("resample_frequency")
-        if resample_frequency in (None, ""):
-            if df_prepared[["time", "fid"]].duplicated().any():
-                raise UserWarning("Resample-input bevat dubbele (`time`, `fid`)-rijen.")
-            return df_prepared
-
-        period_start_raw = options.get("resample_period_start")
-        period_end_raw = options.get("resample_period_end")
-        if period_start_raw in (None, "") or period_end_raw in (None, ""):
-            raise UserWarning(
-                "Bij `resample_frequency` zijn ook `resample_period_start` en "
-                "`resample_period_end` verplicht."
-            )
-
-        period_start = pd.Timestamp(period_start_raw)
-        period_end = pd.Timestamp(period_end_raw)
-        if period_start.tz is not None:
-            period_start = period_start.tz_localize(None)
-        if period_end.tz is not None:
-            period_end = period_end.tz_localize(None)
-
-        if period_end < period_start:
-            raise UserWarning(
-                "`resample_period_end` moet groter of gelijk zijn aan "
-                "`resample_period_start`."
-            )
-
-        df_filtered = df_prepared[
-            df_prepared["time"].between(period_start, period_end)
-        ].copy()
-        if len(df_filtered) == 0:
-            raise UserWarning(
-                "Resample-periode bevat geen data (`time` buiten opgegeven venster)."
-            )
-
-        df_resampled = (
-            df_filtered.groupby("fid")
-            .resample(
-                str(resample_frequency),
-                on="time",
-                label="left",
-                closed="left",
-                origin=period_start,
-            )[value_column]
-            .sum()
-            .reset_index()
+        dataset_crs = GwdiWiwbRetrievalBase.infer_dataset_crs(
+            dataset=dataset,
+            data_array=data_array,
         )
-        df_resampled["time"] = pd.to_datetime(df_resampled["time"])
-        df_resampled["fid"] = df_resampled["fid"].astype(int)
-        df_resampled = df_resampled.sort_values(["time", "fid"]).reset_index(drop=True)
+        if dataset_crs is None:
+            raise UserWarning(
+                "Kan bron-CRS niet afleiden uit dataset metadata. "
+                "Zet `input_crs` uit of gebruik brondata met geldige CRS metadata."
+            )
 
-        if df_resampled[["time", "fid"]].duplicated().any():
-            raise UserWarning("Resampled data bevat dubbele (`time`, `fid`)-rijen.")
+        try:
+            from pyproj import Transformer
+        except ImportError as exc:
+            raise UserWarning(
+                "Pakket `pyproj` ontbreekt maar is nodig voor CRS-transformatie."
+            ) from exc
 
-        return df_resampled.loc[:, ["time", "fid", value_column]]
+        transformer = Transformer.from_crs(input_crs, dataset_crs, always_xy=True)
+        transformed_x, transformed_y = transformer.transform(
+            locations_table["x"].to_numpy(dtype=float),
+            locations_table["y"].to_numpy(dtype=float),
+        )
+        transformed_x = pd.to_numeric(
+            pd.Series(transformed_x), errors="raise"
+        ).to_numpy(dtype=float)
+        transformed_y = pd.to_numeric(
+            pd.Series(transformed_y), errors="raise"
+        ).to_numpy(dtype=float)
+        locations_out = locations_table.copy()
+        locations_out["x"] = transformed_x
+        locations_out["y"] = transformed_y
+
+        return locations_out

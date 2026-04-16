@@ -5,11 +5,11 @@ GlobalVariables:
     GwdiWiwbRetrieval:
         wiwb_precipitation_source_code: "Knmi.International.Radar.Composite.Combined"
         lag_days: 0
-        window_days: 3
+        publish_days: 3
 
     GwdiKnmiRetrieval:
         lag_days: 0
-        window_days: 3
+        publish_days: 3
 
 DataAdapter:
     gwdi_input_locations:

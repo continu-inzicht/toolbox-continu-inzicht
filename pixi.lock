@@ -10038,7 +10038,7 @@ packages:
 - pypi: ./src
   name: toolbox-continu-inzicht
   version: 0.1.3
-  sha256: c5437a46409197cf14587b94c64ebadfcd92d1af5ea7a5f0917a257fe8b87865
+  sha256: 7ad4834c9f43376b58c6974d699e1962184068fd26109e44f8854945a511762f
   requires_dist:
   - pandas
   - pydantic>=2
@@ -10057,6 +10057,7 @@ packages:
   - pyarrow ; extra == 'all'
   - pydra-core==0.0.10 ; extra == 'all'
   - pyogrio ; extra == 'all'
+  - pyproj ; extra == 'all'
   - rasterstats>=0.20.0 ; extra == 'all'
   - requests ; extra == 'all'
   - scipy ; extra == 'all'
@@ -10076,6 +10077,7 @@ packages:
   - openpyxl ; extra == 'gwdi'
   - pastas ; extra == 'gwdi'
   - pyarrow ; extra == 'gwdi'
+  - pyproj ; extra == 'gwdi'
   - requests ; extra == 'gwdi'
   - scipy ; extra == 'gwdi'
   - xarray ; extra == 'gwdi'

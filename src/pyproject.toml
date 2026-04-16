@@ -71,6 +71,7 @@ gwdi = [
     "openpyxl",
     "h5netcdf",
     "pastas",
+    "pyproj",
     "requests",
     "xarray",
 ]

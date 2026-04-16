@@ -4,22 +4,14 @@ GlobalVariables:
 
     GwdiWiwbRetrieval:
         lag_days: 0
-        window_days: 35
         publish_days: 35
         target_date: "2024-02-14"
         wiwb_precipitation_source_code: "Knmi.International.Radar.Composite.Combined"
-        resample_frequency: "D"
-        resample_period_start: "2024-01-11"
-        resample_period_end: "2024-02-14"
 
     GwdiKnmiRetrieval:
         lag_days: 0
-        window_days: 35
         publish_days: 35
         target_date: "2024-02-14"
-        resample_frequency: "D"
-        resample_period_start: "2024-01-11"
-        resample_period_end: "2024-02-14"
 
 DataAdapter:
     gwdi_input_precipitation_static:

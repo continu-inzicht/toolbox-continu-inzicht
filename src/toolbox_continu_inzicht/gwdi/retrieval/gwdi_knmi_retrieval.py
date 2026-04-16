@@ -17,7 +17,12 @@ from toolbox_continu_inzicht.gwdi.retrieval.gwdi_base_retrieval import (
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
-    """Retrieve KNMI EV24 evaporation for point locations and publish table output."""
+    """Retrieve KNMI EV24 evaporation for point locations and publish table output.
+
+    Reference:
+    - KNMI EV24 daily evaporation product documentation:
+      https://dataplatform.knmi.nl/dataset/ev24-2
+    """
 
     data_adapter: DataAdapter
 
@@ -40,14 +45,11 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
             "knmi_dataset_version": "2",
             "knmi_file_template": "INTER_OPER_R___EV24____L3__{start}_{end}_0003.nc",
             "lag_days": 0,
-            "window_days": 35,
             "publish_days": 35,
+            "input_crs": "EPSG:4326",
             "time_name": "time",
             "x_name": "x",
             "y_name": "y",
-            "resample_frequency": None,
-            "resample_period_start": None,
-            "resample_period_end": None,
         }
 
     def run(self, input: str, output: str) -> None:
@@ -71,11 +73,6 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
                 options=options,
                 session=session,
             )
-        df_out = self.resample_timeseries(
-            df=df_out,
-            value_column="evaporation",
-            options=options,
-        )
         if len(df_out) == 0:
             raise UserWarning(
                 "KNMI verdamping bevat geen data voor het publicatievenster."
@@ -170,20 +167,14 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
         session: requests.Session | None = None,
     ) -> pd.DataFrame:
         time_name = str(options.get("time_name", "time"))
-        lag_days = int(options["lag_days"])
-        window_days = int(options.get("window_days", options["publish_days"]))
-        if window_days <= 0:
-            raise UserWarning("`window_days` moet groter zijn dan 0.")
-
-        window_end = publish_end - timedelta(days=lag_days)
-        if window_end < publish_start:
-            raise UserWarning(
-                "Geen KNMI venster beschikbaar binnen het publicatievenster."
-            )
-        window_start = max(publish_start, window_end - timedelta(days=window_days - 1))
+        source_start, source_end = self.resolve_source_window(
+            publish_start=publish_start,
+            publish_end=publish_end,
+            options=options,
+        )
 
         dataframes: list[pd.DataFrame] = []
-        for day in pd.date_range(window_start, window_end, freq="D"):
+        for day in pd.date_range(source_start, source_end, freq="D"):
             netcdf_content = self._download_evaporation_day_bytes(
                 options=options,
                 day=day,
@@ -245,6 +236,6 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
             time_name=time_name,
             x_name=str(options["x_name"]),
             y_name=str(options["y_name"]),
+            input_crs=options.get("input_crs"),
         )
-        # Daily GWDI-specific resampling is handled in GwdiClimateRetrieval.
         return ds_points.sortby(time_name)

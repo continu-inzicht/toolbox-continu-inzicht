@@ -18,7 +18,12 @@ from toolbox_continu_inzicht.gwdi.retrieval.gwdi_base_retrieval import (
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
-    """Retrieve WIWB precipitation for point locations and publish table output."""
+    """Retrieve WIWB precipitation for point locations and publish table output.
+
+    References:
+    - WIWB API technical guide (Reader `Interval` resampling):
+      https://portal.hydronet.com/data/files/Technische%20Instructies%20WIWB%20API.pdf
+    """
 
     data_adapter: DataAdapter
 
@@ -43,14 +48,12 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
             "wiwb_poll_timeout_seconds": 300,
             "wiwb_precipitation_source_code": "Knmi.International.Radar.Composite.Combined",
             "lag_days": 0,
-            "window_days": 35,
             "publish_days": 35,
+            "align_daily_to_start_label": True,
+            "input_crs": "EPSG:4326",
             "time_name": "time",
             "x_name": "x",
             "y_name": "y",
-            "resample_frequency": None,
-            "resample_period_start": None,
-            "resample_period_end": None,
         }
 
     def run(self, input: str, output: str) -> None:
@@ -74,11 +77,6 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
                 options=options,
                 session=session,
             )
-        df_out = self.resample_timeseries(
-            df=df_out,
-            value_column="P",
-            options=options,
-        )
         if len(df_out) == 0:
             raise UserWarning(
                 "WIWB neerslag bevat geen data voor het publicatievenster."
@@ -129,6 +127,8 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
                         "StartDate": start_date.strftime("%Y%m%d%H%M%S"),
                         "EndDate": end_date.strftime("%Y%m%d%H%M%S"),
                         "VariableCodes": ["P"],
+                        # Ask WIWB to aggregate native radar timesteps to daily values.
+                        # See WIWB API docs linked in class docstring.
                         "Interval": {"Type": "Days", "Value": 1},
                         "StructureType": "Grid",
                     },
@@ -245,35 +245,39 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
         session: requests.Session | None = None,
     ) -> pd.DataFrame:
         time_name = str(options.get("time_name", "time"))
-        lag_days = int(options["lag_days"])
-        window_days = int(options.get("window_days", options["publish_days"]))
-        if window_days <= 0:
-            raise UserWarning("`window_days` moet groter zijn dan 0.")
-
-        window_end = publish_end - timedelta(days=lag_days)
-        if window_end < publish_start:
-            raise UserWarning(
-                "Geen WIWB venster beschikbaar binnen het publicatievenster."
-            )
-        window_start = max(publish_start, window_end - timedelta(days=window_days - 1))
+        source_start, source_end = self.resolve_source_window(
+            publish_start=publish_start,
+            publish_end=publish_end,
+            options=options,
+        )
+        align_daily_to_start = bool(options.get("align_daily_to_start_label", True))
+        request_start = source_start
+        request_end = source_end
+        if align_daily_to_start:
+            # WIWB daily values are end-labeled for this source. To map them to
+            # start-labeled daily periods after shifting -1 day, request one extra
+            # day at the end.
+            request_end = source_end + timedelta(days=1)
 
         netcdf_content = self._download_precipitation_bytes(
             options=options,
-            start_date=window_start,
-            end_date=window_end,
+            start_date=request_start,
+            end_date=request_end,
             session=session,
         )
         with xr.open_dataset(io.BytesIO(netcdf_content)) as ds_raw:
             # Select locations and time before loading into memory.
+            # Note: this method only slices/samples; no temporal aggregation.
             ds_prepared = self.sample_points_from_dataset(
                 dataset=ds_raw,
                 locations_table=df_locations,
-                window_start=window_start,
-                window_end=window_end,
+                window_start=request_start,
+                window_end=request_end,
                 variable_name="P",
                 time_name=time_name,
                 x_name=str(options["x_name"]),
                 y_name=str(options["y_name"]),
+                input_crs=options.get("input_crs"),
             ).load()
 
         if len(ds_prepared[time_name]) == 0:
@@ -283,6 +287,14 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
         if time_name != "time":
             df_out = df_out.rename(columns={time_name: "time"})
         df_out = df_out.loc[:, ["time", "fid", "P"]].copy()
+
+        # Empirically WIWB daily timestamp is end-labeled for this source/interval.
+        # Shift to start-label so daily value at day D represents [D, D+1), which
+        # aligns better with downstream intuition and KNMI EV24 handling.
+        if align_daily_to_start:
+            df_out["time"] = pd.to_datetime(df_out["time"]) - timedelta(days=1)
+
+        df_out = df_out[df_out["time"].between(publish_start, publish_end)]
         df_out = df_out.sort_values(["time", "fid"]).reset_index(drop=True)
 
         return df_out

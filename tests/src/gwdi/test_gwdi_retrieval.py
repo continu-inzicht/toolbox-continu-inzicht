@@ -197,108 +197,58 @@ def test_sample_points_from_dataset_uses_coordinate_grid():
     assert sampled["P"].sel(fid=200).to_numpy().tolist() == [10.0]
 
 
-def test_resample_timeseries_sum_aggregation_with_period_filter():
-    df = pd.DataFrame(
-        {
-            "time": pd.to_datetime(
-                [
-                    "2025-06-01",
-                    "2025-06-02",
-                    "2025-06-03",
-                    "2025-06-04",
-                ]
-            ),
-            "fid": [100, 100, 100, 100],
-            "P": [1.0, 2.0, 3.0, 4.0],
-        }
-    )
-
-    result = GwdiWiwbRetrievalBase.resample_timeseries(
-        df=df,
-        value_column="P",
-        options={
-            "resample_frequency": "2D",
-            "resample_period_start": "2025-06-01",
-            "resample_period_end": "2025-06-04",
+def test_infer_dataset_crs_from_proj4_grid_mapping():
+    dataset = xr.Dataset(
+        data_vars={
+            "evaporation": (("time", "y", "x"), np.ones((1, 1, 1), dtype=float)),
+            "projection": ((), 0),
         },
+        coords={"time": [pd.Timestamp("2025-06-01")], "x": [155000.0], "y": [463000.0]},
+    )
+    dataset["evaporation"].attrs["grid_mapping"] = "projection"
+    dataset["projection"].attrs["proj4_params"] = (
+        "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 "
+        "+k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs"
     )
 
-    assert result["time"].tolist() == [
-        pd.Timestamp("2025-06-01"),
-        pd.Timestamp("2025-06-03"),
-    ]
-    assert result["P"].tolist() == [3.0, 7.0]
-    assert result["fid"].tolist() == [100, 100]
+    inferred = GwdiWiwbRetrievalBase.infer_dataset_crs(
+        dataset=dataset,
+        data_array=dataset["evaporation"],
+    )
+    assert isinstance(inferred, str)
+    assert "+proj=sterea" in inferred
 
 
-def test_resample_timeseries_missing_period_config_raises():
-    df = pd.DataFrame(
-        {
-            "time": pd.to_datetime(["2025-06-01"]),
-            "fid": [100],
-            "P": [1.0],
-        }
+def test_transform_locations_to_dataset_crs_knmi_rd():
+    dataset = xr.Dataset(
+        data_vars={
+            "evaporation": (("time", "y", "x"), np.ones((1, 1, 1), dtype=float)),
+            "projection": ((), 0),
+        },
+        coords={"time": [pd.Timestamp("2025-06-01")], "x": [155000.0], "y": [463000.0]},
+    )
+    dataset["evaporation"].attrs["grid_mapping"] = "projection"
+    dataset["projection"].attrs["proj4_params"] = (
+        "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 "
+        "+k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs"
+    )
+    locations = pd.DataFrame({"fid": [1], "name": ["loc"], "x": [4.9], "y": [52.37]})
+
+    transformed = GwdiWiwbRetrievalBase.transform_locations_to_dataset_crs(
+        locations_table=locations,
+        dataset=dataset,
+        data_array=dataset["evaporation"],
+        input_crs="EPSG:4326",
+        x_name="x",
+        y_name="y",
     )
 
-    with pytest.raises(UserWarning, match="resample_period_start"):
-        GwdiWiwbRetrievalBase.resample_timeseries(
-            df=df,
-            value_column="P",
-            options={"resample_frequency": "D"},
-        )
+    assert transformed["x"].iloc[0] == pytest.approx(121819.0, rel=0.0, abs=500.0)
+    assert transformed["y"].iloc[0] == pytest.approx(487014.0, rel=0.0, abs=500.0)
 
 
-def test_resample_timeseries_invalid_range_raises():
-    df = pd.DataFrame(
-        {
-            "time": pd.to_datetime(["2025-06-01"]),
-            "fid": [100],
-            "P": [1.0],
-        }
-    )
-
-    with pytest.raises(UserWarning, match="resample_period_end"):
-        GwdiWiwbRetrievalBase.resample_timeseries(
-            df=df,
-            value_column="P",
-            options={
-                "resample_frequency": "D",
-                "resample_period_start": "2025-06-03",
-                "resample_period_end": "2025-06-01",
-            },
-        )
-
-
-def test_resample_timeseries_empty_period_raises():
-    df = pd.DataFrame(
-        {
-            "time": pd.to_datetime(["2025-06-01"]),
-            "fid": [100],
-            "P": [1.0],
-        }
-    )
-
-    with pytest.raises(UserWarning, match="bevat geen data"):
-        GwdiWiwbRetrievalBase.resample_timeseries(
-            df=df,
-            value_column="P",
-            options={
-                "resample_frequency": "D",
-                "resample_period_start": "2025-06-02",
-                "resample_period_end": "2025-06-03",
-            },
-        )
-
-
-def test_wiwb_run_applies_resampling_and_returns_sorted_grid(monkeypatch):
+def test_wiwb_run_returns_sorted_grid_without_resampling(monkeypatch):
     data_adapter = _load_data_adapter()
-    data_adapter.config.global_variables["GwdiWiwbRetrieval"].update(
-        {
-            "resample_frequency": "2D",
-            "resample_period_start": "2025-06-10",
-            "resample_period_end": "2025-06-12",
-        }
-    )
     module = GwdiWiwbRetrieval(data_adapter=data_adapter)
 
     def _fake_retrieve_dataset(
@@ -328,21 +278,15 @@ def test_wiwb_run_applies_resampling_and_returns_sorted_grid(monkeypatch):
     assert module.df_out["time"].tolist() == [
         pd.Timestamp("2025-06-10"),
         pd.Timestamp("2025-06-10"),
+        pd.Timestamp("2025-06-11"),
         pd.Timestamp("2025-06-12"),
     ]
-    assert module.df_out["fid"].tolist() == [100, 101, 100]
-    assert module.df_out["P"].tolist() == [3.0, 10.0, 3.0]
+    assert module.df_out["fid"].tolist() == [100, 101, 100, 100]
+    assert module.df_out["P"].tolist() == [1.0, 10.0, 2.0, 3.0]
 
 
-def test_knmi_run_applies_resampling_and_matches_wiwb_time_grid(monkeypatch):
+def test_knmi_run_returns_sorted_grid_without_resampling(monkeypatch):
     data_adapter = _load_data_adapter()
-    data_adapter.config.global_variables["GwdiKnmiRetrieval"].update(
-        {
-            "resample_frequency": "2D",
-            "resample_period_start": "2025-06-10",
-            "resample_period_end": "2025-06-12",
-        }
-    )
     module = GwdiKnmiRetrieval(data_adapter=data_adapter)
 
     def _fake_retrieve_dataset(
@@ -372,10 +316,11 @@ def test_knmi_run_applies_resampling_and_matches_wiwb_time_grid(monkeypatch):
     assert module.df_out["time"].tolist() == [
         pd.Timestamp("2025-06-10"),
         pd.Timestamp("2025-06-10"),
+        pd.Timestamp("2025-06-11"),
         pd.Timestamp("2025-06-12"),
     ]
-    assert module.df_out["fid"].tolist() == [100, 101, 100]
-    assert module.df_out["evaporation"].tolist() == pytest.approx([0.3, 1.0, 0.3])
+    assert module.df_out["fid"].tolist() == [100, 101, 100, 100]
+    assert module.df_out["evaporation"].tolist() == pytest.approx([0.1, 1.0, 0.2, 0.3])
 
 
 @pytest.mark.skipif(
