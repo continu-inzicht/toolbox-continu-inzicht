@@ -1,7 +1,7 @@
 import io
 from datetime import timedelta
 import os
-from typing import ClassVar, Optional
+from typing import ClassVar
 
 import pandas as pd
 from pydantic.dataclasses import dataclass
@@ -17,17 +17,34 @@ from toolbox_continu_inzicht.gwdi.retrieval.gwdi_base_retrieval import (
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
-    """Retrieve KNMI EV24 evaporation for point locations and publish table output.
+    """Retrieve KNMI EV24 evaporation for point locations.
 
-    Reference:
-    - KNMI EV24 daily evaporation product documentation:
-      https://dataplatform.knmi.nl/dataset/ev24-2
+    Parameters
+    ----------
+    data_adapter : DataAdapter
+        Data adapter used for reading input locations and writing output tables.
+
+    Attributes
+    ----------
+    data_adapter : DataAdapter
+        Data adapter instance.
+    df_in : pd.DataFrame | None
+        Normalized input locations after ``run``.
+    df_out : pd.DataFrame | None
+        Retrieved evaporation table after ``run``.
+    input_schema : ClassVar[dict[str, str | list[str]]]
+        Validation schema for location input.
+
+    Notes
+    -----
+    Product reference:
+    https://dataplatform.knmi.nl/dataset/ev24-2
     """
 
     data_adapter: DataAdapter
 
-    df_in: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
+    df_in: pd.DataFrame | None = None
+    df_out: pd.DataFrame | None = None
 
     input_schema: ClassVar[dict[str, str | list[str]]] = {
         "fid": "integer",
@@ -37,7 +54,14 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
     }
 
     @staticmethod
-    def default_options() -> dict:
+    def default_options() -> dict[str, object]:
+        """Return default runtime options.
+
+        Returns
+        -------
+        dict[str, object]
+            Default KNMI retrieval options.
+        """
         return {
             "knmi_api_base_url": "https://api.dataplatform.knmi.nl/open-data/v1",
             "knmi_api_key_env": "KNMI_API_KEY",
@@ -53,6 +77,20 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
         }
 
     def run(self, input: str, output: str) -> None:
+        """Execute KNMI retrieval for configured locations.
+
+        Parameters
+        ----------
+        input : str
+            Input adapter key containing location table.
+        output : str
+            Output adapter key for evaporation table.
+
+        Raises
+        ------
+        UserWarning
+            If retrieval returns no data or duplicate ``(time, fid)`` rows.
+        """
         options = self._combined_options()
 
         self.df_in = self.normalize_locations_table(
@@ -85,10 +123,26 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
 
     def fetch_evaporation_day(
         self,
-        options: dict,
+        options: dict[str, object],
         day: pd.Timestamp,
         session: requests.Session | None = None,
     ) -> xr.Dataset:
+        """Fetch a single KNMI EV24 daily dataset.
+
+        Parameters
+        ----------
+        options : dict[str, object]
+            Retrieval options.
+        day : pd.Timestamp
+            Requested day.
+        session : requests.Session | None, optional
+            Existing requests session.
+
+        Returns
+        -------
+        xarray.Dataset
+            Loaded source dataset.
+        """
         content = self._download_evaporation_day_bytes(
             options=options,
             day=day,
@@ -99,10 +153,31 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
 
     def _download_evaporation_day_bytes(
         self,
-        options: dict,
+        options: dict[str, object],
         day: pd.Timestamp,
         session: requests.Session | None = None,
     ) -> bytes:
+        """Download one KNMI EV24 NetCDF file as bytes.
+
+        Parameters
+        ----------
+        options : dict[str, object]
+            Retrieval options.
+        day : pd.Timestamp
+            Requested day.
+        session : requests.Session | None, optional
+            Existing requests session.
+
+        Returns
+        -------
+        bytes
+            NetCDF payload bytes.
+
+        Raises
+        ------
+        UserWarning
+            If auth, file-url lookup or file download fails.
+        """
         request_client = session if session is not None else requests
         api_key_env = str(options["knmi_api_key_env"])
         if api_key_env not in os.environ:
@@ -148,7 +223,19 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
             )
         return bytes(file_response.content)
 
-    def _combined_options(self) -> dict:
+    def _combined_options(self) -> dict[str, object]:
+        """Merge default options with config overrides.
+
+        Returns
+        -------
+        dict[str, object]
+            Effective options.
+
+        Raises
+        ------
+        UserWarning
+            If required config section is missing.
+        """
         global_variables = self.data_adapter.config.global_variables
         if "GwdiKnmiRetrieval" not in global_variables:
             raise UserWarning(
@@ -163,9 +250,34 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
         df_locations: pd.DataFrame,
         publish_start: pd.Timestamp,
         publish_end: pd.Timestamp,
-        options: dict,
+        options: dict[str, object],
         session: requests.Session | None = None,
     ) -> pd.DataFrame:
+        """Retrieve KNMI evaporation table for publish window.
+
+        Parameters
+        ----------
+        df_locations : pd.DataFrame
+            Location table.
+        publish_start : pd.Timestamp
+            Publish window start.
+        publish_end : pd.Timestamp
+            Publish window end.
+        options : dict[str, object]
+            Effective retrieval options.
+        session : requests.Session | None, optional
+            Existing requests session.
+
+        Returns
+        -------
+        pd.DataFrame
+            Output with columns ``time``, ``fid``, ``evaporation``.
+
+        Raises
+        ------
+        UserWarning
+            If KNMI source data is unavailable for one or more days.
+        """
         time_name = str(options.get("time_name", "time"))
         source_start, source_end = self.resolve_source_window(
             publish_start=publish_start,
@@ -213,9 +325,27 @@ class GwdiKnmiRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
         self,
         dataset: xr.Dataset,
         df_locations: pd.DataFrame,
-        options: dict,
+        options: dict[str, object],
         day: pd.Timestamp,
     ) -> xr.Dataset:
+        """Prepare daily evaporation dataset for location sampling.
+
+        Parameters
+        ----------
+        dataset : xr.Dataset
+            Source KNMI EV24 dataset.
+        df_locations : pd.DataFrame
+            Location table.
+        options : dict[str, object]
+            Effective retrieval options.
+        day : pd.Timestamp
+            Requested day.
+
+        Returns
+        -------
+        xr.Dataset
+            Sampled and standardized evaporation dataset for the day.
+        """
         time_name = str(options.get("time_name", "time"))
         if "evaporation" in dataset.data_vars:
             variable_name = "evaporation"

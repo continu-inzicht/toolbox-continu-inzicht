@@ -2,7 +2,7 @@ import io
 from datetime import timedelta
 import os
 import time
-from typing import ClassVar, Optional
+from typing import ClassVar
 
 import pandas as pd
 from pydantic.dataclasses import dataclass
@@ -18,17 +18,34 @@ from toolbox_continu_inzicht.gwdi.retrieval.gwdi_base_retrieval import (
 
 @dataclass(config={"arbitrary_types_allowed": True})
 class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
-    """Retrieve WIWB precipitation for point locations and publish table output.
+    """Retrieve WIWB precipitation for point locations.
 
-    References:
-    - WIWB API technical guide (Reader `Interval` resampling):
-      https://portal.hydronet.com/data/files/Technische%20Instructies%20WIWB%20API.pdf
+    Parameters
+    ----------
+    data_adapter : DataAdapter
+        Data adapter used for reading input locations and writing output tables.
+
+    Attributes
+    ----------
+    data_adapter : DataAdapter
+        Data adapter instance.
+    df_in : pd.DataFrame | None
+        Normalized input locations after ``run``.
+    df_out : pd.DataFrame | None
+        Retrieved precipitation table after ``run``.
+    input_schema : ClassVar[dict[str, str | list[str]]]
+        Validation schema for location input.
+
+    Notes
+    -----
+    WIWB API reference used by this module:
+    https://portal.hydronet.com/data/files/Technische%20Instructies%20WIWB%20API.pdf
     """
 
     data_adapter: DataAdapter
 
-    df_in: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
+    df_in: pd.DataFrame | None = None
+    df_out: pd.DataFrame | None = None
 
     input_schema: ClassVar[dict[str, str | list[str]]] = {
         "fid": "integer",
@@ -38,7 +55,14 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
     }
 
     @staticmethod
-    def default_options() -> dict:
+    def default_options() -> dict[str, object]:
+        """Return default runtime options.
+
+        Returns
+        -------
+        dict[str, object]
+            Default WIWB retrieval options.
+        """
         return {
             "wiwb_api_url": "https://wiwb.hydronet.com/api",
             "wiwb_auth_url": "https://login.hydronet.com/auth/realms/hydronet/protocol/openid-connect/token",
@@ -57,6 +81,20 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
         }
 
     def run(self, input: str, output: str) -> None:
+        """Execute WIWB retrieval for configured locations.
+
+        Parameters
+        ----------
+        input : str
+            Input adapter key containing location table.
+        output : str
+            Output adapter key for precipitation table.
+
+        Raises
+        ------
+        UserWarning
+            If retrieval returns no data or duplicate ``(time, fid)`` rows.
+        """
         options = self._combined_options()
 
         self.df_in = self.normalize_locations_table(
@@ -89,11 +127,29 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
 
     def fetch_precipitation(
         self,
-        options: dict,
+        options: dict[str, object],
         start_date: pd.Timestamp,
         end_date: pd.Timestamp,
         session: requests.Session | None = None,
     ) -> xr.Dataset:
+        """Fetch WIWB precipitation dataset for a date range.
+
+        Parameters
+        ----------
+        options : dict[str, object]
+            Retrieval options.
+        start_date : pd.Timestamp
+            Request start timestamp.
+        end_date : pd.Timestamp
+            Request end timestamp.
+        session : requests.Session | None, optional
+            Existing requests session.
+
+        Returns
+        -------
+        xarray.Dataset
+            Loaded source dataset.
+        """
         content = self._download_precipitation_bytes(
             options=options,
             start_date=start_date,
@@ -105,11 +161,34 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
 
     def _download_precipitation_bytes(
         self,
-        options: dict,
+        options: dict[str, object],
         start_date: pd.Timestamp,
         end_date: pd.Timestamp,
         session: requests.Session | None = None,
     ) -> bytes:
+        """Download WIWB precipitation as NetCDF bytes.
+
+        Parameters
+        ----------
+        options : dict[str, object]
+            Retrieval options.
+        start_date : pd.Timestamp
+            Request start timestamp.
+        end_date : pd.Timestamp
+            Request end timestamp.
+        session : requests.Session | None, optional
+            Existing requests session.
+
+        Returns
+        -------
+        bytes
+            NetCDF payload bytes.
+
+        Raises
+        ------
+        UserWarning
+            If WIWB request, polling or download fails.
+        """
         request_client = session if session is not None else requests
         token = self._get_token(options=options, session=session)
         api_url = str(options["wiwb_api_url"]).rstrip("/")
@@ -193,9 +272,28 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
 
     def _get_token(
         self,
-        options: dict,
+        options: dict[str, object],
         session: requests.Session | None = None,
     ) -> str:
+        """Retrieve WIWB OAuth access token.
+
+        Parameters
+        ----------
+        options : dict[str, object]
+            Retrieval options with env var keys for client id/secret.
+        session : requests.Session | None, optional
+            Existing requests session.
+
+        Returns
+        -------
+        str
+            Access token.
+
+        Raises
+        ------
+        UserWarning
+            If required env vars are missing or token request fails.
+        """
         client_id_env_key = str(options["wiwb_client_id_env"])
         if client_id_env_key not in os.environ:
             raise UserWarning(
@@ -226,7 +324,19 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
             raise UserWarning("WIWB token-aanvraag gaf geen `access_token` terug.")
         return str(token)
 
-    def _combined_options(self) -> dict:
+    def _combined_options(self) -> dict[str, object]:
+        """Merge default options with config overrides.
+
+        Returns
+        -------
+        dict[str, object]
+            Effective options.
+
+        Raises
+        ------
+        UserWarning
+            If required config section is missing.
+        """
         global_variables = self.data_adapter.config.global_variables
         if "GwdiWiwbRetrieval" not in global_variables:
             raise UserWarning(
@@ -241,9 +351,34 @@ class GwdiWiwbRetrieval(ToolboxBase, GwdiWiwbRetrievalBase):
         df_locations: pd.DataFrame,
         publish_start: pd.Timestamp,
         publish_end: pd.Timestamp,
-        options: dict,
+        options: dict[str, object],
         session: requests.Session | None = None,
     ) -> pd.DataFrame:
+        """Retrieve and prepare WIWB precipitation table for publish window.
+
+        Parameters
+        ----------
+        df_locations : pd.DataFrame
+            Location table.
+        publish_start : pd.Timestamp
+            Publish window start.
+        publish_end : pd.Timestamp
+            Publish window end.
+        options : dict[str, object]
+            Effective retrieval options.
+        session : requests.Session | None, optional
+            Existing requests session.
+
+        Returns
+        -------
+        pd.DataFrame
+            Output with columns ``time``, ``fid``, ``P``.
+
+        Raises
+        ------
+        UserWarning
+            If WIWB source data is unavailable for the requested window.
+        """
         time_name = str(options.get("time_name", "time"))
         source_start, source_end = self.resolve_source_window(
             publish_start=publish_start,

@@ -8,7 +8,25 @@ class GwdiWiwbRetrievalBase:
     """Shared GWDI retrieval utilities for WIWB and KNMI climate inputs."""
 
     @staticmethod
-    def normalize_locations_table(df_locations: pd.DataFrame):
+    def normalize_locations_table(df_locations: pd.DataFrame) -> pd.DataFrame:
+        """Validate and normalize GWDI sampling locations.
+
+        Parameters
+        ----------
+        df_locations : pd.DataFrame
+            Input location table with at least ``fid``, ``name``, ``x`` and ``y``.
+
+        Returns
+        -------
+        pandas.DataFrame
+            Normalized copy with integer ``fid``, numeric coordinates and rows sorted
+            by ``fid``.
+
+        Raises
+        ------
+        UserWarning
+            If ``fid`` contains missing or duplicate values.
+        """
         df_locations_norm = df_locations.copy()
 
         if df_locations_norm["fid"].isna().any():
@@ -31,7 +49,28 @@ class GwdiWiwbRetrievalBase:
         publish_days: int | str,
         target_date: pd.Timestamp | str | None = None,
     ) -> tuple[pd.Timestamp, pd.Timestamp]:
-        """Resolve the publish window [publish_start, publish_end] at daily precision."""
+        """Resolve publish window at daily precision.
+
+        Parameters
+        ----------
+        calc_time : pd.Timestamp | str
+            Calculation timestamp.
+        publish_days : int | str
+            Number of publish days to include.
+        target_date : pd.Timestamp | str | None, optional
+            Optional explicit publish end date. If omitted, ``calc_time - 1 day`` is
+            used.
+
+        Returns
+        -------
+        tuple[pd.Timestamp, pd.Timestamp]
+            ``(publish_start, publish_end)``.
+
+        Raises
+        ------
+        UserWarning
+            If ``publish_days <= 0``.
+        """
         calc_timestamp = pd.Timestamp(calc_time)
         if calc_timestamp.tz is not None:
             calc_timestamp = calc_timestamp.tz_localize(None)
@@ -54,14 +93,32 @@ class GwdiWiwbRetrievalBase:
     def resolve_source_window(
         publish_start: pd.Timestamp,
         publish_end: pd.Timestamp,
-        options: dict,
+        options: dict[str, object],
     ) -> tuple[pd.Timestamp, pd.Timestamp]:
         """Resolve source retrieval window from publish window.
 
-        Simplified model:
-        - `publish_days` defines the target output horizon.
-        - `lag_days` shifts the source window back in time.
-        - no extra `window_days` parameter; source span follows publish span.
+        Parameters
+        ----------
+        publish_start : pd.Timestamp
+            Start of the publish window.
+        publish_end : pd.Timestamp
+            End of the publish window.
+        options : dict[str, object]
+            Retrieval options containing optional ``lag_days``.
+
+        Returns
+        -------
+        tuple[pd.Timestamp, pd.Timestamp]
+            ``(source_start, source_end)``.
+
+        Raises
+        ------
+        UserWarning
+            If ``lag_days < 0`` or if the lagged end falls before publish start.
+
+        Notes
+        -----
+        Source span follows publish span; only lag shifts the end backward.
         """
         lag_days = int(options.get("lag_days", 0))
         if lag_days < 0:
@@ -89,13 +146,44 @@ class GwdiWiwbRetrievalBase:
     ) -> xr.Dataset:
         """Sample a gridded dataset at point locations without temporal aggregation.
 
-        This method only:
-        - slices the requested time window
-        - samples nearest grid cells for each location
-        - normalizes output layout
+        Parameters
+        ----------
+        dataset : xr.Dataset
+            Source dataset.
+        locations_table : pd.DataFrame
+            Location table with ``fid``, ``x`` and ``y``.
+        window_start : pd.Timestamp
+            Start of the time slice.
+        window_end : pd.Timestamp
+            End of the time slice.
+        variable_name : str
+            Source variable to sample.
+        time_name : str
+            Time dimension name.
+        x_name : str
+            X coordinate name.
+        y_name : str
+            Y coordinate name.
+        input_crs : str | None, optional
+            CRS of input location coordinates. If provided, points are transformed to
+            source CRS prior to sampling.
 
-        It intentionally does *not* convert rates to amounts and does not resample
-        in time. Any aggregation/conversion happens in dedicated downstream steps.
+        Returns
+        -------
+        xr.Dataset
+            Dataset containing sampled values in ``(time, fid)`` shape.
+
+        Raises
+        ------
+        UserWarning
+            If the requested variable is missing.
+        ValueError
+            If required dimensions/coordinates are missing.
+
+        Notes
+        -----
+        This method only slices and samples. It does not perform temporal
+        aggregation or rate-to-amount conversion.
         """
         # 1) Validate input schema on the selected source variable.
         if variable_name not in dataset.data_vars:
@@ -146,7 +234,21 @@ class GwdiWiwbRetrievalBase:
 
     @staticmethod
     def infer_dataset_crs(dataset: xr.Dataset, data_array: xr.DataArray) -> str | None:
-        """Infer dataset CRS from CF grid-mapping metadata."""
+        """Infer dataset CRS from CF grid-mapping metadata.
+
+        Parameters
+        ----------
+        dataset : xr.Dataset
+            Source dataset containing grid-mapping variables.
+        data_array : xr.DataArray
+            Data variable with optional ``grid_mapping`` attribute.
+
+        Returns
+        -------
+        str or None
+            CRS representation suitable for ``pyproj`` (PROJ/WKT), or ``None`` when
+            inference is not possible.
+        """
         grid_mapping_name = data_array.attrs.get("grid_mapping")
         if grid_mapping_name is None:
             return None
@@ -214,7 +316,34 @@ class GwdiWiwbRetrievalBase:
         x_name: str,
         y_name: str,
     ) -> pd.DataFrame:
-        """Transform input x/y points to dataset CRS before nearest-grid sampling."""
+        """Transform input points from input CRS to dataset CRS.
+
+        Parameters
+        ----------
+        locations_table : pd.DataFrame
+            Location table with ``x`` and ``y``.
+        dataset : xr.Dataset
+            Source dataset.
+        data_array : xr.DataArray
+            Source variable used for CRS inference.
+        input_crs : str | None, optional
+            CRS of input points (e.g. ``"EPSG:4326"``). If ``None`` or empty, no
+            transformation is applied.
+        x_name : str
+            Name of source x-coordinate (reserved for interface consistency).
+        y_name : str
+            Name of source y-coordinate (reserved for interface consistency).
+
+        Returns
+        -------
+        pd.DataFrame
+            Copy of the input table with transformed ``x`` and ``y`` coordinates.
+
+        Raises
+        ------
+        UserWarning
+            If dataset CRS cannot be inferred or ``pyproj`` is unavailable.
+        """
         if input_crs in (None, ""):
             return locations_table
 
