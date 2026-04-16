@@ -102,7 +102,6 @@ types-pyyaml = "*"
 matplotlib = "*"
 pixi-pack = ">=0.7.5,<0.8"
 
-
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
 pydra-core = "==0.0.10"
