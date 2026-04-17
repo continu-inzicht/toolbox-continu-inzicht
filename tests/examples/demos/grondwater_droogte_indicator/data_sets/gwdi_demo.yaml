@@ -1,0 +1,41 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    calc_time: "2025-07-04 08:00:00"
+
+    GwdiWiwbRetrieval:
+        lag_days: 0
+        publish_days: 45
+        target_date: "2025-07-04"
+        wiwb_precipitation_source_code: "Knmi.International.Radar.Composite.Combined"
+
+    GwdiKnmiRetrieval:
+        lag_days: 0
+        publish_days: 45
+        target_date: "2025-07-04"
+
+DataAdapter:
+    gwdi_input_precipitation_dynamic:
+        type: python
+    gwdi_input_evaporation_dynamic:
+        type: python
+
+    gwdi_input_climate_sampling_locations:
+        type: csv
+        file: "gwdi_beemster_loc.csv"
+
+    gwdi_input_pastas_mapping:
+        type: csv
+        file: "gwdi_pastas_mapping.csv"
+        dtype:
+            location: object
+            position: object
+    gwdi_input_pastas_models:
+        type: pastas_models
+        path: "pastas_models"
+    gwdi_input_stats_minima:
+        type: csv
+        file: "df_stats_minima.csv"
+        index_col: 0
+    gwdi_output:
+        type: csv
+        file: "gwdi_ouput.csv"
