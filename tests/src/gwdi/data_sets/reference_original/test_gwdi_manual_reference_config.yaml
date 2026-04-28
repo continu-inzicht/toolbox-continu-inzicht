@@ -1,0 +1,57 @@
+GlobalVariables:
+    rootdir: "tests/src/gwdi/data_sets/reference_original"
+    calc_time: "2024-05-13 08:00:00"
+
+    GwdiReferenceRetrievalTest:
+        start_date: "2024-05-03"
+        end_date: "2024-05-12"
+
+    GwdiWiwbRetrieval:
+        align_daily_to_start_label: false
+        lag_days: 0
+        publish_days: 10
+        target_date: "2024-05-12"
+
+    GwdiKnmiRetrieval:
+        lag_days: 0
+        publish_days: 10
+        target_date: "2024-05-12"
+
+DataAdapter:
+    gwdi_input_precipitation:
+        type: csv
+        file: "precipitation.csv"
+    gwdi_input_evaporation:
+        type: csv
+        file: "evaporation.csv"
+    gwdi_input_location_info:
+        type: csv
+        file: "location_info.csv"
+        dtype:
+            location: object
+            position: object
+    gwdi_input_pastas_models:
+        type: pastas_models
+        path: "pastas_models"
+    gwdi_input_stats_minima:
+        type: csv
+        file: "df_stats_minima.csv"
+        index_col: 0
+    gwdi_expected_output:
+        type: csv
+        file: "expected_gwdi.csv"
+    gwdi_expected_precipitation:
+        type: csv
+        file: "precipitation.csv"
+    gwdi_expected_evaporation:
+        type: csv
+        file: "evaporation.csv"
+    gwdi_input_locations:
+        type: csv
+        file: "locations.csv"
+    gwdi_output:
+        type: python
+    gwdi_output_precipitation:
+        type: python
+    gwdi_output_evaporation:
+        type: python
