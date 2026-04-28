@@ -3,6 +3,7 @@ GlobalVariables:
     calc_time: "2025-07-04 08:00:00"
 
     GwdiWiwbRetrieval:
+        # align_daily_to_start_label: false
         lag_days: 0
         publish_days: 45
         target_date: "2025-07-04"
