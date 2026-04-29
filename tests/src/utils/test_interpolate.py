@@ -32,8 +32,8 @@ def test_step_interpolate():
 
 def test_interpolate_physical_lower_limit_is_enforced():
     xp = np.array([1.0, 2.0])
-    fp = np.array([0.1, 0.2])
-    x = np.array([0.0])
+    fp = np.array([0.2, 0.3])
+    x = np.array([-2.0])
 
     f = interpolate_1d(x, xp, fp, ll=0.0, lower_limit_mode="physical")
 
