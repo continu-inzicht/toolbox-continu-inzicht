@@ -186,14 +186,14 @@ def test_circular_interpolate_non_boundary():
     assert np.isclose(angle[0], 100.0, atol=1e-6)
 
 
-def test_circular_interpolate_ignores_lower_limit():
+def test_circular_interpolate_allows_negative_unit_circle_components():
     wdv = np.array([180.0, 270.0])
     grid_wd = np.array([180.0, 270.0])
     wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
     grid_wd_ext = np.concatenate([grid_wd, grid_wd, grid_wd])
     windrichtingen = np.array([225.0])
 
-    angle = circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext, ll=0.0)
+    angle = circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext)
 
     assert np.isclose(angle[0], 225.0, atol=1e-6)
 
