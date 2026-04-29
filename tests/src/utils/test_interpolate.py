@@ -1,14 +1,16 @@
+import numpy as np
+import pytest
+from test_interpolate_data import fragility_curve_data
+
 from toolbox_continu_inzicht.utils.interpolate import (
-    beta_y_interpolate_1d,
-    interpolate_1d,
     beta_x_interpolate_1d,
+    beta_y_interpolate_1d,
+    bracketing_indices,
+    circular_interpolate_1d,
+    interpolate_1d,
     log_x_interpolate_1d,
     log_y_interpolate_1d,
-    circular_interpolate_1d,
-    bracketing_indices,
 )
-import numpy as np
-from test_interpolate_data import fragility_curve_data
 
 
 # 1D
@@ -33,7 +35,7 @@ def test_interpolate_physical_lower_limit_is_enforced():
     fp = np.array([0.1, 0.2])
     x = np.array([0.0])
 
-    f = interpolate_1d(x, xp, fp, ll=0.0)
+    f = interpolate_1d(x, xp, fp, ll=0.0, lower_limit_mode="physical")
 
     assert f[0] == 0.0
 
@@ -41,7 +43,7 @@ def test_interpolate_physical_lower_limit_is_enforced():
 # X
 def test_log_x_interpolate():
     xp = np.array([1, 2, 3])
-    fp = np.array(([0, 0.1, 1]))
+    fp = np.array([0, 0.1, 1])
     x = np.array([1.0, 1.1])
     f = log_x_interpolate_1d(x, xp, fp)
     assert f[0] == 0
@@ -50,7 +52,7 @@ def test_log_x_interpolate():
 
 def test_beta_x_interpolate():
     xp = np.array([1, 2, 3])
-    fp = np.array(([0, 0.1, 1]))
+    fp = np.array([0, 0.1, 1])
     x = np.array([1.0, 1.1])
     f = beta_x_interpolate_1d(x, xp, fp)
     assert f[0] == 0
@@ -92,6 +94,36 @@ def test_beta_y_interpolate():
     x = beta_y_interpolate_1d(y_new, x, fp)
     for i in range(len(x_new)):
         assert np.isclose(x[i], x_new[i], atol=0, rtol=1e-8)
+
+
+def test_log_y_physical_lower_limit_requires_positive_limit():
+    xp = np.array([1.0, 2.0])
+    fp = np.array([0.1, 0.2])
+    y = np.array([0.15])
+
+    with pytest.raises(ValueError, match="requires ll > 0"):
+        log_y_interpolate_1d(
+            y,
+            xp,
+            fp,
+            ll=0.0,
+            lower_limit_mode="physical",
+        )
+
+
+def test_beta_y_physical_lower_limit_requires_positive_limit():
+    xp = np.array([1.0, 2.0])
+    fp = np.array([0.1, 0.2])
+    y = np.array([0.15])
+
+    with pytest.raises(ValueError, match="requires ll > 0"):
+        beta_y_interpolate_1d(
+            y,
+            xp,
+            fp,
+            ll=0.0,
+            lower_limit_mode="physical",
+        )
 
 
 def test_interp_y_fc():
@@ -152,6 +184,18 @@ def test_circular_interpolate_non_boundary():
     angle = circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext)
 
     assert np.isclose(angle[0], 100.0, atol=1e-6)
+
+
+def test_circular_interpolate_ignores_lower_limit():
+    wdv = np.array([180.0, 270.0])
+    grid_wd = np.array([180.0, 270.0])
+    wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
+    grid_wd_ext = np.concatenate([grid_wd, grid_wd, grid_wd])
+    windrichtingen = np.array([225.0])
+
+    angle = circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext, ll=0.0)
+
+    assert np.isclose(angle[0], 225.0, atol=1e-6)
 
 
 def test_bracketing_indices_wrap():

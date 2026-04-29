@@ -1,5 +1,6 @@
-import numpy as np
 from typing import Callable
+
+import numpy as np
 
 
 def import_scipy():
@@ -47,9 +48,20 @@ def _transformed_x_interpolate_1d(
     clip01: bool,
     ftransform: Callable | None = None,
     finvtransform: Callable | None = None,
+    lower_limit_mode: str = "probability",
 ):
-    if ll > 0:
-        # Pas de lower limit toe op een kopie van de input
+    if lower_limit_mode not in {"none", "probability", "physical"}:
+        raise ValueError(f"Unknown lower_limit_mode: {lower_limit_mode}")
+
+    if lower_limit_mode == "probability" and ll > 0:
+        fp = np.copy(fp)
+        fp[fp < ll] = ll
+    elif lower_limit_mode == "physical":
+        if ftransform is not None and ll <= 0:
+            raise ValueError(
+                "physical lower-limit mode with transformed interpolation "
+                "requires ll > 0"
+            )
         fp = np.copy(fp)
         fp[fp < ll] = ll
 
@@ -59,10 +71,11 @@ def _transformed_x_interpolate_1d(
     else:
         f = _interpolate_1d(x, xp, fp, side="left")
 
-    if ll > 0:
-        # Reset lower limit naar 0
+    if lower_limit_mode == "probability" and ll > 0:
         f[f <= ll] = 0
         f[np.isclose(f, ll, atol=0, rtol=1e-8)] = 0
+    elif lower_limit_mode == "physical":
+        f[f < ll] = ll
 
     if clip01:
         f = np.clip(f, 0, 1)
@@ -76,8 +89,22 @@ def _transformed_y_interpolate_1d(
     fp: np.ndarray,
     ll: float,
     ftransform: Callable | None = None,
+    lower_limit_mode: str = "probability",
 ):
-    if ll > 0:
+    if lower_limit_mode not in {"none", "probability", "physical"}:
+        raise ValueError(f"Unknown lower_limit_mode: {lower_limit_mode}")
+
+    if lower_limit_mode == "probability" and ll > 0:
+        fp = np.copy(fp)
+        fp[fp < ll] = ll
+        y = np.copy(y)
+        y[y < ll] = ll
+    elif lower_limit_mode == "physical":
+        if ftransform is not None and ll <= 0:
+            raise ValueError(
+                "physical lower-limit mode with transformed interpolation "
+                "requires ll > 0"
+            )
         fp = np.copy(fp)
         fp[fp < ll] = ll
         y = np.copy(y)
@@ -98,6 +125,7 @@ def interpolate_1d(
     fp: np.ndarray,
     ll: float = 0.0,
     clip01: bool = False,
+    lower_limit_mode: str = "physical",
 ) -> np.ndarray:
     """
     Interpolatie van een 1d vector, gebaseerd op np.interp maar met
@@ -115,20 +143,23 @@ def interpolate_1d(
         Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
     clip01 : bool
         Begrens resultaat tussen [0, 1]
+    lower_limit_mode : str
+        Behandeling van de ondergrens: "none", "probability" of "physical".
 
     Returns
     -------
     np.array
         geinterpoleerde vector
     """
-    return _transformed_x_interpolate_1d(x, xp, fp, ll, clip01)
+    return _transformed_x_interpolate_1d(
+        x, xp, fp, ll, clip01, lower_limit_mode=lower_limit_mode
+    )
 
 
 def circular_interpolate_1d(
     x: np.ndarray,
     xp: np.ndarray,
     fp: np.ndarray,
-    ll: float = -np.inf,
 ) -> np.ndarray:
     """
     Interpoleer circulaire waardes (graden) met behoud van 0/360 wrap.
@@ -141,8 +172,6 @@ def circular_interpolate_1d(
         Referentievector van x-waardes
     fp : np.ndarray
         Referentievector van hoekwaardes (in graden)
-    ll : float
-        Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
 
     Returns
     -------
@@ -152,8 +181,8 @@ def circular_interpolate_1d(
     angles = np.deg2rad(fp)
     x_vals = np.cos(angles)
     y_vals = np.sin(angles)
-    x_i = interpolate_1d(x, xp, x_vals, ll=ll)
-    y_i = interpolate_1d(x, xp, y_vals, ll=ll)
+    x_i = interpolate_1d(x, xp, x_vals, lower_limit_mode="none")
+    y_i = interpolate_1d(x, xp, y_vals, lower_limit_mode="none")
     return (np.rad2deg(np.arctan2(y_i, x_i)) + 360.0) % 360.0
 
 
@@ -201,6 +230,7 @@ def log_x_interpolate_1d(
     fp: np.ndarray,
     ll: float = 1e-200,
     clip01: bool = False,
+    lower_limit_mode: str = "probability",
 ) -> np.ndarray:
     """interpolate_1d met y-waardes omgezet naar log-waardes
 
@@ -216,6 +246,8 @@ def log_x_interpolate_1d(
         Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
     clip01 : bool
         Begrens resultaat tussen [0, 1]
+    lower_limit_mode : str
+        Behandeling van de ondergrens: "none", "probability" of "physical".
 
     Returns
     -------
@@ -223,7 +255,14 @@ def log_x_interpolate_1d(
         geinterpoleerde vector
     """
     return _transformed_x_interpolate_1d(
-        x, xp, fp, ll, clip01, ftransform=np.log, finvtransform=np.exp
+        x,
+        xp,
+        fp,
+        ll,
+        clip01,
+        ftransform=np.log,
+        finvtransform=np.exp,
+        lower_limit_mode=lower_limit_mode,
     )
 
 
@@ -233,6 +272,7 @@ def beta_x_interpolate_1d(
     fp: np.ndarray,
     ll: float = 1e-200,
     clip01: bool = False,
+    lower_limit_mode: str = "probability",
 ) -> np.ndarray:
     """interpolate_1d met y-waardes omgezet naar beta-waardes
 
@@ -248,6 +288,8 @@ def beta_x_interpolate_1d(
         Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
     clip01 : bool
         Begrens resultaat tussen [0, 1]
+    lower_limit_mode : str
+        Behandeling van de ondergrens: "none", "probability" of "physical".
 
     Returns
     -------
@@ -256,7 +298,14 @@ def beta_x_interpolate_1d(
     """
     norm = import_scipy()
     return _transformed_x_interpolate_1d(
-        x, xp, fp, ll, clip01, ftransform=norm.isf, finvtransform=norm.sf
+        x,
+        xp,
+        fp,
+        ll,
+        clip01,
+        ftransform=norm.isf,
+        finvtransform=norm.sf,
+        lower_limit_mode=lower_limit_mode,
     )
 
 
@@ -265,6 +314,7 @@ def log_y_interpolate_1d(
     xp: np.ndarray,
     fp: np.ndarray,
     ll: float = 1e-200,
+    lower_limit_mode: str = "probability",
 ) -> np.ndarray:
     """interpolate_1d met x-waardes omgezet naar log-waardes
 
@@ -278,13 +328,22 @@ def log_y_interpolate_1d(
         Referentievector van y-waardes
     ll : float
         Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
+    lower_limit_mode : str
+        Behandeling van de ondergrens: "none", "probability" of "physical".
 
     Returns
     -------
     np.array
         geinterpoleerde vector
     """
-    return _transformed_y_interpolate_1d(y, xp, fp, ll, ftransform=np.log)
+    return _transformed_y_interpolate_1d(
+        y,
+        xp,
+        fp,
+        ll,
+        ftransform=np.log,
+        lower_limit_mode=lower_limit_mode,
+    )
 
 
 def beta_y_interpolate_1d(
@@ -292,6 +351,7 @@ def beta_y_interpolate_1d(
     xp: np.ndarray,
     fp: np.ndarray,
     ll: float = 1e-200,
+    lower_limit_mode: str = "probability",
 ) -> np.ndarray:
     """interpolate_1d met y-waardes omgezet naar beta-waardes
 
@@ -305,6 +365,8 @@ def beta_y_interpolate_1d(
         Referentievector van y-waardes
     ll : float
         Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien
+    lower_limit_mode : str
+        Behandeling van de ondergrens: "none", "probability" of "physical".
 
     Returns
     -------
@@ -312,4 +374,11 @@ def beta_y_interpolate_1d(
         geinterpoleerde vector
     """
     norm = import_scipy()
-    return _transformed_y_interpolate_1d(y, xp, fp, ll, ftransform=norm.isf)
+    return _transformed_y_interpolate_1d(
+        y,
+        xp,
+        fp,
+        ll,
+        ftransform=norm.isf,
+        lower_limit_mode=lower_limit_mode,
+    )
