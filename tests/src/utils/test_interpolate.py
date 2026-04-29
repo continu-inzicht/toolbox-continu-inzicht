@@ -28,6 +28,16 @@ def test_step_interpolate():
     assert (interpolate_1d(x, xp, fp) == np.array([2, 2, 3])).all()
 
 
+def test_interpolate_physical_lower_limit_is_enforced():
+    xp = np.array([1.0, 2.0])
+    fp = np.array([0.1, 0.2])
+    x = np.array([0.0])
+
+    f = interpolate_1d(x, xp, fp, ll=0.0)
+
+    assert f[0] == 0.0
+
+
 # X
 def test_log_x_interpolate():
     xp = np.array([1, 2, 3])
