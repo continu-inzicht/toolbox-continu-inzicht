@@ -66,6 +66,7 @@ class ExceedanceFrequencyCurve(ToolboxBase):
                     self.df_out["probability_exceedance"].to_numpy(),
                     ll=self.lower_limit,
                     clip01=True,
+                    lower_limit_mode="probability",
                 ),
             }
         )

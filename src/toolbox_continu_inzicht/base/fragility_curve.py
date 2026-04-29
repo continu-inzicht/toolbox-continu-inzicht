@@ -155,7 +155,12 @@ class FragilityCurve(ToolboxBase):
         fp = self.failure_probability
         xp = x + effect
         self.failure_probability = self.interp_x_func(
-            x, xp, fp, ll=self.lower_limit, clip01=True
+            x,
+            xp,
+            fp,
+            ll=self.lower_limit,
+            clip01=True,
+            lower_limit_mode="probability",
         )
 
     def check_monotonic_curve(self):
@@ -191,6 +196,7 @@ class FragilityCurve(ToolboxBase):
             self.failure_probability,
             ll=self.lower_limit,
             clip01=True,
+            lower_limit_mode="probability",
         )
 
         if add_steps:
@@ -270,6 +276,10 @@ class FragilityCurve(ToolboxBase):
     ) -> np.ndarray:
         """Interpoleer de hydraulische belasting behorende bij een faalkans"""
         wl = self.interp_y_func(
-            new_failure_probability, self.hydraulicload, self.failure_probability
+            new_failure_probability,
+            self.hydraulicload,
+            self.failure_probability,
+            ll=self.lower_limit,
+            lower_limit_mode="probability",
         )
         return wl

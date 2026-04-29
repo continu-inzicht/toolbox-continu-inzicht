@@ -182,7 +182,9 @@ class WaveDataProvider(WaveProvider):
         grid_wd_ext = np.concatenate([grid_wd, grid_wd, grid_wd])
         if waveval_type == WaveType.WAVEDIRECTION.value:
             return circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext)
-        return interpolate_1d(windrichtingen, wd_ext, grid_wd_ext, ll=-np.inf)
+        return interpolate_1d(
+            windrichtingen, wd_ext, grid_wd_ext, ll=0.0, lower_limit_mode="physical"
+        )
 
     def _interpolate_type_for_levels(
         self,
@@ -209,13 +211,16 @@ class WaveDataProvider(WaveProvider):
 
         wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
         grid_wd_ext = np.concatenate([grid_wdwl, grid_wdwl, grid_wdwl], axis=0)
+        ll_mode = "physical" if waveval_type != WaveType.WAVEDIRECTION.value else "none"
         grid_wl = interpolate_1d(
-            np.array([direction]), wd_ext, grid_wd_ext, ll=-np.inf
+            np.array([direction]), wd_ext, grid_wd_ext, ll=0.0, lower_limit_mode=ll_mode
         )[0]
 
         if waveval_type == WaveType.WAVEDIRECTION.value:
-            return circular_interpolate_1d(waterlevels, wlv, grid_wl, ll=-np.inf)
-        return interpolate_1d(waterlevels, wlv, grid_wl, ll=-np.inf)
+            return circular_interpolate_1d(waterlevels, wlv, grid_wl)
+        return interpolate_1d(
+            waterlevels, wlv, grid_wl, ll=0.0, lower_limit_mode="physical"
+        )
 
     def get_wave_conditions_for_directions(
         self,
