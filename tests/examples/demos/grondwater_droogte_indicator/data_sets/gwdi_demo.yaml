@@ -26,7 +26,7 @@ DataAdapter:
 
     gwdi_input_pastas_mapping:
         type: csv
-        file: "gwdi_pastas_mapping.csv"
+        file: "gwdi_pastas_mapping_all.csv"
         dtype:
             location: object
             position: object
