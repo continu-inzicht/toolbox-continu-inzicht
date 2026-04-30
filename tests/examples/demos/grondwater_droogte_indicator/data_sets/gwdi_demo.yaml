@@ -5,13 +5,13 @@ GlobalVariables:
     GwdiWiwbRetrieval:
         # align_daily_to_start_label: false
         lag_days: 0
-        publish_days: 45
+        publish_days: 23
         target_date: "2025-07-04"
         wiwb_precipitation_source_code: "Knmi.International.Radar.Composite.Combined"
 
     GwdiKnmiRetrieval:
         lag_days: 0
-        publish_days: 45
+        publish_days: 23
         target_date: "2025-07-04"
 
 DataAdapter:
