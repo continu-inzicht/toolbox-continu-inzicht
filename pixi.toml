@@ -64,7 +64,9 @@ sqlalchemy = "*"
 psycopg2 = "*"
 xarray = "*"
 netcdf4 = ">=1.7.1"
+h5netcdf = "*"
 openpyxl = "*"
+pastas = "*"
 fiona = "*"
 geopandas = "*"
 pyogrio = "*"
@@ -99,7 +101,6 @@ types-requests = "*"
 types-pyyaml = "*"
 matplotlib = "*"
 pixi-pack = ">=0.7.5,<0.8"
-
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }
