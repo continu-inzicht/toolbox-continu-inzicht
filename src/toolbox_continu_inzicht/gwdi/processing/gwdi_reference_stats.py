@@ -239,6 +239,7 @@ def compute_df_stats_minima(
                     y=np.asarray([1 / float(t)], dtype=float),
                     xp=vfit,
                     fp=ffit,
+                    lower_limit_mode="probability",
                 )[0]
             )
 

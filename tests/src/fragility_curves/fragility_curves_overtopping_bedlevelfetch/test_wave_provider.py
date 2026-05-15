@@ -111,6 +111,47 @@ def test_wavedata_wave_provider_interpolation():
     assert np.allclose(wave_dir_lvl, np.zeros_like(waterlevels))
 
 
+def test_wavedata_wave_provider_clamps_negative_extrapolated_wave_values():
+    rows = []
+    for waveval_type in [2, 6, 7]:
+        for ws in [10.0, 20.0]:
+            for wd in [0.0, 90.0]:
+                for wl in [1.0, 2.0]:
+                    if waveval_type == 2:
+                        waveval = 0.1 if wl == 1.0 else 0.3
+                    elif waveval_type == 6:
+                        waveval = 0.2 if wl == 1.0 else 0.5
+                    else:
+                        waveval = wd
+                    rows.append(
+                        {
+                            "waveval_type": waveval_type,
+                            "windspeed": ws,
+                            "winddir": wd,
+                            "waterlevel": wl,
+                            "waveval": waveval,
+                        }
+                    )
+    waveval_df = pd.DataFrame(rows)
+    id_cols = ["waveval_type", "windspeed", "winddir"]
+    waveval_id_df = waveval_df[id_cols].drop_duplicates().reset_index(drop=True)
+    waveval_id_df["waveval_id"] = np.arange(len(waveval_id_df))
+    waveval_df = waveval_df.merge(waveval_id_df, on=id_cols)[
+        ["waveval_id", "waterlevel", "waveval"]
+    ]
+    provider = WaveDataProvider(waveval_id_df, waveval_df)
+
+    hs, tspec, wave_dir = provider.get_wave_conditions_for_levels(
+        windspeed=10.0,
+        direction=0.0,
+        waterlevels=np.array([0.0]),
+    )
+
+    assert hs[0] == 0.0
+    assert tspec[0] == 0.0
+    assert np.isclose(wave_dir[0], 0.0)
+
+
 def test_wavedata_wave_provider_circular_direction():
     rows = []
     for waveval_type in [2, 6, 7]:
