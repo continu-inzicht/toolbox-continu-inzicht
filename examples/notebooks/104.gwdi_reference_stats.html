@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Architectuur voorbeeld – Toolbox Continu Inzicht</title>
+<title>GWDI referentiestatistiek – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/1.proof_of_concept.html">Architectuur voorbeeld</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/104.gwdi_reference_stats.html">GWDI referentiestatistiek</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -192,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/1.proof_of_concept.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../examples/notebooks/1.proof_of_concept.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Architectuur voorbeeld</span></a>
   </div>
 </li>
@@ -276,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/104.gwdi_reference_stats.html" class="sidebar-item-text sidebar-link">
+  <a href="../../examples/notebooks/104.gwdi_reference_stats.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">GWDI referentiestatistiek</span></a>
   </div>
 </li>
@@ -285,24 +285,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#importeer-de-benodigde-functies" id="toc-importeer-de-benodigde-functies" class="nav-link active" data-scroll-target="#importeer-de-benodigde-functies">importeer de benodigde functies</a>
-  <ul class="collapse">
-  <li><a href="#voorbeeld-met-csv" id="toc-voorbeeld-met-csv" class="nav-link" data-scroll-target="#voorbeeld-met-csv">Voorbeeld met CSV</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Architectuur voorbeeld</h1>
+<h1 class="title">GWDI referentiestatistiek</h1>
 </div>
 
 
@@ -319,193 +310,186 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Hieronder wordt één voorbeeld gegeven van hoe de architectuur werkt. In de linker balk zijn nog een aantal voorbeelden te vinden van hoe de toolbox gebruikt kan worden. <br></p>
-<p>De voorbeelden die hier in de documentatie te vinden zijn staan met de juiste data en configuratie bestanden op GitHub onder <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/docs/examples/notebooks">toolbox-continu-inzicht/docs/examples/notebooks/</a>.</p>
-<p>Daarnaast zijn tijden het ontwikkelen ook demo’s en integratie testen te vinden onder <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/tests/examples">toolbox-continu-inzicht/tests/examples/</a>.</p>
-<p>Om de architectuur weer te geven wordt een simple voorbeeld gegeven met de <code>proof_of_concept</code> functie. Deze functie doet niks anders dan vermenigvuldigen en delen maar dit geeft wel de werking van de opzet weer.</p>
-<p>De verschillende bouwstenen van de code is hier onder weergegeven:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../assets/opbouw_code.png" class="img-fluid figure-img"></p>
-<figcaption>Opbouw van de code</figcaption>
-</figure>
+<p>Dit notebook toont de workflow om <code>df_stats_minima</code> op te bouwen met de functies uit <code>gwdi_reference_stats</code>.</p>
+<p>Voor GWDI wordt <code>df_stats_minima</code> <strong>vooraf</strong> berekend op basis van historische klimaatreeksen en opgeloste Pastas-modellen.</p>
+<p>Die tabel wordt daarna gebruikt tijdens inference in <code>GwdiModel</code> voor de frequentie-naar-hoogte interpolatie per locatie.</p>
+<p>Draai deze workflow opnieuw wanneer één van onderstaande inputs wijzigt:</p>
+<ul>
+<li>referentie-klimaatreeksen (neerslag/verdamping),</li>
+<li>locatieconfiguratie (<code>location</code>, <code>position</code>),</li>
+<li>Pastas-modelset,</li>
+<li>gekozen referentieperiode.</li>
+</ul>
+<p>Het resultaat (bijvoorbeeld <code>df_stats_minima.csv</code>) hoort vervolgens als expliciete DataAdapter-input in GWDI-configuratie te staan.</p>
+<p>Achtereenvolgens worden de volgende acties getoond: 1. Ruwe klimaatbestanden inlezen naar dataframes. 2. Klimaat voorbereiden met <code>prepare_reference_climate(...)</code> (naar m/dag en referentieperiode). 3. Locatie-info en Pastas-modellen laden en mappen op locatie. 4. <code>compute_df_stats_minima(...)</code> uitvoeren en optioneel wegschrijven.</p>
+<div id="2" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pastas <span class="im">as</span> ps</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.adapters.<span class="bu">input</span>.pastas_models <span class="im">import</span> (</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    input_pastas_models,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.gwdi.processing.gwdi_reference_stats <span class="im">import</span> (</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    compute_df_stats_minima,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    prepare_reference_climate,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>DeprecationWarning: As of Pastas 1.5, no noisemodel is added to the pastas Model class by default anymore. To solve your model using a noisemodel, you have to explicitly add a noisemodel to your model before solving. For more information, and how to adapt your code, please see this issue on GitHub: https://github.com/pastas/pastas/issues/735</code></pre>
 </div>
-<p>De architectuur is ontworpen om het principe van een data adapter dier er voor zorgt dat het format waar de functie vanuit leest en naar toe wegschrijft makkelijk aangepast kan worden door de gebruiker.</p>
-<p>Een voorbeeld van hoe dit er uitziet voor het inladen van CSV en wegschrijven naar csv is hieronder weergegeven.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../assets/voorbeeld_config_csv.png" class="img-fluid figure-img"></p>
-<figcaption>Voorbeeld inlezen en wegschrijven met csv</figcaption>
-</figure>
 </div>
-<section id="importeer-de-benodigde-functies" class="level1">
-<h1>importeer de benodigde functies</h1>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="voorbeeld-met-csv" class="level2">
-<h2 class="anchored" data-anchor-id="voorbeeld-met-csv">Voorbeeld met CSV</h2>
-<p>Het uitgangspunt van een architectuur is dat de verschillende functies werken met verschillende data formaten. Om dit mogelijk te maken wordt gebruik gemaakt van data adapters. Deze lezen data die de functie in gaat en schrijven het vervolgens weg. Om duidelijk te maken in welk formaat je weg wilt schrijven of wilt inlezen wordt gebruik gemaakt van een configuratie bestand. Dit is een <code>.yaml</code> bestand, hieronder wordt een voorbeeld gegeven hoe je dit zou opzetten met het configuratie bestand <code>test_config.yaml</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/1.proof_of_concept"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">postgresql_database</span><span class="kw">:</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">database</span><span class="kw">:</span><span class="at"> </span><span class="st">"citoolbox"</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">schema</span><span class="kw">:</span><span class="at"> </span><span class="st">"citoolbox_schema"</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">my_csv_in</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"test_csv_in.csv"</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">my_csv_out</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"test_csv_out.csv"</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">my_postgresql</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> postgresql_database</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">table</span><span class="kw">:</span><span class="at"> data</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In een configuratie bestand zijn een aantal instellingen verplicht. Het moet <code>GlobalVariables</code> bevatten met een <code>root_dir</code> en minimaal één <code>DataAdapter</code>. In sommige gevallen kan je ook met één DataAdapter uit de voeten, je gebruik dan dezelfde instellingen om te lezen en schrijven. Bij CSV is dit dan hetzelfde bestand, bij een database dezelfde tabel.<br>
-Een heel aantal data adapters worden standaard ondersteund en je kan makkelijk je eigen data adapter toevoegen. Onder het kopje <a href="../../modules/architectuur.html">modules/architectuur</a> in de documentatie vindt je meer informatie over data adapters.</p>
-<p>Onder <code>GlobalVariables</code> zijn instellingen voor specifieke functies te vinden, maar ook instellingen die in meerdere functies gebruikt worden. Bijvoorbeeld de huidige berekening tijd (<code>calc_time</code>) of de tijden waarvoor voorspellingen worden berekend (<code>moments</code>).</p>
-<p>De configuratie kunnen we inlezen:</p>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"data_sets/1.proof_of_concept/test_config.yaml"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>En de config mee geven aan de data adapter die we gebruiken</p>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> DataAdapter</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>De data adapter geef je vervolgens mee bij het aanmaken van een functie</p>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.proof_of_concept <span class="im">import</span> ValuesTimesTwo</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>keer_twee <span class="op">=</span> ValuesTimesTwo(data_adapter<span class="op">=</span>data_adapter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>En vervolgens run je de module met een input en een output data adapter, dit bied flexibiliteit in welke in en uitvoer bestanden je gebruikt</p>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>keer_twee.run(<span class="bu">input</span><span class="op">=</span><span class="st">"my_csv_in"</span>, output<span class="op">=</span><span class="st">"my_csv_out"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>keer_twee.df_in</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Invoer: - <code>df_precipitation_regions</code>: datetime-index + kolom <code>prec_R-R</code> (of andere regio-kolom), waarden in mm. - <code>df_evaporation</code>: datetime-index + kolom <code>makkink</code>, waarden in mm. - <code>info_locaties</code>: kolommen <code>location</code> en <code>position</code>. - Pastas-modellen: keys in vorm <code>{location}_{position}_tarso</code>.</p>
+<p>Uitvoer: - <code>df_stats_minima</code> met herhalingstijden als index (<code>1, 3, 10, 30, 100, 300, 1000</code>) en locaties als kolommen.</p>
+<div id="4" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gebruik lokale voorbeelddata in deze notebook-map.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data_dir <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"104.gwdi_reference_stats"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>shared_dir <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"10.gwdi_simple_calculation"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>path_precipitation <span class="op">=</span> data_dir <span class="op">/</span> <span class="st">"reference_precipitation_regions.csv"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>path_evaporation <span class="op">=</span> data_dir <span class="op">/</span> <span class="st">"reference_evaporation.csv"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>path_info <span class="op">=</span> shared_dir <span class="op">/</span> <span class="st">"gwdi_pastas_mapping.csv"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>path_models <span class="op">=</span> shared_dir <span class="op">/</span> <span class="st">"pastas_models"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> shared_dir <span class="op">/</span> <span class="st">"df_stats_minima.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Laad ruwe klimaatinput als dataframes</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_precipitation_regions <span class="op">=</span> pd.read_csv(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    path_precipitation,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    parse_dates<span class="op">=</span>[<span class="st">"time"</span>],</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    index_col<span class="op">=</span><span class="st">"time"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>df_evaporation <span class="op">=</span> pd.read_csv(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    path_evaporation,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    parse_dates<span class="op">=</span>[<span class="st">"time"</span>],</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    index_col<span class="op">=</span><span class="st">"time"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Maak klimaatreeksen in meter</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>prec100, evap100 <span class="op">=</span> prepare_reference_climate(</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    df_precipitation_regions<span class="op">=</span>df_precipitation_regions,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    df_evaporation<span class="op">=</span>df_evaporation,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    precipitation_column<span class="op">=</span><span class="st">"prec_R-R"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    evaporation_column<span class="op">=</span><span class="st">"makkink"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span><span class="st">"1980-01-01"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span><span class="st">"2014-12-31"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Laad locatie-info en Pastas-modellen</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>info_locaties <span class="op">=</span> pd.read_csv(path_info)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>info_locaties.index <span class="op">=</span> info_locaties[<span class="st">"location"</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>info_locaties[<span class="st">"position"</span>] <span class="op">=</span> info_locaties[<span class="st">"position"</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>dict_models_raw <span class="op">=</span> input_pastas_models({<span class="st">"abs_path"</span>: path_models})</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>dict_models_by_location <span class="op">=</span> {</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    loc: dict_models_raw[<span class="ss">f"</span><span class="sc">{</span>loc<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>info_locaties<span class="sc">.</span>loc[loc, <span class="st">'position'</span>]<span class="sc">}</span><span class="ss">_tarso"</span>]</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> loc <span class="kw">in</span> info_locaties.index</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Bereken df_stats_minima</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>df_stats_minima <span class="op">=</span> compute_df_stats_minima(</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    info_locaties<span class="op">=</span>info_locaties,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    dict_models<span class="op">=</span>dict_models_by_location,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    prec100<span class="op">=</span>prec100,</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    evap100<span class="op">=</span>evap100,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    ps_module<span class="op">=</span>ps,</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Opslaan</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>df_stats_minima.to_csv(output_path)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>df_stats_minima</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+The stress of the stressmodel has no overlap with ml.oseries.
+The stress of the stressmodel has no overlap with ml.oseries.
+The stress of the stressmodel has no overlap with ml.oseries.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">objectid</th>
-<th data-quarto-table-cell-role="th">objecttype</th>
-<th data-quarto-table-cell-role="th">parameterid</th>
-<th data-quarto-table-cell-role="th">date_time</th>
-<th data-quarto-table-cell-role="th">value</th>
+<th data-quarto-table-cell-role="th">location</th>
+<th data-quarto-table-cell-role="th">example-a</th>
+<th data-quarto-table-cell-role="th">example-b</th>
+<th data-quarto-table-cell-role="th">example-c</th>
+<th data-quarto-table-cell-role="th">example-d</th>
+<th data-quarto-table-cell-role="th">example-e</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>4.8</td>
-</tr>
-<tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>5.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>5.2</td>
+<td>-1.894646</td>
+<td>-2.535937</td>
+<td>-1.726915</td>
+<td>-4.346055</td>
+<td>-1.502597</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>5.4</td>
+<td>-2.053603</td>
+<td>-2.649636</td>
+<td>-1.874489</td>
+<td>-4.386962</td>
+<td>-1.618034</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>5</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>5.6</td>
+<td data-quarto-table-cell-role="th">10</td>
+<td>-2.135937</td>
+<td>-2.806889</td>
+<td>-1.947201</td>
+<td>-4.451385</td>
+<td>-1.763038</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">30</td>
+<td>-2.194782</td>
+<td>-2.961932</td>
+<td>-1.998341</td>
+<td>-4.517735</td>
+<td>-1.901484</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">100</td>
+<td>-2.251506</td>
+<td>-3.139071</td>
+<td>-2.047231</td>
+<td>-4.595357</td>
+<td>-2.056941</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">300</td>
+<td>-2.298831</td>
+<td>-3.305481</td>
+<td>-2.087786</td>
+<td>-4.669495</td>
+<td>-2.201224</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1000</td>
+<td>-2.347267</td>
+<td>-3.491959</td>
+<td>-2.12911</td>
+<td>-4.753634</td>
+<td>-2.361412</td>
 </tr>
 </tbody>
 </table>
 
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>keer_twee.df_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">objectid</th>
-<th data-quarto-table-cell-role="th">objecttype</th>
-<th data-quarto-table-cell-role="th">parameterid</th>
-<th data-quarto-table-cell-role="th">date_time</th>
-<th data-quarto-table-cell-role="th">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>9.6</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>10.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>10.4</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>10.8</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>5</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>11.2</td>
-</tr>
-</tbody>
-</table>
-
 </div>
-<p>de <code>values</code> waardes uit de vorige table zijn vermenigvuldigd met twee</p>
-<p>Zelf proberen? Dit voorbeeld is te vinden op <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/docs/examples/notebooks">Github</a></p>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

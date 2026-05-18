@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Architectuur voorbeeld – Toolbox Continu Inzicht</title>
+<title>GWDI (grondwaterdroogte-indicator) – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,61 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2a9bdf5a123b5cc383b46ed6d004b071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2a9bdf5a123b5cc383b46ed6d004b071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,12 +67,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="../../assets/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -117,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Toolbox Continu Inzicht</span>
     </a>
   </div>
@@ -131,29 +93,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../install.html"> 
+    <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../voorbeelden.html" aria-current="page"> 
+    <a class="nav-link" href="../voorbeelden.html"> 
 <span class="menu-text">Voorbeelden</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../modules_index.html"> 
+    <a class="nav-link active" href="../modules_index.html" aria-current="page"> 
 <span class="menu-text">Modules</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../reference/index.html"> 
+    <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../overig/contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../contributing.html"> 
+    <a class="nav-link" href="../contributing.html"> 
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/1.proof_of_concept.html">Architectuur voorbeeld</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../modules/gwdi.html">GWDI (grondwaterdroogte-indicator)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -186,98 +148,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../voorbeelden.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Voorbeelden</span></a>
+  <a href="../modules_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/1.proof_of_concept.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Architectuur voorbeeld</span></a>
+  <a href="../modules/architectuur.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basis architectuur Toolbox Continu Inzicht</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/2.belastingen_inladen.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Belastingen inladen</span></a>
+  <a href="../modules/belastingen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Belastingen inlezen en classificeren</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fragility Curve Overtopping (bedlevel/fetch)</span></a>
+  <a href="../modules/bepalen_fragility_curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bepalen fragility curves</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/4.adjust_integrated_statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Aanpassen van geïntegreerde faalkans</span></a>
+  <a href="../modules/bijstellen_fragility_curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bijstellen fragility curves</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/5.inspectieresultaten.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inspectieresultaten</span></a>
+  <a href="../modules/kansen_en_status_per_sectie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conditionele kansen en status waterkering per sectie</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/6.fragility_curve_from_cache.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fragility Curve uit een cache</span></a>
+  <a href="../modules/impactanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Impactanalyse: effect nieuwe statistiek en rekenregels op de faalkans</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/7.rekentest_flood_scenarios.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Real-time of what-if overstromingsrisico’s</span></a>
+  <a href="../modules/inspectieresultaten.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspectieresultaten inlezen en weergeven</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/8.fragility_curve_overtopping_wavedata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fragility Curve Overtopping (wave data)</span></a>
+  <a href="../modules/maatregelen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Maatregelen</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/9.dam_live_parse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dam Live</span></a>
+  <a href="../modules/flood_scenario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overstromingsrisico scenarios</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/10.gwdi_simple_calculation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">GWDI eenvoudige berekening</span></a>
+  <a href="../modules/damlive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DamLive</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gebruik van logging</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/101.WMS_laag_naar_database.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">WMS laag toevoegen aan database voor viewer</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/102.quick_start_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quick start guide</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/103.extract_wavedata_hrdb.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Golfdata van HR-database naar TBCI</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/104.gwdi_reference_stats.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">GWDI referentiestatistiek</span></a>
+  <a href="../modules/gwdi.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">GWDI (grondwaterdroogte-indicator)</span></a>
   </div>
 </li>
     </ul>
@@ -290,10 +228,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#importeer-de-benodigde-functies" id="toc-importeer-de-benodigde-functies" class="nav-link active" data-scroll-target="#importeer-de-benodigde-functies">importeer de benodigde functies</a>
-  <ul class="collapse">
-  <li><a href="#voorbeeld-met-csv" id="toc-voorbeeld-met-csv" class="nav-link" data-scroll-target="#voorbeeld-met-csv">Voorbeeld met CSV</a></li>
-  </ul></li>
+  <li><a href="#invoercontract" id="toc-invoercontract" class="nav-link active" data-scroll-target="#invoercontract">Invoercontract</a></li>
+  <li><a href="#voorbeelden" id="toc-voorbeelden" class="nav-link" data-scroll-target="#voorbeelden">Voorbeelden</a></li>
+  <li><a href="#python-api" id="toc-python-api" class="nav-link" data-scroll-target="#python-api">Python API</a></li>
   </ul>
 </nav>
     </div>
@@ -302,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Architectuur voorbeeld</h1>
+<h1 class="title">GWDI (grondwaterdroogte-indicator)</h1>
 </div>
 
 
@@ -319,192 +256,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Hieronder wordt één voorbeeld gegeven van hoe de architectuur werkt. In de linker balk zijn nog een aantal voorbeelden te vinden van hoe de toolbox gebruikt kan worden. <br></p>
-<p>De voorbeelden die hier in de documentatie te vinden zijn staan met de juiste data en configuratie bestanden op GitHub onder <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/docs/examples/notebooks">toolbox-continu-inzicht/docs/examples/notebooks/</a>.</p>
-<p>Daarnaast zijn tijden het ontwikkelen ook demo’s en integratie testen te vinden onder <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/tests/examples">toolbox-continu-inzicht/tests/examples/</a>.</p>
-<p>Om de architectuur weer te geven wordt een simple voorbeeld gegeven met de <code>proof_of_concept</code> functie. Deze functie doet niks anders dan vermenigvuldigen en delen maar dit geeft wel de werking van de opzet weer.</p>
-<p>De verschillende bouwstenen van de code is hier onder weergegeven:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../assets/opbouw_code.png" class="img-fluid figure-img"></p>
-<figcaption>Opbouw van de code</figcaption>
-</figure>
-</div>
-<p>De architectuur is ontworpen om het principe van een data adapter dier er voor zorgt dat het format waar de functie vanuit leest en naar toe wegschrijft makkelijk aangepast kan worden door de gebruiker.</p>
-<p>Een voorbeeld van hoe dit er uitziet voor het inladen van CSV en wegschrijven naar csv is hieronder weergegeven.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../assets/voorbeeld_config_csv.png" class="img-fluid figure-img"></p>
-<figcaption>Voorbeeld inlezen en wegschrijven met csv</figcaption>
-</figure>
-</div>
-<section id="importeer-de-benodigde-functies" class="level1">
-<h1>importeer de benodigde functies</h1>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="voorbeeld-met-csv" class="level2">
-<h2 class="anchored" data-anchor-id="voorbeeld-met-csv">Voorbeeld met CSV</h2>
-<p>Het uitgangspunt van een architectuur is dat de verschillende functies werken met verschillende data formaten. Om dit mogelijk te maken wordt gebruik gemaakt van data adapters. Deze lezen data die de functie in gaat en schrijven het vervolgens weg. Om duidelijk te maken in welk formaat je weg wilt schrijven of wilt inlezen wordt gebruik gemaakt van een configuratie bestand. Dit is een <code>.yaml</code> bestand, hieronder wordt een voorbeeld gegeven hoe je dit zou opzetten met het configuratie bestand <code>test_config.yaml</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/1.proof_of_concept"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">postgresql_database</span><span class="kw">:</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">database</span><span class="kw">:</span><span class="at"> </span><span class="st">"citoolbox"</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">schema</span><span class="kw">:</span><span class="at"> </span><span class="st">"citoolbox_schema"</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">my_csv_in</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"test_csv_in.csv"</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">my_csv_out</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"test_csv_out.csv"</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">my_postgresql</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> postgresql_database</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">table</span><span class="kw">:</span><span class="at"> data</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In een configuratie bestand zijn een aantal instellingen verplicht. Het moet <code>GlobalVariables</code> bevatten met een <code>root_dir</code> en minimaal één <code>DataAdapter</code>. In sommige gevallen kan je ook met één DataAdapter uit de voeten, je gebruik dan dezelfde instellingen om te lezen en schrijven. Bij CSV is dit dan hetzelfde bestand, bij een database dezelfde tabel.<br>
-Een heel aantal data adapters worden standaard ondersteund en je kan makkelijk je eigen data adapter toevoegen. Onder het kopje <a href="../../modules/architectuur.html">modules/architectuur</a> in de documentatie vindt je meer informatie over data adapters.</p>
-<p>Onder <code>GlobalVariables</code> zijn instellingen voor specifieke functies te vinden, maar ook instellingen die in meerdere functies gebruikt worden. Bijvoorbeeld de huidige berekening tijd (<code>calc_time</code>) of de tijden waarvoor voorspellingen worden berekend (<code>moments</code>).</p>
-<p>De configuratie kunnen we inlezen:</p>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"data_sets/1.proof_of_concept/test_config.yaml"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>En de config mee geven aan de data adapter die we gebruiken</p>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> DataAdapter</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>De data adapter geef je vervolgens mee bij het aanmaken van een functie</p>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.proof_of_concept <span class="im">import</span> ValuesTimesTwo</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>keer_twee <span class="op">=</span> ValuesTimesTwo(data_adapter<span class="op">=</span>data_adapter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>En vervolgens run je de module met een input en een output data adapter, dit bied flexibiliteit in welke in en uitvoer bestanden je gebruikt</p>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>keer_twee.run(<span class="bu">input</span><span class="op">=</span><span class="st">"my_csv_in"</span>, output<span class="op">=</span><span class="st">"my_csv_out"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>keer_twee.df_in</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">objectid</th>
-<th data-quarto-table-cell-role="th">objecttype</th>
-<th data-quarto-table-cell-role="th">parameterid</th>
-<th data-quarto-table-cell-role="th">date_time</th>
-<th data-quarto-table-cell-role="th">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>4.8</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>5.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>5.2</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>5.4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>5</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>5.6</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>keer_twee.df_out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">objectid</th>
-<th data-quarto-table-cell-role="th">objecttype</th>
-<th data-quarto-table-cell-role="th">parameterid</th>
-<th data-quarto-table-cell-role="th">date_time</th>
-<th data-quarto-table-cell-role="th">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>9.6</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>10.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>10.4</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>10.8</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>5</td>
-<td>measuringstation</td>
-<td>1</td>
-<td>1726227377000</td>
-<td>11.2</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-<p>de <code>values</code> waardes uit de vorige table zijn vermenigvuldigd met twee</p>
-<p>Zelf proberen? Dit voorbeeld is te vinden op <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/tree/main/docs/examples/notebooks">Github</a></p>
-
-
+<p>De GWDI-module berekent een actuele grondwaterdroogte-indicator per rastercel (<code>fid</code>) op basis van:</p>
+<ul>
+<li>neerslag (<code>P</code>) en verdamping (<code>evaporation</code>) tijdreeksen,</li>
+<li>locatie-informatie (<code>location</code>, <code>position</code>),</li>
+<li>Pastas-modellen,</li>
+<li>en <code>df_stats_minima</code> als referentiestatistiek.</li>
+</ul>
+<p>De basis van de grondwaterdroogte-indicator en het neerslagtekort zijn neerslag en verdamping wat wordt verwerkt tot een droogtegetal. Voor details en achtergrond over de grondwaterdroogte-indicator wordt verwezen naar het <a href="https://www.stowa.nl/publicaties/een-nieuwe-grondwater-droogte-indicator-voor-boezemkaden-een-statistische-maat-die-de-extremiteit">STOWA-rapport</a></p>
+<p>De neerslag en verdamping is afkomstig van verschillende dataproducten, waarbij geprobeerd wordt om een zo accuraat mogelijk beeld te hebben van de lokale neerslag en verdamping. De neerslag wordt opgehaald met de WIWB API (<code>Knmi.International.Radar.Composite.Combined</code>). Bij het verdampingsproduct wordt data gebaseerd op de dagstations van het KNMI opgehaald (<code>EV24</code>).</p>
+<p>De module-entree in de toolbox is <code>GwdiInference</code>. Deze laadt alle invoer via DataAdapters en schrijft de GWDI-uitvoer weg via een output-adapter.</p>
+<section id="invoercontract" class="level3">
+<h3 class="anchored" data-anchor-id="invoercontract">Invoercontract</h3>
+<p><code>GwdiInference.run(...)</code> verwacht vijf input-adapters in deze volgorde:</p>
+<ol type="1">
+<li><code>precipitation</code></li>
+<li><code>evaporation</code></li>
+<li><code>location_info</code></li>
+<li><code>pastas_models</code></li>
+<li><code>df_stats_minima</code></li>
+</ol>
+<p>De GWDI-uitvoer bevat de kolommen:</p>
+<ul>
+<li><code>fid</code></li>
+<li><code>parameterid</code></li>
+<li><code>methodid</code></li>
+<li><code>datetime</code></li>
+<li><code>value</code></li>
+<li><code>peilbuisid</code></li>
+</ul>
 </section>
+<section id="voorbeelden" class="level3">
+<h3 class="anchored" data-anchor-id="voorbeelden">Voorbeelden</h3>
+<ul>
+<li>Eenvoudige end-to-end run (single fid): <a href="../examples/notebooks/10.gwdi_simple_calculation.html">GWDI eenvoudige berekening</a></li>
+<li>Opbouw van referentiestatistiek (<code>df_stats_minima</code>): <a href="../examples/notebooks/104.gwdi_reference_stats.html">GWDI referentiestatistiek</a></li>
+</ul>
+</section>
+<section id="python-api" class="level3">
+<h3 class="anchored" data-anchor-id="python-api">Python API</h3>
+<p>Zie ook de API-reference voor:</p>
+<ul>
+<li><code>GwdiInference</code></li>
+<li><code>GwdiModel</code></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->

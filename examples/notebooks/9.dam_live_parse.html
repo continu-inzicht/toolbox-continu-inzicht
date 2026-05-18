@@ -246,6 +246,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/10.gwdi_simple_calculation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GWDI eenvoudige berekening</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gebruik van logging</span></a>
   </div>
@@ -266,6 +272,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../examples/notebooks/103.extract_wavedata_hrdb.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Golfdata van HR-database naar TBCI</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/notebooks/104.gwdi_reference_stats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GWDI referentiestatistiek</span></a>
   </div>
 </li>
     </ul>
@@ -315,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.config <span class="im">import</span> Config</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> DataAdapter</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.dam_live.merge_stage <span class="im">import</span> CombineDamLiveResults</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.dam_live.combine_results <span class="im">import</span> CombineDamLiveResults</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>De configuratie ziet er als volgt uit:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
@@ -580,7 +592,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">soil_id</th>
 <th data-quarto-table-cell-role="th">name</th>
 <th data-quarto-table-cell-role="th">code</th>
-<th data-quarto-table-cell-role="th">color</th>
 <th data-quarto-table-cell-role="th">volumetric_weight_above_phreatic_level</th>
 <th data-quarto-table-cell-role="th">volumetric_weight_below_phreatic_level</th>
 <th data-quarto-table-cell-role="th">shear_strength_model_type_above_phreatic_level</th>
@@ -598,7 +609,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 <td>V_Basisveen</td>
 <td>V_Basisveen-0</td>
-<td>gray</td>
 <td>11.5</td>
 <td>11.5</td>
 <td>MohrCoulombAdvanced</td>
@@ -614,7 +624,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 <td>Z_Boxtel</td>
 <td>Z_Boxtel-1</td>
-<td>gray</td>
 <td>20.0</td>
 <td>18.0</td>
 <td>MohrCoulombAdvanced</td>
@@ -630,7 +639,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 <td>K_Wormer_zandig</td>
 <td>K_Wormer_zandig-2</td>
-<td>gray</td>
 <td>17.5</td>
 <td>17.5</td>
 <td>SigmaTauTable</td>
@@ -646,7 +654,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3</td>
 <td>Z_Wormer_kleiig</td>
 <td>Z_Wormer_kleiig-3</td>
-<td>gray</td>
 <td>18.8</td>
 <td>17.0</td>
 <td>MohrCoulombAdvanced</td>
@@ -662,7 +669,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4</td>
 <td>K_Antropogeen</td>
 <td>K_Antropogeen-4</td>
-<td>gray</td>
 <td>16.2</td>
 <td>16.2</td>
 <td>SigmaTauTable</td>
@@ -814,7 +820,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.0</td>
 <td>44.19082</td>
 <td>-3.099719</td>
-<td>8.644962</td>
+<td>NaN</td>
 <td>2</td>
 </tr>
 </tbody>
@@ -845,9 +851,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"soillayers"</span>,</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"waternets"</span>,</span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"calculationsettings"</span>,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>[<span class="st">"merge_soil"</span>, <span class="st">"merge_waternet"</span>, <span class="st">"merge_calculations"</span>],</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colors"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>[<span class="st">"merge_soil"</span>, <span class="st">"merge_waternet"</span>, <span class="st">"merge_calculations"</span>],</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="sec-plotstage" class="level2">
@@ -859,10 +866,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    xlim<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">60</span>),</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    ylim<span class="op">=</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">6</span>),</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\runneradmin\AppData\Local\Temp\ipykernel_7032\2994863612.py:1: UserWarning: Geen kleur gevonden voor waterlijn 'Head line 3 (PL 3)' in color map. Gebruik fallbackkleur grijs.
+  merge_df.plot_stage(
+C:\Users\runneradmin\AppData\Local\Temp\ipykernel_7032\2994863612.py:1: UserWarning: Geen kleur gevonden voor waterlijn 'Head line 4 (PL 4)' in color map. Gebruik fallbackkleur grijs.
+  merge_df.plot_stage(</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>(&lt;Figure size 1440x1440 with 1 Axes&gt;,
+ &lt;Axes: title={'center': 'Stage 43'}, xlabel='X', ylabel='Z'&gt;)</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="9.dam_live_parse_files/figure-html/cell-11-output-1.png" width="1429" height="546" class="figure-img"></p>
+<p><img src="9.dam_live_parse_files/figure-html/cell-11-output-3.png" width="1429" height="546" class="figure-img"></p>
 </figure>
 </div>
 </div>

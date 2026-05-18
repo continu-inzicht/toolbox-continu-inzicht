@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>WMS laag toevoegen aan database voor viewer – Toolbox Continu Inzicht</title>
+<title>gwdiinference – Toolbox Continu Inzicht</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,23 +58,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2a9bdf5a123b5cc383b46ed6d004b071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2a9bdf5a123b5cc383b46ed6d004b071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,25 +102,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="../../assets/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body class="nav-sidebar floating nav-fixed quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Toolbox Continu Inzicht</span>
     </a>
   </div>
@@ -131,29 +128,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../install.html"> 
+    <a class="nav-link" href="../install.html"> 
 <span class="menu-text">Installeren</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../voorbeelden.html" aria-current="page"> 
+    <a class="nav-link" href="../voorbeelden.html"> 
 <span class="menu-text">Voorbeelden</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../modules_index.html"> 
+    <a class="nav-link" href="../modules_index.html"> 
 <span class="menu-text">Modules</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../reference/index.html"> 
+    <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Python API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../overig/contact.html"> 
+    <a class="nav-link" href="../overig/contact.html"> 
 <span class="menu-text">Overig</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../contributing.html"> 
+    <a class="nav-link" href="../contributing.html"> 
 <span class="menu-text">Bijdragen</span></a>
   </li>  
   <li class="nav-item compact">
@@ -167,376 +164,159 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/notebooks/101.WMS_laag_naar_database.html">WMS laag toevoegen aan database voor viewer</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../voorbeelden.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Voorbeelden</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/1.proof_of_concept.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Architectuur voorbeeld</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/2.belastingen_inladen.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Belastingen inladen</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/3.fragility_curve_overtopping_bedlevelfetch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fragility Curve Overtopping (bedlevel/fetch)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/4.adjust_integrated_statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Aanpassen van geïntegreerde faalkans</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/5.inspectieresultaten.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inspectieresultaten</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/6.fragility_curve_from_cache.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fragility Curve uit een cache</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/7.rekentest_flood_scenarios.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Real-time of what-if overstromingsrisico’s</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/8.fragility_curve_overtopping_wavedata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fragility Curve Overtopping (wave data)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/9.dam_live_parse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dam Live</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/10.gwdi_simple_calculation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">GWDI eenvoudige berekening</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/100.logging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gebruik van logging</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/101.WMS_laag_naar_database.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">WMS laag toevoegen aan database voor viewer</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/102.quick_start_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quick start guide</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/103.extract_wavedata_hrdb.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Golfdata van HR-database naar TBCI</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/notebooks/104.gwdi_reference_stats.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">GWDI referentiestatistiek</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#toolbox_continu_inzicht.gwdi.GwdiInference" id="toc-toolbox_continu_inzicht.gwdi.GwdiInference" class="nav-link active" data-scroll-target="#toolbox_continu_inzicht.gwdi.GwdiInference">GwdiInference</a>
+  <ul class="collapse">
+  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#toolbox_continu_inzicht.gwdi.GwdiInference.log_exceptions" id="toc-toolbox_continu_inzicht.gwdi.GwdiInference.log_exceptions" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.gwdi.GwdiInference.log_exceptions">log_exceptions</a></li>
+  <li><a href="#toolbox_continu_inzicht.gwdi.GwdiInference.run" id="toc-toolbox_continu_inzicht.gwdi.GwdiInference.run" class="nav-link" data-scroll-target="#toolbox_continu_inzicht.gwdi.GwdiInference.run">run</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">WMS laag toevoegen aan database voor viewer</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div id="cell-1" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.config <span class="im">import</span> Config</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> DataAdapter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-2" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"5.inspectieresultaten"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"example_inspection.yaml"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-3" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"inspections_results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<section id="toolbox_continu_inzicht.gwdi.GwdiInference" class="level1">
+<h1>GwdiInference</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gwdi.GwdiInference()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run GWDI inference for all raster cells in the climate inputs.</p>
+<section id="attributes" class="level2 doc-section doc-section-attributes">
+<h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 32%">
+<col style="width: 51%">
+</colgroup>
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">location_id</th>
-<th data-quarto-table-cell-role="th">prioriteit</th>
-<th data-quarto-table-cell-role="th">x</th>
-<th data-quarto-table-cell-role="th">y</th>
-<th data-quarto-table-cell-role="th">opmerking</th>
-<th data-quarto-table-cell-role="th">datum</th>
-<th data-quarto-table-cell-role="th">tijd</th>
-<th data-quarto-table-cell-role="th">waterschap</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>0</td>
-<td>0</td>
-<td>5.533930</td>
-<td>52.596911</td>
-<td>foutje</td>
-<td>2-4-2025</td>
-<td>09:08</td>
-<td>Zuiderzeeland</td>
+<td>data_adapter</td>
+<td>DataAdapter</td>
+<td>Toolbox data-adapter used for all configured input and output access.</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>1</td>
-<td>1</td>
-<td>5.451603</td>
-<td>52.540697</td>
-<td>scheurvorming</td>
-<td>28-3-2025</td>
-<td>15:48</td>
-<td>Zuiderzeeland</td>
+<td>df_in</td>
+<td>dict[str, object] | None</td>
+<td>Cached runtime inputs loaded by :meth:<code>_load_inputs</code>.</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>2</td>
-<td>3</td>
-<td>5.407599</td>
-<td>52.497642</td>
-<td>opschot</td>
-<td>28-3-2025</td>
-<td>15:50</td>
-<td>Zuiderzeeland</td>
+<td>df_out</td>
+<td>pd.DataFrame | None</td>
+<td>Cached GWDI output after :meth:<code>run</code>.</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>3</td>
-<td>11</td>
-<td>5.616243</td>
-<td>52.602794</td>
-<td>beginnende scheurvorming</td>
-<td>31-3-2025</td>
-<td>09:02</td>
-<td>Zuiderzeeland</td>
+<td>input_order</td>
+<td>ClassVar[tuple[str, …]]</td>
+<td>Required order of GWDI input adapter names.</td>
+</tr>
+<tr class="odd">
+<td>precipitation_schema</td>
+<td>ClassVar[dict[str, str | list[str]]]</td>
+<td>Schema contract for precipitation input (<code>time</code>, <code>fid</code>, <code>P</code>).</td>
+</tr>
+<tr class="even">
+<td>evaporation_schema</td>
+<td>ClassVar[dict[str, str | list[str]]]</td>
+<td>Schema contract for evaporation input (<code>time</code>, <code>fid</code>, <code>evaporation</code>).</td>
+</tr>
+<tr class="odd">
+<td>location_info_schema</td>
+<td>ClassVar[dict[str, str | list[str]]]</td>
+<td>Schema contract for location metadata input (<code>location</code>, <code>position</code>).</td>
 </tr>
 </tbody>
 </table>
-
-</div>
-</div>
-</div>
-<p>We willen de volgende data toevoegen aan de viewer:</p>
-<div id="cell-5" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://basisinformatie-overstromingen.nl/geoserver/LIWO_Basis/infrastructuur_dijkringen/ows?SERVICE=WMS&amp;"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>legend_url <span class="op">=</span> <span class="st">"https://geodata.basisinformatie-overstromingen.nl/geoserver/LIWO_Basis/infrastructuur_dijkringen/ows?service=WMS&amp;version=1.3.0&amp;request=GetLegendGraphic&amp;format=image/png&amp;width=20&amp;height=20&amp;layer=infrastructuur_dijkringen&amp;"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>layer_wms_layer <span class="op">=</span> <span class="st">"infrastructuur_dijkringen"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>layer_wms_style <span class="op">=</span> <span class="st">"LIWO_Basis_Dijkringen"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Het layers bestand bevat de standaard opties</p>
-<div id="cell-7" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_layers <span class="op">=</span> data_adapter.<span class="bu">input</span>(<span class="st">"layers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-8" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_layers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<table class="caption-top table">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">group_name</th>
-<th data-quarto-table-cell-role="th">layer_name</th>
-<th data-quarto-table-cell-role="th">layer_visible</th>
-<th data-quarto-table-cell-role="th">layer_type</th>
-<th data-quarto-table-cell-role="th">layer_table</th>
-<th data-quarto-table-cell-role="th">layer_wms_url</th>
-<th data-quarto-table-cell-role="th">layer_wms_layer</th>
-<th data-quarto-table-cell-role="th">layer_wms_style</th>
-<th data-quarto-table-cell-role="th">layer_wms_legend_url</th>
-<th data-quarto-table-cell-role="th">layer_data</th>
-<th data-quarto-table-cell-role="th">layer_legend</th>
+<th>Name</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Extra Kaartlagen</td>
-<td>Geojson met data</td>
-<td>True</td>
-<td>geojson</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
+<td><a href="#toolbox_continu_inzicht.gwdi.GwdiInference.log_exceptions">log_exceptions</a></td>
+<td>Stuurt exceptions eerst naar de logger van de DataAdapter</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Extra Kaartlagen</td>
-<td>WMS test</td>
-<td>True</td>
-<td>wms</td>
-<td>NaN</td>
-<td>https://geo.hkvservices.nl/geoserver/wms</td>
-<td>Waterdiepte</td>
-<td>liwo_waterdiepte_band1</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Extra Kaartlagen</td>
-<td>table test</td>
-<td>True</td>
-<td>table</td>
-<td>areas</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
+<td><a href="#toolbox_continu_inzicht.gwdi.GwdiInference.run">run</a></td>
+<td>Execute GWDI inference for all available <code>fid</code> values.</td>
 </tr>
 </tbody>
 </table>
-
-</div>
-</div>
-</div>
-<p>We vullen alleen de eerste kolom met de dijkringen informatie</p>
-<div id="cell-10" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_wms_laag <span class="op">=</span> df_layers.iloc[[<span class="dv">1</span>]].copy()</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df_wms_laag.reset_index(drop<span class="op">=</span><span class="va">True</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"group_name"</span>] <span class="op">=</span> <span class="st">"Dijkringen Nederland"</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_url"</span>] <span class="op">=</span> url</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_layer"</span>] <span class="op">=</span> layer_wms_layer</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_style"</span>] <span class="op">=</span> layer_wms_style</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df_wms_laag[<span class="st">"layer_wms_legend_url"</span>] <span class="op">=</span> df_wms_laag[<span class="st">"layer_legend"</span>].astype(<span class="bu">str</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>df_wms_laag.loc[<span class="dv">0</span>, <span class="st">"layer_wms_legend_url"</span>] <span class="op">=</span> legend_url</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>df_wms_laag <span class="op">=</span> df_wms_laag.fillna(<span class="st">""</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>df_wms_laag</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<section id="toolbox_continu_inzicht.gwdi.GwdiInference.log_exceptions" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.gwdi.GwdiInference.log_exceptions">log_exceptions</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gwdi.GwdiInference.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
+</section>
+<section id="toolbox_continu_inzicht.gwdi.GwdiInference.run" class="level3">
+<h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.gwdi.GwdiInference.run">run</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gwdi.GwdiInference.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Execute GWDI inference for all available <code>fid</code> values.</p>
+<section id="parameters" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 93%">
+<col style="width: 2%">
+</colgroup>
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">group_name</th>
-<th data-quarto-table-cell-role="th">layer_name</th>
-<th data-quarto-table-cell-role="th">layer_visible</th>
-<th data-quarto-table-cell-role="th">layer_type</th>
-<th data-quarto-table-cell-role="th">layer_table</th>
-<th data-quarto-table-cell-role="th">layer_wms_url</th>
-<th data-quarto-table-cell-role="th">layer_wms_layer</th>
-<th data-quarto-table-cell-role="th">layer_wms_style</th>
-<th data-quarto-table-cell-role="th">layer_wms_legend_url</th>
-<th data-quarto-table-cell-role="th">layer_data</th>
-<th data-quarto-table-cell-role="th">layer_legend</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Dijkringen Nederland</td>
-<td>WMS test</td>
-<td>True</td>
-<td>wms</td>
-<td></td>
-<td>https://basisinformatie-overstromingen.nl/geos...</td>
-<td>infrastructuur_dijkringen</td>
-<td>LIWO_Basis_Dijkringen</td>
-<td>https://geodata.basisinformatie-overstromingen...</td>
-<td></td>
-<td></td>
+<td>input</td>
+<td>list[str]</td>
+<td>Input adapter names in this exact order: <code>[precipitation, evaporation, location_info, pastas_models, df_stats_minima]</code>. Expected adapter payload contracts: - <code>precipitation</code>: dataframe with <code>time</code>, <code>fid</code>, <code>P</code>. - <code>evaporation</code>: dataframe with <code>time</code>, <code>fid</code>, <code>evaporation</code>. - <code>location_info</code>: dataframe with <code>location</code>, <code>position</code>. - <code>pastas_models</code>: dictionary of loaded Pastas models. - <code>df_stats_minima</code>: dataframe with return periods as index and location names as columns.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>output</td>
+<td>str</td>
+<td>Output adapter name that receives GWDI rows with columns: <code>fid, parameterid, methodid, datetime, value, peilbuisid</code>.</td>
+<td><em>required</em></td>
 </tr>
 </tbody>
 </table>
 
-</div>
-</div>
-</div>
-<p><em>Omdat database interactie op GitHub niet mogelijk wordt de onderstaande cell niet uitgevoerd, lokaal kan dit uiteraard wel</em></p>
-<p>En vervolgens kunnen we deze naar de database zetten</p>
-<div id="cell-12" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data_adapter.output("to_ci_database", df_wms_laag)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
-
+</section>
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
