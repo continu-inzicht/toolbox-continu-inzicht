@@ -16,6 +16,7 @@ dependencies:
 - xarray
 - netcdf4>=1.7.1
 - openpyxl
+- pastas
 # flood_scenarios
 - rasterstats>=0.20.0
 # geospatial dependencies

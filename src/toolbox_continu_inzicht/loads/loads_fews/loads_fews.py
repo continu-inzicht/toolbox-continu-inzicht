@@ -100,10 +100,11 @@ class LoadsFews(ToolboxBase):
                 locations=self.df_in,
                 global_variables=global_variables,
             )
-
             self.data_adapter.output(output=output, df=self.df_out)
-
-        return self.df_out
+        else:
+            raise UserWarning(
+                f"Er is een fout opgetreden bij het ophalen van data uit FEWS. Status: {status}, json_data: {json_data}"
+            )
 
     def create_url(self, options: dict) -> str:
         """
