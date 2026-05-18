@@ -52,7 +52,7 @@ env = { QUARTO_PYTHON = "python" }
 depends-on = ["quartodoc-build"]
 
 [feature.common.dependencies]
-python = ">=3.11,<3.14" # no support for 3.14 yet in many packages
+python = "==3.13.5" # no support for 3.14 yet in many packages
 pandas =">2.0.0,<3.0.0"
 pydantic = ">=2"
 python-dotenv = ">=1.0.1"

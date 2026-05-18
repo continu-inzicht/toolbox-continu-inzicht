@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TimeSeries xmlns="http://www.wldelft.nl/fews/PI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wldelft.nl/fews/PI https://fewsdocs.deltares.nl/schemas/version1.0/pi-schemas/pi_timeseries.xsd" version="1.2">
+	<timeZone>1.0</timeZone>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>PB-288</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-06" time="07:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>PB-288</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-2.148" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>PB-286</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-06" time="07:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>PB-286</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-0.428" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>PB-289</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-06" time="07:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>PB-289</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-3.093" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>PB-287</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="3600"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-06" time="07:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>PB-287</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-1.364" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>BP</locationId>
+            <parameterId>H.meting</parameterId>
+            <timeStep unit="second" multiplier="82800"/>
+            <startDate date="2024-11-06" time="07:00:00"/>
+            <endDate date="2024-11-07" time="06:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>BP</stationName>
+            <units>m</units>
+        </header>
+        <event date="2024-11-06" time="07:00:00" value="-0.488" flag="0"/>
+        <event date="2024-11-07" time="06:00:00" value="-0.484" flag="0"/>
+    </series>
+</TimeSeries>

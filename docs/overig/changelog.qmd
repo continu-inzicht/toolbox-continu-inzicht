@@ -150,6 +150,8 @@ In de toekomst is het misschien beter om daar later een speciaal type adapter vo
 
 #### Inhoudelijk
 
+Alle aanpassingen zijn terug te vinden [#85](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/85)
+
 In sprint 7 (voorjaar 2026) is gewerkt aan het opzetten van een koppeling met DamLive.
 DamLive is ontworpen om met FEWS te werken, waarbij metingen in worden meegegeven en door de rekenhart achter DAM (Dijksterkte Analayse Module) een faalkans per tijdstap wordt berekend.
 
@@ -163,4 +165,15 @@ De namen van waterinfo locaties zijn aangepast omdat RWS overgaat naar [WADAR](h
 
 ### Aanpassingen aan Fragility Curve Overtopping
 
-Parallel aan de regulieren sprints is ook een traject geweest om GEKB (overloop en golfoverslag van dijken) fragility curves af te kunnen leiden met HRB (hydraul)
+Parallel aan de regulieren sprints is ook een traject geweest om GEKB (overloop en golfoverslag van dijken) fragility curves af te kunnen leiden met HR-database (Hydraulische Randvoorwaarde database)
+
+
+### V0.1.4 [[0.1.4](https://pypi.org/project/toolbox-continu-inzicht/0.1.4/)]
+
+### Sprint 8
+
+#### Inhoudelijk
+
+Alle aanpassingen zijn terug te vinden [#89](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/89)
+
+In sprint 8 zijn wat rest punten van de DamLive koppeling afgerond en zijn de operationele scripts van de grondwaterdroogte indicator toegevoegd aan de toolbox. Met deze scripts kunnen [pastas](https://github.com/pastas/pastas) tijdreeks modellen gebruikt worden om de extremiteit van grondwaterstanden te duiden. Voor de toolbox zijn hier data adapter voor toegevoegd om neerslag en verdamping uit te lezen uit WIWB en KNMI.
