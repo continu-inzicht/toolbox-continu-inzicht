@@ -1,4 +1,4 @@
-# Toolbox Continu Inzicht <img align="right" src="./docs/assets/logo.png" height="32" alt='logo'/>
+# Toolbox Continu Inzicht <img align="right" src="./../docs/assets/logo.png" height="32" alt='logo'/>
 
 [![Run Pytest](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/tests.yml)
 [![Render and Publish Docs](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/quarto-docs.yml/badge.svg)](https://github.com/continu-inzicht/toolbox-continu-inzicht/actions/workflows/quarto-docs.yml)

@@ -1,0 +1,23 @@
+GlobalVariables:
+    rootdir: "tests/src/gwdi/data_sets/retrieval"
+    calc_time: "2025-06-12 08:00:00"
+
+    GwdiWiwbRetrieval:
+        wiwb_precipitation_source_code: "Knmi.International.Radar.Composite.Combined"
+        lag_days: 0
+        publish_days: 3
+
+    GwdiKnmiRetrieval:
+        lag_days: 0
+        publish_days: 3
+
+DataAdapter:
+    gwdi_input_locations:
+        type: csv
+        file: "locations.csv"
+
+    gwdi_output_precipitation:
+        type: python
+
+    gwdi_output_evaporation:
+        type: python

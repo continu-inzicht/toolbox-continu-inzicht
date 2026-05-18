@@ -1,0 +1,23 @@
+type,name,color
+soil,V_Basisveen,#228B22
+soil,Z_Boxtel,#32CD32
+soil,K_Wormer_zandig,#FFD700
+soil,Z_Wormer_kleiig,#8B4513
+soil,K_Antropogeen,#A0522D
+soil,V_Hollandveen eerste laag,#6B8E23
+soil,V_Hollandveen tweede laag,#556B2F
+soil,K_Walcheren_organisch,#2E8B57
+soil,K_Wormer_Purmer,#ADFF2F
+soil,Z_Wormer,#BDB76B
+soil,K_Walcheren_siltig,#F4A460
+water,Phreatic line (PL 1),#1E90FF
+water,Headline 3 (PL 3),#FF4500
+water,Headline 4 (PL 4),#FF8C00
+water,Head line 3 (PL 3),#FF4500
+water,Head line 4 (PL 4),#FF8C00
+water,Waternet line phreatic line,#00BFFF
+water,Waternet line lower aquifer,#00FF7F
+water,Waternet line in-between aquifer top (1),#8A2BE2
+water,Waternet line in-between aquifer top (2),#9370DB
+water,Waternet line in-between aquifer bottom (1),#4B0082
+water,Waternet line in-between aquifer bottom (2),#6A5ACD

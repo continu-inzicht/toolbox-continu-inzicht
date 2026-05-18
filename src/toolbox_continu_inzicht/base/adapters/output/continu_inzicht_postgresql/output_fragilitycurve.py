@@ -113,6 +113,19 @@ def output_ci_postgresql_fragilitycurves_table(
         },
         inplace=True,
     )
+
+    if "measure_id" in df:
+        df.rename(
+            columns={"measure_id": "measureid"},
+            inplace=True,
+        )
+
+    if "failuremechanism_id" in df:
+        df.rename(
+            columns={"failuremechanism_id": "failuremechanismid"},
+            inplace=True,
+        )
+
     columns = {"failuremechanismid": 0, "measureid": 0, "timedep": 0, "degradatieid": 0}
     for col in columns:
         if col not in df.columns:

@@ -1,3 +1,0 @@
-,stage_id,stage_label,scenario_id,scenario_label,calculationsettings_id,analysis_type,calculation_type,model_factor_mean,model_factor_std,circle_center_x,circle_center_z,circle_radius
-0,43,Stage1,42,Scenario1,12,UpliftVan,Deterministic,1.0,0.0,43.455480396213574,2.614190904998195,8.644962065039769
-1,43,Stage1,42,Scenario1,12,UpliftVan,Deterministic,1.0,0.0,44.19081972917457,-3.099718758717467,8.644962065039769

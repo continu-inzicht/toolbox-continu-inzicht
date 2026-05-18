@@ -26,14 +26,18 @@ DataAdapter:
     type: calculationsettings
     path: calculationsettings
 
+  colors:
+    type: csv
+    relative_file: tests/src/dam_live/data_sets/colors.csv
+
   merge_soil:
     type: csv
-    path: merged_soil.csv
+    path: hidden_merged_soil.csv
 
   merge_waternet:
     type: csv
-    path: merged_waternet.csv
+    path: hidden_merged_waternet.csv
 
   merge_calculations:
     type: csv
-    path: merged_calculations.csv
+    path: hidden_merged_calculations.csv

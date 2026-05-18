@@ -1,0 +1,20 @@
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 48 ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    segment_failure_probability:
+        type: csv
+        file: "segment_failure_probability.csv"
+    section_id_to_segment_id:
+        type: csv
+        file: "section_id_to_segment_id.csv"
+    section_failure_probability_data:
+        type: csv
+        file: "fragility_curve_multi_section.csv"
+    flood_scenario_load_resultaten:
+        type: csv
+        path: "hidden_flood_scenario_load_resultaten.csv"

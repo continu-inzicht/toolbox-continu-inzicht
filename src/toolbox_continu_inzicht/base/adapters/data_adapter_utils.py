@@ -67,6 +67,10 @@ def check_file_and_path(function_config: dict, global_vars: dict) -> None:
             function_config["abs_path"] = (
                 Path(global_vars["rootdir"]) / function_config["path"]
             )
+    elif "relative_file" in function_config:
+        # work around voor als je een pad relatief aan je code wilt gebruiken, anders dan in je rootdir
+        # is een beetje een nice maar nodig voor Dam live..
+        function_config["abs_path"] = Path.cwd() / function_config["relative_file"]
 
 
 def check_plugin_path(global_variables: dict, prefix: str) -> None | Path:

@@ -1,0 +1,7 @@
+parameter_names,parameter_values
+CalculationModules_StabilityInside,1
+CalculationModules_StabilityOutside,0
+CalculationModules_PipingBligh,0
+CalculationModules_PipingWti,0
+StabilityParameters_CalculationModel,Bishop
+StabilityParameters_SearchMethod,Grid

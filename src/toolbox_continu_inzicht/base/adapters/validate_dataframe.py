@@ -1,5 +1,11 @@
 from typing import Dict, Tuple
 import pandas as pd
+from pandas.api.types import (
+    is_datetime64_any_dtype,
+    is_integer_dtype,
+    is_numeric_dtype,
+    is_string_dtype,
+)
 
 
 def validate_dataframe(df: pd.DataFrame, schema: Dict) -> Tuple[int, str]:
@@ -39,5 +45,15 @@ def validate_dataframe(df: pd.DataFrame, schema: Dict) -> Tuple[int, str]:
 def _dtype_match(expected_dtype, actual_dtype):
     """check of het datatype overeenkomt met het verwachte datatype"""
     if isinstance(expected_dtype, list):
-        return actual_dtype in expected_dtype
+        return any(_dtype_match(dtype, actual_dtype) for dtype in expected_dtype)
+
+    if expected_dtype in ("number", "numeric"):
+        return is_numeric_dtype(actual_dtype)
+    if expected_dtype == "integer":
+        return is_integer_dtype(actual_dtype)
+    if expected_dtype == "datetime":
+        return is_datetime64_any_dtype(actual_dtype)
+    if expected_dtype in ("text", "string_like"):
+        return is_string_dtype(actual_dtype)
+
     return expected_dtype == actual_dtype

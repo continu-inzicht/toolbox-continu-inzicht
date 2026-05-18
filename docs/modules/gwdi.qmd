@@ -1,0 +1,47 @@
+---
+title: "GWDI (grondwaterdroogte-indicator)"
+---
+
+De GWDI-module berekent een actuele grondwaterdroogte-indicator per rastercel (`fid`) op basis van:
+
+- neerslag (`P`) en verdamping (`evaporation`) tijdreeksen,
+- locatie-informatie (`location`, `position`),
+- Pastas-modellen,
+- en `df_stats_minima` als referentiestatistiek.
+
+De basis van de grondwaterdroogte-indicator en het neerslagtekort zijn neerslag en verdamping wat wordt verwerkt tot een droogtegetal. Voor details en achtergrond over de grondwaterdroogte-indicator wordt verwezen naar het [STOWA-rapport](https://www.stowa.nl/publicaties/een-nieuwe-grondwater-droogte-indicator-voor-boezemkaden-een-statistische-maat-die-de-extremiteit)
+
+De neerslag en verdamping is afkomstig van verschillende dataproducten, waarbij geprobeerd wordt om een zo accuraat mogelijk beeld te hebben van de lokale neerslag en verdamping. De neerslag wordt opgehaald met de WIWB API (`Knmi.International.Radar.Composite.Combined`). Bij het verdampingsproduct wordt data gebaseerd op de dagstations van het KNMI opgehaald (`EV24`).
+
+De module-entree in de toolbox is `GwdiInference`. Deze laadt alle invoer via DataAdapters en schrijft de GWDI-uitvoer weg via een output-adapter.
+
+### Invoercontract
+
+`GwdiInference.run(...)` verwacht vijf input-adapters in deze volgorde:
+
+1. `precipitation`
+2. `evaporation`
+3. `location_info`
+4. `pastas_models`
+5. `df_stats_minima`
+
+De GWDI-uitvoer bevat de kolommen:
+
+- `fid`
+- `parameterid`
+- `methodid`
+- `datetime`
+- `value`
+- `peilbuisid`
+
+### Voorbeelden
+
+- Eenvoudige end-to-end run (single fid): [GWDI eenvoudige berekening](../examples/notebooks/10.gwdi_simple_calculation.ipynb)
+- Opbouw van referentiestatistiek (`df_stats_minima`): [GWDI referentiestatistiek](../examples/notebooks/104.gwdi_reference_stats.ipynb)
+
+### Python API
+
+Zie ook de API-reference voor:
+
+- `GwdiInference`
+- `GwdiModel`
