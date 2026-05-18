@@ -1,5 +1,5 @@
 GlobalVariables:
-  rootdir: "data_sets/run_damlive/Stability"
+  rootdir: "data_demo/postprocess/WV2030_Purmer.Calc/Stability/Bishop/PU0013_87074-1_DWP001_0_2024-11-06T07"
 
 DataAdapter:
   scenario:
@@ -28,7 +28,7 @@ DataAdapter:
 
   colors:
     type: csv
-    relative_file: data_sets/run_damlive/colors.csv
+    relative_file: data_demo/postprocess/colors.csv
 
   merge_soil:
     type: csv
