@@ -1,0 +1,46 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [ -24, 0, 24, 48 ]
+
+    LoadsWaterwebservicesRWS:
+        parameters: [ 'WATHTE' ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    BelastingLocaties:
+        type: csv
+        path: "belastingen_rws.csv"
+    Waterstanden:
+        type: csv
+        path: "hidden_waterstanden.csv"
+        sep: ";"
+
+    in_measuringstations_csv:
+        type: csv
+        path: "measuringstations.csv"
+
+    in_measuringstations_table:
+        type: ci_postgresql_measuringstation
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    out_measuringstations_table:
+        type: ci_postgresql_measuringstation
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    in_measuringstation_conditions_table:
+        type: ci_postgresql_from_conditions
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+
+    conditions_table_csv:
+        type: csv
+        file: conditions_adj.csv
+
+    out_conditions_table:
+        type: ci_postgresql_conditions
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"

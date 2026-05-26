@@ -1,0 +1,53 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [ -24, 0, 24, 48 ]
+
+    LoadsWaterwebservicesRWS:
+        parameters: [ 'WATHTE' ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    BelastingLocaties:
+        type: csv
+        path: "belastingen_rws.csv"
+    Waterstanden_lokaal:
+        type: csv
+        path: "hidden_waterstanden.csv"
+        sep: ";"
+    Waterstanden_database:
+        type: ci_postgresql_measuringstation_to_data
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+        unit_conversion_factor: 0.01
+
+    # classify 
+    df_moment_waterstanden:
+        type: python
+    in_measuringstations_table:
+        type: ci_postgresql_measuringstation_data_table
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+    in_measuringstation_conditions_table:
+        type: ci_postgresql_from_conditions
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+    out_measuringstation_states_table:
+        type: ci_postgresql_to_states
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+        objecttype: "measuringstation"
+    # database functionaliteit
+    in_ci_status:
+        type: ci_postgresql_calc_status
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+    calculation_start_config:
+        type: ci_postgresql_to_calculation_start
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
+    calculation_end_config:
+        type: ci_postgresql_to_calculation_end
+        database: "continuinzicht"
+        schema: "continuinzicht_demo_realtime"
