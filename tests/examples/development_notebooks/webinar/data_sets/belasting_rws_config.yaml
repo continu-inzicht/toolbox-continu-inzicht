@@ -22,7 +22,7 @@ DataAdapter:
         schema: "continuinzicht_demo_realtime"
         unit_conversion_factor: 0.01
 
-    # classify 
+    # classify
     df_moment_waterstanden:
         type: python
     in_measuringstations_table:
