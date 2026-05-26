@@ -75,6 +75,7 @@ openturns = ">=1.23"
 # specific to pixi
 pip = "*"
 rasterstats = ">=0.20.0,<0.21"
+geoalchemy2 = ">=0.20.0,<0.21"
 
 # only for testing
 [feature.tests.dependencies]

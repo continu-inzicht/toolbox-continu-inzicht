@@ -115,6 +115,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/fqdn-1.5.1-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/freetype-2.14.3-ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/freexl-2.0.0-h9dce30a_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/geoalchemy2-0.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geographiclib-2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-1.1.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-base-1.1.1-pyha770c72_0.conda
@@ -563,6 +564,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/fqdn-1.5.1-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/freetype-2.13.3-h57928b3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/freexl-2.0.0-hf297d47_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/geoalchemy2-0.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geographiclib-2.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-1.1.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-base-1.1.1-pyha770c72_0.conda
@@ -924,6 +926,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/fonttools-4.63.0-py313h3dea7bd_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/freetype-2.14.3-ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/freexl-2.0.0-h9dce30a_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/geoalchemy2-0.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-1.1.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-base-1.1.1-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/geos-3.14.1-h480dda7_0.conda
@@ -1189,6 +1192,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/fonttools-4.59.0-py313hd650c13_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/freetype-2.13.3-h57928b3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/freexl-2.0.0-hf297d47_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/geoalchemy2-0.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-1.1.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/geopandas-base-1.1.1-pyha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/geos-3.13.1-h9ea8674_0.conda
@@ -3625,6 +3629,19 @@ packages:
   purls: []
   size: 77528
   timestamp: 1734015193826
+- conda: https://conda.anaconda.org/conda-forge/noarch/geoalchemy2-0.20.0-pyhd8ed1ab_0.conda
+  sha256: 2d6be5194793745a7579c1ef6e09beb5457a0463124d3ef161e3c130e6965c90
+  md5: 7422ceaeaca4a2b7136d47d1bf6c7442
+  depends:
+  - packaging
+  - python >=3.10
+  - sqlalchemy >=1.4
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/geoalchemy2?source=hash-mapping
+  size: 72462
+  timestamp: 1778617221285
 - conda: https://conda.anaconda.org/conda-forge/noarch/geographiclib-2.0-pyhd8ed1ab_1.conda
   sha256: 933064eaaac79ceadef948223873c433eb5375b8445264cbe569d34035ab4e20
   md5: 8b9328ab4aafb8fde493ab32c5eba731
@@ -10921,7 +10938,7 @@ packages:
   timestamp: 1736962345843
 - pypi: ./src
   name: toolbox-continu-inzicht
-  version: 0.1.3
+  version: 0.1.4
   sha256: 7ad4834c9f43376b58c6974d699e1962184068fd26109e44f8854945a511762f
   requires_dist:
   - pandas
