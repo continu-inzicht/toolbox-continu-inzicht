@@ -191,6 +191,10 @@ class CalculateFloodScenarioProbability(ToolboxBase):
         self.data_adapter.output(
             output=output[1], df=self.df_out_combined_failure_prob_all_sections
         )
+        # if len(output) > 2:
+        #     self.data_adapter.output(
+        #     output=output[2], df=self.df_out_
+        # )
 
     def calculate_failure_probability_for_given_sections(
         self, df_sections: pd.DataFrame
