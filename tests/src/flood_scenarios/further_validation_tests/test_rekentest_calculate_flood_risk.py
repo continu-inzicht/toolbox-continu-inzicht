@@ -27,7 +27,7 @@ def test_calculate_flood_risk():
         ],
         output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
-    df_out = calculate_flood_risk.df_out
+    df_out = calculate_flood_risk.df_out_flood_risk_results
     expected_cols = [
         "area_id",
         "casualties",
@@ -56,7 +56,7 @@ def test_calculate_flood_risk_one_grid():
         ],
         output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
-    df_out = calculate_flood_risk.df_out
+    df_out = calculate_flood_risk.df_out_flood_risk_results
     expected_cols = [
         "area_id",
         "casualties",
