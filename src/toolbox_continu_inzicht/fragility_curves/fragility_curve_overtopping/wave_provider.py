@@ -186,9 +186,9 @@ class WaveDataProvider(WaveProvider):
             grid_wdwl = (1 - fws) * grid_wswdwl[i1, :, :] + fws * grid_wswdwl[i2, :, :]
 
         if is_directional:
-            grid_wd = circular_interpolate_1d(
-                np.array([waterlevel]), wlv, grid_wdwl.T
-            )[0]
+            grid_wd = circular_interpolate_1d(np.array([waterlevel]), wlv, grid_wdwl.T)[
+                0
+            ]
         else:
             i3, i4, fwl = bracketing_indices(wlv, waterlevel)
             grid_wd = (1 - fwl) * grid_wdwl[:, i3] + fwl * grid_wdwl[:, i4]
@@ -243,7 +243,11 @@ class WaveDataProvider(WaveProvider):
             return circular_interpolate_1d(waterlevels, wlv, grid_wl)
 
         grid_wl = interpolate_1d(
-            np.array([direction]), wd_ext, grid_wd_ext, ll=0.0, lower_limit_mode="physical"
+            np.array([direction]),
+            wd_ext,
+            grid_wd_ext,
+            ll=0.0,
+            lower_limit_mode="physical",
         )[0]
         return interpolate_1d(
             waterlevels, wlv, grid_wl, ll=0.0, lower_limit_mode="physical"
