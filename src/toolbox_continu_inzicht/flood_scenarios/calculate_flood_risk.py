@@ -50,15 +50,21 @@ class CalculateFloodRisk(ToolboxBase):
     Notes
     -----
 
-    schema voor sections_to_segment
+    schema voor scenario failure prob segments
 
-        - section_id: int
         - segment_id: int
+        - scenario_failure_probability: float
 
-    schema voor grouped_sections_failure_probability
+    schema voor scenario consequences grids
 
+        - segment_id: int
         - section_id: int
-        - failure_probability: float
+        - hydraulicload_upperboundary: float
+
+    schema voor areas to aggregate
+
+        - area_id: int
+        - geometry: geometry
 
     """
 
