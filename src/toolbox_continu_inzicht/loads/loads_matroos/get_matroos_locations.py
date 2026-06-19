@@ -2,17 +2,8 @@ import geopandas as gpd
 import pandas as pd
 
 from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
+from toolbox_continu_inzicht.utils.import_functions import import_folium
 
-
-def import_folium():
-    try:
-        import folium
-    except ImportError:
-        folium = None
-        raise ImportError(
-            "Folium is not installed, use the dev pixi environment or install folium"
-        )
-    return folium
 
 
 def get_matroos_locations(

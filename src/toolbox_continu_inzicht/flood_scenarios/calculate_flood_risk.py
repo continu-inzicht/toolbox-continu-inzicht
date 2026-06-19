@@ -7,17 +7,7 @@ import geopandas as gpd
 
 from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-
-
-def import_rasterstats():
-    try:
-        from rasterstats import zonal_stats
-    except ImportError:
-        zonal_stats = None
-        raise ImportError(
-            "Rasterio or zonalstats is not installed, use the dev pixi environment or install rasterio and rasterstats"
-        )
-    return zonal_stats
+from toolbox_continu_inzicht.utils.import_functions import import_rasterstats
 
 
 @dataclass(config={"arbitrary_types_allowed": True})

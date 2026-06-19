@@ -6,6 +6,7 @@ import geopandas as gpd
 
 from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
+from toolbox_continu_inzicht.utils.import_functions import import_folium
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -207,3 +208,12 @@ class PostProcessFloodRisk(ToolboxBase):
             highest_risk_section_id
         )
         return highest_risk_section_id
+
+
+def make_map(df):
+    """helper functie om de data in leaflet kaart te visualiseren"""
+
+    folium = import_folium()
+    m = folium.Map()
+
+    return m
