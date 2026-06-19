@@ -5,7 +5,6 @@ from toolbox_continu_inzicht.utils.fetch_functions import fetch_data_get
 from toolbox_continu_inzicht.utils.import_functions import import_folium
 
 
-
 def get_matroos_locations(
     source: str | None = None,
     parameter: str | None = None,

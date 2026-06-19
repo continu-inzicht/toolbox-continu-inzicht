@@ -91,7 +91,7 @@ class PostProcessFloodRisk(ToolboxBase):
 
     schema_flood_risk_results_per_segment: ClassVar[dict[str, str]] = {
         "area_id": "int",
-        "geometry": "float",
+        "geometry": "O",
     }
 
     def run(self, input: list[str], output: str) -> None:
@@ -210,10 +210,54 @@ class PostProcessFloodRisk(ToolboxBase):
         return highest_risk_section_id
 
 
-def make_map(df):
-    """helper functie om de data in leaflet kaart te visualiseren"""
+def make_map(df, crs: str = "EPSG:28992"):
+    """Helper functie om de geometrieën in een leaflet (folium) kaart te visualiseren.
+
+    parameters
+    ----------
+    df : pd.DataFrame | gpd.GeoDataFrame
+        (Geo)DataFrame met een ``geometry`` kolom en een ``section_id`` kolom.
+        Als ``geometry`` WKT-strings bevat wordt deze omgezet naar geometrieën.
+    crs : str
+        Het bron-coördinatenstelsel van de geometrieën. Standaard RD New
+        (EPSG:28992); folium verwacht WGS84, dus de data wordt herprojecteerd.
+    """
 
     folium = import_folium()
-    m = folium.Map()
+
+    # zorg dat we met een GeoDataFrame in WGS84 werken
+    gdf = df.copy()
+    if not isinstance(gdf, gpd.GeoDataFrame):
+        from shapely import wkt
+
+        if gdf["geometry"].dtype == object and isinstance(gdf["geometry"].iloc[0], str):
+            gdf["geometry"] = gdf["geometry"].apply(wkt.loads)
+        gdf = gpd.GeoDataFrame(gdf, geometry="geometry", crs=crs)
+    elif gdf.crs is None:
+        gdf = gdf.set_crs(crs)
+
+    gdf = gdf.to_crs("EPSG:4326")
+
+    # centreer de kaart op de data
+    bounds = gdf.total_bounds  # [minx, miny, maxx, maxy]
+    center = [(bounds[1] + bounds[3]) / 2, (bounds[0] + bounds[2]) / 2]
+    m = folium.Map(location=center, zoom_start=12)
+
+    folium.GeoJson(
+        gdf,
+        name="secties",
+        style_function=lambda _: {
+            "fillColor": "#3388ff",
+            "color": "#3388ff",
+            "weight": 1,
+            "fillOpacity": 0.4,
+        },
+        tooltip=folium.GeoJsonTooltip(
+            fields=["section_id"],
+            aliases=["Sectie ID:"],
+        ),
+    ).add_to(m)
+
+    m.fit_bounds([[bounds[1], bounds[0]], [bounds[3], bounds[2]]])
 
     return m

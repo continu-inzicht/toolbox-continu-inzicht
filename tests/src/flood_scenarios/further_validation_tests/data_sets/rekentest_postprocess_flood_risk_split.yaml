@@ -21,4 +21,4 @@ DataAdapter:
         path: "rekentest_flood_risk_results_per_segment_split.csv"
     areas_to_determining_sections:
         type: csv
-        path: "hidden_rekentest_areas_to_determining_sections.csv"
+        path: "hidden_rekentest_areas_to_determining_sections_split.csv"

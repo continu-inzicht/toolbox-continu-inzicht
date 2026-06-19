@@ -8,6 +8,7 @@ def import_folium():
         )
     return folium
 
+
 def import_rasterstats():
     try:
         from rasterstats import zonal_stats
