@@ -31,7 +31,14 @@ def test_rekentest_calculate_flood_risk_minimal():
     )
     df_out = postprocess_flood_risk.gdf_out_areas_to_determining_sections
     assert not df_out.empty
-    assert all(df_out["section_id"] == 34002010)
+    expected_result = {
+        186: 34002010.0,
+        192: 34002010.0,
+        254: 34002010.0,
+        265: 34003024.0,  # differs
+        280: 34002010.0,
+    }
+    assert dict(zip(df_out["area_id"], df_out["section_id"])) == expected_result
 
 
 def test_rekentest_calculate_flood_risk_een_ander_vak():
@@ -57,4 +64,4 @@ def test_rekentest_calculate_flood_risk_een_ander_vak():
         192: 34002010.0,  # this one differs
         254: 34003024.0,
     }
-    assert dict(df_out["section_id"]) == expected_result
+    assert dict(zip(df_out["area_id"], df_out["section_id"])) == expected_result

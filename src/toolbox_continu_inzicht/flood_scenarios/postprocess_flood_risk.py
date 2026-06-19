@@ -126,13 +126,14 @@ class PostProcessFloodRisk(ToolboxBase):
             schema=self.schema_flood_risk_results_per_segment,
         )
 
+        # only keep the regions where there is a risk
+        self.gdf_in_flood_risk_results_per_segment.dropna(inplace=True)
+
         self.gdf_out_areas_to_determining_sections = (
             self.gdf_in_flood_risk_results_per_segment.copy().drop_duplicates(
                 subset=["area_id"]
             )[["area_id", "geometry"]]
         )
-        # only keep the regions where there is a risk
-        self.gdf_in_flood_risk_results_per_segment.dropna(how="all", inplace=True)
         self.gdf_in_flood_risk_results_per_segment.set_index("area_id", inplace=True)
         self.df_in_scenario_failure_prob_segments.set_index("segment_id", inplace=True)
         self.gdf_out_areas_to_determining_sections.set_index("area_id", inplace=True)
@@ -162,6 +163,7 @@ class PostProcessFloodRisk(ToolboxBase):
                 section_id
             )
 
+        self.gdf_out_areas_to_determining_sections.reset_index(inplace=True)
         self.data_adapter.output(
             output=output, df=self.gdf_out_areas_to_determining_sections
         )
@@ -209,55 +211,64 @@ class PostProcessFloodRisk(ToolboxBase):
         )
         return highest_risk_section_id
 
+    def make_map(self, crs: str = "EPSG:28992"):
+        """Helper functie om de geometrieën in een leaflet (folium) kaart te visualiseren.
 
-def make_map(df, crs: str = "EPSG:28992"):
-    """Helper functie om de geometrieën in een leaflet (folium) kaart te visualiseren.
+        parameters
+        ----------
+        df : pd.DataFrame | gpd.GeoDataFrame
+            (Geo)DataFrame met een ``geometry`` kolom en een ``section_id`` kolom.
+            Als ``geometry`` WKT-strings bevat wordt deze omgezet naar geometrieën.
+        crs : str
+            Het bron-coördinatenstelsel van de geometrieën. Standaard RD New
+            (EPSG:28992); folium verwacht WGS84, dus de data wordt herprojecteerd.
+        """
 
-    parameters
-    ----------
-    df : pd.DataFrame | gpd.GeoDataFrame
-        (Geo)DataFrame met een ``geometry`` kolom en een ``section_id`` kolom.
-        Als ``geometry`` WKT-strings bevat wordt deze omgezet naar geometrieën.
-    crs : str
-        Het bron-coördinatenstelsel van de geometrieën. Standaard RD New
-        (EPSG:28992); folium verwacht WGS84, dus de data wordt herprojecteerd.
-    """
+        folium = import_folium()
 
-    folium = import_folium()
+        # zorg dat we met een GeoDataFrame in WGS84 werken
+        gdf = self.gdf_out_areas_to_determining_sections.copy()
+        if not isinstance(gdf, gpd.GeoDataFrame):
+            from shapely import wkt
 
-    # zorg dat we met een GeoDataFrame in WGS84 werken
-    gdf = df.copy()
-    if not isinstance(gdf, gpd.GeoDataFrame):
-        from shapely import wkt
+            if gdf["geometry"].dtype == object and isinstance(
+                gdf["geometry"].iloc[0], str
+            ):
+                gdf["geometry"] = gdf["geometry"].apply(wkt.loads)
+            gdf = gpd.GeoDataFrame(gdf, geometry="geometry", crs=crs)
+        elif gdf.crs is None:
+            gdf = gdf.set_crs(crs)
 
-        if gdf["geometry"].dtype == object and isinstance(gdf["geometry"].iloc[0], str):
-            gdf["geometry"] = gdf["geometry"].apply(wkt.loads)
-        gdf = gpd.GeoDataFrame(gdf, geometry="geometry", crs=crs)
-    elif gdf.crs is None:
-        gdf = gdf.set_crs(crs)
+        gdf = gdf.to_crs("EPSG:4326")
 
-    gdf = gdf.to_crs("EPSG:4326")
+        # ken iedere section_id een eigen kleur toe via de tab20 kleurenschaal
+        from matplotlib import colormaps
+        from matplotlib.colors import to_hex
 
-    # centreer de kaart op de data
-    bounds = gdf.total_bounds  # [minx, miny, maxx, maxy]
-    center = [(bounds[1] + bounds[3]) / 2, (bounds[0] + bounds[2]) / 2]
-    m = folium.Map(location=center, zoom_start=12)
+        cmap = colormaps["tab10"]
+        section_ids = sorted(gdf["section_id"].unique())
+        color_map = {sid: to_hex(cmap(i % cmap.N)) for i, sid in enumerate(section_ids)}
 
-    folium.GeoJson(
-        gdf,
-        name="secties",
-        style_function=lambda _: {
-            "fillColor": "#3388ff",
-            "color": "#3388ff",
-            "weight": 1,
-            "fillOpacity": 0.4,
-        },
-        tooltip=folium.GeoJsonTooltip(
-            fields=["section_id"],
-            aliases=["Sectie ID:"],
-        ),
-    ).add_to(m)
+        # centreer de kaart op de data
+        bounds = gdf.total_bounds  # [minx, miny, maxx, maxy]
+        center = [(bounds[1] + bounds[3]) / 2, (bounds[0] + bounds[2]) / 2]
+        m = folium.Map(location=center, zoom_start=12)
 
-    m.fit_bounds([[bounds[1], bounds[0]], [bounds[3], bounds[2]]])
+        folium.GeoJson(
+            gdf,
+            name="secties",
+            style_function=lambda feature: {
+                "fillColor": color_map[feature["properties"]["section_id"]],
+                "color": color_map[feature["properties"]["section_id"]],
+                "weight": 1,
+                "fillOpacity": 0.6,
+            },
+            tooltip=folium.GeoJsonTooltip(
+                fields=["section_id"],
+                aliases=["Sectie ID:"],
+            ),
+        ).add_to(m)
 
-    return m
+        m.fit_bounds([[bounds[1], bounds[0]], [bounds[3], bounds[2]]])
+
+        return m
