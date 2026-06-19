@@ -1,0 +1,24 @@
+GlobalVariables:
+    rootdir: "tests/src/flood_scenarios/further_validation_tests/data_sets"
+    moments: [ -24, 0, 24, 48 ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+            index: False
+    section_id_to_segment_id:
+        type: csv
+        path: "rekentest_section_to_segment.csv"
+    combined_failure_probability_data:
+        type: csv
+        path: "rekentest_probabilities_failuremechanisme_sections.csv"
+    scenario_failure_prob_segments:
+        type: csv
+        file: "rekentest_flood_scenario_probability_resultaten.csv"
+    flood_risk_results_per_segment:
+        type: csv
+        path: "rekentest_flood_risk_results_per_segment_split.csv"
+    areas_to_determining_sections:
+        type: csv
+        path: "hidden_rekentest_areas_to_determining_sections.csv"

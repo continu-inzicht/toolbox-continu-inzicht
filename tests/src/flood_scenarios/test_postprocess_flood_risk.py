@@ -28,4 +28,7 @@ def test_calculate_flood_risk():
         output="areas_to_determining_sections",
     )
     df_out = postprocess_flood_risk.gdf_out_areas_to_determining_sections
+    # allemaal de zelfde kans, dus ook allemaal de zelfde sectie/segment combinatie
     assert not df_out.empty
+    assert all(df_out["section_id"] == 18)
+    assert all(df_out["segment_id"] == 34002)

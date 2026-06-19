@@ -26,10 +26,10 @@ class PostProcessFloodRisk(ToolboxBase):
         Dataframe met scenariokansen
     gdf_in_flood_risk_results_per_segment: Optional[gpd.GeoDataFrame] | None
         GeoDataframe met de risico resultaten per segment
-    gdf_out_areas_to_determening_sections : Optional[gpd.GeoDataFrame] | None
+    gdf_out_areas_to_determining_sections : Optional[gpd.GeoDataFrame] | None
         GeoDataframe koppeling tussen gebieden en secties ddie hoogte bijdragen hebben aan de overstromingskans van het gebied
-    schema_failuremechanism : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met faalmechanismen
+    higheset_risk_section_id_in_segment_store : Optional[dict[str, str]] | None
+        Store voor de sectie id met de hoogste faalkans in een segment, zodat deze niet steeds opnieuw berekend hoeft te worden
     schema_sections_failure_probability : ClassVar[dict[str, str]]
         Schema voor de input dataframe met kansen per sectie en per faalmechanisme
     schema_sections_in_segment : ClassVar[dict[str, str]]
@@ -72,11 +72,6 @@ class PostProcessFloodRisk(ToolboxBase):
     higheset_risk_section_id_in_segment_store: dict[str, str] | None = None
 
     # schemas voor de input dataframes
-    schema_failuremechanism: ClassVar[dict[str, str]] = {
-        "failuremechanism_id": "int",
-        "name": "object",
-        "description": "object",
-    }
     schema_sections_failure_probability: ClassVar[dict[str, str]] = {
         "section_id": "int",
         "failuremechanism_id": "int",
@@ -91,6 +86,11 @@ class PostProcessFloodRisk(ToolboxBase):
     schema_scenario_failure_prob_segments: ClassVar[dict[str, str]] = {
         "segment_id": "int",
         "scenario_failure_probability": "float",
+    }
+
+    schema_flood_risk_results_per_segment: ClassVar[dict[str, str]] = {
+        "area_id": "int",
+        "geometry": "float",
     }
 
     def run(self, input: list[str], output: str) -> None:
@@ -121,7 +121,8 @@ class PostProcessFloodRisk(ToolboxBase):
             schema=self.schema_scenario_failure_prob_segments,
         )
         self.gdf_in_flood_risk_results_per_segment = self.data_adapter.input(
-            input=input[3]
+            input=input[3],
+            schema=self.schema_flood_risk_results_per_segment,
         )
 
         self.gdf_out_areas_to_determining_sections = (
@@ -133,12 +134,15 @@ class PostProcessFloodRisk(ToolboxBase):
         self.gdf_in_flood_risk_results_per_segment.dropna(how="all", inplace=True)
         self.gdf_in_flood_risk_results_per_segment.set_index("area_id", inplace=True)
         self.df_in_scenario_failure_prob_segments.set_index("segment_id", inplace=True)
+        self.gdf_out_areas_to_determining_sections.set_index("area_id", inplace=True)
+
         # loop over the unique area IDs
         for area_id in self.gdf_in_flood_risk_results_per_segment.index.unique():
             # locate the subsets of the areas,
             subset_per_area = self.gdf_in_flood_risk_results_per_segment.loc[[area_id]]
             # not all the areas have the same segments its, so select subsets
             subset_segment_ids = subset_per_area["segment_id"].values
+
             # determine the section with the highest scenario failure probability
             highest_failure_segment_id = (
                 self.df_in_scenario_failure_prob_segments.loc[subset_segment_ids]
@@ -167,7 +171,7 @@ class PostProcessFloodRisk(ToolboxBase):
         if self.higheset_risk_section_id_in_segment_store:
             if segment_id in self.higheset_risk_section_id_in_segment_store:
                 return self.higheset_risk_section_id_in_segment_store[segment_id]
-        else: # if not yet initialized, initialize the store
+        else:  # if not yet initialized, initialize the store
             self.higheset_risk_section_id_in_segment_store = {}
 
         df_sections = self.df_in_sections_in_segment[

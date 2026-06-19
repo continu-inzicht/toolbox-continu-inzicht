@@ -14,9 +14,11 @@ def helper_create_data_adapter(name):
     return DataAdapter(config=config)
 
 
-def test_calculate_flood_risk():
+def test_rekentest_calculate_flood_risk_minimal():
     """test minimale werkting van functie"""
-    data_adapter = helper_create_data_adapter("rekentest_postprocess_flood_risk.yaml")
+    data_adapter = helper_create_data_adapter(
+        "rekentest_postprocess_flood_risk_minimal.yaml"
+    )
     postprocess_flood_risk = PostProcessFloodRisk(data_adapter=data_adapter)
     postprocess_flood_risk.run(
         input=[
@@ -29,3 +31,30 @@ def test_calculate_flood_risk():
     )
     df_out = postprocess_flood_risk.gdf_out_areas_to_determining_sections
     assert not df_out.empty
+    assert all(df_out["section_id"] == 34002010)
+
+
+def test_rekentest_calculate_flood_risk_een_ander_vak():
+    """test minimale werkting van functie"""
+    data_adapter = helper_create_data_adapter(
+        "rekentest_postprocess_flood_risk_split.yaml"
+    )
+    postprocess_flood_risk = PostProcessFloodRisk(data_adapter=data_adapter)
+    postprocess_flood_risk.run(
+        input=[
+            "section_id_to_segment_id",
+            "combined_failure_probability_data",
+            "scenario_failure_prob_segments",
+            "flood_risk_results_per_segment",
+        ],
+        output="areas_to_determining_sections",
+    )
+    df_out = postprocess_flood_risk.gdf_out_areas_to_determining_sections
+    assert not df_out.empty
+    assert not all(df_out["section_id"] == 34002010)
+    expected_result = {
+        186: 34003024.0,
+        192: 34002010.0,  # this one differs
+        254: 34003024.0,
+    }
+    assert dict(df_out["section_id"]) == expected_result
