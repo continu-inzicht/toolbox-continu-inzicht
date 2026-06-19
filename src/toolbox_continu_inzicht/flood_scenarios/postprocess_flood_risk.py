@@ -28,7 +28,7 @@ class PostProcessFloodRisk(ToolboxBase):
         GeoDataframe met de risico resultaten per segment
     gdf_out_areas_to_determining_sections : Optional[gpd.GeoDataFrame] | None
         GeoDataframe koppeling tussen gebieden en secties ddie hoogte bijdragen hebben aan de overstromingskans van het gebied
-    higheset_risk_section_id_in_segment_store : Optional[dict[str, str]] | None
+    higheset_risk_section_id_in_segment_store : dict[str, str] | None
         Store voor de sectie id met de hoogste faalkans in een segment, zodat deze niet steeds opnieuw berekend hoeft te worden
     schema_sections_failure_probability : ClassVar[dict[str, str]]
         Schema voor de input dataframe met kansen per sectie en per faalmechanisme
