@@ -93,7 +93,7 @@ class PostProcessFloodRisk(ToolboxBase):
         global_variables = self.data_adapter.config.global_variables
         options = global_variables.get("PostProcessFloodRisk", {})
         risk_metric_columns = options.get("risk_metric_columns", [])
-        if not len(input) == 4:
+        if not len(input) == 3:
             raise UserWarning("Input variabele moet 4 string waarden bevatten.")
         self.df_in_sections_failure_probability = self.data_adapter.input(
             input=input[0],

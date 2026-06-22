@@ -41,9 +41,9 @@ graph TD
 ```
 
 Dit voorbeeld laat zien hoe met behulp van de `CalculateFloodScenarioProbability` scenariokansen berekend worden uit kansen per sectie en per faalmachanisme. <br>
-Hiervoor zijn 3 data adapters nodig; 
+Hiervoor zijn 3 data adapters nodig;
 - De faalmechanismes met de bijbehorende ids
-- De kansen per sectie en faalmechanisme, en 
+- De kansen per sectie en faalmechanisme, en
 - De koppeling van secties naar segmenten. <br>
 
 De faalmechanismes worden gecombineerd naar een kans over alle secties (voorheen aangeduid als de ringkans) per faalmechanisme. Daarna worden de kansen over alle secties per faalmechanisme gecombineerd naar 1 kans over alle secties en over alle faalmechanismen. <br>
@@ -51,7 +51,7 @@ Deze volgorde (eerst combineren over alle sectie en daarna over alle faalmechani
 
 De output bevat twee data adapters:
 - De scenariokans per segment, deze kan gebruikt worden om een bijpassend scenario te selecteren
-- De totaal gecombineerde faalkans van alle vakken. Deze kan gebruikt worden om het risico van een gebied te bepalen. 
+- De totaal gecombineerde faalkans van alle vakken. Deze kan gebruikt worden om het risico van een gebied te bepalen.
 
 
 ::: {.panel-tabset}
@@ -336,9 +336,9 @@ calculate_flood_risk.run(
 ## PostProcessFloodRisk{#sec-PostProcessFloodRisk}
 
 Het resultaat van de overstromingsberekening kunnen we verder verwerken om het overstromingsrisico van een gebeied te relateren aan het maatgevende vak. Hiermee wordt het inzichtelijk welk vak kritiek is voor een bepaald gevolg.  We selecteren eerst het traject met de meeste bijdragen aan het risio van een gebied.
-Omdat we risico het risico niet per vak berekenen, maar voor een traject, gebruiken we de faalkans van een vak. Hierbij worden de faalkansen van de verschillende faalmechanismes onafhankelijk gecombineerd naar een totale vak kans. Het vak met de hoogste faalkans wordt gekoppeld aan het gebied, deze kan dan eenvoudig getoond worden in een een viewer. 
+Omdat we risico het risico niet per vak berekenen, maar voor een traject, gebruiken we de faalkans van een vak. Hierbij worden de faalkansen van de verschillende faalmechanismes onafhankelijk gecombineerd naar een totale vak kans. Het vak met de hoogste faalkans wordt gekoppeld aan het gebied, deze kan dan eenvoudig getoond worden in een een viewer.
 
-In een grafiek ziet dit er ongeveer zo uit: 
+In een grafiek ziet dit er ongeveer zo uit:
 ```mermaid
 graph TD;
     A[Risico per gebied]-->B[Dijktraject deel 1];
@@ -349,11 +349,12 @@ graph TD;
     D --> G[Dijkvak 3: maatgevend];
     G --> |Koppeling gebied-dijkvak|A;
 ```
-Dit is bijna het zelfde process als in [CalculateFloodScenarioProbability](#sec-CalculateFloodScenarioProbability), maar dan vanuit risico terug naar de kans. 
+Dit is bijna het zelfde process als in [CalculateFloodScenarioProbability](#sec-CalculateFloodScenarioProbability), maar dan vanuit risico terug naar de kans.
 
 Voor de functie `PostProcessFloodRisk` zijn 4 data adapters nodig:
+- De faalkans per segment en per faalmechanisme, deze wordt ook gebruikt in `CalculateFloodScenarioProbability`
 - De koppeling tussen secties en segementen, deze wordt ook gebruikt in `CalculateFloodScenarioProbability`
-- De faalkans per segment en per faalmechanisme, deze wordt ook gebruikt in `CalculateFloodScenarioProbability` 
+
 
 
 ::: {.panel-tabset}
@@ -375,12 +376,12 @@ DataAdapter:
         csv:
             sep: ","
             index: False
-    section_id_to_segment_id:
-        type: csv
-        path: "rekentest_section_to_segment.csv"
     combined_failure_probability_data:
         type: csv
         path: "rekentest_probabilities_failuremechanisme_sections.csv"
+    section_id_to_segment_id:
+        type: csv
+        path: "rekentest_section_to_segment.csv"
     flood_risk_results_per_segment:
         type: csv
         path: "rekentest_flood_risk_results_per_segment.csv"
@@ -398,9 +399,8 @@ data_adapter = DataAdapter(config=config)
 postprocess_flood_risk = PostProcessFloodRisk(data_adapter=data_adapter)
 postprocess_flood_risk.run(
     input=[
-        "section_id_to_segment_id",
         "combined_failure_probability_data",
-        "scenario_failure_prob_segments",
+        "section_id_to_segment_id",
         "flood_risk_results_per_segment",
     ],
     output="areas_to_determining_sections",

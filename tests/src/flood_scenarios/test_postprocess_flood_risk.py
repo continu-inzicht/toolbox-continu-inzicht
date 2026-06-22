@@ -22,8 +22,8 @@ def test_calculate_flood_risk():
     postprocess_flood_risk = PostProcessFloodRisk(data_adapter=data_adapter)
     postprocess_flood_risk.run(
         input=[
-            "section_id_to_segment_id",
             "combined_failure_probability_data",
+            "section_id_to_segment_id",
             "flood_risk_results_per_segment",
         ],
         output="areas_to_determining_sections",
@@ -73,8 +73,8 @@ def test_calculate_flood_risk_map():
     postprocess_flood_risk = PostProcessFloodRisk(data_adapter=data_adapter)
     postprocess_flood_risk.run(
         input=[
-            "section_id_to_segment_id",
             "combined_failure_probability_data",
+            "section_id_to_segment_id",
             "flood_risk_results_per_segment",
         ],
         output="areas_to_determining_sections",
@@ -93,8 +93,8 @@ def test_calculate_no_valid_risk_metric():
     with pytest.raises(UserWarning):
         postprocess_flood_risk.run(
             input=[
-                "section_id_to_segment_id",
                 "combined_failure_probability_data",
+                "section_id_to_segment_id",
                 "flood_risk_results_per_segment",
             ],
             output="areas_to_determining_sections",
