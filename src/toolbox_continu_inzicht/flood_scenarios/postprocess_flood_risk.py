@@ -23,8 +23,6 @@ class PostProcessFloodRisk(ToolboxBase):
         Dataframe met kansen per sectie en per faalmechanisme
     df_in_sections_in_segment : Optional[pd.DataFrame] | None
         Dataframe met secties per deeltraject (segment)
-    df_in_scenario_failure_prob_segments : Optional[pd.DataFrame] | None
-        Dataframe met scenariokansen
     gdf_in_flood_risk_results_per_segment: Optional[gpd.GeoDataFrame] | None
         GeoDataframe met de risico resultaten per segment
     gdf_out_areas_to_determining_sections : Optional[gpd.GeoDataFrame] | None
@@ -35,17 +33,10 @@ class PostProcessFloodRisk(ToolboxBase):
         Schema voor de input dataframe met kansen per sectie en per faalmechanisme
     schema_sections_in_segment : ClassVar[dict[str, str]]
         Schema voor de input dataframe met koppeling van dijkvakken en deeltrajecten (segmenten)
-    schema_scenario_failure_prob_segments : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met deeltrajectkansen
     schema_flood_risk_results_per_segment : ClassVar[dict[str, str]]
         Schema voor de input dataframe met de risico resultaten per segment
     Notes
     -----
-
-    schema voor failuremechanism
-    - failuremechanism_id: int
-    - name : str
-    - description : str
 
     schema voor sections_failure_probability
     - section_id: int
@@ -67,7 +58,6 @@ class PostProcessFloodRisk(ToolboxBase):
 
     df_in_sections_failure_probability: Optional[pd.DataFrame] | None = None
     df_in_sections_in_segment: Optional[pd.DataFrame] | None = None
-    df_in_scenario_failure_prob_segments: Optional[pd.DataFrame] | None = None
     gdf_in_flood_risk_results_per_segment: Optional[gpd.GeoDataFrame] | None = None
     gdf_out_areas_to_determining_sections: Optional[gpd.GeoDataFrame] | None = None
     higheset_risk_section_id_in_segment_store: dict[str, str] | None = None
@@ -81,12 +71,6 @@ class PostProcessFloodRisk(ToolboxBase):
     schema_sections_in_segment: ClassVar[dict[str, str]] = {
         "section_id": "int",
         "segment_id": "int",
-    }
-
-    # schemas voor de input dataframes
-    schema_scenario_failure_prob_segments: ClassVar[dict[str, str]] = {
-        "segment_id": "int",
-        "scenario_failure_probability": "float",
     }
 
     schema_flood_risk_results_per_segment: ClassVar[dict[str, str]] = {
@@ -106,62 +90,82 @@ class PostProcessFloodRisk(ToolboxBase):
             Data adapter voor output van overstromingsrisico resultaten
         """
 
-        if not len(input) == 4:
+        global_variables = self.data_adapter.config.global_variables
+        options = global_variables.get("PostProcessFloodRisk", {})
+        risk_metric_columns = options.get("risk_metric_columns", [])
+        if not len(input) == 3:
             raise UserWarning("Input variabele moet 4 string waarden bevatten.")
-
-        self.df_in_sections_in_segment = self.data_adapter.input(
-            input=input[0],
-            schema=self.schema_sections_in_segment,
-        )
         self.df_in_sections_failure_probability = self.data_adapter.input(
-            input=input[1],
+            input=input[0],
             schema=self.schema_sections_failure_probability,
         )
-        self.df_in_scenario_failure_prob_segments = self.data_adapter.input(
-            input=input[2],
-            schema=self.schema_scenario_failure_prob_segments,
+
+        self.df_in_sections_in_segment = self.data_adapter.input(
+            input=input[1],
+            schema=self.schema_sections_in_segment,
         )
+
         self.gdf_in_flood_risk_results_per_segment = self.data_adapter.input(
-            input=input[3],
+            input=input[2],
             schema=self.schema_flood_risk_results_per_segment,
         )
 
-        # only keep the regions where there is a risk
+        # Alleen de gebieden waar een risico is, worden meegenomen in de analyse.
         self.gdf_in_flood_risk_results_per_segment.dropna(inplace=True)
-
         self.gdf_out_areas_to_determining_sections = (
             self.gdf_in_flood_risk_results_per_segment.copy().drop_duplicates(
                 subset=["area_id"]
             )[["area_id", "geometry"]]
         )
-        self.gdf_in_flood_risk_results_per_segment.set_index("area_id", inplace=True)
-        self.df_in_scenario_failure_prob_segments.set_index("segment_id", inplace=True)
+        area_ids = self.gdf_out_areas_to_determining_sections["area_id"].unique()
+        # Multi index op segment_id en area_id om makkelijk te selecteren
+        self.gdf_in_flood_risk_results_per_segment.set_index(
+            ["segment_id", "area_id"], inplace=True
+        )
+
         self.gdf_out_areas_to_determining_sections.set_index("area_id", inplace=True)
 
-        # loop over the unique area IDs
-        for area_id in self.gdf_in_flood_risk_results_per_segment.index.unique():
-            # locate the subsets of the areas,
-            subset_per_area = self.gdf_in_flood_risk_results_per_segment.loc[[area_id]]
-            # not all the areas have the same segments its, so select subsets
-            subset_segment_ids = subset_per_area["segment_id"].values
+        # check op de kolomen die de gebruiker opgeeft
+        risk_metric_columns_found = [
+            col
+            for col in risk_metric_columns
+            if col in self.gdf_in_flood_risk_results_per_segment.columns
+        ]
+        if len(risk_metric_columns_found) != len(risk_metric_columns):
+            self.data_adapter.logger.warning(
+                f"Niet alle risk_metric_columns {risk_metric_columns} zijn aanwezig in de flood_risk_results_per_segment dataframe (index 3). \
+                Gevonden columns: {risk_metric_columns_found}"
+            )
+        if len(risk_metric_columns_found) == 0:
+            raise UserWarning(
+                f"Geen van de opgegeven {risk_metric_columns=} zijn aanwezig in de flood_risk_results_per_segment dataframe."
+            )
 
-            # determine the section with the highest scenario failure probability
-            highest_failure_segment_id = (
-                self.df_in_scenario_failure_prob_segments.loc[subset_segment_ids]
-                .idxmax()
-                .values[0]
+        # loop de gebeiden af
+        for area_id in area_ids:
+            # bepaal welke segmenten bij dit gebied horen.
+            # Zie https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.xs.html voor meer uitleg
+            segment_area_id_to_consider = self.gdf_in_flood_risk_results_per_segment.xs(
+                area_id, level="area_id", drop_level=False
             )
-            # store the segment id
-            self.gdf_out_areas_to_determining_sections.loc[area_id, "segment_id"] = (
-                highest_failure_segment_id
-            )
-            # add the section id which has the highest failure probability to the output geodataframe
-            section_id = self.higheset_risk_section_id_in_segment(
-                highest_failure_segment_id
-            )
-            self.gdf_out_areas_to_determining_sections.loc[area_id, "section_id"] = (
-                section_id
-            )
+            for risk_metric in risk_metric_columns_found:
+                # Bepaal welke van de segmenten de hoogste risco bijdragen heeft
+                highest_failure_segment_id = segment_area_id_to_consider[
+                    risk_metric
+                ].idxmax()[0]  # waarbij 0 de segment_id index is, 1 area_id index is
+
+                # sla dit segment id op
+                self.gdf_out_areas_to_determining_sections.loc[
+                    area_id, f"segment_id_{risk_metric}"
+                ] = highest_failure_segment_id
+                # bepaal binnen het traject (segment), welk vak(section) de hoogste faalkans heeft
+                # omdat dit vak de grootste bijdrage levert aan het risico in het gebied
+                section_id = self.higheset_risk_section_id_in_segment(
+                    highest_failure_segment_id
+                )
+                self.gdf_out_areas_to_determining_sections.loc[
+                    area_id, f"section_id_{risk_metric}"
+                ] = section_id
 
         self.gdf_out_areas_to_determining_sections.reset_index(inplace=True)
         self.data_adapter.output(
@@ -174,7 +178,7 @@ class PostProcessFloodRisk(ToolboxBase):
         if self.higheset_risk_section_id_in_segment_store:
             if segment_id in self.higheset_risk_section_id_in_segment_store:
                 return self.higheset_risk_section_id_in_segment_store[segment_id]
-        else:  # if not yet initialized, initialize the store
+        else:  # als de dictionary er nog niet is, maak deze dan aan
             self.higheset_risk_section_id_in_segment_store = {}
 
         df_sections = self.df_in_sections_in_segment[
@@ -189,9 +193,9 @@ class PostProcessFloodRisk(ToolboxBase):
             df_prob["section_id"].apply(lambda x: x in df_sections["section_id"].values)
         ].copy()
 
-        # PRAGMATISCHE AANNAME:
-        # We combineren de faalmechanismes onafhankelijk, dit gaat zeker niet altijd op.
-        # Combineer onafhankelijk: P(fail,comb|h) = 1 - PROD(1 - P(fail,i|h)) voor alle mechanismes behalve COMB (die wordt opnieuw berekend) en GEKB die is gelijk aan max(P(fail,i|h))
+        # AANNAME:
+        # We combineren de faalmechanismes onafhankelijk binnen een vak.
+        # Combineer onafhankelijk: P(fail,comb|h) = 1 - PROD(1 - P(fail,i|h)) v
         failure_prod = 1.0
 
         failure_per_section = {}
@@ -211,7 +215,7 @@ class PostProcessFloodRisk(ToolboxBase):
         )
         return highest_risk_section_id
 
-    def make_map(self, crs: str = "EPSG:28992"):
+    def make_map(self, risk_metric: str, crs: str = "EPSG:28992"):
         """Helper functie om de geometrieën in een leaflet (folium) kaart te visualiseren.
 
         parameters
@@ -228,6 +232,9 @@ class PostProcessFloodRisk(ToolboxBase):
 
         # zorg dat we met een GeoDataFrame in WGS84 werken
         gdf = self.gdf_out_areas_to_determining_sections.copy()
+        if f"section_id_{risk_metric}" not in gdf.columns:
+            raise ValueError(f"Risk metric '{risk_metric}' is not in the input data.")
+
         if not isinstance(gdf, gpd.GeoDataFrame):
             from shapely import wkt
 
@@ -246,7 +253,7 @@ class PostProcessFloodRisk(ToolboxBase):
         from matplotlib.colors import to_hex
 
         cmap = colormaps["tab10"]
-        section_ids = sorted(gdf["section_id"].unique())
+        section_ids = sorted(gdf[f"section_id_{risk_metric}"].unique())
         color_map = {sid: to_hex(cmap(i % cmap.N)) for i, sid in enumerate(section_ids)}
 
         # centreer de kaart op de data
@@ -258,14 +265,16 @@ class PostProcessFloodRisk(ToolboxBase):
             gdf,
             name="secties",
             style_function=lambda feature: {
-                "fillColor": color_map[feature["properties"]["section_id"]],
-                "color": color_map[feature["properties"]["section_id"]],
+                "fillColor": color_map[
+                    feature["properties"][f"section_id_{risk_metric}"]
+                ],
+                "color": color_map[feature["properties"][f"section_id_{risk_metric}"]],
                 "weight": 1,
                 "fillOpacity": 0.6,
             },
             tooltip=folium.GeoJsonTooltip(
-                fields=["section_id"],
-                aliases=["Sectie ID:"],
+                fields=[f"section_id_{risk_metric}"],
+                aliases=[f"Sectie ID voor {risk_metric}f:"],
             ),
         ).add_to(m)
 

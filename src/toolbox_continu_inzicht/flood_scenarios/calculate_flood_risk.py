@@ -221,7 +221,6 @@ class CalculateFloodRisk(ToolboxBase):
                 dict_segments_out[segment_id].rename(
                     columns={stat: grid_name}, inplace=True
                 )
-                dict_segments_out[segment_id].set_index("area_id")
 
         # Concatenate all segment dataframes
         all_segments_df = pd.concat(dict_segments_out.values(), ignore_index=True)
@@ -242,7 +241,6 @@ class CalculateFloodRisk(ToolboxBase):
         ).columns
         numeric_cols = [col for col in numeric_cols if col not in exclude_cols]
 
-        # TODO: hier opslaan wat de bijdragen van de vakken zijn aan het risico, zodat we dit in de viewer kunnen tonen.
         # Group by area_id and aggregate
         agg_dict = {col: "sum" for col in numeric_cols}
         # Keep first value for non-numeric columns
