@@ -1,6 +1,13 @@
 GlobalVariables:
     rootdir: "data_sets/7.flood_scenarios"
     moments: [ -24, 0, 24, 48 ]
+    PostProcessFloodRisk:
+        risk_metric_columns:
+          - casualties
+          - damage
+          - flooding
+          - affected_people
+          - waterdepth
 
 DataAdapter:
     default_options:
