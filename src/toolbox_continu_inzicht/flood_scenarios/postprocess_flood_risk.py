@@ -164,12 +164,12 @@ class PostProcessFloodRisk(ToolboxBase):
         # loop de gebeiden af
         for area_id in area_ids:
             # bepaal welke segmenten bij dit gebied horen.
+            # Zie https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.xs.html voor meer uitleg
             segment_area_id_to_consider = self.gdf_in_flood_risk_results_per_segment.xs(
                 area_id, level="area_id", drop_level=False
             )
             for risk_metric in risk_metric_columns_found:
-                # determine the section with the highest scenario failure probability
-                # Bepaal welke van de segmenten de hoogste faalwaarschijnlijkheid heeft
+                # Bepaal welke van de segmenten de hoogste risco bijdragen heeft
                 highest_failure_segment_id = segment_area_id_to_consider[
                     risk_metric
                 ].idxmax()[0]  # waarbij 0 de segment_id index is, 1 area_id index is
@@ -179,6 +179,7 @@ class PostProcessFloodRisk(ToolboxBase):
                     area_id, f"segment_id_{risk_metric}"
                 ] = highest_failure_segment_id
                 # bepaal binnen het traject (segment), welk vak(section) de hoogste faalkans heeft
+                # omdat dit vak de grootste bijdrage levert aan het risico in het gebied
                 section_id = self.higheset_risk_section_id_in_segment(
                     highest_failure_segment_id
                 )
@@ -197,7 +198,7 @@ class PostProcessFloodRisk(ToolboxBase):
         if self.higheset_risk_section_id_in_segment_store:
             if segment_id in self.higheset_risk_section_id_in_segment_store:
                 return self.higheset_risk_section_id_in_segment_store[segment_id]
-        else:  # if not yet initialized, initialize the store
+        else:  # als de dictionary er nog niet is, maak deze dan aan
             self.higheset_risk_section_id_in_segment_store = {}
 
         df_sections = self.df_in_sections_in_segment[
@@ -212,9 +213,9 @@ class PostProcessFloodRisk(ToolboxBase):
             df_prob["section_id"].apply(lambda x: x in df_sections["section_id"].values)
         ].copy()
 
-        # PRAGMATISCHE AANNAME:
-        # We combineren de faalmechanismes onafhankelijk, dit gaat zeker niet altijd op.
-        # Combineer onafhankelijk: P(fail,comb|h) = 1 - PROD(1 - P(fail,i|h)) voor alle mechanismes behalve COMB (die wordt opnieuw berekend) en GEKB die is gelijk aan max(P(fail,i|h))
+        # AANNAME:
+        # We combineren de faalmechanismes onafhankelijk binnen een vak.
+        # Combineer onafhankelijk: P(fail,comb|h) = 1 - PROD(1 - P(fail,i|h)) v
         failure_prod = 1.0
 
         failure_per_section = {}
