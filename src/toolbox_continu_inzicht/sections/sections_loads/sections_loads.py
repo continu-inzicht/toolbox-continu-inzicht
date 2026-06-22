@@ -204,6 +204,6 @@ class SectionsLoads(ToolboxBase):
             ["id", "name", "date_time", "value", "unit", "parameter_id", "value_type"]
         ]
         self.df_out.rename(columns={"id": "section_id"}, inplace=True)
-        self.df_out.set_index(["id", "name", "date_time"], inplace=False)
+        self.df_out.set_index(["section_id", "name", "date_time"], inplace=False)
 
         self.data_adapter.output(output=output, df=self.df_out)
