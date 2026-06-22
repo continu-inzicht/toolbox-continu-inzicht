@@ -7,7 +7,7 @@ GlobalVariables:
             casualties: sum
             damage: sum
             flooding: median
-            affectedpeople: sum
+            affected_people: sum
             waterdepth: sum
         per_hectare: True
         columns_per_hectare:
