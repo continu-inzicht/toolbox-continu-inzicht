@@ -13,7 +13,7 @@ def test_quick_start_guide():
     """
     path = Path(__file__).parent / "data_sets"
 
-    ### Alleen ophalen van RWS waterstanden doen we niet. 
+    ### Alleen ophalen van RWS waterstanden doen we niet.
     # config = Config(config_path=path / "loads.yaml")
     # config.lees_config()
     # data_adapter = DataAdapter(config=config)

@@ -189,4 +189,4 @@ In sprint 8 zijn wat rest punten van de DamLive koppeling afgerond en zijn de op
 
 #### 'Breaking changes'
 
-De output van de `SectionsLoads` class is aangepast. De kolom `id` is hernoemd naar `section_id`. Dit is gedaan om een duidelijkere naamgeving van begin tot einde te hebben als alle modules onder elkaar worden gezet. Nu zou nog een handmatige aanpassing nodig zijn.  
+De output van de `SectionsLoads` class is aangepast. De kolom `id` is hernoemd naar `section_id`. Dit is gedaan om een duidelijkere naamgeving van begin tot einde te hebben als alle modules onder elkaar worden gezet. Nu zou nog een handmatige aanpassing nodig zijn.
