@@ -24,7 +24,6 @@ def test_calculate_flood_risk():
         input=[
             "section_id_to_segment_id",
             "combined_failure_probability_data",
-            "scenario_failure_prob_segments",
             "flood_risk_results_per_segment",
         ],
         output="areas_to_determining_sections",
@@ -76,7 +75,6 @@ def test_calculate_flood_risk_map():
         input=[
             "section_id_to_segment_id",
             "combined_failure_probability_data",
-            "scenario_failure_prob_segments",
             "flood_risk_results_per_segment",
         ],
         output="areas_to_determining_sections",
@@ -97,7 +95,6 @@ def test_calculate_no_valid_risk_metric():
             input=[
                 "section_id_to_segment_id",
                 "combined_failure_probability_data",
-                "scenario_failure_prob_segments",
                 "flood_risk_results_per_segment",
             ],
             output="areas_to_determining_sections",

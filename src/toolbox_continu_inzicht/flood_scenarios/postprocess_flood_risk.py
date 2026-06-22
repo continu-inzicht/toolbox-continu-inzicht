@@ -23,8 +23,6 @@ class PostProcessFloodRisk(ToolboxBase):
         Dataframe met kansen per sectie en per faalmechanisme
     df_in_sections_in_segment : Optional[pd.DataFrame] | None
         Dataframe met secties per deeltraject (segment)
-    df_in_scenario_failure_prob_segments : Optional[pd.DataFrame] | None
-        Dataframe met scenariokansen
     gdf_in_flood_risk_results_per_segment: Optional[gpd.GeoDataFrame] | None
         GeoDataframe met de risico resultaten per segment
     gdf_out_areas_to_determining_sections : Optional[gpd.GeoDataFrame] | None
@@ -35,17 +33,10 @@ class PostProcessFloodRisk(ToolboxBase):
         Schema voor de input dataframe met kansen per sectie en per faalmechanisme
     schema_sections_in_segment : ClassVar[dict[str, str]]
         Schema voor de input dataframe met koppeling van dijkvakken en deeltrajecten (segmenten)
-    schema_scenario_failure_prob_segments : ClassVar[dict[str, str]]
-        Schema voor de input dataframe met deeltrajectkansen
     schema_flood_risk_results_per_segment : ClassVar[dict[str, str]]
         Schema voor de input dataframe met de risico resultaten per segment
     Notes
     -----
-
-    schema voor failuremechanism
-    - failuremechanism_id: int
-    - name : str
-    - description : str
 
     schema voor sections_failure_probability
     - section_id: int
@@ -67,7 +58,6 @@ class PostProcessFloodRisk(ToolboxBase):
 
     df_in_sections_failure_probability: Optional[pd.DataFrame] | None = None
     df_in_sections_in_segment: Optional[pd.DataFrame] | None = None
-    df_in_scenario_failure_prob_segments: Optional[pd.DataFrame] | None = None
     gdf_in_flood_risk_results_per_segment: Optional[gpd.GeoDataFrame] | None = None
     gdf_out_areas_to_determining_sections: Optional[gpd.GeoDataFrame] | None = None
     higheset_risk_section_id_in_segment_store: dict[str, str] | None = None
@@ -81,12 +71,6 @@ class PostProcessFloodRisk(ToolboxBase):
     schema_sections_in_segment: ClassVar[dict[str, str]] = {
         "section_id": "int",
         "segment_id": "int",
-    }
-
-    # schemas voor de input dataframes
-    schema_scenario_failure_prob_segments: ClassVar[dict[str, str]] = {
-        "segment_id": "int",
-        "scenario_failure_probability": "float",
     }
 
     schema_flood_risk_results_per_segment: ClassVar[dict[str, str]] = {
@@ -111,21 +95,18 @@ class PostProcessFloodRisk(ToolboxBase):
         risk_metric_columns = options.get("risk_metric_columns", [])
         if not len(input) == 4:
             raise UserWarning("Input variabele moet 4 string waarden bevatten.")
-
-        self.df_in_sections_in_segment = self.data_adapter.input(
-            input=input[0],
-            schema=self.schema_sections_in_segment,
-        )
         self.df_in_sections_failure_probability = self.data_adapter.input(
-            input=input[1],
+            input=input[0],
             schema=self.schema_sections_failure_probability,
         )
-        self.df_in_scenario_failure_prob_segments = self.data_adapter.input(
-            input=input[2],
-            schema=self.schema_scenario_failure_prob_segments,
+
+        self.df_in_sections_in_segment = self.data_adapter.input(
+            input=input[1],
+            schema=self.schema_sections_in_segment,
         )
+
         self.gdf_in_flood_risk_results_per_segment = self.data_adapter.input(
-            input=input[3],
+            input=input[2],
             schema=self.schema_flood_risk_results_per_segment,
         )
 
@@ -142,7 +123,6 @@ class PostProcessFloodRisk(ToolboxBase):
             ["segment_id", "area_id"], inplace=True
         )
 
-        self.df_in_scenario_failure_prob_segments.set_index("segment_id", inplace=True)
         self.gdf_out_areas_to_determining_sections.set_index("area_id", inplace=True)
 
         # check op de kolomen die de gebruiker opgeeft

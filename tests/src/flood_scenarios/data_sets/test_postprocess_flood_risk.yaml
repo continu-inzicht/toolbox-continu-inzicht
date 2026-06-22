@@ -20,9 +20,6 @@ DataAdapter:
     combined_failure_probability_data:
         type: csv
         path: "test_data_grouped_sections_failure_probability.csv"
-    scenario_failure_prob_segments:
-        type: csv
-        file: "flood_scenario_probability_resultaten.csv"
     flood_risk_results_per_segment:
         type: csv
         path: "flood_risk_results_per_segment.csv"

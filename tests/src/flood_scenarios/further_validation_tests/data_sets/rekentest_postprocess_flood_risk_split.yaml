@@ -20,9 +20,6 @@ DataAdapter:
     combined_failure_probability_data:
         type: csv
         path: "rekentest_probabilities_failuremechanisme_sections.csv"
-    scenario_failure_prob_segments:
-        type: csv
-        file: "rekentest_flood_scenario_probability_resultaten.csv"
     flood_risk_results_per_segment:
         type: csv
         path: "rekentest_flood_risk_results_per_segment_split.csv"

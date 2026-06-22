@@ -24,7 +24,6 @@ def test_rekentest_calculate_flood_risk_minimal():
         input=[
             "section_id_to_segment_id",
             "combined_failure_probability_data",
-            "scenario_failure_prob_segments",
             "flood_risk_results_per_segment",
         ],
         output="areas_to_determining_sections",
@@ -53,7 +52,6 @@ def test_rekentest_calculate_flood_risk_een_ander_vak():
         input=[
             "section_id_to_segment_id",
             "combined_failure_probability_data",
-            "scenario_failure_prob_segments",
             "flood_risk_results_per_segment",
         ],
         output="areas_to_determining_sections",
