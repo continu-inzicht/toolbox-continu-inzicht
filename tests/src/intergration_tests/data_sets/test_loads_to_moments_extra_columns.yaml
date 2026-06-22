@@ -1,0 +1,12 @@
+GlobalVariables:
+    rootdir: "tests/src/intergration_tests/data_sets"
+    calc_time: "2026-06-22 12:00:00"
+    moments: [ -24, 0, 24, 48 ]
+
+DataAdapter:
+    waterstanden_waterwebservices_met_wind:
+        type: csv
+        path: "waterstanden_wind.csv"
+    moments_waterstanden_waterwebservices:
+        type: csv
+        path: "waterstanden_loads_to_moments.csv"
