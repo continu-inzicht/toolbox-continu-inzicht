@@ -250,7 +250,7 @@ Deze naamgeving wordt hergebruikt in de output. De standaardinstellingen voor he
 |casualties_grid|casualties|sum|
 |damage_grid|damage|sum|
 |flooding_grid|flooding|median|
-|affected_people_grid|affectedpeople|sum|
+|affected_people_grid|affected_people|sum|
 
 Mocht de gebruiker een andere kolom naam willen, dan kan deze in de globalvariable worden opgegeven zoals hieronder in het configuratie voorbeeld wordt getoond.
 
@@ -280,7 +280,7 @@ GlobalVariables:
             casualties: sum
             damage: sum
             flooding: median
-            affectedpeople: sum
+            affected_people: sum
             waterdepth: sum
         per_hectare: False
 
@@ -339,7 +339,8 @@ Het resultaat van de overstromingsberekening kunnen we verder verwerken om het o
 Omdat we risico het risico niet per vak berekenen, maar voor een traject, gebruiken we de faalkans van een vak. Hierbij worden de faalkansen van de verschillende faalmechanismes onafhankelijk gecombineerd naar een totale vak kans. Het vak met de hoogste faalkans wordt gekoppeld aan het gebied, deze kan dan eenvoudig getoond worden in een een viewer.
 
 In een grafiek ziet dit er ongeveer zo uit:
-```mermaid
+
+```{mermaid}
 graph TD;
     A[Risico per gebied]-->B[Dijktraject deel 1];
     A --> C[Dijktraject deel 2];
@@ -349,13 +350,15 @@ graph TD;
     D --> G[Dijkvak 3: maatgevend];
     G --> |Koppeling gebied-dijkvak|A;
 ```
+
 Dit is bijna het zelfde process als in [CalculateFloodScenarioProbability](#sec-CalculateFloodScenarioProbability), maar dan vanuit risico terug naar de kans.
 
-Voor de functie `PostProcessFloodRisk` zijn 4 data adapters nodig:
-- De faalkans per segment en per faalmechanisme, deze wordt ook gebruikt in `CalculateFloodScenarioProbability`
-- De koppeling tussen secties en segementen, deze wordt ook gebruikt in `CalculateFloodScenarioProbability`
+Voor de functie `PostProcessFloodRisk` zijn 3 data adapters nodig:
+- De faalkans per segment en per faalmechanisme, deze wordt ook gebruikt in `CalculateFloodScenarioProbability`.
+- De koppeling tussen secties en segementen, deze wordt ook gebruikt in `CalculateFloodScenarioProbability`.
+- Het overstromingsrisico per gebied, uitgesplits per segement, dit is het resultaat van `CalculateFloodRisk`.
 
-
+De output is een tabel met per gebied, per risicomaat het maatgevende vak. De risico maten moeten in de input van PostProcessFloodRisk worden opgegeven in de globalvariable `risk_metric_columns`. Deze zijn hetzelfde als de kolomnamen van de verschillende risicomaten in de output van `CalculateFloodRisk`. De naam van het maatgevende vak wordt teruggegeven in een nieuwe kolom met de naam `{risicomaat}_section_id`.
 
 ::: {.panel-tabset}
 ## Configuratie
