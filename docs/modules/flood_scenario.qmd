@@ -291,6 +291,9 @@ DataAdapter:
     output_flood_risk_results:
         type: csv
         path: "hidden_rekentest_flood_risk_results.csv"
+    output_flood_risk_results_per_segment:
+        type: csv
+        path: "hidden_rekentest_flood_risk_results_per_segment.csv"
 
 ```
 ## Code
@@ -308,7 +311,8 @@ calculate_flood_risk.run(
         "input_areas_to_aggregate",
         "flood_risk_local_file",
     ],
-    output="output_flood_risk_results",
+    output=["output_flood_risk_results",
+            "output_flood_risk_results_per_segment"],
 )
 ```
 :::

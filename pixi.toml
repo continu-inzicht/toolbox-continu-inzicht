@@ -90,7 +90,6 @@ contextily = "*"
 ipykernel = "*"
 ipywidgets = ">=8.1.5,<9"
 jupyter-cache = ">=1.0.0,<2"
-jupyterlab = "*"
 pandas-stubs = "*"
 pre-commit = "*"
 quarto = "*"
@@ -102,6 +101,7 @@ types-requests = "*"
 types-pyyaml = "*"
 matplotlib = "*"
 pixi-pack = ">=0.7.5,<0.8"
+jupyterlab = ">=4.5.7,<5"
 
 [feature.common.pypi-dependencies]
 toolbox_continu_inzicht = { path = "src", editable = true }

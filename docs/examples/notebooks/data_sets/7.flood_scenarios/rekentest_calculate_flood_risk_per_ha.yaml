@@ -37,3 +37,6 @@ DataAdapter:
     output_flood_risk_results:
         type: csv
         path: "hidden_rekentest_flood_risk_results.csv"
+    output_flood_risk_results_per_segment:
+        type: csv
+        path: "hidden_rekentest_flood_risk_results_per_segment.csv"
