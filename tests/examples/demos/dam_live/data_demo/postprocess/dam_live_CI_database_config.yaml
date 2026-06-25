@@ -1,0 +1,50 @@
+GlobalVariables:
+  rootdir: "data_demo/postprocess/WV2030_Purmer.Calc/Stability/Bishop/PU0013_87074-1_DWP001_0_2024-11-06T07"
+
+DataAdapter:
+  scenario:
+    type: stages
+    path: scenarios
+
+  geometries:
+    type: geometries
+    path: geometries
+
+  soillayers:
+    type: soillayers
+    path: soillayers
+
+  soils:
+    type: soils
+    path: soils.json
+
+  waternets:
+    type: waternets
+    path: waternets
+
+  calculationsettings:
+    type: calculationsettings
+    path: calculationsettings
+
+  colors:
+    type: csv
+    relative_file: data_demo/postprocess/colors.csv
+
+  merge_soil:
+    type: python
+
+  merge_waternet:
+    type: python
+
+  merge_calculations:
+    type: python
+
+  ci_database_damlive_soil:
+    type: ci_postgresql_damlive_soil
+    database: "continuinzicht"
+    schema: "continuinzicht_hhnk_purmer_realtime"
+    
+  ci_database_damlive_soil_color:
+    type: ci_postgresql_damlive_soil_color
+    database: "continuinzicht"
+    schema: "continuinzicht_hhnk_purmer_realtime"
