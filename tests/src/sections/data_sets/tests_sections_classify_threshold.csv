@@ -1,0 +1,6 @@
+"state_id","lower_boundary","upper_boundary","color","label","unit"
+0,NULL,-99999.0,"#D0D0D0","onbekend","-"
+1,-99999.0,0.001,"#00cc00","veilig","-"
+2,0.001,0.01,"#e2e100","let op","-"
+3,0.01,0.1,"#ff6600","gevaar","-"
+4,0.1,1.0,"#ff0000","kritiek","-"

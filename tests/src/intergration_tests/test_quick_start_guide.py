@@ -3,6 +3,9 @@ from toolbox_continu_inzicht.base.data_adapter import Config, DataAdapter
 from toolbox_continu_inzicht.loads import LoadsToMoments
 from toolbox_continu_inzicht.loads import LoadsClassify
 from toolbox_continu_inzicht.sections import SectionsTechnicalFailureprobability
+from toolbox_continu_inzicht.sections.sections_classify.sections_classify import (
+    SectionsClassify,
+)
 from toolbox_continu_inzicht.sections.sections_loads.sections_loads import SectionsLoads
 
 
@@ -35,7 +38,7 @@ def test_quick_start_guide():
         input="waterstanden_waterwebservices",
         output="moments_waterstanden_waterwebservices",
     )
-
+    assert "hours" in load_moments.df_out.columns
     # Loads classify
 
     config = Config(config_path=path / "loads_classify.yaml")
@@ -47,6 +50,7 @@ def test_quick_start_guide():
         input=["belasting_locaties_grenzen", "momenten_waterstanden"],
         output="geclassificeerde_waterstanden",
     )
+    assert "hours" in loads_classify.df_out.columns
 
     # Sections Loads
 
@@ -63,6 +67,7 @@ def test_quick_start_guide():
         ],
         output="waterstanden_per_dijkvak",
     )
+    assert "hours" in sections_loads.df_out.columns
 
     # Fragility Curves
 
@@ -80,4 +85,19 @@ def test_quick_start_guide():
         ],
         output="technical_failure_probability_data",
     )
-    sections_failureprobability.df_out
+    assert "hours" in sections_failureprobability.df_out.columns
+
+    config = Config(config_path=path / "sections_classify.yaml")
+    config.lees_config()
+    data_adapter = DataAdapter(config=config)
+    sections_failureprobability = SectionsTechnicalFailureprobability(
+        data_adapter=data_adapter
+    )
+
+    # Run SectionsClassify (let op de input-volgorde: eerst grenzen, dan data)
+    classify = SectionsClassify(data_adapter=data_adapter)
+    classify.run(
+        input=["threshold_conditions", "technical_failure_probability"],
+        output="section_states",
+    )
+    assert "hours" in classify.df_out.columns

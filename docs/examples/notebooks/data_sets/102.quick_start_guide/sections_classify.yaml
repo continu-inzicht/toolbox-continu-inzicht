@@ -1,0 +1,16 @@
+GlobalVariables:
+    rootdir: "data_sets/102.quick_start_guide"
+
+DataAdapter:
+
+    section_data_failure_probability:
+        type: csv
+        path: "sections_classify_data.csv"
+
+    section_conditions:
+        type: csv
+        path: "sections_classify_threshold.csv"
+
+    section_states:
+        type: csv
+        path: "hidden_sections_classify_data.csv"

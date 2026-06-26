@@ -120,9 +120,6 @@ class LoadsClassify(ToolboxBase):
         # waterstanden in centimeters
         df_loads = self.df_in_loads.copy()
 
-        df_loads.set_index("measurement_location_id")
-        df_thresholds.set_index("measurement_location_id")
-
         self.df_out = df_loads.merge(
             df_thresholds, on="measurement_location_id", how="outer"
         )
