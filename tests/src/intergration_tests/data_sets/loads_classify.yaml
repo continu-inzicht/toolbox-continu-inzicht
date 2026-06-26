@@ -18,3 +18,12 @@ DataAdapter:
         type: csv
         index: False
         path: "geclassificeerde_waterstanden.csv"
+
+    momenten_waterstanden_extra_columns:
+        type: csv
+        path: "waterstanden_extra_parameter.csv"
+        sep: ","
+    geclassificeerde_waterstanden_extra_columns:
+        type: csv
+        index: False
+        path: "geclassificeerde_waterstanden_extra_columns.csv"

@@ -1,0 +1,5 @@
+date_time;Unnamed: 0;measurement_location_id;measurement_location_description;parameter_id;parameter_code;unit;value;unit_wind;value_wind;value_type;hours;lower_boundary;upper_boundary;color;label
+2026-06-21 12:00:00+00:00;0;1;Hoek van Holland;4724;WATHTE;cm;-66.10000000000001;m/s;10;meting;-24;-92.0;200.0;#39870C;Normaal (-92 tot 200cm)
+2026-06-22 12:00:00+00:00;24;1;Hoek van Holland;4724;WATHTE;cm;-59.8;m/s;10;meting;0;-92.0;200.0;#39870C;Normaal (-92 tot 200cm)
+2026-06-23 12:00:00+00:00;48;1;Hoek van Holland;4724;WATHTE;cm;-16.6;m/s;10;verwachting;24;-92.0;200.0;#39870C;Normaal (-92 tot 200cm)
+2026-06-24 12:00:00+00:00;72;1;Hoek van Holland;4724;WATHTE;cm;32.300000000000004;m/s;10;verwachting;48;-92.0;200.0;#39870C;Normaal (-92 tot 200cm)

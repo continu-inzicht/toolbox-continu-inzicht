@@ -21,3 +21,12 @@ DataAdapter:
         type: csv
         index: false
         path: "waterstanden_per_dijkvak.csv"
+
+    momenten_waterstanden_extra_columns:
+        type: csv
+        path: "waterstanden_extra_parameter.csv"
+        sep: ","
+    waterstanden_per_dijkvak_extra_columns:
+        type: csv
+        index: false
+        path: "waterstanden_per_dijkvak_extra_columns.csv"

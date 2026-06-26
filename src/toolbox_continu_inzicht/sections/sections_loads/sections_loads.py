@@ -210,8 +210,6 @@ class SectionsLoads(ToolboxBase):
             #     columns_to_drop.append(col)
             if col.endswith("_y"):
                 columns_to_drop.append(col)
-            elif col.startswith("Unnamed:"):
-                columns_to_drop.append(col)
             # omdat het een geinterpoleertde waarde zijn, zegt measurement location niet zo veel
             elif col.startswith("measurement_location_code"):
                 columns_to_drop.append(col)

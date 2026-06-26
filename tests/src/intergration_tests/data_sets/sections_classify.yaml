@@ -12,3 +12,7 @@ DataAdapter:
     section_states:
         type: csv
         path: "tests_sections_classify_states.csv"
+
+    technical_failure_probability_data_extra_columns:
+        type: csv
+        path: "technical_failure_probability_data_extra_columns.csv"

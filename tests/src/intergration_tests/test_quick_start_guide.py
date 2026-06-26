@@ -90,9 +90,6 @@ def test_quick_start_guide():
     config = Config(config_path=path / "sections_classify.yaml")
     config.lees_config()
     data_adapter = DataAdapter(config=config)
-    sections_failureprobability = SectionsTechnicalFailureprobability(
-        data_adapter=data_adapter
-    )
 
     # Run SectionsClassify (let op de input-volgorde: eerst grenzen, dan data)
     classify = SectionsClassify(data_adapter=data_adapter)

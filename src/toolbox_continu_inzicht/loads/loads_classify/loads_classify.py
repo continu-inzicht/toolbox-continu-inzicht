@@ -123,18 +123,54 @@ class LoadsClassify(ToolboxBase):
         self.df_out = df_loads.merge(
             df_thresholds, on="measurement_location_id", how="outer"
         )
-        self.df_out = self.df_out[
-            [
-                "measurement_location_id",
-                "date_time",
-                "value",
-                "lower_boundary",
-                "upper_boundary",
-                "color",
-                "label",
-                "hours",
-            ]
+        ###### Begin aanpassing 06/26 issue #92 https://github.com/continu-inzicht/toolbox-continu-inzicht/issues/92
+        ## zie ook sections_loads
+        subset_columns = [
+            "measurement_location_id",
+            "date_time",
+            "value",
+            "lower_boundary",
+            "upper_boundary",
+            "color",
+            "label",
+            "hours",
         ]
+        columns_to_drop = []
+        for col in self.df_out.columns:
+            # if col.endswith("_down"):
+            #     columns_to_drop.append(col)
+            if col.endswith("_y"):
+                columns_to_drop.append(col)
+            # omdat het een geinterpoleertde waarde zijn, zegt measurement location niet zo veel
+            elif col.startswith("measurement_location_code"):
+                columns_to_drop.append(col)
+            # cryptisch maar als het al voor komt via de subset_columns, dan niet bewaren:
+            # voor datetime wordt al eerder gezorgd dat het netjes mee komt bijv.
+            elif (
+                len(col.split("_")) > 1
+                and "_".join(col.split("_")[:-1]) in subset_columns
+                and col.split("_")[-1] in ["up", "down", "x", "y"]
+            ):
+                columns_to_drop.append(col)
+
+        self.df_out.drop(columns=columns_to_drop, inplace=True)
+        for col in self.df_out.columns:
+            if col.endswith("_x"):
+                self.df_out.rename(columns={col: col[:-2]}, inplace=True)
+
+        # self.df_out = self.df_out[
+        #     [
+        #         "measurement_location_id",
+        #         "date_time",
+        #         "value",
+        #         "lower_boundary",
+        #         "upper_boundary",
+        #         "color",
+        #         "label",
+        #         "hours",
+        #     ]
+        # ]
+        ##### Einde aanpassing
 
         self.df_out = self.df_out[
             (self.df_out["value"] <= self.df_out["upper_boundary"])
