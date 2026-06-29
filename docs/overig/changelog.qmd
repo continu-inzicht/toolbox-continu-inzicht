@@ -162,11 +162,9 @@ Na het runnen van een berekekening kunnne de resultaten van DamLive worden ingel
 
 De namen van waterinfo locaties zijn aangepast omdat RWS overgaat naar [WADAR](https://rijkswaterstaatdata.nl/waterdata/#:~:text=25%20februari%20%2D%20Waterinfo%20stapt%20over%20naar%20WADAR), ook wordt de oude waterwerbservices api vervangen. Voor beide zijn aanpassingen getroffen om deze bronnen te blijven ondersteunen.
 
-
 ### Aanpassingen aan Fragility Curve Overtopping
 
-Parallel aan de regulieren sprints is ook een traject geweest om GEKB (overloop en golfoverslag van dijken) fragility curves af te kunnen leiden met HR-database (Hydraulische Randvoorwaarde database)
-
+Parallel aan de regulieren sprints is ook een traject geweest om GEKB (overloop en golfoverslag van dijken) fragility curves af te kunnen leiden met HR (Hydraulisch Randvoorwaarden) database.
 
 ### V0.1.4 [[0.1.4](https://pypi.org/project/toolbox-continu-inzicht/0.1.4/)]
 
