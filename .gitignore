@@ -7,6 +7,8 @@
 .env
 .coverage
 
+.vscode/*.json
+
 # wheels
 src/dist/*
 

@@ -8,3 +8,4 @@ from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.out
 from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_fragilitycurve import *  # noqa: F403
 from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_impactanalyse import *  # noqa: F403
 from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_damlive import *  # noqa: F403
+from toolbox_continu_inzicht.base.adapters.output.continu_inzicht_postgresql.output_floodscenario import *  # noqa: F403
