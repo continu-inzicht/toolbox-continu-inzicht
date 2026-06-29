@@ -43,7 +43,7 @@ DataAdapter:
     type: ci_postgresql_damlive_soil
     database: "continuinzicht"
     schema: "continuinzicht_hhnk_purmer_realtime"
-    
+
   ci_database_damlive_soil_color:
     type: ci_postgresql_damlive_soil_color
     database: "continuinzicht"

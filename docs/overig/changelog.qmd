@@ -187,7 +187,7 @@ In sprint 8 zijn wat rest punten van de DamLive koppeling afgerond en zijn de op
 
 Alle aanpassingen zijn terug te vinden [#96](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/96)
 
-In sprint 9 zijn wat restpunten van de overstromingsscenarios toegevoegd. Ook zijn SectionLoads en LoadsClassify aangepast om felxiblere met de in en uitvoer om te gaan van kollom namen. 
+In sprint 9 zijn wat restpunten van de overstromingsscenarios toegevoegd. Ook zijn SectionLoads en LoadsClassify aangepast om felxiblere met de in en uitvoer om te gaan van kollom namen.
 
 #### 'Breaking changes'
 

@@ -478,25 +478,6 @@ class CombineDamLiveResults(ToolboxBase):
         """
         Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_soil``.
 
-        Parameters
-        ----------
-        df_stages : pd.DataFrame
-            Uitvoer van de DAMlive 'scenario'-parser.
-            Bevat minimaal: stage_id, geometry_id, soillayers_id.
-        df_geometries : pd.DataFrame
-            Uitvoer van de DAMlive 'geometries'-parser.
-            Bevat minimaal: geometry_id, layer_id, layer_label, points.
-        df_soillayers : pd.DataFrame
-            Uitvoer van de DAMlive 'soillayers'-parser.
-            Bevat minimaal: soillayers_id, layer_id, soil_id.
-        df_soils : pd.DataFrame
-            Uitvoer van de DAMlive 'soils'-parser.
-            Bevat minimaal: soil_id, name.
-        measuringstation_id : int
-            Vaste waarde voor de kolom measuringstationid (default 1).
-        parameter_id : int
-            Vaste waarde voor de kolom parameterid (default 200).
-
         Returns
         -------
         pd.DataFrame
@@ -591,18 +572,16 @@ class CombineDamLiveResults(ToolboxBase):
         """
         Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_soil_color``.
 
-        Parameters
-        ----------
-        df_colors : pd.DataFrame
-            DataFrame met minimaal de kolommen 'type' en 'color'.
-            Typisch afkomstig uit colors.csv (of ingelezen via de toolbox).
-            De 'color'-kolom bevat HEX-kleurcodes (bijv. '#A0522D' of 'A0522D').
-
         Returns
         -------
         pd.DataFrame
             DataFrame klaar om naar data_damlive_soil_color te schrijven, met kolommen:
             soil_name, r, g, b, color, stb_name
+
+        Raises
+        ------
+        ValueError
+            Als er geen rijen met type='soil' gevonden worden in het colors DataFrame.
         """
         # Filter op rijen waar type == 'soil'
         df_soil_colors = self.df_colors[self.df_colors["type"] == "soil"].copy()

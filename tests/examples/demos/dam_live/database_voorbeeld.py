@@ -90,7 +90,6 @@ def main():
             "Er is een fout opgetreden bij het ophalen van data uit FEWS. Gebruik een lokaal testbestand"
         )
         data_adapter.input("waterstanden_xml")
-        file = data_adapter.config.data_adapters["waterstanden_xml"]["path"]
         df_waterstanden = data_adapter.input("waterstanden_xml")
 
     print(df_waterstanden.head())
@@ -322,7 +321,6 @@ def main():
         (df_output_damlive["measurement_location_code"] == loc) & (date_time == time)
     ]
     df_corresponding_output
-
 
 
 if __name__ == "__main__":
