@@ -48,6 +48,7 @@ class SectionsLoads(ToolboxBase):
     - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
     - unit: str                         : eenheid van de belastingparameter
     - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - hours: int64                      : aantal uren na datum/ tijd van de tijdreeksitem
     - value: float64                    : waarde van de tijdreeksitem
     - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
 
@@ -67,6 +68,7 @@ class SectionsLoads(ToolboxBase):
     - id: int64                         : id van het dijkvak
     - name; str                         : naam van de dijkvak
     - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
+    - hours: int64                      : aantal uren na datum/ tijd van de tijdreeksitem
     - value: float64                    : waarde van de tijdreeksitem
     - unit: str                         : eenheid van de belastingparameter
     - parameter_id: int64               : id van de belastingparameter (1,2,3,4)
@@ -145,16 +147,6 @@ class SectionsLoads(ToolboxBase):
 
         # Filter benodigde kolommen uit belastingdata
         df_loads = self.df_in_loads.copy()
-        df_loads = df_loads[
-            [
-                "measurement_location_id",
-                "date_time",
-                "value",
-                "unit",
-                "parameter_id",
-                "value_type",
-            ]
-        ]
 
         # Lijst met koppeling dijkvak en bovenstrooms en benedenstrooms meetstation
         df_section_station = self.df_in_section_fractions.copy()
@@ -184,9 +176,8 @@ class SectionsLoads(ToolboxBase):
         )
 
         # voeg de dijkvakken en belastingen samen
-        df_merged = df_section_fractions.merge(
-            df_loads_up, on="idup", how="left"
-        ).rename(columns={"date_time_up": "date_time"})
+        df_merged = df_section_fractions.merge(df_loads_up, on="idup", how="left")
+        df_merged.rename(columns={"date_time_up": "date_time"}, inplace=True)
         df_merged = df_merged.merge(
             df_loads_down, on=["iddown", "date_time"], how="left"
         )
@@ -196,13 +187,54 @@ class SectionsLoads(ToolboxBase):
         )
 
         # verwijder alle rijen waar geen data voor is gevonden
-        df_cleaned = df_merged.dropna(
-            subset=["id", "date_time", "value", "unit", "parameter_id", "value_type"]
-        )
-
-        self.df_out = df_cleaned[
-            ["id", "name", "date_time", "value", "unit", "parameter_id", "value_type"]
+        subset_columns = [
+            "id",
+            "date_time",
+            "value",
+            "unit",
+            "parameter_id",
+            "value_type",
         ]
-        self.df_out.set_index(["id", "name", "date_time"], inplace=False)
+        self.df_out = df_merged.dropna(subset=subset_columns)
+        self.df_out.rename(columns={"id": "section_id"}, inplace=True)
+
+        ###### Begin aanpassing 06/26 issue #92 https://github.com/continu-inzicht/toolbox-continu-inzicht/issues/92
+
+        # -> ben eigenlijk niet tevreden, maar dit doet nu wel wat het moet.
+        # redesign van deze functie zou betere aanpak zijn in mijn mening.
+        # Bewaar de 'up' kolommen, verwijder de 'down' kolommen
+        # Bewaar x, verwijder y
+        columns_to_drop = ["idup", "iddown", "fractionup", "fractiondown"]
+        for col in self.df_out.columns:
+            # if col.endswith("_down"):
+            #     columns_to_drop.append(col)
+            if col.endswith("_y"):
+                columns_to_drop.append(col)
+            # omdat het een geinterpoleertde waarde zijn, zegt measurement location niet zo veel
+            elif col.startswith("measurement_location_code"):
+                columns_to_drop.append(col)
+            elif col.startswith("measurement_location_description"):
+                columns_to_drop.append(col)
+            # cryptisch maar als het al voor komt via de subset_columns, dan niet bewaren:
+            # voor datetime wordt al eerder gezorgd dat het netjes mee komt bijv.
+            elif (
+                len(col.split("_")) > 1
+                and "_".join(col.split("_")[:-1]) in subset_columns
+                and col.split("_")[-1] in ["up", "down", "x", "y"]
+            ):
+                columns_to_drop.append(col)
+
+        self.df_out.drop(columns=columns_to_drop, inplace=True)
+        for col in self.df_out.columns:
+            if col.endswith("_x"):
+                self.df_out.rename(columns={col: col[:-2]}, inplace=True)
+
+        # self.df_out = df_cleaned[
+        #     ["id", "name", "date_time", "value", "unit", "parameter_id", "value_type"]
+        # ]
+        # zonder inplace doet dit niks?
+        # self.df_out.set_index(["section_id", "name", "date_time"], inplace=False)
+
+        ##### Einde aanpassing
 
         self.data_adapter.output(output=output, df=self.df_out)

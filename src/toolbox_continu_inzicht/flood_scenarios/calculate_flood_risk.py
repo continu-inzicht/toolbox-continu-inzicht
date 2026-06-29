@@ -7,17 +7,7 @@ import geopandas as gpd
 
 from toolbox_continu_inzicht.base.base_module import ToolboxBase
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
-
-
-def import_rasterstats():
-    try:
-        from rasterstats import zonal_stats
-    except ImportError:
-        zonal_stats = None
-        raise ImportError(
-            "Rasterio or zonalstats is not installed, use the dev pixi environment or install rasterio and rasterstats"
-        )
-    return zonal_stats
+from toolbox_continu_inzicht.utils.import_functions import import_rasterstats
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -37,6 +27,8 @@ class CalculateFloodRisk(ToolboxBase):
         GeoDataframe met gebieden te aggregeren
     df_out_flood_risk_results : Optional[pd.DataFrame] | None
         Dataframe met de risico resultaten
+    df_out_flood_risk_results_per_segment: Optional[pd.DataFrame] | None
+        Dataframe met de risico resultaten per segment, zodat bijdragen kan worden bijgehouden per vak
     schema_scenario_failure_prob_segments : ClassVar[dict[str, str]]
         Schema voor de input dataframe met deeltrajectkansen
     schema_scenario_consequences_grids : ClassVar[dict[str, str]]
@@ -48,15 +40,21 @@ class CalculateFloodRisk(ToolboxBase):
     Notes
     -----
 
-    schema voor sections_to_segment
+    schema voor scenario failure prob segments
 
-        - section_id: int
         - segment_id: int
+        - scenario_failure_probability: float
 
-    schema voor grouped_sections_failure_probability
+    schema voor scenario consequences grids
 
+        - segment_id: int
         - section_id: int
-        - failure_probability: float
+        - hydraulicload_upperboundary: float
+
+    schema voor areas to aggregate
+
+        - area_id: int
+        - geometry: geometry
 
     """
 
@@ -66,6 +64,7 @@ class CalculateFloodRisk(ToolboxBase):
     df_in_scenario_consequences_grids: Optional[pd.DataFrame] | None = None
     gdf_in_areas_to_aggregate: Optional[gpd.GeoDataFrame] | None = None
     df_out_flood_risk_results: Optional[pd.DataFrame] | None = None
+    df_out_flood_risk_results_per_segment: Optional[pd.DataFrame] | None = None
 
     # schemas voor de input dataframes
     schema_scenario_failure_prob_segments: ClassVar[dict[str, str]] = {
@@ -215,7 +214,6 @@ class CalculateFloodRisk(ToolboxBase):
                     all_touched=False,
                     nodata=np.nan,
                 )
-
                 # add the zonal stats to the output geodataframe
                 dict_segments_out[segment_id] = pd.concat(
                     (dict_segments_out[segment_id], pd.DataFrame(zs)), axis=1
@@ -223,10 +221,10 @@ class CalculateFloodRisk(ToolboxBase):
                 dict_segments_out[segment_id].rename(
                     columns={stat: grid_name}, inplace=True
                 )
-                dict_segments_out[segment_id].set_index("area_id")
 
         # Concatenate all segment dataframes
         all_segments_df = pd.concat(dict_segments_out.values(), ignore_index=True)
+        self.df_out_flood_risk_results_per_segment = all_segments_df
 
         # Identify numeric columns to sum (excluding geometry and identifier columns)
         exclude_cols = [
@@ -236,7 +234,7 @@ class CalculateFloodRisk(ToolboxBase):
             "code",
             "zip",
             "people",
-            "segment_id",
+            "segment_id",  # , keep segment_id for later use when displaying in viewer
         ]
         numeric_cols = all_segments_df.select_dtypes(
             include=["float64", "float32", "int64", "int32"]
@@ -251,7 +249,7 @@ class CalculateFloodRisk(ToolboxBase):
                 agg_dict[col] = "first"
 
         df_out = all_segments_df.groupby("area_id", as_index=False).agg(agg_dict)
-        self.df_out = gpd.GeoDataFrame(df_out)
+        self.df_out_flood_risk_results = gpd.GeoDataFrame(df_out)
 
         # risico berekenen en evnt. omrekenen per hectare
         # omrekenen naar hectaren (later)
@@ -268,12 +266,16 @@ class CalculateFloodRisk(ToolboxBase):
                     "In de options moet bij per_hectare ook columns_per_hectare opgegeven worden als lijst van kolomnamen."
                 )
             for column_per_hectare in columns_per_hectare:
-                if column_per_hectare in self.df_out.columns:
-                    self.df_out[f"{column_per_hectare}_per_ha"] = self.df_out[
-                        column_per_hectare
-                    ] / (self.gdf_in_areas_to_aggregate["geometry"].area / 10000)
+                if column_per_hectare in self.df_out_flood_risk_results.columns:
+                    self.df_out_flood_risk_results[f"{column_per_hectare}_per_ha"] = (
+                        self.df_out_flood_risk_results[column_per_hectare]
+                        / (self.gdf_in_areas_to_aggregate["geometry"].area / 10000)
+                    )
                 else:
                     self.data_adapter.logger.warning(
                         f"Kolom {column_per_hectare} niet gevonden in output dataframe, kan niet omrekenen per hectare."
                     )
-        self.data_adapter.output(output=output, df=self.df_out)
+        self.data_adapter.output(output=output[0], df=self.df_out_flood_risk_results)
+        self.data_adapter.output(
+            output=output[1], df=self.df_out_flood_risk_results_per_segment
+        )

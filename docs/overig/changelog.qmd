@@ -150,6 +150,8 @@ In de toekomst is het misschien beter om daar later een speciaal type adapter vo
 
 #### Inhoudelijk
 
+Alle aanpassingen zijn terug te vinden [#85](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/85)
+
 In sprint 7 (voorjaar 2026) is gewerkt aan het opzetten van een koppeling met DamLive.
 DamLive is ontworpen om met FEWS te werken, waarbij metingen in worden meegegeven en door de rekenhart achter DAM (Dijksterkte Analayse Module) een faalkans per tijdstap wordt berekend.
 
@@ -173,3 +175,18 @@ Parallel aan de regulieren sprints is ook een traject geweest om GEKB (overloop 
 Alle aanpassingen zijn terug te vinden [#89](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/89)
 
 In sprint 8 zijn wat rest punten van de DamLive koppeling afgerond en zijn de operationele scripts van de grondwaterdroogte indicator toegevoegd aan de toolbox. Met deze scripts kunnen [pastas](https://github.com/pastas/pastas) tijdreeks modellen gebruikt worden om de extremiteit van grondwaterstanden te duiden. Voor de toolbox zijn hier data adapter voor toegevoegd om neerslag en verdamping uit te lezen uit WIWB en KNMI.
+
+
+### V0.1.5 [[0.1.5](https://pypi.org/project/toolbox-continu-inzicht/0.1.5/)]
+
+### Sprint 9
+
+#### Inhoudelijk
+
+Alle aanpassingen zijn terug te vinden [#96](https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/96)
+
+In sprint 9 zijn wat restpunten van de overstromingsscenarios toegevoegd. Ook zijn SectionLoads en LoadsClassify aangepast om felxiblere met de in en uitvoer om te gaan van kollom namen.
+
+#### 'Breaking changes'
+
+De output van de `SectionsLoads` class is aangepast. De kolom `id` is hernoemd naar `section_id`. Dit is gedaan om een duidelijkere naamgeving van begin tot einde te hebben als alle modules onder elkaar worden gezet. Nu zou nog een handmatige aanpassing nodig zijn.

@@ -1,0 +1,18 @@
+GlobalVariables:
+    rootdir: "tests/src/intergration_tests/data_sets"
+    moments: [ -24, 0, 24, 48 ]
+
+DataAdapter:
+    technical_failure_probability:
+        type: csv
+        path: "technical_failure_probability_data.csv"
+    threshold_conditions:
+        type: csv
+        path: "tests_sections_classify_threshold.csv"
+    section_states:
+        type: csv
+        path: "tests_sections_classify_states.csv"
+
+    technical_failure_probability_data_extra_columns:
+        type: csv
+        path: "technical_failure_probability_data_extra_columns.csv"

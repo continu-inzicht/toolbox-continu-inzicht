@@ -83,7 +83,7 @@ def output_ci_postgresql_section_load_to_data(
         df_data = df_data.loc[
             :,
             [
-                "id",
+                "section_id",
                 "objecttype",
                 "parameterid",
                 "datetime",
@@ -92,7 +92,7 @@ def output_ci_postgresql_section_load_to_data(
             ],
         ]
 
-        df_data = df_data.rename(columns={"id": "objectid"})
+        df_data = df_data.rename(columns={"section_id": "objectid"})
         df_data = df_data.reset_index(drop=True)
 
         section_ids = df_data.objectid.unique()

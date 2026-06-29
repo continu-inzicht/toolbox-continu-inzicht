@@ -172,17 +172,34 @@ class WaveDataProvider(WaveProvider):
         grid_wswdwl = np.full((wsv.size, wdv.size, wlv.size), np.nan, dtype=float)
         grid_wswdwl[ws_idx, wd_idx, wl_idx] = wy
 
-        i1, i2, fws = bracketing_indices(wsv, windspeed)
-        grid_wdwl = (1 - fws) * grid_wswdwl[i1, :, :] + fws * grid_wswdwl[i2, :, :]
+        # Wave direction values wrap around 0/360, so blending across the
+        # windspeed and waterlevel axes must go through circular_interpolate_1d
+        # instead of a plain weighted average, or values straddling the wrap
+        # produce spurious ~180-degree jumps.
+        is_directional = waveval_type == WaveType.WAVEDIRECTION.value
+        if is_directional:
+            grid_wdwl = circular_interpolate_1d(
+                np.array([windspeed]), wsv, grid_wswdwl
+            )[0]
+        else:
+            i1, i2, fws = bracketing_indices(wsv, windspeed)
+            grid_wdwl = (1 - fws) * grid_wswdwl[i1, :, :] + fws * grid_wswdwl[i2, :, :]
 
-        i3, i4, fwl = bracketing_indices(wlv, waterlevel)
-        grid_wd = (1 - fwl) * grid_wdwl[:, i3] + fwl * grid_wdwl[:, i4]
+        if is_directional:
+            grid_wd = circular_interpolate_1d(np.array([waterlevel]), wlv, grid_wdwl.T)[
+                0
+            ]
+        else:
+            i3, i4, fwl = bracketing_indices(wlv, waterlevel)
+            grid_wd = (1 - fwl) * grid_wdwl[:, i3] + fwl * grid_wdwl[:, i4]
 
         wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
         grid_wd_ext = np.concatenate([grid_wd, grid_wd, grid_wd])
-        if waveval_type == WaveType.WAVEDIRECTION.value:
+        if is_directional:
             return circular_interpolate_1d(windrichtingen, wd_ext, grid_wd_ext)
-        return interpolate_1d(windrichtingen, wd_ext, grid_wd_ext, ll=-np.inf)
+        return interpolate_1d(
+            windrichtingen, wd_ext, grid_wd_ext, ll=0.0, lower_limit_mode="physical"
+        )
 
     def _interpolate_type_for_levels(
         self,
@@ -204,18 +221,37 @@ class WaveDataProvider(WaveProvider):
         grid_wswdwl = np.full((wsv.size, wdv.size, wlv.size), np.nan, dtype=float)
         grid_wswdwl[ws_idx, wd_idx, wl_idx] = wy
 
-        i1, i2, fws = bracketing_indices(wsv, windspeed)
-        grid_wdwl = (1 - fws) * grid_wswdwl[i1, :, :] + fws * grid_wswdwl[i2, :, :]
+        # Wave direction values wrap around 0/360, so blending across the
+        # windspeed and wind-direction-sector axes must go through
+        # circular_interpolate_1d instead of a plain weighted average, or
+        # values straddling the wrap produce spurious ~180-degree jumps.
+        is_directional = waveval_type == WaveType.WAVEDIRECTION.value
+        if is_directional:
+            grid_wdwl = circular_interpolate_1d(
+                np.array([windspeed]), wsv, grid_wswdwl
+            )[0]
+        else:
+            i1, i2, fws = bracketing_indices(wsv, windspeed)
+            grid_wdwl = (1 - fws) * grid_wswdwl[i1, :, :] + fws * grid_wswdwl[i2, :, :]
 
         wd_ext = np.concatenate([wdv - 360.0, wdv, wdv + 360.0])
         grid_wd_ext = np.concatenate([grid_wdwl, grid_wdwl, grid_wdwl], axis=0)
-        grid_wl = interpolate_1d(
-            np.array([direction]), wd_ext, grid_wd_ext, ll=-np.inf
-        )[0]
+        if is_directional:
+            grid_wl = circular_interpolate_1d(
+                np.array([direction]), wd_ext, grid_wd_ext
+            )[0]
+            return circular_interpolate_1d(waterlevels, wlv, grid_wl)
 
-        if waveval_type == WaveType.WAVEDIRECTION.value:
-            return circular_interpolate_1d(waterlevels, wlv, grid_wl, ll=-np.inf)
-        return interpolate_1d(waterlevels, wlv, grid_wl, ll=-np.inf)
+        grid_wl = interpolate_1d(
+            np.array([direction]),
+            wd_ext,
+            grid_wd_ext,
+            ll=0.0,
+            lower_limit_mode="physical",
+        )[0]
+        return interpolate_1d(
+            waterlevels, wlv, grid_wl, ll=0.0, lower_limit_mode="physical"
+        )
 
     def get_wave_conditions_for_directions(
         self,

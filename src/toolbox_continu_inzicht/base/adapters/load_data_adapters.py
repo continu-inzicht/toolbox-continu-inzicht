@@ -52,23 +52,25 @@ def get_functions_from_package(package: object, remove_prefix: str) -> dict:
                                     )
                             # controle of de output functioneert:
                             if len(parameter_items) == 2 and remove_prefix == "output_":
-                                items = []
-                                for _, parameter in parameter_items:
-                                    add_item_1 = (
-                                        str(parameter) == "output_config: dict"
-                                        or str(parameter) == "output_config"
-                                    )
-                                    add_item_2 = (
-                                        str(parameter)
-                                        == "df: pandas.core.frame.DataFrame"
-                                        or str(parameter) == "df"
-                                        or str(parameter)
-                                        == "gdf: geopandas.geodataframe.GeoDataFrame"
-                                        or str(parameter) == "gdf"
-                                    )
-                                    items.append((add_item_1 or add_item_2))
-                                add_item = all(items)
-
+                                VALID_CONFIG_PARAMS = {"output_config"}
+                                VALID_DATA_PARAMS = {
+                                    "df",
+                                    "gdf",
+                                }  # extend here as needed
+                                if (
+                                    len(parameter_items) == 2
+                                    and remove_prefix == "output_"
+                                ):
+                                    items = []
+                                    for _, parameter in parameter_items:
+                                        param_name = (
+                                            parameter.name
+                                        )  # use .name instead of str()
+                                        items.append(
+                                            param_name in VALID_CONFIG_PARAMS
+                                            or param_name in VALID_DATA_PARAMS
+                                        )
+                                    add_item = all(items)
                 if add_item:
                     functions[name] = obj
 

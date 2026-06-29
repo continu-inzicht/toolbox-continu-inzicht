@@ -1,0 +1,29 @@
+GlobalVariables:
+    rootdir: "tests/src/intergration_tests/data_sets"
+    moments: [ -24, 0, 24, 48 ]
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ";"
+
+    belasting_locaties_grenzen:
+        type: csv
+        sep: ","
+        path: "belasting_locaties_grenzen.csv"
+    momenten_waterstanden:
+        type: csv
+        path: "momenten_waterstanden.csv"
+    geclassificeerde_waterstanden:
+        type: csv
+        index: False
+        path: "geclassificeerde_waterstanden.csv"
+
+    momenten_waterstanden_extra_columns:
+        type: csv
+        path: "waterstanden_extra_parameter.csv"
+        sep: ","
+    geclassificeerde_waterstanden_extra_columns:
+        type: csv
+        index: False
+        path: "geclassificeerde_waterstanden_extra_columns.csv"

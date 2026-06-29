@@ -263,6 +263,7 @@ class GwdiModel:
             fp=location_context["fp"],
             ll=0.0,
             clip01=False,
+            lower_limit_mode="none",
         )
         gwdroogte = pd.DataFrame(index=sim.index, data=ts, columns=["indicator"])
         gwdroogte[gwdroogte > 10] = 10

@@ -27,9 +27,9 @@ def test_calculate_flood_risk():
             "areas_to_average",
             "flood_risk_local_file",
         ],
-        output="flood_risk_results",
+        output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
-    df_out = calculate_flood_risk.df_out
+    df_out = calculate_flood_risk.df_out_flood_risk_results
     expected_cols = [
         "area_id",
         "casualties",
@@ -56,9 +56,9 @@ def test_calculate_flood_risk_one_grid():
             "areas_to_average",
             "flood_risk_local_file",
         ],
-        output="flood_risk_results",
+        output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
-    df_out = calculate_flood_risk.df_out
+    df_out = calculate_flood_risk.df_out_flood_risk_results
     expected_cols = [
         "area_id",
         "casualties",
@@ -86,9 +86,9 @@ def test_calculate_flood_risk_different_name():
             "areas_to_average",
             "flood_risk_local_file",
         ],
-        output="flood_risk_results",
+        output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
-    df_out = calculate_flood_risk.df_out
+    df_out = calculate_flood_risk.df_out_flood_risk_results
     expected_cols = [
         "area_id",
         "custom_name",
@@ -117,7 +117,7 @@ def test_calculate_flood_risk_different_name_fail():
                 "areas_to_average",
                 "flood_risk_local_file",
             ],
-            output="flood_risk_results",
+            output=["flood_risk_results", "flood_risk_results_per_segment"],
         )
 
 
@@ -132,7 +132,7 @@ def test_calculate_flood_risk_per_ha():
             "areas_to_average",
             "flood_risk_local_file",
         ],
-        output="flood_risk_results",
+        output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
     expected_cols = [
         "area_id",
@@ -146,7 +146,7 @@ def test_calculate_flood_risk_per_ha():
         "people",
         "geometry",
     ]
-    df_out = calculate_flood_risk.df_out
+    df_out = calculate_flood_risk.df_out_flood_risk_results
     assert all([col in df_out.columns for col in expected_cols])
 
     data_adapter_per_ha = helper_create_data_adapter(
@@ -160,9 +160,9 @@ def test_calculate_flood_risk_per_ha():
             "areas_to_average",
             "flood_risk_local_file",
         ],
-        output="flood_risk_results",
+        output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
-    df_out_per_ha = calculate_flood_risk_per_ha.df_out
+    df_out_per_ha = calculate_flood_risk_per_ha.df_out_flood_risk_results
 
     assert all([col in df_out_per_ha.columns for col in expected_cols])
     columns_per_hectare = [
@@ -200,7 +200,7 @@ def test_calculate_flood_risk_per_ha_different_dir():
             "areas_to_average",
             "flood_risk_local_file",
         ],
-        output="flood_risk_results",
+        output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
     expected_cols = [
         "area_id",
@@ -214,7 +214,7 @@ def test_calculate_flood_risk_per_ha_different_dir():
         "people",
         "geometry",
     ]
-    df_out = calculate_flood_risk.df_out
+    df_out = calculate_flood_risk.df_out_flood_risk_results
     assert all([col in df_out.columns for col in expected_cols])
 
     data_adapter_per_ha = helper_create_data_adapter(
@@ -228,9 +228,9 @@ def test_calculate_flood_risk_per_ha_different_dir():
             "areas_to_average",
             "flood_risk_local_file",
         ],
-        output="flood_risk_results",
+        output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
-    df_out_per_ha = calculate_flood_risk_per_ha.df_out
+    df_out_per_ha = calculate_flood_risk_per_ha.df_out_flood_risk_results
 
     assert all([col in df_out_per_ha.columns for col in expected_cols])
     columns_per_hectare = [
@@ -267,7 +267,7 @@ def test_calculate_flood_risk_per_ha_no_cols():
                 "areas_to_average",
                 "flood_risk_local_file",
             ],
-            output="flood_risk_results",
+            output=["flood_risk_results", "flood_risk_results_per_segment"],
         )
 
     # verkeerde kolomnamen - wel logging warning maar geen error
@@ -282,7 +282,7 @@ def test_calculate_flood_risk_per_ha_no_cols():
             "areas_to_average",
             "flood_risk_local_file",
         ],
-        output="flood_risk_results",
+        output=["flood_risk_results", "flood_risk_results_per_segment"],
     )
     data_adapter_per_ha
 
@@ -299,5 +299,5 @@ def test_calculate_flood_risk_per_ha_no_cols():
                 "areas_to_average",
                 "flood_risk_local_file",
             ],
-            output="flood_risk_results",
+            output=["flood_risk_results", "flood_risk_results_per_segment"],
         )

@@ -152,10 +152,16 @@ class UpdateDamLive(ToolboxBase):
         if returncode != 0:
             raise subprocess.CalledProcessError(returncode, cmd)
 
-        self.df_out = self.data_adapter.input(
-            input="live.OutputTimeSeries",
-        )
-        self.data_adapter.output(output=output, df=self.df_out)
+        # controleer of output bestand is aangemaakt met alleen meldiing zonder stacktrace
+        if not (root_dir / "live.OutputTimeSeries.xml").exists():
+            self.data_adapter.logger.error(
+                f"DAM Live did not produce the expected output file: {root_dir / 'live.OutputTimeSeries.xml'}"
+            )
+        else:
+            self.df_out = self.data_adapter.input(
+                input="live.OutputTimeSeries",
+            )
+            self.data_adapter.output(output=output, df=self.df_out)
 
     def unzip_damlive_results(self) -> None:
         """

@@ -1,0 +1,20 @@
+GlobalVariables:
+    rootdir: "tests/src/intergration_tests/data_sets"
+    moments: [ -24, 0, 24, 48 ]
+    aquo_alias:
+        WATHTE [m][NAP][OW]: "WATHTE"
+
+    LoadsWaterwebservicesRWS:
+        parameters: [ "WATHTE" ]
+        MISSING_VALUE: 999
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ";"
+    belasting_locaties_waterwebservices_RWS:
+        type: csv
+        path: "belasting_locaties_waterwebservices_RWS.csv"
+    waterstanden_waterwebservices:
+        type: csv
+        path: "waterstanden_waterwebservices_rws.csv"

@@ -1,0 +1,17 @@
+GlobalVariables:
+    rootdir: "tests/src/sections/data_sets"
+    moments: [ -24, 0, 24, 48 ]
+
+DataAdapter:
+
+    section_data_failure_probability:
+        type: csv
+        path: "tests_sections_classify_data.csv"
+
+    section_conditions:
+        type: csv
+        path: "tests_sections_classify_threshold.csv"
+
+    section_states:
+        type: csv
+        path: "tests_section_classify_states.csv"

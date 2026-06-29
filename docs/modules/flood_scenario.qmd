@@ -9,16 +9,20 @@ Deze risico's kunnen helpen om prioriteiten te stellen tijdens hoogwater, waarbi
 
 Om de scenarios te kunnen combineren moeten er een aantal stappen worden doorlopen:
 - Omrekenen van dijkvakkansen naar trajectdeelkansen ([CalculateFloodScenarioProbability](#sec-CalculateFloodScenarioProbability))
-- Belasting per deeltraject bepalen ([LoadFromFloodScenarioProbabilit](#sec-LoadFromFloodScenarioProbabilit))
+- Belasting per deeltraject bepalen ([LoadFromFloodScenarioProbability](#sec-LoadFromFloodScenarioProbability))
 - Met de belasting een bijpassende overstromingscenario selecteren ([SelectFloodScenarioFromLoad ](#sec-SelectFloodScenarioFromLoad))
 - Van het scenario en de curve een geagregeerd risico bepalen ([CalculateFloodRisk](#sec-CalculateFloodRisk))
+- Een nabewerking van het risico om dit terug te koppelen aan het maatgevende vak ([PostProcessFloodRisk](#sec-PostProcessFloodRisk))
 
 
 ```{mermaid}
 graph TD
-    A[CalculateFloodScenarioProbability] --> B[LoadFromFloodScenarioProbabilit]
+    A[CalculateFloodScenarioProbability] --> B[LoadFromFloodScenarioProbability]
     B --> C[SelectFloodScenarioFromLoad]
     C --> D[CalculateFloodRisk]
+    D --> E[PostProcessFloodRisk]
+    A --> E
+
 ```
 
 ## CalculateFloodScenarioProbability{#sec-CalculateFloodScenarioProbability}
@@ -36,9 +40,18 @@ graph TD
     D --> F[Overstromingskans gebied/Dikesystem]
 ```
 
-Dit voorbeeld laat zien hoe met behulp van de `CalculateFloodScenarioProbability` scenariokansen berekend worden uit kansen per sectie en per faalmachanisme. <br>
-Eerst worden de kansen per sectie en faalmachanisme ingeladen `input_probabilities_failuremechanisme_sections`, daarna worden deze gecombineerd naar een kans over alle secties (voorheen aangeduid als de ringkans) per faalmechanisme. Daarna worden de kansen over alle secties per faalmechanisme gecombineerd naar 1 kans over alle secties en over alle faalmechanismen. <br>
+Dit voorbeeld laat zien hoe met behulp van de `CalculateFloodScenarioProbability` scenariokansen berekend worden uit kansen per sectie en per faalmachanismen. <br>
+Hiervoor zijn 3 data adapters nodig;
+- De faalmechanismen met de bijbehorende ids
+- De kansen per sectie en faalmechanisme, en
+- De koppeling van secties naar segmenten. <br>
+
+De faalmechanismen worden gecombineerd naar een kans over alle secties (voorheen aangeduid als de ringkans) per faalmechanisme. Daarna worden de kansen over alle secties per faalmechanisme gecombineerd naar 1 kans over alle secties en over alle faalmechanismen. <br>
 Deze volgorde (eerst combineren over alle sectie en daarna over alle faalmechanismen) is bewust gekozen omdat per faalmechanisme verschillende met andere correlaties wordt gerekend. Voor het faalmechanisme GEKB wordt verondersteld dat alle secties volledig afhankelijk falen en voor de overige faalmechanismen wordt verondersteld dat de secties volledig onafhankelijk falen. Door gekozen volgorde bij het combineren van faalkansen aan te houden, kan dit onderscheid geborgd worden. Tussen de verschillende faalmechanismen wordt volledige onafhankelijkheid verondersteld. N.B. in een volledige probabilistische berekening (waarbij niet met fragility curves wordt gerekend) kan de daadwerkelijke correlatie worden berekend en is het ook mogelijk om te rekenen met gedeeltelijke afhankelijkheid. Dat is in een werkwijze met fragilitycurves niet mogelijk. <br>
+
+De output bevat twee data adapters:
+- De scenariokans per segment, deze kan gebruikt worden om een bijpassend scenario te selecteren
+- De totaal gecombineerde faalkans van alle vakken. Deze kan gebruikt worden om het risico van een gebied te bepalen.
 
 
 ::: {.panel-tabset}
@@ -99,7 +112,9 @@ calculate_flood_scenario_probability.run(
 ## LoadFromFloodScenarioProbability{#sec-LoadFromFloodScenarioProbability}
 
 Voor het bepalen van de risico van een overstroming is het nodig om een bijpassend overstromingsscenario te selecteren. Er zijn meerdere overstromingsscenario's beschikbaar die verschillende hydraulische belastingen representeren. <br>
-In de vorige stap `CalculateFloodScenarioProbability` is een scenariokans van een deeltraject (segment) berekend `scenario_failure_prob_segments`. Hiermee kan een bijpassend overstromingsscenario worden geselecteerd. Hiertoe is het nodig om de hydraulische belasting per deeltraject te bepalen met de `LoadFromFloodScenarioProbability`. Dat gebeurt met behulp van de fragilitycurves. Hiertoe is het noodzakelijk om 1 representatieve fragilitycurve per deeltraject te selecteren uit `section_fragility_curves`. Dat doen we door voor elk deeltraject (segment) 1 sectie te selecteren `section_to_segment`. De fragilitycurve van deze sectie wordt dan gebruikt om de scenariekans van het deeltraject (segement) om te zetten in een hydraulische belasting, die daarna gebruikt kan worden om een bijpassend overstromingsscenario te selecteren voor het deeltraject (segment).
+In de vorige stap `CalculateFloodScenarioProbability` is een scenariokans van een deeltraject (segment) berekend `scenario_failure_prob_segments`. Hiermee kan een bijpassend overstromingsscenario worden geselecteerd. Hiertoe is het nodig om de hydraulische belasting per deeltraject te bepalen met de `LoadFromFloodScenarioProbability`. Dat gebeurt met behulp van de fragilitycurves. Hiertoe is het noodzakelijk om 1 representatieve fragilitycurve per deeltraject te selecteren uit `section_fragility_curves`. Dat doen we door voor elk deeltraject (segment) 1 sectie te selecteren `section_to_segment`. De fragilitycurve van deze sectie wordt dan gebruikt om de scenariekans van het deeltraject (segment) om te zetten in een hydraulische belasting, die daarna gebruikt kan worden om een bijpassend overstromingsscenario te selecteren voor het deeltraject (segment).
+
+Hiervoor moeten 3 data adapters worden meegegeven. De eerste is de output van `CalculateFloodScenarioProbability` met daarin per deeltraject (segment) de bijbehorende scenariokans. De tweede is de koppeling van secties naar segmenten, hiermee kan per segment een representatieve sectie worden geselecteerd. De derde adapter bevat de fragilitycurves per sectie, hiermee kan de scenariokans van het deeltraject (segment) worden omgezet in een hydraulische belasting.
 
 ::: {.panel-tabset}
 ## Configuratie
@@ -235,7 +250,7 @@ Deze naamgeving wordt hergebruikt in de output. De standaardinstellingen voor he
 |casualties_grid|casualties|sum|
 |damage_grid|damage|sum|
 |flooding_grid|flooding|median|
-|affected_people_grid|affectedpeople|sum|
+|affected_people_grid|affected_people|sum|
 
 Mocht de gebruiker een andere kolom naam willen, dan kan deze in de globalvariable worden opgegeven zoals hieronder in het configuratie voorbeeld wordt getoond.
 
@@ -265,7 +280,7 @@ GlobalVariables:
             casualties: sum
             damage: sum
             flooding: median
-            affectedpeople: sum
+            affected_people: sum
             waterdepth: sum
         per_hectare: False
 
@@ -291,6 +306,9 @@ DataAdapter:
     output_flood_risk_results:
         type: csv
         path: "hidden_rekentest_flood_risk_results.csv"
+    output_flood_risk_results_per_segment:
+        type: csv
+        path: "hidden_rekentest_flood_risk_results_per_segment.csv"
 
 ```
 ## Code
@@ -308,7 +326,87 @@ calculate_flood_risk.run(
         "input_areas_to_aggregate",
         "flood_risk_local_file",
     ],
-    output="output_flood_risk_results",
+    output=["output_flood_risk_results",
+            "output_flood_risk_results_per_segment"],
+)
+```
+:::
+
+
+## PostProcessFloodRisk{#sec-PostProcessFloodRisk}
+
+Het resultaat van de overstromingsberekening kunnen we verder verwerken om het overstromingsrisico van een gebied te relateren aan het maatgevende vak. Hiermee wordt inzichtelijk welk vak kritiek is voor een bepaald gevolg.  We selecteren eerst het traject met de grootste bijdragen aan het risio van een gebied.
+Omdat we het risico niet per vak berekenen, maar voor een traject, gebruiken we de faalkans van een vak. Hierbij worden de faalkansen van de verschillende faalmechanismen onafhankelijk gecombineerd tot een totale vakkans. Het vak met de hoogste faalkans wordt gekoppeld aan het gebied; dit kan dan eenvoudig getoond worden in een viewer.
+
+In een grafiek ziet dit er ongeveer zo uit:
+
+```{mermaid}
+graph TD;
+    A[Risico per gebied]-->B[Dijktraject deel 1];
+    A --> C[Dijktraject deel 2];
+    A --> D[Dijktraject deel 3: maatgevend];
+    D --> E[Dijkvak 1];
+    D --> F[Dijkvak 2];
+    D --> G[Dijkvak 3: maatgevend];
+    G <--> |Koppeling gebied-dijkvak|A;
+```
+
+Dit is bijna hetzelfde proces als in [CalculateFloodScenarioProbability](#sec-CalculateFloodScenarioProbability), maar dan vanuit risico terug naar de kans.
+
+Voor de functie `PostProcessFloodRisk` zijn 3 data adapters nodig:
+- De faalkans per segment en per faalmechanisme, deze wordt ook gebruikt in `CalculateFloodScenarioProbability`.
+- De koppeling tussen secties en segmenten, deze wordt ook gebruikt in `CalculateFloodScenarioProbability`.
+- Het overstromingsrisico per gebied, uitgesplitst per segement, dit is het resultaat van `CalculateFloodRisk`.
+
+De output is een tabel met per gebied, per risicomaat het maatgevende vak. De risicomaten moeten in de input van `PostProcessFloodRisk` worden opgegeven in de variable `risk_metric_columns`. Deze zijn hetzelfde als de kolomnamen van de verschillende risicomaten in de output van `CalculateFloodRisk`. De naam van het maatgevende vak wordt teruggegeven in een nieuwe kolom met de naam `{risicomaat}_section_id`.
+
+::: {.panel-tabset}
+## Configuratie
+```yaml
+GlobalVariables:
+    rootdir: "data_sets/7.flood_scenarios"
+    moments: [ -24, 0, 24, 48 ]
+    PostProcessFloodRisk:
+        risk_metric_columns:
+          - casualties
+          - damage
+          - flooding
+          - affected_people
+          - waterdepth
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+            index: False
+    combined_failure_probability_data:
+        type: csv
+        path: "rekentest_probabilities_failuremechanisme_sections.csv"
+    section_id_to_segment_id:
+        type: csv
+        path: "rekentest_section_to_segment.csv"
+    flood_risk_results_per_segment:
+        type: csv
+        path: "rekentest_flood_risk_results_per_segment.csv"
+    areas_to_determining_sections:
+        type: csv
+        path: "hidden_rekentest_areas_to_determining_sections_min.csv"
+```
+## Code
+```python
+from toolbox_continu_inzicht import Config, DataAdapter
+from toolbox_continu_inzicht.flood_scenarios import PostProcessFloodRisk
+config = Config(config_path="config.yaml")
+config.lees_config()
+data_adapter = DataAdapter(config=config)
+postprocess_flood_risk = PostProcessFloodRisk(data_adapter=data_adapter)
+postprocess_flood_risk.run(
+    input=[
+        "combined_failure_probability_data",
+        "section_id_to_segment_id",
+        "flood_risk_results_per_segment",
+    ],
+    output="areas_to_determining_sections",
 )
 ```
 :::

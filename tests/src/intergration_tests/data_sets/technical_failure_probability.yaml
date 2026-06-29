@@ -1,0 +1,27 @@
+GlobalVariables:
+    rootdir: "tests/src/intergration_tests/data_sets"
+    SectionsLoads:
+        MISSING_VALUE: -9999
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+    technical_failure_probability_fragility_curves:
+        type: csv
+        path: "technical_failure_probability_fragility_curves.csv"
+    waterstanden_per_dijkvak:
+        type: csv
+        index: false
+        path: "waterstanden_per_dijkvak.csv"
+    technical_failure_probability_data:
+        type: csv
+        path: "technical_failure_probability_data.csv"
+
+    waterstanden_per_dijkvak_extra_columns:
+        type: csv
+        index: false
+        path: "waterstanden_per_dijkvak_extra_columns.csv"
+    technical_failure_probability_data_extra_columns:
+        type: csv
+        path: "technical_failure_probability_data_extra_columns.csv"

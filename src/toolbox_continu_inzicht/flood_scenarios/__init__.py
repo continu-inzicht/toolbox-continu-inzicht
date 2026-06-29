@@ -11,9 +11,14 @@ from toolbox_continu_inzicht.flood_scenarios.calculate_flood_risk import (
     CalculateFloodRisk,
 )
 
+from toolbox_continu_inzicht.flood_scenarios.postprocess_flood_risk import (
+    PostProcessFloodRisk,
+)
+
 __all__ = [
     "CalculateFloodScenarioProbability",
     "LoadFromFloodScenarioProbability",
     "SelectFloodScenarioFromLoad",
     "CalculateFloodRisk",
+    "PostProcessFloodRisk",
 ]

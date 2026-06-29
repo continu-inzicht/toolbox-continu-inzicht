@@ -9,6 +9,7 @@ import numpy as np
 from shapely.geometry import Point, Polygon as ShapelyPolygon, LineString
 from shapely.ops import unary_union
 import warnings
+import time
 
 
 @dataclass(config={"arbitrary_types_allowed": True})
@@ -104,18 +105,25 @@ class CombineDamLiveResults(ToolboxBase):
         self.df_merged_waternet = self.merge_waternet()
         self.df_merged_calculations = self.merge_calculationsettings()
 
-        self.data_adapter.output(output[0], self.df_merged_soils)
-        self.data_adapter.output(output[1], self.df_merged_waternet)
-        self.data_adapter.output(output[2], self.df_merged_calculations)
-
-        df_colors = self.data_adapter.input(input[6])
+        self.df_colors = self.data_adapter.input(input[6])
         self.soil_color_map = (
-            df_colors[df_colors["type"] == "soil"].set_index("name")["color"].to_dict()
+            self.df_colors[self.df_colors["type"] == "soil"]
+            .set_index("name")["color"]
+            .to_dict()
         )
 
         self.water_color_map = (
-            df_colors[df_colors["type"] == "water"].set_index("name")["color"].to_dict()
+            self.df_colors[self.df_colors["type"] == "water"]
+            .set_index("name")["color"]
+            .to_dict()
         )
+
+        self.data_adapter.output(output[0], self.df_merged_soils)
+        self.data_adapter.output(output[1], self.df_merged_waternet)
+        self.data_adapter.output(output[2], self.df_merged_calculations)
+        if len(output) > 3:
+            self.data_adapter.output(output[3], self.create_df_damlive_soil())
+            self.data_adapter.output(output[4], self.create_df_damlive_soil_color())
 
     def merge_calculationsettings(self) -> pd.DataFrame:
         """
@@ -461,3 +469,162 @@ class CombineDamLiveResults(ToolboxBase):
         plt.tight_layout()
         return fig, ax
         plt.show()
+
+    # ---------------------------------------------------------------------------
+    # Hulpfunctie: creeer df_soil vanuit de DAMlive dataframes
+    # ---------------------------------------------------------------------------
+
+    def create_df_damlive_soil(self) -> pd.DataFrame:
+        """
+        Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_soil``.
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame klaar om naar data_damlive_soil te schrijven, met kolommen:
+            measuringstationid, parameterid, itemid, layername, soils.color,
+            datetime, index, x, y, z
+        """
+        measuringstation_id: int = 1
+        parameter_id: int = 200
+
+        # Huidige tijd in epoch milliseconden (since 1970-01-01 UTC)
+        epoch_ms = int(time.time() * 1000)
+
+        rijen: list[dict] = []
+
+        for _, stage_row in self.df_stages.iterrows():
+            geometry_id = stage_row["geometry_id"]
+            soillayers_id = stage_row["soillayers_id"]
+
+            # Filter geometrieën voor deze stage
+            geom_stage = self.df_geometries[
+                self.df_geometries["geometry_id"] == geometry_id
+            ]
+
+            for _, geom_row in geom_stage.iterrows():
+                layer_id = geom_row["layer_id"]
+                layer_label = geom_row["layer_label"]
+                points = geom_row["points"]  # list of dict met 'X' en 'Z' sleutels
+
+                # Zoek de bijbehorende soil_id via soillayers
+                soil_match = self.df_soillayers[
+                    (self.df_soillayers["soillayers_id"] == soillayers_id)
+                    & (self.df_soillayers["layer_id"] == layer_id)
+                ]
+
+                if soil_match.empty:
+                    # Geen grondsoort koppeling gevonden; laag overslaan
+                    continue
+
+                soil_id = soil_match.iloc[0]["soil_id"]
+
+                # Zoek de naam van de grondsoort
+                soil_name_match = self.df_soils[self.df_soils["soil_id"] == soil_id]
+                layer_name = (
+                    soil_name_match.iloc[0]["name"]
+                    if not soil_name_match.empty
+                    else layer_label
+                )
+
+                # Genereer één rij per punt in de geometrie
+                for punt_index, punt in enumerate(points):
+                    x_waarde = punt.get("X", punt.get("x", 0.0))
+                    z_waarde = punt.get("Z", punt.get("z", 0.0))
+
+                    rijen.append(
+                        {
+                            "measuringstationid": measuringstation_id,
+                            "parameterid": parameter_id,
+                            "itemid": int(layer_id),  # uniek ID per laag
+                            "layername": layer_name,
+                            "soils.color": None,  # leeglaten conform specificatie
+                            "datetime": epoch_ms,
+                            "index": punt_index,
+                            "x": float(x_waarde),
+                            "y": 0.0,  # altijd 0 (2D-profiel)
+                            "z": float(z_waarde),
+                        }
+                    )
+
+        df_soil = pd.DataFrame(rijen)
+
+        # Zorg voor het juiste kolomtype
+        if not df_soil.empty:
+            df_soil["measuringstationid"] = df_soil["measuringstationid"].astype(
+                "int64"
+            )
+            df_soil["parameterid"] = df_soil["parameterid"].astype("int64")
+            df_soil["itemid"] = df_soil["itemid"].astype("int64")
+            df_soil["datetime"] = df_soil["datetime"].astype("int64")
+            df_soil["index"] = df_soil["index"].astype("int64")
+            df_soil["x"] = df_soil["x"].astype("float64")
+            df_soil["y"] = df_soil["y"].astype("float64")
+            df_soil["z"] = df_soil["z"].astype("float64")
+
+        return df_soil
+
+    # ---------------------------------------------------------------------------
+    # Hulpfunctie: creeer df_soil_color vanuit colors DataFrame
+    # ---------------------------------------------------------------------------
+
+    def create_df_damlive_soil_color(self) -> pd.DataFrame:
+        """
+        Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_soil_color``.
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame klaar om naar data_damlive_soil_color te schrijven, met kolommen:
+            soil_name, r, g, b, color, stb_name
+
+        Raises
+        ------
+        ValueError
+            Als er geen rijen met type='soil' gevonden worden in het colors DataFrame.
+        """
+        # Filter op rijen waar type == 'soil'
+        df_soil_colors = self.df_colors[self.df_colors["type"] == "soil"].copy()
+
+        if df_soil_colors.empty:
+            raise ValueError(
+                "Geen rijen met type='soil' gevonden in het colors DataFrame. "
+                "Controleer of de kolom 'type' correct is gevuld."
+            )
+
+        rijen: list[dict] = []
+        for _, rij in df_soil_colors.iterrows():
+            hex_code = str(rij["color"]).strip()
+            r, g, b = _hex_naar_rgb(hex_code)
+
+            rijen.append(
+                {
+                    "soil_name": rij["color"],  # kolom 'color' bevat de grondsoort-naam
+                    "r": r,
+                    "g": g,
+                    "b": b,
+                    "color": hex_code if hex_code.startswith("#") else f"#{hex_code}",
+                    "stb_name": rij["color"],  # zelfde waarde als soil_name
+                }
+            )
+
+        df_color = pd.DataFrame(rijen)
+
+        if not df_color.empty:
+            df_color["r"] = df_color["r"].astype("int64")
+            df_color["g"] = df_color["g"].astype("int64")
+            df_color["b"] = df_color["b"].astype("int64")
+
+        return df_color
+
+
+# TODO verplaats naar utils
+def _hex_naar_rgb(hex_code: str) -> tuple[int, int, int]:
+    """Converteer HEX kleurcode naar (R, G, B) integers."""
+    hex_code = str(hex_code).strip().lstrip("#")
+    if len(hex_code) != 6:
+        return (128, 128, 128)  # fallback grijs bij ongeldige code
+    r = int(hex_code[0:2], 16)
+    g = int(hex_code[2:4], 16)
+    b = int(hex_code[4:6], 16)
+    return r, g, b
