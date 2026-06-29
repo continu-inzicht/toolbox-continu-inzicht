@@ -317,16 +317,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    fp,</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    ll<span class="op">=</span><span class="fl">1e-200</span>,</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    clip01<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    lower_limit_mode<span class="op">=</span><span class="st">'probability'</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>interpolate_1d met y-waardes omgezet naar log-waardes</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 7%">
-<col style="width: 11%">
-<col style="width: 70%">
-<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 9%">
+<col style="width: 61%">
+<col style="width: 13%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -366,6 +367,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>bool</td>
 <td>Begrens resultaat tussen [0, 1]</td>
 <td><code>False</code></td>
+</tr>
+<tr class="even">
+<td>lower_limit_mode</td>
+<td>str</td>
+<td>Behandeling van de ondergrens: “none”, “probability” of “physical”.</td>
+<td><code>'probability'</code></td>
 </tr>
 </tbody>
 </table>

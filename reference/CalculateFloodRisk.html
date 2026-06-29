@@ -239,16 +239,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Dataframe met de risico resultaten</td>
 </tr>
 <tr class="even">
+<td>df_out_flood_risk_results_per_segment</td>
+<td>Optional[pd.DataFrame] | None</td>
+<td>Dataframe met de risico resultaten per segment, zodat bijdragen kan worden bijgehouden per vak</td>
+</tr>
+<tr class="odd">
 <td>schema_scenario_failure_prob_segments</td>
 <td>ClassVar[dict[str, str]]</td>
 <td>Schema voor de input dataframe met deeltrajectkansen</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>schema_scenario_consequences_grids</td>
 <td>ClassVar[dict[str, str]]</td>
 <td>Schema voor de input dataframe met gevolgengrids behorende bij de scenariokansen per deeltraject (segment)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>schema_areas_to_aggregate</td>
 <td>ClassVar[dict[str, str]]</td>
 <td>Schema voor de input geodataframe met gebieden te aggregeren.</td>
@@ -258,12 +263,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="notes" class="level2 doc-section doc-section-notes">
 <h2 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h2>
-<p>schema voor sections_to_segment</p>
-<pre><code>- section_id: int
-- segment_id: int</code></pre>
-<p>schema voor grouped_sections_failure_probability</p>
-<pre><code>- section_id: int
-- failure_probability: float</code></pre>
+<p>schema voor scenario failure prob segments</p>
+<pre><code>- segment_id: int
+- scenario_failure_probability: float</code></pre>
+<p>schema voor scenario consequences grids</p>
+<pre><code>- segment_id: int
+- section_id: int
+- hydraulicload_upperboundary: float</code></pre>
+<p>schema voor areas to aggregate</p>
+<pre><code>- area_id: int
+- geometry: geometry</code></pre>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
@@ -287,12 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <section id="toolbox_continu_inzicht.flood_scenarios.CalculateFloodRisk.log_exceptions" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.flood_scenarios.CalculateFloodRisk.log_exceptions">log_exceptions</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>flood_scenarios.CalculateFloodRisk.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>flood_scenarios.CalculateFloodRisk.log_exceptions(method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Stuurt exceptions eerst naar de logger van de DataAdapter</p>
 </section>
 <section id="toolbox_continu_inzicht.flood_scenarios.CalculateFloodRisk.run" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.flood_scenarios.CalculateFloodRisk.run">run</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>flood_scenarios.CalculateFloodRisk.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>flood_scenarios.CalculateFloodRisk.run(<span class="bu">input</span>, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>De runner van de Calculate Flood Risk module.</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>

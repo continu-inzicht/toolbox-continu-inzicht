@@ -270,6 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-LoadFromFloodScenarioProbability" id="toc-sec-LoadFromFloodScenarioProbability" class="nav-link" data-scroll-target="#sec-LoadFromFloodScenarioProbability">LoadFromFloodScenarioProbability</a></li>
   <li><a href="#sec-SelectFloodScenarioFromLoad" id="toc-sec-SelectFloodScenarioFromLoad" class="nav-link" data-scroll-target="#sec-SelectFloodScenarioFromLoad">SelectFloodScenarioFromLoad</a></li>
   <li><a href="#sec-CalculateFloodRisk" id="toc-sec-CalculateFloodRisk" class="nav-link" data-scroll-target="#sec-CalculateFloodRisk">CalculateFloodRisk</a></li>
+  <li><a href="#sec-PostProcessFloodRisk" id="toc-sec-PostProcessFloodRisk" class="nav-link" data-scroll-target="#sec-PostProcessFloodRisk">PostProcessFloodRisk</a></li>
   </ul>
 </nav>
     </div>
@@ -297,16 +298,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Risico’s worden berekend door kansen te combineren met gevolgen. In de toolbox Continu Inzicht worden fragilitycurves gebruikt om de conditionele kans op falen van een sectie (per faalmechanisme) te bepalen. De gevolgen van een overstroming worden bepaald met behulp van overstromingsscenarioberekeningen, ook wel aangeduid met scenario’s. Uit een overstroomd gebied worden gevolgen afgeleid zoals economische schade, slachtoffers, en getroffenen. <br> Door conditionele kansen met gevolgen te combineren kunnen conditionele risico’s worden bepaald, bestaande uit de verwachte economische schade van een gebied, het verwachte aantal slachtoffers en/of getroffen in een gebied en/of de plaatsgebonden overstromingskans van een locatie. <br></p>
 <p>Deze risico’s kunnen helpen om prioriteiten te stellen tijdens hoogwater, waarbij er niet alleen een kans of een afzonderlijk gevolg wordt beschouwd. <br></p>
-<p>Om de scenarios te kunnen combineren moeten er een aantal stappen worden doorlopen: - Omrekenen van dijkvakkansen naar trajectdeelkansen (<a href="#sec-CalculateFloodScenarioProbability">CalculateFloodScenarioProbability</a>) - Belasting per deeltraject bepalen (<a href="#sec-LoadFromFloodScenarioProbabilit">LoadFromFloodScenarioProbabilit</a>) - Met de belasting een bijpassende overstromingscenario selecteren (<a href="#sec-SelectFloodScenarioFromLoad">SelectFloodScenarioFromLoad</a>) - Van het scenario en de curve een geagregeerd risico bepalen (<a href="#sec-CalculateFloodRisk">CalculateFloodRisk</a>)</p>
+<p>Om de scenarios te kunnen combineren moeten er een aantal stappen worden doorlopen: - Omrekenen van dijkvakkansen naar trajectdeelkansen (<a href="#sec-CalculateFloodScenarioProbability">CalculateFloodScenarioProbability</a>) - Belasting per deeltraject bepalen (<a href="#sec-LoadFromFloodScenarioProbability">LoadFromFloodScenarioProbability</a>) - Met de belasting een bijpassende overstromingscenario selecteren (<a href="#sec-SelectFloodScenarioFromLoad">SelectFloodScenarioFromLoad</a>) - Van het scenario en de curve een geagregeerd risico bepalen (<a href="#sec-CalculateFloodRisk">CalculateFloodRisk</a>) - Een nabewerking van het risico om dit terug te koppelen aan het maatgevende vak (<a href="#sec-PostProcessFloodRisk">PostProcessFloodRisk</a>)</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">graph TD
-    A[CalculateFloodScenarioProbability] --&gt; B[LoadFromFloodScenarioProbabilit]
+    A[CalculateFloodScenarioProbability] --&gt; B[LoadFromFloodScenarioProbability]
     B --&gt; C[SelectFloodScenarioFromLoad]
     C --&gt; D[CalculateFloodRisk]
+    D --&gt; E[PostProcessFloodRisk]
+    A --&gt; E
+
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -335,7 +339,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Dit voorbeeld laat zien hoe met behulp van de <code>CalculateFloodScenarioProbability</code> scenariokansen berekend worden uit kansen per sectie en per faalmachanisme. <br> Eerst worden de kansen per sectie en faalmachanisme ingeladen <code>input_probabilities_failuremechanisme_sections</code>, daarna worden deze gecombineerd naar een kans over alle secties (voorheen aangeduid als de ringkans) per faalmechanisme. Daarna worden de kansen over alle secties per faalmechanisme gecombineerd naar 1 kans over alle secties en over alle faalmechanismen. <br> Deze volgorde (eerst combineren over alle sectie en daarna over alle faalmechanismen) is bewust gekozen omdat per faalmechanisme verschillende met andere correlaties wordt gerekend. Voor het faalmechanisme GEKB wordt verondersteld dat alle secties volledig afhankelijk falen en voor de overige faalmechanismen wordt verondersteld dat de secties volledig onafhankelijk falen. Door gekozen volgorde bij het combineren van faalkansen aan te houden, kan dit onderscheid geborgd worden. Tussen de verschillende faalmechanismen wordt volledige onafhankelijkheid verondersteld. N.B. in een volledige probabilistische berekening (waarbij niet met fragility curves wordt gerekend) kan de daadwerkelijke correlatie worden berekend en is het ook mogelijk om te rekenen met gedeeltelijke afhankelijkheid. Dat is in een werkwijze met fragilitycurves niet mogelijk. <br></p>
+<p>Dit voorbeeld laat zien hoe met behulp van de <code>CalculateFloodScenarioProbability</code> scenariokansen berekend worden uit kansen per sectie en per faalmachanismen. <br> Hiervoor zijn 3 data adapters nodig; - De faalmechanismen met de bijbehorende ids - De kansen per sectie en faalmechanisme, en - De koppeling van secties naar segmenten. <br></p>
+<p>De faalmechanismen worden gecombineerd naar een kans over alle secties (voorheen aangeduid als de ringkans) per faalmechanisme. Daarna worden de kansen over alle secties per faalmechanisme gecombineerd naar 1 kans over alle secties en over alle faalmechanismen. <br> Deze volgorde (eerst combineren over alle sectie en daarna over alle faalmechanismen) is bewust gekozen omdat per faalmechanisme verschillende met andere correlaties wordt gerekend. Voor het faalmechanisme GEKB wordt verondersteld dat alle secties volledig afhankelijk falen en voor de overige faalmechanismen wordt verondersteld dat de secties volledig onafhankelijk falen. Door gekozen volgorde bij het combineren van faalkansen aan te houden, kan dit onderscheid geborgd worden. Tussen de verschillende faalmechanismen wordt volledige onafhankelijkheid verondersteld. N.B. in een volledige probabilistische berekening (waarbij niet met fragility curves wordt gerekend) kan de daadwerkelijke correlatie worden berekend en is het ook mogelijk om te rekenen met gedeeltelijke afhankelijkheid. Dat is in een werkwijze met fragilitycurves niet mogelijk. <br></p>
+<p>De output bevat twee data adapters: - De scenariokans per segment, deze kan gebruikt worden om een bijpassend scenario te selecteren - De totaal gecombineerde faalkans van alle vakken. Deze kan gebruikt worden om het risico van een gebied te bepalen.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
@@ -393,7 +399,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="sec-LoadFromFloodScenarioProbability" class="level2">
 <h2 class="anchored" data-anchor-id="sec-LoadFromFloodScenarioProbability">LoadFromFloodScenarioProbability</h2>
-<p>Voor het bepalen van de risico van een overstroming is het nodig om een bijpassend overstromingsscenario te selecteren. Er zijn meerdere overstromingsscenario’s beschikbaar die verschillende hydraulische belastingen representeren. <br> In de vorige stap <code>CalculateFloodScenarioProbability</code> is een scenariokans van een deeltraject (segment) berekend <code>scenario_failure_prob_segments</code>. Hiermee kan een bijpassend overstromingsscenario worden geselecteerd. Hiertoe is het nodig om de hydraulische belasting per deeltraject te bepalen met de <code>LoadFromFloodScenarioProbability</code>. Dat gebeurt met behulp van de fragilitycurves. Hiertoe is het noodzakelijk om 1 representatieve fragilitycurve per deeltraject te selecteren uit <code>section_fragility_curves</code>. Dat doen we door voor elk deeltraject (segment) 1 sectie te selecteren <code>section_to_segment</code>. De fragilitycurve van deze sectie wordt dan gebruikt om de scenariekans van het deeltraject (segement) om te zetten in een hydraulische belasting, die daarna gebruikt kan worden om een bijpassend overstromingsscenario te selecteren voor het deeltraject (segment).</p>
+<p>Voor het bepalen van de risico van een overstroming is het nodig om een bijpassend overstromingsscenario te selecteren. Er zijn meerdere overstromingsscenario’s beschikbaar die verschillende hydraulische belastingen representeren. <br> In de vorige stap <code>CalculateFloodScenarioProbability</code> is een scenariokans van een deeltraject (segment) berekend <code>scenario_failure_prob_segments</code>. Hiermee kan een bijpassend overstromingsscenario worden geselecteerd. Hiertoe is het nodig om de hydraulische belasting per deeltraject te bepalen met de <code>LoadFromFloodScenarioProbability</code>. Dat gebeurt met behulp van de fragilitycurves. Hiertoe is het noodzakelijk om 1 representatieve fragilitycurve per deeltraject te selecteren uit <code>section_fragility_curves</code>. Dat doen we door voor elk deeltraject (segment) 1 sectie te selecteren <code>section_to_segment</code>. De fragilitycurve van deze sectie wordt dan gebruikt om de scenariekans van het deeltraject (segment) om te zetten in een hydraulische belasting, die daarna gebruikt kan worden om een bijpassend overstromingsscenario te selecteren voor het deeltraject (segment).</p>
+<p>Hiervoor moeten 3 data adapters worden meegegeven. De eerste is de output van <code>CalculateFloodScenarioProbability</code> met daarin per deeltraject (segment) de bijbehorende scenariokans. De tweede is de koppeling van secties naar segmenten, hiermee kan per segment een representatieve sectie worden geselecteerd. De derde adapter bevat de fragilitycurves per sectie, hiermee kan de scenariokans van het deeltraject (segment) worden omgezet in een hydraulische belasting.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
@@ -533,7 +540,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td>affected_people_grid</td>
-<td>affectedpeople</td>
+<td>affected_people</td>
 <td>sum</td>
 </tr>
 </tbody>
@@ -555,7 +562,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">casualties</span><span class="kw">:</span><span class="at"> sum</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">damage</span><span class="kw">:</span><span class="at"> sum</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">flooding</span><span class="kw">:</span><span class="at"> median</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">affectedpeople</span><span class="kw">:</span><span class="at"> sum</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">affected_people</span><span class="kw">:</span><span class="at"> sum</span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">waterdepth</span><span class="kw">:</span><span class="at"> sum</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">per_hectare</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
@@ -580,7 +587,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">        #abs_path_user: "tests/src/flood_scenarios/data_sets/flood_scenarios" # dit kan ook gebruikt worden</span></span>
 <span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_flood_risk_results</span><span class="kw">:</span></span>
 <span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_flood_risk_results.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_flood_risk_results.csv"</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">output_flood_risk_results_per_segment</span><span class="kw">:</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_flood_risk_results_per_segment.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
@@ -596,8 +606,87 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"input_areas_to_aggregate"</span>,</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flood_risk_local_file"</span>,</span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"output_flood_risk_results"</span>,</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span>[<span class="st">"output_flood_risk_results"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"output_flood_risk_results_per_segment"</span>],</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-PostProcessFloodRisk" class="level2">
+<h2 class="anchored" data-anchor-id="sec-PostProcessFloodRisk">PostProcessFloodRisk</h2>
+<p>Het resultaat van de overstromingsberekening kunnen we verder verwerken om het overstromingsrisico van een gebied te relateren aan het maatgevende vak. Hiermee wordt inzichtelijk welk vak kritiek is voor een bepaald gevolg. We selecteren eerst het traject met de grootste bijdragen aan het risio van een gebied. Omdat we het risico niet per vak berekenen, maar voor een traject, gebruiken we de faalkans van een vak. Hierbij worden de faalkansen van de verschillende faalmechanismen onafhankelijk gecombineerd tot een totale vakkans. Het vak met de hoogste faalkans wordt gekoppeld aan het gebied; dit kan dan eenvoudig getoond worden in een viewer.</p>
+<p>In een grafiek ziet dit er ongeveer zo uit:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD;
+    A[Risico per gebied]--&gt;B[Dijktraject deel 1];
+    A --&gt; C[Dijktraject deel 2];
+    A --&gt; D[Dijktraject deel 3: maatgevend];
+    D --&gt; E[Dijkvak 1];
+    D --&gt; F[Dijkvak 2];
+    D --&gt; G[Dijkvak 3: maatgevend];
+    G &lt;--&gt; |Koppeling gebied-dijkvak|A;
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Dit is bijna hetzelfde proces als in <a href="#sec-CalculateFloodScenarioProbability">CalculateFloodScenarioProbability</a>, maar dan vanuit risico terug naar de kans.</p>
+<p>Voor de functie <code>PostProcessFloodRisk</code> zijn 3 data adapters nodig: - De faalkans per segment en per faalmechanisme, deze wordt ook gebruikt in <code>CalculateFloodScenarioProbability</code>. - De koppeling tussen secties en segmenten, deze wordt ook gebruikt in <code>CalculateFloodScenarioProbability</code>. - Het overstromingsrisico per gebied, uitgesplitst per segement, dit is het resultaat van <code>CalculateFloodRisk</code>.</p>
+<p>De output is een tabel met per gebied, per risicomaat het maatgevende vak. De risicomaten moeten in de input van <code>PostProcessFloodRisk</code> worden opgegeven in de variable <code>risk_metric_columns</code>. Deze zijn hetzelfde als de kolomnamen van de verschillende risicomaten in de output van <code>CalculateFloodRisk</code>. De naam van het maatgevende vak wordt teruggegeven in een nieuwe kolom met de naam <code>{risicomaat}_section_id</code>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Configuratie</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/7.flood_scenarios"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="dv">-24</span><span class="kw">,</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span><span class="at"> </span><span class="dv">24</span><span class="kw">,</span><span class="at"> </span><span class="dv">48</span><span class="at"> </span><span class="kw">]</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">PostProcessFloodRisk</span><span class="kw">:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">risk_metric_columns</span><span class="kw">:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> casualties</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> damage</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> flooding</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> affected_people</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> waterdepth</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">DataAdapter</span><span class="kw">:</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">default_options</span><span class="kw">:</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">csv</span><span class="kw">:</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">sep</span><span class="kw">:</span><span class="at"> </span><span class="st">","</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">index</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">combined_failure_probability_data</span><span class="kw">:</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"rekentest_probabilities_failuremechanisme_sections.csv"</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">section_id_to_segment_id</span><span class="kw">:</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"rekentest_section_to_segment.csv"</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">flood_risk_results_per_segment</span><span class="kw">:</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"rekentest_flood_risk_results_per_segment.csv"</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">areas_to_determining_sections</span><span class="kw">:</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"hidden_rekentest_areas_to_determining_sections_min.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht <span class="im">import</span> Config, DataAdapter</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.flood_scenarios <span class="im">import</span> PostProcessFloodRisk</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>postprocess_flood_risk <span class="op">=</span> PostProcessFloodRisk(data_adapter<span class="op">=</span>data_adapter)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>postprocess_flood_risk.run(</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"combined_failure_probability_data"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"section_id_to_segment_id"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"flood_risk_results_per_segment"</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"areas_to_determining_sections"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

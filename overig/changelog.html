@@ -204,6 +204,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#aanpassingen-aan-fragility-curve-overtopping" id="toc-aanpassingen-aan-fragility-curve-overtopping" class="nav-link" data-scroll-target="#aanpassingen-aan-fragility-curve-overtopping">Aanpassingen aan Fragility Curve Overtopping</a></li>
   <li><a href="#v0.1.4-0.1.4" id="toc-v0.1.4-0.1.4" class="nav-link" data-scroll-target="#v0.1.4-0.1.4">V0.1.4 [0.1.4]</a></li>
   <li><a href="#sprint-8" id="toc-sprint-8" class="nav-link" data-scroll-target="#sprint-8">Sprint 8</a></li>
+  <li><a href="#v0.1.5-0.1.5" id="toc-v0.1.5-0.1.5" class="nav-link" data-scroll-target="#v0.1.5-0.1.5">V0.1.5 [0.1.5]</a></li>
+  <li><a href="#sprint-9" id="toc-sprint-9" class="nav-link" data-scroll-target="#sprint-9">Sprint 9</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -349,6 +351,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="sprint-7">Sprint 7</h3>
 <section id="inhoudelijk-4" class="level4">
 <h4 class="anchored" data-anchor-id="inhoudelijk-4">Inhoudelijk</h4>
+<p>Alle aanpassingen zijn terug te vinden <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/85">#85</a></p>
 <p>In sprint 7 (voorjaar 2026) is gewerkt aan het opzetten van een koppeling met DamLive. DamLive is ontworpen om met FEWS te werken, waarbij metingen in worden meegegeven en door de rekenhart achter DAM (Dijksterkte Analayse Module) een faalkans per tijdstap wordt berekend.</p>
 <p>De toolbox vervangt hierbij de rol van FEWS, en DamLive kan vanuit elke bron gevoed worden met metingen. Na het runnen van een berekekening kunnne de resultaten van DamLive worden ingelezen en kunnen getoond worden.</p>
 </section>
@@ -370,6 +373,21 @@ ul.task-list li input[type="checkbox"] {
 <h4 class="anchored" data-anchor-id="inhoudelijk-5">Inhoudelijk</h4>
 <p>Alle aanpassingen zijn terug te vinden <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/89">#89</a></p>
 <p>In sprint 8 zijn wat rest punten van de DamLive koppeling afgerond en zijn de operationele scripts van de grondwaterdroogte indicator toegevoegd aan de toolbox. Met deze scripts kunnen <a href="https://github.com/pastas/pastas">pastas</a> tijdreeks modellen gebruikt worden om de extremiteit van grondwaterstanden te duiden. Voor de toolbox zijn hier data adapter voor toegevoegd om neerslag en verdamping uit te lezen uit WIWB en KNMI.</p>
+</section>
+</section>
+<section id="v0.1.5-0.1.5" class="level3">
+<h3 class="anchored" data-anchor-id="v0.1.5-0.1.5">V0.1.5 [<a href="https://pypi.org/project/toolbox-continu-inzicht/0.1.5/">0.1.5</a>]</h3>
+</section>
+<section id="sprint-9" class="level3">
+<h3 class="anchored" data-anchor-id="sprint-9">Sprint 9</h3>
+<section id="inhoudelijk-6" class="level4">
+<h4 class="anchored" data-anchor-id="inhoudelijk-6">Inhoudelijk</h4>
+<p>Alle aanpassingen zijn terug te vinden <a href="https://github.com/continu-inzicht/toolbox-continu-inzicht/pull/96">#96</a></p>
+<p>In sprint 9 zijn wat restpunten van de overstromingsscenarios toegevoegd. Ook zijn SectionLoads en LoadsClassify aangepast om felxiblere met de in en uitvoer om te gaan van kollom namen.</p>
+</section>
+<section id="breaking-changes" class="level4">
+<h4 class="anchored" data-anchor-id="breaking-changes">‘Breaking changes’</h4>
+<p>De output van de <code>SectionsLoads</code> class is aangepast. De kolom <code>id</code> is hernoemd naar <code>section_id</code>. Dit is gedaan om een duidelijkere naamgeving van begin tot einde te hebben als alle modules onder elkaar worden gezet. Nu zou nog een handmatige aanpassing nodig zijn.</p>
 
 
 </section>

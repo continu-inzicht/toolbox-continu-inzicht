@@ -458,16 +458,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.interp_x_func" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.interp_x_func">interp_x_func</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.interp_x_func(x, xp, fp, ll<span class="op">=</span><span class="fl">1e-200</span>, clip01<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.interp_x_func(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    x,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    xp,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    fp,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    ll<span class="op">=</span><span class="fl">1e-200</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    clip01<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    lower_limit_mode<span class="op">=</span><span class="st">'probability'</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>interpolate_1d met y-waardes omgezet naar log-waardes</p>
 <section id="parameters-1" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 7%">
-<col style="width: 11%">
-<col style="width: 70%">
-<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 9%">
+<col style="width: 61%">
+<col style="width: 13%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -508,6 +515,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Begrens resultaat tussen [0, 1]</td>
 <td><code>False</code></td>
 </tr>
+<tr class="even">
+<td>lower_limit_mode</td>
+<td>str</td>
+<td>Behandeling van de ondergrens: “none”, “probability” of “physical”.</td>
+<td><code>'probability'</code></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -533,16 +546,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="toolbox_continu_inzicht.FragilityCurve.interp_y_func" class="level3">
 <h3 class="anchored" data-anchor-id="toolbox_continu_inzicht.FragilityCurve.interp_y_func">interp_y_func</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.interp_y_func(y, xp, fp, ll<span class="op">=</span><span class="fl">1e-200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>FragilityCurve.interp_y_func(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    y,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    xp,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    fp,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    ll<span class="op">=</span><span class="fl">1e-200</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    lower_limit_mode<span class="op">=</span><span class="st">'probability'</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>interpolate_1d met x-waardes omgezet naar log-waardes</p>
 <section id="parameters-2" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 7%">
-<col style="width: 11%">
-<col style="width: 70%">
-<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 9%">
+<col style="width: 61%">
+<col style="width: 13%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -576,6 +595,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>float</td>
 <td>Ondergrens voor de interpolatie, deze waarde of kleiner wordt als 0 gezien</td>
 <td><code>1e-200</code></td>
+</tr>
+<tr class="odd">
+<td>lower_limit_mode</td>
+<td>str</td>
+<td>Behandeling van de ondergrens: “none”, “probability” of “physical”.</td>
+<td><code>'probability'</code></td>
 </tr>
 </tbody>
 </table>

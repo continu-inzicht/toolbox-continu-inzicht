@@ -295,6 +295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#loads-classify" id="toc-loads-classify" class="nav-link" data-scroll-target="#loads-classify">Loads classify</a></li>
   <li><a href="#sections-loads" id="toc-sections-loads" class="nav-link" data-scroll-target="#sections-loads">Sections Loads</a></li>
   <li><a href="#fragility-curves" id="toc-fragility-curves" class="nav-link" data-scroll-target="#fragility-curves">Fragility Curves</a></li>
+  <li><a href="#clasificeren-van-kansen" id="toc-clasificeren-van-kansen" class="nav-link" data-scroll-target="#clasificeren-van-kansen">Clasificeren van kansen</a></li>
   </ul>
 </nav>
     </div>
@@ -373,7 +374,7 @@ Configuratie
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_waterstanden.plot(</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"date_time"</span>, y<span class="op">=</span><span class="st">"value"</span>, title<span class="op">=</span><span class="st">"Water standen van Waterwebservices"</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="102.quick_start_guide_files/figure-html/cell-5-output-1.png" width="582" height="464"></p>
+<p><img src="102.quick_start_guide_files/figure-html/cell-5-output-1.png" width="578" height="464"></p>
 </section>
 <section id="loads-to-moments" class="level2">
 <h2 class="anchored" data-anchor-id="loads-to-moments">Loads to moments</h2>
@@ -516,49 +517,73 @@ Bijbehorende configuratie
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">measurement_location_id</th>
 <th data-quarto-table-cell-role="th">date_time</th>
+<th data-quarto-table-cell-role="th">Unnamed: 0</th>
+<th data-quarto-table-cell-role="th">measurement_location_id</th>
+<th data-quarto-table-cell-role="th">measurement_location_description</th>
+<th data-quarto-table-cell-role="th">parameter_id</th>
+<th data-quarto-table-cell-role="th">parameter_code</th>
+<th data-quarto-table-cell-role="th">unit</th>
 <th data-quarto-table-cell-role="th">value</th>
+<th data-quarto-table-cell-role="th">value_type</th>
+<th data-quarto-table-cell-role="th">hours</th>
 <th data-quarto-table-cell-role="th">lower_boundary</th>
 <th data-quarto-table-cell-role="th">upper_boundary</th>
 <th data-quarto-table-cell-role="th">color</th>
 <th data-quarto-table-cell-role="th">label</th>
-<th data-quarto-table-cell-role="th">hours</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
 <td>2026-02-01 14:00:00+01:00</td>
+<td>6</td>
+<td>1</td>
+<td>Hoek van Holland</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>cm</td>
 <td>125.0</td>
+<td>meting</td>
+<td>0</td>
 <td>-92.0</td>
 <td>200.0</td>
 <td>#39870C</td>
 <td>Normaal (-92 tot 200cm)</td>
-<td>0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>1</td>
 <td>2026-02-02 13:40:00+01:00</td>
+<td>148</td>
+<td>1</td>
+<td>Hoek van Holland</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>cm</td>
 <td>16.0</td>
+<td>verwachting</td>
+<td>24</td>
 <td>-92.0</td>
 <td>200.0</td>
 <td>#39870C</td>
 <td>Normaal (-92 tot 200cm)</td>
-<td>24</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>1</td>
 <td>2026-02-02 13:40:00+01:00</td>
+<td>148</td>
+<td>1</td>
+<td>Hoek van Holland</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>cm</td>
 <td>16.0</td>
+<td>verwachting</td>
+<td>48</td>
 <td>-92.0</td>
 <td>200.0</td>
 <td>#39870C</td>
 <td>Normaal (-92 tot 200cm)</td>
-<td>48</td>
 </tr>
 </tbody>
 </table>
@@ -590,13 +615,16 @@ Bijbehorende configuratie
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">section_id</th>
 <th data-quarto-table-cell-role="th">name</th>
 <th data-quarto-table-cell-role="th">date_time</th>
-<th data-quarto-table-cell-role="th">value</th>
-<th data-quarto-table-cell-role="th">unit</th>
+<th data-quarto-table-cell-role="th">Unnamed: 0</th>
+<th data-quarto-table-cell-role="th">parameter_code</th>
+<th data-quarto-table-cell-role="th">hours</th>
 <th data-quarto-table-cell-role="th">parameter_id</th>
+<th data-quarto-table-cell-role="th">unit</th>
 <th data-quarto-table-cell-role="th">value_type</th>
+<th data-quarto-table-cell-role="th">value</th>
 </tr>
 </thead>
 <tbody>
@@ -605,40 +633,52 @@ Bijbehorende configuratie
 <td>1</td>
 <td>vak1.1</td>
 <td>2026-02-01 14:00:00+01:00</td>
-<td>125.0</td>
-<td>cm</td>
+<td>6</td>
+<td>WATHTE</td>
+<td>0</td>
 <td>4724</td>
+<td>cm</td>
 <td>meting</td>
+<td>125.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
 <td>2</td>
 <td>vak1.2</td>
 <td>2026-02-01 14:00:00+01:00</td>
-<td>125.8</td>
-<td>cm</td>
+<td>6</td>
+<td>WATHTE</td>
+<td>0</td>
 <td>4724</td>
+<td>cm</td>
 <td>meting</td>
+<td>125.8</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
 <td>3</td>
 <td>vak1.3</td>
 <td>2026-02-01 14:00:00+01:00</td>
-<td>126.2</td>
-<td>cm</td>
+<td>6</td>
+<td>WATHTE</td>
+<td>0</td>
 <td>4724</td>
+<td>cm</td>
 <td>meting</td>
+<td>126.2</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">15</td>
 <td>4</td>
 <td>vak1.4</td>
 <td>2026-02-01 14:00:00+01:00</td>
-<td>126.6</td>
-<td>cm</td>
+<td>6</td>
+<td>WATHTE</td>
+<td>0</td>
 <td>4724</td>
+<td>cm</td>
 <td>meting</td>
+<td>126.6</td>
 </tr>
 </tbody>
 </table>
@@ -707,6 +747,77 @@ Bijbehorende configuratie
 <td>verwachting</td>
 <td>3.195134e-24</td>
 <td>COMB</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</section>
+<section id="clasificeren-van-kansen" class="level1">
+<h1>Clasificeren van kansen</h1>
+<p>De technische faalkans die brekend is, kan vervolgens geclassificeerd worden. Hiermee kan in de viewer een vak met een bepaalde kleur worden weergegeven. Waarbij de kleur gekoppeld is aan de state_id.</p>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"sections_classify.yaml"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.sections <span class="im">import</span> SectionsClassify</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>sections_classify <span class="op">=</span> SectionsClassify(data_adapter<span class="op">=</span>data_adapter)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>sections_classify.run(</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span><span class="op">=</span>[<span class="st">"section_conditions"</span>, <span class="st">"section_data_failure_probability"</span>],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"section_states"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>sections_classify.df_out.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">failureprobability_id</th>
+<th data-quarto-table-cell-role="th">section_id</th>
+<th data-quarto-table-cell-role="th">value_parameter_id</th>
+<th data-quarto-table-cell-role="th">failuremechanism_id</th>
+<th data-quarto-table-cell-role="th">failuremechanism</th>
+<th data-quarto-table-cell-role="th">measures_id</th>
+<th data-quarto-table-cell-role="th">measure</th>
+<th data-quarto-table-cell-role="th">parameter_id</th>
+<th data-quarto-table-cell-role="th">unit</th>
+<th data-quarto-table-cell-role="th">date_time</th>
+<th data-quarto-table-cell-role="th">value</th>
+<th data-quarto-table-cell-role="th">state_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>164</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>COMB</td>
+<td>0</td>
+<td>NONE</td>
+<td>5</td>
+<td>-</td>
+<td>2023-12-31 02:00:00+01:00</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>165</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>COMB</td>
+<td>0</td>
+<td>NONE</td>
+<td>5</td>
+<td>-</td>
+<td>2023-12-31 02:00:00+01:00</td>
+<td>0.0</td>
+<td>1.0</td>
 </tr>
 </tbody>
 </table>
