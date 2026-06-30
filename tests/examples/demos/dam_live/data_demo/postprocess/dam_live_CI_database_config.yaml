@@ -2,7 +2,7 @@ GlobalVariables:
   rootdir: "data_demo/postprocess/WV2030_Purmer.Calc/Stability/Bishop/PU0013_87074-1_DWP001_0_2024-11-06T07"
 
 DataAdapter:
-  scenario:
+  stages:
     type: stages
     path: scenarios
 
@@ -10,13 +10,13 @@ DataAdapter:
     type: geometries
     path: geometries
 
-  soillayers:
-    type: soillayers
-    path: soillayers
-
   soils:
     type: soils
     path: soils.json
+
+  soillayers:
+    type: soillayers
+    path: soillayers
 
   waternets:
     type: waternets
@@ -25,6 +25,10 @@ DataAdapter:
   calculationsettings:
     type: calculationsettings
     path: calculationsettings
+
+  scenarios:
+    type: scenarios
+    path: scenarios
 
   colors:
     type: csv
@@ -39,12 +43,37 @@ DataAdapter:
   merge_calculations:
     type: python
 
+  ci_database_damlive_models:
+    type: ci_postgresql_damlive_models
+    database: "continuinzicht"
+    schema: "continuinzicht_hhnk_purmer_realtime"
+
+  ci_database_damlive_scenarios:
+    type: ci_postgresql_damlive_scenarios
+    database: "continuinzicht"
+    schema: "continuinzicht_hhnk_purmer_realtime"
+
   ci_database_damlive_soil:
     type: ci_postgresql_damlive_soil
     database: "continuinzicht"
     schema: "continuinzicht_hhnk_purmer_realtime"
-    
+
   ci_database_damlive_soil_color:
     type: ci_postgresql_damlive_soil_color
+    database: "continuinzicht"
+    schema: "continuinzicht_hhnk_purmer_realtime"
+
+  ci_database_damlive_lines:
+    type: ci_postgresql_damlive_lines
+    database: "continuinzicht"
+    schema: "continuinzicht_hhnk_purmer_realtime"
+
+  ci_database_damlive_lines_enveloping:
+    type: ci_postgresql_damlive_lines_enveloping
+    database: "continuinzicht"
+    schema: "continuinzicht_hhnk_purmer_realtime"
+
+  ci_database_damlive_values:
+    type: ci_postgresql_damlive_values
     database: "continuinzicht"
     schema: "continuinzicht_hhnk_purmer_realtime"

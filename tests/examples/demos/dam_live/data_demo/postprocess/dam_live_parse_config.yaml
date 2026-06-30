@@ -2,7 +2,7 @@ GlobalVariables:
   rootdir: "data_demo/postprocess/WV2030_Purmer.Calc/Stability/Bishop/PU0013_87074-1_DWP001_0_2024-11-06T07"
 
 DataAdapter:
-  scenario:
+  stages:
     type: stages
     path: scenarios
 
@@ -10,13 +10,13 @@ DataAdapter:
     type: geometries
     path: geometries
 
-  soillayers:
-    type: soillayers
-    path: soillayers
-
   soils:
     type: soils
     path: soils.json
+
+  soillayers:
+    type: soillayers
+    path: soillayers
 
   waternets:
     type: waternets
@@ -25,6 +25,10 @@ DataAdapter:
   calculationsettings:
     type: calculationsettings
     path: calculationsettings
+
+  scenarios:
+    type: scenarios
+    path: scenarios
 
   colors:
     type: csv

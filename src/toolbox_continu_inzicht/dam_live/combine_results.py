@@ -1,9 +1,12 @@
+import matplotlib
 from pydantic.dataclasses import dataclass
 import pandas as pd
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from typing import Optional
 from toolbox_continu_inzicht.base.base_module import ToolboxBase
 import matplotlib.pyplot as plt
+
+matplotlib.use("TkAgg")  # of "Agg" als je geen interactief venster nodig hebt
 from matplotlib.patches import Polygon
 import numpy as np
 from shapely.geometry import Point, Polygon as ShapelyPolygon, LineString
@@ -30,7 +33,7 @@ class CombineDamLiveResults(ToolboxBase):
         Parameters
         ----------
         input: list[str]
-            Lijst met namen van DataAdapter-inputs in de volgorde: [stages, geometries, soils, soillayers, waternets, calculationsettings].
+            Lijst met namen van DataAdapter-inputs in de volgorde: [stages, geometries, soils, soillayers, waternets, calculationsettings, scenarios].
         output: list[str]
             Lijst met namen van DataAdapter-outputs in de volgorde: [merged_soils, merged_waternet, merged_calculations].
 
@@ -50,6 +53,15 @@ class CombineDamLiveResults(ToolboxBase):
         self.df_soillayers = self.data_adapter.input(input[3])
         self.df_waternets = self.data_adapter.input(input[4])
         self.df_calculationsettings = self.data_adapter.input(input[5])
+        self.df_scenarios = self.data_adapter.input(input[6])
+        self.df_colors = self.data_adapter.input(input[7])
+        # TODO nu nog hard coded maar eigen uitlezen uit bestanden structuur resultata DAM-Live
+        self.df_models = pd.DataFrame(
+            [
+                {"id": 1, "name": "Bishop", "description": "Bishop"},
+                {"id": 2, "name": "Uplift Van", "description": "Uplift Van"},
+            ]
+        )
 
         # ValueError: check of alle benodigde DataFrames aanwezig zijn en data bevatten ---
         dataframes = {
@@ -59,6 +71,7 @@ class CombineDamLiveResults(ToolboxBase):
             "soillayers": self.df_soillayers,
             "waternets": self.df_waternets,
             "calculationsettings": self.df_calculationsettings,
+            "scenarios": self.df_scenarios,
         }
 
         missing_or_empty = [
@@ -91,6 +104,7 @@ class CombineDamLiveResults(ToolboxBase):
                 "line_type",
             ],
             "calculationsettings": ["calculationsettings_id"],
+            "scenarios": ["scenario_id", "scenario_label"],
         }
 
         for name, cols in required_columns.items():
@@ -105,7 +119,6 @@ class CombineDamLiveResults(ToolboxBase):
         self.df_merged_waternet = self.merge_waternet()
         self.df_merged_calculations = self.merge_calculationsettings()
 
-        self.df_colors = self.data_adapter.input(input[6])
         self.soil_color_map = (
             self.df_colors[self.df_colors["type"] == "soil"]
             .set_index("name")["color"]
@@ -122,8 +135,16 @@ class CombineDamLiveResults(ToolboxBase):
         self.data_adapter.output(output[1], self.df_merged_waternet)
         self.data_adapter.output(output[2], self.df_merged_calculations)
         if len(output) > 3:
-            self.data_adapter.output(output[3], self.create_df_damlive_soil())
-            self.data_adapter.output(output[4], self.create_df_damlive_soil_color())
+            self.data_adapter.output(output[3], self.create_df_damlive_models())
+            self.data_adapter.output(output[4], self.create_df_damlive_scenarios())
+            self.data_adapter.output(output[5], self.create_df_damlive_soil())
+            self.data_adapter.output(output[6], self.create_df_damlive_soil_color())
+            self.data_adapter.output(output[7], self.create_df_damlive_lines())
+            self.data_adapter.output(
+                output[8], self.create_df_damlive_lines_enveloping()
+            )
+            self.data_adapter.output(output[9], self.create_df_damlive_values())
+            # self.data_adapter.output(output[10], self.create_df_damlive_conditions())
 
     def merge_calculationsettings(self) -> pd.DataFrame:
         """
@@ -471,31 +492,87 @@ class CombineDamLiveResults(ToolboxBase):
         plt.show()
 
     # ---------------------------------------------------------------------------
-    # Hulpfunctie: creeer df_soil vanuit de DAMlive dataframes
+    # Hulpfunctie: creeer data_damlive_models vanuit de DAMlive
+    # ---------------------------------------------------------------------------
+
+    def create_df_damlive_models(self) -> pd.DataFrame:
+        """
+        Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_models``.
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame klaar om naar data_damlive_models te schrijven, met kolommen:
+            id, name en description
+        """
+
+        create_df_damlive_models = self.df_models
+
+        # Zorg voor het juiste kolomtype
+        if not create_df_damlive_models.empty:
+            create_df_damlive_models["id"] = create_df_damlive_models["id"].astype(
+                "int64"
+            )
+            create_df_damlive_models["name"] = create_df_damlive_models["name"].astype(
+                "string"
+            )
+            create_df_damlive_models["description"] = create_df_damlive_models[
+                "description"
+            ].astype("string")
+
+        return create_df_damlive_models
+
+    # ---------------------------------------------------------------------------
+    # Hulpfunctie: creeer data_damlive_scenarios vanuit de DAMlive
+    # ---------------------------------------------------------------------------
+
+    def create_df_damlive_scenarios(self) -> pd.DataFrame:
+        """
+        Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_scenarios``.
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame klaar om naar data_damlive_scenarios te schrijven, met kolommen:
+            id en name
+        """
+
+        create_df_damlive_scenarios = self.df_scenarios.rename(
+            columns={"scenario_id": "id", "scenario_label": "name"}
+        )[["id", "name"]]
+
+        # Zorg voor het juiste kolomtype
+        if not create_df_damlive_scenarios.empty:
+            create_df_damlive_scenarios["id"] = create_df_damlive_scenarios[
+                "id"
+            ].astype("int64")
+            create_df_damlive_scenarios["name"] = create_df_damlive_scenarios[
+                "name"
+            ].astype("string")
+
+        return create_df_damlive_scenarios
+
+    # ---------------------------------------------------------------------------
+    # Hulpfunctie: creeer df_damlive_soil vanuit de DAMlive
     # ---------------------------------------------------------------------------
 
     def create_df_damlive_soil(self) -> pd.DataFrame:
         """
         Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_soil``.
 
-        Parameters
+        Gebruikt onderstaande dataFrames:
         ----------
-        df_stages : pd.DataFrame
-            Uitvoer van de DAMlive 'scenario'-parser.
+        df_stages met uitvoer van de DAMlive 'scenario'-parser.
             Bevat minimaal: stage_id, geometry_id, soillayers_id.
-        df_geometries : pd.DataFrame
-            Uitvoer van de DAMlive 'geometries'-parser.
+        df_geometriesmet uitvoer van de DAMlive 'geometries'-parser.
             Bevat minimaal: geometry_id, layer_id, layer_label, points.
-        df_soillayers : pd.DataFrame
-            Uitvoer van de DAMlive 'soillayers'-parser.
+        df_soillayers: met uitvoer van de DAMlive 'soillayers'-parser.
             Bevat minimaal: soillayers_id, layer_id, soil_id.
-        df_soils : pd.DataFrame
-            Uitvoer van de DAMlive 'soils'-parser.
+        df_soils met uitvoer van de DAMlive 'soils'-parser.
             Bevat minimaal: soil_id, name.
-        measuringstation_id : int
-            Vaste waarde voor de kolom measuringstationid (default 1).
-        parameter_id : int
-            Vaste waarde voor de kolom parameterid (default 200).
+        TODO: nu nog hard coded gezet
+        measuringstation_id met een  waarde voor de kolom measuringstationid.
+        parameter_id met een waarde voor de kolom parameterid.
 
         Returns
         -------
@@ -504,7 +581,7 @@ class CombineDamLiveResults(ToolboxBase):
             measuringstationid, parameterid, itemid, layername, soils.color,
             datetime, index, x, y, z
         """
-        measuringstation_id: int = 1
+        measuringstation_id: int = 322
         parameter_id: int = 200
 
         # Huidige tijd in epoch milliseconden (since 1970-01-01 UTC)
@@ -557,7 +634,7 @@ class CombineDamLiveResults(ToolboxBase):
                             "parameterid": parameter_id,
                             "itemid": int(layer_id),  # uniek ID per laag
                             "layername": layer_name,
-                            "soils.color": None,  # leeglaten conform specificatie
+                            "color": None,  # leeglaten conform specificatie
                             "datetime": epoch_ms,
                             "index": punt_index,
                             "x": float(x_waarde),
@@ -566,37 +643,35 @@ class CombineDamLiveResults(ToolboxBase):
                         }
                     )
 
-        df_soil = pd.DataFrame(rijen)
+        df_damlive_soil = pd.DataFrame(rijen)
 
         # Zorg voor het juiste kolomtype
-        if not df_soil.empty:
-            df_soil["measuringstationid"] = df_soil["measuringstationid"].astype(
+        if not df_damlive_soil.empty:
+            df_damlive_soil["measuringstationid"] = df_damlive_soil[
+                "measuringstationid"
+            ].astype("int64")
+            df_damlive_soil["parameterid"] = df_damlive_soil["parameterid"].astype(
                 "int64"
             )
-            df_soil["parameterid"] = df_soil["parameterid"].astype("int64")
-            df_soil["itemid"] = df_soil["itemid"].astype("int64")
-            df_soil["datetime"] = df_soil["datetime"].astype("int64")
-            df_soil["index"] = df_soil["index"].astype("int64")
-            df_soil["x"] = df_soil["x"].astype("float64")
-            df_soil["y"] = df_soil["y"].astype("float64")
-            df_soil["z"] = df_soil["z"].astype("float64")
+            df_damlive_soil["itemid"] = df_damlive_soil["itemid"].astype("int64")
+            df_damlive_soil["datetime"] = df_damlive_soil["datetime"].astype("int64")
+            df_damlive_soil["index"] = df_damlive_soil["index"].astype("int64")
+            df_damlive_soil["x"] = df_damlive_soil["x"].astype("float64")
+            df_damlive_soil["y"] = df_damlive_soil["y"].astype("float64")
+            df_damlive_soil["z"] = df_damlive_soil["z"].astype("float64")
 
-        return df_soil
+        return df_damlive_soil
 
     # ---------------------------------------------------------------------------
-    # Hulpfunctie: creeer df_soil_color vanuit colors DataFrame
+    # Hulpfunctie: creeer df_damlive_soil_color vanuit colors DataFrame
     # ---------------------------------------------------------------------------
 
     def create_df_damlive_soil_color(self) -> pd.DataFrame:
         """
         Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_soil_color``.
 
-        Parameters
-        ----------
-        df_colors : pd.DataFrame
-            DataFrame met minimaal de kolommen 'type' en 'color'.
-            Typisch afkomstig uit colors.csv (of ingelezen via de toolbox).
-            De 'color'-kolom bevat HEX-kleurcodes (bijv. '#A0522D' of 'A0522D').
+        Gebruikt dataFrame df_colors met minimaal de kolommen 'name', 'type' en 'color' afkomstig uit colors.csv.
+        De 'color'-kolom bevat HEX-kleurcodes (bijv. '#A0522D' of 'A0522D').
 
         Returns
         -------
@@ -620,23 +695,249 @@ class CombineDamLiveResults(ToolboxBase):
 
             rijen.append(
                 {
-                    "soil_name": rij["color"],  # kolom 'color' bevat de grondsoort-naam
+                    "soil_name": rij["name"],
                     "r": r,
                     "g": g,
                     "b": b,
                     "color": hex_code if hex_code.startswith("#") else f"#{hex_code}",
-                    "stb_name": rij["color"],  # zelfde waarde als soil_name
+                    "stb_name": rij["name"],
                 }
             )
 
-        df_color = pd.DataFrame(rijen)
+        df_damlive_color = pd.DataFrame(rijen)
 
-        if not df_color.empty:
-            df_color["r"] = df_color["r"].astype("int64")
-            df_color["g"] = df_color["g"].astype("int64")
-            df_color["b"] = df_color["b"].astype("int64")
+        if not df_damlive_color.empty:
+            df_damlive_color["r"] = df_damlive_color["r"].astype("int64")
+            df_damlive_color["g"] = df_damlive_color["g"].astype("int64")
+            df_damlive_color["b"] = df_damlive_color["b"].astype("int64")
 
-        return df_color
+        return df_damlive_color
+
+    # ---------------------------------------------------------------------------
+    # Hulpfunctie: creeer data_damlive_lines vanuit de DAMlive
+    # ---------------------------------------------------------------------------
+
+    def create_df_damlive_lines(self) -> pd.DataFrame:
+        """
+        Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_lines``.
+
+        Gebruikt onderstaande dataFrames:
+        ----------
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame klaar om naar data_damlive_lines te schrijven, met kolommen:
+            measuringstationid, modelid, parameterid, itemid, layername, color, datetime, index, x, y, z, scenario
+        """
+        # TODO voorlopig hardcoded
+        measuringstation_id: int = 322
+        # model_id: 1 -> Bischop
+        # model_id: 2 -> Uplift Van
+        # TODO voorlopig hardcoded
+        model_id: int = 2
+        # parameter_id: 201 -> Phreatic line
+        # parameter_id: 202 -> Glijvlak
+        parameter_id: int = 201
+        # itemid: uit dataFrame df_waternets, kolom line_id
+        # color: uit dataFrame df_waternets, kolom line_label, gemapt naar df_colors
+        # scenario: uit dataFrame df_scenarios, kolom scenario_id
+
+        # Huidige tijd in epoch milliseconden (since 1970-01-01 UTC)
+        epoch_ms = int(time.time() * 1000)
+
+        color_map = self.df_colors[self.df_colors["type"] == "water"].set_index("name")[
+            "color"
+        ]
+
+        # WATERLIJNEN
+
+        df_damlive_lines_waterlijnen = pd.DataFrame(
+            {
+                "measuringstationid": measuringstation_id,
+                "modelid": model_id,
+                "parameterid": parameter_id,
+                "itemid": self.df_waternets["line_id"],
+                "layername": self.df_waternets["line_label"],
+                "color": self.df_waternets["line_label"].map(color_map),
+                "datetime": epoch_ms,
+                "index": self.df_waternets.groupby("line_id").cumcount() + 1,
+                "x": self.df_waternets["x"],
+                "y": self.df_waternets["z"],
+                "z": 0,
+                "scenario": self.df_scenarios["scenario_id"],
+            }
+        )
+
+        # GLIJCIRKELS
+
+        # TODO: hoe kom ik aan de glijcirkel data
+        df_damlive_lines_glijcirkels = pd.DataFrame()
+
+        # df_damlive_lines_glijcirkels = pd.DataFrame(
+        #     {
+        #         "measuringstationid": measuringstation_id,
+        #         "modelid": model_id,
+        #         "parameterid": parameter_id,
+        #         "itemid": self.df_glijcirkels["line_id"],
+        #         "layername": self.df_glijcirkels["line_label"],
+        #         "color": self.df_glijcirkels["line_label"].map(color_map),
+        #         "datetime": epoch_ms,
+        #         "index": self.df_glijcirkels.groupby("line_id").cumcount() + 1,
+        #         "x": self.df_glijcirkels["x"],
+        #         "y": self.df_glijcirkels["z"],
+        #         "z": 0,
+        #         "scenario": self.df_scenarios["scenario_id"],
+        #     }
+        # )
+
+        # concat waterlijnen en glijcirkels
+        df_damlive_lines = pd.concat(
+            [df_damlive_lines_waterlijnen, df_damlive_lines_glijcirkels],
+            ignore_index=True,
+        )
+
+        return df_damlive_lines
+
+    # ---------------------------------------------------------------------------
+    # Hulpfunctie: creeer data_damlive_lines_enveloping vanuit de DAMlive
+    # ---------------------------------------------------------------------------
+
+    def create_df_damlive_lines_enveloping(self) -> pd.DataFrame:
+        """
+        Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_lines``.
+
+        Gebruikt onderstaande dataFrames:
+        ----------
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame klaar om naar data_damlive_lines_enveloping te schrijven, met kolommen:
+            measuringstationid, modelid, parameterid, itemid, layername, color, datetime, index, x, y, z, scenario
+        """
+        # TODO voorlopig hardcoded
+        measuringstation_id: int = 322
+        # model_id: 1 -> Bischop
+        # model_id: 2 -> Uplift Van
+        # TODO voorlopig hardcoded
+        model_id: int = 2
+        # parameter_id: 201 -> Phreatic line
+        parameter_id: int = 201
+        # itemid: uit dataFrame df_waternets, kolom line_id
+        # color: uit dataFrame df_waternets, kolom line_label, gemapt naar df_colors
+        # scenario: uit dataFrame df_scenarios, kolom scenario_id
+
+        # Huidige tijd in epoch milliseconden (since 1970-01-01 UTC)
+        epoch_ms = int(time.time() * 1000)
+
+        color_map = self.df_colors[self.df_colors["type"] == "water"].set_index("name")[
+            "color"
+        ]
+
+        # filter op line_type=32
+        self.df_waternets_filtered = self.df_waternets[
+            self.df_waternets["line_id"] == "32"
+        ]
+
+        # TODO: voorlopig zijn min en max gelijk aan Freatische lijn (line_id=32), maar in de toekomst kunnen dit andere lijnen zijn
+        df_damlive_lines_enveloping_max = pd.DataFrame(
+            {
+                "measuringstationid": measuringstation_id,
+                "modelid": model_id,
+                "parameterid": parameter_id,
+                "itemid": self.df_waternets_filtered["line_id"],
+                "layername": "Freatische lijn (maximum)",
+                "color": self.df_waternets_filtered["line_label"].map(color_map),
+                "datetime": epoch_ms,
+                "index": self.df_waternets_filtered.groupby("line_id").cumcount() + 1,
+                "x": self.df_waternets_filtered["x"],
+                "y": self.df_waternets_filtered["z"],
+                "z": 0,
+                "scenario": self.df_scenarios["scenario_id"],
+            }
+        )
+
+        df_damlive_lines_enveloping_min = pd.DataFrame(
+            {
+                "measuringstationid": measuringstation_id,
+                "modelid": model_id,
+                "parameterid": parameter_id,
+                "itemid": self.df_waternets_filtered["line_id"],
+                "layername": "Freatische lijn (minimum)",
+                "color": self.df_waternets_filtered["line_label"].map(color_map),
+                "datetime": epoch_ms,
+                "index": self.df_waternets_filtered.groupby("line_id").cumcount() + 1,
+                "x": self.df_waternets_filtered["x"],
+                "y": self.df_waternets_filtered["z"],
+                "z": 0,
+                "scenario": self.df_scenarios["scenario_id"],
+            }
+        )
+
+        # concat max en min
+        df_damlive_lines_enveloping = pd.concat(
+            [df_damlive_lines_enveloping_max, df_damlive_lines_enveloping_min]
+        )
+
+        return df_damlive_lines_enveloping
+
+    # ---------------------------------------------------------------------------
+    # Hulpfunctie: creeer data_damlive_values vanuit de DAMlive
+    # ---------------------------------------------------------------------------
+
+    def create_df_damlive_values(self) -> pd.DataFrame:
+        """
+        Bouw het DataFrame op dat overeenkomt met de tabel ``data_damlive_values``.
+
+        Gebruikt onderstaande dataFrames:
+        ----------
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame klaar om naar data_damlive_values te schrijven, met kolommen:
+            measuringstationid, modelid, datetime, stability_factor, number_of_slices, xcentrepoint, ycentrepoint, radius, xcoordinate_left_surface, xcoordinate_right_surface, scenario, stateid
+        """
+        # TODO voorlopig hardcoded
+        measuringstation_id: int = 322
+        # model_id: 1 -> Bischop
+        # model_id: 2 -> Uplift Van
+        # TODO voorlopig hardcoded
+        model_id: int = 2
+        # stability_factor
+        # number_of_slices
+        # xcentrepoint
+        # ycentrepoint
+        # radius
+        # xcoordinate_left_surface
+        # xcoordinate_right_surface
+        # scenario
+        # stateid
+
+        # Huidige tijd in epoch milliseconden (since 1970-01-01 UTC)
+        epoch_ms = int(time.time() * 1000)
+
+        # TODO stability_factor, number_of_slices, xcoordinate_left_surface, xcoordinate_right_surface voorlopig hardcoded en check of ycentrepoint circle_center_z moet zijn
+        # TODO self.df_stages["state_id"] is wel de state_id die hier gebruikt moet worden?
+        df_damlive_values = pd.DataFrame(
+            {
+                "measuringstationid": measuringstation_id,
+                "modelid": model_id,
+                "datetime": epoch_ms,
+                "stability_factor": 1,
+                "number_of_slices": 0,
+                "xcentrepoint": self.df_merged_calculations["circle_center_x"],
+                "ycentrepoint": self.df_merged_calculations["circle_center_z"],
+                "radius": self.df_merged_calculations["circle_radius"],
+                "xcoordinate_left_surface": 0,
+                "xcoordinate_right_surface": 0,
+                "scenario": self.df_merged_calculations["scenario_id"],
+                "stateid": 1,
+            }
+        )
+
+        return df_damlive_values
 
 
 # TODO verplaats naar utils
