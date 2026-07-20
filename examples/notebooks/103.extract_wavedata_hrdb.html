@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Golfdata van HR-database naar TBCI – Toolbox Continu Inzicht</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -71,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2a9bdf5a123b5cc383b46ed6d004b071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -118,7 +121,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
+    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo light-content">
+    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Toolbox Continu Inzicht</span>
@@ -321,25 +325,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>In dit voorbeeld laten we zien hoe golfdata van een officiële HR database geëxporteerd kan worden naar een formaat wat bruikbaar is voor de <code>FragilityCurveOvertoppingWaveData</code> module. Globaal betekent dit dat we de relevante uit de HR database de relevante data ophalen, interpoleren en/of extrapoleren naar een regelmatig waterstandsgrid en opslaan in een stel CSV bestanden.</p>
 <p>Dit voorbeeld resulteert dan ook in een set aan CSV bestanden. Dit is puur ter illustratie van het voorbeeld, de golfdata kan ook in een database of een ander bestandsformaat opgeslagen worden. Toolbox Continu Inzicht ondersteunt dit ook, maar dat betekent wel dat hiervoor bijbehorende DataAdapters gedefinieerd moeten worden.</p>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> ceil</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.interpolate <span class="im">import</span> interp1d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.interpolate <span class="im">import</span> interp1d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="uitlezen-hr-data" class="level2">
 <h2 class="anchored" data-anchor-id="uitlezen-hr-data">Uitlezen HR data</h2>
 <p>We zetten eerst een verbinding op met een voorbeeld database.</p>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    Path.cwd()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span> <span class="st">"data_sets"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span> <span class="st">"103.extract_wavedata_hrdb"</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span> <span class="st">"Copy_DEMO_IJsselmeer.sqlite"</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In de HR database zijn verschillende tabellen aanwezig die we nodig hebben:</p>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hrd_wind <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM HRDWindDirections"</span>, conn)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hrd_wind <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM HRDWindDirections"</span>, conn)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>hrd_closingsit <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM ClosingSituations"</span>, conn)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>hrd_inputvar <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM HRDInputVariables"</span>, conn)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>hrd_resultvar <span class="op">=</span> pd.read_sql(<span class="st">"SELECT * FROM HRDResultVariables"</span>, conn)</span>
@@ -354,11 +358,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>display(hrd_closingsit)</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>display(hrd_inputvar)</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>display(hrd_resultvar)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>display(hrd_uncert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>display(hrd_uncert)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -375,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>4</td>
 <td>YM_2_6-1_dk_01009</td>
@@ -387,7 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>POINT (152538 544369)</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>7</td>
 <td>4</td>
 <td>YM_2_6-2_dk_01184</td>
@@ -399,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>POINT (154001 562864)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>56</td>
 <td>4</td>
 <td>YM_2_7-2_dk_00686</td>
@@ -411,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>POINT (168890 526763)</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>98</td>
 <td>4</td>
 <td>YM_2_8-3_dk_00537</td>
@@ -423,7 +427,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>POINT (165227 510327)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>111</td>
 <td>4</td>
 <td>KM_2_8-4_dk_00054</td>
@@ -435,7 +439,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>POINT (179050 510807)</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<th data-quarto-table-cell-role="th">5</th>
 <td>138</td>
 <td>4</td>
 <td>YM_2_12-2_dk_00072</td>
@@ -447,7 +451,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>POINT (136587 540167)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
+<th data-quarto-table-cell-role="th">6</th>
 <td>151</td>
 <td>4</td>
 <td>YM_2_13-6_dk_00233</td>
@@ -465,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -475,82 +479,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>225.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>2</td>
 <td>22.5</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>3</td>
 <td>45.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>4</td>
 <td>67.5</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>5</td>
 <td>90.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<th data-quarto-table-cell-role="th">5</th>
 <td>6</td>
 <td>112.5</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
+<th data-quarto-table-cell-role="th">6</th>
 <td>7</td>
 <td>135.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
+<th data-quarto-table-cell-role="th">7</th>
 <td>8</td>
 <td>157.5</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
+<th data-quarto-table-cell-role="th">8</th>
 <td>9</td>
 <td>180.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
+<th data-quarto-table-cell-role="th">9</th>
 <td>10</td>
 <td>202.5</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
+<th data-quarto-table-cell-role="th">10</th>
 <td>11</td>
 <td>247.5</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
+<th data-quarto-table-cell-role="th">11</th>
 <td>12</td>
 <td>270.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">12</td>
+<th data-quarto-table-cell-role="th">12</th>
 <td>13</td>
 <td>292.5</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">13</td>
+<th data-quarto-table-cell-role="th">13</th>
 <td>14</td>
 <td>315.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">14</td>
+<th data-quarto-table-cell-role="th">14</th>
 <td>15</td>
 <td>337.5</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">15</td>
+<th data-quarto-table-cell-role="th">15</th>
 <td>16</td>
 <td>360.0</td>
 </tr>
@@ -561,7 +565,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -571,7 +575,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>Regular</td>
 </tr>
@@ -582,7 +586,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -594,14 +598,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>WINDS</td>
 <td>9</td>
 <td>1.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>3</td>
 <td>MEERP</td>
 <td>7</td>
@@ -614,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -627,7 +631,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>ZMAX</td>
 <td>1</td>
@@ -635,7 +639,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>2</td>
 <td>Hsign</td>
 <td>2</td>
@@ -643,7 +647,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>3</td>
 <td>Tpiek</td>
 <td>4</td>
@@ -651,7 +655,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>4</td>
 <td>Dir</td>
 <td>7</td>
@@ -659,7 +663,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>8</td>
 <td>Tm-1,0</td>
 <td>6</td>
@@ -673,7 +677,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -686,7 +690,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>111</td>
 <td>1</td>
 <td>1</td>
@@ -694,7 +698,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.35</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>111</td>
 <td>1</td>
 <td>2</td>
@@ -702,7 +706,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>111</td>
 <td>1</td>
 <td>3</td>
@@ -710,7 +714,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>111</td>
 <td>1</td>
 <td>8</td>
@@ -718,7 +722,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>138</td>
 <td>1</td>
 <td>1</td>
@@ -726,7 +730,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.15</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<th data-quarto-table-cell-role="th">5</th>
 <td>138</td>
 <td>1</td>
 <td>2</td>
@@ -734,7 +738,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
+<th data-quarto-table-cell-role="th">6</th>
 <td>138</td>
 <td>1</td>
 <td>3</td>
@@ -742,7 +746,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
+<th data-quarto-table-cell-role="th">7</th>
 <td>138</td>
 <td>1</td>
 <td>8</td>
@@ -750,7 +754,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
+<th data-quarto-table-cell-role="th">8</th>
 <td>151</td>
 <td>1</td>
 <td>1</td>
@@ -758,7 +762,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.15</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
+<th data-quarto-table-cell-role="th">9</th>
 <td>151</td>
 <td>1</td>
 <td>2</td>
@@ -766,7 +770,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
+<th data-quarto-table-cell-role="th">10</th>
 <td>151</td>
 <td>1</td>
 <td>3</td>
@@ -774,7 +778,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
+<th data-quarto-table-cell-role="th">11</th>
 <td>151</td>
 <td>1</td>
 <td>8</td>
@@ -782,7 +786,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">12</td>
+<th data-quarto-table-cell-role="th">12</th>
 <td>1</td>
 <td>1</td>
 <td>1</td>
@@ -790,7 +794,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.15</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">13</td>
+<th data-quarto-table-cell-role="th">13</th>
 <td>1</td>
 <td>1</td>
 <td>2</td>
@@ -798,7 +802,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">14</td>
+<th data-quarto-table-cell-role="th">14</th>
 <td>1</td>
 <td>1</td>
 <td>3</td>
@@ -806,7 +810,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">15</td>
+<th data-quarto-table-cell-role="th">15</th>
 <td>1</td>
 <td>1</td>
 <td>8</td>
@@ -814,7 +818,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">16</td>
+<th data-quarto-table-cell-role="th">16</th>
 <td>7</td>
 <td>1</td>
 <td>1</td>
@@ -822,7 +826,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.30</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">17</td>
+<th data-quarto-table-cell-role="th">17</th>
 <td>7</td>
 <td>1</td>
 <td>2</td>
@@ -830,7 +834,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">18</td>
+<th data-quarto-table-cell-role="th">18</th>
 <td>7</td>
 <td>1</td>
 <td>3</td>
@@ -838,7 +842,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">19</td>
+<th data-quarto-table-cell-role="th">19</th>
 <td>7</td>
 <td>1</td>
 <td>8</td>
@@ -846,7 +850,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">20</td>
+<th data-quarto-table-cell-role="th">20</th>
 <td>56</td>
 <td>1</td>
 <td>1</td>
@@ -854,7 +858,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.30</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">21</td>
+<th data-quarto-table-cell-role="th">21</th>
 <td>56</td>
 <td>1</td>
 <td>2</td>
@@ -862,7 +866,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">22</td>
+<th data-quarto-table-cell-role="th">22</th>
 <td>56</td>
 <td>1</td>
 <td>3</td>
@@ -870,7 +874,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">23</td>
+<th data-quarto-table-cell-role="th">23</th>
 <td>56</td>
 <td>1</td>
 <td>8</td>
@@ -878,7 +882,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">24</td>
+<th data-quarto-table-cell-role="th">24</th>
 <td>98</td>
 <td>1</td>
 <td>1</td>
@@ -886,7 +890,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.30</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">25</td>
+<th data-quarto-table-cell-role="th">25</th>
 <td>98</td>
 <td>1</td>
 <td>2</td>
@@ -894,7 +898,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">26</td>
+<th data-quarto-table-cell-role="th">26</th>
 <td>98</td>
 <td>1</td>
 <td>3</td>
@@ -902,7 +906,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">27</td>
+<th data-quarto-table-cell-role="th">27</th>
 <td>98</td>
 <td>1</td>
 <td>8</td>
@@ -914,7 +918,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 <p>De locaties aanwezig in de database kunnen we snel geografisch weergeven. in dit voorbeeld gaan we voor vijf locaties de golfdata ophalen (oranje locaties in onderstaande plot)</p>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset_hrd_locs = hrd_locs.copy()</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset_hrd_locs = hrd_locs.copy()</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>subset_hrd_locs <span class="op">=</span> hrd_locs.iloc[</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    np.arange(<span class="dv">0</span>, <span class="bu">len</span>(hrd_locs), <span class="bu">int</span>(<span class="bu">len</span>(hrd_locs) <span class="op">/</span> <span class="dv">4</span>)), :</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>].copy()</span>
@@ -923,7 +927,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> hrd_locs.plot()</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>subset_hrd_locs.plot(ax<span class="op">=</span>ax)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>subset_hrd_locs.Name.tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>subset_hrd_locs.Name.tolist()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>['YM_2_6-1_dk_01009',
  'YM_2_6-2_dk_01184',
  'YM_2_7-2_dk_00686',
@@ -934,7 +938,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="relevante-golfdata-ophalen" class="level2">
 <h2 class="anchored" data-anchor-id="relevante-golfdata-ophalen">Relevante golfdata ophalen</h2>
 <p>In de volgende stap gaan we de input- en outputstochasten die aanwezig zijn koppelen met de beschikbare data en locaties. Daarvoor moeten we eerst een aantal objecten definieren: wat de naam is van de lokale waterstand (veelal ZWL) en de namen van de golfparameters. Deze namen hebben default waardes die vaakgebruikt worden, maar het is verstandig om deze namen te checken in de output van de eerder getoonde <code>hrd_inputvar</code> en <code>hrd_resultvar</code>. Tenslotte geven we een vaste stapgrootte op voor het regelmatige waterstandsgrid. In dit voorbeeld gebruiken we daarvoor 0.2 meter, maar dit is vrij instelbaar. Dit is wel een belangrijke parameter voor de uiteindelijke grootte van de data.</p>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># De lokale waterstand koppelen we via id=1 (veelal heet deze ZWL)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># De lokale waterstand koppelen we via id=1 (veelal heet deze ZWL)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>wl_name <span class="op">=</span> hrd_resultvar[hrd_resultvar.ResultVariableId <span class="op">==</span> <span class="dv">1</span>].ColumnName.iat[<span class="dv">0</span>]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>display(<span class="ss">f"</span><span class="sc">{</span>wl_name<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -949,12 +953,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>display(<span class="ss">f"</span><span class="sc">{</span>ws_name<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Stapgrootte waterstandsgrid (in meters)</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>wl_stepsize <span class="op">=</span> <span class="fl">0.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>wl_stepsize <span class="op">=</span> <span class="fl">0.2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>"wl_name='ZMAX'"</code></pre>
 <pre><code>"wave_param_names=['Hsign', 'Dir', 'Tm-1,0']"</code></pre>
 <pre><code>"ws_name='WINDS'"</code></pre>
 <p>Het volgende codeblok koppelt de gegevens aan elkaar en geeft per locatie, per golfparameter het aantal datapunten voor interpolatie en na interpolatie. De interpolatie en extrapolatie is lineair. Voor de golfrichting wordt hierbij rekening gehouden met het feit dat het circulaire data is.</p>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>wavevalid <span class="op">=</span> <span class="dv">0</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>wavevalid <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>all_df <span class="op">=</span> []</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>all_df_red <span class="op">=</span> []</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> locrow <span class="kw">in</span> subset_hrd_locs.itertuples():</span>
@@ -1057,12 +1061,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a>all_df <span class="op">=</span> pd.concat(all_df, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>all_df_red <span class="op">=</span> pd.concat(all_df_red, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>all_df_red</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>all_df_red</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>YM_2_6-1_dk_01009: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 2880, ‘Dir’: 2880, ‘Tm-1,0’: 2880} YM_2_6-2_dk_01184: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 4320, ‘Dir’: 4320, ‘Tm-1,0’: 4320} YM_2_7-2_dk_00686: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 3520, ‘Dir’: 3520, ‘Tm-1,0’: 3520} YM_2_8-3_dk_00537: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 4480, ‘Dir’: 4480, ‘Tm-1,0’: 4480} KM_2_8-4_dk_00054: {‘Hsign’: 800, ‘Dir’: 800, ‘Tm-1,0’: 800}, {‘Hsign’: 4960, ‘Dir’: 4960, ‘Tm-1,0’: 4960}</p>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1078,7 +1082,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>-0.400000</td>
 <td>0.000000</td>
 <td>225.0</td>
@@ -1089,7 +1093,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>-0.203294</td>
 <td>0.000000</td>
 <td>225.0</td>
@@ -1100,7 +1104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>-0.006588</td>
 <td>0.000000</td>
 <td>225.0</td>
@@ -1111,7 +1115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>0.190118</td>
 <td>0.000000</td>
 <td>225.0</td>
@@ -1122,7 +1126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>0.386824</td>
 <td>0.000000</td>
 <td>225.0</td>
@@ -1133,7 +1137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -1144,7 +1148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">60475</td>
+<th data-quarto-table-cell-role="th">60475</th>
 <td>4.712467</td>
 <td>4.825155</td>
 <td>360.0</td>
@@ -1155,7 +1159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2400</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">60476</td>
+<th data-quarto-table-cell-role="th">60476</th>
 <td>4.909100</td>
 <td>4.856465</td>
 <td>360.0</td>
@@ -1166,7 +1170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2400</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">60477</td>
+<th data-quarto-table-cell-role="th">60477</th>
 <td>5.105733</td>
 <td>4.887775</td>
 <td>360.0</td>
@@ -1177,7 +1181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2400</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">60478</td>
+<th data-quarto-table-cell-role="th">60478</th>
 <td>5.302367</td>
 <td>4.919085</td>
 <td>360.0</td>
@@ -1188,7 +1192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2400</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">60479</td>
+<th data-quarto-table-cell-role="th">60479</th>
 <td>5.499000</td>
 <td>4.950395</td>
 <td>360.0</td>
@@ -1204,7 +1208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>60480 rows × 8 columns</p>
 </div>
 <p>Als visuele controle is voor een locatie de eerste golfparameter geplot voor alle windrichtingen en windsnelheden. in rood zijn de geïnterpoleerde/geëxtrapoleerde waardes opgenomen.</p>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>hr_locid <span class="op">=</span> np.sort(all_df_red.hr_locid.unique())[<span class="dv">3</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>hr_locid <span class="op">=</span> np.sort(all_df_red.hr_locid.unique())[<span class="dv">3</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> all_df[all_df.hr_locid <span class="op">==</span> hr_locid]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> all_df_red[all_df_red.hr_locid <span class="op">==</span> hr_locid]</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1261,14 +1265,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>        ax.set_title(<span class="ss">f"</span><span class="sc">{</span>winddir_name<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(<span class="ss">f"</span><span class="sc">{</span>locrow<span class="sc">.</span>Name<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>resultvar<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    fig.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="103.extract_wavedata_hrdb_files/figure-html/cell-8-output-1.png" width="1589" height="1573"></p>
 </section>
 <section id="opslaan-van-golfdata-in-tbci-formaat" class="level2">
 <h2 class="anchored" data-anchor-id="opslaan-van-golfdata-in-tbci-formaat">Opslaan van golfdata in TBCI formaat</h2>
 <p>We gaan de golfdata opslaan in drie bestanden: - <code>waveval_id.csv</code>: bevat de ‘metadata’ van een golfgegevenscombinatie (hr-locatie, windrichting, windsnelheid, golfparametertype) - <code>waveval.csv</code>: bevat de daadwerkelijke gegevens per golfgegevenscombinatie. Zal intern gekoppeld worden aan waveval_id via waveval_id kolom. - <code>waveval_uncert.csv</code>: deze bevat per hr-locatie, sluitsituatie en golfparametertype de modelonzekerheden (normale verdeling met mu/sigma). Dit kan ook via de yaml configuratie van de toolbox ‘globaal’ (voor alle locaties) opgegeven worden. In dat geval is deze tabel niet nodig.</p>
 <p>In het volgende codeblok werken we de opgehaalde data om naar <code>waveval_id.csv</code> en <code>waveval_csv</code>.</p>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>groupcols <span class="op">=</span> [</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>groupcols <span class="op">=</span> [</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"waveval_id"</span>,</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"waveval_type"</span>,</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hr_locid"</span>,</span>
@@ -1286,11 +1290,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>waveval_table <span class="op">=</span> pd.concat(waveval_table, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>display(waveval_id_table)</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>display(waveval_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>display(waveval_table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1304,7 +1308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>2</td>
 <td>1</td>
@@ -1313,7 +1317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>2</td>
 <td>2</td>
 <td>1</td>
@@ -1322,7 +1326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>14.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>3</td>
 <td>2</td>
 <td>1</td>
@@ -1331,7 +1335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>19.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>4</td>
 <td>2</td>
 <td>1</td>
@@ -1340,7 +1344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>22.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>5</td>
 <td>2</td>
 <td>1</td>
@@ -1349,7 +1353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>25.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -1358,7 +1362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2395</td>
+<th data-quarto-table-cell-role="th">2395</th>
 <td>2396</td>
 <td>6</td>
 <td>111</td>
@@ -1367,7 +1371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>28.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2396</td>
+<th data-quarto-table-cell-role="th">2396</th>
 <td>2397</td>
 <td>6</td>
 <td>111</td>
@@ -1376,7 +1380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>31.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2397</td>
+<th data-quarto-table-cell-role="th">2397</th>
 <td>2398</td>
 <td>6</td>
 <td>111</td>
@@ -1385,7 +1389,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>34.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2398</td>
+<th data-quarto-table-cell-role="th">2398</th>
 <td>2399</td>
 <td>6</td>
 <td>111</td>
@@ -1394,7 +1398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>38.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2399</td>
+<th data-quarto-table-cell-role="th">2399</th>
 <td>2400</td>
 <td>6</td>
 <td>111</td>
@@ -1410,7 +1414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1421,67 +1425,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>-0.400000</td>
 <td>0.000000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>1</td>
 <td>-0.203294</td>
 <td>0.000000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>1</td>
 <td>-0.006588</td>
 <td>0.000000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>1</td>
 <td>0.190118</td>
 <td>0.000000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>1</td>
 <td>0.386824</td>
 <td>0.000000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">60475</td>
+<th data-quarto-table-cell-role="th">60475</th>
 <td>2400</td>
 <td>4.712467</td>
 <td>4.825155</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">60476</td>
+<th data-quarto-table-cell-role="th">60476</th>
 <td>2400</td>
 <td>4.909100</td>
 <td>4.856465</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">60477</td>
+<th data-quarto-table-cell-role="th">60477</th>
 <td>2400</td>
 <td>5.105733</td>
 <td>4.887775</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">60478</td>
+<th data-quarto-table-cell-role="th">60478</th>
 <td>2400</td>
 <td>5.302367</td>
 <td>4.919085</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">60479</td>
+<th data-quarto-table-cell-role="th">60479</th>
 <td>2400</td>
 <td>5.499000</td>
 <td>4.950395</td>
@@ -1492,7 +1496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>60480 rows × 3 columns</p>
 </div>
 <p>De modelonzekerheden van de golfgegevens willen we ook opslaan en gebruiken in <code>waveval_uncert.csv</code>.</p>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>uncert <span class="op">=</span> hrd_uncert.merge(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>uncert <span class="op">=</span> hrd_uncert.merge(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    hrd_resultvar[[<span class="st">"HRDResultColumnId"</span>, <span class="st">"ResultVariableId"</span>]], on<span class="op">=</span><span class="st">"HRDResultColumnId"</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>uncert <span class="op">=</span> uncert[</span>
@@ -1509,11 +1513,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>uncert <span class="op">=</span> uncert[[<span class="st">"hr_locid"</span>, <span class="st">"closing_situation"</span>, <span class="st">"waveval_type"</span>, <span class="st">"mean"</span>, <span class="st">"stddev"</span>]]</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>display(uncert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>display(uncert)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1526,7 +1530,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>111</td>
 <td>1</td>
 <td>2</td>
@@ -1534,7 +1538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>111</td>
 <td>1</td>
 <td>6</td>
@@ -1542,7 +1546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">13</td>
+<th data-quarto-table-cell-role="th">13</th>
 <td>1</td>
 <td>1</td>
 <td>2</td>
@@ -1550,7 +1554,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">15</td>
+<th data-quarto-table-cell-role="th">15</th>
 <td>1</td>
 <td>1</td>
 <td>6</td>
@@ -1558,7 +1562,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">17</td>
+<th data-quarto-table-cell-role="th">17</th>
 <td>7</td>
 <td>1</td>
 <td>2</td>
@@ -1566,7 +1570,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">19</td>
+<th data-quarto-table-cell-role="th">19</th>
 <td>7</td>
 <td>1</td>
 <td>6</td>
@@ -1574,7 +1578,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">21</td>
+<th data-quarto-table-cell-role="th">21</th>
 <td>56</td>
 <td>1</td>
 <td>2</td>
@@ -1582,7 +1586,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">23</td>
+<th data-quarto-table-cell-role="th">23</th>
 <td>56</td>
 <td>1</td>
 <td>6</td>
@@ -1590,7 +1594,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.11</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">25</td>
+<th data-quarto-table-cell-role="th">25</th>
 <td>98</td>
 <td>1</td>
 <td>2</td>
@@ -1598,7 +1602,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.19</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">27</td>
+<th data-quarto-table-cell-role="th">27</th>
 <td>98</td>
 <td>1</td>
 <td>6</td>
@@ -1610,15 +1614,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 <p>De bijbehorende dataframes kunnen nu opgeslagen worden als CSV bestanden. Deze CSV bestanden zijn direct bruikbaar in het voorbeeld <code>FragilityCurveOvertoppingWaveData</code> (specifiek voor de class <code>FragilityCurveOvertoppingWaveDataMultiple</code>)</p>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># waveval_table.to_csv("waveval.csv", index=False)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># waveval_table.to_csv("waveval.csv", index=False)</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># waveval_id_table.to_csv("waveval_id.csv", index=False)</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># uncert.to_csv("waveval_uncert.csv", index=False)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># uncert.to_csv("waveval_uncert.csv", index=False)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="koppelen-van-hr-locatie-naar-toolbox-locatie" class="level2">
 <h2 class="anchored" data-anchor-id="koppelen-van-hr-locatie-naar-toolbox-locatie">Koppelen van hr-locatie naar Toolbox locatie</h2>
 <p>De locaties in een HR database moeten we nog koppelen aan toolbox vakken. Hiervoor gebruiken we de zojuist afgeleide <code>hr_locid</code> kolom en koppelen we die aan een Toolbox Continu Inzicht <code>section_id</code> en <code>failuremechanismid</code> (in het geval van GEKB is dit 2).</p>
 <p>De impliciete aanname die hierbij gedaan wordt is dat de waterstand bij een vak gelijk is aan de waterstand van een voorspelpunt van Toolbox Continu Inzicht. Dit klopt niet helemaal, aangezien de voorspelpunten veelal op de as van de rivier liggen en de HR locaties aan de oever liggen en bij de oever bijvoorbeeld scheefstand kan optreden.</p>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_locs <span class="op">=</span> pd.DataFrame(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_locs <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"section_id"</span>: [<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>],</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"failuremechanismid"</span>: <span class="dv">2</span>,</span>
@@ -1628,11 +1632,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># df_locs.to_csv("section_hrloc.csv", index=False)</span></span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>display(df_locs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>display(df_locs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1643,31 +1647,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>10</td>
 <td>2</td>
 <td>13421227</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>11</td>
 <td>2</td>
 <td>13421170</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>12</td>
 <td>2</td>
 <td>13421114</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>13</td>
 <td>2</td>
 <td>13421058</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>14</td>
 <td>2</td>
 <td>13421001</td>
@@ -1678,9 +1682,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Het voorbeeld hierboven maakt deze koppeling handmatig tussen section_id en hr_locid. het is ook mogelijk om dit automatisch te doen op basis van bijvoorbeeld de centroide van een vak en de dichtsbijzijnde HR-locatie.</p>
 <p>We merken hierbij op dat bij de beoordeling van een waterkering niet altijd de dichtsbijzijnde HR-locatie is gekozen. Indien de vakken in Toolbox Continu Inzicht overeenkomen met de beoordelingsvakken, is het waardevol om de gekozen koppelingen tussen HR-locatie en dijkvak in ieder geval te beschouwen ook voor Toolbox Continu Inzicht.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> section_row <span class="kw">in</span> df_sections.itertuples():</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> section_row <span class="kw">in</span> df_sections.itertuples():</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    idx_hrloc <span class="op">=</span> hrd_locs.sindex.nearest(section_row.geometry.centroid, return_all<span class="op">=</span><span class="va">False</span>, max_distance<span class="op">=</span><span class="va">None</span>)[<span class="dv">1</span>, <span class="dv">0</span>]</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    hr_locid <span class="op">=</span> hrd_locs.HRDLocationId.iat[idx_hrloc]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    hr_locid <span class="op">=</span> hrd_locs.HRDLocationId.iat[idx_hrloc]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -1737,13 +1741,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

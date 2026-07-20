@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Fragility Curve Overtopping (wave data) – Toolbox Continu Inzicht</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -71,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2a9bdf5a123b5cc383b46ed6d004b071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -118,7 +121,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
+    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo light-content">
+    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Toolbox Continu Inzicht</span>
@@ -312,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Voor het berekenen van een fragility curve voor het mechanisme GEKB wordt gebruikt gemaakt van de <a href="https://github.com/HKV-products-services/pydra_core"><code>pydra_core</code></a> module, meer documentatie over de <code>pydra_core</code> module is <a href="https://hkv-products-services.github.io/pydra_core/">hier</a> te vinden.</p>
 <p>De module wordt gebruikt om een overslag debiet te berekenen op basis van gegeven golfhoogte, golfperiode en golfrichting per locatie/windrichting/windsnelheid (<strong>wavedata</strong>) voor verschillende omstandigheden. Op basis hiervan wordt een fragility curve opgesteld.</p>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -320,15 +324,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    ChangeCrestHeightFragilityCurveOvertoppingWaveData,</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    FragilityCurveOvertoppingWaveData,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    ShiftFragilityCurveOvertoppingWaveData,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> Config, DataAdapter</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> toolbox_continu_inzicht.base.data_adapter <span class="im">import</span> Config, DataAdapter</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"8.fragility_curve_overtopping_wavedata"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>path <span class="op">/</span> <span class="st">"test_fragility_curve_overtopping_wavedata.yaml"</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>De volgende configuratie wordt gebruikt voor het maken van een GEKB curve</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/8.fragility_curve_overtopping_wavedata"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moments</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="dv">-24</span><span class="kw">,</span><span class="at"> </span><span class="dv">0</span><span class="kw">,</span><span class="at"> </span><span class="dv">24</span><span class="kw">,</span><span class="at"> </span><span class="dv">48</span><span class="at"> </span><span class="kw">]</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">logging</span><span class="kw">:</span></span>
@@ -361,13 +365,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fragility_curves</span><span class="kw">:</span></span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> csv</span></span>
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"fragility_curves_5.csv"</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Er zijn vijf verschillende data bestanden nodig.<br> Ten eerste een tabel met de informatie over de helling (slope) waarvoor de curve wordt afgeleid.</p>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"slopes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"slopes"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -381,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>5</td>
 <td>1</td>
 <td>-12.59</td>
@@ -390,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>5</td>
 <td>1</td>
 <td>0.00</td>
@@ -399,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>5</td>
 <td>2</td>
 <td>-68.82</td>
@@ -408,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>5</td>
 <td>2</td>
 <td>-12.59</td>
@@ -421,11 +425,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 <p>Ten tweede informatie over de hoogte van de kruin, de orientatie, of er een dam is, maatgevende windsnelheid enz.</p>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"profiles"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"profiles"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -435,52 +439,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>sectionid</td>
 <td>11</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>crestlevel</td>
 <td>14.63</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>orientation</td>
 <td>167</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>dam</td>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>damheight</td>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<th data-quarto-table-cell-role="th">5</th>
 <td>qcr</td>
 <td>closed</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
+<th data-quarto-table-cell-role="th">6</th>
 <td>windspeed</td>
 <td>20</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
+<th data-quarto-table-cell-role="th">7</th>
 <td>sectormin</td>
 <td>180.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
+<th data-quarto-table-cell-role="th">8</th>
 <td>sectorsize</td>
 <td>90.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
+<th data-quarto-table-cell-role="th">9</th>
 <td>closing_situation</td>
 <td>0</td>
 </tr>
@@ -489,11 +493,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 <p>Ten derde de onzekerheden van de golfparameters per HR-locatie (modelonzekerheden).</p>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"waveval_uncert"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"waveval_uncert"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -506,7 +510,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>13421200</td>
 <td>1</td>
 <td>2</td>
@@ -514,7 +518,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.15</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>13421200</td>
 <td>1</td>
 <td>6</td>
@@ -522,7 +526,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.04</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>13421200</td>
 <td>2</td>
 <td>2</td>
@@ -530,7 +534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.15</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>13421200</td>
 <td>2</td>
 <td>6</td>
@@ -542,11 +546,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 <p>Ten vierde de index voor de golfcombinaties (per windrichting en windsnelheid) met het type golfparameter.</p>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"waveval_id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"waveval_id"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -560,7 +564,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>2</td>
 <td>13421200</td>
@@ -569,7 +573,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>2</td>
 <td>2</td>
 <td>13421200</td>
@@ -578,7 +582,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>10.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>3</td>
 <td>2</td>
 <td>13421200</td>
@@ -587,7 +591,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>20.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>4</td>
 <td>2</td>
 <td>13421200</td>
@@ -596,7 +600,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>30.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>5</td>
 <td>2</td>
 <td>13421200</td>
@@ -605,7 +609,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>42.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -614,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">256</td>
+<th data-quarto-table-cell-role="th">256</th>
 <td>257</td>
 <td>7</td>
 <td>13421200</td>
@@ -623,7 +627,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">257</td>
+<th data-quarto-table-cell-role="th">257</th>
 <td>258</td>
 <td>7</td>
 <td>13421200</td>
@@ -632,7 +636,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>10.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">258</td>
+<th data-quarto-table-cell-role="th">258</th>
 <td>259</td>
 <td>7</td>
 <td>13421200</td>
@@ -641,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>20.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">259</td>
+<th data-quarto-table-cell-role="th">259</th>
 <td>260</td>
 <td>7</td>
 <td>13421200</td>
@@ -650,7 +654,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>30.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">260</td>
+<th data-quarto-table-cell-role="th">260</th>
 <td>261</td>
 <td>7</td>
 <td>13421200</td>
@@ -664,11 +668,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>261 rows × 6 columns</p>
 </div>
 <p>Ten vijfde de daadwerkelijke golfwaarden per waterstand, gekoppeld aan de golfcombinaties via <code>waveval_id</code>.</p>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"waveval"</span>).head(<span class="dv">4</span>)  <span class="co"># (ingekorte versie)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"waveval"</span>).head(<span class="dv">4</span>)  <span class="co"># (ingekorte versie)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -679,25 +683,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>0.524700</td>
 <td>0.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>1</td>
 <td>0.723951</td>
 <td>0.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>1</td>
 <td>0.923203</td>
 <td>0.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>1</td>
 <td>1.122454</td>
 <td>0.0</td>
@@ -707,7 +711,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 <p>Deze informatie wordt mee gegeven aan de FragilityCurveOvertoppingWaveData voor het genereren van een curve.</p>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping <span class="op">=</span> FragilityCurveOvertoppingWaveData(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping <span class="op">=</span> FragilityCurveOvertoppingWaveData(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping.run(</span>
@@ -719,21 +723,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"waveval"</span>,</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"fragility_curves"</span>,</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>2026-06-29 10:19:14 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
-2026-06-29 10:19:14 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
-2026-06-29 10:19:14 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
-2026-06-29 10:19:14 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>2026-07-20 10:12:47 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
+2026-07-20 10:12:47 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
+2026-07-20 10:12:47 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
+2026-07-20 10:12:47 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
 <p>Deze curve kunnen we vervolgens weergeven:</p>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fragility_curve_overtopping.as_dataframe().set_index(<span class="st">"hydraulicload"</span>).plot(ax<span class="op">=</span>ax)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Failure probability"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Failure probability"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="8.fragility_curve_overtopping_wavedata_files/figure-html/cell-10-output-1.png" width="589" height="429"></p>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"fragility_curves"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_adapter.<span class="bu">input</span>(<span class="st">"fragility_curves"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -744,67 +748,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>0</td>
 <td>10.65</td>
 <td>0.000000e+00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>1</td>
 <td>10.75</td>
 <td>0.000000e+00</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>2</td>
 <td>10.85</td>
 <td>0.000000e+00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>3</td>
 <td>10.95</td>
 <td>0.000000e+00</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>4</td>
 <td>11.05</td>
 <td>1.487230e-168</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">76</td>
+<th data-quarto-table-cell-role="th">76</th>
 <td>76</td>
 <td>15.45</td>
 <td>9.999996e-01</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">77</td>
+<th data-quarto-table-cell-role="th">77</th>
 <td>77</td>
 <td>15.50</td>
 <td>9.999997e-01</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">78</td>
+<th data-quarto-table-cell-role="th">78</th>
 <td>78</td>
 <td>15.55</td>
 <td>9.999998e-01</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">79</td>
+<th data-quarto-table-cell-role="th">79</th>
 <td>79</td>
 <td>15.60</td>
 <td>9.999998e-01</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">80</td>
+<th data-quarto-table-cell-role="th">80</th>
 <td>80</td>
 <td>15.65</td>
 <td>9.999998e-01</td>
@@ -815,7 +819,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>81 rows × 3 columns</p>
 </div>
 <p>In sommige gevallen wil je een fragility curve ook aan kunnen passen, om dit mogelijk te maken zijn verschillende functie beschikbaar die het zelfde doen als de originele functie maar een kleine, door de gebruiker opgelegde, aanpassingen doen. <br> Zo verschuift de functie <code>ShiftFragilityCurveOvertoppingWaveData</code> de fragility curve met een effect.</p>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>shift_fragility_curve_overtopping <span class="op">=</span> ShiftFragilityCurveOvertoppingWaveData(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>shift_fragility_curve_overtopping <span class="op">=</span> ShiftFragilityCurveOvertoppingWaveData(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    data_adapter<span class="op">=</span>data_adapter</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>shift_fragility_curve_overtopping.run(</span>
@@ -828,12 +832,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"fragility_curves"</span>,</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    effect<span class="op">=</span><span class="fl">0.5</span>,</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>2026-06-29 10:19:14 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
-2026-06-29 10:19:14 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
-2026-06-29 10:19:14 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
-2026-06-29 10:19:14 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>2026-07-20 10:12:48 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
+2026-07-20 10:12:48 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
+2026-07-20 10:12:48 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
+2026-07-20 10:12:48 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pas de namen van de kolommen aan voor de plot</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>df_overtopping <span class="op">=</span> (</span>
@@ -850,10 +854,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plotten</span></span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>df_overtopping.plot(ax<span class="op">=</span>ax)</span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>df_overtopping_shift.plot(ax<span class="op">=</span>ax, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"shifted"</span>)</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Failure probability"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Failure probability"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="8.fragility_curve_overtopping_wavedata_files/figure-html/cell-13-output-1.png" width="589" height="429"></p>
 <p>Waar verschuiven een relatief simple nabewerking op de data is, kunnen aanpassingen aan de berekening zelf ‘on-the-fly’ plaatsvinden. <br> Zo kan als maatregel de kruinhoogte worden verhoogt, met de functie <code>ChangeCrestHeightFragilityCurveOvertoppingBedlevelFetch</code> is dit mogelijk.</p>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>change_crest_fragility_curve_overtopping <span class="op">=</span> (</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>change_crest_fragility_curve_overtopping <span class="op">=</span> (</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    ChangeCrestHeightFragilityCurveOvertoppingWaveData(data_adapter<span class="op">=</span>data_adapter)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -867,12 +871,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    output<span class="op">=</span><span class="st">"fragility_curves"</span>,</span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    effect<span class="op">=</span><span class="fl">1.5</span>,</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>2026-06-29 10:19:15 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
-2026-06-29 10:19:15 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
-2026-06-29 10:19:15 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
-2026-06-29 10:19:15 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>2026-07-20 10:12:48 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_mu, global=None, override=0.94
+2026-07-20 10:12:48 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gh_onz_sigma, global=None, override=0.15
+2026-07-20 10:12:48 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_mu_tspec, global=None, override=0.89
+2026-07-20 10:12:48 INFO - fragility_curve_overtopping_base: Overtopping model uncertainty override: closing_situation=1, key=gp_onz_sigma_tspec, global=None, override=0.04</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pas de namen van de kolom aan voor de plot</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>df_overtopping_change_crest <span class="op">=</span> (</span>
@@ -884,7 +888,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plotten</span></span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>df_overtopping.plot(ax<span class="op">=</span>ax)</span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>df_overtopping_change_crest.plot(ax<span class="op">=</span>ax, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Failure probability"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Failure probability"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="8.fragility_curve_overtopping_wavedata_files/figure-html/cell-15-output-1.png" width="589" height="429"></p>
 
 
@@ -941,13 +945,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

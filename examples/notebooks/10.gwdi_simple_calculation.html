@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>GWDI eenvoudige berekening – Toolbox Continu Inzicht</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -71,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2a9bdf5a123b5cc383b46ed6d004b071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -118,7 +121,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo">
+    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo light-content">
+    <img src="https://raw.githubusercontent.com/continu-inzicht/toolbox-continu-inzicht/main/docs/assets/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Toolbox Continu Inzicht</span>
@@ -320,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Dit notebook laat een minimale GWDI-run zien voor één rastercel (<code>fid</code>) via de toolbox-moduleklasse <code>GwdiInference</code>.</p>
 <p>Het notebook laat het volgende zien: 1. Inlezen van een lokale GWDI-configuratie (<code>yaml</code>) voor DataAdapters. 2. Uitvoeren van <code>GwdiInference.run(...)</code> met de smoke single-fid dataset. 3. Vergelijken van de uitkomst met de bestaande smoke-baseline uit de unit test.</p>
 <div id="2" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -331,14 +335,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    GwdiInference,</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    GwdiKnmiRetrieval,</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    GwdiWiwbRetrieval,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="3" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_dir <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"10.gwdi_simple_calculation"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>config_path <span class="op">=</span> data_dir <span class="op">/</span> <span class="st">"gwdi_simple_calculation.yaml"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_dir <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"data_sets"</span> <span class="op">/</span> <span class="st">"10.gwdi_simple_calculation"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>config_path <span class="op">=</span> data_dir <span class="op">/</span> <span class="st">"gwdi_simple_calculation.yaml"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>De configuratie ziet er als volgt uit:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GlobalVariables</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rootdir</span><span class="kw">:</span><span class="at"> </span><span class="st">"data_sets/10.gwdi_simple_calculation"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">calc_time</span><span class="kw">:</span><span class="at"> </span><span class="st">"2024-02-15 08:00:00"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -384,12 +388,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">file</span><span class="kw">:</span><span class="at"> </span><span class="st">"df_stats_minima.csv"</span></span>
 <span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">index_col</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
 <span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gwdi_output</span><span class="kw">:</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> python</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> python</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="eerste-voorbeeld-statische-klimaatreeks" class="level2">
 <h2 class="anchored" data-anchor-id="eerste-voorbeeld-statische-klimaatreeks">Eerste voorbeeld: statische klimaatreeks</h2>
 <p>In dit eerste voorbeeld gebruiken we statische neerslag en verdamping (uit een CSV) om een GWDI-run met <code>GwdiInference</code> uit te voeren.</p>
 <div id="6" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>config_path)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Config(config_path<span class="op">=</span>config_path)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>config.lees_config()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>data_adapter <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
@@ -407,24 +411,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>df_gwdi <span class="op">=</span> module.df_out.copy()</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>df_gwdi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>df_gwdi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2026-06-29 10:16:34 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
-2026-06-29 10:16:34 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
-2026-06-29 10:16:34 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
-2026-06-29 10:16:34 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
-2026-06-29 10:16:34 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
-2026-06-29 10:16:34 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.
-2026-06-29 10:16:34 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.
-2026-06-29 10:16:34 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.
-2026-06-29 10:16:35 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.
-2026-06-29 10:16:35 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.</code></pre>
+<pre><code>2026-07-20 10:10:17 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+2026-07-20 10:10:17 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+2026-07-20 10:10:17 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+2026-07-20 10:10:17 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+2026-07-20 10:10:17 WARNING - base: The solver object is stored in the model.solver attribute since Pastas 1.3. Please update your pas-file to the new format by loading and saving the file with Pastas 1.3.
+2026-07-20 10:10:18 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.
+2026-07-20 10:10:19 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.
+2026-07-20 10:10:19 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.
+2026-07-20 10:10:19 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.
+2026-07-20 10:10:19 WARNING - model: The stress of the stressmodel has no overlap with ml.oseries.</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -438,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -447,7 +451,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -456,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -465,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -474,7 +478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -483,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -492,7 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">170</td>
+<th data-quarto-table-cell-role="th">170</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -501,7 +505,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">171</td>
+<th data-quarto-table-cell-role="th">171</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -510,7 +514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">172</td>
+<th data-quarto-table-cell-role="th">172</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -519,7 +523,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">173</td>
+<th data-quarto-table-cell-role="th">173</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -528,7 +532,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">174</td>
+<th data-quarto-table-cell-role="th">174</th>
 <td>300268</td>
 <td>4</td>
 <td>1</td>
@@ -549,20 +553,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In dit tweede voorbeeld halen we neerslag en verdamping dynamisch op voor dezelfde GWDI-run: - <code>GwdiWiwbRetrieval</code> levert neerslag (<code>P</code>) op. - <code>GwdiKnmiRetrieval</code> levert verdamping (<code>evaporation</code>) op.</p>
 <p>In <code>gwdi_simple_calculation.yaml</code> gebruiken beide retrievals dezelfde resample-configuratie (<code>resample_frequency</code>, <code>resample_period_start</code>, <code>resample_period_end</code>) zodat de tijdstappen op elkaar aansluiten. Daarna voeren we <code>GwdiInference</code> uit met deze dynamische invoer.</p>
 <div id="8" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>required_env <span class="op">=</span> (<span class="st">"WIWB_CLIENT_ID"</span>, <span class="st">"WIWB_KEY"</span>, <span class="st">"KNMI_API_KEY"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>required_env <span class="op">=</span> (<span class="st">"WIWB_CLIENT_ID"</span>, <span class="st">"WIWB_KEY"</span>, <span class="st">"KNMI_API_KEY"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>missing_env <span class="op">=</span> [name <span class="cf">for</span> name <span class="kw">in</span> required_env <span class="cf">if</span> <span class="kw">not</span> os.getenv(name)]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> missing_env:</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Ontbrekende omgevingsvariabelen voor dynamische GWDI-run: </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(missing_env)<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"OK: de benodigde omgevingsvariabelen zijn aanwezig: </span><span class="sc">{</span>required_env<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"OK: de benodigde omgevingsvariabelen zijn aanwezig: </span><span class="sc">{</span>required_env<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Ontbrekende omgevingsvariabelen voor dynamische GWDI-run: WIWB_CLIENT_ID, WIWB_KEY, KNMI_API_KEY</code></pre>
 </div>
 </div>
 <div id="9" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gebruik dezelfde YAML-configuratie als in het statische voorbeeld.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gebruik dezelfde YAML-configuratie als in het statische voorbeeld.</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_adapter_dynamic <span class="op">=</span> DataAdapter(config<span class="op">=</span>config)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> missing_env:</span>
@@ -580,14 +584,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    knmi_module.run(</span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">input</span><span class="op">=</span><span class="st">"gwdi_input_climate_sampling_locations"</span>,</span>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        output<span class="op">=</span><span class="st">"gwdi_input_evaporation_dynamic"</span>,</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Ontbrekende omgevingsvariabelen voor dynamische GWDI-run: WIWB_CLIENT_ID, WIWB_KEY, KNMI_API_KEY</code></pre>
 </div>
 </div>
 <p><code>GwdiInference</code> vereist exact dezelfde tijdreeksen voor verdamping en neerslag. In de praktijk kan bronbeschikbaarheid per provider toch verschillen. Daarom maken we hieronder expliciet een gezamenlijke (<code>time</code>, <code>fid</code>)-grid (intersection) voor beide reeksen.</p>
 <div id="11" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> missing_env:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> missing_env:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Ontbrekende omgevingsvariabelen voor dynamische GWDI-run: </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(missing_env)<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    )</span>
@@ -616,14 +620,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Gezamenlijk grid:"</span>)</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    display(df_precip_dynamic.merge(df_evap_dynamic, on<span class="op">=</span>[<span class="st">"time"</span>, <span class="st">"fid"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    display(df_precip_dynamic.merge(df_evap_dynamic, on<span class="op">=</span>[<span class="st">"time"</span>, <span class="st">"fid"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Ontbrekende omgevingsvariabelen voor dynamische GWDI-run: WIWB_CLIENT_ID, WIWB_KEY, KNMI_API_KEY</code></pre>
 </div>
 </div>
 <p>Tenslotte voeren we <code>GwdiInference</code> uit met deze dynamische invoer.</p>
 <div id="13" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> missing_env:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> missing_env:</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Ontbrekende omgevingsvariabelen voor dynamische GWDI-run: </span><span class="sc">{</span><span class="st">', '</span><span class="sc">.</span>join(missing_env)<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    )</span>
@@ -667,7 +671,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">"blue"</span>,</span>
 <span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    ax.plot(df_gwdi_agg.index, df_gwdi_agg[<span class="st">"mean"</span>])</span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks(ax.get_xticks(), ax.get_xticklabels(), rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks(ax.get_xticks(), ax.get_xticklabels(), rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Ontbrekende omgevingsvariabelen voor dynamische GWDI-run: WIWB_CLIENT_ID, WIWB_KEY, KNMI_API_KEY</code></pre>
 </div>
@@ -728,13 +732,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
