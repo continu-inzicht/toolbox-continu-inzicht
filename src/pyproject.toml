@@ -33,8 +33,7 @@ dependencies = [
 [project.optional-dependencies]
 fragility_curves = [
     "scipy",
-    "openturns>=1.23",
-    "probabilistic_piping==0.0.5",
+    "probabilistic_piping==0.0.8",
     "pydra_core==0.0.10",
     "openpyxl", # used in tests
 ]
