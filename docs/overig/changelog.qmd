@@ -190,3 +190,13 @@ In sprint 9 zijn wat restpunten van de overstromingsscenarios toegevoegd. Ook zi
 #### 'Breaking changes'
 
 De output van de `SectionsLoads` class is aangepast. De kolom `id` is hernoemd naar `section_id`. Dit is gedaan om een duidelijkere naamgeving van begin tot einde te hebben als alle modules onder elkaar worden gezet. Nu zou nog een handmatige aanpassing nodig zijn.
+
+
+
+### V0.1.6 [[0.1.6](https://pypi.org/project/toolbox-continu-inzicht/0.1.6/)]
+
+Tweaks to dependencies: openturns
+
+### V0.1.7 [[0.1.7](https://pypi.org/project/toolbox-continu-inzicht/0.1.7/)]
+
+Bug fix in `LoadsToMoments` class.

@@ -1,0 +1,29 @@
+GlobalVariables:
+    rootdir: "data_sets"
+    moments: [ -24, 0, 24, 48 ]
+    PostProcessFloodRisk:
+        risk_metric_columns:
+          - casualties
+          - damage
+          - flooding
+          - affected_people
+          - waterdepth
+
+DataAdapter:
+    default_options:
+        csv:
+            sep: ","
+            index: False
+    section_id_to_segment_id:
+        type: csv
+        path: "rekentest_section_to_segment.csv"
+    combined_failure_probability_data:
+        type: csv
+        path: "rekentest_probabilities_failuremechanisme_sections.csv"
+    flood_risk_results_per_segment:
+        type: csv
+        path: "rekentest_flood_risk_results_per_segment.csv"
+    areas_to_determining_sections:
+        type: ci_postgresql_floodscenario_to_data
+        database: continuinzicht
+        schema: continuinzicht_demo_realtime
