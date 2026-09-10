@@ -113,9 +113,13 @@ class LoadsToMoments(ToolboxBase):
 
                     df_per_location_time_interval = df_per_location.loc[time_interval]
                     if len(df_per_location_time_interval) > 0:
+                        # TODO: add toggle to check if we want to continue when data is missing.
+                        # idxmax() could also return a the very first value in the tide cycle
+                        # when the rest of the data is missing...
                         time_max = df_per_location_time_interval["value"].idxmax()
                         assert type(time_max) is pd.Timestamp
                         df_moment = df_per_location.loc[[time_max]]
+                        df_moment["hours"] = moment["hours"]
 
                     else:
                         df_moment = self.get_moment_from_dataframe(

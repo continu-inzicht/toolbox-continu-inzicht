@@ -1,0 +1,15 @@
+GlobalVariables:
+    rootdir: "tests/src/loads/data_sets"
+    moments: [ -24, 0, 24, 48 ]
+    calc_time: "2026-09-10 08:00:00"
+
+    LoadsToMoments:
+        tide: True
+
+DataAdapter:
+    waterstanden:
+        type: csv
+        path: "waterstanden_missing_999.csv"
+    maxima:
+        type: csv
+        path: "hidden_waterstanden_loads_to_moments.csv"
