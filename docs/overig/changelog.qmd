@@ -199,5 +199,4 @@ Tweaks to dependencies: openturns
 
 ### V0.1.7 [[0.1.7](https://pypi.org/project/toolbox-continu-inzicht/0.1.7/)]
 
-Bug fix in `LoadsToMoments` class. 
-
+Bug fix in `LoadsToMoments` class.

@@ -97,7 +97,7 @@ def test_run_LoadsToMoments_tide_missing_moment():
     for id in df_out["measurement_location_id"]:
         location = df_out[df_out["measurement_location_id"] == id]
         assert len(location) == len(config.global_variables["moments"])
-    assert 'hours' in df_out.columns
+    assert "hours" in df_out.columns
 
 
 def test_run_LoadsToMoments_tide_missing_moment_999():
@@ -121,5 +121,4 @@ def test_run_LoadsToMoments_tide_missing_moment_999():
     for id in df_out["measurement_location_id"]:
         location = df_out[df_out["measurement_location_id"] == id]
         assert len(location) == len(config.global_variables["moments"])
-    assert 'hours' in df_out.columns
-
+    assert "hours" in df_out.columns
