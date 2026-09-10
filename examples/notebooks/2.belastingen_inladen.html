@@ -420,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Globale variabelen: </span><span class="sc">{</span>data_adapter<span class="sc">.</span>config<span class="sc">.</span>global_variables<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> data <span class="kw">in</span> data_adapter.config.data_adapters:</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Data apdater: </span><span class="sc">{</span>data<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Folder met data: D:-continu-inzicht-continu-inzicht_inzicht_sets\2.belastingen_inladen_sprint2-I.yaml Globale variabelen: {‘rootdir’: ‘data_sets/2.belastingen_inladen’, ‘moments’: [-24, 0, 24, 48], ‘aquo_alias’: {‘WATHTE [m][NAP][OW]’: ‘WATHTE’}, ‘LoadsWaterinfo’: {‘parameters’: [‘waterhoogte’], ‘MISSING_VALUE’: 999}, ‘LoadsFews’: {‘host’: ‘https://fews.hhnk.nl’, ‘port’: 443, ‘region’: ‘fewspiservice’, ‘version’: ‘1.25’, ‘filter’: ‘HHNK_WEB’, ‘parameters’: [‘WATHTE [m][NAP][OW]’], ‘MISSING_VALUE’: 999}, ‘LoadsMatroos’: {‘website’: ‘noos’, ‘model’: ‘dcsm6_kf’, ‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘LoadsWaterwebservicesRWS’: {‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘calc_time’: datetime.datetime(2026, 7, 20, 10, 0, tzinfo=datetime.timezone.utc)} Data apdater: default_options Data apdater: BelastingLocaties_WaterInfo Data apdater: Waterstanden_WaterInfo Data apdater: BelastingLocaties_FEWS Data apdater: Waterstanden_FEWS Data apdater: BelastingLocaties_Matroos Data apdater: Waterstanden_Matroos Data apdater: BelastingLocaties_Waterwebservices_RWS Data apdater: Waterstanden_Waterwebservices_RWS</p>
+<p>Folder met data: D:-continu-inzicht-continu-inzicht_inzicht_sets\2.belastingen_inladen_sprint2-I.yaml Globale variabelen: {‘rootdir’: ‘data_sets/2.belastingen_inladen’, ‘moments’: [-24, 0, 24, 48], ‘aquo_alias’: {‘WATHTE [m][NAP][OW]’: ‘WATHTE’}, ‘LoadsWaterinfo’: {‘parameters’: [‘waterhoogte’], ‘MISSING_VALUE’: 999}, ‘LoadsFews’: {‘host’: ‘https://fews.hhnk.nl’, ‘port’: 443, ‘region’: ‘fewspiservice’, ‘version’: ‘1.25’, ‘filter’: ‘HHNK_WEB’, ‘parameters’: [‘WATHTE [m][NAP][OW]’], ‘MISSING_VALUE’: 999}, ‘LoadsMatroos’: {‘website’: ‘noos’, ‘model’: ‘dcsm6_kf’, ‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘LoadsWaterwebservicesRWS’: {‘parameters’: [‘WATHTE’], ‘MISSING_VALUE’: 999}, ‘calc_time’: datetime.datetime(2026, 9, 10, 11, 0, tzinfo=datetime.timezone.utc)} Data apdater: default_options Data apdater: BelastingLocaties_WaterInfo Data apdater: Waterstanden_WaterInfo Data apdater: BelastingLocaties_FEWS Data apdater: Waterstanden_FEWS Data apdater: BelastingLocaties_Matroos Data apdater: Waterstanden_Matroos Data apdater: BelastingLocaties_Waterwebservices_RWS Data apdater: Waterstanden_Waterwebservices_RWS</p>
 </section>
 <section id="invoerbestand-csv-met-data-van-belastinglocaties" class="level3">
 <h3 class="anchored" data-anchor-id="invoerbestand-csv-met-data-van-belastinglocaties">Invoerbestand (CSV) met data van belastinglocaties</h3>
@@ -494,6 +494,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">152</th>
+<td>1</td>
+<td>lobith.bovenrijn.tolkamer</td>
+<td>Lobith Bovenrijn Tolkamer</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>Waterhoogte in Oppervlaktewater t.o.v. Normaal...</td>
+<td>cm</td>
+<td>2026-09-09 11:00:00+00:00</td>
+<td>649.0</td>
+<td>meting</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">153</th>
+<td>1</td>
+<td>lobith.bovenrijn.tolkamer</td>
+<td>Lobith Bovenrijn Tolkamer</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>Waterhoogte in Oppervlaktewater t.o.v. Normaal...</td>
+<td>cm</td>
+<td>2026-09-09 11:10:00+00:00</td>
+<td>649.0</td>
+<td>meting</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">154</th>
 <td>1</td>
 <td>lobith.bovenrijn.tolkamer</td>
@@ -502,8 +528,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte in Oppervlaktewater t.o.v. Normaal...</td>
 <td>cm</td>
-<td>2026-07-19 10:00:00+00:00</td>
-<td>657.0</td>
+<td>2026-09-09 11:20:00+00:00</td>
+<td>650.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -515,8 +541,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte in Oppervlaktewater t.o.v. Normaal...</td>
 <td>cm</td>
-<td>2026-07-19 10:10:00+00:00</td>
-<td>658.0</td>
+<td>2026-09-09 11:30:00+00:00</td>
+<td>650.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -528,34 +554,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte in Oppervlaktewater t.o.v. Normaal...</td>
 <td>cm</td>
-<td>2026-07-19 10:20:00+00:00</td>
-<td>658.0</td>
-<td>meting</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">157</th>
-<td>1</td>
-<td>lobith.bovenrijn.tolkamer</td>
-<td>Lobith Bovenrijn Tolkamer</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>Waterhoogte in Oppervlaktewater t.o.v. Normaal...</td>
-<td>cm</td>
-<td>2026-07-19 10:30:00+00:00</td>
-<td>659.0</td>
-<td>meting</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">158</th>
-<td>1</td>
-<td>lobith.bovenrijn.tolkamer</td>
-<td>Lobith Bovenrijn Tolkamer</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>Waterhoogte in Oppervlaktewater t.o.v. Normaal...</td>
-<td>cm</td>
-<td>2026-07-19 10:40:00+00:00</td>
-<td>658.0</td>
+<td>2026-09-09 11:40:00+00:00</td>
+<td>650.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -572,7 +572,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">544</th>
+<th data-quarto-table-cell-role="th">536</th>
 <td>1</td>
 <td>lobith.bovenrijn.tolkamer</td>
 <td>Lobith Bovenrijn Tolkamer</td>
@@ -580,12 +580,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte verwachting in Oppervlaktewater t....</td>
 <td>cm</td>
-<td>2026-07-22 02:20:00+00:00</td>
-<td>690.0</td>
+<td>2026-09-12 02:20:00+00:00</td>
+<td>635.0</td>
 <td>verwachting</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">545</th>
+<th data-quarto-table-cell-role="th">537</th>
 <td>1</td>
 <td>lobith.bovenrijn.tolkamer</td>
 <td>Lobith Bovenrijn Tolkamer</td>
@@ -593,12 +593,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte verwachting in Oppervlaktewater t....</td>
 <td>cm</td>
-<td>2026-07-22 02:30:00+00:00</td>
-<td>690.0</td>
+<td>2026-09-12 02:30:00+00:00</td>
+<td>635.0</td>
 <td>verwachting</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">546</th>
+<th data-quarto-table-cell-role="th">538</th>
 <td>1</td>
 <td>lobith.bovenrijn.tolkamer</td>
 <td>Lobith Bovenrijn Tolkamer</td>
@@ -606,12 +606,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte verwachting in Oppervlaktewater t....</td>
 <td>cm</td>
-<td>2026-07-22 02:40:00+00:00</td>
-<td>690.0</td>
+<td>2026-09-12 02:40:00+00:00</td>
+<td>635.0</td>
 <td>verwachting</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">547</th>
+<th data-quarto-table-cell-role="th">539</th>
 <td>1</td>
 <td>lobith.bovenrijn.tolkamer</td>
 <td>Lobith Bovenrijn Tolkamer</td>
@@ -619,12 +619,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte verwachting in Oppervlaktewater t....</td>
 <td>cm</td>
-<td>2026-07-22 02:50:00+00:00</td>
-<td>690.0</td>
+<td>2026-09-12 02:50:00+00:00</td>
+<td>635.0</td>
 <td>verwachting</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">548</th>
+<th data-quarto-table-cell-role="th">540</th>
 <td>1</td>
 <td>lobith.bovenrijn.tolkamer</td>
 <td>Lobith Bovenrijn Tolkamer</td>
@@ -632,14 +632,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>WATHTE</td>
 <td>Waterhoogte verwachting in Oppervlaktewater t....</td>
 <td>cm</td>
-<td>2026-07-22 03:00:00+00:00</td>
-<td>690.0</td>
+<td>2026-09-12 03:00:00+00:00</td>
+<td>635.0</td>
 <td>verwachting</td>
 </tr>
 </tbody>
 </table>
 
-<p>395 rows × 10 columns</p>
+<p>389 rows × 10 columns</p>
 </div>
 </section>
 <section id="laad-en-run-module-functie-loadsfews-voor-inlezen-belastingen-uit-fews" class="level3">
@@ -784,9 +784,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-07-19 11:00:00+01:00</td>
+<td>2026-09-09 12:00:00+01:00</td>
 <td>cm</td>
-<td>461.0</td>
+<td>472.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -796,9 +796,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-07-19 11:10:00+01:00</td>
+<td>2026-09-09 12:10:00+01:00</td>
 <td>cm</td>
-<td>466.0</td>
+<td>469.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -808,9 +808,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-07-19 11:20:00+01:00</td>
+<td>2026-09-09 12:20:00+01:00</td>
 <td>cm</td>
-<td>471.0</td>
+<td>466.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -820,9 +820,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-07-19 11:30:00+01:00</td>
+<td>2026-09-09 12:30:00+01:00</td>
 <td>cm</td>
-<td>468.0</td>
+<td>471.0</td>
 <td>meting</td>
 </tr>
 <tr class="odd">
@@ -832,9 +832,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-07-19 11:40:00+01:00</td>
+<td>2026-09-09 12:40:00+01:00</td>
 <td>cm</td>
-<td>469.0</td>
+<td>477.0</td>
 <td>meting</td>
 </tr>
 <tr class="even">
@@ -850,69 +850,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">140</th>
-<td>4</td>
-<td>rosmalen.hinthamsluis.boven</td>
-<td>Rosmalen Hinthamsluis boven</td>
-<td>4724</td>
-<td>WATHTE</td>
-<td>2026-07-20 10:20:00+01:00</td>
-<td>cm</td>
-<td>463.0</td>
-<td>meting</td>
-</tr>
-<tr class="even">
 <th data-quarto-table-cell-role="th">141</th>
 <td>4</td>
 <td>rosmalen.hinthamsluis.boven</td>
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-07-20 10:30:00+01:00</td>
+<td>2026-09-10 11:30:00+01:00</td>
 <td>cm</td>
-<td>468.0</td>
+<td>470.0</td>
 <td>meting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th">142</th>
 <td>4</td>
 <td>rosmalen.hinthamsluis.boven</td>
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-07-20 10:40:00+01:00</td>
+<td>2026-09-10 11:40:00+01:00</td>
 <td>cm</td>
-<td>473.0</td>
+<td>475.0</td>
 <td>meting</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <th data-quarto-table-cell-role="th">143</th>
 <td>4</td>
 <td>rosmalen.hinthamsluis.boven</td>
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-07-20 10:50:00+01:00</td>
+<td>2026-09-10 11:50:00+01:00</td>
 <td>cm</td>
-<td>465.0</td>
+<td>473.0</td>
 <td>meting</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th">144</th>
 <td>4</td>
 <td>rosmalen.hinthamsluis.boven</td>
 <td>Rosmalen Hinthamsluis boven</td>
 <td>4724</td>
 <td>WATHTE</td>
-<td>2026-07-20 11:00:00+01:00</td>
+<td>2026-09-10 12:00:00+01:00</td>
 <td>cm</td>
-<td>463.0</td>
+<td>464.0</td>
 <td>meting</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145</th>
+<td>4</td>
+<td>rosmalen.hinthamsluis.boven</td>
+<td>Rosmalen Hinthamsluis boven</td>
+<td>4724</td>
+<td>WATHTE</td>
+<td>2026-09-10 12:10:00+01:00</td>
+<td>cm</td>
+<td>473.0</td>
+<td>verwachting</td>
 </tr>
 </tbody>
 </table>
 
-<p>145 rows × 9 columns</p>
+<p>146 rows × 9 columns</p>
 </div>
 
 
