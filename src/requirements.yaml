@@ -3,7 +3,7 @@ channels:
 - conda-forge
 dependencies:
 # bare minimum dependencies
-- pandas
+- pandas<3
 - pydantic>=2
 - python-dotenv>=1.0.1
 - requests
@@ -15,8 +15,9 @@ dependencies:
 - psycopg2
 - xarray
 - netcdf4>=1.7.1
+- h5py
 - openpyxl
-- pastas
+- pastas<=2.0.0
 # flood_scenarios
 - rasterstats>=0.20.0
 # geospatial dependencies
