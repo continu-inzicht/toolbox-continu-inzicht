@@ -1,11 +1,22 @@
 from pathlib import Path
 
 import pytest
+
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.flood_scenarios.postprocess_flood_risk import (
     PostProcessFloodRisk,
 )
+
+
+def helper_folium_is_installed():
+    """Check if folium is installed."""
+    try:
+        import folium  # noqa: F401
+
+        return True
+    except ImportError:
+        return False
 
 
 def helper_create_data_adapter(name):
@@ -67,6 +78,10 @@ def test_calculate_flood_risk():
     assert df_out["segment_id_casualties"].to_dict() == expected_segment_id_casualties
 
 
+@pytest.mark.skipif(
+    not helper_folium_is_installed(),
+    reason="folium is not installed, this is not part of the core package",
+)
 def test_calculate_flood_risk_map():
     """test minimale werkting van functie"""
     data_adapter = helper_create_data_adapter("test_postprocess_flood_risk.yaml")
