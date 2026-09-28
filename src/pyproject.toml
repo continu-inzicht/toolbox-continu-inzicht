@@ -24,7 +24,7 @@ dynamic = ["version"]
 
 # bare minimum dependencies
 dependencies = [
-    "pandas",
+    "pandas<3",
     "pydantic>=2",
     "python-dotenv>=1.0.1",
     "pyyaml",
