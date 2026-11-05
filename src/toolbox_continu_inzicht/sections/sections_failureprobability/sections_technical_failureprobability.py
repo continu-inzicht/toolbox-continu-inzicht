@@ -35,10 +35,12 @@ class SectionsTechnicalFailureprobability:
     -----
     **Input schema's**
 
-    *input_schema_sections*: schema voor de lijst met dijkvakken
+    *input_schema_fragility_curves*: schema voor fragility curves voor de dijkvak
 
-    - id: int64                         : id van het dijkvak
-    - name: str                         : naam van de dijkvak
+    - section_id: int64                 : id van het dijkvak
+    - failuremechanism: str             : code van het faalmechanisme
+    - hydraulicload: float64            : belasting van het tijdreeksitem
+    - failureprobability: float64       : faalkans bepaald voor de tijdreeksitem
 
     *input_schema_loads*: schema voor belasting per moment per meetlocaties
 
@@ -48,15 +50,6 @@ class SectionsTechnicalFailureprobability:
     - date_time: datetime64[ns, UTC]    : datum/ tijd van de tijdreeksitem
     - value: float64                    : waarde van de tijdreeksitem
     - value_type: str                   : type waarde van de tijdreeksitem (meting of verwacht)
-
-    *input_schema_section_fractions*: schema voor koppeling van de maatgevende meetlocaties per dijkvak
-
-    - id: int64                         : id van de dijkvak
-    - idup: int64                       : id van bovenstrooms meetstation
-    - iddown: int64                     : id van benedenstrooms meetstation
-    - fractionup: float64               : fractie van bovenstrooms meetstation
-    - fractiondown: float64             : fractie van benedestrooms meetstation
-
 
     **Output schema**
 
