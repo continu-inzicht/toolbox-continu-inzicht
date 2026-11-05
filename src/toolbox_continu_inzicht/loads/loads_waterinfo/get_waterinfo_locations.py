@@ -25,13 +25,13 @@ def get_waterinfo_locations(parameter_id: str = "waterhoogte") -> pd.DataFrame:
     """
 
     # URL voor ophalen van waterinfo geojson
-    url: str = "https://waterinfo.rws.nl/api/point/latestmeasurement"
-
-    params: dict = {"parameterId": parameter_id}
+    url: str = (
+        f"https://waterinfo.rws.nl/api/point/latestmeasurement?parameter={parameter_id}"
+    )
 
     # Ophalen json data van de Waterinfo api
     dataframe: pd.DataFrame = pd.DataFrame()
-    status, json_data = fetch_data_get(url=url, params=params, mime_type="json")
+    status, json_data = fetch_data_get(url=url, params={}, mime_type="json")
     if status is None and json_data is not None:
         if "features" in json_data:
             df_locations = pd.DataFrame(json_data["features"])
