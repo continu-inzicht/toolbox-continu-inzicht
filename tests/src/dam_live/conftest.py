@@ -45,15 +45,3 @@ def fake_damlive():
         shutil.copy(results / "live.OutputTimeSeries.xml", output_xml)
 
     return run
-
-
-@pytest.fixture
-def parse_dir(tmp_path) -> Path:
-    """Writable copy of the extracted `.stix` folder used by the parse test."""
-    return Path(
-        shutil.copytree(
-            Path(__file__).parent / "data_sets" / "WV2030_PU0013_87074-1",
-            tmp_path / "WV2030_PU0013_87074-1",
-            ignore=shutil.ignore_patterns("*.Calc", "hidden_*", "*.png"),
-        )
-    )

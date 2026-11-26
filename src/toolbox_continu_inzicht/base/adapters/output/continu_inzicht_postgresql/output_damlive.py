@@ -49,7 +49,7 @@ def output_ci_postgresql_damlive_soil(
     - itemid             : int64  – uniek laag-ID (= layer_id uit geometries)
     - layername          : str    – naam van de grondsoort (uit soils.name)
     - soils.color        : str    – leeg laten (None / NaN)
-    - datetime           : int64  – huidige tijd als epoch milliseconden
+    - datetime           : int64  – rekenmoment van DamLive als epoch milliseconden
     - index              : int64  – volgnummer van het punt binnen de laag (start bij 0)
     - x                  : float64 – X-coördinaat van het punt
     - y                  : float64 – altijd 0.0 (2D-dwarsprofiel)

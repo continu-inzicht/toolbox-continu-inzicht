@@ -1,7 +1,5 @@
 import subprocess
-from typing import ClassVar, Optional
-import zipfile
-from pathlib import Path
+from typing import ClassVar
 from pydantic.dataclasses import dataclass
 
 import pandas as pd
@@ -19,14 +17,12 @@ class UpdateDamLive(ToolboxBase):
     ----------
     data_adapter: DataAdapter
         Data adapter voor in- en output van dataframes
-    df_in_loads: Optional[pd.DataFrame] | None
+    df_in_loads: pd.DataFrame | None
         Dataframe met scenariokansen per deeltraject (segment)
-    df_in_calculation_settings: Optional[pd.DataFrame] | None
+    df_in_calculation_settings: pd.DataFrame | None
         Dataframe met instellingen voor Dam Live berekeningen
-    df_out: Optional[pd.DataFrame] | None
+    df_out: pd.DataFrame | None
         Dataframe met resultaten van Dam Live berekeningen
-    lst_unzipped_damlive_results: Optional[list[Path]] | None
-        Lijst met paden naar uitgepakte Dam Live resultaten
     schema_loads: ClassVar[dict[str, str]]
         Schema voor inladen belastingen
     schema_calculation_settings: ClassVar[dict[str, str]]
@@ -39,10 +35,9 @@ class UpdateDamLive(ToolboxBase):
 
     data_adapter: DataAdapter
 
-    df_in_loads: Optional[pd.DataFrame] | None = None
-    df_in_calculation_settings: Optional[pd.DataFrame] | None = None
-    df_out: Optional[pd.DataFrame] | None = None
-    lst_unzipped_damlive_results: Optional[list[Path]] | None = None
+    df_in_loads: pd.DataFrame | None = None
+    df_in_calculation_settings: pd.DataFrame | None = None
+    df_out: pd.DataFrame | None = None
 
     schema_loads: ClassVar[dict[str, str]] = {
         "date_time": ["datetime64[ns, UTC]", "datetime64[ns]"],
@@ -176,44 +171,3 @@ class UpdateDamLive(ToolboxBase):
         returncode = proc.wait()
         if returncode != 0:
             raise subprocess.CalledProcessError(returncode, cmd)
-
-    def unzip_damlive_results(self) -> None:
-        """
-        Unzip de resultaten van Dam Live berekeningen.
-
-        Deze gaat er vanuit dat de output naam van DamLive consistent is met:
-
-        Dik(dike)_Loc($LOCATION$)_Stp($STEP$)_Mdl($MODEL$)_$DATETIME$_Pro($PRO$)_result
-
-        Waarbij $LOCATION$ de locatie code is, $STEP$ de tijdstap, $MODEL$ het model en $DATETIME$ het tijdstip van de berekening.
-
-        parameters
-        ----------
-        None
-
-        returns
-        -------
-        None
-        """
-        root_dir = self.data_adapter.get_global_variable("used_root_dir")
-        options = self.data_adapter.config.global_variables.get("UpdateDamLive", {})
-        damlive_name = ".".join(options["DAMLIVE_FILE"].split(".")[:-1]) + ".Calc"
-        results_dir = root_dir / damlive_name
-        if not results_dir.exists():
-            raise FileNotFoundError(f"Results directory {results_dir} does not exist.")
-        stability_dir = results_dir / "Stability"
-        lst_unzipped_files = []
-        for file in stability_dir.iterdir():
-            # file = stability_dir / "test"
-            for stix_file in file.glob("*_result.stix"):
-                fname = stix_file.name
-                loc = fname[fname.find("Loc") + 4 : fname.find(")_Stp")]
-                step = fname[fname.find("Stp") + 4 : fname.find(")_Mdl")]
-                time = fname[fname.find("_Pro") - 19 : fname.find("_Pro")].split("_")[0]
-                output_zip_dir = stix_file.parent / f"{loc}.{step}.{time}"
-                output_zip_dir.mkdir(exist_ok=True)
-                with zipfile.ZipFile(stix_file, "r") as zip_ref:
-                    zip_ref.extractall(output_zip_dir)
-                lst_unzipped_files.append(output_zip_dir)
-
-        self.lst_unzipped_damlive_results = lst_unzipped_files

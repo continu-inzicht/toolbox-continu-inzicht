@@ -103,6 +103,14 @@ class StixFile(BaseModel):
         except (zipfile.BadZipFile, KeyError, ValidationError, ValueError) as e:
             raise ValueError(f"Kan stix-bestand niet lezen: {path}\n{e}") from e
 
+        # GEOLib accepts `null` here, but D-Stability always writes both
+        for settings in content["calculationsettings"]:
+            if settings.AnalysisType is None or settings.CalculationType is None:
+                raise ValueError(
+                    f"Kan stix-bestand niet lezen: {path}\n"
+                    f"Rekeninstellingen {settings.Id} zonder AnalysisType of CalculationType"
+                )
+
         name = _DAMLIVE_NAME.search(path.name)
         if name:
             content.update(

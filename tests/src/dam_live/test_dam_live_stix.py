@@ -1,12 +1,13 @@
 """Loading `.stix` files through the `damlive_stix` DataAdapter input type."""
 
+import json
 import shutil
 import warnings
+import zipfile
 from datetime import datetime
 from pathlib import Path
 
 import pytest
-import yaml
 
 from damlive_oracle import expected_tables
 from toolbox_continu_inzicht.base.adapters.input.dam_live.stix import (
@@ -21,19 +22,18 @@ INPUT_PROFILE = Path("WV2030_Purmer.geometries2D") / "PU0013_87074-1_DWP001.stix
 
 
 def load(rootdir: Path, path: Path | str) -> StixCollection:
-    """Load `path` through a DataAdapter entry of type `damlive_stix`."""
-    config_path = rootdir / "hidden_stix_config.yaml"
-    config_path.write_text(
-        yaml.safe_dump(
-            {
-                "GlobalVariables": {"rootdir": str(rootdir)},
-                "DataAdapter": {"stix": {"type": "damlive_stix", "path": str(path)}},
-            }
-        )
+    """Load `path` through the DataAdapter entry of type `damlive_stix`."""
+    config = Config(
+        config_path=Path(__file__).parent
+        / "data_sets"
+        / "run_damlive"
+        / "test_combine_damlive.yaml"
     )
-    config = Config(config_path=config_path)
     config.lees_config()
-    return DataAdapter(config).input("stix")
+    config.global_variables["rootdir"] = rootdir
+    data_adapter = DataAdapter(config)
+    with data_adapter.temporary_adapter_config("damlive_results", {"path": str(path)}):
+        return data_adapter.input("damlive_results")
 
 
 def test_calc_folder_loads_every_damlive_result(run_damlive_dir):
@@ -51,9 +51,9 @@ def test_calc_folder_loads_every_damlive_result(run_damlive_dir):
         ("PU0021_87074-1_DWP002", 0, "UpliftVan", datetime(2024, 11, 6, 7)),
         ("PU0021_87074-1_DWP002", 1, "UpliftVan", datetime(2024, 11, 6, 8)),
     ]
-    # nothing is extracted: only the config this test wrote is new
+    # nothing is extracted
     after = sorted(p.relative_to(run_damlive_dir) for p in run_damlive_dir.rglob("*"))
-    assert sorted(set(after) - set(before)) == [Path("hidden_stix_config.yaml")]
+    assert after == before
 
 
 def test_damlive_result_matches_original_tables(run_damlive_dir):
@@ -143,6 +143,25 @@ def test_unreadable_input_names_the_path(run_damlive_dir, tmp_path):
 
     with pytest.raises(UserWarning, match="bestaat niet"):
         load(run_damlive_dir, tmp_path / "nowhere")
+
+
+def test_settings_without_analysis_type_names_the_path(run_damlive_dir, tmp_path):
+    damlive = next((run_damlive_dir / CALC).rglob("*_result.stix"))
+    no_analysis_type = tmp_path / "no_analysis_type_result.stix"
+    with (
+        zipfile.ZipFile(damlive) as source,
+        zipfile.ZipFile(no_analysis_type, "w") as target,
+    ):
+        for name in source.namelist():
+            data = source.read(name)
+            if name.startswith("calculationsettings/"):
+                settings = json.loads(data)
+                settings["AnalysisType"] = None
+                data = json.dumps(settings)
+            target.writestr(name, data)
+
+    with pytest.raises(ValueError, match="no_analysis_type_result.stix"):
+        StixFile.from_path(no_analysis_type)
 
 
 def test_folder_warns_for_names_outside_damlive_naming(run_damlive_dir, tmp_path):

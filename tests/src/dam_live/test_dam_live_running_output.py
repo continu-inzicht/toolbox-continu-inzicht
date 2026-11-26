@@ -1,13 +1,16 @@
-import datetime
+from datetime import datetime
 from pathlib import Path
 from unittest import mock
 
+import pandas as pd
 
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.dam_live import UpdateDamLive
-
-from toolbox_continu_inzicht.dam_live.combine_results import CombineDamLiveResults
+from toolbox_continu_inzicht.dam_live.combine_results import (
+    DAMLIVE_TIMEZONE,
+    CombineDamLiveResults,
+)
 
 
 def test_integration_damlive(run_damlive_dir, fake_damlive, tmp_path):
@@ -32,80 +35,53 @@ def test_integration_damlive(run_damlive_dir, fake_damlive, tmp_path):
             output="output_file",
         )
 
-    df_output_damlive = update_dam_live.data_adapter.input("output_file")
-    update_dam_live.unzip_damlive_results()
+    df_output_damlive = data_adapter.input("output_file")
 
-    config = Config(config_path=data_sets_path / "test_dam_live_parse_config.yaml")
-    config.lees_config()
+    # We kunnen nu een van de resultaten bekijken, gekozen op locatie en tijd in de config
+    combine_config = Config(config_path=data_sets_path / "test_combine_damlive.yaml")
+    combine_config.lees_config()
+    combine_config.global_variables["rootdir"] = run_damlive_dir
+    options = combine_config.global_variables["CombineDamLiveResults"]
+    loc = options["location"]
+    time = datetime.fromisoformat(options["timestamp"])
 
-    data_adapter = DataAdapter(config)
-
-    # na het uitpakken slaan we de resulterende bestandsnamen op, deze kunnen we hier weer inlezen
-    # dit is een voorbeeld specifiek voor deze configuratie en je paden, daarom is het niet in de functie verwerkt.
-    unziped_dirs = [str(path) for path in update_dam_live.lst_unzipped_damlive_results]
-    # uit de bestands namen halen we de locatie en tijdstap, hier koppelen we vervolgens weer met de output dataframe
-    # folder names are <location>.<step>.<time>
-    loc_time = [
-        (loc, time)
-        for loc, _step, time in (Path(fname).name.split(".") for fname in unziped_dirs)
-    ]
-    # We kunnen nu een van de resultaten bekijken:
-    run_index = 1
-    config.global_variables["rootdir"] = unziped_dirs[run_index]
-    combine_damlive_results = CombineDamLiveResults(data_adapter)
-
+    combine_damlive_results = CombineDamLiveResults(
+        data_adapter=DataAdapter(combine_config)
+    )
     combine_damlive_results.run(
-        input=[
-            "scenario",
-            "geometries",
-            "soils",
-            "soillayers",
-            "waternets",
-            "calculationsettings",
-            "colors",
-        ],
+        input=["damlive_results", "colors"],
         output=["merge_soil", "merge_waternet", "merge_calculations"],
     )
-    stage_id = list(combine_damlive_results.df_merged_soils.stage_id.unique())
+    assert combine_damlive_results.stix.step == 1
 
-    tz = datetime.timezone(datetime.timedelta(hours=1))
-    loc, time = loc_time[run_index]
-    date_time = df_output_damlive["date_time"].apply(
-        lambda x: (
-            datetime.datetime.fromisoformat(x).astimezone(tz).strftime("%Y-%m-%dT%H")
-        )
+    # en koppelen aan de uitvoer van DamLive, die in dezelfde tijdzone staat
+    date_time = pd.to_datetime(df_output_damlive["date_time"]).dt.tz_convert(
+        DAMLIVE_TIMEZONE
     )
     df_corresponding_output = df_output_damlive[
-        (df_output_damlive["measurement_location_code"] == loc) & (date_time == time)
+        (df_output_damlive["measurement_location_code"] == loc)
+        & (date_time == pd.Timestamp(time, tz=DAMLIVE_TIMEZONE))
     ]
-    df_corresponding_output
-
-    # En vervolgens plotten -> test of het werkt is al een check
-
-    fig, ax = combine_damlive_results.plot_stage(
-        stage_id=int(stage_id[0]),
-        xlim=(0, 65),
-        ylim=(-15, 6),
-    )
     sf = df_corresponding_output.set_index("parameter_code").loc[
         "StabilityInsideFactor", "value"
     ]
-    ax.set_title(
-        f"Stage {stage_id[0]} - Location: {loc} - Time: {time}, StabilityInsideFactor: {sf:.3f}"
+
+    # En vervolgens plotten -> test of het werkt is al een check
+    stage_id = combine_damlive_results.df_merged_soils["stage_id"].iloc[0]
+    fig, ax = combine_damlive_results.plot_stage(
+        stage_id=stage_id,
+        xlim=(0, 65),
+        ylim=(-15, 6),
     )
+    ax.set_title(
+        f"Stage {stage_id} - Location: {loc} - Time: {time}, StabilityInsideFactor: {sf:.3f}"
+    )
+    fig.savefig(tmp_path / "test_run_damlive_plot.png")
+
     with mock.patch.object(update_dam_live, "_execute", side_effect=fake_damlive):
         update_dam_live.run(
             input=["waterstanden_xml_uur", "parameters_uplift_csv"],
             output="output_file",
         )
 
-    update_dam_live.data_adapter.input("output_file")
-
-    update_dam_live.unzip_damlive_results()
-    unziped_dirs = [str(path) for path in update_dam_live.lst_unzipped_damlive_results]
-    # folder names are <location>.<step>.<time>
-    loc_time = [
-        (loc, time)
-        for loc, _step, time in (Path(fname).name.split(".") for fname in unziped_dirs)
-    ]
-    fig.savefig(tmp_path / "test_run_damlive_plot.png")
+    assert len(data_adapter.input("output_file")) > 0
