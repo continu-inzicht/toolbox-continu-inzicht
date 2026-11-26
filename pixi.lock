@@ -450,8 +450,11 @@ environments:
       - pypi: ./src
       - pypi: https://files.pythonhosted.org/packages/0b/f5/2e40800f258483f6352abcfdb4fdba7af57d3bc85da9754a39511b6d63ce/probabilistic_piping-0.0.8-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0d/fe/6bea5c9162869c5beba5d9c8abbed835ec85bf1ec1fba05a3822325c45f3/build-1.5.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/10/56/c0729478cc364d2c3fa9aba7085acf3a9f98fe30ef3ca4608073ec29ee3e/d_geolib-2.9.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/17/c1/3226e6d7f5a4f736f38ac11a6fbb262d701889802595cdb0f53a885ac2e0/pydantic_extra_types-2.11.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/d1/77c8cc4670cfe34732f25b7c360471e9ce1b503d3d12ab79fd3e4beac00e/openturns-1.27.post1-cp39-abi3-manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1e/77/dc8c558f7593132cf8fefec57c4f60c83b16941c574ac5f619abb3ae7933/dill-0.4.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/4c/26/3e68379ca313b6aa58e11fbd8b28d5c6f1b9f4428d70222ba021a76797ec/pydantic_settings-2.16.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/be/d1/a71505918b35f17495d22f56397d4124b625cb34e71e829c7dcd6520ab5a/pydra_core-0.0.10-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/fe/21/99a0cdaf54eb35e77623c41b5a2c9472ee4404bba687052791fe2aba6773/tqdm-4.69.0-py3-none-any.whl
@@ -836,7 +839,10 @@ environments:
       - pypi: ./src
       - pypi: https://files.pythonhosted.org/packages/0b/f5/2e40800f258483f6352abcfdb4fdba7af57d3bc85da9754a39511b6d63ce/probabilistic_piping-0.0.8-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0d/fe/6bea5c9162869c5beba5d9c8abbed835ec85bf1ec1fba05a3822325c45f3/build-1.5.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/10/56/c0729478cc364d2c3fa9aba7085acf3a9f98fe30ef3ca4608073ec29ee3e/d_geolib-2.9.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/17/c1/3226e6d7f5a4f736f38ac11a6fbb262d701889802595cdb0f53a885ac2e0/pydantic_extra_types-2.11.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/77/dc8c558f7593132cf8fefec57c4f60c83b16941c574ac5f619abb3ae7933/dill-0.4.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/4c/26/3e68379ca313b6aa58e11fbd8b28d5c6f1b9f4428d70222ba021a76797ec/pydantic_settings-2.16.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/65/94/f0eca064d559317e48cab6f6dacbcc6c9416ba724ad79ac7a06e5a494d75/openturns-1.27.post1-cp39-abi3-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/be/d1/a71505918b35f17495d22f56397d4124b625cb34e71e829c7dcd6520ab5a/pydra_core-0.0.10-py2.py3-none-any.whl
@@ -1095,9 +1101,13 @@ environments:
       - pypi: ./src
       - pypi: https://files.pythonhosted.org/packages/0b/f5/2e40800f258483f6352abcfdb4fdba7af57d3bc85da9754a39511b6d63ce/probabilistic_piping-0.0.8-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0d/fe/6bea5c9162869c5beba5d9c8abbed835ec85bf1ec1fba05a3822325c45f3/build-1.5.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/10/56/c0729478cc364d2c3fa9aba7085acf3a9f98fe30ef3ca4608073ec29ee3e/d_geolib-2.9.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/17/c1/3226e6d7f5a4f736f38ac11a6fbb262d701889802595cdb0f53a885ac2e0/pydantic_extra_types-2.11.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1b/d1/77c8cc4670cfe34732f25b7c360471e9ce1b503d3d12ab79fd3e4beac00e/openturns-1.27.post1-cp39-abi3-manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1e/77/dc8c558f7593132cf8fefec57c4f60c83b16941c574ac5f619abb3ae7933/dill-0.4.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/4c/26/3e68379ca313b6aa58e11fbd8b28d5c6f1b9f4428d70222ba021a76797ec/pydantic_settings-2.16.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b5/70/5d8df3b09e25bce090399cf48e452d25c935ab72dad19406c77f4e828045/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/b8/44/7bd2007260da11cccca29ba2d4c345f1287aa663db38ee7cefeabf6386a5/zipp-4.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/be/d1/a71505918b35f17495d22f56397d4124b625cb34e71e829c7dcd6520ab5a/pydra_core-0.0.10-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/fe/21/99a0cdaf54eb35e77623c41b5a2c9472ee4404bba687052791fe2aba6773/tqdm-4.69.0-py3-none-any.whl
@@ -1337,9 +1347,13 @@ environments:
       - pypi: ./src
       - pypi: https://files.pythonhosted.org/packages/0b/f5/2e40800f258483f6352abcfdb4fdba7af57d3bc85da9754a39511b6d63ce/probabilistic_piping-0.0.8-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0d/fe/6bea5c9162869c5beba5d9c8abbed835ec85bf1ec1fba05a3822325c45f3/build-1.5.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/10/56/c0729478cc364d2c3fa9aba7085acf3a9f98fe30ef3ca4608073ec29ee3e/d_geolib-2.9.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/17/c1/3226e6d7f5a4f736f38ac11a6fbb262d701889802595cdb0f53a885ac2e0/pydantic_extra_types-2.11.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/77/dc8c558f7593132cf8fefec57c4f60c83b16941c574ac5f619abb3ae7933/dill-0.4.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/4c/26/3e68379ca313b6aa58e11fbd8b28d5c6f1b9f4428d70222ba021a76797ec/pydantic_settings-2.16.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/65/94/f0eca064d559317e48cab6f6dacbcc6c9416ba724ad79ac7a06e5a494d75/openturns-1.27.post1-cp39-abi3-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/b4/90/e2159492b5426be0c1fef7acba807a03511f97c5f86b3caeda6ad92351a7/psutil-7.2.2-cp37-abi3-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/b8/44/7bd2007260da11cccca29ba2d4c345f1287aa663db38ee7cefeabf6386a5/zipp-4.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/be/d1/a71505918b35f17495d22f56397d4124b625cb34e71e829c7dcd6520ab5a/pydra_core-0.0.10-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/fe/21/99a0cdaf54eb35e77623c41b5a2c9472ee4404bba687052791fe2aba6773/tqdm-4.69.0-py3-none-any.whl
@@ -14092,6 +14106,7 @@ packages:
   - pydantic>=2
   - python-dotenv>=1.0.1
   - pyyaml
+  - d-geolib>=2.9.1,<3 ; extra == 'all'
   - fiona ; extra == 'all'
   - geopandas ; extra == 'all'
   - h5netcdf ; extra == 'all'
@@ -14111,6 +14126,7 @@ packages:
   - shapely ; extra == 'all'
   - sqlalchemy ; extra == 'all'
   - xarray ; extra == 'all'
+  - d-geolib>=2.9.1,<3 ; extra == 'dam-live'
   - geopandas ; extra == 'flood-scenarios'
   - rasterstats>=0.20.0 ; extra == 'flood-scenarios'
   - sqlalchemy ; extra == 'flood-scenarios'
@@ -14174,6 +14190,51 @@ packages:
   - virtualenv>=20.17 ; python_full_version >= '3.10' and python_full_version < '3.14' and extra == 'virtualenv'
   - virtualenv>=20.31 ; python_full_version >= '3.14' and extra == 'virtualenv'
   requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/10/56/c0729478cc364d2c3fa9aba7085acf3a9f98fe30ef3ca4608073ec29ee3e/d_geolib-2.9.1-py3-none-any.whl
+  name: d-geolib
+  version: 2.9.1
+  sha256: 066f5fbfb6fa4f7cd88170ab571d1923194874a67064c9497b2bed3777451d85
+  requires_dist:
+  - jinja2
+  - matplotlib
+  - numpy
+  - pydantic
+  - pydantic-extra-types
+  - pydantic-settings
+  - python-dotenv
+  - requests
+  - scipy
+  - shapely
+  - zipp
+  requires_python: '>=3.10,<3.15'
+- pypi: https://files.pythonhosted.org/packages/17/c1/3226e6d7f5a4f736f38ac11a6fbb262d701889802595cdb0f53a885ac2e0/pydantic_extra_types-2.11.1-py3-none-any.whl
+  name: pydantic-extra-types
+  version: 2.11.1
+  sha256: 1722ea2bddae5628ace25f2aa685b69978ef533123e5638cfbddb999e0100ec1
+  requires_dist:
+  - pydantic>=2.5.2
+  - typing-extensions
+  - cron-converter>=1.2.2 ; extra == 'all'
+  - pendulum>=3.0.0,<4.0.0 ; extra == 'all'
+  - phonenumbers>=8,<10 ; extra == 'all'
+  - pycountry>=23 ; extra == 'all'
+  - pymongo>=4.0.0,<5.0.0 ; extra == 'all'
+  - python-ulid>=1,<2 ; python_full_version < '3.9' and extra == 'all'
+  - python-ulid>=1,<4 ; python_full_version >= '3.9' and extra == 'all'
+  - pytz>=2024.1 ; extra == 'all'
+  - semver>=3.0.2 ; extra == 'all'
+  - semver~=3.0.2 ; extra == 'all'
+  - tzdata>=2024.1 ; extra == 'all'
+  - uuid-utils>=0.6.0 ; python_full_version < '3.14' and extra == 'all'
+  - cron-converter>=1.2.2 ; extra == 'cron'
+  - pendulum>=3.0.0,<4.0.0 ; extra == 'pendulum'
+  - phonenumbers>=8,<10 ; extra == 'phonenumbers'
+  - pycountry>=23 ; extra == 'pycountry'
+  - python-ulid>=1,<2 ; python_full_version < '3.9' and extra == 'python-ulid'
+  - python-ulid>=1,<4 ; python_full_version >= '3.9' and extra == 'python-ulid'
+  - semver>=3.0.2 ; extra == 'semver'
+  - uuid-utils>=0.6.0 ; python_full_version < '3.14' and extra == 'uuid-utils'
+  requires_python: '>=3.9'
 - pypi: https://files.pythonhosted.org/packages/1b/d1/77c8cc4670cfe34732f25b7c360471e9ce1b503d3d12ab79fd3e4beac00e/openturns-1.27.post1-cp39-abi3-manylinux_2_28_x86_64.whl
   name: openturns
   version: 1.27.post1
@@ -14189,6 +14250,22 @@ packages:
   - objgraph>=1.7.2 ; extra == 'graph'
   - gprof2dot>=2022.7.29 ; extra == 'profile'
   requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/4c/26/3e68379ca313b6aa58e11fbd8b28d5c6f1b9f4428d70222ba021a76797ec/pydantic_settings-2.16.3-py3-none-any.whl
+  name: pydantic-settings
+  version: 2.16.3
+  sha256: d1db16a2d34006323a1b42c0640898da58adfbad7ec30baaa9e2b18aafc08999
+  requires_dist:
+  - pydantic>=2.7.0
+  - python-dotenv>=1.2.2
+  - typing-extensions>=4.0.0
+  - typing-inspection>=0.4.0
+  - boto3>=1.35.0 ; extra == 'aws-secrets-manager'
+  - boto3>=1.35.0 ; extra == 'aws-systems-manager'
+  - azure-identity>=1.16.0 ; extra == 'azure-key-vault'
+  - azure-keyvault-secrets>=4.8.0 ; extra == 'azure-key-vault'
+  - google-cloud-secret-manager>=2.23.1 ; extra == 'gcp-secret-manager'
+  - pyyaml>=6.0.1 ; extra == 'yaml'
+  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/65/94/f0eca064d559317e48cab6f6dacbcc6c9416ba724ad79ac7a06e5a494d75/openturns-1.27.post1-cp39-abi3-win_amd64.whl
   name: openturns
   version: 1.27.post1
@@ -14284,6 +14361,30 @@ packages:
   - wheel ; implementation_name != 'pypy' and os_name == 'nt' and extra == 'test'
   - wmi ; implementation_name != 'pypy' and os_name == 'nt' and extra == 'test'
   requires_python: '>=3.6'
+- pypi: https://files.pythonhosted.org/packages/b8/44/7bd2007260da11cccca29ba2d4c345f1287aa663db38ee7cefeabf6386a5/zipp-4.1.2-py3-none-any.whl
+  name: zipp
+  version: 4.1.2
+  sha256: b30cb6cd253122169c47de245ca24a86bac2a5d3802ba15bf7ba6414eb9e144d
+  requires_dist:
+  - pytest>=6,!=8.1.* ; extra == 'test'
+  - jaraco-itertools ; extra == 'test'
+  - jaraco-functools ; extra == 'test'
+  - more-itertools ; extra == 'test'
+  - big-o ; extra == 'test'
+  - pytest-ignore-flaky ; extra == 'test'
+  - jaraco-test ; extra == 'test'
+  - sphinx>=3.5 ; extra == 'doc'
+  - jaraco-packaging>=9.3 ; extra == 'doc'
+  - rst-linker>=1.9 ; extra == 'doc'
+  - furo ; extra == 'doc'
+  - sphinx-lint ; extra == 'doc'
+  - jaraco-tidelift>=1.4 ; extra == 'doc'
+  - pytest-checkdocs>=2.14 ; extra == 'check'
+  - pytest-ruff>=0.2.1 ; sys_platform != 'cygwin' and extra == 'check'
+  - pytest-cov ; extra == 'cover'
+  - pytest-enabler>=3.4 ; extra == 'enabler'
+  - pytest-mypy>=1.0.1 ; platform_python_implementation != 'PyPy' and extra == 'type'
+  requires_python: '>=3.10'
 - pypi: https://files.pythonhosted.org/packages/bd/24/12818598c362d7f300f18e74db45963dbcb85150324092410c8b49405e42/pyproject_hooks-1.2.0-py3-none-any.whl
   name: pyproject-hooks
   version: 1.2.0

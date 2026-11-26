@@ -1,150 +1,87 @@
-import datetime
+from datetime import datetime
 from pathlib import Path
-import shutil
 from unittest import mock
 
+import pandas as pd
 
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
 from toolbox_continu_inzicht.dam_live import UpdateDamLive
+from toolbox_continu_inzicht.dam_live.combine_results import (
+    DAMLIVE_TIMEZONE,
+    CombineDamLiveResults,
+)
 
-from toolbox_continu_inzicht.dam_live.combine_results import CombineDamLiveResults
 
-
-def test_integration_damlive():
-    """DamLive requires custom binaries & lisence which we can't provide in CI
-    Therefore we mock the run function, but we can still test the rest of the code and the flow.
+def test_integration_damlive(run_damlive_dir, fake_damlive, tmp_path):
+    """DamLive requires custom binaries which we can't provide in CI.
+    Only the call to the DamLive executable is replaced; the rest of the flow is tested.
     """
     data_sets_path = Path(__file__).parent / "data_sets" / "run_damlive"
 
     config = Config(config_path=data_sets_path / "test_run_damlive.yaml")
     config.lees_config()
+    config.global_variables["rootdir"] = run_damlive_dir
+    # DAMLIVE_EXE comes from the .env file; the template provides a placeholder value
+    config.global_variables["dotenv_path"] = Path(__file__).parents[3] / ".env.template"
 
     data_adapter = DataAdapter(config)
 
     update_dam_live = UpdateDamLive(data_adapter=data_adapter)
 
-    # with mock.patch("toolbox_continu_inzicht.dam_live.UpdateDamLive.run") as mock_run:
-    #     mock_run.return_value = None  # or set appropriate return value
-    with mock.patch.object(update_dam_live, "run", mock_run):
+    with mock.patch.object(update_dam_live, "_execute", side_effect=fake_damlive):
         update_dam_live.run(
-            self=update_dam_live,
             input=["waterstanden_xml_uur", "parameters_bishop_csv"],
             output="output_file",
         )
 
-    df_output_damlive = update_dam_live.data_adapter.input("output_file")
-    update_dam_live.unzip_damlive_results()
+    df_output_damlive = data_adapter.input("output_file")
 
-    config = Config(config_path=data_sets_path / "test_dam_live_parse_config.yaml")
-    config.lees_config()
+    # We kunnen nu een van de resultaten bekijken, gekozen op locatie en tijd in de config
+    combine_config = Config(config_path=data_sets_path / "test_combine_damlive.yaml")
+    combine_config.lees_config()
+    combine_config.global_variables["rootdir"] = run_damlive_dir
+    options = combine_config.global_variables["CombineDamLiveResults"]
+    loc = options["location"]
+    time = datetime.fromisoformat(options["timestamp"])
 
-    data_adapter = DataAdapter(config)
-
-    # na het uitpakken slaan we de resulterende bestandsnamen op, deze kunnen we hier weer inlezen
-    # dit is een voorbeeld specifiek voor deze configuratie en je paden, daarom is het niet in de functie verwerkt.
-    unziped_dirs = [
-        "tests\\src\\" + str(path).split("tests\\src\\")[1]
-        for path in update_dam_live.lst_unzipped_damlive_results
-    ]
-    # uit de bestands namen halen we de locatie en tijdstap, hier koppelen we vervolgens weer met de output dataframe
-    loc_time = [
-        (fname.split("\\")[-1].split(".")[0], fname.split("\\")[-1].split(".")[-1])
-        for fname in unziped_dirs
-    ]
-    # We kunnen nu een van de resultaten bekijken:
-    run_index = 1
-    config.global_variables["rootdir"] = unziped_dirs[run_index]
-    combine_damlive_results = CombineDamLiveResults(data_adapter)
-
+    combine_damlive_results = CombineDamLiveResults(
+        data_adapter=DataAdapter(combine_config)
+    )
     combine_damlive_results.run(
-        input=[
-            "scenario",
-            "geometries",
-            "soils",
-            "soillayers",
-            "waternets",
-            "calculationsettings",
-            "colors",
-        ],
+        input=["damlive_results", "colors"],
         output=["merge_soil", "merge_waternet", "merge_calculations"],
     )
-    stage_id = list(combine_damlive_results.df_merged_soils.stage_id.unique())
+    assert combine_damlive_results.stix.step == 1
 
-    tz = datetime.timezone(datetime.timedelta(hours=1))
-    loc, time = loc_time[run_index]
-    date_time = df_output_damlive["date_time"].apply(
-        lambda x: datetime.datetime.fromisoformat(x)
-        .astimezone(tz)
-        .strftime("%Y-%m-%dT%H")
+    # en koppelen aan de uitvoer van DamLive, die in dezelfde tijdzone staat
+    date_time = pd.to_datetime(df_output_damlive["date_time"]).dt.tz_convert(
+        DAMLIVE_TIMEZONE
     )
     df_corresponding_output = df_output_damlive[
-        (df_output_damlive["measurement_location_code"] == loc) & (date_time == time)
+        (df_output_damlive["measurement_location_code"] == loc)
+        & (date_time == pd.Timestamp(time, tz=DAMLIVE_TIMEZONE))
     ]
-    df_corresponding_output
-
-    # En vervolgens plotten -> test of het werkt is al een check
-
-    fig, ax = combine_damlive_results.plot_stage(
-        stage_id=int(stage_id[0]),
-        xlim=(0, 65),
-        ylim=(-15, 6),
-    )
     sf = df_corresponding_output.set_index("parameter_code").loc[
         "StabilityInsideFactor", "value"
     ]
-    ax.set_title(
-        f"Stage {stage_id[0]} - Location: {loc} - Time: {time}, StabilityInsideFactor: {sf:.3f}"
+
+    # En vervolgens plotten -> test of het werkt is al een check
+    stage_id = combine_damlive_results.df_merged_soils["stage_id"].iloc[0]
+    fig, ax = combine_damlive_results.plot_stage(
+        stage_id=stage_id,
+        xlim=(0, 65),
+        ylim=(-15, 6),
     )
-    with mock.patch.object(update_dam_live, "run", mock_run):
+    ax.set_title(
+        f"Stage {stage_id} - Location: {loc} - Time: {time}, StabilityInsideFactor: {sf:.3f}"
+    )
+    fig.savefig(tmp_path / "test_run_damlive_plot.png")
+
+    with mock.patch.object(update_dam_live, "_execute", side_effect=fake_damlive):
         update_dam_live.run(
-            self=update_dam_live,
             input=["waterstanden_xml_uur", "parameters_uplift_csv"],
             output="output_file",
         )
 
-    update_dam_live.data_adapter.input("output_file")
-
-    update_dam_live.unzip_damlive_results()
-    unziped_dirs = [
-        "tests\\src\\" + str(path).split("tests\\src\\")[1]
-        for path in update_dam_live.lst_unzipped_damlive_results
-    ]
-    loc_time = [
-        (fname.split("\\")[-1].split(".")[0], fname.split("\\")[-1].split(".")[-1])
-        for fname in unziped_dirs
-    ]
-    fig.savefig(data_sets_path / "test_run_damlive_plot.png")
-
-
-def mock_run(self, input, output):
-    """Mock run that focuses on the output files generated without running the binary."""
-    # input is unused but loading it ensure the data adapter has the right paths
-    _ = self.data_adapter.input(
-        input=input[0],
-        schema=self.schema_loads,
-    )
-    # copy files from test data to output location to simulate the unzipping of damlive results
-    root_dir = self.data_adapter.get_global_variable("used_root_dir")
-    options = self.data_adapter.config.global_variables.get("UpdateDamLive", {})
-    damlive_name = ".".join(options["DAMLIVE_FILE"].split(".")[:-1]) + ".Calc"
-    results_dir = root_dir / damlive_name
-    results_from_dir = root_dir / "WV2030_Purmer.Calc_tests_sets"
-
-    shutil.copytree(results_from_dir, results_dir, dirs_exist_ok=True)
-
-    shutil.copy(
-        results_dir / "live.OutputTimeSeries.xml",
-        root_dir / "hidden_live.OutputTimeSeries.xml",
-    )
-    damlive_data_adapters = {
-        "live.OutputTimeSeries": {
-            "type": "xml_timeseries",
-            "path": "hidden_live.OutputTimeSeries.xml",
-        },
-    }
-    self.data_adapter.config.data_adapters.update(damlive_data_adapters)
-    self.df_out = self.data_adapter.input(
-        input="live.OutputTimeSeries",
-    )
-    self.data_adapter.output(output=output, df=self.df_out)
+    assert len(data_adapter.input("output_file")) > 0

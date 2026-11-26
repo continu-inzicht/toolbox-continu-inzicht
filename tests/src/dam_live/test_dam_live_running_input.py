@@ -1,7 +1,10 @@
+import subprocess
+import sys
 from pathlib import Path
 from unittest import mock
 
 import pandas as pd
+import pytest
 
 from toolbox_continu_inzicht.base.config import Config
 from toolbox_continu_inzicht.base.data_adapter import DataAdapter
@@ -10,16 +13,25 @@ from toolbox_continu_inzicht.dam_live import UpdateDamLive
 
 
 data_sets_path = Path(__file__).parent / "data_sets" / "run_damlive"
+# DAMLIVE_EXE comes from the .env file; the template provides a placeholder value
+env_template = Path(__file__).parents[3] / ".env.template"
 
 
-def test_integration_damlive_input():
-    """DamLive requires custom binaries & license which we can't provide in CI.
-    Therefore we mock the run function, but we can still test the rest of the code and the flow.
-    Checks if the input goes well
+def setup_update_dam_live(rootdir: Path) -> UpdateDamLive:
+    config = Config(config_path=data_sets_path / "test_run_damlive.yaml")
+    config.lees_config()
+    config.global_variables["rootdir"] = rootdir
+    config.global_variables["dotenv_path"] = env_template
+    return UpdateDamLive(data_adapter=DataAdapter(config))
+
+
+def test_integration_damlive_input(run_damlive_dir, fake_damlive):
+    """DamLive requires custom binaries which we can't provide in CI.
+    Only the call to the DamLive executable is replaced; the rest of run() is tested.
     """
     config = Config(config_path=data_sets_path / "test_loads_fews_grondwater.yaml")
     config.lees_config()
-    config.global_variables["rootdir"] = data_sets_path
+    config.global_variables["rootdir"] = run_damlive_dir
 
     data_adapter = DataAdapter(config)
     data_adapter.set_global_variable("moments", [i for i in range(0, 2, 1)])
@@ -27,21 +39,35 @@ def test_integration_damlive_input():
     loads_to_moments = LoadsToMoments(data_adapter=data_adapter)
     loads_to_moments.run(input="waterstanden_xml", output="waterstanden_xml_hourly")
 
-    config = Config(config_path=data_sets_path / "test_run_damlive.yaml")
-    config.lees_config()
-    # DAMLIVE_EXE is set in the .env file, but we also need to set it here for the test to work,
-    # use template
-    config.global_variables["dotenv_path"] = Path.cwd() / ".env.template"
+    update_dam_live = setup_update_dam_live(run_damlive_dir)
 
-    data_adapter = DataAdapter(config)
-    update_dam_live = UpdateDamLive(data_adapter=data_adapter)
-
-    with mock.patch.object(update_dam_live, "run", mock_run):
+    with mock.patch.object(
+        update_dam_live, "_execute", side_effect=fake_damlive
+    ) as execute:
         update_dam_live.run(
-            self=update_dam_live,
             input=["waterstanden_xml_uur", "parameters_bishop_csv"],
             output="output_file",
         )
+
+    # input files for DamLive are written next to the project
+    assert (run_damlive_dir / "live.InputTimeSeries.xml").exists()
+    assert (run_damlive_dir / "live.ParametersFile.xml").exists()
+
+    # DamLive is started once, with the project, input, output and parameter files
+    execute.assert_called_once()
+    cmd = execute.call_args.args[0]
+    assert cmd[0] == "xx"
+    root = run_damlive_dir.resolve()
+    assert cmd[1:] == [
+        "-d",
+        (root / "WV2030_Purmer.damx").as_posix(),
+        "-i",
+        (root / "live.InputTimeSeries.xml").as_posix(),
+        "-o",
+        (root / "live.OutputTimeSeries.xml").as_posix(),
+        "-p",
+        (root / "live.ParametersFile.xml").as_posix(),
+    ]
 
     df_output_damlive = update_dam_live.data_adapter.input("output_file")
     assert not df_output_damlive.empty
@@ -49,9 +75,8 @@ def test_integration_damlive_input():
         ["date_time", "measurement_location_code", "parameter_code", "value"]
     ).issubset(df_output_damlive.columns)
 
-    with mock.patch.object(update_dam_live, "run", mock_run):
+    with mock.patch.object(update_dam_live, "_execute", side_effect=fake_damlive):
         update_dam_live.run(
-            self=update_dam_live,
             input=["waterstanden_xml_uur", "parameters_uplift_csv"],
             output="output_file",
         )
@@ -60,81 +85,60 @@ def test_integration_damlive_input():
     assert not df_output_uplift.empty
 
 
-def mock_run(self, input, output):
-    """Mock run that loads focussed on the input data and the data adapter handling of the run function."""
-    # inladen van scenariokansen per deeltraject (segment)
-    df_in = self.data_adapter.input(
-        input=input[0],
-        schema=self.schema_loads,
-    )
-    # DAMLIVE is gevoelig voor dubbele datums per locatie,
-    # Bij de loads to moments functie kan dit echter wel gebeuren
-    # daarom worden deze hier verwijderd. Er wordt per locatie gefilterd op unieke datums.
-    lst_df_locations: list[pd.DataFrame] = []
-    for loc in df_in["measurement_location_code"].unique():
-        subset = df_in[df_in["measurement_location_code"] == loc].copy()
-        subset.drop_duplicates(subset=["date_time"])
-        lst_df_locations.append(subset)
+def test_damlive_without_output_file(run_damlive_dir):
+    """When DamLive writes no output file, run() reports it and writes no output."""
+    update_dam_live = setup_update_dam_live(run_damlive_dir)
 
-    self.df_in_loads = pd.concat(lst_df_locations)
+    with (
+        mock.patch.object(update_dam_live, "_execute"),
+        mock.patch.object(update_dam_live.data_adapter.logger, "error") as log_error,
+    ):
+        update_dam_live.run(
+            input=["waterstanden_xml_uur", "parameters_bishop_csv"],
+            output="output_file",
+        )
 
-    self.df_in_calculation_settings = self.data_adapter.input(
-        input=input[1],
-        schema=self.schema_calculation_settings,
-    )
-    global_variables = self.data_adapter.config.global_variables
-    options = global_variables.get("UpdateDamLive", {})
+    log_error.assert_called_once()
+    assert "live.OutputTimeSeries.xml" in log_error.call_args.args[0]
+    assert update_dam_live.df_out is None
+    assert not (run_damlive_dir / "hidden_test.csv").exists()
 
-    assert "DAMLIVE_FILE" in options, (
-        "DAMLIVE_FILE {'.damx'}is not set in global variables"
-    )
 
-    # DAM LIVE verwacht een vast formaat dus daarom worden de data adapters voor deze module hier hard gedefinieerd.
-    damlive_data_adapters = {
-        "live.InputTimeSeries": {
-            "type": "xml_timeseries",
-            "path": "live.InputTimeSeries.xml",
-        },
-        "live.ParametersFile": {
-            "type": "xml_calculation_parameters",
-            "path": "live.ParametersFile.xml",
-        },
-        "live.OutputTimeSeries": {
-            "type": "xml_timeseries",
-            "path": "hidden_live.OutputTimeSeries.xml",
-        },
+def test_execute_streams_log_and_raises_on_failure(run_damlive_dir):
+    """The execution boundary itself, with Python standing in for the DamLive executable."""
+    update_dam_live = setup_update_dam_live(run_damlive_dir)
+
+    with mock.patch.object(update_dam_live.data_adapter.logger, "info") as log_info:
+        update_dam_live._execute([sys.executable, "-c", "print('DamLive says hi')"])
+    log_info.assert_any_call("DamLive says hi")
+
+    with pytest.raises(subprocess.CalledProcessError):
+        update_dam_live._execute([sys.executable, "-c", "raise SystemExit(1)"])
+
+
+def test_duplicate_dates_per_location_are_dropped(run_damlive_dir, fake_damlive):
+    """DamLive can't handle two values for the same location and time."""
+    update_dam_live = setup_update_dam_live(run_damlive_dir)
+    data_adapter = update_dam_live.data_adapter
+
+    # loads with one duplicated value for one location
+    df_loads = data_adapter.input("waterstanden_xml_uur")
+    location = df_loads["measurement_location_code"].iloc[0]
+    duplicate = df_loads[df_loads["measurement_location_code"] == location].iloc[[0]]
+    data_adapter.config.data_adapters["loads_with_duplicate"] = {
+        "type": "xml_timeseries",
+        "path": "hidden_loads_with_duplicate.xml",
     }
-    self.data_adapter.config.data_adapters.update(damlive_data_adapters)
+    data_adapter.output("loads_with_duplicate", pd.concat([df_loads, duplicate]))
 
-    # write output to the folder
-    self.data_adapter.output(output="live.InputTimeSeries", df=self.df_in_loads)
-    self.data_adapter.output(
-        output="live.ParametersFile", df=self.df_in_calculation_settings
-    )
-    damlive_exe = self.data_adapter.config.data_adapters["live.InputTimeSeries"].get(
-        "DAMLIVE_EXE", None
-    )
-    assert damlive_exe is not None, (
-        "DAMLIVE_EXE is not set, ensure that it is set in the .env file"
-    )
+    with mock.patch.object(update_dam_live, "_execute", side_effect=fake_damlive):
+        update_dam_live.run(
+            input=["loads_with_duplicate", "parameters_bishop_csv"],
+            output="output_file",
+        )
 
-    # up till here was the normal function, below is the mock output creation,
-    # this should be replaced with the actual run of the binary and reading the output file.
-
-    # Create mock output: one StabilityInsideFactor row per location per moment
-    locations = self.df_in_loads["measurement_location_code"].unique()
-    times = self.df_in_loads["date_time"].unique()
-    rows = [
-        {
-            "date_time": t,
-            "measurement_location_code": loc,
-            "parameter_code": "StabilityInsideFactor",
-            "unit": "-",
-            "value": 1.5,
-        }
-        for loc in locations
-        for t in times
-    ]
-    df_out = pd.DataFrame(rows)
-    self.df_out = df_out
-    self.data_adapter.output(output=output, df=df_out)
+    df_written = data_adapter.input("live.InputTimeSeries")
+    key = ["measurement_location_code", "date_time"]
+    assert not df_written.duplicated(subset=key).any()
+    # only the duplicate is gone: every location and time is still there
+    assert len(df_written) == len(df_loads.drop_duplicates(subset=key))
