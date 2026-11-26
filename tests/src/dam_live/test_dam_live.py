@@ -10,16 +10,17 @@ from toolbox_continu_inzicht.dam_live.combine_results import CombineDamLiveResul
 # Dit voorbeeld laat zien hoe de verschillende mappen binnen het .stix bestand kunnen worden ingelezen doormiddel van data adapters. Er worden
 
 
-def setup_data_adapter():
+def setup_data_adapter(rootdir: Path):
     test_data_path = Path(__file__).parent / "data_sets"
     config = Config(config_path=test_data_path / "test_dam_live_parse_config.yaml")
     config.lees_config()
+    config.global_variables["rootdir"] = rootdir
 
     return DataAdapter(config)
 
 
-def test_dam_live_parse():
-    data_adapter = setup_data_adapter()
+def test_dam_live_parse(parse_dir):
+    data_adapter = setup_data_adapter(parse_dir)
     merge_df = CombineDamLiveResults(data_adapter=data_adapter)
     merge_df.run(
         input=[

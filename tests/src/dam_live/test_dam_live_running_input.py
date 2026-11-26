@@ -12,14 +12,14 @@ from toolbox_continu_inzicht.dam_live import UpdateDamLive
 data_sets_path = Path(__file__).parent / "data_sets" / "run_damlive"
 
 
-def test_integration_damlive_input():
+def test_integration_damlive_input(run_damlive_dir):
     """DamLive requires custom binaries & license which we can't provide in CI.
     Therefore we mock the run function, but we can still test the rest of the code and the flow.
     Checks if the input goes well
     """
     config = Config(config_path=data_sets_path / "test_loads_fews_grondwater.yaml")
     config.lees_config()
-    config.global_variables["rootdir"] = data_sets_path
+    config.global_variables["rootdir"] = run_damlive_dir
 
     data_adapter = DataAdapter(config)
     data_adapter.set_global_variable("moments", [i for i in range(0, 2, 1)])
@@ -29,6 +29,7 @@ def test_integration_damlive_input():
 
     config = Config(config_path=data_sets_path / "test_run_damlive.yaml")
     config.lees_config()
+    config.global_variables["rootdir"] = run_damlive_dir
     # DAMLIVE_EXE is set in the .env file, but we also need to set it here for the test to work,
     # use template
     config.global_variables["dotenv_path"] = Path.cwd() / ".env.template"

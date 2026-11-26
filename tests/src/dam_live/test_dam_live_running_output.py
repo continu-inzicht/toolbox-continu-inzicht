@@ -11,7 +11,7 @@ from toolbox_continu_inzicht.dam_live import UpdateDamLive
 from toolbox_continu_inzicht.dam_live.combine_results import CombineDamLiveResults
 
 
-def test_integration_damlive():
+def test_integration_damlive(run_damlive_dir, tmp_path):
     """DamLive requires custom binaries & lisence which we can't provide in CI
     Therefore we mock the run function, but we can still test the rest of the code and the flow.
     """
@@ -19,6 +19,7 @@ def test_integration_damlive():
 
     config = Config(config_path=data_sets_path / "test_run_damlive.yaml")
     config.lees_config()
+    config.global_variables["rootdir"] = run_damlive_dir
 
     data_adapter = DataAdapter(config)
 
@@ -43,14 +44,12 @@ def test_integration_damlive():
 
     # na het uitpakken slaan we de resulterende bestandsnamen op, deze kunnen we hier weer inlezen
     # dit is een voorbeeld specifiek voor deze configuratie en je paden, daarom is het niet in de functie verwerkt.
-    unziped_dirs = [
-        "tests\\src\\" + str(path).split("tests\\src\\")[1]
-        for path in update_dam_live.lst_unzipped_damlive_results
-    ]
+    unziped_dirs = [str(path) for path in update_dam_live.lst_unzipped_damlive_results]
     # uit de bestands namen halen we de locatie en tijdstap, hier koppelen we vervolgens weer met de output dataframe
+    # folder names are <location>.<step>.<time>
     loc_time = [
-        (fname.split("\\")[-1].split(".")[0], fname.split("\\")[-1].split(".")[-1])
-        for fname in unziped_dirs
+        (loc, time)
+        for loc, _step, time in (Path(fname).name.split(".") for fname in unziped_dirs)
     ]
     # We kunnen nu een van de resultaten bekijken:
     run_index = 1
@@ -74,9 +73,9 @@ def test_integration_damlive():
     tz = datetime.timezone(datetime.timedelta(hours=1))
     loc, time = loc_time[run_index]
     date_time = df_output_damlive["date_time"].apply(
-        lambda x: datetime.datetime.fromisoformat(x)
-        .astimezone(tz)
-        .strftime("%Y-%m-%dT%H")
+        lambda x: (
+            datetime.datetime.fromisoformat(x).astimezone(tz).strftime("%Y-%m-%dT%H")
+        )
     )
     df_corresponding_output = df_output_damlive[
         (df_output_damlive["measurement_location_code"] == loc) & (date_time == time)
@@ -106,15 +105,13 @@ def test_integration_damlive():
     update_dam_live.data_adapter.input("output_file")
 
     update_dam_live.unzip_damlive_results()
-    unziped_dirs = [
-        "tests\\src\\" + str(path).split("tests\\src\\")[1]
-        for path in update_dam_live.lst_unzipped_damlive_results
-    ]
+    unziped_dirs = [str(path) for path in update_dam_live.lst_unzipped_damlive_results]
+    # folder names are <location>.<step>.<time>
     loc_time = [
-        (fname.split("\\")[-1].split(".")[0], fname.split("\\")[-1].split(".")[-1])
-        for fname in unziped_dirs
+        (loc, time)
+        for loc, _step, time in (Path(fname).name.split(".") for fname in unziped_dirs)
     ]
-    fig.savefig(data_sets_path / "test_run_damlive_plot.png")
+    fig.savefig(tmp_path / "test_run_damlive_plot.png")
 
 
 def mock_run(self, input, output):
