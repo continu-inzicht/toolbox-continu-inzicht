@@ -75,6 +75,11 @@ gwdi = [
     "xarray",
 ]
 
+# d-geolib also brings shapely and matplotlib, used by the dam_live module
+dam_live = [
+    "d-geolib>=2.9.1,<3",
+]
+
 # io dependencies separate for now
 io = [
     "pyarrow",
@@ -94,6 +99,7 @@ all = [
     "toolbox_continu_inzicht[gwdi]",
     "toolbox_continu_inzicht[io]",
     "toolbox_continu_inzicht[flood_scenarios]",
+    "toolbox_continu_inzicht[dam_live]",
 ]
 
 [tool.hatch.version]
