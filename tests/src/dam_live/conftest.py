@@ -24,6 +24,30 @@ def run_damlive_dir(tmp_path) -> Path:
 
 
 @pytest.fixture
+def fake_damlive():
+    """Stand-in for `UpdateDamLive._execute`: behaves like a DamLive run on the fixtures.
+
+    Reads the command like DamLive does and writes what DamLive would: the results
+    folder `<project>.Calc` next to the `.damx` (`-d`) and the output time series (`-o`),
+    both taken from `run_damlive/WV2030_Purmer.Calc_tests_sets`.
+    """
+
+    def run(cmd: list[str]) -> None:
+        damx = Path(cmd[cmd.index("-d") + 1])
+        output_xml = Path(cmd[cmd.index("-o") + 1])
+        results = (
+            Path(__file__).parent
+            / "data_sets"
+            / "run_damlive"
+            / "WV2030_Purmer.Calc_tests_sets"
+        )
+        shutil.copytree(results, damx.with_suffix(".Calc"), dirs_exist_ok=True)
+        shutil.copy(results / "live.OutputTimeSeries.xml", output_xml)
+
+    return run
+
+
+@pytest.fixture
 def parse_dir(tmp_path) -> Path:
     """Writable copy of the extracted `.stix` folder used by the parse test."""
     return Path(

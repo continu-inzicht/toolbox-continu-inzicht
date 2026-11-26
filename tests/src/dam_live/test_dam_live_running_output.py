@@ -1,6 +1,5 @@
 import datetime
 from pathlib import Path
-import shutil
 from unittest import mock
 
 
@@ -11,25 +10,24 @@ from toolbox_continu_inzicht.dam_live import UpdateDamLive
 from toolbox_continu_inzicht.dam_live.combine_results import CombineDamLiveResults
 
 
-def test_integration_damlive(run_damlive_dir, tmp_path):
-    """DamLive requires custom binaries & lisence which we can't provide in CI
-    Therefore we mock the run function, but we can still test the rest of the code and the flow.
+def test_integration_damlive(run_damlive_dir, fake_damlive, tmp_path):
+    """DamLive requires custom binaries which we can't provide in CI.
+    Only the call to the DamLive executable is replaced; the rest of the flow is tested.
     """
     data_sets_path = Path(__file__).parent / "data_sets" / "run_damlive"
 
     config = Config(config_path=data_sets_path / "test_run_damlive.yaml")
     config.lees_config()
     config.global_variables["rootdir"] = run_damlive_dir
+    # DAMLIVE_EXE comes from the .env file; the template provides a placeholder value
+    config.global_variables["dotenv_path"] = Path(__file__).parents[3] / ".env.template"
 
     data_adapter = DataAdapter(config)
 
     update_dam_live = UpdateDamLive(data_adapter=data_adapter)
 
-    # with mock.patch("toolbox_continu_inzicht.dam_live.UpdateDamLive.run") as mock_run:
-    #     mock_run.return_value = None  # or set appropriate return value
-    with mock.patch.object(update_dam_live, "run", mock_run):
+    with mock.patch.object(update_dam_live, "_execute", side_effect=fake_damlive):
         update_dam_live.run(
-            self=update_dam_live,
             input=["waterstanden_xml_uur", "parameters_bishop_csv"],
             output="output_file",
         )
@@ -95,9 +93,8 @@ def test_integration_damlive(run_damlive_dir, tmp_path):
     ax.set_title(
         f"Stage {stage_id[0]} - Location: {loc} - Time: {time}, StabilityInsideFactor: {sf:.3f}"
     )
-    with mock.patch.object(update_dam_live, "run", mock_run):
+    with mock.patch.object(update_dam_live, "_execute", side_effect=fake_damlive):
         update_dam_live.run(
-            self=update_dam_live,
             input=["waterstanden_xml_uur", "parameters_uplift_csv"],
             output="output_file",
         )
@@ -112,36 +109,3 @@ def test_integration_damlive(run_damlive_dir, tmp_path):
         for loc, _step, time in (Path(fname).name.split(".") for fname in unziped_dirs)
     ]
     fig.savefig(tmp_path / "test_run_damlive_plot.png")
-
-
-def mock_run(self, input, output):
-    """Mock run that focuses on the output files generated without running the binary."""
-    # input is unused but loading it ensure the data adapter has the right paths
-    _ = self.data_adapter.input(
-        input=input[0],
-        schema=self.schema_loads,
-    )
-    # copy files from test data to output location to simulate the unzipping of damlive results
-    root_dir = self.data_adapter.get_global_variable("used_root_dir")
-    options = self.data_adapter.config.global_variables.get("UpdateDamLive", {})
-    damlive_name = ".".join(options["DAMLIVE_FILE"].split(".")[:-1]) + ".Calc"
-    results_dir = root_dir / damlive_name
-    results_from_dir = root_dir / "WV2030_Purmer.Calc_tests_sets"
-
-    shutil.copytree(results_from_dir, results_dir, dirs_exist_ok=True)
-
-    shutil.copy(
-        results_dir / "live.OutputTimeSeries.xml",
-        root_dir / "hidden_live.OutputTimeSeries.xml",
-    )
-    damlive_data_adapters = {
-        "live.OutputTimeSeries": {
-            "type": "xml_timeseries",
-            "path": "hidden_live.OutputTimeSeries.xml",
-        },
-    }
-    self.data_adapter.config.data_adapters.update(damlive_data_adapters)
-    self.df_out = self.data_adapter.input(
-        input="live.OutputTimeSeries",
-    )
-    self.data_adapter.output(output=output, df=self.df_out)

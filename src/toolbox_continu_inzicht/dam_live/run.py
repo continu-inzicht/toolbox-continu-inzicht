@@ -125,11 +125,6 @@ class UpdateDamLive(ToolboxBase):
             "DAMLIVE_EXE is not set, ensure that it is set in the .env file"
         )
 
-        # Indien hier aanpassingen plaatsvinden, ook aanpassen in
-        # tests\src\dam_live\test_dam_live_running_input.py,
-        # gezien er een mock functie is die deze functie nabootst,
-        # maar de rest van de code ook test.
-
         cmd = [
             damlive_exe,
             "-d",
@@ -141,16 +136,7 @@ class UpdateDamLive(ToolboxBase):
             "-p",
             (root_dir / "live.ParametersFile.xml").as_posix(),
         ]
-        self.data_adapter.logger.debug(f"Running command:\n{' '.join(cmd)}")
-        # start dam live
-        proc = subprocess.Popen(
-            cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
-        )
-        for line in proc.stdout:
-            self.data_adapter.logger.info(line.rstrip())
-        returncode = proc.wait()
-        if returncode != 0:
-            raise subprocess.CalledProcessError(returncode, cmd)
+        self._execute(cmd)
 
         # controleer of output bestand is aangemaakt met alleen meldiing zonder stacktrace
         if not (root_dir / "live.OutputTimeSeries.xml").exists():
@@ -162,6 +148,34 @@ class UpdateDamLive(ToolboxBase):
                 input="live.OutputTimeSeries",
             )
             self.data_adapter.output(output=output, df=self.df_out)
+
+    def _execute(self, cmd: list[str]) -> None:
+        """
+        Start DAM Live met het opgegeven commando en stuur de uitvoer naar de logger.
+
+        Het starten van het externe programma staat los van `run()`, zodat het
+        voorbereiden van de invoer en het inlezen van de uitvoer ook te gebruiken
+        en te controleren zijn op een machine zonder DAM Live installatie.
+
+        parameters
+        ----------
+        cmd: list[str]
+            Commando met het pad naar DAM Live en zijn argumenten
+
+        raises
+        ------
+        subprocess.CalledProcessError
+            Als DAM Live eindigt met een foutcode
+        """
+        self.data_adapter.logger.debug(f"Running command:\n{' '.join(cmd)}")
+        proc = subprocess.Popen(
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+        )
+        for line in proc.stdout:
+            self.data_adapter.logger.info(line.rstrip())
+        returncode = proc.wait()
+        if returncode != 0:
+            raise subprocess.CalledProcessError(returncode, cmd)
 
     def unzip_damlive_results(self) -> None:
         """
