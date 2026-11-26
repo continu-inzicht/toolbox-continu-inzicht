@@ -162,6 +162,18 @@ class CombineDamLiveResults(ToolboxBase):
         Kies het `.stix` bestand: met `location` en `timestamp`, en eventueel
         `calculation_model`, uit de opties, of zonder opties het enige bestand.
 
+        Parameters
+        ----------
+        stix_files: StixCollection
+            De ingelezen `.stix` bestanden
+        options: dict
+            Opties van `CombineDamLiveResults` uit de GlobalVariables
+
+        Returns
+        -------
+        StixFile
+            Het gekozen `.stix` bestand
+
         Raises
         ------
         UserWarning

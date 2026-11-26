@@ -72,6 +72,17 @@ class StixFile(BaseModel):
     def from_path(cls, path: Path | str) -> "StixFile":
         """Read a `.stix` file, and its DamLive metadata from the file name if present.
 
+        Parameters
+        ----------
+        path : Path | str
+            Path to the `.stix` file.
+
+        Returns
+        -------
+        StixFile
+            The file's model parts, with DamLive metadata if the name follows DamLive's
+            naming.
+
         Raises
         ------
         FileNotFoundError
@@ -242,8 +253,13 @@ class StixCollection:
         timestamp : datetime | str
             Time of the DamLive run (naive, see `StixFile`), or an ISO string such as
             `"2024-11-06T07:00"`.
-        calculation_model : str, optional
+        calculation_model : str | None, optional
             Bishop or UpliftVan; only needed when a location and time has both.
+
+        Returns
+        -------
+        StixFile
+            The only file that matches.
 
         Raises
         ------
@@ -289,11 +305,10 @@ def input_damlive_stix(input_config: dict) -> StixCollection:
         Als het pad niet bestaat, de map geen `*_result.stix` bestanden bevat, twee
         bestanden dezelfde naam hebben of een bestand geen geldig `.stix` bestand is.
 
-    Warns
+    Notes
     -----
-    UserWarning
-        Als een bestand in een map de DamLive naamgeving niet volgt: locatie en tijd
-        zijn dan onbekend.
+    Volgt een bestand in een map de DamLive naamgeving niet, dan geeft de functie een
+    waarschuwing (`UserWarning`): locatie en tijd zijn dan onbekend.
     """
     path = Path(input_config["abs_path"])
     if path.is_file():
