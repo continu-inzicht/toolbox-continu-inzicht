@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from unittest import mock
 
+import pandas as pd
 import pytest
 
 from toolbox_continu_inzicht.base.config import Config
@@ -113,3 +114,31 @@ def test_execute_streams_log_and_raises_on_failure(run_damlive_dir):
 
     with pytest.raises(subprocess.CalledProcessError):
         update_dam_live._execute([sys.executable, "-c", "raise SystemExit(1)"])
+
+
+def test_duplicate_dates_per_location_are_dropped(run_damlive_dir, fake_damlive):
+    """DamLive can't handle two values for the same location and time."""
+    update_dam_live = setup_update_dam_live(run_damlive_dir)
+    data_adapter = update_dam_live.data_adapter
+
+    # loads with one duplicated value for one location
+    df_loads = data_adapter.input("waterstanden_xml_uur")
+    location = df_loads["measurement_location_code"].iloc[0]
+    duplicate = df_loads[df_loads["measurement_location_code"] == location].iloc[[0]]
+    data_adapter.config.data_adapters["loads_with_duplicate"] = {
+        "type": "xml_timeseries",
+        "path": "hidden_loads_with_duplicate.xml",
+    }
+    data_adapter.output("loads_with_duplicate", pd.concat([df_loads, duplicate]))
+
+    with mock.patch.object(update_dam_live, "_execute", side_effect=fake_damlive):
+        update_dam_live.run(
+            input=["loads_with_duplicate", "parameters_bishop_csv"],
+            output="output_file",
+        )
+
+    df_written = data_adapter.input("live.InputTimeSeries")
+    key = ["measurement_location_code", "date_time"]
+    assert not df_written.duplicated(subset=key).any()
+    # only the duplicate is gone: every location and time is still there
+    assert len(df_written) == len(df_loads.drop_duplicates(subset=key))

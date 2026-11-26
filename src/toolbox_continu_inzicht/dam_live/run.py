@@ -79,7 +79,7 @@ class UpdateDamLive(ToolboxBase):
         lst_df_locations: list[pd.DataFrame] = []
         for loc in df_in["measurement_location_code"].unique():
             subset = df_in[df_in["measurement_location_code"] == loc].copy()
-            subset.drop_duplicates(subset=["date_time"])
+            subset = subset.drop_duplicates(subset=["date_time"])
             lst_df_locations.append(subset)
 
         self.df_in_loads = pd.concat(lst_df_locations)
